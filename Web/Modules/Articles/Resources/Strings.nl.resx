@@ -40,15 +40,18 @@
 		<value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=1.0.5000.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
 	</resheader>
 	<data name="PUBLISHED">
-		<value>geplaatst</value>
+		<value>Geplaatst</value>
 	</data>
 	<data name="CATEGORY">
-		<value>categorie</value>
+		<value>Categorie</value>
 	</data>
 	<data name="BY">
 		<value>door</value>
 	</data>
 	<data name="COMMENTS">
-		<value>reactie(s)</value>
+		<value>Reactie(s)</value>
+	</data>
+	<data name="BACK">
+		<value>Terug</value>
 	</data>
 </root>

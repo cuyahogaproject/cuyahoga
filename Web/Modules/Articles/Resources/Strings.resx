@@ -40,15 +40,18 @@
 		<value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=1.0.5000.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
 	</resheader>
 	<data name="PUBLISHED">
-		<value>published</value>
+		<value>Published</value>
 	</data>
 	<data name="CATEGORY">
-		<value>category</value>
+		<value>Category</value>
 	</data>
 	<data name="BY">
 		<value>by</value>
 	</data>
 	<data name="COMMENTS">
-		<value>comment(s)</value>
+		<value>Comment(s)</value>
+	</data>
+	<data name="BACK">
+		<value>Back</value>
 	</data>
 </root>

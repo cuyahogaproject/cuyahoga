@@ -54,4 +54,13 @@
 	<data name="LOGGEDINTEXT">
 		<value>Ingelogd als</value>
 	</data>
+	<data name="USERNAMEPASSWORDERROR">
+		<value>Ongeldige gebruikersnaam of wachtwoord</value>
+	</data>
+	<data name="USERNAMEPASSWORDMISSING">
+		<value>Vul zowel een gebruikersnaam als wachtwoord in</value>
+	</data>
+	<data name="LOGINERROR">
+		<value>Een onverwachte fout trad op tijdens het inloggen:</value>
+	</data>
 </root>

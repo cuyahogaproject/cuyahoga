@@ -54,4 +54,13 @@
 	<data name="LOGGEDINTEXT">
 		<value>Logged in as</value>
 	</data>
+	<data name="USERNAMEPASSWORDERROR">
+		<value>Invalid username or password</value>
+	</data>
+	<data name="USERNAMEPASSWORDMISSING">
+		<value>Please enter both a username and a password</value>
+	</data>
+	<data name="LOGINERROR">
+		<value>An unexpected error occured while logging in:</value>
+	</data>
 </root>

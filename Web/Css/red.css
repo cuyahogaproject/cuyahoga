@@ -187,3 +187,15 @@ select, input, textarea
 	color: #666;
 	font-size: 0.8em;
 }
+
+.articlecontent
+{
+	margin-left: 0;
+	margin-bottom: 0;
+	margin-right: 0;
+	margin-bottom: 10px;
+	padding-left: 25px;
+	padding-top: 13px;
+	background-image: url(../images/bgitem.gif);
+	background-repeat: no-repeat;
+}

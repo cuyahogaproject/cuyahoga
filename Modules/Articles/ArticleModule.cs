@@ -18,6 +18,7 @@ namespace Cuyahoga.Modules.Articles
 	{
 		private int _currentArticleId;
 		private string _currentCategory;
+		private bool _generateRss;
 
 		/// <summary>
 		/// Property CurrentArticleId (int)
@@ -35,8 +36,22 @@ namespace Cuyahoga.Modules.Articles
 			get { return this._currentCategory; }
 		}
 
+		/// <summary>
+		/// Property GenerateRss (bool)
+		/// </summary>
+		public bool GenerateRss
+		{
+			get { return this._generateRss; }
+		}
+
+		/// <summary>
+		/// Default constructor. The ArticleModule registers its own Domain classes in the NHibernate
+		/// SessionFactory.
+		/// </summary>
 		public ArticleModule()
 		{
+			this._generateRss = false;
+
 			SessionFactory sf = SessionFactory.GetInstance();
 			// Register classes that are used by the ArticleModule
 			sf.RegisterPersistentClass(typeof(Cuyahoga.Modules.Articles.Category));
@@ -140,26 +155,31 @@ namespace Cuyahoga.Modules.Articles
 		}
 
 		/// <summary>
-		/// Parse the pathinfo.
+		/// Parse the pathinfo. Translate pathinfo parameters into member variables.
 		/// </summary>
 		protected override void ParsePathInfo()
 		{
 			if (base.ModulePathInfo != null)
 			{
 				// try to find an articleId
-				string expression = @"\/(\d+)";
+				string expression = @"^\/(\d+)";
 				Regex articleIdRegEx = new Regex(expression, RegexOptions.Singleline|RegexOptions.CultureInvariant|RegexOptions.Compiled);
 				if (articleIdRegEx.IsMatch(base.ModulePathInfo))
 				{					
 					this._currentArticleId = Int32.Parse(articleIdRegEx.Match(base.ModulePathInfo).Groups[1].Value);
 				}
-				// try to find a category
-				expression = @"\/(\w+)";
-				Regex categoryRegex = new Regex(expression, RegexOptions.Singleline|RegexOptions.CultureInvariant|RegexOptions.Compiled);
-				if (categoryRegex.IsMatch(base.ModulePathInfo))
+				if (base.ModulePathInfo != "/rss")
 				{
-					this._currentCategory = articleIdRegEx.Match(base.ModulePathInfo).Groups[1].Value;
+					// try to find a category
+					expression = @"^\/([^0-9]|^rss)";
+					Regex categoryRegex = new Regex(expression, RegexOptions.Singleline|RegexOptions.CultureInvariant|RegexOptions.Compiled);
+					if (categoryRegex.IsMatch(base.ModulePathInfo))
+					{
+						this._currentCategory = articleIdRegEx.Match(base.ModulePathInfo).Groups[1].Value;
+					}
 				}
+				// try to find if the content should be displayed as rss.
+				this._generateRss = base.ModulePathInfo.EndsWith("/rss");
 			}
 		}
 

@@ -20,8 +20,9 @@ namespace Cuyahoga.Web.Modules.Articles
 
 		protected System.Web.UI.WebControls.Panel pnlArticleDetails;
 		protected System.Web.UI.WebControls.Repeater rptArticles;
-		protected System.Web.UI.WebControls.Label lblTitle;
 		protected System.Web.UI.WebControls.Literal litContent;
+		protected System.Web.UI.WebControls.Literal litTitle;
+		protected System.Web.UI.WebControls.HyperLink hplBack;
 		protected System.Web.UI.WebControls.Panel pnlArticleList;
 
 		private void Page_Load(object sender, System.EventArgs e)
@@ -31,17 +32,23 @@ namespace Cuyahoga.Web.Modules.Articles
 			{
 				if (this._module.CurrentArticleId > 0)
 				{
+					// Article view
 					Article article = this._module.GetArticleById(this._module.CurrentArticleId);
-					this.lblTitle.Text = article.Title;
+					this.litTitle.Text = article.Title;
 					this.litContent.Text = article.Content;
+
+					this.hplBack.NavigateUrl = UrlHelper.GetUrlFromSection(this._module.Section);
+					this.hplBack.Text = base.GetText("BACK");
+
 					this.pnlArticleDetails.Visible = true;
 				}
 				else if (this._module.CurrentCategory != null)
 				{
+					// Category view
 				}
 				else
 				{
-					// Default to max 10 articles in the list.
+					// Article list view
 					int numberOfArticles = 10;
 					if (this._module.Section.Settings["NUMBER_OF_ARTICLES_IN_LIST"] != null)
 					{
@@ -81,6 +88,12 @@ namespace Cuyahoga.Web.Modules.Articles
 			Article article = e.Item.DataItem as Article;
 			HyperLink hpl = e.Item.FindControl("hplTitle") as HyperLink;
 			hpl.NavigateUrl = UrlHelper.GetUrlFromSection(this._module.Section) + "/" + article.Id;
+
+			Panel pnlSummary = e.Item.FindControl("pnlSummary") as Panel;
+			Panel pnlContent = e.Item.FindControl("pnlContent") as Panel;
+			DisplayType displayType = (DisplayType)Enum.Parse(typeof(DisplayType), this._module.Section.Settings["DISPLAY_TYPE"].ToString());
+			pnlSummary.Visible = (displayType == DisplayType.FullContent || displayType == DisplayType.HeadersAndSummary);
+			pnlContent.Visible = (displayType == DisplayType.FullContent);
 		}
 	}
 }

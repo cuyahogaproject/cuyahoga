@@ -75,12 +75,11 @@ namespace Cuyahoga.Web.Modules.User
 
 		private void Translate()
 		{
-			CultureInfo ci = Thread.CurrentThread.CurrentUICulture;
-			this.lblUsername.Text = base.ResMan.GetString("USERNAME", ci);
-			this.lblPassword.Text = base.ResMan.GetString("PASSWORD", ci);
-			this.lblLoggedInText.Text = base.ResMan.GetString("LOGGEDINTEXT", ci);
-			this.btnLogin.Text = base.ResMan.GetString("LOGIN", ci);
-			this.btnLogout.Text = base.ResMan.GetString("LOGOUT", ci);			
+			this.lblUsername.Text = base.GetText("USERNAME");
+			this.lblPassword.Text = base.GetText("PASSWORD");
+			this.lblLoggedInText.Text = base.GetText("LOGGEDINTEXT");
+			this.btnLogin.Text = base.GetText("LOGIN");
+			this.btnLogout.Text = base.GetText("LOGOUT");			
 		}
 
 		private void btnLogin_Click(object sender, System.EventArgs e)
@@ -98,17 +97,17 @@ namespace Cuyahoga.Web.Modules.User
 					}
 					else
 					{
-						this.lblLoginError.Text = "Invalid username or password";
+						this.lblLoginError.Text = base.GetText("USERNAMEPASSWORDERROR");
 					}
 				}
 				catch (Exception ex)
 				{
-					this.lblLoginError.Text = "An unexpected error occured while logging in: " + ex.Message;
+					this.lblLoginError.Text = base.GetText("LOGINERROR") + " " + ex.Message;
 				}
 			}
 			else
 			{
-				this.lblLoginError.Text = "Please enter both a username and a password";
+				this.lblLoginError.Text = base.GetText("USERNAMEPASSWORDMISSING");
 			}
 
 			if (this.lblLoginError.Text.Length > 0)

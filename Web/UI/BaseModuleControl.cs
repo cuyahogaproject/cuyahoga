@@ -4,6 +4,7 @@ using System.IO;
 using System.Globalization;
 using System.Resources;
 using System.Reflection;
+using System.Threading;
 
 using Cuyahoga.Core;
 using Cuyahoga.Core.Domain;
@@ -20,6 +21,7 @@ namespace Cuyahoga.Web.UI
 		private ModuleBase _module;
 		private string _cachedOutput;
 		private ResourceManager _resMan;
+		private CultureInfo _currentUICulture;
 
 		/// <summary>
 		/// Indicator if there is cached content. The derived ModuleControls should determine whether to
@@ -28,14 +30,6 @@ namespace Cuyahoga.Web.UI
 		protected bool HasCachedOutput
 		{
 			get { return this._cachedOutput != null; }
-		}
-
-		/// <summary>
-		/// The resource manager for the module.
-		/// </summary>
-		protected ResourceManager ResMan
-		{
-			get { return this._resMan; }
 		}
 
 		/// <summary>
@@ -48,11 +42,15 @@ namespace Cuyahoga.Web.UI
 			set { this._module = value; }
 		}
 
+		/// <summary>
+		/// Default constructor.
+		/// </summary>
 		public BaseModuleControl()
 		{
 			// Base name of the resources consists of Namespace.Resources.Strings
 			string baseName = this.GetType().BaseType.Namespace + ".Resources.Strings";
 			this._resMan = new ResourceManager(baseName, Assembly.GetExecutingAssembly());
+			this._currentUICulture = Thread.CurrentThread.CurrentUICulture;
 		}
 
 		protected override void OnInit(EventArgs e)
@@ -110,5 +108,14 @@ namespace Cuyahoga.Web.UI
 			writer.Write("</div>");
 		}
 
+		/// <summary>
+		/// Get a localized text string for a given key.
+		/// </summary>
+		/// <param name="key"></param>
+		/// <returns></returns>
+		protected string GetText(string key)
+		{
+			return this._resMan.GetString(key, this._currentUICulture);
+		}
 	}
 }
