@@ -211,6 +211,11 @@ namespace Cuyahoga.Core
 			return Array.IndexOf(this.Permissions, permission) > -1;
 		}
 
+		/// <summary>
+		/// Indicates if the user has view permissions for a certain Node.
+		/// </summary>
+		/// <param name="node"></param>
+		/// <returns></returns>
 		public bool CanView(Node node)
 		{
 			foreach (Role nodeViewRole in node.ViewRoles)
@@ -223,6 +228,11 @@ namespace Cuyahoga.Core
 			return false;
 		}
 
+		/// <summary>
+		/// Indicates if the user has view permissions for a certain Section.
+		/// </summary>
+		/// <param name="section"></param>
+		/// <returns></returns>
 		public bool CanView(Section section)
 		{
 			foreach (Role sectionViewRole in section.ViewRoles)
@@ -235,6 +245,11 @@ namespace Cuyahoga.Core
 			return false;
 		}
 
+		/// <summary>
+		/// Indicates if the user has edit permissions for a certain Section.
+		/// </summary>
+		/// <param name="section"></param>
+		/// <returns></returns>
 		public bool CanEdit(Section section)
 		{
 			foreach (Role sectionEditRole in section.EditRoles)
@@ -249,9 +264,11 @@ namespace Cuyahoga.Core
 
 		private void SetPassword(string password)
 		{
-			if (password.Length > 4)
+			// Very simple password rule. Extend here when required.
+			if (password.Length >= 5)
 			{
 				this._password = Util.Encryption.StringToMD5Hash(password);
+				System.Diagnostics.Trace.WriteLine("MD5 result = " + this._password);
 			}
 			else
 			{
