@@ -2,7 +2,7 @@
 <project default="build" basedir="." xmlns="http://nant.sf.net/release/0.85-rc1/nant.xsd">
 	<!-- global project settings -->
 	<property name="project.name" value="Cuyahoga" />
-	<property name="project.version" value="0.2" />
+	<property name="project.version" value="0.4.0.0" />
 
 	<!-- default configuration -->
 	<property name="project.config" value="debug" /> <!-- debug|release -->
@@ -62,7 +62,6 @@
                 <include name="System.Xml.dll" />
                 <include name="System.Web.dll" />
                 <include name="${lib.dir}/NHibernate.*" />
-                
                 <include name="${lib.dir}/Npgsql.*" />    
                 <include name="${lib.dir}/Mono.Security.Protocol.Tls.*" />
             </references>
@@ -135,7 +134,7 @@
 	<target name="deploy" depends="build" description="Deploys the website to the deployment directory">
 		<mkdir dir="${build.dir}/deploy" />
 		<mkdir dir="${build.dir}/deploy/bin" />
-		<mkdir dir="${build.dir}/deploy/Modules" />
+		<mkdir dir="${build.dir}/deploy/UserFiles/Images" />
 		<copy todir="${build.dir}/deploy">
 			<fileset basedir="Web">
 				<include name="**/*.as?x" />
@@ -146,6 +145,7 @@
 				<include name="**/*.js" />
 				<include name="**/*.xml" />
 				<include name="**/*.css" />
+				<exclude name="UserFiles/Images/*.*" />
 			</fileset>
 		</copy>
 		<copy todir="${build.dir}/deploy/bin">
@@ -154,6 +154,7 @@
 			</fileset>
 		</copy>
 	    <!-- Copy Modules to the Web dir -->
+   		<mkdir dir="${build.dir}/deploy/Modules" />
         <copy todir="${build.dir}/deploy/Modules">
 			<fileset basedir="Modules">
 				<include name="**/*.as?x" />
@@ -161,7 +162,6 @@
 				<include name="**/*.png" />
 				<include name="**/*.jpg" />
 				<include name="**/*.js" />
-				<include name="**/*.xml" />
 				<include name="**/*.css" />
 			</fileset>
 		</copy>

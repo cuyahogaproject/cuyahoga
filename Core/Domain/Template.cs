@@ -53,7 +53,7 @@ namespace Cuyahoga.Core.Domain
 		/// <summary>
 		/// Property Css (string)
 		/// </summary>
-		public string Css
+		public virtual string Css
 		{
 			get { return this._css; }
 			set { this._css = value; }

@@ -27,7 +27,7 @@ namespace Cuyahoga.Core.Domain
 		/// <summary>
 		/// Property Id (int)
 		/// </summary>
-		public int Id
+		public virtual int Id
 		{
 			get { return this._id; }
 			set { this._id = value; }
@@ -36,7 +36,7 @@ namespace Cuyahoga.Core.Domain
         /// <summary>
         /// Property UserName (string)
         /// </summary>
-        public string UserName
+        public virtual string UserName
         {
         	get { return this._userName; }
         	set { this._userName = value; }
@@ -45,7 +45,7 @@ namespace Cuyahoga.Core.Domain
 		/// <summary>
 		/// Property Password (string). Internally the MD5 hash of the password is used.
 		/// </summary>
-		public string Password
+		public virtual string Password
 		{
 			get { return this._password; }
 			set { this._password = value; }
@@ -54,7 +54,7 @@ namespace Cuyahoga.Core.Domain
 		/// <summary>
 		/// Property FirstName (string)
 		/// </summary>
-		public string FirstName
+		public virtual string FirstName
 		{
 			get { return this._firstName; }
 			set { this._firstName = value; }
@@ -63,7 +63,7 @@ namespace Cuyahoga.Core.Domain
 		/// <summary>
 		/// Property LastName (string)
 		/// </summary>
-		public string LastName
+		public virtual string LastName
 		{
 			get { return this._lastName; }
 			set { this._lastName = value; }
@@ -72,7 +72,7 @@ namespace Cuyahoga.Core.Domain
 		/// <summary>
 		/// Property Email (string)
 		/// </summary>
-		public string Email
+		public virtual string Email
 		{
 			get { return this._email; }
 			set { this._email = value; }
@@ -81,7 +81,7 @@ namespace Cuyahoga.Core.Domain
 		/// <summary>
 		/// Property LastLogin (DateTime)
 		/// </summary>
-		public DateTime LastLogin
+		public virtual DateTime LastLogin
 		{
 			get { return this._lastLogin; }
 			set { this._lastLogin = value; }
@@ -90,7 +90,7 @@ namespace Cuyahoga.Core.Domain
 		/// <summary>
 		/// Property LastIp (string)
 		/// </summary>
-		public string LastIp
+		public virtual string LastIp
 		{
 			get { return this._lastIp; }
 			set { this._lastIp = value; }
@@ -99,7 +99,7 @@ namespace Cuyahoga.Core.Domain
 		/// <summary>
 		/// Property Roles (IList)
 		/// </summary>
-		public IList Roles
+		public virtual IList Roles
 		{
 			get { return this._roles; }
 			set { this._roles = value; }
@@ -108,7 +108,7 @@ namespace Cuyahoga.Core.Domain
 		/// <summary>
 		/// IIdentity property <see cref="System.Security.Principal.IIdentity" />.
 		/// </summary>
-		public bool IsAuthenticated
+		public virtual bool IsAuthenticated
 		{
 			get { return this._isAuthenticated; }
 			set { this._isAuthenticated = value; }
@@ -118,7 +118,7 @@ namespace Cuyahoga.Core.Domain
 		/// IIdentity property. 
 		/// <remark>Returns a string with the Id of the user and not the username</remark>
 		/// </summary>
-		public string Name
+		public virtual string Name
 		{
 			get
 			{ 
@@ -132,7 +132,7 @@ namespace Cuyahoga.Core.Domain
 		/// <summary>
 		/// IIdentity property <see cref="System.Security.Principal.IIdentity" />.
 		/// </summary>
-		public string AuthenticationType
+		public virtual string AuthenticationType
 		{
 			get	{ return "CuyahogaAuthentication"; }
 		}
@@ -140,7 +140,7 @@ namespace Cuyahoga.Core.Domain
 		/// <summary>
 		/// Property UpdateTimestamp (DateTime)
 		/// </summary>
-		public DateTime UpdateTimestamp
+		public virtual DateTime UpdateTimestamp
 		{
 			get { return this._updateTimestamp; }
 			set { this._updateTimestamp = value; }
@@ -149,7 +149,7 @@ namespace Cuyahoga.Core.Domain
 		/// <summary>
 		/// 
 		/// </summary>
-		public AccessLevel[] Permissions
+		public virtual AccessLevel[] Permissions
 		{
 			get 
 			{

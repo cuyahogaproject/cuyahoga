@@ -82,7 +82,7 @@ namespace Cuyahoga.Core.Domain
 		/// <summary>
 		/// Property Culture (string)
 		/// </summary>
-		public string Culture
+		public virtual string Culture
 		{
 			get { return this._culture; }
 			set { this._culture = value; }
@@ -118,7 +118,7 @@ namespace Cuyahoga.Core.Domain
 		/// <summary>
 		/// Property Site (Site)
 		/// </summary>
-		public Site Site
+		public virtual Site Site
 		{
 			get { return this._site; }
 			set { this._site = value; }

@@ -21,7 +21,7 @@ namespace Cuyahoga.Core.Domain
 		/// <summary>
 		/// Property Id (int)
 		/// </summary>
-		public int Id
+		public virtual int Id
 		{
 			get { return this._id; }
 			set { this._id = value; }
@@ -30,7 +30,7 @@ namespace Cuyahoga.Core.Domain
 		/// <summary>
 		/// Property Name (string)
 		/// </summary>
-		public string Name
+		public virtual string Name
 		{
 			get { return this._name; }
 			set { this._name = value; }
@@ -39,7 +39,7 @@ namespace Cuyahoga.Core.Domain
 		/// <summary>
 		/// Property HomeUrl (string)
 		/// </summary>
-		public string SiteUrl
+		public virtual string SiteUrl
 		{
 			get { return this._siteUrl; }
 			set { this._siteUrl = value; }
@@ -48,7 +48,7 @@ namespace Cuyahoga.Core.Domain
 		/// <summary>
 		/// Property DefaultCulture (string)
 		/// </summary>
-		public string DefaultCulture
+		public virtual string DefaultCulture
 		{
 			get { return this._defaultCulture; }
 			set { this._defaultCulture = value; }
@@ -57,7 +57,7 @@ namespace Cuyahoga.Core.Domain
 		/// <summary>
 		/// Property DefaultTemplate (Template)
 		/// </summary>
-		public Template DefaultTemplate
+		public virtual Template DefaultTemplate
 		{
 			get { return this._defaultTemplate; }
 			set { this._defaultTemplate = value; }
@@ -66,7 +66,7 @@ namespace Cuyahoga.Core.Domain
 		/// <summary>
 		/// Property RootNodes (IList)
 		/// </summary>
-		public IList RootNodes
+		public virtual IList RootNodes
 		{
 			get { return this._rootNodes; }
 			set { this._rootNodes = value; }
@@ -75,7 +75,7 @@ namespace Cuyahoga.Core.Domain
 		/// <summary>
 		/// Property UpdateTimestamp (DateTime)
 		/// </summary>
-		public DateTime UpdateTimestamp
+		public virtual DateTime UpdateTimestamp
 		{
 			get { return this._updateTimestamp; }
 			set { this._updateTimestamp = value; }
