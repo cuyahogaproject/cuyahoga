@@ -10,8 +10,6 @@ using System.Web.UI.WebControls;
 using System.Web.UI.HtmlControls;
 
 using Cuyahoga.Core.Domain;
-using Cuyahoga.Core.Service;
-using Cuyahoga.Core.Collections;
 using Cuyahoga.Web.UI;
 using Cuyahoga.Web.Admin.UI;
 
@@ -345,7 +343,7 @@ namespace Cuyahoga.Web.Admin
 					// Save the active section
 					SaveSection();
 
-					// Detect a placeholderId change and change positions of neighbour sections if necessary.					
+					// Detect a placeholderId change and change positions of adjacent sections if necessary.					
 					if (oldPosition != -1 && oldPlaceholderId != this._activeSection.PlaceholderId)
 						this._activeSection.ChangeAndUpdatePositionsAfterPlaceholderChange(oldPlaceholderId, oldPosition);
 

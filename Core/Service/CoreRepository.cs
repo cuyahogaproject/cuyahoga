@@ -1,6 +1,6 @@
 using System;
 using System.Collections;
-
+using System.Reflection;
 using NHibernate;
 using NHibernate.Expression;
 
@@ -142,6 +142,12 @@ namespace Cuyahoga.Core.Service
 			ITransaction trn = this._activeSession.BeginTransaction();
 			try
 			{
+				// Try to find a UpdateTimestamp property and when found, set it to the current date/time.
+				PropertyInfo pi = obj.GetType().GetProperty("UpdateTimestamp");
+				if (pi != null)
+				{
+					pi.SetValue(obj, DateTime.Now, null);
+				}
 				this._activeSession.Save(obj);
 				trn.Commit();
 			}

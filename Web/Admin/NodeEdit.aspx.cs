@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.ComponentModel;
 using System.Drawing;
+using System.Globalization;
 using System.Web;
 using System.Web.SessionState;
 using System.Web.UI;
@@ -9,7 +10,6 @@ using System.Web.UI.WebControls;
 using System.Web.UI.HtmlControls;
 
 using Cuyahoga.Core.Domain;
-using Cuyahoga.Core.Service;
 
 namespace Cuyahoga.Web.Admin
 {
@@ -37,6 +37,7 @@ namespace Cuyahoga.Web.Admin
 		protected System.Web.UI.WebControls.Repeater rptDeleteRoles;
 		protected System.Web.UI.WebControls.Repeater rptRoles;
 		protected System.Web.UI.WebControls.RequiredFieldValidator rfvShortDescription;
+		protected System.Web.UI.WebControls.DropDownList ddlCultures;
 		protected System.Web.UI.WebControls.TextBox txtTitle;
 	
 		private void Page_Load(object sender, System.EventArgs e)
@@ -45,7 +46,8 @@ namespace Cuyahoga.Web.Admin
 
 			// Note: ActiveNode is handled primarily by the AdminBasePage because other pages use it.
 			// ActiveNode is always freshly retrieved (also after postbacks), so it will be tracked by NHibernate.
-			if (Context.Request.QueryString["NodeId"] != null && Int32.Parse(Context.Request.QueryString["NodeId"]) == -1)
+			if (Context.Request.QueryString["NodeId"] != null 
+				&& Int32.Parse(Context.Request.QueryString["NodeId"]) == -1)
 			{
 				// Create an empty new node if NodeId is set to -1
 				this.ActiveNode = new Node();
@@ -53,13 +55,28 @@ namespace Cuyahoga.Web.Admin
 				{
 					int parentNodeId = Int32.Parse(Context.Request.QueryString["ParentNodeId"]);
 					this.ActiveNode.ParentNode = (Node)base.CoreRepository.GetObjectById(typeof(Node), parentNodeId);
+					// Copy Site property from parent.
+					this.ActiveNode.Site = this.ActiveNode.ParentNode.Site;
+
 					if (! this.IsPostBack)
 					{
+						// Set defaults.
+						this.ActiveNode.Template = this.ActiveNode.ParentNode.Template;
+						this.ActiveNode.Culture = this.ActiveNode.ParentNode.Culture;
 						// Copy security from parent.
 						this.ActiveNode.CopyRolesFromParent();
 					}
 				}
-				// Short description is auto-generated, so we don;t need the controls with new nodes.
+				else if (Context.Request.QueryString["SiteId"] != null)
+				{
+					int siteId = Int32.Parse(Context.Request.QueryString["SiteId"]);
+					this.ActiveNode.Site = (Site)base.CoreRepository.GetObjectById(typeof(Site), siteId);
+
+					// Set defaults inheriting from site
+					this.ActiveNode.Culture = this.ActiveNode.Site.DefaultCulture;
+					this.ActiveNode.Template = this.ActiveNode.Site.DefaultTemplate;
+				}
+				// Short description is auto-generated, so we don't need the controls with new nodes.
 				this.txtShortDescription.Visible = false;
 				this.rfvShortDescription.Enabled = false;
 				this.revShortDescription.Enabled = false;
@@ -78,6 +95,7 @@ namespace Cuyahoga.Web.Admin
 						BindNodeControls();
 						BindSections();
 					}
+					BindCultures();
 					BindTemplates();
 					BindRoles();
 				}
@@ -100,6 +118,18 @@ namespace Cuyahoga.Web.Admin
 			btnNew.Visible = (this.ActiveNode.Id > 0);
 			btnDelete.Visible = (this.ActiveNode.Id > 0);
 			btnDelete.Attributes.Add("onClick", "return confirmDeleteNode();");
+		}
+
+		private void BindCultures()
+		{
+			this.ddlCultures.DataSource = CultureInfo.GetCultures(CultureTypes.SpecificCultures);
+			this.ddlCultures.DataValueField = "Name";
+			this.ddlCultures.DataTextField = "DisplayName";
+			this.ddlCultures.DataBind();
+			if (this.ActiveNode.Culture != null)
+			{
+				ddlCultures.Items.FindByValue(this.ActiveNode.Culture).Selected = true;
+			}
 		}
 
 		private void BindPositionButtonsVisibility()
@@ -128,7 +158,7 @@ namespace Cuyahoga.Web.Admin
 				this.ddlTemplates.DataValueField = "Id";
 				this.ddlTemplates.DataTextField = "Name";
 				this.ddlTemplates.DataBind();
-				if (this.ActiveNode != null && this.ActiveNode.Id > 0 && this.ActiveNode.Template != null)
+				if (this.ActiveNode != null && this.ActiveNode.Template != null)
 				{
 					ddlTemplates.Items.FindByValue(this.ActiveNode.Template.Id.ToString()).Selected = true;
 				}
@@ -331,6 +361,8 @@ namespace Cuyahoga.Web.Admin
 				if (this.IsValid)
 				{
 					this.ActiveNode.Title = this.txtTitle.Text;
+					// TODO: ensure a unique culture when the node is a root node
+					this.ActiveNode.Culture = this.ddlCultures.SelectedValue;
 					SetShortDescription();
 					SetRoles();
 					SaveNode();

@@ -2,10 +2,10 @@
 <div class="navsection">
 	<h3>
 		<asp:image imageurl="../Images/home.gif" runat="server" imagealign="absmiddle" id="i1"></asp:image>
-		Site structure</h3>
+		Sites</h3>
 	<asp:placeholder id="plhNodes" runat="server"></asp:placeholder>
 	<br />
-	<asp:image imageurl="../Images/new.gif" runat="server" imagealign="absmiddle" id="inew"></asp:image><asp:hyperlink id="hplNew" navigateurl="../NodeEdit.aspx?NodeId=-1" cssclass="nodelink" runat="server">Add node at root level</asp:hyperlink>
+	<asp:image imageurl="../Images/new.gif" runat="server" imagealign="absmiddle" id="inew"></asp:image><asp:hyperlink id="hplNew" navigateurl="../SiteEdit.aspx?SiteId=-1" cssclass="nodelink" runat="server">Add a new site</asp:hyperlink>
 </div>
 <br>
 <div class="navsection">

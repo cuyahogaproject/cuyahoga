@@ -52,6 +52,12 @@ input, select, textarea
 	color: #FFFFFF;
 }
 
+.site
+{
+	padding: 2px;
+	font-weight: bold;
+}
+
 .node
 {
 	padding: 2px;

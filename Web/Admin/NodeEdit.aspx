@@ -38,7 +38,10 @@
 						<td><asp:label id="lblParentNode" runat="server"></asp:label></td></tr>
 					<tr>
 						<td>Position</td>
-						<td><asp:imagebutton id="btnUp" runat="server" alternatetext="Move up" causesvalidation="False" imageurl="../Images/upred.gif"></asp:imagebutton><asp:imagebutton id="btnDown" runat="server" alternatetext="Move down" causesvalidation="False" imageurl="../Images/downred.gif"></asp:imagebutton><asp:imagebutton id="btnLeft" runat="server" alternatetext="Move left" causesvalidation="False" imageurl="../Images/leftred.gif"></asp:imagebutton><asp:imagebutton id="btnRight" runat="server" alternatetext="Move right" causesvalidation="False" imageurl="../Images/rightred.gif"></asp:imagebutton></td></tr></table></div>
+						<td><asp:imagebutton id="btnUp" runat="server" alternatetext="Move up" causesvalidation="False" imageurl="../Images/upred.gif"></asp:imagebutton><asp:imagebutton id="btnDown" runat="server" alternatetext="Move down" causesvalidation="False" imageurl="../Images/downred.gif"></asp:imagebutton><asp:imagebutton id="btnLeft" runat="server" alternatetext="Move left" causesvalidation="False" imageurl="../Images/leftred.gif"></asp:imagebutton><asp:imagebutton id="btnRight" runat="server" alternatetext="Move right" causesvalidation="False" imageurl="../Images/rightred.gif"></asp:imagebutton></td></tr>
+					<tr>
+						<td>Culture</td>
+						<td><asp:dropdownlist id="ddlCultures" runat="server"></asp:dropdownlist></td></tr></table></div>
 			<div class="group">
 				<h4>Template</h4>
 				<table>

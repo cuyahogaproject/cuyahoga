@@ -85,6 +85,7 @@ namespace Cuyahoga.Core.Domain
 
 		public Site()
 		{
+			this._id = -1;
 		}
 	}
 }

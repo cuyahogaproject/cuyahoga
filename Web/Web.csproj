@@ -245,6 +245,22 @@
                     BuildAction = "EmbeddedResource"
                 />
                 <File
+                    RelPath = "Admin\SiteEdit.aspx"
+                    SubType = "Form"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Admin\SiteEdit.aspx.cs"
+                    DependentUpon = "SiteEdit.aspx"
+                    SubType = "ASPXCodeBehind"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "Admin\SiteEdit.aspx.resx"
+                    DependentUpon = "SiteEdit.aspx.cs"
+                    BuildAction = "EmbeddedResource"
+                />
+                <File
                     RelPath = "Admin\TemplatePreview.aspx"
                     SubType = "Form"
                     BuildAction = "Content"
@@ -579,10 +595,6 @@
                     RelPath = "Modules\User\User.ascx.resx"
                     DependentUpon = "User.ascx.cs"
                     BuildAction = "EmbeddedResource"
-                />
-                <File
-                    RelPath = "Support\eWorld\eWorld_UI_CalendarPopup.js"
-                    BuildAction = "Content"
                 />
                 <File
                     RelPath = "Support\FreeTextBox\FreeTextBox-MainScript.js"
