@@ -54,4 +54,16 @@
 	<data name="BACK">
 		<value>Terug</value>
 	</data>
+	<data name="COMMENT">
+		<value>Reageer</value>
+	</data>
+	<data name="NOCOMMENT">
+		<value>Je moet ingelogd zijn om te kunnen reageren</value>
+	</data>
+	<data name="BTNSAVECOMMENT">
+		<value>Plaats reactie</value>
+	</data>
+	<data name="INVALIDINPUT">
+		<value>Ongeldige tekst ingevoerd</value>
+	</data>
 </root>

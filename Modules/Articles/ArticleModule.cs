@@ -174,6 +174,29 @@ namespace Cuyahoga.Modules.Articles
 			}
 		}
 
+		public void SaveComment(Comment comment)
+		{
+			ITransaction tx = base.NHSession.BeginTransaction();
+			try
+			{
+				if (comment.Id == -1)
+				{
+					comment.UpdateTimestamp = DateTime.Now;
+					base.NHSession.Save(comment);
+				}
+				else
+				{
+					base.NHSession.Update(comment);
+				}
+				tx.Commit();
+			}
+			catch (Exception ex)
+			{
+				tx.Rollback();
+				throw new Exception("Unable to save Comment", ex);
+			}
+		}
+
 		/// <summary>
 		/// Parse the pathinfo. Translate pathinfo parameters into member variables.
 		/// </summary>

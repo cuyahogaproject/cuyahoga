@@ -8,10 +8,10 @@ namespace Cuyahoga.Modules.Articles
 	public class Comment
 	{
 		private int _id;
-		private int _userId;
 		private string _commentText;
 		private Article _article;
 		private Cuyahoga.Core.Domain.User _user;
+		private DateTime _updateTimestamp;
 
 		#region properties
 
@@ -43,21 +43,21 @@ namespace Cuyahoga.Modules.Articles
 		}
 
 		/// <summary>
-		/// Property UserId (int)
-		/// </summary>
-		public int UserId
-		{
-			get { return this._userId; }
-			set { this._userId = value; }
-		}
-
-		/// <summary>
 		/// Property CommentText (string)
 		/// </summary>
 		public string CommentText
 		{
 			get { return this._commentText; }
 			set { this._commentText = value; }
+		}
+
+		/// <summary>
+		/// Property UpdateTimestamp (DateTime)
+		/// </summary>
+		public DateTime UpdateTimestamp
+		{
+			get { return this._updateTimestamp; }
+			set { this._updateTimestamp = value; }
 		}
 
 		#endregion

@@ -6,8 +6,9 @@
 				<param name="sequence">cm_articlecomment_commentid_seq</param>
 			</generator>
 		</id>
+		<timestamp name="UpdateTimestamp" column="updatetimestamp" />
 		<property name="CommentText" column="commenttext" type="String" length="2000" />
-		<property name="UserId" column="userid" type="Int32" />
-		<many-to-one name="Article" class="Cuyahoga.Modules.Articles.Article, Cuyahoga.Modules" column="articleid" />
+		<many-to-one name="Article" class="Cuyahoga.Modules.Articles.Article, Cuyahoga.Modules" column="articleid" cascade="none" />
+		<many-to-one name="User" class="Cuyahoga.Core.Domain.User, Cuyahoga.Core" column="userid" cascade="none" />
 	</class>
 </hibernate-mapping>

@@ -69,7 +69,7 @@ namespace Cuyahoga.Web.Util
 		}
 
 		/// <summary>
-		/// Returns a formatted url for a given section (/{ApplicationPath}/{Section.Id}/view.aspx).
+		/// Returns a formatted url for a given section (/{ApplicationPath}/{Section.Id}/section.aspx).
 		/// </summary>
 		/// <param name="section"></param>
 		/// <returns></returns>
@@ -79,7 +79,7 @@ namespace Cuyahoga.Web.Util
 		}
 
 		/// <summary>
-		/// Returns a formatted url for a given section (/{ApplicationPath}/{Section.Id}/view.aspx).
+		/// Returns a formatted url for a given section (http://{hostname}/{ApplicationPath}/{Section.Id}/section.aspx).
 		/// </summary>
 		/// <param name="section"></param>
 		/// <returns></returns>
@@ -91,7 +91,7 @@ namespace Cuyahoga.Web.Util
 
 		/// <summary>
 		/// Returns a formatted url for a rss feed for a given section 
-		/// (/{ApplicationPath}/{Section.Id}/rss.aspx).
+		/// (http://{hostname}/{ApplicationPath}/{Section.Id}/rss.aspx).
 		/// </summary>
 		/// <param name="section"></param>
 		/// <returns></returns>

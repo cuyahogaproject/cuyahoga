@@ -49,6 +49,14 @@ h4
 	margin-bottom: 2px;
 }
 
+h5
+{
+	font-size: 0.85em;
+	margin-top: 2px;
+	margin-bottom: 2px;
+	border-bottom: solid 1px #ccc;
+}
+
 select, input, textarea
 {
 	font-family: Arial, Helvetica, sans-serif;
@@ -198,4 +206,26 @@ select, input, textarea
 	padding-top: 13px;
 	background-image: url(../images/bgitem.gif);
 	background-repeat: no-repeat;
+}
+
+.articlecomments
+{
+	margin: 0px;
+	padding: 0;
+	list-style-type: none;
+}
+
+.articlecomments li
+{
+	margin-left: 0;
+	margin-bottom: 0;
+	margin-right: 0;
+	margin-bottom: 10px;
+	padding: 0;
+	border-bottom: solid 1px #eee;
+}
+
+.articleerror
+{
+	color: #c00;
 }

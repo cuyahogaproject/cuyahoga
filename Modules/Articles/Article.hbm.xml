@@ -20,7 +20,7 @@
 		<many-to-one name="ModifiedBy" class="Cuyahoga.Core.Domain.User, Cuyahoga.Core" column="modifiedby" />
 		<many-to-one name="Category" class="Cuyahoga.Modules.Articles.Category, Cuyahoga.Modules" column="articlecategoryid" outer-join="true" />
 
-		<bag name="Comments" cascade="all" inverse="true" lazy="true">
+		<bag name="Comments" cascade="all" inverse="true" lazy="true" order-by="updatetimestamp">
 			<key column="articleid" />
 			<one-to-many class="Cuyahoga.Modules.Articles.Comment, Cuyahoga.Modules" /> 
 		</bag>

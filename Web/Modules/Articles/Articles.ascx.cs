@@ -6,6 +6,7 @@ namespace Cuyahoga.Web.Modules.Articles
 	using System.Web;
 	using System.Web.UI.WebControls;
 	using System.Web.UI.HtmlControls;
+	using System.Text.RegularExpressions;
 
 	using Cuyahoga.Web.UI;
 	using Cuyahoga.Web.Util;
@@ -17,30 +18,48 @@ namespace Cuyahoga.Web.Modules.Articles
 	public class Articles : BaseModuleControl
 	{
 		private ArticleModule _module;
+		private Article _activeArticle;
 
 		protected System.Web.UI.WebControls.Panel pnlArticleDetails;
 		protected System.Web.UI.WebControls.Repeater rptArticles;
 		protected System.Web.UI.WebControls.Literal litContent;
 		protected System.Web.UI.WebControls.Literal litTitle;
 		protected System.Web.UI.WebControls.HyperLink hplBack;
+		protected System.Web.UI.WebControls.TextBox txtComment;
+		protected System.Web.UI.WebControls.Label lblError;
+		protected System.Web.UI.WebControls.Button btnSaveComment;
+		protected System.Web.UI.WebControls.Panel pnlComment;
+		protected System.Web.UI.WebControls.Repeater rptComments;
 		protected System.Web.UI.WebControls.Panel pnlArticleList;
 
 		private void Page_Load(object sender, System.EventArgs e)
 		{
 			this._module = this.Module as ArticleModule;
-			if (this._module != null && ! base.HasCachedOutput)
+			if (this._module != null && (! base.HasCachedOutput || this.Page.IsPostBack))
 			{
 				if (this._module.CurrentArticleId > 0)
 				{
 					// Article view
-					Article article = this._module.GetArticleById(this._module.CurrentArticleId);
-					this.litTitle.Text = article.Title;
-					this.litContent.Text = article.Content;
+					this._activeArticle = this._module.GetArticleById(this._module.CurrentArticleId);
+					this.litTitle.Text = this._activeArticle.Title;
+					this.litContent.Text = this._activeArticle.Content;
 
 					this.hplBack.NavigateUrl = UrlHelper.GetUrlFromSection(this._module.Section);
 					this.hplBack.Text = base.GetText("BACK");
+					this.btnSaveComment.Text = base.GetText("BTNSAVECOMMENT");
 
 					this.pnlArticleDetails.Visible = true;
+					if (this.Page.User.Identity.IsAuthenticated)
+					{
+						this.pnlComment.Visible = true;
+					}
+					else
+					{
+						this.pnlComment.Visible = false;
+					}
+					// Comments
+					this.rptComments.DataSource = this._activeArticle.Comments;
+					this.rptComments.DataBind();
 				}
 				else if (this._module.CurrentCategory != null)
 				{
@@ -78,6 +97,7 @@ namespace Cuyahoga.Web.Modules.Articles
 		/// </summary>
 		private void InitializeComponent()
 		{
+			this.btnSaveComment.Click += new System.EventHandler(this.btnSaveComment_Click);
 			this.Load += new System.EventHandler(this.Page_Load);
 
 		}
@@ -94,6 +114,29 @@ namespace Cuyahoga.Web.Modules.Articles
 			DisplayType displayType = (DisplayType)Enum.Parse(typeof(DisplayType), this._module.Section.Settings["DISPLAY_TYPE"].ToString());
 			pnlSummary.Visible = (displayType == DisplayType.FullContent || displayType == DisplayType.HeadersAndSummary);
 			pnlContent.Visible = (displayType == DisplayType.FullContent);
+		}
+
+		private void btnSaveComment_Click(object sender, System.EventArgs e)
+		{
+			// Strip any html tags.
+			string commentText = Regex.Replace(this.txtComment.Text, @"<(.|\n)*?>", string.Empty);
+			// Replace carriage returns with <br>.
+			commentText = commentText.Replace("\r", "<br>");
+			// Save comment.
+			Comment comment = new Comment();
+			comment.Article = this._activeArticle;
+			comment.CommentText = commentText;
+			comment.User = this.Page.User.Identity as Cuyahoga.Core.Domain.User;
+			try
+			{
+				this._module.SaveComment(comment);
+				Context.Response.Redirect(UrlHelper.GetUrlFromSection(this._module.Section) + "/" + this._activeArticle.Id.ToString());
+			}
+			catch (Exception ex)
+			{
+				this.lblError.Text = ex.Message;
+				this.lblError.Visible = true;
+			}
 		}
 	}
 }

@@ -54,4 +54,16 @@
 	<data name="BACK">
 		<value>Back</value>
 	</data>
+	<data name="COMMENT">
+		<value>Comment</value>
+	</data>
+	<data name="NOCOMMENT">
+		<value>You have to be logged in to place comments</value>
+	</data>
+	<data name="BTNSAVECOMMENT">
+		<value>Submit</value>
+	</data>
+	<data name="INVALIDINPUT">
+		<value>Invalid text entered</value>
+	</data>
 </root>
