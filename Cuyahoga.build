@@ -1,8 +1,8 @@
-﻿<?xml version="1.0" encoding="utf-8" ?> 
+<?xml version="1.0" encoding="utf-8" ?> 
 <project default="build" basedir="." xmlns="http://nant.sf.net/schemas/nant-0.84.win32.net-1.0.xsd">
 	<!-- global project settings -->
 	<property name="project.name" value="Cuyahoga" />
-	<property name="project.version" value="0.1" />
+	<property name="project.version" value="0.2" />
 
 	<!-- default configuration -->
 	<property name="project.config" value="debug" /> <!-- debug|release -->
@@ -56,6 +56,7 @@
                 <include name="System.Data.dll" />
                 <include name="System.Xml.dll" />
                 <include name="System.Web.dll" />
+                <include name="ExternalStuff/NHibernate.*" />
                 <include name="ExternalStuff/Npgsql.*" />    
                 <include name="ExternalStuff/Mono.Security.Protocol.Tls.*" />
             </references>
