@@ -94,6 +94,11 @@
                     AssemblyName = "Lucene.Net"
                     HintPath = "..\lib\Lucene.Net.dll"
                 />
+                <Reference
+                    Name = "log4net"
+                    AssemblyName = "log4net"
+                    HintPath = "..\lib\log4net.dll"
+                />
             </References>
         </Build>
         <Files>

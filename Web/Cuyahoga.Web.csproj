@@ -682,6 +682,7 @@
                     RelPath = "Images\mono-powered-big.gif"
                     BuildAction = "Content"
                 />
+                <Folder RelPath = "index\" />
                 <Folder RelPath = "log\" />
                 <Folder RelPath = "Modules\" />
                 <File
