@@ -189,9 +189,17 @@
                     BuildAction = "Compile"
                 />
                 <File
+                    RelPath = "Domain\Module.hbm.xml"
+                    BuildAction = "EmbeddedResource"
+                />
+                <File
                     RelPath = "Domain\Node.cs"
                     SubType = "Code"
                     BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "Domain\Node.hbm.xml"
+                    BuildAction = "Content"
                 />
                 <File
                     RelPath = "Domain\Role.cs"
@@ -199,9 +207,17 @@
                     BuildAction = "Compile"
                 />
                 <File
+                    RelPath = "Domain\Role.hbm.xml"
+                    BuildAction = "Content"
+                />
+                <File
                     RelPath = "Domain\Section.cs"
                     SubType = "Code"
                     BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "Domain\Section.hbm.xml"
+                    BuildAction = "Content"
                 />
                 <File
                     RelPath = "Domain\Template.cs"
@@ -209,9 +225,17 @@
                     BuildAction = "Compile"
                 />
                 <File
+                    RelPath = "Domain\Template.hbm.xml"
+                    BuildAction = "Content"
+                />
+                <File
                     RelPath = "Domain\User.cs"
                     SubType = "Code"
                     BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "Domain\User.hbm.xml"
+                    BuildAction = "Content"
                 />
                 <File
                     RelPath = "Security\CuyahogaPrincipal.cs"

@@ -8,11 +8,13 @@ namespace Cuyahoga.Core.Domain
 	public abstract class Module
 	{
 		private int _moduleId;
-		private Section _section;
 		private string _name;
+		private string _assemblyName;
+		private string _className;
 		private string _path;
 		private string _editPath;
 		private string[] _moduleParams;
+		private Section _section;
 
 		#region properties
 		
@@ -28,10 +30,28 @@ namespace Cuyahoga.Core.Domain
 		/// <summary>
 		/// Property Section (Section)
 		/// </summary>
-		public Section Section
+		public virtual Section Section
 		{
 			get { return this._section; }
 			set { this._section = value; }
+		}
+
+		/// <summary>
+		/// Property AssemblyName (string)
+		/// </summary>
+		public string AssemblyName
+		{
+			get { return this._assemblyName; }
+			set { this._assemblyName = value; }
+		}
+
+		/// <summary>
+		/// Property ClassName (string)
+		/// </summary>
+		public string ClassName
+		{
+			get { return this._className; }
+			set { this._className = value; }
 		}
 
 		/// <summary>
