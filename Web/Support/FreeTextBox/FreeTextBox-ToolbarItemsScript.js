@@ -1,4 +1,4 @@
-//** FreeTextBox Builtin ToolbarItems Script (2.0.5) ***/
+//** FreeTextBox Builtin ToolbarItems Script (2.0.7) ***/
 //   by John Dyer
 //   http://www.freetextbox.com/
 //**********************************************/
@@ -109,6 +109,139 @@ function FTB_InsertImage(ftbName) {
 }
 function FTB_InsertRule(ftbName) { 
 	FTB_Format(ftbName,'inserthorizontalrule');
+}
+function FTB_InsertTable(ftbName) {
+	editor = FTB_GetIFrame(ftbName);
+	editor.focus();
+	
+	var tableWin = window.open("","tableWin","width=400,height=180");
+	tableWin.focus();
+	
+	tableWin.document.body.innerHTML = "";
+	tableWin.document.write("<html>\
+<head> \
+<style type='text/css'> \
+html, body { \
+  background: ButtonFace; \
+  color: ButtonText; \
+  font: 11px Tahoma,Verdana,sans-serif; \
+  margin: 0px; \
+  padding: 0px; \
+} \
+body { padding: 5px; } \
+table { \
+  font: 11px Tahoma,Verdana,sans-serif; \
+} \
+form p { \
+  margin-top: 5px; \
+  margin-bottom: 5px; \
+} \
+.fl { width: 9em; float: left; padding: 2px 5px; text-align: right; } \
+.fr { width: 7em; float: left; padding: 2px 5px; text-align: right; } \
+fieldset { padding: 0px 10px 5px 5px; } \
+select, input, button { font: 11px Tahoma,Verdana,sans-serif; } \
+button { width: 70px; } \
+.space { padding: 2px; } \
+ \
+.title { background: #ddf; color: #000; font-weight: bold; font-size: 120%; padding: 3px 10px; margin-bottom: 10px; \
+border-bottom: 1px solid black; letter-spacing: 2px; \
+} \
+form { padding: 0px; margin: 0px; } \
+</style> \
+<script language='JavaScript'> \
+function insertTable() { \
+	cols = parseInt(document.getElementById('f_cols').value); \
+	rows = parseInt(document.getElementById('f_rows').value); \
+	width = document.getElementById('f_width').value; \
+	widthUnit = document.getElementById('f_unit').options[document.getElementById('f_unit').selectedIndex].value; \
+	align = document.getElementById('f_align').value; \
+	cellpadding = document.getElementById('f_padding').value; \
+	cellspacing = document.getElementById('f_spacing').value; \
+	border = document.getElementById('f_border').value; \
+	window.opener.FTB_CreateTable('" + ftbName + "',cols,rows,width,widthUnit,align,cellpadding,cellspacing,border); \
+} \
+</script> \
+</head> \
+<body> \
+<form action=''> \
+ \
+<table border='0' style='padding: 0px; margin: 0px'> \
+  <tbody> \
+  <tr> \
+    <td style='width: 4em; text-align: right'>Rows:</td> \
+    <td><input type='text' name='rows' id='f_rows' size='5' title='Number of rows' value='2' /></td> \
+    <td></td> \
+    <td></td> \
+    <td></td> \
+  </tr> \
+  <tr> \
+    <td style='width: 4em; text-align: right'>Cols:</td> \
+    <td><input type='text' name='cols' id='f_cols' size='5' title='Number of columns' value='4' /></td> \
+    <td style='width: 4em; text-align: right'>Width:</td> \
+    <td><input type='text' name='width' id='f_width' size='5' title='Width of the table' value='100' /></td> \
+    <td><select size='1' name='unit' id='f_unit' title='Width unit'> \
+      <option value='%' selected='1'  >Percent</option> \
+      <option value='px'              >Pixels</option> \
+      <option value='em'              >Em</option> \
+    </select></td> \
+  </tr> \
+  </tbody> \
+</table> \
+ \
+<fieldset style='float: left; margin-left: 5px;'> \
+<legend>Layout</legend> \
+ \
+<div class='space'></div> \
+ \
+<div class='fl'>Alignment:</div> \
+<select size='1' name='align' id='f_align' \
+  title='Positioning of this image'> \
+  <option value='' selected='1'                >Not set</option> \
+  <option value='left'                         >Left</option> \
+  <option value='right'                        >Right</option> \
+  <option value='texttop'                      >Texttop</option> \
+  <option value='absmiddle'                    >Absmiddle</option> \
+  <option value='baseline'                     >Baseline</option> \
+  <option value='absbottom'                    >Absbottom</option> \
+  <option value='bottom'                       >Bottom</option> \
+  <option value='middle'                       >Middle</option> \
+  <option value='top'                          >Top</option> \
+</select> \
+ \
+<p /> \
+ \
+<div class='fl'>Border thickness:</div> \
+<input type='text' name='border' id='f_border' size='5' value='1' title='Leave empty for no border' /> \
+ \
+<div class='space'></div> \
+ \
+</fieldset> \
+ \
+<fieldset style='float:right; margin-right: 5px;'> \
+<legend>Spacing</legend> \
+ \
+<div class='space'></div> \
+ \
+<div class='fr'>Cell spacing:</div> \
+<input type='text' name='spacing' id='f_spacing' size='5' value='1' \
+title='Space between adjacent cells' /> \
+ \
+<p /> \
+ \
+<div class='fr'>Cell padding:</div> \
+<input type='text' name='padding' id='f_padding' size='5' value='1' \
+title='Space between content and border in cell' /> \
+ \
+<div class='space'></div> \
+ \
+</fieldset> \
+\
+<div style='margin-top: 85px; border-top: 1px solid #999; padding: 2px; text-align: right;'> \
+<button type='button' name='ok' onclick='insertTable();window.close();'>Insert</button> \
+<button type='button' name='cancel' onclick='window.close();'>Cancel</button> \
+</div> \
+</form> \
+</body></html>");
 }
 function FTB_InsertTableColumnAfter(ftbName) { 
 	FTB_InsertColumn(ftbName,true);
@@ -243,141 +376,41 @@ function FTB_SetParagraph(ftbName,name,value) {
 	editor.document.execCommand('formatBlock','',value);
 }
 function FTB_SetStyle(ftbName,name,value) { 
+	var className = value;
+	editor = FTB_GetIFrame(ftbName);
+	
+	// retrieve parent element of the selection
+	var parent = FTB_GetParentElement(ftbName);
+	
+	var surround = true;
 
+	var isSpan = (parent && parent.tagName.toLowerCase() == "span");
+	
+	/*
+	// remove class stuff??
+	if (isSpan && index == 0 && !/\S/.test(parent.style.cssText)) {
+		while (parent.firstChild) {
+			parent.parentNode.insertBefore(parent.firstChild, parent);
+		}
+		parent.parentNode.removeChild(parent);
+		editor.updateToolbar();
+		return;
+	}
+	*/
+	
+	// if we're already in a SPAN
+	if (isSpan) {
+		if (parent.childNodes.length == 1) {
+			parent.className = className;
+			surround = false;
+			FTB_SetToolbarItems(ftbName);
+		}
+	}
+
+	if (surround) {
+		FTB_SurroundText(ftbName,"<span class='" + className + "'>", "</span>");
+	}
 }
 function FTB_SymbolsMenu(ftbName,name,value) {
 	FTB_InsertText(ftbName,value);
-}
-function FTB_InsertTable(ftbName) {
-	editor = FTB_GetIFrame(ftbName);
-	editor.focus();
-	
-	var tableWin = window.open("","tableWin","width=400,height=180");
-	tableWin.focus();
-	
-	tableWin.document.body.innerHTML = "";
-	tableWin.document.write("<html>\
-<head> \
-<style type='text/css'> \
-html, body { \
-  background: ButtonFace; \
-  color: ButtonText; \
-  font: 11px Tahoma,Verdana,sans-serif; \
-  margin: 0px; \
-  padding: 0px; \
-} \
-body { padding: 5px; } \
-table { \
-  font: 11px Tahoma,Verdana,sans-serif; \
-} \
-form p { \
-  margin-top: 5px; \
-  margin-bottom: 5px; \
-} \
-.fl { width: 9em; float: left; padding: 2px 5px; text-align: right; } \
-.fr { width: 7em; float: left; padding: 2px 5px; text-align: right; } \
-fieldset { padding: 0px 10px 5px 5px; } \
-select, input, button { font: 11px Tahoma,Verdana,sans-serif; } \
-button { width: 70px; } \
-.space { padding: 2px; } \
- \
-.title { background: #ddf; color: #000; font-weight: bold; font-size: 120%; padding: 3px 10px; margin-bottom: 10px; \
-border-bottom: 1px solid black; letter-spacing: 2px; \
-} \
-form { padding: 0px; margin: 0px; } \
-</style> \
-<script language='JavaScript'> \
-function insertTable() { \
-	cols = parseInt(document.getElementById('f_cols').value); \
-	rows = parseInt(document.getElementById('f_rows').value); \
-	width = document.getElementById('f_width').value; \
-	widthUnit = document.getElementById('f_unit').options[document.getElementById('f_unit').selectedIndex].value; \
-	align = document.getElementById('f_align').value; \
-	cellpadding = document.getElementById('f_padding').value; \
-	cellspacing = document.getElementById('f_spacing').value; \
-	border = document.getElementById('f_border').value; \
-	window.opener.FTB_CreateTable('" + ftbName + "',cols,rows,width,widthUnit,align,cellpadding,cellspacing,border); \
-} \
-</script> \
-</head> \
-<body> \
-<form action=''> \
- \
-<table border='0' style='padding: 0px; margin: 0px'> \
-  <tbody> \
-  <tr> \
-    <td style='width: 4em; text-align: right'>Rows:</td> \
-    <td><input type='text' name='rows' id='f_rows' size='5' title='Number of rows' value='2' /></td> \
-    <td></td> \
-    <td></td> \
-    <td></td> \
-  </tr> \
-  <tr> \
-    <td style='width: 4em; text-align: right'>Cols:</td> \
-    <td><input type='text' name='cols' id='f_cols' size='5' title='Number of columns' value='4' /></td> \
-    <td style='width: 4em; text-align: right'>Width:</td> \
-    <td><input type='text' name='width' id='f_width' size='5' title='Width of the table' value='100' /></td> \
-    <td><select size='1' name='unit' id='f_unit' title='Width unit'> \
-      <option value='%' selected='1'  >Percent</option> \
-      <option value='px'              >Pixels</option> \
-      <option value='em'              >Em</option> \
-    </select></td> \
-  </tr> \
-  </tbody> \
-</table> \
- \
-<fieldset style='float: left; margin-left: 5px;'> \
-<legend>Layout</legend> \
- \
-<div class='space'></div> \
- \
-<div class='fl'>Alignment:</div> \
-<select size='1' name='align' id='f_align' \
-  title='Positioning of this image'> \
-  <option value='' selected='1'                >Not set</option> \
-  <option value='left'                         >Left</option> \
-  <option value='right'                        >Right</option> \
-  <option value='texttop'                      >Texttop</option> \
-  <option value='absmiddle'                    >Absmiddle</option> \
-  <option value='baseline'                     >Baseline</option> \
-  <option value='absbottom'                    >Absbottom</option> \
-  <option value='bottom'                       >Bottom</option> \
-  <option value='middle'                       >Middle</option> \
-  <option value='top'                          >Top</option> \
-</select> \
- \
-<p /> \
- \
-<div class='fl'>Border thickness:</div> \
-<input type='text' name='border' id='f_border' size='5' value='1' title='Leave empty for no border' /> \
- \
-<div class='space'></div> \
- \
-</fieldset> \
- \
-<fieldset style='float:right; margin-right: 5px;'> \
-<legend>Spacing</legend> \
- \
-<div class='space'></div> \
- \
-<div class='fr'>Cell spacing:</div> \
-<input type='text' name='spacing' id='f_spacing' size='5' value='1' \
-title='Space between adjacent cells' /> \
- \
-<p /> \
- \
-<div class='fr'>Cell padding:</div> \
-<input type='text' name='padding' id='f_padding' size='5' value='1' \
-title='Space between content and border in cell' /> \
- \
-<div class='space'></div> \
- \
-</fieldset> \
-\
-<div style='margin-top: 85px; border-top: 1px solid #999; padding: 2px; text-align: right;'> \
-<button type='button' name='ok' onclick='insertTable();window.close();'>Insert</button> \
-<button type='button' name='cancel' onclick='window.close();'>Cancel</button> \
-</div> \
-</form> \
-</body></html>");
 }

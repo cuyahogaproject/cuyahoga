@@ -96,6 +96,8 @@ function FTB_Initialize(ftbName) {
 		toolbar = FTB_GetToolbar(ftbName);
 		if (toolbar != null) toolbar.style.display = 'none';
 	}
+	
+	eval(ftbName + "_Initialized = true;");
 }
 
 function FTB_GetFtbName(ftb) {
@@ -178,6 +180,10 @@ function FTB_ChangeMode(ftb,goToHtmlMode) {
 }
 
 function FTB_CopyHtmlToHidden(ftbName) {
+	
+	if (!FTB_Initialized(ftbName)) return;
+	
+
 	hiddenHtml = FTB_GetHiddenField(ftbName);
 	editor = FTB_GetIFrame(ftbName);
 	
@@ -335,6 +341,10 @@ function FTB_GetHiddenField(ftbName) {
 
 function FTB_GetTextDirection(ftbName) {
 	return (eval(ftbName + "_TextDirection"));
+}
+
+function FTB_Initialized(ftbName) {
+	return (eval(ftbName + "_Initialized"));
 }
 
 function FTB_GetIFrame(ftbName) {
@@ -871,22 +881,27 @@ function FTB_GetAllAncestors(ftbName) {
 	a.push(editor.document.body);
 	return a;
 }
-
 function FTB_InsertColumn(ftbName,after) {
-	editor = FTB_GetIFrame(ftbName);
-	var td = FTB_GetClosest(ftbName,"td");
-	if (!td) {
-		return;
-	}
-	var rows = td.parentNode.parentNode.rows;
-	var index = td.cellIndex;
-	for (var i = rows.length; --i >= 0;) {
-		var tr = rows[i];
-		var ref = tr.cells[index + ((after) ? 1 : 0)];  // 0
-		var otd = editor.document.createElement("td");
-		otd.innerHTML = (isIE) ? "" : "<br />";
-		tr.insertBefore(otd, ref);
-	}
+   editor = FTB_GetIFrame(ftbName);
+   var td = FTB_GetClosest(ftbName,"td");
+   if (!td) {
+      return;
+   }
+   var rows = td.parentNode.parentNode.rows;
+   var index = td.cellIndex;
+   for (var i = rows.length; --i >= 0;) {
+      var tr = rows[i];
+      var otd = editor.document.createElement("td");
+      otd.innerHTML = (isIE) ? "" : "<br />";
+
+      //if last column and insert column after is select append child
+      if (index==tr.cells.length-1 && after) {
+         tr.appendChild(otd);
+      } else {
+         var ref = tr.cells[index + ((after) ? 1 : 0)]; // 0 
+         tr.insertBefore(otd, ref);
+      } 
+   }
 }
 function FTB_InsertTableRow(ftbName,after) { 
 	if (FTB_IsHtmlMode(ftbName)) return;	

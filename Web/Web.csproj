@@ -574,6 +574,42 @@
                     BuildAction = "EmbeddedResource"
                 />
                 <File
+                    RelPath = "Support\FreeTextBox\Custom\SupportCustom.css"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Support\FreeTextBox\Custom\Thumbnail.aspx"
+                    SubType = "Form"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Support\FreeTextBox\Custom\Thumbnail.aspx.cs"
+                    DependentUpon = "Thumbnail.aspx"
+                    SubType = "ASPXCodeBehind"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "Support\FreeTextBox\Custom\Thumbnail.aspx.resx"
+                    DependentUpon = "Thumbnail.aspx.cs"
+                    BuildAction = "EmbeddedResource"
+                />
+                <File
+                    RelPath = "Support\FreeTextBox\Custom\images\folder.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Support\FreeTextBox\Custom\images\folderup.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Support\FreeTextBox\Custom\images\image.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Support\FreeTextBox\Custom\images\thumberror.gif"
+                    BuildAction = "Content"
+                />
+                <File
                     RelPath = "Support\FreeTextBox\images\bold.gif"
                     BuildAction = "Content"
                 />
@@ -1474,6 +1510,8 @@
                     SubType = "ASPXCodeBehind"
                     BuildAction = "Compile"
                 />
+                <Folder RelPath = "UserFiles\Documents\" />
+                <Folder RelPath = "UserFiles\Images\" />
                 <File
                     RelPath = "Util\AuthenticationModule.cs"
                     SubType = "Code"

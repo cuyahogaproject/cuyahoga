@@ -33,13 +33,13 @@
     <td><asp:textbox id=txtLastname runat="server" width="200px"></asp:textbox></td></tr>
   <tr>
     <td>Email</td>
-    <td><asp:textbox id=txtEmail runat="server" width="200px"></asp:textbox><asp:requiredfieldvalidator id=rfvEmail runat="server" controltovalidate="txtEmail" forecolor=" " enableclientscript="False" display="Dynamic" cssclass="validator" errormessage="Email is required"></asp:requiredfieldvalidator><asp:regularexpressionvalidator id=revEmail runat="server" controltovalidate="txtEmail" forecolor=" " enableclientscript="False" display="Dynamic" cssclass="validator" errormessage="Invalid email" validationexpression="\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*"></asp:regularexpressionvalidator></td></tr>
+    <td><asp:textbox id=txtEmail runat="server" width="200px"></asp:textbox><asp:requiredfieldvalidator id=rfvEmail runat="server" controltovalidate="txtEmail" enableclientscript="False" display="Dynamic" cssclass="validator" errormessage="Email is required"></asp:requiredfieldvalidator><asp:regularexpressionvalidator id=revEmail runat="server" controltovalidate="txtEmail" enableclientscript="False" display="Dynamic" cssclass="validator" errormessage="Invalid email" validationexpression="\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*"></asp:regularexpressionvalidator></td></tr>
   <tr>
     <td>Password</td>
     <td><asp:textbox id=txtPassword1 runat="server" width="200px" textmode="Password"></asp:textbox></td></tr>
   <tr>
     <td>Confirm password</td>
-    <td><asp:textbox id=txtPassword2 runat="server" width="200px" textmode="Password"></asp:textbox><asp:comparevalidator id=covPassword runat="server" controltovalidate="txtPassword1" forecolor=" " enableclientscript="False" display="Dynamic" cssclass="validator" errormessage="Both passwords must be the same" controltocompare="txtPassword2"></asp:comparevalidator></td></tr></table></div>
+    <td><asp:textbox id=txtPassword2 runat="server" width="200px" textmode="Password"></asp:textbox><asp:comparevalidator id=covPassword runat="server" controltovalidate="txtPassword1" enableclientscript="False" display="Dynamic" cssclass="validator" errormessage="Both passwords must be the same" controltocompare="txtPassword2"></asp:comparevalidator></td></tr></table></div>
 <div class=group>
 <h4>Roles</h4>
 <table class=tbl><asp:repeater id=rptRoles runat="server">

@@ -22,13 +22,17 @@ namespace Cuyahoga.ServerControls
 		{
 			Toolbar customToolbar = new Toolbar();
 			customToolbar.Items.Add(new InsertLink(this.SupportFolder + "Custom/"));
+			customToolbar.Items.Add(new ImageGallery(this.SupportFolder + "Custom/"));
 			customToolbar.Items.Add(new WordClean());
 			this.Toolbars.Add(customToolbar);
 
 			base.OnInit (e);
 		}
 
-		
+		/// <summary>
+		/// WordClean class. Cleaning javascript found somewhere on the net. Don't know where,
+		/// probably from some other free web editor.
+		/// </summary>
 		public class WordClean : ToolbarButton
 		{
 			public WordClean() : base("Clean Word html", "FTB_WordClean", "wordclean")
@@ -79,12 +83,25 @@ namespace Cuyahoga.ServerControls
 		}
 		public class InsertLink : ToolbarButton
 		{
-			public InsertLink(string supportFolder) : base("Insert hyperlink", "CED_InsertLink", "createlink")
+			public InsertLink(string supportFolder) : base("Insert Hyperlink", "CED_InsertLink", "createlink")
 			{
 				this.ScriptBlock = @"
 					function CED_InsertLink(ftbName)
 					{
 						myWindow = window.open(""" + supportFolder + @"LinkBrowser.aspx?textboxname="" + ftbName, ""window"", ""width=600,height=470"");
+					}
+					";
+			}
+		}
+
+		public class ImageGallery : ToolbarButton
+		{
+			public ImageGallery(string supportFolder) : base("Insert Image from gallery", "CED_ImageGallery", "insertimagefromgallery")
+			{
+				this.ScriptBlock = @"
+					function CED_ImageGallery(ftbName)
+					{
+						myWindow = window.open(""" + supportFolder + @"ImageBrowser.aspx?textboxname="" + ftbName, ""window"", ""width=600,height=470"");
 					}
 					";
 			}
