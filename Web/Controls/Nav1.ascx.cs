@@ -38,6 +38,7 @@ namespace Cuyahoga.Web.Controls
 					
 					if (this._page.CuyahogaUser != null)
 					{
+						this.hplAdmin.NavigateUrl = this._page.ResolveUrl("~/Admin");
 						this.hplAdmin.Visible = this._page.CuyahogaUser.HasPermission(AccessLevel.Administrator);
 					}
 				}

@@ -447,6 +447,9 @@ namespace Cuyahoga.Core
 				return false;
 		}
 
+		/// <summary>
+		/// 
+		/// </summary>
 		public void CopyRolesFromParent()
 		{
 			InitRoles();
@@ -460,6 +463,42 @@ namespace Cuyahoga.Core
 				{
 					this._editRoles.Add(role);
 				}
+			}
+		}
+
+		/// <summary>
+		/// Generate a short description based on the parent short description and the title.
+		/// If the short description already exists, a number is added until it is unique.
+		/// </summary>
+		public void CreateShortDescription()
+		{
+			string prefix = "";
+			if (this._parentNode != null)
+			{
+				prefix += this._parentNode.ShortDescription + "/";
+			}
+			this._shortDescription = prefix + this._title.Replace(" ", "").ToLower();
+			int suffix = 1;
+			while (! CheckUniqueShortDescription())
+			{
+				string tmpShortDescription = this._shortDescription.Substring(0, this._shortDescription.Length - 2);
+				this._shortDescription = tmpShortDescription + "_" + suffix.ToString();
+				suffix++;
+			}
+		}
+
+		public bool CheckUniqueShortDescription()
+		{
+			if (this._shortDescription != null)
+			{
+				// ABUSE: use GetNodeByShortDescription to check if the short description is unique.
+				Node dummyNode = new Node();
+				CmsDataFactory.GetInstance().GetNodeByShortDescription(this._shortDescription, dummyNode);
+				return (dummyNode.Id == this.Id);
+			}
+			else
+			{
+				throw new NullReferenceException("The Short Description may not be null");
 			}
 		}
 

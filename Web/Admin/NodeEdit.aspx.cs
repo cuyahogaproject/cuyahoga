@@ -37,9 +37,7 @@ namespace Cuyahoga.Web.Admin
 		protected System.Web.UI.WebControls.RegularExpressionValidator revShortDescription;
 		protected System.Web.UI.WebControls.Repeater rptDeleteRoles;
 		protected System.Web.UI.WebControls.Repeater rptRoles;
-		protected System.Web.UI.WebControls.TextBox txtShortDescriptionPrefix;
 		protected System.Web.UI.WebControls.RequiredFieldValidator rfvShortDescription;
-		protected System.Web.UI.WebControls.RegularExpressionValidator revShortDescriptionPrefix;
 		protected System.Web.UI.WebControls.TextBox txtTitle;
 	
 		private void Page_Load(object sender, System.EventArgs e)
@@ -62,6 +60,10 @@ namespace Cuyahoga.Web.Admin
 						this.ActiveNode.CopyRolesFromParent();
 					}
 				}
+				// Short description is auto-generated, so we don;t need the controls with new nodes.
+				this.txtShortDescription.Visible = false;
+				this.rfvShortDescription.Enabled = false;
+				this.revShortDescription.Enabled = false;
 			}
 			if (! this.IsPostBack)
 			{
@@ -86,7 +88,7 @@ namespace Cuyahoga.Web.Admin
 		private void BindNodeControls()
 		{
 			this.txtTitle.Text = this.ActiveNode.Title;
-			PrepareAndBindShortDescription();
+			this.txtShortDescription.Text = this.ActiveNode.ShortDescription;
 			if (this.ActiveNode.ParentNode != null)
 			{
 				this.lblParentNode.Text = this.ActiveNode.ParentNode.Title;
@@ -190,7 +192,9 @@ namespace Cuyahoga.Web.Admin
 		{
 			ICmsDataProvider dp = CmsDataFactory.GetInstance();
 			if (this.ActiveNode.Id > 0)
+			{
 				dp.UpdateNode(this.ActiveNode);
+			}
 			else
 			{
 				this.ActiveNode.CalculateNewPosition();
@@ -217,35 +221,27 @@ namespace Cuyahoga.Web.Admin
 				}
 				catch (Exception ex)
 				{
-					this.ShowError(ex.Message);
+					ShowError(ex.Message);
 				}
 			}
 			// Redirect to the same page without the section movement parameters
 			Context.Response.Redirect(Context.Request.Path + String.Format("?NodeId={0}", this.ActiveNode.Id));
 		}
 
-		private void PrepareAndBindShortDescription()
+		private void SetShortDescription()
 		{
-			if (this.ActiveNode.Id == -1 && this.ActiveNode.ParentNode != null)
+			if (this.ActiveNode.Id > 0)
 			{
-				this.txtShortDescriptionPrefix.Text = this.ActiveNode.ParentNode.ShortDescription + "/";
-			}
-			else if (this.ActiveNode.Id > 0)
-			{
-				if (this.ActiveNode.ShortDescription != null)
+				this.ActiveNode.ShortDescription = this.txtShortDescription.Text;
+				if (! this.ActiveNode.CheckUniqueShortDescription())
 				{
-					int lastSlash = this.ActiveNode.ShortDescription.LastIndexOf("/");
-					if (lastSlash > 0)
-					{
-						this.txtShortDescriptionPrefix.Text = this.ActiveNode.ShortDescription.Substring(0, lastSlash + 1);
-						this.txtShortDescription.Text = this.ActiveNode.ShortDescription.Substring(lastSlash + 1, this.ActiveNode.ShortDescription.Length - (lastSlash + 1));
-					}
-					else
-					{
-						this.txtShortDescriptionPrefix.Text = String.Empty;
-						this.txtShortDescription.Text = this.ActiveNode.ShortDescription;
-					}
+					throw new Exception("The short description is not unique");
 				}
+			}
+			else
+			{
+				// Generate the short description for new nodes.
+				this.ActiveNode.CreateShortDescription();
 			}
 		}
 
@@ -284,11 +280,11 @@ namespace Cuyahoga.Web.Admin
 		{
 			try
 			{
-				this.SetTemplate();				
+				SetTemplate();				
 				if (this.IsValid)
 				{
 					this.ActiveNode.Title = this.txtTitle.Text;
-					this.ActiveNode.ShortDescription = this.txtShortDescriptionPrefix.Text + this.txtShortDescription.Text;
+					SetShortDescription();
 					SetRoles();
 					SaveNode();
 					ShowMessage("Node saved.");
@@ -296,7 +292,7 @@ namespace Cuyahoga.Web.Admin
 			}
 			catch (Exception ex)
 			{
-				this.ShowError(ex.Message);
+				ShowError(ex.Message);
 			}
 		}
 
@@ -324,12 +320,14 @@ namespace Cuyahoga.Web.Admin
 		{
 			try
 			{
-				this.SetTemplate();	
+				SetTemplate();	
 				// Also save the current node (validate first)
 				this.ActiveNode.Title = this.txtTitle.Text;
-				this.Validate();
+				Validate();
 				if (this.IsValid)
 				{
+					SetShortDescription();
+					SetRoles();
 					this.SaveNode();
 					this.ShowMessage("Node saved while setting the template.");
 				}
