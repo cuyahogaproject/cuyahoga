@@ -42,87 +42,96 @@
 		<!-- copy libraries -->
 		<copy todir="${build.dir}/bin">
 			<fileset basedir="ExternalStuff">
-				<includes name="**/*.dll" />
+				<include name="**/*.dll" />
 			</fileset>
 		</copy>		
 	</target>
 	<target name="build.core">
 		<csc target="library" output="${build.dir}/bin/Cuyahoga.Core.dll" debug="${build.debug}">
             <sources>
-                <includes name="Core/**/*.cs" />
+                <include name="Core/**/*.cs" />
             </sources>
             <references>
-                <includes name="System.dll" />
-                <includes name="System.Data.dll" />
-                <includes name="System.Xml.dll" />
-                <includes name="System.Web.dll" />
-                <includes name="ExternalStuff/Npgsql.dll" />    
-                <includes name="ExternalStuff/Mono.Security.dll" />
+                <include name="System.dll" />
+                <include name="System.Data.dll" />
+                <include name="System.Xml.dll" />
+                <include name="System.Web.dll" />
+                <include name="ExternalStuff/Npgsql.*" />    
+                <include name="ExternalStuff/Mono.Security.Protocol.Tls.*" />
             </references>
         </csc>
 	</target>
 	<target name="build.modules" depends="build.core">
 		<csc target="library" output="${build.dir}/bin/Cuyahoga.Modules.dll" debug="${build.debug}">
             <sources>
-                <includes name="Modules/**/*.cs" />
+                <include name="Modules/**/*.cs" />
             </sources>
+            <resources>
+				<include name="Modules/**/*.hbm.xml" />
+			</resources>
             <references>
-                <includes name="System.dll" />
-                <includes name="System.Data.dll" />
-                <includes name="System.Xml.dll" />
-                <includes name="System.Web.dll" />
-                <includes name="ExternalStuff/Gentle.*.dll" />  
-                <includes name="ExternalStuff/Npgsql.dll" />    
-                <includes name="ExternalStuff/Mono.Security.dll" />
-                <includes name="ExternalStuff/Mailframe.Configuration.dll" />
-                <includes name="${build.dir}/bin/Cuyahoga.Core.dll" />
+                <include name="System.dll" />
+                <include name="System.Data.dll" />
+                <include name="System.Xml.dll" />
+                <include name="System.Web.dll" />
+                <include name="ExternalStuff/Npgsql.dll" />    
+                <include name="ExternalStuff/NHibernate.dll" />
+                <include name="${build.dir}/bin/Cuyahoga.Core.dll" />
             </references>
         </csc>
 	</target>
 	<target name="build.servercontrols">
 		<csc target="library" output="${build.dir}/bin/Cuyahoga.ServerControls.dll" debug="${build.debug}">
             <sources>
-                <includes name="ServerControls/**/*.cs" />
+                <include name="ServerControls/**/*.cs" />
             </sources>
             <references>
-                <includes name="System.dll" />
-                <includes name="System.Data.dll" />
-                <includes name="System.Drawing.dll" />
-                <includes name="System.Xml.dll" />
-                <includes name="System.Web.dll" />
-                <includes name="ExternalStuff/FreeTextBox.dll" />
+                <include name="System.dll" />
+                <include name="System.Data.dll" />
+                <include name="System.Drawing.dll" />
+                <include name="System.Xml.dll" />
+                <include name="System.Web.dll" />
+                <include name="ExternalStuff/FreeTextBox.dll" />
             </references>
         </csc>
 	</target>
 	<target name="build.web">
 		<csc target="library" output="${build.dir}/bin/Cuyahoga.Web.dll" debug="${build.debug}">
             <sources>
-                <includes name="Web/**/*.cs" />
+                <include name="Web/**/*.cs" />
             </sources>
             <references>
-                <includes name="System.dll" />
-                <includes name="System.Data.dll" />
-                <includes name="System.Drawing.dll" />
-                <includes name="System.Xml.dll" />
-                <includes name="System.Web.dll" />
-                <includes name="ExternalStuff/**/*.dll" />  
-                <includes name="${build.dir}/bin/Cuyahoga.Core.dll" />
-                <includes name="${build.dir}/bin/Cuyahoga.Modules.dll" />
-                <includes name="${build.dir}/bin/Cuyahoga.ServerControls.dll" />
+                <include name="System.dll" />
+                <include name="System.Data.dll" />
+                <include name="System.Drawing.dll" />
+                <include name="System.Xml.dll" />
+                <include name="System.Web.dll" />
+                <include name="ExternalStuff/eWorld.UI.dll" />  
+                <include name="ExternalStuff/FreeTextBox.dll" />  
+                <include name="${build.dir}/bin/Cuyahoga.Core.dll" />
+                <include name="${build.dir}/bin/Cuyahoga.Modules.dll" />
+                <include name="${build.dir}/bin/Cuyahoga.ServerControls.dll" />
             </references>
         </csc>
 	</target>
-	<target name="deploy" depends="build" description="Deploys website items to the current build dir">
-		<copy todir="${build.dir}">
+	<target name="deploy" depends="build" description="Deploys the website to the deployment directory">
+		<mkdir dir="${build.dir}/deploy" />
+		<mkdir dir="${build.dir}/deploy/bin" />
+		<copy todir="${build.dir}/deploy">
 			<fileset basedir="Web">
-				<includes name="**/*.as?x" />
-				<includes name="**/*.config" />
-				<includes name="**/*.gif" />
-				<includes name="**/*.png" />
-				<includes name="**/*.jpg" />
-				<includes name="**/*.js" />
-				<includes name="**/*.xml" />
-				<includes name="**/*.css" />
+				<include name="**/*.as?x" />
+				<include name="**/*.config" />
+				<include name="**/*.gif" />
+				<include name="**/*.png" />
+				<include name="**/*.jpg" />
+				<include name="**/*.js" />
+				<include name="**/*.xml" />
+				<include name="**/*.css" />
+			</fileset>
+		</copy>
+		<copy todir="${build.dir}/deploy/bin">
+			<fileset basedir="${build.dir}/bin">
+				<include name="*.dll" />
 			</fileset>
 		</copy>
 	</target>
