@@ -184,12 +184,12 @@
                     BuildAction = "Compile"
                 />
                 <File
-                    RelPath = "Domain\Module.cs"
+                    RelPath = "Domain\ModuleType.cs"
                     SubType = "Code"
                     BuildAction = "Compile"
                 />
                 <File
-                    RelPath = "Domain\Module.hbm.xml"
+                    RelPath = "Domain\ModuleType.hbm.xml"
                     BuildAction = "EmbeddedResource"
                 />
                 <File

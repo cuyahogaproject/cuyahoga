@@ -5,35 +5,25 @@ namespace Cuyahoga.Core.Domain
 	/// <summary>
 	/// Base class for all modules. 
 	/// </summary>
-	public abstract class Module
+	public class ModuleType
 	{
-		private int _moduleId;
+		private int _moduleTypeId;
 		private string _name;
 		private string _assemblyName;
 		private string _className;
 		private string _path;
 		private string _editPath;
 		private string[] _moduleParams;
-		private Section _section;
 
 		#region properties
 		
 		/// <summary>
 		/// Property ModuleId (int)
 		/// </summary>
-		public int ModuleId
+		public int ModuleTypeId
 		{
-			get { return this._moduleId; }
-			set { this._moduleId = value; }
-		}
-
-		/// <summary>
-		/// Property Section (Section)
-		/// </summary>
-		public virtual Section Section
-		{
-			get { return this._section; }
-			set { this._section = value; }
+			get { return this._moduleTypeId; }
+			set { this._moduleTypeId = value; }
 		}
 
 		/// <summary>
@@ -92,16 +82,5 @@ namespace Cuyahoga.Core.Domain
 
 		#endregion
 
-		/// <summary>
-		/// Load the module content. The concrete module has to decide how to implement this
-		/// (e.g. some modules would require that the Section is known).
-		/// </summary>
-		public abstract void LoadContent();
-
-		/// <summary>
-		/// Delete the module content. The concrete module has to decide how to delete the content 
-		/// or whether deleting of content is allowed.
-		/// </summary>
-		public abstract void DeleteContent();
 	}
 }

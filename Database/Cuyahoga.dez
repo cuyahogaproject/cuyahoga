@@ -1,6 +1,6 @@
 ***VERSION***
 2.4
-2004-07-14
+2004-10-02
 Cuyahoga
 
 Martijn Boland
@@ -691,17 +691,17 @@ Yes
 current_timestamp
 
 ***ENTITY***
-Cuyahoga_Module
+Cuyahoga_ModuleType
 
 
 ***SCREEN***
-417
-16
-144
+398
+4
+180
 162
 ***ATTRIBUTE***
-Cuyahoga_Module
-ModuleId
+Cuyahoga_ModuleType
+ModuleTypeId
 
 
 18
@@ -717,9 +717,9 @@ Yes
 
 ***LINKEDATTRIBUTE***
 Cuyahoga_Section
-ModuleId
+ModuleTypeId
 ***ATTRIBUTE***
-Cuyahoga_Module
+Cuyahoga_ModuleType
 Name
 
 
@@ -735,7 +735,7 @@ Yes
 
 
 ***ATTRIBUTE***
-Cuyahoga_Module
+Cuyahoga_ModuleType
 AssemblyName
 
 
@@ -751,7 +751,7 @@ No
 
 
 ***ATTRIBUTE***
-Cuyahoga_Module
+Cuyahoga_ModuleType
 ClassName
 
 
@@ -767,7 +767,7 @@ Yes
 
 
 ***ATTRIBUTE***
-Cuyahoga_Module
+Cuyahoga_ModuleType
 Path
 
 
@@ -783,7 +783,7 @@ Yes
 
 
 ***ATTRIBUTE***
-Cuyahoga_Module
+Cuyahoga_ModuleType
 EditPath
 
 
@@ -799,7 +799,7 @@ No
 
 
 ***ATTRIBUTE***
-Cuyahoga_Module
+Cuyahoga_ModuleType
 InsertTimestamp
 
 
@@ -815,7 +815,7 @@ Yes
 current_timestamp
 
 ***ATTRIBUTE***
-Cuyahoga_Module
+Cuyahoga_ModuleType
 UpdateTimestamp
 
 
@@ -886,10 +886,10 @@ No
 
 ***ATTRIBUTE***
 Cuyahoga_Section
-ModuleId
+ModuleTypeId
 __FK__
-Cuyahoga_Module
-ModuleId
+Cuyahoga_ModuleType
+ModuleTypeId
 Module_Section
 
 
@@ -1070,7 +1070,7 @@ Module_Section
 
 0:N
 1:1
-Cuyahoga_Module
+Cuyahoga_ModuleType
 Cuyahoga_Section
 
 0

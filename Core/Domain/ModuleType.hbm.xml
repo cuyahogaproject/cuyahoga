@@ -1,0 +1,16 @@
+﻿<?xml version="1.0" encoding="utf-8" ?> 
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.0">
+	<class name="Cuyahoga.Core.Domain.ModuleType, Cuyahoga.Core" table="cuyahoga_moduletype">
+		<id name="ModuleTypeId" column="moduletypeid" type="Int32" unsaved-value="-1">
+			<generator class="native">
+				<param name="sequence">cm_module_moduletypeid_seq</param>
+			</generator>
+		</id>
+		<property name="Name" column="name" type="String" length="100" />
+		<property name="AssemblyName" column="assemblyname" type="String" length="100" />
+		<property name="ClassName" column="classname" type="String" length="255" />
+		<property name="Path" column="path" type="String" length="255" />
+		<property name="EditPath" column="editpath" type="String" length="255" />
+		<subclass 
+	</class>
+</hibernate-mapping>
