@@ -1,5 +1,6 @@
-<%@ Register TagPrefix="fckeditorv2" Namespace="FredCK.FCKeditorV2" Assembly="FredCK.FCKeditorV2" %>
 <%@ Page language="c#" Codebehind="EditArticle.aspx.cs" AutoEventWireup="false" Inherits="Cuyahoga.Modules.Articles.EditArticle" ValidateRequest="false" %>
+<%@ Register TagPrefix="cc1" Namespace="Cuyahoga.ServerControls" Assembly="Cuyahoga.ServerControls" %>
+<%@ Register TagPrefix="fckeditorv2" Namespace="FredCK.FCKeditorV2" Assembly="FredCK.FCKeditorV2" %>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN" >
 <html>
 	<head>
@@ -49,12 +50,12 @@
 						</tr>
 						<tr>
 							<td style="WIDTH: 100px">Date online</td>
-							<td><cc1:calendar id="calDateOnline" runat="server" displaytime="True"></cc1:calendar></CC1:CALENDAR><asp:requiredfieldvalidator id="rfvDateOnline" runat="server" errormessage="Date online is required" cssclass="validator"
+							<td><cc1:calendar id="calDateOnline" runat="server" displaytime="True"></cc1:calendar><asp:requiredfieldvalidator id="rfvDateOnline" runat="server" errormessage="Date online is required" cssclass="validator"
 									display="Dynamic" enableclientscript="False" controltovalidate="calDateOnline"></asp:requiredfieldvalidator></td>
 						</tr>
 						<tr>
 							<td style="WIDTH: 100px">Date offline</td>
-							<td><cc1:calendar id="calDateOffline" runat="server" displaytime="True"></cc1:calendar></CC1:CALENDAR><asp:requiredfieldvalidator id="rfvDateOffline" runat="server" errormessage="Date offline is required" cssclass="validator"
+							<td><cc1:calendar id="calDateOffline" runat="server" displaytime="True"></cc1:calendar><asp:requiredfieldvalidator id="rfvDateOffline" runat="server" errormessage="Date offline is required" cssclass="validator"
 									display="Dynamic" enableclientscript="False" controltovalidate="calDateOffline"></asp:requiredfieldvalidator></td>
 						</tr>
 					</table>
