@@ -1,5 +1,5 @@
-<%@ Register TagPrefix="cc1" Namespace="Cuyahoga.ServerControls" Assembly="Cuyahoga.ServerControls" %>
 <%@ Page language="c#" Codebehind="Test.aspx.cs" AutoEventWireup="false" Inherits="Cuyahoga.Web.Test" %>
+<%@ Register TagPrefix="cc1" Namespace="Cuyahoga.ServerControls" Assembly="Cuyahoga.ServerControls" %>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN" >
 <html>
 	<head>

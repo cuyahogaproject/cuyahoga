@@ -29,11 +29,11 @@ namespace Cuyahoga.Web.Modules.Articles
 		protected System.Web.UI.WebControls.TextBox txtSummary;
 		protected Cuyahoga.ServerControls.CuyahogaEditor cedContent;
 		protected System.Web.UI.WebControls.CheckBox chkSyndicate;
-		protected eWorld.UI.CalendarPopup calDateOnline;
-		protected eWorld.UI.CalendarPopup calDateOffline;
 		protected System.Web.UI.WebControls.RequiredFieldValidator rfvTitle;
 		protected System.Web.UI.WebControls.TextBox txtCategory;
 		protected System.Web.UI.WebControls.DropDownList ddlCategory;
+		protected Cuyahoga.ServerControls.Calendar calDateOnline;
+		protected Cuyahoga.ServerControls.Calendar calDateOffline;
 		private ArticleModule _module;
 
 		private void Page_Load(object sender, System.EventArgs e)

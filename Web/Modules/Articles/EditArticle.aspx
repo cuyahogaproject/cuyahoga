@@ -1,6 +1,6 @@
-<%@ Register TagPrefix="ew" Namespace="eWorld.UI" Assembly="eWorld.UI" %>
-<%@ Register TagPrefix="cc1" Namespace="Cuyahoga.ServerControls" Assembly="Cuyahoga.ServerControls" %>
 <%@ Page language="c#" Codebehind="EditArticle.aspx.cs" AutoEventWireup="false" Inherits="Cuyahoga.Web.Modules.Articles.EditArticle" ValidateRequest="false" %>
+<%@ Register TagPrefix="cc1" Namespace="Cuyahoga.ServerControls" Assembly="Cuyahoga.ServerControls" %>
+<%@ Register TagPrefix="ew" Namespace="eWorld.UI" Assembly="eWorld.UI" %>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN" >
 <html>
 	<head>
@@ -42,70 +42,10 @@
 							<td><asp:checkbox id="chkSyndicate" runat="server" checked="True"></asp:checkbox></td></tr>
 						<tr>
 							<td style="WIDTH: 100px">Date online</td>
-							<td><ew:calendarpopup id="calDateOnline" runat="server" width="100px" externalresourcepath="~/Support/eWorld/eWorld_UI_CalendarPopup.js" useexternalresource="True">
-									<weekdaystyle font-size="XX-Small" font-names="Verdana,Helvetica,Tahoma,Arial" forecolor="Black" backcolor="White">
-									</weekdaystyle>
-
-									<monthheaderstyle font-size="XX-Small" font-names="Verdana,Helvetica,Tahoma,Arial" forecolor="Black" backcolor="Yellow">
-									</monthheaderstyle>
-
-									<offmonthstyle font-size="XX-Small" font-names="Verdana,Helvetica,Tahoma,Arial" forecolor="Gray" backcolor="AntiqueWhite">
-									</offmonthstyle>
-
-									<gototodaystyle font-size="XX-Small" font-names="Verdana,Helvetica,Tahoma,Arial" forecolor="Black" backcolor="White">
-									</gototodaystyle>
-
-									<todaydaystyle font-size="XX-Small" font-names="Verdana,Helvetica,Tahoma,Arial" forecolor="Black" backcolor="LightGoldenrodYellow">
-									</todaydaystyle>
-
-									<dayheaderstyle font-size="XX-Small" font-names="Verdana,Helvetica,Tahoma,Arial" forecolor="Black" backcolor="Orange">
-									</dayheaderstyle>
-
-									<weekendstyle font-size="XX-Small" font-names="Verdana,Helvetica,Tahoma,Arial" forecolor="Black" backcolor="LightGray">
-									</weekendstyle>
-
-									<selecteddatestyle font-size="XX-Small" font-names="Verdana,Helvetica,Tahoma,Arial" forecolor="Black" backcolor="Yellow">
-									</selecteddatestyle>
-
-									<cleardatestyle font-size="XX-Small" font-names="Verdana,Helvetica,Tahoma,Arial" forecolor="Black" backcolor="White">
-									</cleardatestyle>
-
-									<holidaystyle font-size="XX-Small" font-names="Verdana,Helvetica,Tahoma,Arial" forecolor="Black" backcolor="White">
-									</holidaystyle>
-								</ew:calendarpopup></td></tr>
+							<td><cc1:calendar id="calDateOnline" runat="server" displaytime="True"></cc1:calendar></td></tr>
 						<tr>
 							<td style="WIDTH: 100px">Date offline</td>
-							<td><ew:calendarpopup id="calDateOffline" runat="server" width="100px" useexternalresource="True" externalresourcepath="~/Support/eWorld/eWorld_UI_CalendarPopup.js">
-									<weekdaystyle font-size="XX-Small" font-names="Verdana,Helvetica,Tahoma,Arial" forecolor="Black" backcolor="White">
-									</weekdaystyle>
-
-									<monthheaderstyle font-size="XX-Small" font-names="Verdana,Helvetica,Tahoma,Arial" forecolor="Black" backcolor="Yellow">
-									</monthheaderstyle>
-
-									<offmonthstyle font-size="XX-Small" font-names="Verdana,Helvetica,Tahoma,Arial" forecolor="Gray" backcolor="AntiqueWhite">
-									</offmonthstyle>
-
-									<gototodaystyle font-size="XX-Small" font-names="Verdana,Helvetica,Tahoma,Arial" forecolor="Black" backcolor="White">
-									</gototodaystyle>
-
-									<todaydaystyle font-size="XX-Small" font-names="Verdana,Helvetica,Tahoma,Arial" forecolor="Black" backcolor="LightGoldenrodYellow">
-									</todaydaystyle>
-
-									<dayheaderstyle font-size="XX-Small" font-names="Verdana,Helvetica,Tahoma,Arial" forecolor="Black" backcolor="Orange">
-									</dayheaderstyle>
-
-									<weekendstyle font-size="XX-Small" font-names="Verdana,Helvetica,Tahoma,Arial" forecolor="Black" backcolor="LightGray">
-									</weekendstyle>
-
-									<selecteddatestyle font-size="XX-Small" font-names="Verdana,Helvetica,Tahoma,Arial" forecolor="Black" backcolor="Yellow">
-									</selecteddatestyle>
-
-									<cleardatestyle font-size="XX-Small" font-names="Verdana,Helvetica,Tahoma,Arial" forecolor="Black" backcolor="White">
-									</cleardatestyle>
-
-									<holidaystyle font-size="XX-Small" font-names="Verdana,Helvetica,Tahoma,Arial" forecolor="Black" backcolor="White">
-									</holidaystyle>
-								</ew:calendarpopup></td></tr></table>
+							<td><cc1:calendar id="calDateOffline" runat="server" displaytime="True"></cc1:calendar></td></tr></table>
 				</div>
 				<p><asp:button id="btnSave" runat="server" text="Save"></asp:button><asp:button id="btnDelete" runat="server" text="Delete" visible="False"></asp:button><input id="btnCancel" type="button" value="Cancel" runat="server"></p></div></form>
 	</body>
