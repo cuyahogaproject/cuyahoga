@@ -2,7 +2,7 @@
 <project default="build" basedir="." xmlns="http://nant.sf.net/release/0.85-rc1/nant.xsd">
 	<!-- global project settings -->
 	<property name="project.name" value="Cuyahoga" />
-	<property name="project.version" value="0.4.0.0" />
+	<property name="project.version" value="0.4" />
 
 	<!-- default configuration -->
 	<property name="project.config" value="debug" /> <!-- debug|release -->
@@ -196,10 +196,8 @@
 	</target>
 	
 	<target name="deploy" depends="build" description="Deploys the website to the deployment directory">
-		<mkdir dir="${build.dir}/deploy" />
-		<mkdir dir="${build.dir}/deploy/bin" />
-		<mkdir dir="${build.dir}/deploy/UserFiles/Images" />
-		<copy todir="${build.dir}/deploy">
+		<mkdir dir="${build.dir}/UserFiles/Images" />
+		<copy todir="${build.dir}">
 			<fileset basedir="Web">
 				<include name="**/*.as?x" />
 				<include name="**/*.config" />
@@ -212,14 +210,9 @@
 				<exclude name="UserFiles/Images/*.*" />
 			</fileset>
 		</copy>
-		<copy todir="${build.dir}/deploy/bin">
-			<fileset basedir="${build.dir}/bin">
-				<include name="**/*.dll" />
-			</fileset>
-		</copy>
 	    <!-- Copy Modules to the Web dir -->
-   		<mkdir dir="${build.dir}/deploy/Modules" />
-        <copy todir="${build.dir}/deploy/Modules">
+   		<mkdir dir="${build.dir}/Modules" />
+        <copy todir="${build.dir}/Modules">
 			<fileset basedir="Modules">
 				<include name="**/*.as?x" />
 				<include name="**/*.gif" />
@@ -236,7 +229,7 @@
 		<mkdir dir="${build.dir}/package" />
 		<copy todir="${build.dir}/package" includeemptydirs="true">
 			<fileset>
-				<include name="*" />
+				<include name="*.*" />
 				<include name="${lib.dir}/**" />
 				<include name="Core/**" />
 				<include name="ServerControls/**" />

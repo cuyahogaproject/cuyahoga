@@ -1,4 +1,4 @@
-Copyright (c) 2004, Martijn Boland (martijn@boland.org)
+Copyright (c) 2004, Martijn Boland
 All rights reserved.
 
 Redistribution and use in source and binary forms, with or without
