@@ -16,9 +16,14 @@ namespace Cuyahoga.Web.Support.FreeTextBox.Custom
 	/// </summary>
 	public class LinkBrowser : System.Web.UI.Page
 	{
+		protected System.Web.UI.WebControls.TextBox txtUrl;
+		protected System.Web.UI.WebControls.TextBox txtDescription;
+		protected System.Web.UI.WebControls.DropDownList ddlTarget;
+	
 		private void Page_Load(object sender, System.EventArgs e)
 		{
-			// Put user code to initialize the page here
+			string descr = Context.Request.QueryString["descr"];
+			this.txtDescription.Text = descr;
 		}
 
 		#region Web Form Designer generated code
@@ -38,6 +43,7 @@ namespace Cuyahoga.Web.Support.FreeTextBox.Custom
 		private void InitializeComponent()
 		{    
 			this.Load += new System.EventHandler(this.Page_Load);
+
 		}
 		#endregion
 	}

@@ -583,17 +583,6 @@
                     BuildAction = "Content"
                 />
                 <File
-                    RelPath = "Support\FreeTextBox\Custom\Thumbnail.aspx.cs"
-                    DependentUpon = "Thumbnail.aspx"
-                    SubType = "ASPXCodeBehind"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "Support\FreeTextBox\Custom\Thumbnail.aspx.resx"
-                    DependentUpon = "Thumbnail.aspx.cs"
-                    BuildAction = "EmbeddedResource"
-                />
-                <File
                     RelPath = "Support\FreeTextBox\Custom\images\folder.gif"
                     BuildAction = "Content"
                 />
