@@ -32,7 +32,6 @@ namespace Cuyahoga.Web.Modules.Articles
 		protected eWorld.UI.CalendarPopup calDateOnline;
 		protected eWorld.UI.CalendarPopup calDateOffline;
 		protected System.Web.UI.WebControls.RequiredFieldValidator rfvTitle;
-		protected System.Web.UI.WebControls.RequiredFieldValidator rfvContent;
 		protected System.Web.UI.WebControls.TextBox txtCategory;
 		protected System.Web.UI.WebControls.DropDownList ddlCategory;
 		private ArticleModule _module;

@@ -1,6 +1,6 @@
-<%@ Page language="c#" Codebehind="EditArticle.aspx.cs" AutoEventWireup="false" Inherits="Cuyahoga.Web.Modules.Articles.EditArticle" ValidateRequest="false" %>
-<%@ Register TagPrefix="cc1" Namespace="Cuyahoga.ServerControls" Assembly="Cuyahoga.ServerControls" %>
 <%@ Register TagPrefix="ew" Namespace="eWorld.UI" Assembly="eWorld.UI" %>
+<%@ Register TagPrefix="cc1" Namespace="Cuyahoga.ServerControls" Assembly="Cuyahoga.ServerControls" %>
+<%@ Page language="c#" Codebehind="EditArticle.aspx.cs" AutoEventWireup="false" Inherits="Cuyahoga.Web.Modules.Articles.EditArticle" ValidateRequest="false" %>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN" >
 <html>
 	<head>
@@ -25,7 +25,7 @@
 							<td><asp:textbox id="txtSummary" runat="server" width="650px" height="60px" textmode="MultiLine"></asp:textbox></td></tr>
 						<tr>
 							<td style="WIDTH: 100px">Content</td>
-							<td><cc1:cuyahogaeditor id="cedContent" runat="server" width="650px" stripallscripting="True" allowhtmlmode="False" downlevelrows="20" downlevelcols="80" imagedir="~/UserFiles/Images" supportfolder="~/Support/FreeTextBox/"></cc1:cuyahogaeditor><asp:requiredfieldvalidator id="rfvContent" runat="server" cssclass="validator" display="Dynamic" errormessage="Content is required" enableclientscript="False" controltovalidate="cedContent"></asp:requiredfieldvalidator></td></tr>
+							<td><cc1:cuyahogaeditor id="cedContent" runat="server" width="650px" stripallscripting="True" allowhtmlmode="False" downlevelrows="20" downlevelcols="80" imagedir="~/UserFiles/Images" supportfolder="~/Support/FreeTextBox/"></cc1:cuyahogaeditor></td></tr>
 						<tr>
 							<td style="WIDTH: 100px">Category</td>
 							<td><asp:dropdownlist id="ddlCategory" runat="server" width="200px"></asp:dropdownlist>&nbsp;or
