@@ -56,10 +56,7 @@
 	
 	<target name="build.core">
 		<!-- copy mapping files without proxies for mono -->
-		<copy 
-			todir="Core/Domain" 
-			if="${framework::get-family(framework::get-target-framework()) == 'mono'}"
-			overwrite="true">
+		<copy todir="Core/Domain" if="${framework::get-family(framework::get-target-framework()) == 'mono'}" overwrite="true">
 			<fileset basedir="Core/Domain/mono">
 				<include name="*.hbm.xml" />
 			</fileset>
