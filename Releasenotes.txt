@@ -1,0 +1,41 @@
+Cuyahoga release notes
+
+===========================================================================
+0.7.0 - 2005-03-29
+===========================================================================
+New features:
+
+- Custom menus. You can now add custom menu's to every placeholder in the 
+  template. The menu items point to existing nodes in the site. Visibility
+  of nodes in the regular navigation/menu's can be turned off.
+- Site aliases. A site has a default url that consists of the host and the 
+  application name. A new feature was added to map alternative url's to the
+  site, or a specific node in the site.
+
+Improvements:
+- All related template controls, stylesheets and images  are 
+  now grouped in subdirectories in the Templates directory. The default 
+  installation comes with two subdirectories, 'Default' and 'Classic'. Css 
+  files always have to be in the Css subdirectory (for example, 
+  'Templates/Default/Css').
+  BREAKING CHANGE FOR EXISTING USERS: The path of the Template controls
+  is now split into a base path (for example 'Templates/Default') and the 
+  name of the template control ('CuyahogaNew.ascx'). After upgrading, 
+  reorganize your physical files just like the default files and then go
+  to the template adminstration and correct the values for the base path,
+  template control and css.
+- Templates can be changed any time now, even if there are sections 
+  attached. Cuyahoga displays a warning when sections belong to a
+  placeholder that is not found in the selected template.
+- Support for MySQL 4.0 (was 4.1 and above).
+- The site url doesn't care anymore about casing or trailing slashes.
+  
+Bugfixes:
+- When there are ModuleSettings in the database that can not be found as
+  a type, Cuyhoga throws an exception instead of returning null (and 
+  causing a lot of misunderstanding).
+- The calendar control now handles all regional settings for dates.
+- Converted all table and column names to lowercase, because of errors
+  with MySQL on Linux. It's more consistent now too.
+  
+Thanks to Ayende Rahien, Richard Bourque and sleuth for the heads up.

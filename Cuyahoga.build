@@ -102,10 +102,8 @@
                 <include name="Web/**/*.cs" />
             </sources>
             <resources dynamicprefix="true" prefix="Cuyahoga">
-				<include name="Web/Controls/**/Strings*.resx"
-					if="${framework::get-family(framework::get-target-framework()) == 'net'}" />
-				<include name="Web/Controls/**/Strings.resx"
-					if="${framework::get-family(framework::get-target-framework()) == 'mono'}" />
+				<include name="Web/Controls/**/Strings*.resx" if="${framework::get-family(framework::get-target-framework()) == 'net'}" />
+				<include name="Web/Controls/**/Strings.resx" if="${framework::get-family(framework::get-target-framework()) == 'mono'}" />
 			</resources>
             <references>
                 <include name="System.dll" />
@@ -115,6 +113,7 @@
                 <include name="System.Web.dll" />
                 <include name="${lib.dir}/NHibernate.dll" />
                 <include name="${lib.dir}/log4net.dll" />
+                <include name="${lib.dir}/Lucene.Net.*" />
                 <include name="${build.dir}/bin/Cuyahoga.Core.dll" />
                 <include name="${build.dir}/bin/Cuyahoga.ServerControls.dll" />
             </references>
@@ -140,6 +139,7 @@
                 <include name="System.Drawing.dll" />
                 <include name="System.Web.dll" />
                 <include name="${lib.dir}/NHibernate.dll" />
+                <include name="${lib.dir}/Lucene.Net.*" />
                 <include name="${lib.dir}/FredCK.FCKeditorV2.dll" />  
                 <include name="${build.dir}/bin/Cuyahoga.Core.dll" />
                 <include name="${build.dir}/bin/Cuyahoga.Web.dll" />
