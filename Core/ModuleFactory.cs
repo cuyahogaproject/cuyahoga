@@ -27,13 +27,9 @@ namespace Cuyahoga.Core
 				// return an instance of the desired module
 				return (Module)(((ConstructorInfo)moduleConstructor).Invoke(null));
 			}
-			catch (Exception e) 
+			catch (Exception ex) 
 			{
-				// could not locate DLL file
-				Trace.WriteLine("ERROR: Could not locate file: " + assemblyPath + " or could not locate class " + className + " in file.");
-				Trace.WriteLine(e.Message);
-				Trace.WriteLine(e.StackTrace);
-				return null;
+				throw ex;
 			}
 		}
 

@@ -86,8 +86,8 @@ namespace Cuyahoga.Web.UI
 		/// <param name="obj"></param>
 		protected override void AddParsedSubObject(object obj)
 		{
-			try
-			{
+//			try
+//			{
 				// Get an instance of the CacheManager
 				CacheManager cm = new CacheManager();
 				// Add the CacheManager to the current context, so it can track all objects during the page lifecycle.
@@ -156,11 +156,11 @@ namespace Cuyahoga.Web.UI
 				// remove html that was in the original page (Default.aspx)
 				for (int i = this.Controls.Count -1; i < 0; i --)
 					this.Controls.RemoveAt(i);
-			}
-			catch (Exception ex)
-			{
-				Context.Response.Write("<h1>An error occured:</h1>" + ex.Message);
-			}
+//			}
+//			catch (Exception ex)
+//			{
+//				Context.Response.Write("<h1>An error occured:</h1>" + ex.Message);
+//			}
 			base.AddParsedSubObject (obj);
 		}
 

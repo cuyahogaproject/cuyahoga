@@ -92,6 +92,14 @@
                     BuildAction = "Content"
                 />
                 <File
+                    RelPath = "HashCodeProvider.dll"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "HashCodeProvider.license.txt"
+                    BuildAction = "Content"
+                />
+                <File
                     RelPath = "log4net.dll"
                     BuildAction = "Content"
                 />
@@ -100,7 +108,11 @@
                     BuildAction = "Content"
                 />
                 <File
-                    RelPath = "Mono.Security.dll"
+                    RelPath = "Mono.Security.Protocol.Tls.dll"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "NHibernate.dll"
                     BuildAction = "Content"
                 />
                 <File
