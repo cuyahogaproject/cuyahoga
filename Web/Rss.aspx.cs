@@ -75,7 +75,10 @@ namespace Cuyahoga.Web
 						foreach (RssItem item in channel.RssItems)
 						{
 							// replace inline relative hyperlinks with full hyperlinks
-							item.Description = regExUrl.Replace(item.Description, String.Format(@"=""{0}/", UrlHelper.GetSiteUrl()));
+							if (item.Description != null)
+							{
+								item.Description = regExUrl.Replace(item.Description, String.Format(@"=""{0}/", UrlHelper.GetSiteUrl()));
+							}
 
 							// write out 
 							writer.WriteStartElement("item");

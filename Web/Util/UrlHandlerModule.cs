@@ -4,6 +4,8 @@ using System.Text.RegularExpressions;
 using System.Configuration;
 using System.Collections.Specialized;
 
+using log4net;
+
 namespace Cuyahoga.Web.Util
 {
 	/// <summary>
@@ -11,6 +13,8 @@ namespace Cuyahoga.Web.Util
 	/// </summary>
 	public class UrlHandlerModule : IHttpModule
 	{
+		private static readonly ILog log = LogManager.GetLogger(typeof(UrlHandlerModule));
+
 		public UrlHandlerModule()
 		{
 		}
@@ -49,7 +53,34 @@ namespace Cuyahoga.Web.Util
 						// Store the original url in the Context.Items collection. We need to save this for setting
 						// the action of the form.
 						string rewritePath = regEx.Replace(urlToRewrite, UrlHelper.GetApplicationPath() + mappings[i]);
-						context.RewritePath(rewritePath);
+						// MONO_WORKAROUND: split the rewritten path in path, pathinfo and querystring
+						// because MONO doesn't handle the pathinfo directly
+						//context.RewritePath(rewritePath);
+						string querystring = String.Empty;
+						string pathInfo = String.Empty;
+						string path = String.Empty;
+						// 1. extract querystring
+						int qmark = rewritePath.IndexOf("?");
+						if (qmark != -1 || qmark + 1 < rewritePath.Length) 
+						{
+							querystring = rewritePath.Substring (qmark + 1);
+							rewritePath = rewritePath.Substring (0, qmark);
+						} 
+						// 2. extract pathinfo
+						int pathInfoSlashPos = rewritePath.IndexOf("aspx/") + 4;
+						if (pathInfoSlashPos > 3)
+						{
+							pathInfo = rewritePath.Substring(pathInfoSlashPos);
+							rewritePath = rewritePath.Substring(0, pathInfoSlashPos);
+						}
+						// 3. path
+						path = rewritePath;
+						log.Info("urlToRewrite = " + urlToRewrite);
+						log.Info("path = " + path);
+						log.Info("pathInfo = " + pathInfo);
+						log.Info("querystring = " + querystring);
+						
+						context.RewritePath(path, pathInfo, querystring);
 					}
 					break;
 				}

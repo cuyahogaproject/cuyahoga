@@ -155,7 +155,7 @@ namespace Cuyahoga.Modules.Articles
 			}
 			else
 			{
-				hpl.Text = "-";
+				hplCategory.Text = "-";
 			}
 			HyperLink hplComments = e.Item.FindControl("hplComments") as HyperLink;
 			hplComments.NavigateUrl = UrlHelper.GetUrlFromSection(this._module.Section) 

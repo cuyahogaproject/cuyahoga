@@ -202,6 +202,26 @@
                     BuildAction = "EmbeddedResource"
                 />
                 <File
+                    RelPath = "Domain\mono\Node.hbm.xml"
+                    BuildAction = "EmbeddedResource"
+                />
+                <File
+                    RelPath = "Domain\mono\Section.hbm.xml"
+                    BuildAction = "EmbeddedResource"
+                />
+                <File
+                    RelPath = "Domain\mono\Site.hbm.xml"
+                    BuildAction = "EmbeddedResource"
+                />
+                <File
+                    RelPath = "Domain\mono\Template.hbm.xml"
+                    BuildAction = "EmbeddedResource"
+                />
+                <File
+                    RelPath = "Domain\mono\User.hbm.xml"
+                    BuildAction = "EmbeddedResource"
+                />
+                <File
                     RelPath = "Security\CuyahogaPrincipal.cs"
                     SubType = "Code"
                     BuildAction = "Compile"
