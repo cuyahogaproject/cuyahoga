@@ -262,15 +262,16 @@ namespace Cuyahoga.ServerControls
 		private void ControlToPage_DataBinding(object sender, EventArgs e)
 		{
 			// Take the datasource and hand it over to the internal PagedDataSource.
-			// We need a little reflection here
+			// We need a little reflection here.
 			PropertyInfo pi = this._controlToPage.GetType().GetProperty("DataSource");
 			if (pi != null)
 			{
 				IEnumerable controlDataSource = (IEnumerable)pi.GetValue(this._controlToPage, null);
 				// We don't have to do anything special when the datasource of the controlToPage already is 
-				// a PagedDataSource
+				// a PagedDataSource.
 				if (! (controlDataSource is PagedDataSource))
 				{
+					// Maybe we have a cached datasource
 					this._pagedDataSource.DataSource = controlDataSource;
 					if (this.CurrentPageIndex == -1)
 						this.CurrentPageIndex = 0;
@@ -279,7 +280,7 @@ namespace Cuyahoga.ServerControls
 					TotalPages = this._pagedDataSource.PageCount;
 					// Call databind again, but now with the pageddatasource attached.
 					this._controlToPage.DataBind();
-					// We need to do CreateChildControls again.
+					// ChildControls have to be created again.
 					this.ChildControlsCreated = false;
 				}
 			}
