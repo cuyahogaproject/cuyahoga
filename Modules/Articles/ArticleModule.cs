@@ -64,7 +64,7 @@ namespace Cuyahoga.Modules.Articles
 		{
 			try
 			{
-				string hql = "select distinct c from Category c, Article a where a in elements(c.Articles) and a.Section.Node.Site.Id = :siteId";
+				string hql = "select distinct c from Category c, Article a where a.Category = c and a.Section.Node.Site.Id = :siteId";
 				IQuery q = base.NHSession.CreateQuery(hql);
 				q.SetInt32("siteId", base.Section.Node.Site.Id);
 				return q.List();
@@ -180,7 +180,7 @@ namespace Cuyahoga.Modules.Articles
 		{
 			try
 			{
-				string hql = "from Article a where a.Section.Id = :sectionId and a.Syndicate = :syndicate and a.DateOnline < :now and a.DateOffline > :now order by a.DateOnline asc ";
+				string hql = "from Article a where a.Section.Id = :sectionId and a.Syndicate = :syndicate and a.DateOnline < :now and a.DateOffline > :now order by a.DateOnline desc ";
 				IQuery q = base.NHSession.CreateQuery(hql);
 				q.SetInt32("sectionId", base.Section.Id);
 				q.SetBoolean("syndicate", true);
