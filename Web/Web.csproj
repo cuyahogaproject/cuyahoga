@@ -1723,31 +1723,9 @@
                     BuildAction = "Content"
                 />
                 <File
-                    RelPath = "Templates\CuyahogaHome.ascx.cs"
-                    DependentUpon = "CuyahogaHome.ascx"
-                    SubType = "ASPXCodeBehind"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "Templates\CuyahogaHome.ascx.resx"
-                    DependentUpon = "CuyahogaHome.ascx.cs"
-                    BuildAction = "EmbeddedResource"
-                />
-                <File
                     RelPath = "Templates\CuyahogaStandard.ascx"
                     SubType = "UserControl"
                     BuildAction = "Content"
-                />
-                <File
-                    RelPath = "Templates\CuyahogaStandard.ascx.cs"
-                    DependentUpon = "CuyahogaStandard.ascx"
-                    SubType = "ASPXCodeBehind"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "Templates\CuyahogaStandard.ascx.resx"
-                    DependentUpon = "CuyahogaStandard.ascx.cs"
-                    BuildAction = "EmbeddedResource"
                 />
                 <File
                     RelPath = "Templates\ModuleAdminTemplate.ascx"

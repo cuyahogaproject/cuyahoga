@@ -14,7 +14,6 @@ namespace Cuyahoga.Modules.Articles
 		private int _sectionId;
 		private int _createdById;
 		private int _modifiedById;
-		private int _categoryId;
 		private string _title;
 		private string _summary;
 		private string _content;
@@ -196,7 +195,6 @@ namespace Cuyahoga.Modules.Articles
 			this._sectionId = -1;
 			this._createdById = -1;
 			this._modifiedById = -1;
-			this._categoryId = -1;
 			this._syndicate = true;
 			this._dateOnline = DateTime.MinValue;
 			this._dateOffline = DateTime.MinValue;
