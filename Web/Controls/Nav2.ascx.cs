@@ -1,6 +1,7 @@
 namespace Cuyahoga.Web.Controls
 {
 	using System;
+	using System.Data;
 	using System.Drawing;
 	using System.Web;
 	using System.Web.UI.WebControls;
@@ -11,14 +12,12 @@ namespace Cuyahoga.Web.Controls
 	using Cuyahoga.Web.Util;
 
 	/// <summary>
-	///		Summary description for Nav1.
+	///		Summary description for Nav2.
 	/// </summary>
-	public class Nav1 : System.Web.UI.UserControl
+	public class Nav2 : System.Web.UI.UserControl
 	{
 		private Cuyahoga.Web.UI.PageEngine _page;
-		protected System.Web.UI.WebControls.HyperLink hplHome;
-		protected System.Web.UI.WebControls.HyperLink hplAdmin;
-		protected System.Web.UI.WebControls.Repeater rptNav1;
+		protected System.Web.UI.WebControls.Repeater rptNav2;
 
 		private void Page_Load(object sender, System.EventArgs e)
 		{
@@ -27,18 +26,12 @@ namespace Cuyahoga.Web.Controls
 				if (this.Page is PageEngine)
 				{
 					this._page = (PageEngine)this.Page;	
-					// Bind home hyperlink
-					this.hplHome.NavigateUrl = UrlHelper.GetUrlFromNode(this._page.RootNode);
-					this.hplHome.Text = this._page.RootNode.Title;
-					// Bind level 1 nodes
-					this.rptNav1.ItemDataBound += new RepeaterItemEventHandler(rptNav1_ItemDataBound);
-					this.rptNav1.DataSource = this._page.RootNode.ChildNodes;
-					this.rptNav1.DataBind();
-					
-					if (this._page.CuyahogaUser != null)
+					// Bind level 2 nodes
+					if (this._page.ActiveNode.Level > 0)
 					{
-						this.hplAdmin.NavigateUrl = this._page.ResolveUrl("~/Admin");
-						this.hplAdmin.Visible = this._page.CuyahogaUser.HasPermission(AccessLevel.Administrator);
+						this.rptNav2.ItemDataBound += new RepeaterItemEventHandler(rptNav2_ItemDataBound);
+						this.rptNav2.DataSource = this._page.ActiveNode.NodePath[1].ChildNodes;
+						this.rptNav2.DataBind();
 					}
 				}
 			}
@@ -64,22 +57,23 @@ namespace Cuyahoga.Web.Controls
 		/// </summary>
 		private void InitializeComponent()
 		{
+			this.rptNav2.ItemDataBound += new System.Web.UI.WebControls.RepeaterItemEventHandler(this.rptNav2_ItemDataBound);
 			this.Load += new System.EventHandler(this.Page_Load);
 
 		}
 		#endregion
 
-		private void rptNav1_ItemDataBound(object sender, RepeaterItemEventArgs e)
+		private void rptNav2_ItemDataBound(object sender, System.Web.UI.WebControls.RepeaterItemEventArgs e)
 		{
 			Node node = (Node)e.Item.DataItem;
 			if (node.ViewAllowed(this._page.CuyahogaUser))
 			{
-				HyperLink hpl = (HyperLink)e.Item.FindControl("hplNav1");
+				HyperLink hpl = (HyperLink)e.Item.FindControl("hplNav2");
 				hpl.NavigateUrl = UrlHelper.GetUrlFromNode(node);
 				hpl.Text = node.Title;
 				if (node.Level <= this._page.ActiveNode.Level && node.Id == this._page.ActiveNode.Trail[node.Level])
 				{
-					hpl.CssClass = "selected";
+					hpl.CssClass = "subselected";
 				}
 			}
 			else

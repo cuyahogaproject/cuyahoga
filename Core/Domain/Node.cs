@@ -21,6 +21,7 @@ namespace Cuyahoga.Core.Domain
 		private IList _sections;
 		private Template _template;
 		private int[] _trail;
+		private Node[] _nodePath;
 		private IList _nodePermissions;
 		private string _culture;
 		private DateTime _updateTimestamp;
@@ -177,18 +178,26 @@ namespace Cuyahoga.Core.Domain
 		{
 			get
 			{
-				if (this._trail == null && this.Level > -1)
+				if (this._trail == null)
 				{
-                    this._trail = new int[this.Level + 1];
-					this._trail[this.Level] = this._id;
-					Node tmpParentNode = this.ParentNode;
-					while (tmpParentNode != null)
-					{
-						this._trail[tmpParentNode.Level] = tmpParentNode.Id;
-						tmpParentNode = tmpParentNode.ParentNode;
-					}                
+					SetNodePath();
 				}
 				return this._trail;
+			}
+		}
+
+		/// <summary>
+		/// Array with all Nodes from the current node to the root node.
+		/// </summary>
+		public virtual Node[] NodePath
+		{
+			get
+			{
+				if (this._nodePath == null)
+				{
+					SetNodePath(); 
+				}
+				return this._nodePath;
 			}
 		}
 
@@ -367,6 +376,11 @@ namespace Cuyahoga.Core.Domain
 			}
 		}
 
+		/// <summary>
+		/// 
+		/// </summary>
+		/// <param name="role"></param>
+		/// <returns></returns>
 		public virtual bool ViewAllowed(Role role)
 		{
 			foreach (NodePermission np in this.NodePermissions)
@@ -379,6 +393,11 @@ namespace Cuyahoga.Core.Domain
 			return false;
 		}
 
+		/// <summary>
+		/// 
+		/// </summary>
+		/// <param name="role"></param>
+		/// <returns></returns>
 		public virtual bool EditAllowed(Role role)
 		{
 			foreach (NodePermission np in this.NodePermissions)
@@ -552,6 +571,24 @@ namespace Cuyahoga.Core.Domain
 				this.Position = previousSibling.ChildNodes.Count;
 				previousSibling.ChildNodes.Add(this);
 				this.ParentNode = previousSibling;
+			}
+		}
+
+		private void SetNodePath()
+		{
+			if (this.Level > -1)
+			{
+				this._trail = new int[this.Level + 1];
+				this._nodePath = new Node[this.Level + 1];
+				this._trail[this.Level] = this._id;
+				this._nodePath[this.Level] = this;
+				Node tmpParentNode = this.ParentNode;
+				while (tmpParentNode != null)
+				{
+					this._trail[tmpParentNode.Level] = tmpParentNode.Id;
+					this._nodePath[tmpParentNode.Level] = tmpParentNode;
+					tmpParentNode = tmpParentNode.ParentNode;
+				}       
 			}
 		}
 

@@ -4,6 +4,8 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Web.UI.HtmlControls;
 using System.Diagnostics;
+using System.Threading;
+using System.Globalization;
 
 using Cuyahoga.Core.Domain;
 using Cuyahoga.Core.Service;
@@ -94,7 +96,7 @@ namespace Cuyahoga.Web.UI
 				CacheManager cm = new CacheManager(this._coreRepository, currentSite);
 				// Add the CacheManager to the current context, so it can track all objects during the page lifecycle.
 				Context.Items.Add("CacheManager", cm);
-				// Get root node from the CacheManager.
+				// Get initial root node from the CacheManager.
 				this._rootNode = cm.GetRootNode();
 
 				// Load the active node
@@ -111,6 +113,15 @@ namespace Cuyahoga.Web.UI
 					// Can't load a particular node, so the root node has to be the active node
 					this._activeNode = this._rootNode;
 				}
+				// Set the root node again, but now based on the active node.
+				if (this._activeNode.NodePath != null)
+				{
+					this._rootNode = this._activeNode.NodePath[0];
+				}
+
+				// Set culture
+				// TODO: fix this because ASP.NET pages are not guaranteed to run in 1 thread
+				Thread.CurrentThread.CurrentCulture = CultureInfo.CreateSpecificCulture(this._activeNode.Culture);				
 				
 				// Load template and usercontrols
 

@@ -473,23 +473,43 @@
                     BuildAction = "EmbeddedResource"
                 />
                 <File
+                    RelPath = "Controls\Nav2.ascx"
+                    SubType = "UserControl"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Controls\Nav2.ascx.cs"
+                    DependentUpon = "Nav2.ascx"
+                    SubType = "ASPXCodeBehind"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "Controls\Nav2.ascx.resx"
+                    DependentUpon = "Nav2.ascx.cs"
+                    BuildAction = "EmbeddedResource"
+                />
+                <File
                     RelPath = "Css\Admin.css"
                     BuildAction = "Content"
                 />
                 <File
-                    RelPath = "Css\Cuyahoga.css"
+                    RelPath = "Css\red.css"
                     BuildAction = "Content"
                 />
                 <File
-                    RelPath = "Css\Default.css"
+                    RelPath = "Images\bg.gif"
                     BuildAction = "Content"
                 />
                 <File
-                    RelPath = "Css\Modules.css"
+                    RelPath = "Images\bg-header.gif"
                     BuildAction = "Content"
                 />
                 <File
-                    RelPath = "Css\Print.css"
+                    RelPath = "Images\bgitem.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Images\bgsectionheader.gif"
                     BuildAction = "Content"
                 />
                 <File
@@ -1698,19 +1718,36 @@
                     BuildAction = "Content"
                 />
                 <File
-                    RelPath = "Templates\Cuyahoga.ascx"
+                    RelPath = "Templates\CuyahogaHome.ascx"
                     SubType = "UserControl"
                     BuildAction = "Content"
                 />
                 <File
-                    RelPath = "Templates\DefaultTemplate.ascx"
+                    RelPath = "Templates\CuyahogaHome.ascx.cs"
+                    DependentUpon = "CuyahogaHome.ascx"
+                    SubType = "ASPXCodeBehind"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "Templates\CuyahogaHome.ascx.resx"
+                    DependentUpon = "CuyahogaHome.ascx.cs"
+                    BuildAction = "EmbeddedResource"
+                />
+                <File
+                    RelPath = "Templates\CuyahogaStandard.ascx"
                     SubType = "UserControl"
                     BuildAction = "Content"
                 />
                 <File
-                    RelPath = "Templates\HomeTemplate.ascx"
-                    SubType = "UserControl"
-                    BuildAction = "Content"
+                    RelPath = "Templates\CuyahogaStandard.ascx.cs"
+                    DependentUpon = "CuyahogaStandard.ascx"
+                    SubType = "ASPXCodeBehind"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "Templates\CuyahogaStandard.ascx.resx"
+                    DependentUpon = "CuyahogaStandard.ascx.cs"
+                    BuildAction = "EmbeddedResource"
                 />
                 <File
                     RelPath = "Templates\ModuleAdminTemplate.ascx"

@@ -55,22 +55,24 @@ namespace Cuyahoga.Web.UI
 
 
 		/// <summary>
-		/// Wrap the module content in a visual block.
+		/// Wrap the section content in a visual block.
 		/// </summary>
 		/// <param name="writer"></param>
 		protected override void Render(System.Web.UI.HtmlTextWriter writer)
 		{
-			writer.Write("<div class=\"module\">");
+			writer.Write("<div class=\"section\">");
+			// Section title
+			if (this._module.Section != null && this._module.Section.ShowTitle)
+			{
+				writer.Write("<h3>" + this._module.Section.Title + "</h3>");
+			}
+			// Edit button
 			User cuyahogaUser = this.Page.User.Identity as User;
 			if (this._module.Section.ModuleType.EditPath != null
 				&& cuyahogaUser != null
 				&& cuyahogaUser.CanEdit(this._module.Section))
 			{
 				writer.Write(String.Format("<a href=\"{0}?NodeId={1}&SectionId={2}\">Edit</a>", UrlHelper.GetApplicationPath() + this._module.Section.ModuleType.EditPath, this._module.Section.Node.Id, this._module.Section.Id));
-			}
-			if (this._module.Section != null && this._module.Section.ShowTitle)
-			{
-				writer.Write("<h3>" + this._module.Section.Title + "</h3>");
 			}
 			// Write module content and handle caching when neccesary.
 			if (this._module.Section.CacheDuration > 0 && this.Module.CacheKey != null)
