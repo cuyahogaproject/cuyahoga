@@ -70,6 +70,15 @@ namespace Cuyahoga.Core.Domain
 		}
 
 		/// <summary>
+		/// The full name of the user. This can be used for display purposes.
+		/// </summary>
+		public virtual string FullName
+		{
+			get { return this._firstName + " " + this._lastName; }
+		}
+
+
+		/// <summary>
 		/// Property Email (string)
 		/// </summary>
 		public virtual string Email

@@ -15,7 +15,7 @@
 						</p>
 					</asp:panel>
 					<div class="articlesub"><%= base.GetText("PUBLISHED") %>&nbsp;<%# DataBinder.Eval(Container.DataItem, "DateOnline", "{0:D}") %>&nbsp;
-						<%= base.GetText("BY") %>&nbsp;<%# DataBinder.Eval(Container.DataItem, "CreatedBy.UserName") %>.&nbsp;
+						<%= base.GetText("BY") %>&nbsp;<%# DataBinder.Eval(Container.DataItem, "CreatedBy.FullName") %>.&nbsp;
 						<%= base.GetText("CATEGORY") %>&nbsp;<%# DataBinder.Eval(Container.DataItem, "Category.Title") %>.
 					</div>
 				</li>

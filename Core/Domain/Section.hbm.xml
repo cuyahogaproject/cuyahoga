@@ -31,8 +31,8 @@
 		
 		<map name="Settings" table="cuyahoga_sectionsetting" lazy="true" cascade="all">
 		    <key column="sectionid" />
-		    <index column="Name" type="string" length="50" />
-			<element column="Value" type="string" length="100" />
+		    <index column="Name" type="String" length="50" />
+			<element column="Value" type="String" length="100" />
 		</map>
 		
 	</class>

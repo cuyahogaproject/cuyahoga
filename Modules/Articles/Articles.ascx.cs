@@ -43,6 +43,9 @@ namespace Cuyahoga.Modules.Articles
 		private void Page_Load(object sender, System.EventArgs e)
 		{
 			this._module = this.Module as ArticleModule;
+			// Don't display the syndication icon on the article view
+			base.DisplaySyndicationIcon = ! (this._module.CurrentArticleId > 0);
+
 			if (this._module != null && (! base.HasCachedOutput || this.Page.IsPostBack))
 			{
 				// Custom settings
@@ -53,8 +56,6 @@ namespace Cuyahoga.Modules.Articles
 				if (this._module.CurrentArticleId > 0)
 				{
 					// Article view
-					base.DisplaySyndicationIcon = false;
-
 					this._activeArticle = this._module.GetArticleById(this._module.CurrentArticleId);
 					this.litTitle.Text = this._activeArticle.Title;
 					this.litContent.Text = this._activeArticle.Content;
@@ -87,8 +88,6 @@ namespace Cuyahoga.Modules.Articles
 				else
 				{
 					// Article list view
-					base.DisplaySyndicationIcon = true;
-
 					int numberOfArticles = 10; // default 
 					if (this._module.Section.Settings["NUMBER_OF_ARTICLES_IN_LIST"] != null)
 					{
@@ -162,6 +161,8 @@ namespace Cuyahoga.Modules.Articles
 				try
 				{
 					this._module.SaveComment(comment);
+					// Clear the cache, so the comment will appear immediately.
+					base.InvalidateCache();
 					Context.Response.Redirect(UrlHelper.GetUrlFromSection(this._module.Section) + "/" + this._activeArticle.Id.ToString());
 				}
 				catch (Exception ex)
@@ -182,7 +183,7 @@ namespace Cuyahoga.Modules.Articles
 				{
 					// Comment by registered user.
 					Literal lit = new Literal();
-					lit.Text = comment.User.UserName;
+					lit.Text = comment.User.FullName;
 					plhCommentBy.Controls.Add(lit);
 				}
 				else

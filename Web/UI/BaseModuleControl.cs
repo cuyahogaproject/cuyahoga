@@ -69,7 +69,8 @@ namespace Cuyahoga.Web.UI
 		{
 			if (this.Module.Section.CacheDuration > 0 && this.Module.CacheKey != null)
 			{
-				if (HttpContext.Current.Cache[this.Module.CacheKey] != null)
+				// Get the cached content. Don't use cached output after a postback.
+				if (HttpContext.Current.Cache[this.Module.CacheKey] != null && ! this.IsPostBack)
 				{
 					// Found cached content.
 					this._cachedOutput = HttpContext.Current.Cache[this.Module.CacheKey].ToString();
@@ -137,6 +138,17 @@ namespace Cuyahoga.Web.UI
 		protected string GetText(string key)
 		{
 			return this._resMan.GetString(key, this._currentUICulture);
+		}
+
+		/// <summary>
+		/// Empty the output cache for the current module state.
+		/// </summary>
+		protected void InvalidateCache()
+		{
+			if (this.Module.CacheKey != null)
+			{
+				HttpContext.Current.Cache.Remove(this.Module.CacheKey);
+			}
 		}
 	}
 }

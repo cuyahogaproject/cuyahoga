@@ -1,0 +1,50 @@
+Installing Cuyahoga from source.
+
+1. Unzip the files to a local directory.
+
+2. Create a database (currently you can choose SQL Server/MSDE or PostgreSQL as database backend).
+
+3. Run the following scripts from the Database folder:
+
+    create-core-***.sql (where *** is mssql2000 or postgresql, depending on the platform)
+    create-modules-***.sql
+    init-***.sql
+
+4. Build and run.
+
+    There are 2 possible ways to build Cuyahoga: using Visual Studio .NET 2003 (VS.NET) or NAnt.
+    
+    4a. Building with VS.NET.
+        - Open Cuyahoga.sln with VS.NET.
+        - Build Solution.
+        - Create an IIS application (virtual directory) that points to the Web folder.
+        - Change the connection string in the Web.config (hibernate.connection.connection_string)
+          to the database that is created in step 2.
+        - If you want to run/debug the application from VS.NET you have to change the 
+          default Start Action: 
+          Go to Project -> Properties -> Configuration Properties -> Debugging. Change debug mode
+          to 'URL' and set the Start URL to the url of the created IIS application 
+          (for example http://localhost/cuyahoga).
+          
+    4b. Building with NAnt.
+        - Make sure you have a 0.85 version of NAnt (http://nant.sourceforge.net).
+        - Open a command prompt, go to the directory where you extracted the .zip file.
+        - Enter 'nant'. This will create a build directory with the compiled binaries and the 
+          libraries (for example 'build/net-1.1.win32/Cuyahoga-0.4.0.0-debug').
+        - Enter 'nant deploy' to add the other files needed to run Cuyahoga to the build.
+        - Create an IIS application that points to the build directory or copy the files in the
+          build directory to the root directory of an existing IIS application.
+        - Change the connection string in the Web.config (hibernate.connection.connection_string)
+          to the database that is created in step 2.
+          
+    You are now ready to run the application. Before the fun starts you have to create a site
+    first. Open a web browser and go to the web site administration. The url is
+    http://HOST_NAME/APPLICATION_NAME/Admin (for example http://localhost/cuyahoga/Admin). Log in
+    with user 'admin' and password 'hyena'. Start playing around and see if you manage to get a 
+    web site up and running :). Don't forget to change the admin password!
+    
+Hints and tips:
+- You can enable logging to uncomment the <log4net> section in the Web.config. Make sure your
+  ASP.NET user has write access to the path of the logfile.
+- Give the ASP.NET user write access for the Web/UserFiles directory to enable uploading images or
+  other files.
