@@ -40,3 +40,8 @@ ALTER TABLE Cuyahoga_User
 	,	IsActive bit NULL
 	
 GO
+
+UPDATE TABLE Cuyahoga_User
+	SET IsActive = 1
+	
+GO

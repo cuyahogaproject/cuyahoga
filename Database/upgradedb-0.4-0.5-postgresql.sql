@@ -24,3 +24,5 @@ ALTER TABLE cuyahoga_site
 
 ALTER TABLE cuyahoga_user ADD COLUMN website varchar(100) NULL;
 ALTER TABLE cuyahoga_user ADD COLUMN isactive bool NULL;
+
+UPDATE cuyahoga_user SET isactive = true;
