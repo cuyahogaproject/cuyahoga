@@ -7,6 +7,7 @@ using System.Diagnostics;
 
 using Cuyahoga.Core;
 using Cuyahoga.Core.Domain;
+using Cuyahoga.Core.Service;
 using Cuyahoga.Core.Collections;
 using Cuyahoga.Core.DAL;
 using Cuyahoga.Core.Util;
@@ -26,6 +27,7 @@ namespace Cuyahoga.Web.UI
 		private Node _activeNode;
 		private Section _activeSection;
 		private BaseTemplate _templateControl;
+		private CoreRepository _coreRepository;
 
 		#region properties
 
@@ -81,16 +83,17 @@ namespace Cuyahoga.Web.UI
 
 		/// <summary>
 		/// Load the content and the template as early as possible, so everything is in place before 
-		/// modules handle their own events. We could do this by overriding the OnInit method but 
-		/// that gives unpredictable results with Mono (0.30).
+		/// modules handle their own events.
 		/// </summary>
 		/// <param name="obj"></param>
-		protected override void AddParsedSubObject(object obj)
+		protected override void OnInit(EventArgs e)
 		{
 //			try
 //			{
+				// Create the repository for Core objects
+				this._coreRepository = new CoreRepository(true);
 				// Get an instance of the CacheManager
-				CacheManager cm = new CacheManager();
+				CacheManager cm = new CacheManager(this._coreRepository);
 				// Add the CacheManager to the current context, so it can track all objects during the page lifecycle.
 				Context.Items.Add("CacheManager", cm);
 				// Get root node from the CacheManager.
@@ -138,10 +141,12 @@ namespace Cuyahoga.Web.UI
 						{
 							this._activeSection = section;
 						}
-						if (section.Module != null)
+						// Create the module that is connected to the section.
+						ModuleBase module = section.CreateModule();
+						if (module != null)
 						{
-							BaseModuleControl ctrl = (BaseModuleControl)this.LoadControl(appRoot + section.Module.ModuleType.Path);
-							ctrl.Module = section.Module;
+							BaseModuleControl ctrl = (BaseModuleControl)this.LoadControl(appRoot + section.ModuleType.Path);
+							ctrl.Module = module;
 							((PlaceHolder)this._templateControl.Containers[section.PlaceholderId]).Controls.Add(ctrl);
 
 							if (Context.Request.PathInfo.Length > 0 && section == this._activeSection)
@@ -163,7 +168,7 @@ namespace Cuyahoga.Web.UI
 //			{
 //				Context.Response.Write("<h1>An error occured:</h1>" + ex.Message);
 //			}
-			base.AddParsedSubObject (obj);
+			base.OnInit(e);
 		}
 
 		/// <summary>
@@ -184,7 +189,15 @@ namespace Cuyahoga.Web.UI
 			// If the CacheManager contains any changes it should be stored again.
 			CacheManager cm = Context.Items["CacheManager"] as CacheManager;
 			if (cm != null && cm.HasChanges)
+			{
 				cm.SaveCache();
+			}
+
+			// Close the session of the CoreRepository
+			if (this._coreRepository != null)
+			{
+				this._coreRepository.CloseSession();
+			}
 
 			// Ready, write the execution time to the debug output.
 			TimeSpan ts = DateTime.Now - (DateTime)Context.Items["starttime"];

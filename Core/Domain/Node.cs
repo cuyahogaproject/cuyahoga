@@ -10,16 +10,18 @@ namespace Cuyahoga.Core.Domain
 	/// <summary>
 	/// Summary description for Node.
 	/// </summary>
+	[Serializable]
 	public class Node : IPersonalizable
 	{
 		private int _id;
+		private DateTime _updateTimestamp;
 		private int _parentId;
 		private string _title;
 		private string _shortDescription;
 		private int _position;
 		private Node _parentNode;
-		private NodeCollection _childNodes;
-		private SectionCollection _sections;
+		private IList _childNodes;
+		private IList _sections;
 		private Template _template;
 		private int[] _trail;
 		// flag to prevent lazy loading of the parent node when set to null
@@ -36,6 +38,15 @@ namespace Cuyahoga.Core.Domain
 		{
 			get { return this._id; }
 			set { this._id = value; }
+		}
+
+		/// <summary>
+		/// Property UpdateTimestamp (DateTime)
+		/// </summary>
+		public DateTime UpdateTimestamp
+		{
+			get { return this._updateTimestamp; }
+			set { this._updateTimestamp = value; }
 		}
 
 		/// <summary>
@@ -103,80 +114,46 @@ namespace Cuyahoga.Core.Domain
 		/// </summary>
 		public Node ParentNode
 		{
-			get 
-			{
-				if (! this._parentSetToNull && this._parentNode == null && this._parentId > 0)
-				{
-					// Load parent
-					this.ParentNode = new Node(this._parentId);
-					// Notify
-					OnUpdate();
-				}
-				return this._parentNode; 
-			}
-			set 
-			{ 
-				this._parentNode = value; 
-				if (value != null)
-				{
-					this._parentId = value.Id;
-				}
-				OnUpdate();
-			}
+			get { return this._parentNode; }
+			set { this._parentNode = value; }
 		}
 
 		/// <summary>
 		/// Property ChildNodes (NodeCollection). Lazy loaded.
 		/// </summary>
-		public NodeCollection ChildNodes
+		public IList ChildNodes
 		{
 			get 
-			{
-				if (this._childNodes == null && this._id > 0)
-				{
-					// ChildNodes are not initialized, so we visit the database for these
-					this._childNodes = new NodeCollection();
-					ICmsDataProvider dp = CmsDataFactory.GetInstance();
-					dp.GetNodesByParent(this, this._childNodes);
-					// Notify
-					OnChildrenLoaded();
-				}
+			{ 
 				return this._childNodes; 
+			}
+			set 
+			{ 
+				// TODO?
+				// Notify that the ChildNodes are loaded. I really want to do this only when the 
+				// ChildNodes are loaded (lazy) from the database but I don't know if this happens right now.
+				// Implement IInterceptor?
+				//OnChildrenLoaded();
+				this._childNodes = value; 
 			}
 		}
 
 		/// <summary>
 		/// Property Sections (SectionCollection). Lazy loaded.
 		/// </summary>
-		public SectionCollection Sections
+		public IList Sections
 		{
-			get 
-			{ 
-				if (this._sections == null && this._id > 0)
-				{
-					this._sections = new SectionCollection();
-					ICmsDataProvider dp = CmsDataFactory.GetInstance();
-					dp.GetSectionsByNode(this, this._sections);
-					// Notify
-					OnUpdate();
-				}
-				return this._sections; 
-			}
+			get { return this._sections; }
+			set { this._sections = value; }
 		}
 
 		/// <summary>
-		/// Property Module (Module)
+		/// Property Template (Template)
 		/// </summary>
 		public Template Template
 		{
-			get 
-			{ 
-				return this._template; 
-			}
-			set 
-			{ 
-				this._template = value; 
-			}
+			get { return this._template; }
+			set { this._template = value; }
 		}
 
 		/// <summary>
@@ -211,7 +188,7 @@ namespace Cuyahoga.Core.Domain
 				if (this.Position > 0)
 				{
 					if (this.ParentNode != null)
-						return this.ParentNode.ChildNodes[this.Position - 1];
+						return (Node)this.ParentNode.ChildNodes[this.Position - 1];
 					else
 					{
 						ICmsDataProvider dp = CmsDataFactory.GetInstance();
@@ -234,7 +211,7 @@ namespace Cuyahoga.Core.Domain
 			{ 
 				if (this._viewRoles == null)
 				{
-					// Load the roles from the database. All roles will be loaded at once (view, edit, add, remove).
+					// Load the roles from the database. All roles will be loaded at once (view, edit).
 					InitRoles();
 					CmsDataFactory.GetInstance().GetRolesByNode(this);
 				}
@@ -318,20 +295,6 @@ namespace Cuyahoga.Core.Domain
 		{
 			this._id = -1;
 			InitNode();			
-		}
-
-		/// <summary>
-		/// Constructor that accepts an id as parameter. It loads the node from the database.
-		/// </summary>
-		/// <param name="id"></param>
-		public Node(int id) : this()
-		{
-			CmsDataFactory.GetInstance().GetNodeById(id, this);
-		}
-
-		public Node (string shortDescription) : this()
-		{
-			CmsDataFactory.GetInstance().GetNodeByShortDescription(shortDescription, this);
 		}
 
 		private void InitNode()

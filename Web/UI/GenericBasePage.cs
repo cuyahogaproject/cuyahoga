@@ -78,7 +78,7 @@ namespace Cuyahoga.Web.UI
 		/// <summary>
 		/// The core repository for persisting Cuyahoga objects.
 		/// </summary>
-		protected CoreRepository CoreRepository
+		internal CoreRepository CoreRepository
 		{
 			get 
 			{ 

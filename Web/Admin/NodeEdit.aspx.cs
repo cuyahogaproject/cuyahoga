@@ -53,8 +53,7 @@ namespace Cuyahoga.Web.Admin
 				if (Context.Request.QueryString["ParentNodeId"] != null)
 				{
 					int parentNodeId = Int32.Parse(Context.Request.QueryString["ParentNodeId"]);
-					this.ActiveNode.ParentId = parentNodeId;
-					this.ActiveNode.ParentNode = new Node(parentNodeId);
+					this.ActiveNode.ParentNode = (Node)base.CoreRepository.GetObjectById(typeof(Node), parentNodeId);
 					if (! this.IsPostBack)
 					{
 						// Copy security from parent.
@@ -207,8 +206,7 @@ namespace Cuyahoga.Web.Admin
 		private void MoveSections()
 		{
 			int sectionId = Int32.Parse(Context.Request.QueryString["SectionId"]);
-			CoreRepository cr = new CoreRepository();
-			Section section = (Section)cr.GetObjectById(typeof(Section), sectionId);
+			Section section = (Section)base.CoreRepository.GetObjectById(typeof(Section), sectionId);
 			section.Node = this.ActiveNode;
 			if (Context.Request.QueryString["Action"] == "MoveUp")
 				section.MoveUp();

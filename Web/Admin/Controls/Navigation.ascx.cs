@@ -1,6 +1,7 @@
 namespace Cuyahoga.Web.Admin.Controls
 {
 	using System;
+	using System.Collections;
 	using System.Web;
 	using System.Web.UI;
 	using System.Web.UI.WebControls;
@@ -40,14 +41,11 @@ namespace Cuyahoga.Web.Admin.Controls
 
 		private void BuildNodeTree()
 		{
-			// Build tree, starting with root nodes
-			ICmsDataProvider dp = CmsDataFactory.GetInstance();
-            NodeCollection nodes = new NodeCollection();
-			dp.GetNodesByParent(null, nodes);
+			IList nodes = this._page.CoreRepository.GetRootNodes();
             DisplayNodes(nodes);			
 		}
 
-		private void DisplayNodes(NodeCollection nodes)
+		private void DisplayNodes(IList nodes)
 		{
 			foreach (Node node in nodes)
 			{				

@@ -10,6 +10,7 @@ namespace Cuyahoga.Core.Domain
 	/// <summary>
 	/// Summary description for User.
 	/// </summary>
+	[Serializable]
 	public class User : IIdentity
 	{
 		private int _id;

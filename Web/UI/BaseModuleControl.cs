@@ -39,11 +39,11 @@ namespace Cuyahoga.Web.UI
 		{
 			writer.Write("<div class=\"module\">");
 			User cuyahogaUser = this.Page.User.Identity as User;
-			if (this._module.ModuleType.EditPath.Length > 0 
+			if (this._module.Section.ModuleType.EditPath != null
 				&& cuyahogaUser != null
 				&& cuyahogaUser.CanEdit(this._module.Section))
 			{
-				writer.Write(String.Format("<a href=\"{0}?NodeId={1}&SectionId={2}\">Edit</a>", UrlHelper.GetApplicationPath() + this._module.ModuleType.EditPath, this._module.Section.Node.Id, this._module.Section.Id));
+				writer.Write(String.Format("<a href=\"{0}?NodeId={1}&SectionId={2}\">Edit</a>", UrlHelper.GetApplicationPath() + this._module.Section.ModuleType.EditPath, this._module.Section.Node.Id, this._module.Section.Id));
 			}
 			if (this._module.Section != null && this._module.Section.ShowTitle)
 			{

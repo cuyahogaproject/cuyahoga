@@ -8,7 +8,6 @@ namespace Cuyahoga.Core.Domain
 	public abstract class ModuleBase
 	{
 		private Section _section;
-		private ModuleType _moduleType;
 
 		/// <summary>
 		/// Property Section (Section)
@@ -17,15 +16,6 @@ namespace Cuyahoga.Core.Domain
 		{
 			get { return this._section; }
 			set { this._section = value; }
-		}
-
-		/// <summary>
-		/// Property ModuleType (ModuleType)
-		/// </summary>
-		public ModuleType ModuleType
-		{
-			get { return this._moduleType; }
-			set { this._moduleType = value; }
 		}
 
 		/// <summary>

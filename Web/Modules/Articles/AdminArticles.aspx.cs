@@ -27,7 +27,7 @@ namespace Cuyahoga.Web.Modules.Articles
 
 		private void Page_Load(object sender, System.EventArgs e)
 		{
-			this._module = base.Section.Module as ArticleModule;
+			this._module = base.Section.CreateModule() as ArticleModule;
 			this.btnNew.Attributes.Add("onClick", String.Format("document.location.href='EditArticle.aspx{0}&ArticleId=-1'", base.GetBaseQueryString()));
 
 			if (! this.IsPostBack)

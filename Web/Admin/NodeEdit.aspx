@@ -62,7 +62,7 @@
 						<itemtemplate>
 							<tr>
 								<td><%# DataBinder.Eval(Container.DataItem, "Title") %></td>
-								<td><%# DataBinder.Eval(Container.DataItem, "Module.Name") %></td>
+								<td><%# DataBinder.Eval(Container.DataItem, "ModuleType.Name") %></td>
 								<td><%# DataBinder.Eval(Container.DataItem, "PlaceholderId") %></td>
 								<td style="text-align:right"><%# DataBinder.Eval(Container.DataItem, "CacheDuration") %></td>
 								<td>

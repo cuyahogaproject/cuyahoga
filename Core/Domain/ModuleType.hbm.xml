@@ -10,7 +10,6 @@
 		<property name="AssemblyName" column="assemblyname" type="String" length="100" />
 		<property name="ClassName" column="classname" type="String" length="255" />
 		<property name="Path" column="path" type="String" length="255" />
-		<property name="EditPath" column="editpath" type="String" length="255" />
-		<subclass 
+		<property name="EditPath" column="editpath" type="String" length="255" not-null="false" />
 	</class>
 </hibernate-mapping>

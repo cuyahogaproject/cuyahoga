@@ -96,5 +96,36 @@ namespace Cuyahoga.Core.Service
 			}
 			return crit.List();
 		}
+
+		#region Node specific
+
+		public IList GetRootNodes()
+		{
+			ICriteria crit = this._activeSession.CreateCriteria(typeof(Node));
+			crit.Add(Expression.IsNull("ParentNode"));
+			crit.AddOrder(Order.Asc("Id")); 
+			return crit.List();
+		}
+
+		public Node GetNodeByShortDescription(string shortDescription)
+		{
+			ICriteria crit = this._activeSession.CreateCriteria(typeof(Node));
+			crit.Add(Expression.Eq("ShortDescription", shortDescription));
+			IList results = crit.List();
+			if (results.Count == 1)
+			{
+				return (Node)results[0];
+			}
+			else if (results.Count > 1)
+			{
+				throw new Exception(String.Format("Multiple nodes found for ShortDescription {0}. The ShortDescription should be unique.", shortDescription));
+			}
+			else
+			{
+				return null;
+			}
+		}
+
+		#endregion
 	}
 }

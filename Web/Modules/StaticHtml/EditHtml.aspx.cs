@@ -28,7 +28,7 @@ namespace Cuyahoga.Web.Modules.StaticHtml
 	
 		private void Page_Load(object sender, System.EventArgs e)
 		{
-			this._module = base.Section.Module as StaticHtmlModule;
+			this._module = base.Section.CreateModule() as StaticHtmlModule;
 
 			if (! this.IsPostBack)
 			{

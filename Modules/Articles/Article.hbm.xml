@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8" ?> 
+<?xml version="1.0" encoding="utf-8" ?> 
 <hibernate-mapping xmlns="urn:nhibernate-mapping-2.0">
 	<class name="Cuyahoga.Modules.Articles.Article, Cuyahoga.Modules" table="cm_article">
 		<id name="Id" column="articleid" type="Int32" unsaved-value="-1">
@@ -19,7 +19,7 @@
 		<property name="ModifiedById" column="modifiedby" type="Int32" />
 		<bag name="Comments" cascade="all" inverse="true" lazy="true">
 			<key column="articleid" />
-			<one-to-many class="Cuyahoga.Modules.Articles.Comment, Cuyahoga.Modules" />
+			<one-to-many class="Cuyahoga.Modules.Articles.Comment, Cuyahoga.Modules" /> 
 		</bag>
 		<many-to-one name="Category" class="Cuyahoga.Modules.Articles.Category, Cuyahoga.Modules" column="articlecategoryid" />
 	</class>

@@ -5,9 +5,11 @@ namespace Cuyahoga.Core.Domain
 	/// <summary>
 	/// Summary description for Template.
 	/// </summary>
+	[Serializable]
 	public class Template
 	{
 		private int _id;
+		private DateTime _updateTimestamp;
 		private string _name;
 		private string _path;
 
@@ -18,6 +20,15 @@ namespace Cuyahoga.Core.Domain
 		{
 			get { return this._id; }
 			set { this._id = value; }
+		}
+
+		/// <summary>
+		/// Property UpdateTimestamp (DateTime)
+		/// </summary>
+		public DateTime UpdateTimestamp
+		{
+			get { return this._updateTimestamp; }
+			set { this._updateTimestamp = value; }
 		}
 
 		/// <summary>
@@ -43,6 +54,7 @@ namespace Cuyahoga.Core.Domain
 		/// </summary>
 		public Template()
 		{
+			this._id = -1;
 		}
 	}
 }

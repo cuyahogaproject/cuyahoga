@@ -9,6 +9,7 @@ namespace Cuyahoga.Core.Domain
 	/// <summary>
 	/// Summary description for Role.
 	/// </summary>
+	[Serializable]
 	public class Role
 	{
 		private int _id;

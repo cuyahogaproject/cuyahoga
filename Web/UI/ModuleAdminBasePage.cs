@@ -60,7 +60,7 @@ namespace Cuyahoga.Web.UI
 			try
 			{
 				int nodeId = Int32.Parse(Context.Request.QueryString["NodeId"]);
-				this._node = new Node(nodeId);
+				this._node = (Node)base.CoreRepository.GetObjectById(typeof(Node), nodeId);
 				int sectionId = Int32.Parse(Context.Request.QueryString["SectionId"]);
 				this._section = (Section)base.CoreRepository.GetObjectById(typeof(Section), sectionId);
 				if (this._section.NodeId == this._node.Id)

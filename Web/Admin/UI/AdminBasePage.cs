@@ -58,7 +58,9 @@ namespace Cuyahoga.Web.Admin.UI
 			{
 				int nodeId = Int32.Parse(Context.Request.QueryString["NodeId"]);
 				if (nodeId > 0)
-					this._activeNode = new Node(nodeId);
+				{
+					this._activeNode = (Node)base.CoreRepository.GetObjectById(typeof(Node), nodeId);
+				}
 			}
 			// Now, we're here we could check authorization as well.
 			if (! ((User)this.User.Identity).HasPermission(AccessLevel.Administrator))

@@ -199,7 +199,7 @@
                 />
                 <File
                     RelPath = "Domain\Node.hbm.xml"
-                    BuildAction = "Content"
+                    BuildAction = "EmbeddedResource"
                 />
                 <File
                     RelPath = "Domain\Role.cs"
@@ -217,7 +217,7 @@
                 />
                 <File
                     RelPath = "Domain\Section.hbm.xml"
-                    BuildAction = "Content"
+                    BuildAction = "EmbeddedResource"
                 />
                 <File
                     RelPath = "Domain\Template.cs"
@@ -226,7 +226,7 @@
                 />
                 <File
                     RelPath = "Domain\Template.hbm.xml"
-                    BuildAction = "Content"
+                    BuildAction = "EmbeddedResource"
                 />
                 <File
                     RelPath = "Domain\User.cs"

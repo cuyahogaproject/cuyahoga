@@ -9,10 +9,12 @@ namespace Cuyahoga.Core.Domain
 	/// <summary>
 	/// Summary description for Section.
 	/// </summary>
+	[Serializable]
 	public class Section : IPersonalizable
 	{
 		private int _id;
-		private int _nodeId;
+		private DateTime _updateTimestamp;
+		private int _nodeId; // TODO: get rid of this one
 		private string _title;
 		private string _placeholderId;
 		private int _position;
@@ -33,6 +35,15 @@ namespace Cuyahoga.Core.Domain
 		{
 			get { return this._id; }
 			set { this._id = value; }
+		}
+
+		/// <summary>
+		/// Property UpdateTimestamp (DateTime)
+		/// </summary>
+		public DateTime UpdateTimestamp
+		{
+			get { return this._updateTimestamp; }
+			set { this._updateTimestamp = value; }
 		}
 
 		/// <summary>
@@ -101,15 +112,6 @@ namespace Cuyahoga.Core.Domain
 		{
 			get { return this._moduleType; }
 			set { this._moduleType = value; }
-		}
-
-		/// <summary>
-		/// Property Module (ModuleBase)
-		/// </summary>
-		public ModuleBase Module
-		{
-			get { return this._module; }
-			set { this._module = value; }
 		}
 
 		/// <summary>
@@ -199,6 +201,26 @@ namespace Cuyahoga.Core.Domain
 		#endregion
 
 		#region public methods
+
+		/// <summary>
+		/// Factory for the concrete module connected to this Section.
+		/// </summary>
+		/// <returns></returns>
+		public ModuleBase CreateModule()
+		{
+			if (this._moduleType != null)
+			{
+				string assemblyQualifiedName = this._moduleType.ClassName + ", " + this._moduleType.AssemblyName;
+				Type moduleType = Type.GetType(assemblyQualifiedName);
+				ModuleBase concreteModule = (ModuleBase)Activator.CreateInstance(moduleType);
+				concreteModule.Section = this;
+				return concreteModule;
+			}
+			else
+			{
+				return null;
+			}
+		}
 
 		public void CalculateNewPosition()
 		{

@@ -82,7 +82,7 @@ namespace Cuyahoga.Web.Admin
 
 		private void BindModules()
 		{
-			if (this._activeSection.Module != null)
+			if (this._activeSection.ModuleType != null)
 			{
 				// A module is attached, there could be data already in it, so we don't give the option to change it
 				this.lblModule.Text = this._activeSection.ModuleType.Name;
@@ -96,7 +96,7 @@ namespace Cuyahoga.Web.Admin
 				{
 					this.ddlModule.Items.Add(new ListItem(moduleType.Name, moduleType.ModuleTypeId.ToString()));
 				}
-				if (this._activeSection.Module != null)
+				if (this._activeSection.ModuleType != null)
 				{
 					this.ddlModule.Items.FindByValue(this._activeSection.ModuleType.ModuleTypeId.ToString()).Selected = true;
 				}

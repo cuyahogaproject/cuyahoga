@@ -5,6 +5,7 @@ namespace Cuyahoga.Core.Domain
 	/// <summary>
 	/// Base class for all modules. 
 	/// </summary>
+	[Serializable]
 	public class ModuleType
 	{
 		private int _moduleTypeId;
@@ -82,5 +83,9 @@ namespace Cuyahoga.Core.Domain
 
 		#endregion
 
+		public ModuleType()
+		{
+			this._moduleTypeId = -1;
+		}
 	}
 }

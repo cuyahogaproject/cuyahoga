@@ -11,8 +11,7 @@ using System.Web.UI.HtmlControls;
 
 using Cuyahoga.Core;
 using Cuyahoga.Core.Domain;
-using Cuyahoga.Core.Collections;
-using Cuyahoga.Core.DAL;
+using Cuyahoga.Core.Service;
 using Cuyahoga.Web.Util;
 
 namespace Cuyahoga.Web.Support.FreeTextBox.Custom
@@ -22,6 +21,8 @@ namespace Cuyahoga.Web.Support.FreeTextBox.Custom
 	/// </summary>
 	public class LinkBrowser : System.Web.UI.Page
 	{
+		private CoreRepository _coreRepository;
+
 		protected System.Web.UI.WebControls.TextBox txtUrl;
 		protected System.Web.UI.WebControls.TextBox txtDescription;
 		protected System.Web.UI.WebControls.PlaceHolder plhNodes;
@@ -29,6 +30,7 @@ namespace Cuyahoga.Web.Support.FreeTextBox.Custom
 	
 		private void Page_Load(object sender, System.EventArgs e)
 		{
+			this._coreRepository = new CoreRepository(true);
 			string descr = Context.Request.QueryString["descr"];
 			this.txtDescription.Text = descr;
 			BuildNodeTree();
@@ -37,13 +39,13 @@ namespace Cuyahoga.Web.Support.FreeTextBox.Custom
 		private void BuildNodeTree()
 		{
 			// Build tree, starting with root nodes
-			ICmsDataProvider dp = CmsDataFactory.GetInstance();
-			NodeCollection nodes = new NodeCollection();
-			dp.GetNodesByParent(null, nodes);
+			CoreRepository cr = new CoreRepository(true);
+			IList nodes = cr.GetRootNodes();
 			DisplayNodes(nodes);			
+			cr.CloseSession();
 		}
 
-		private void DisplayNodes(NodeCollection nodes)
+		private void DisplayNodes(IList nodes)
 		{
 			foreach (Node node in nodes)
 			{
@@ -87,6 +89,7 @@ namespace Cuyahoga.Web.Support.FreeTextBox.Custom
 		/// </summary>
 		private void InitializeComponent()
 		{    
+			this.Unload += new System.EventHandler(this.LinkBrowser_Unload);
 			this.Load += new System.EventHandler(this.Page_Load);
 
 		}
@@ -95,7 +98,7 @@ namespace Cuyahoga.Web.Support.FreeTextBox.Custom
 		private void NodeLinkButton_Command(object sender, CommandEventArgs e)
 		{
 			int nodeId = Int32.Parse(e.CommandArgument.ToString());
-			Node node = new Node(nodeId);
+			Node node = (Node)this._coreRepository.GetObjectById(typeof(Node), nodeId);
 			this.txtUrl.Text = UrlHelper.GetFriendlyUrlFromNode(node);
 			// We don't want to overwrite the description when the user already selected a text
 			// for the description of the link.
@@ -103,6 +106,11 @@ namespace Cuyahoga.Web.Support.FreeTextBox.Custom
 			{
 				this.txtDescription.Text = node.Title;
 			}
+		}
+
+		private void LinkBrowser_Unload(object sender, System.EventArgs e)
+		{
+			this._coreRepository.CloseSession();
 		}
 	}
 }
