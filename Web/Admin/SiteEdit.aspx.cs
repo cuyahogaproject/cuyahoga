@@ -33,6 +33,8 @@ namespace Cuyahoga.Web.Admin
 		protected System.Web.UI.WebControls.Button btnDelete;
 		protected System.Web.UI.WebControls.DropDownList ddlPlaceholders;
 		protected System.Web.UI.WebControls.DropDownList ddlRoles;
+		protected System.Web.UI.WebControls.TextBox txtWebmasterEmail;
+		protected System.Web.UI.WebControls.RequiredFieldValidator rfvWebmasterEmail;
 		protected System.Web.UI.WebControls.RequiredFieldValidator rfvSiteUrl;
 	
 		private void Page_Load(object sender, System.EventArgs e)
@@ -69,6 +71,7 @@ namespace Cuyahoga.Web.Admin
 		{
 			this.txtName.Text = this._activeSite.Name;
 			this.txtSiteUrl.Text = this._activeSite.SiteUrl;
+			this.txtWebmasterEmail.Text = this._activeSite.WebmasterEmail;
 		}
 
 		private void BindTemplates()
@@ -200,6 +203,7 @@ namespace Cuyahoga.Web.Admin
 			{
 				this._activeSite.Name = txtName.Text;
 				this._activeSite.SiteUrl = txtSiteUrl.Text;
+				this._activeSite.WebmasterEmail = txtWebmasterEmail.Text;
 				if (this.ddlTemplates.SelectedValue != "-1")
 				{
 					int templateId = Int32.Parse(this.ddlTemplates.SelectedValue);

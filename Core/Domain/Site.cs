@@ -14,6 +14,7 @@ namespace Cuyahoga.Core.Domain
 		private string _defaultCulture;
 		private Template _defaultTemplate;
 		private string _defaultPlaceholder;
+		private string _webmasterEmail;
 		private Role _defaultRole;
 		private IList _rootNodes;
 		private DateTime _updateTimestamp;
@@ -81,6 +82,15 @@ namespace Cuyahoga.Core.Domain
 		{
 			get { return this._defaultPlaceholder; }
 			set { this._defaultPlaceholder = value; }
+		}
+
+		/// <summary>
+		/// Property WebmasterEmail (string)
+		/// </summary>
+		public virtual string WebmasterEmail
+		{
+			get { return this._webmasterEmail; }
+			set { this._webmasterEmail = value; }
 		}
 
 		/// <summary>

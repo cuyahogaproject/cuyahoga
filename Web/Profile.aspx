@@ -3,18 +3,13 @@
 <html>
 	<head>
 		<title>Profile</title>
-		<meta name="GENERATOR" content="Microsoft Visual Studio .NET 7.1">
-		<meta name="CODE_LANGUAGE" content="C#">
-		<meta name="vs_defaultClientScript" content="JavaScript">
-		<meta name="vs_targetSchema" content="http://schemas.microsoft.com/intellisense/ie5">
+		<meta content="Microsoft Visual Studio .NET 7.1" name="GENERATOR">
+		<meta content="C#" name="CODE_LANGUAGE">
+		<meta content="JavaScript" name="vs_defaultClientScript">
+		<meta content="http://schemas.microsoft.com/intellisense/ie5" name="vs_targetSchema">
 	</head>
 	<body ms_positioning="FlowLayout">
-
-		<form id="Form1" method="post" runat="server">
-			<asp:panel id="pnlControl" cssclass="section" runat="server">
-			
-			</asp:panel>
-		</form>
+		<form id="Form1" method="post" runat="server"><asp:panel id="pnlControl" runat="server" cssclass="section"></asp:panel></form>
 
 	</body>
 </html>

@@ -103,7 +103,7 @@ namespace Cuyahoga.Core.Domain
 		/// <summary>
 		/// Property Website (string)
 		/// </summary>
-		public string Website
+		public virtual string Website
 		{
 			get { return this._website; }
 			set { this._website = value; }
@@ -112,7 +112,7 @@ namespace Cuyahoga.Core.Domain
 		/// <summary>
 		/// Property IsActive (bool)
 		/// </summary>
-		public bool IsActive
+		public virtual bool IsActive
 		{
 			get { return this._isActive; }
 			set { this._isActive = value; }
@@ -300,6 +300,24 @@ namespace Cuyahoga.Core.Domain
 			{
 				throw new ArgumentException("The password must contain at least 5 characters");
 			}
+		}
+
+		/// <summary>
+		/// Generates a new password and stores a hashed password in the User instance.
+		/// </summary>
+		/// <returns>The newly created password.</returns>
+		public string GeneratePassword()
+		{
+			int length = 8;
+			string chars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890";
+			string pwd = String.Empty;
+			Random rnd = new Random();
+			for (int i = 0; i < length; i++)
+			{
+				pwd += chars[rnd.Next(chars.Length)];
+			}
+			this._password = User.HashPassword(pwd);
+			return pwd;
 		}
 
 		/// <summary>

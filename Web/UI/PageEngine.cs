@@ -73,9 +73,20 @@ namespace Cuyahoga.Web.UI
 			set { this._templateControl = value; }
 		}
 
+		/// <summary>
+		/// 
+		/// </summary>
 		public User CuyahogaUser
 		{
 			get	{ return this.User.Identity as User; }
+		}
+
+		/// <summary>
+		/// 
+		/// </summary>
+		public CoreRepository CoreRepository
+		{
+			get { return this._coreRepository; }
 		}
 
 		#endregion

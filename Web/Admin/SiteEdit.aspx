@@ -1,13 +1,13 @@
 <%@ Page language="c#" Codebehind="SiteEdit.aspx.cs" AutoEventWireup="false" Inherits="Cuyahoga.Web.Admin.SiteEdit" %>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN" >
 <html>
-  <head>
+	<head>
 		<title>SiteEdit</title>
 		<meta content="Microsoft Visual Studio .NET 7.1" name="GENERATOR">
 		<meta content="C#" name="CODE_LANGUAGE">
 		<meta content="JavaScript" name="vs_defaultClientScript">
 		<meta content="http://schemas.microsoft.com/intellisense/ie5" name="vs_targetSchema">
-  </head>
+	</head>
 	<body>
 		<form id="Form1" method="post" runat="server">
 			<div class="group">
@@ -19,7 +19,10 @@
 					<tr>
 					<tr>
 						<td>Site url (incl. http://)</td>
-						<td><asp:textbox id="txtSiteUrl" runat="server" width="300px" maxlength="100"></asp:textbox><asp:requiredfieldvalidator id="rfvSiteUrl" runat="server" enableclientscript="False" controltovalidate="txtSiteUrl" cssclass="validator" display="Dynamic">Site url is required</asp:requiredfieldvalidator></td></tr></table></div>
+						<td><asp:textbox id="txtSiteUrl" runat="server" width="300px" maxlength="100"></asp:textbox><asp:requiredfieldvalidator id="rfvSiteUrl" runat="server" enableclientscript="False" controltovalidate="txtSiteUrl" cssclass="validator" display="Dynamic">Site url is required</asp:requiredfieldvalidator></td></tr>
+					<tr>
+						<td>Webmaster email</td>
+						<td><asp:textbox id="txtWebmasterEmail" runat="server" maxlength="100" width="300px"></asp:textbox><asp:requiredfieldvalidator id="rfvWebmasterEmail" runat="server" errormessage="Webmaster email is required" cssclass="validator" display="Dynamic" controltovalidate="txtWebmasterEmail" enableclientscript="False"></asp:requiredfieldvalidator></td></tr></table></div>
 			<div class="group">
 				<h4>Defaults</h4>
 				<table>
@@ -29,9 +32,9 @@
 					</tr>
 					<tr>
 						<td>Placeholder</td>
-						<td><asp:dropdownlist id="ddlPlaceholders" runat="server"></asp:dropdownlist><em>(this 
-      is the placeholder where the content of&nbsp;general pages&nbsp;is 
-      inserted)</em></td>
+						<td><asp:dropdownlist id="ddlPlaceholders" runat="server"></asp:dropdownlist><em>(this
+								is the placeholder where the content of&nbsp;general pages&nbsp;is
+								inserted)</em></td>
 					</tr>
 					<tr>
 						<td>Culture</td>

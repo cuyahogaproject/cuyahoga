@@ -14,6 +14,7 @@
 		<property name="SiteUrl" column="homeurl" type="String" length="100" />
 		<property name="DefaultCulture" column="defaultculture" type="String" length="8" />
 		<property name="DefaultPlaceholder" column="defaultplaceholder" type="String" length="100" />
+		<property name="WebmasterEmail" column="webmasteremail" type="String" length="100" />
 		
 		<many-to-one name="DefaultTemplate" class="Cuyahoga.Core.Domain.Template, Cuyahoga.Core" column="templateid" not-null="false" outer-join="false" />
 		<many-to-one name="DefaultRole" class="Cuyahoga.Core.Domain.Role, Cuyahoga.Core" column="roleid" not-null="true" outer-join="true" />

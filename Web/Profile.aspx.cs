@@ -18,6 +18,7 @@ namespace Cuyahoga.Web
 	/// </summary>
 	public class Profile : GeneralPage
 	{
+		protected System.Web.UI.WebControls.Panel pnlControl;
 	
 		private void Page_Load(object sender, System.EventArgs e)
 		{
@@ -51,16 +52,16 @@ namespace Cuyahoga.Web
 						throw new Exception("Invalid command found in pathinfo.");
 				}
 
-				base.ContentPlaceHolder.FindControl("pnlControl").Controls.Add(ctrl);
+				this.pnlControl.Controls.Add(ctrl);
 			}
 		}
 
 		#region Web Form Designer generated code
 		override protected void OnInit(EventArgs e)
 		{
+			InitPage();
 			InitializeComponent();
 			base.OnInit(e);
-			InitPage();
 		}
 		
 		/// <summary>

@@ -632,6 +632,14 @@
                     BuildAction = "EmbeddedResource"
                 />
                 <File
+                    RelPath = "Controls\Resources\Strings.nl.resx"
+                    BuildAction = "EmbeddedResource"
+                />
+                <File
+                    RelPath = "Controls\Resources\Strings.resx"
+                    BuildAction = "EmbeddedResource"
+                />
+                <File
                     RelPath = "Css\Admin.css"
                     BuildAction = "Content"
                 />
@@ -669,14 +677,6 @@
                 />
                 <Folder RelPath = "log\" />
                 <Folder RelPath = "Modules\" />
-                <File
-                    RelPath = "Resources\Strings.nl.resx"
-                    BuildAction = "EmbeddedResource"
-                />
-                <File
-                    RelPath = "Resources\Strings.resx"
-                    BuildAction = "EmbeddedResource"
-                />
                 <File
                     RelPath = "Support\FreeTextBox\FreeTextBox-MainScript.js"
                     BuildAction = "Content"
@@ -1846,6 +1846,11 @@
                     BuildAction = "Compile"
                 />
                 <File
+                    RelPath = "UI\LocalizedUserControl.cs"
+                    SubType = "ASPXCodeBehind"
+                    BuildAction = "Compile"
+                />
+                <File
                     RelPath = "UI\ModuleAdminBasePage.cs"
                     SubType = "ASPXCodeBehind"
                     BuildAction = "Compile"
@@ -1859,6 +1864,11 @@
                 <Folder RelPath = "UserFiles\Images\" />
                 <File
                     RelPath = "Util\AuthenticationModule.cs"
+                    SubType = "Code"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "Util\Email.cs"
                     SubType = "Code"
                     BuildAction = "Compile"
                 />

@@ -1,6 +1,6 @@
 ***VERSION***
 2.4
-2004-12-27
+2004-12-28
 Cuyahoga
 
 Martijn Boland
@@ -2760,7 +2760,7 @@ Cuyahoga_Site
 21
 277
 120
-178
+194
 ***ATTRIBUTE***
 Cuyahoga_Site
 SiteId
@@ -2887,6 +2887,22 @@ VARCHAR
 No
 No
 No
+
+
+
+***ATTRIBUTE***
+Cuyahoga_Site
+WebmasterEmail
+
+
+13
+VARCHAR
+100
+0
+
+No
+No
+Yes
 
 
 

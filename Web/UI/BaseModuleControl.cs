@@ -1,10 +1,6 @@
 using System;
 using System.Web;
 using System.IO;
-using System.Globalization;
-using System.Resources;
-using System.Reflection;
-using System.Threading;
 
 using Cuyahoga.Core;
 using Cuyahoga.Core.Domain;
@@ -16,12 +12,10 @@ namespace Cuyahoga.Web.UI
 	/// Base class for all module user controls.
 	/// Credits to the DotNetNuke team (http://www.dotnetnuke.com) for the output caching idea!
 	/// </summary>
-	public class BaseModuleControl : System.Web.UI.UserControl
+	public class BaseModuleControl : LocalizedUserControl
 	{
 		private ModuleBase _module;
 		private string _cachedOutput;
-		private ResourceManager _resMan;
-		private CultureInfo _currentUICulture;
 		private bool _displaySyndicationIcon;
 
 		/// <summary>
@@ -57,10 +51,6 @@ namespace Cuyahoga.Web.UI
 		/// </summary>
 		public BaseModuleControl()
 		{
-			// Base name of the resources consists of ModuleNamespace.Resources.Strings
-			string baseName = this.GetType().BaseType.Namespace + ".Resources.Strings";
-			this._resMan = new ResourceManager(baseName, this.GetType().BaseType.Assembly);
-			this._currentUICulture = Thread.CurrentThread.CurrentUICulture;
 			// Show the syndication icon by default. It can be set by subclasses.
 			this._displaySyndicationIcon = (this is ISyndicatable);
 		}
@@ -128,16 +118,6 @@ namespace Cuyahoga.Web.UI
 				base.Render (writer);
 			}
 			writer.Write("</div>");
-		}
-
-		/// <summary>
-		/// Get a localized text string for a given key.
-		/// </summary>
-		/// <param name="key"></param>
-		/// <returns></returns>
-		protected string GetText(string key)
-		{
-			return this._resMan.GetString(key, this._currentUICulture);
 		}
 
 		/// <summary>

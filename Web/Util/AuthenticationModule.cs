@@ -3,6 +3,7 @@ using System.Web;
 using System.Web.Security;
 using System.Web.Caching;
 
+using Cuyahoga.Core;
 using Cuyahoga.Core.Service;
 using Cuyahoga.Core.Domain;
 using Cuyahoga.Core.Util;
@@ -50,6 +51,10 @@ namespace Cuyahoga.Web.Util
 				User user = cr.GetUserByUsernameAndPassword(username, hashedPassword);
 				if (user != null)
 				{
+					if (! user.IsActive)
+					{
+						throw new AccessForbiddenException("The account is disabled.");
+					}
 					user.IsAuthenticated = true;
 					string currentIp = HttpContext.Current.Request.UserHostAddress;
 					user.LastLogin = DateTime.Now;
@@ -72,7 +77,7 @@ namespace Cuyahoga.Web.Util
 			}
 			catch (Exception ex)
 			{
-				throw new Exception(String.Format("Unable to log in user {0}", username), ex);
+				throw new Exception(String.Format("Unable to log in user '{0}': " + ex.Message, username), ex);
 			}
 		}
 

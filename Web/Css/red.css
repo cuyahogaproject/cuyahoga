@@ -126,6 +126,11 @@ td
 	text-decoration: none;
 }
 
+.error
+{
+	color: #c00;
+}
+
 .submenu
 {
 	list-style-type: none;
