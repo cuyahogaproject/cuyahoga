@@ -185,12 +185,43 @@ td
 	color: #c00;
 }
 
+.pager
+{
+	font-size: 120%;
+}
+
+.pager a
+{
+	margin-left: 5px;
+	margin-right: 5px;
+}
+
+.searchresults
+{
+	margin-top: 10px;
+	margin-bottom: 10px;
+	margin-left: 20px;
+	padding: 0;
+	list-style-type: none;
+}
+
+.searchresults .sub
+{
+	font-size: 90%;
+	color: #090;
+}
+
+.searchresults li
+{
+	margin-top: 5px;
+	margin-bottom: 5px;
+}
+
 .section
 {
 	margin: 0px;
 	padding: 5px;
 }
-
 .section h3
 {
 	color: #333;

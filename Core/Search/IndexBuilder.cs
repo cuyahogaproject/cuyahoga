@@ -125,8 +125,8 @@ namespace Cuyahoga.Core.Search
 			doc.Add(Field.Keyword("path", searchContent.Path));
 			doc.Add(Field.Keyword("category", searchContent.Category));
 			doc.Add(Field.Keyword("site", searchContent.Site));
-			doc.Add(Field.Keyword("datecreated", DateField.DateToString(searchContent.DateCreated)));
-			doc.Add(Field.Keyword("datemodified", DateField.DateToString(searchContent.DateModified)));
+			doc.Add(Field.Keyword("datecreated", searchContent.DateCreated.ToString("u")));
+			doc.Add(Field.Keyword("datemodified", searchContent.DateModified.ToString("u")));
 			doc.Add(Field.UnIndexed("sectionid", searchContent.SectionId.ToString()));
 
 			return doc;

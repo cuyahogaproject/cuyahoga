@@ -13,7 +13,7 @@
 	<asp:button id="btnLogin" runat="server"></asp:button>
 	<br>
 	<br>
-	<asp:hyperlink id="hplRegister" runat="server"></asp:hyperlink>|<asp:hyperlink id="hplResetPassword" runat="server"></asp:hyperlink>
+	<asp:hyperlink id="hplRegister" runat="server"></asp:hyperlink> | <asp:hyperlink id="hplResetPassword" runat="server"></asp:hyperlink>
 </asp:panel>
 <asp:panel id="pnlUserInfo" runat="server" visible="False">
 	<asp:label id="lblLoggedInText" runat="server"></asp:label>

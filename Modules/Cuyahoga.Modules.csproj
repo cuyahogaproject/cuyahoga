@@ -228,6 +228,35 @@
                     BuildAction = "EmbeddedResource"
                 />
                 <File
+                    RelPath = "Search\Search.ascx"
+                    SubType = "UserControl"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Search\Search.ascx.cs"
+                    DependentUpon = "Search.ascx"
+                    SubType = "ASPXCodeBehind"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "Search\Search.ascx.resx"
+                    DependentUpon = "Search.ascx.cs"
+                    BuildAction = "EmbeddedResource"
+                />
+                <File
+                    RelPath = "Search\SearchModule.cs"
+                    SubType = "Code"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "Search\Resources\Strings.nl.resx"
+                    BuildAction = "EmbeddedResource"
+                />
+                <File
+                    RelPath = "Search\Resources\Strings.resx"
+                    BuildAction = "EmbeddedResource"
+                />
+                <File
                     RelPath = "StaticHtml\EditHtml.aspx"
                     SubType = "Form"
                     BuildAction = "Content"

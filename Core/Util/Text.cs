@@ -39,7 +39,7 @@ namespace Cuyahoga.Core.Util
 				text = fullText;
 			}
 			Regex regexStripHTML = new Regex("<[^>]+>",RegexOptions.IgnoreCase|RegexOptions.Compiled);
-			text = regexStripHTML.Replace(text, String.Empty);
+			text = regexStripHTML.Replace(text, " ");
 			return text;
 		}
 	}

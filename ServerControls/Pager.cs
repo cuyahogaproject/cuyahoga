@@ -146,7 +146,41 @@ namespace Cuyahoga.ServerControls
 			}
 			set 
 			{ 
-				ViewState["PageSize"] = value; 
+				ViewState["PageSize"] = value;
+				this.ChildControlsCreated = false;
+			}
+		}
+
+		public bool AllowCustomPaging
+		{
+			get
+			{
+				if (ViewState["AllowCustomPaging"] != null)
+					return (bool)ViewState["AllowCustomPaging"];
+				else
+					return this._pagedDataSource.AllowCustomPaging; 
+			}
+			set 
+			{ 
+				this._pagedDataSource.AllowCustomPaging = value;
+				ViewState["AllowCustomPaging"] = value; 
+			}
+		}
+
+		[Browsable(false)]
+		public int VirtualItemCount
+		{
+			get
+			{
+				if (ViewState["VirtualItemCount"] != null)
+					return (int)ViewState["VirtualItemCount"];
+				else
+					return this._pagedDataSource.VirtualCount; 
+			}
+			set 
+			{ 
+				this._pagedDataSource.VirtualCount = value;
+				ViewState["VirtualItemCount"] = value; 
 			}
 		}
 
@@ -221,7 +255,7 @@ namespace Cuyahoga.ServerControls
 		private void InitPagedDataSource()
 		{
 			this._pagedDataSource = new PagedDataSource();
-			this._pagedDataSource.AllowCustomPaging = false;
+			this._pagedDataSource.AllowCustomPaging = this.AllowCustomPaging;
 			this._pagedDataSource.AllowPaging = true;
 			this._pagedDataSource.PageSize = this.PageSize;
 			this._pagedDataSource.CurrentPageIndex = this.CurrentPageIndex;
@@ -341,10 +375,14 @@ namespace Cuyahoga.ServerControls
 					if (this.CurrentPageIndex == -1)
 						this.CurrentPageIndex = 0;
 					this._pagedDataSource.CurrentPageIndex = this.CurrentPageIndex;
-					pi.SetValue(this._controlToPage, this._pagedDataSource, null);
+					// Don't swap the datasource when using custom paging
+					if (! this.AllowCustomPaging)
+					{
+						pi.SetValue(this._controlToPage, this._pagedDataSource, null);
+						// Call databind again, but now with the pageddatasource attached.
+						this._controlToPage.DataBind();
+					}
 					TotalPages = this._pagedDataSource.PageCount;
-					// Call databind again, but now with the pageddatasource attached.
-					this._controlToPage.DataBind();
 					// ChildControls have to be created again.
 					this.ChildControlsCreated = false;
 					// Cache the datasource when required

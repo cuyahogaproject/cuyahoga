@@ -10,7 +10,7 @@ namespace Cuyahoga.Core.Search
 	{
 		private int _totalCount;
 		private int _pageIndex;
-		private int _executionTime;
+		private long _executionTime;
 
 		/// <summary>
 		/// Property TotalCount (int)
@@ -31,9 +31,9 @@ namespace Cuyahoga.Core.Search
 		}
 
 		/// <summary>
-		/// Property ExecutionTime (int)
+		/// The execution time of the query in ticks.
 		/// </summary>
-		public int ExecutionTime
+		public long ExecutionTime
 		{
 			get { return this._executionTime; }
 			set { this._executionTime = value; }
