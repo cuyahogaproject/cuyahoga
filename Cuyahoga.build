@@ -121,6 +121,7 @@
                 <include name="System.dll" />
                 <include name="System.Data.dll" />
                 <include name="System.Xml.dll" />
+                <include name="System.Drawing.dll" />
                 <include name="System.Web.dll" />
                 <include name="${lib.dir}/Npgsql.dll" />    
                 <include name="${lib.dir}/NHibernate.dll" />
