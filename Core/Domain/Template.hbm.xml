@@ -1,7 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?> 
 <hibernate-mapping xmlns="urn:nhibernate-mapping-2.0">
-	<class name="Cuyahoga.Core.Domain.Template, Cuyahoga.Core" table="cuyahoga_template"
-		proxy="Cuyahoga.Core.Domain.Template, Cuyahoga.Core">
+	<class name="Cuyahoga.Core.Domain.Template, Cuyahoga.Core" table="cuyahoga_template">
 		<id name="Id" column="templateid" type="Int32" unsaved-value="-1">
 			<generator class="native">
 				<param name="sequence">cuyahoga_template_templateid_seq</param>

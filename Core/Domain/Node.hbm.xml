@@ -1,7 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?> 
 <hibernate-mapping xmlns="urn:nhibernate-mapping-2.0">
-	<class name="Cuyahoga.Core.Domain.Node, Cuyahoga.Core" table="cuyahoga_node"
-		proxy="Cuyahoga.Core.Domain.Node, Cuyahoga.Core">
+	<class name="Cuyahoga.Core.Domain.Node, Cuyahoga.Core" table="cuyahoga_node">
 		<id name="Id" column="nodeid" type="Int32" unsaved-value="-1">
 			<generator class="native">
 				<param name="sequence">cuyahoga_node_nodeid_seq</param>
@@ -14,7 +13,7 @@
 		<property name="Position" column="position" type="Int32" />
 		
 		<many-to-one name="ParentNode" class="Cuyahoga.Core.Domain.Node, Cuyahoga.Core" column="parentnodeid" not-null="false" />
-		<many-to-one name="Template" class="Cuyahoga.Core.Domain.Template, Cuyahoga.Core" column="templateid" not-null="false" />
+		<many-to-one name="Template" class="Cuyahoga.Core.Domain.Template, Cuyahoga.Core" column="templateid" not-null="false" outer-join="true" />
 		
 		<bag name="ChildNodes" cascade="delete" inverse="true" order-by="position asc" lazy="true">
 			<key column="parentnodeid" />
