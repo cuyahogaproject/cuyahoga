@@ -21,6 +21,16 @@ Position int NOT NULL,
 CONSTRAINT UC_Cuyahoga_MenuNode1 UNIQUE(MenuNodeId))
 go
 
+CREATE TABLE Cuyahoga_SiteAlias(
+SiteAliasId int identity(1,1) NOT NULL CONSTRAINT PK_Cuyahoga_SiteAlias1 PRIMARY KEY,
+SiteId int NOT NULL,
+NodeId int NULL,
+Url varchar(100) NOT NULL,
+InsertTimestamp datetime DEFAULT current_timestamp NOT NULL,
+UpdateTimestamp datetime DEFAULT current_timestamp NOT NULL,
+CONSTRAINT UC_Cuyahoga_SiteAlias1 UNIQUE(SiteAliasId))
+go
+
 ALTER TABLE Cuyahoga_Menu
 ADD CONSTRAINT FK_Cuyahoga_Menu_1 
 FOREIGN KEY (RootNodeId) REFERENCES Cuyahoga_Node (NodeId)
@@ -35,6 +45,16 @@ go
 ALTER TABLE Cuyahoga_MenuNode
 ADD CONSTRAINT FK_Cuyahoga_MenuNode_2 
 FOREIGN KEY (NodeId) REFERENCES Cuyahoga_Node (NodeId)
+go
+
+ALTER TABLE Cuyahoga_SiteAlias
+ADD CONSTRAINT FK_Cuyahoga_SiteAlias_1 
+FOREIGN KEY (NodeId) REFERENCES Cuyahoga_Node (NodeId)
+go
+
+ALTER TABLE Cuyahoga_SiteAlias
+ADD CONSTRAINT FK_Cuyahoga_SiteAlias_2 
+FOREIGN KEY (SiteId) REFERENCES Cuyahoga_Site (SiteId)
 go
 
 

@@ -335,6 +335,22 @@
                     BuildAction = "EmbeddedResource"
                 />
                 <File
+                    RelPath = "Admin\SiteAliasEdit.aspx"
+                    SubType = "Form"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Admin\SiteAliasEdit.aspx.cs"
+                    DependentUpon = "SiteAliasEdit.aspx"
+                    SubType = "ASPXCodeBehind"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "Admin\SiteAliasEdit.aspx.resx"
+                    DependentUpon = "SiteAliasEdit.aspx.cs"
+                    BuildAction = "EmbeddedResource"
+                />
+                <File
                     RelPath = "Admin\SiteEdit.aspx"
                     SubType = "Form"
                     BuildAction = "Content"

@@ -1,4 +1,3 @@
-
 CREATE TABLE Cuyahoga_User(
 UserId int identity(1,1) NOT NULL CONSTRAINT PK_Cuyahoga_User1 PRIMARY KEY,
 Username varchar(50) NOT NULL,
@@ -41,7 +40,8 @@ go
 CREATE TABLE Cuyahoga_Template(
 TemplateId int identity(1,1) NOT NULL CONSTRAINT PK_Cuyahoga_Template1 PRIMARY KEY,
 Name varchar(100) NOT NULL,
-Path varchar(100) NOT NULL,
+BasePath varchar(100) NOT NULL,
+TemplateControl varchar(50) NOT NULL,
 Css varchar(100) NOT NULL,
 InsertTimestamp datetime DEFAULT current_timestamp NOT NULL,
 UpdateTimestamp datetime DEFAULT current_timestamp NOT NULL,
@@ -61,6 +61,19 @@ UpdateTimestamp datetime DEFAULT current_timestamp NOT NULL,
 CONSTRAINT UC_Cuyahoga_ModuleType1 UNIQUE(ClassName))
 go
 
+
+CREATE TABLE Cuyahoga_ModuleSetting(
+ModuleSettingId int identity(1,1) NOT NULL CONSTRAINT PK_Cuyahoga_ModuleSetting1 PRIMARY KEY,
+ModuleTypeId int NOT NULL,
+Name varchar(50) NOT NULL,
+FriendlyName varchar(50) NOT NULL,
+SettingDataType varchar(100) NOT NULL,
+IsCustomType bit NOT NULL,
+IsRequired bit NOT NULL)
+go
+
+CREATE UNIQUE INDEX IDX_Cuyahoga_ModuleSetting_1 ON Cuyahoga_ModuleSetting (ModuleTypeId,Name)
+go
 
 CREATE TABLE Cuyahoga_Site(
 SiteId int identity(1,1) NOT NULL CONSTRAINT PK_Cuyahoga_Site1 PRIMARY KEY,
@@ -109,30 +122,6 @@ CONSTRAINT UC_Cuyahoga_Section1 UNIQUE(SectionId))
 go
 
 
-CREATE TABLE Cuyahoga_SectionRole(
-SectionRoleId int identity(1,1) NOT NULL CONSTRAINT PK_Cuyahoga_SectionRole1 PRIMARY KEY,
-SectionId int NOT NULL,
-RoleId int NOT NULL,
-ViewAllowed bit NOT NULL,
-EditAllowed bit NOT NULL)
-go
-
-CREATE UNIQUE INDEX IDX_Cuyahoga_SectionRole_1 ON Cuyahoga_SectionRole (RoleId,SectionId)
-go
-
-CREATE TABLE Cuyahoga_ModuleSetting(
-ModuleSettingId int identity(1,1) NOT NULL CONSTRAINT PK_Cuyahoga_ModuleSetting1 PRIMARY KEY,
-ModuleTypeId int NOT NULL,
-Name varchar(50) NOT NULL,
-FriendlyName varchar(50) NOT NULL,
-SettingDataType varchar(100) NOT NULL,
-IsCustomType bit NOT NULL,
-IsRequired bit NOT NULL)
-go
-
-CREATE UNIQUE INDEX IDX_Cuyahoga_ModuleSetting_1 ON Cuyahoga_ModuleSetting (ModuleTypeId,Name)
-go
-
 CREATE TABLE Cuyahoga_SectionSetting(
 SectionSettingId int identity(1,1) NOT NULL CONSTRAINT PK_Cuyahoga_SectionSetting1 PRIMARY KEY,
 SectionId int NOT NULL,
@@ -174,6 +163,28 @@ CONSTRAINT UC_Cuyahoga_MenuNode1 UNIQUE(MenuNodeId))
 go
 
 
+CREATE TABLE Cuyahoga_SectionRole(
+SectionRoleId int identity(1,1) NOT NULL CONSTRAINT PK_Cuyahoga_SectionRole1 PRIMARY KEY,
+SectionId int NOT NULL,
+RoleId int NOT NULL,
+ViewAllowed bit NOT NULL,
+EditAllowed bit NOT NULL)
+go
+
+CREATE UNIQUE INDEX IDX_Cuyahoga_SectionRole_1 ON Cuyahoga_SectionRole (RoleId,SectionId)
+go
+
+CREATE TABLE Cuyahoga_SiteAlias(
+SiteAliasId int identity(1,1) NOT NULL CONSTRAINT PK_Cuyahoga_SiteAlias1 PRIMARY KEY,
+SiteId int NOT NULL,
+NodeId int NULL,
+Url varchar(100) NOT NULL,
+InsertTimestamp datetime DEFAULT current_timestamp NOT NULL,
+UpdateTimestamp datetime DEFAULT current_timestamp NOT NULL,
+CONSTRAINT UC_Cuyahoga_SiteAlias1 UNIQUE(SiteAliasId))
+go
+
+
 
 
 
@@ -189,6 +200,12 @@ FOREIGN KEY (UserId) REFERENCES Cuyahoga_User (UserId)
 go
 
 
+
+
+ALTER TABLE Cuyahoga_ModuleSetting
+ADD CONSTRAINT FK_Cuyahoga_ModuleSetting_1 
+FOREIGN KEY (ModuleTypeId) REFERENCES Cuyahoga_ModuleType (ModuleTypeId)
+go
 
 
 ALTER TABLE Cuyahoga_Site
@@ -229,23 +246,6 @@ FOREIGN KEY (NodeId) REFERENCES Cuyahoga_Node (NodeId)
 go
 
 
-ALTER TABLE Cuyahoga_SectionRole
-ADD CONSTRAINT FK_Cuyahoga_SectionRole_1 
-FOREIGN KEY (RoleId) REFERENCES Cuyahoga_Role (RoleId)
-go
-
-ALTER TABLE Cuyahoga_SectionRole
-ADD CONSTRAINT FK_Cuyahoga_SectionRole_2 
-FOREIGN KEY (SectionId) REFERENCES Cuyahoga_Section (SectionId)
-go
-
-
-ALTER TABLE Cuyahoga_ModuleSetting
-ADD CONSTRAINT FK_Cuyahoga_ModuleSetting_1 
-FOREIGN KEY (ModuleTypeId) REFERENCES Cuyahoga_ModuleType (ModuleTypeId)
-go
-
-
 ALTER TABLE Cuyahoga_SectionSetting
 ADD CONSTRAINT FK_Cuyahoga_SectionSetting_1 
 FOREIGN KEY (SectionId) REFERENCES Cuyahoga_Section (SectionId)
@@ -265,7 +265,7 @@ go
 
 ALTER TABLE Cuyahoga_Menu
 ADD CONSTRAINT FK_Cuyahoga_Menu_1 
-FOREIGN KEY (ParentNodeId) REFERENCES Cuyahoga_Node (NodeId)
+FOREIGN KEY (RootNodeId) REFERENCES Cuyahoga_Node (NodeId)
 go
 
 
@@ -277,5 +277,27 @@ go
 ALTER TABLE Cuyahoga_MenuNode
 ADD CONSTRAINT FK_Cuyahoga_MenuNode_2 
 FOREIGN KEY (NodeId) REFERENCES Cuyahoga_Node (NodeId)
+go
+
+
+ALTER TABLE Cuyahoga_SectionRole
+ADD CONSTRAINT FK_Cuyahoga_SectionRole_1 
+FOREIGN KEY (RoleId) REFERENCES Cuyahoga_Role (RoleId)
+go
+
+ALTER TABLE Cuyahoga_SectionRole
+ADD CONSTRAINT FK_Cuyahoga_SectionRole_2 
+FOREIGN KEY (SectionId) REFERENCES Cuyahoga_Section (SectionId)
+go
+
+
+ALTER TABLE Cuyahoga_SiteAlias
+ADD CONSTRAINT FK_Cuyahoga_SiteAlias_1 
+FOREIGN KEY (NodeId) REFERENCES Cuyahoga_Node (NodeId)
+go
+
+ALTER TABLE Cuyahoga_SiteAlias
+ADD CONSTRAINT FK_Cuyahoga_SiteAlias_2 
+FOREIGN KEY (SiteId) REFERENCES Cuyahoga_Site (SiteId)
 go
 

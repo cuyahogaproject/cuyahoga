@@ -15,14 +15,21 @@
 				<table>
 					<tr>
 						<td style="WIDTH: 100px">Name</td>
-						<td><asp:textbox id="txtName" runat="server" width="300px" maxlength="100"></asp:textbox><asp:requiredfieldvalidator id="rfvName" runat="server" enableclientscript="False" controltovalidate="txtName" cssclass="validator" display="Dynamic">Name is required</asp:requiredfieldvalidator></td></tr>
-					<tr>
+						<td><asp:textbox id="txtName" runat="server" width="300px" maxlength="100"></asp:textbox><asp:requiredfieldvalidator id="rfvName" runat="server" enableclientscript="False" controltovalidate="txtName"
+								cssclass="validator" display="Dynamic">Name is required</asp:requiredfieldvalidator></td>
+					</tr>
 					<tr>
 						<td>Site url (incl. http://)</td>
-						<td><asp:textbox id="txtSiteUrl" runat="server" width="300px" maxlength="100"></asp:textbox><asp:requiredfieldvalidator id="rfvSiteUrl" runat="server" enableclientscript="False" controltovalidate="txtSiteUrl" cssclass="validator" display="Dynamic">Site url is required</asp:requiredfieldvalidator></td></tr>
+						<td><asp:textbox id="txtSiteUrl" runat="server" width="300px" maxlength="100"></asp:textbox><asp:requiredfieldvalidator id="rfvSiteUrl" runat="server" enableclientscript="False" controltovalidate="txtSiteUrl"
+								cssclass="validator" display="Dynamic">Site url is required</asp:requiredfieldvalidator></td>
+					</tr>
 					<tr>
 						<td>Webmaster email</td>
-						<td><asp:textbox id="txtWebmasterEmail" runat="server" maxlength="100" width="300px"></asp:textbox><asp:requiredfieldvalidator id="rfvWebmasterEmail" runat="server" errormessage="Webmaster email is required" cssclass="validator" display="Dynamic" controltovalidate="txtWebmasterEmail" enableclientscript="False"></asp:requiredfieldvalidator></td></tr></table></div>
+						<td><asp:textbox id="txtWebmasterEmail" runat="server" maxlength="100" width="300px"></asp:textbox><asp:requiredfieldvalidator id="rfvWebmasterEmail" runat="server" errormessage="Webmaster email is required"
+								cssclass="validator" display="Dynamic" controltovalidate="txtWebmasterEmail" enableclientscript="False"></asp:requiredfieldvalidator></td>
+					</tr>
+				</table>
+			</div>
 			<div class="group">
 				<h4>Defaults</h4>
 				<table>
@@ -32,9 +39,8 @@
 					</tr>
 					<tr>
 						<td>Placeholder</td>
-						<td><asp:dropdownlist id="ddlPlaceholders" runat="server"></asp:dropdownlist><em>(this
-								is the placeholder where the content of&nbsp;general pages&nbsp;is
-								inserted)</em></td>
+						<td><asp:dropdownlist id="ddlPlaceholders" runat="server"></asp:dropdownlist><em>(this 
+								is the placeholder where the content of&nbsp;general pages&nbsp;is inserted)</em></td>
 					</tr>
 					<tr>
 						<td>Culture</td>
@@ -46,11 +52,36 @@
 					</tr>
 				</table>
 			</div>
+			<asp:panel id="pnlAliases" runat="server" cssclass="group">
+				<h4>Aliases</h4>
+				<table class="tbl">
+					<asp:repeater id="rptAliases" runat="server">
+						<headertemplate>
+							<tr>
+								<th>
+									Alias url</th>
+								<th>
+									Entry Node</th>
+								<th>
+									&nbsp;</th>
+							</tr>
+						</headertemplate>
+						<itemtemplate>
+							<tr>
+								<td><%# DataBinder.Eval(Container.DataItem, "Url") %></td>
+								<td><asp:label id="lblEntryNode" runat="server"></asp:label></td>
+								<td>
+									<asp:hyperlink id="hplEdit" runat="server">Edit</asp:hyperlink></td>
+							</tr>
+						</itemtemplate>
+					</asp:repeater></table>
+				<asp:hyperlink id="hplNewAlias" runat="server">Add alias</asp:hyperlink>
+			</asp:panel>
 			<div>
 				<asp:button id="btnSave" runat="server" text="Save"></asp:button>
 				<asp:button id="btnCancel" runat="server" text="Cancel" causesvalidation="False"></asp:button>
 				<asp:button id="btnDelete" runat="server" text="Delete" causesvalidation="False"></asp:button>
-			</div></form>
-
+			</div>
+		</form>
 	</body>
 </html>

@@ -234,6 +234,11 @@ namespace Cuyahoga.Core.Service
 
 		#region Site specific
 
+		/// <summary>
+		/// 
+		/// </summary>
+		/// <param name="siteUrl"></param>
+		/// <returns></returns>
 		public Site GetSiteBySiteUrl(string siteUrl)
 		{
 			ICriteria crit = this._activeSession.CreateCriteria(typeof(Site));
@@ -251,6 +256,19 @@ namespace Cuyahoga.Core.Service
 			{
 				return null;
 			}
+		}
+
+		/// <summary>
+		/// Return all aliases belonging to a specific site.
+		/// </summary>
+		/// <param name="site"></param>
+		/// <returns></returns>
+		public IList GetSiteAliasesBySite(Site site)
+		{
+			string hql = "from SiteAlias sa where sa.Site.Id = :siteId ";
+			IQuery query = this._activeSession.CreateQuery(hql);
+			query.SetInt32("siteId", site.Id);
+			return query.List();
 		}
 
 		#endregion
@@ -352,6 +370,11 @@ namespace Cuyahoga.Core.Service
 
 		#region Menu specific
 
+		/// <summary>
+		/// Get all available menus for a given root node.
+		/// </summary>
+		/// <param name="rootNode"></param>
+		/// <returns></returns>
 		public IList GetMenusByRootNode(Node rootNode)
 		{
 			string hql = "from Menu m where m.RootNode.Id = :rootNodeId";

@@ -88,7 +88,7 @@ namespace Cuyahoga.Web.Admin
 
 		private void BindAvailableNodes()
 		{
-			IList rootNodes = base.CoreRepository.GetRootNodes(this.ActiveNode.Site);
+			IList rootNodes = this.ActiveNode.Site.RootNodes;
 			AddAvailableNodes(rootNodes);
 		}
 

@@ -35,6 +35,9 @@ namespace Cuyahoga.Web.Admin
 		protected System.Web.UI.WebControls.DropDownList ddlRoles;
 		protected System.Web.UI.WebControls.TextBox txtWebmasterEmail;
 		protected System.Web.UI.WebControls.RequiredFieldValidator rfvWebmasterEmail;
+		protected System.Web.UI.WebControls.HyperLink hplNewAlias;
+		protected System.Web.UI.WebControls.Panel pnlAliases;
+		protected System.Web.UI.WebControls.Repeater rptAliases;
 		protected System.Web.UI.WebControls.RequiredFieldValidator rfvSiteUrl;
 	
 		private void Page_Load(object sender, System.EventArgs e)
@@ -48,6 +51,7 @@ namespace Cuyahoga.Web.Admin
 					// Create a new site instance
 					this._activeSite = new Site();
 					this.btnDelete.Visible = false;
+					this.hplNewAlias.Visible = false;
 				}
 				else
 				{
@@ -63,6 +67,10 @@ namespace Cuyahoga.Web.Admin
 					BindTemplates();
 					BindCultures();
 					BindRoles();
+					if (this._activeSite.Id > 0)
+					{
+						BindAliases();
+					}
 				}
 			}
 		}
@@ -151,6 +159,13 @@ namespace Cuyahoga.Web.Admin
 			}
 		}
 
+		private void BindAliases()
+		{
+			this.rptAliases.DataSource = base.CoreRepository.GetSiteAliasesBySite(this._activeSite);
+			this.rptAliases.DataBind();
+			this.hplNewAlias.NavigateUrl = String.Format("~/Admin/SiteAliasEdit.aspx?SiteId={0}&SiteAliasId=-1", this._activeSite.Id);
+		}
+
 		private void SaveSite()
 		{
 			try
@@ -189,6 +204,7 @@ namespace Cuyahoga.Web.Admin
 		private void InitializeComponent()
 		{    
 			this.ddlTemplates.SelectedIndexChanged += new System.EventHandler(this.ddlTemplates_SelectedIndexChanged);
+			this.rptAliases.ItemDataBound += new System.Web.UI.WebControls.RepeaterItemEventHandler(this.rptAliases_ItemDataBound);
 			this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
 			this.btnCancel.Click += new System.EventHandler(this.btnCancel_Click);
 			this.btnDelete.Click += new System.EventHandler(this.btnDelete_Click);
@@ -242,8 +258,16 @@ namespace Cuyahoga.Web.Admin
 				}
 				else
 				{
-					base.CoreRepository.DeleteObject(this._activeSite);
-					Context.Response.Redirect("Default.aspx");
+					IList aliases = base.CoreRepository.GetSiteAliasesBySite(this._activeSite);
+					if (aliases.Count == 0)
+					{
+						base.CoreRepository.DeleteObject(this._activeSite);
+						Context.Response.Redirect("Default.aspx");
+					}
+					else
+					{
+						ShowError("Can't delete a site when there are aliases for the site. Please delete all aliases first.");
+					}
 				}
 			}
 			catch (Exception ex)
@@ -255,6 +279,28 @@ namespace Cuyahoga.Web.Admin
 		private void ddlTemplates_SelectedIndexChanged(object sender, System.EventArgs e)
 		{
 			BindPlaceholders();
+		}
+
+		private void rptAliases_ItemDataBound(object sender, System.Web.UI.WebControls.RepeaterItemEventArgs e)
+		{
+			SiteAlias sa = (SiteAlias)e.Item.DataItem;
+			HyperLink hplEdit = e.Item.FindControl("hplEdit") as HyperLink;
+			if (hplEdit != null)
+			{
+				hplEdit.NavigateUrl = String.Format("~/Admin/SiteAliasEdit.aspx?SiteId={0}&SiteAliasId={1}", this._activeSite.Id, sa.Id);
+			}
+			Label lblEntryNode = e.Item.FindControl("lblEntryNode") as Label;
+			if (lblEntryNode != null)
+			{
+				if (sa.EntryNode == null)
+				{
+					lblEntryNode.Text = "Inherited from site";
+				}
+				else
+				{
+					lblEntryNode.Text = sa.EntryNode.Title + " (" + sa.EntryNode.Culture + ")";
+				}
+			}
 		}
 	}
 }
