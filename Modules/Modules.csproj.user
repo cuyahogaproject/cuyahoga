@@ -1,7 +1,7 @@
 <VisualStudioProject>
     <CSHARP LastOpenVersion = "7.10.3077" >
         <Build>
-            <Settings ReferencePath = "E:\Projects\Cuyahoga\ExternalStuff\;" >
+            <Settings ReferencePath = "E:\Projects\Cuyahoga\ExternalStuff\;E:\Projects\NHibernate-0.2.0.0\build\nhibernate-0.2.0.0\bin\" >
                 <Config
                     Name = "Debug"
                     EnableASPDebugging = "false"

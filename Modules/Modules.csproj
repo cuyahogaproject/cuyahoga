@@ -90,34 +90,14 @@
                     HintPath = "..\..\..\WINDOWS\Microsoft.NET\Framework\v1.1.4322\System.Web.dll"
                 />
                 <Reference
+                    Name = "NHibernate"
+                    AssemblyName = "NHibernate"
+                    HintPath = "..\ExternalStuff\NHibernate.dll"
+                />
+                <Reference
                     Name = "Npgsql"
                     AssemblyName = "Npgsql"
                     HintPath = "..\ExternalStuff\Npgsql.dll"
-                />
-                <Reference
-                    Name = "Mailframe.Configuration"
-                    AssemblyName = "Mailframe.Configuration"
-                    HintPath = "..\ExternalStuff\Mailframe.Configuration.dll"
-                />
-                <Reference
-                    Name = "Gentle.Framework"
-                    AssemblyName = "Gentle.Framework"
-                    HintPath = "..\ExternalStuff\Gentle.Framework.dll"
-                />
-                <Reference
-                    Name = "Gentle.Provider.PostgreSQL"
-                    AssemblyName = "Gentle.Provider.PostgreSQL"
-                    HintPath = "..\ExternalStuff\Gentle.Provider.PostgreSQL.dll"
-                />
-                <Reference
-                    Name = "Gentle.Provider.SQLServer"
-                    AssemblyName = "Gentle.Provider.SQLServer"
-                    HintPath = "..\ExternalStuff\Gentle.Provider.SQLServer.dll"
-                />
-                <Reference
-                    Name = "Mono.Security"
-                    AssemblyName = "Mono.Security"
-                    HintPath = "..\ExternalStuff\Mono.Security.dll"
                 />
             </References>
         </Build>
@@ -134,6 +114,10 @@
                     BuildAction = "Compile"
                 />
                 <File
+                    RelPath = "Articles\Article.hbm.xml"
+                    BuildAction = "EmbeddedResource"
+                />
+                <File
                     RelPath = "Articles\ArticleModule.cs"
                     SubType = "Code"
                     BuildAction = "Compile"
@@ -144,9 +128,17 @@
                     BuildAction = "Compile"
                 />
                 <File
+                    RelPath = "Articles\Category.hbm.xml"
+                    BuildAction = "EmbeddedResource"
+                />
+                <File
                     RelPath = "Articles\Comment.cs"
                     SubType = "Code"
                     BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "Articles\Comment.hbm.xml"
+                    BuildAction = "EmbeddedResource"
                 />
                 <File
                     RelPath = "DAL\IModulesDataProvider.cs"

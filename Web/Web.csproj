@@ -114,11 +114,6 @@
                     AssemblyName = "eWorld.UI"
                     HintPath = "..\ExternalStuff\eWorld.UI.dll"
                 />
-                <Reference
-                    Name = "Gentle.Framework"
-                    AssemblyName = "Gentle.Framework"
-                    HintPath = "..\ExternalStuff\Gentle.Framework.dll"
-                />
             </References>
         </Build>
         <Files>

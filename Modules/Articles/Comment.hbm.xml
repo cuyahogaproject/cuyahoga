@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8" ?> 
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.0">
+	<class name="Cuyahoga.Modules.Articles.Comment, Cuyahoga.Modules" table="cm_articlecomment">
+		<id name="Id" column="commentid" type="Int32" unsaved-value="-1">
+			<generator class="native">
+				<param name="sequence">cm_articlecomment_commentid_seq</param>
+			</generator>
+		</id>
+		<property name="CommentText" column="commenttext" type="String" length="2000" />
+		<property name="UserId" column="userid" type="Int32" />
+		<many-to-one name="Article" class="Cuyahoga.Modules.Articles.Article, Cuyahoga.Modules" column="articleid" />
+	</class>
+</hibernate-mapping>

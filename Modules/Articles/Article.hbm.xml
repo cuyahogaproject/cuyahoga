@@ -1,0 +1,26 @@
+﻿<?xml version="1.0" encoding="utf-8" ?> 
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.0">
+	<class name="Cuyahoga.Modules.Articles.Article, Cuyahoga.Modules" table="cm_article">
+		<id name="Id" column="articleid" type="Int32" unsaved-value="-1">
+			<generator class="native">
+				<param name="sequence">cm_article_articleid_seq</param>
+			</generator>
+		</id>
+		<property name="Title" column="title" type="String" length="100" />
+		<property name="Summary" column="summary" type="String" length="255" />
+		<property name="Content" column="content" type="String" />
+		<property name="DateOnline" column="dateonline" type="DateTime" />
+		<property name="DateOffline" column="dateoffline" type="DateTime" />
+		<property name="DateCreated" column="inserttimestamp" type="DateTime" />
+		<property name="DateModified" column="updatetimestamp" type="DateTime" />
+		<property name="Syndicate" column="syndicate" type="Boolean" />
+		<property name="SectionId" column="sectionid" type="Int32" />
+		<property name="CreatedById" column="createdby" type="Int32" />
+		<property name="ModifiedById" column="modifiedby" type="Int32" />
+		<bag name="Comments" cascade="all" inverse="true">
+			<key column="articleid" />
+			<one-to-many class="Cuyahoga.Modules.Articles.Comment, Cuyahoga.Modules" />
+		</bag>
+		<many-to-one name="Category" class="Cuyahoga.Modules.Articles.Category, Cuyahoga.Modules" column="articlecategoryid" />
+	</class>
+</hibernate-mapping>

@@ -32,7 +32,7 @@ namespace Cuyahoga.Web.Modules.Articles
 
 			if (! this.IsPostBack)
 			{
-				this.rptArticles.DataSource = this._module.Articles;
+				this.rptArticles.DataSource = this._module.GetAllArticles();
 				this.rptArticles.DataBind();
 			}
 		}

@@ -89,11 +89,6 @@
                     AssemblyName = "Npgsql"
                     HintPath = "..\ExternalStuff\Npgsql.dll"
                 />
-                <Reference
-                    Name = "Mono.Security"
-                    AssemblyName = "Mono.Security"
-                    HintPath = "..\ExternalStuff\Mono.Security.dll"
-                />
             </References>
         </Build>
         <Files>

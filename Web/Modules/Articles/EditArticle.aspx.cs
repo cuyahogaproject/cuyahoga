@@ -9,8 +9,6 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Web.UI.HtmlControls;
 
-using Gentle.Framework;
-
 using Cuyahoga.Core;
 using Cuyahoga.Modules.Articles;
 using Cuyahoga.Web.UI;
@@ -54,8 +52,7 @@ namespace Cuyahoga.Web.Modules.Articles
 				int articleId = Int32.Parse(Request.QueryString["ArticleId"]);
 				if (articleId > 0)
 				{
-					Key key = new Key(typeof(Article), true, "_id", articleId);
-					this._article = Broker.RetrieveInstance(typeof(Article), key) as Article;
+					this._article = this._module.GetArticleById(articleId);
 					if (! this.IsPostBack)
 					{
 						BindArticle();
@@ -110,11 +107,13 @@ namespace Cuyahoga.Web.Modules.Articles
 				this._article.Content = this.cedContent.Text;
 				if (this.ddlCategory.SelectedIndex > 0)
 				{
-					this._article.Category = new Category(Int32.Parse(ddlCategory.SelectedValue));
+					this._article.Category = new Category();
+					this._article.Category.Id = Int32.Parse(this.ddlCategory.SelectedValue);
 				}
 				else if (this.txtCategory.Text.Length > 0)
 				{
-					this._article.Category = new Category(this.txtCategory.Text, "", true);
+					this._article.Category = new Category();
+					this._article.Category.Title = this.txtCategory.Text;
 				}
 				else
 				{
@@ -125,7 +124,7 @@ namespace Cuyahoga.Web.Modules.Articles
 				this._article.DateOffline = this.calDateOffline.SelectedDate;
 				this._article.ModifiedBy = (Cuyahoga.Core.User)this.User.Identity;
 				this._article.DateModified = DateTime.Now;
-				this._article.Persist();
+				this._module.SaveArticle(this._article);
 				Response.Redirect(String.Format("AdminArticles.aspx{0}", base.GetBaseQueryString()));
 			}
 			catch (Exception ex)
@@ -177,7 +176,7 @@ namespace Cuyahoga.Web.Modules.Articles
 			{
 				try
 				{
-					this._article.Remove();
+					this._module.DeleteArticle(this._article);
 					Response.Redirect(String.Format("AdminArticles.aspx{0}", base.GetBaseQueryString()));
 				}
 				catch (Exception ex)

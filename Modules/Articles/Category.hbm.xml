@@ -1,0 +1,17 @@
+﻿<?xml version="1.0" encoding="utf-8" ?> 
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.0">
+	<class name="Cuyahoga.Modules.Articles.Category, Cuyahoga.Modules" table="cm_articlecategory">
+		<id name="Id" column="articlecategoryid" type="Int32" unsaved-value="-1">
+			<generator class="native">
+				<param name="sequence">cm_articlecategory_articlecategoryid_seq</param>
+			</generator>
+		</id>
+		<property name="Title" column="title" type="String" length="100" unique="true" />
+		<property name="Summary" column="summary" type="String" length="255" />
+		<property name="Syndicate" column="syndicate" type="Boolean" />
+		<bag name="Articles" cascade="none">
+			<key column="articlecategoryid" />
+			<one-to-many class="Cuyahoga.Modules.Articles.Article, Cuyahoga.Modules" />
+		</bag>
+	</class>
+</hibernate-mapping>
