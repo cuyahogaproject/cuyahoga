@@ -29,11 +29,14 @@ namespace Cuyahoga.Web.Admin
 		protected System.Web.UI.WebControls.TextBox txtPath;
 		protected System.Web.UI.WebControls.RequiredFieldValidator rfvPath;
 		protected System.Web.UI.WebControls.Button btnSave;
-		protected System.Web.UI.WebControls.Button btnCancel;
 		protected System.Web.UI.WebControls.DropDownList ddlCss;
 		protected System.Web.UI.WebControls.TextBox txtBasePath;
 		protected System.Web.UI.WebControls.RequiredFieldValidator rfvBasePath;
 		protected System.Web.UI.WebControls.DropDownList ddlTemplateControls;
+		protected System.Web.UI.WebControls.Button btnBack;
+		protected System.Web.UI.WebControls.Button btnVerifyBasePath;
+		protected System.Web.UI.WebControls.Label lblTemplateControlWarning;
+		protected System.Web.UI.WebControls.Label lblCssWarning;
 		protected System.Web.UI.WebControls.Button btnDelete;
 	
 		private void Page_Load(object sender, System.EventArgs e)
@@ -77,14 +80,22 @@ namespace Cuyahoga.Web.Admin
 			if (dir.Exists)
 			{
 				FileInfo[] templateControls = dir.GetFiles("*.ascx");
-				foreach (FileInfo templateControlFile in templateControls)
+				if (templateControls.Length == 0 && this.IsPostBack)
 				{
-					this.ddlTemplateControls.Items.Add(templateControlFile.Name);
+					this.lblTemplateControlWarning.Visible = true;
+					this.lblTemplateControlWarning.Text = "No template user controls found at the [base path] location.";
 				}
-				ListItem li = this.ddlTemplateControls.Items.FindByValue(this._activeTemplate.TemplateControl);
-				if (li != null)
+				else
 				{
-					li.Selected = true;
+					foreach (FileInfo templateControlFile in templateControls)
+					{
+						this.ddlTemplateControls.Items.Add(templateControlFile.Name);
+					}
+					ListItem li = this.ddlTemplateControls.Items.FindByValue(this._activeTemplate.TemplateControl);
+					if (li != null)
+					{
+						li.Selected = true;
+					}
 				}
 			}
 		}
@@ -97,14 +108,49 @@ namespace Cuyahoga.Web.Admin
 			if (dir.Exists)
 			{
 				FileInfo[] cssSheets = dir.GetFiles("*.css");
-				foreach (FileInfo css in cssSheets)
+				if (cssSheets.Length == 0 && this.IsPostBack)
 				{
-					this.ddlCss.Items.Add(css.Name);
+					this.lblCssWarning.Visible = true;
+					this.lblCssWarning.Text = "No stylesheet files found at the [base path]/Css location.";
 				}
-				ListItem li = this.ddlCss.Items.FindByValue(this._activeTemplate.Css);
-				if (li != null)
+				else
 				{
-					li.Selected = true;
+					foreach (FileInfo css in cssSheets)
+					{
+						this.ddlCss.Items.Add(css.Name);
+					}
+					ListItem li = this.ddlCss.Items.FindByValue(this._activeTemplate.Css);
+					if (li != null)
+					{
+						li.Selected = true;
+					}
+				}
+			}
+			else
+			{
+				this.lblCssWarning.Visible = true;
+				this.lblCssWarning.Text = "The location for the stylesheets ([base path]/Css) could not be found.";
+			}
+		}
+
+		private void CheckBasePath()
+		{
+			if (this._activeTemplate.BasePath.Trim() == String.Empty)
+			{
+				ShowError("The base path can not be empty.");
+			}
+			else
+			{
+				string physicalBasePath = Context.Server.MapPath(
+					UrlHelper.GetApplicationPath() + this._activeTemplate.BasePath);
+				if (! Directory.Exists(physicalBasePath))
+				{
+					ShowError("The base path you entered could not be found on the server.");
+				}
+				else
+				{
+					BindTemplateUserControls();
+					BindCss();
 				}
 			}
 		}
@@ -147,8 +193,9 @@ namespace Cuyahoga.Web.Admin
 		private void InitializeComponent()
 		{    
 			this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
-			this.btnCancel.Click += new System.EventHandler(this.btnCancel_Click);
+			this.btnBack.Click += new System.EventHandler(this.btnCancel_Click);
 			this.btnDelete.Click += new System.EventHandler(this.btnDelete_Click);
+			this.btnVerifyBasePath.Click += new System.EventHandler(this.btnVerifyBasePath_Click);
 			this.Load += new System.EventHandler(this.Page_Load);
 
 		}
@@ -185,6 +232,12 @@ namespace Cuyahoga.Web.Admin
 		private void btnCancel_Click(object sender, System.EventArgs e)
 		{
 			Context.Response.Redirect("Templates.aspx");
+		}
+
+		private void btnVerifyBasePath_Click(object sender, System.EventArgs e)
+		{
+			this._activeTemplate.BasePath = this.txtBasePath.Text;
+			CheckBasePath();
 		}
 	}
 }

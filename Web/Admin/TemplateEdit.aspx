@@ -11,9 +11,9 @@
 	<body ms_positioning="FlowLayout">
 		<form id="Form1" method="post" runat="server">
 			<p>
-				<em>Make sure you have placed at least one&nbsp;template control (.ascx)&nbsp;in 
-					the directory specified as the Base path and at least one css file in Base 
-					path/Css directory.</em>&nbsp;
+				<em>Make sure you have placed at least one template control (.ascx) in the 
+					directory specified as the Base path and at least one css file in Base path/Css 
+					directory.</em>
 			</p>
 			<div class="group">
 				<h4>General</h4>
@@ -28,25 +28,29 @@
 					<tr>
 						<td>Base path</td>
 						<td><asp:textbox id="txtBasePath" runat="server" width="200px"></asp:textbox>
-							<asp:requiredfieldvalidator id="rfvBasePath" runat="server" errormessage="Path is required" cssclass="validator"
+							<asp:button id="btnVerifyBasePath" runat="server" text="Verify" causesvalidation="False"></asp:button>
+							<asp:requiredfieldvalidator id="rfvBasePath" runat="server" errormessage="Base path is required" cssclass="validator"
 								display="Dynamic" enableclientscript="False" controltovalidate="txtBasePath"></asp:requiredfieldvalidator>
 						</td>
 					</tr>
 					<tr>
 						<td>Template control</td>
 						<td>
-							<asp:dropdownlist id="ddlTemplateControls" runat="server"></asp:dropdownlist></td>
+							<asp:dropdownlist id="ddlTemplateControls" runat="server"></asp:dropdownlist>
+							<asp:label id="lblTemplateControlWarning" runat="server" cssclass="validator" visible="False"
+								enableviewstate="False"></asp:label></td>
 					</tr>
 					<tr>
 						<td>Css</td>
 						<td><asp:dropdownlist id="ddlCss" runat="server"></asp:dropdownlist>
+							<asp:label id="lblCssWarning" runat="server" cssclass="validator" visible="False" enableviewstate="False"></asp:label>
 						</td>
 					</tr>
 				</table>
 			</div>
 			<br>
 			<asp:button id="btnSave" runat="server" text="Save"></asp:button>
-			<asp:button id="btnCancel" runat="server" text="Cancel" causesvalidation="false"></asp:button>
+			<asp:button id="btnBack" runat="server" text="Back" causesvalidation="false"></asp:button>
 			<asp:button id="btnDelete" runat="server" text="Delete" causesvalidation="false"></asp:button>
 		</form>
 	</body>

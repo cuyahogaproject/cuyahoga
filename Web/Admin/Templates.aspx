@@ -10,8 +10,8 @@
 	</head>
 	<body ms_positioning="FlowLayout">
 		<form id="Form1" method="post" runat="server">
-			<p><em>Note that you have to maintain
-					the physical templates separately with FTP or something else...</em> </p>
+			<p><em>NOTE: You have to upload the physical templates and 
+					stylesheet files separately with FTP or something.</em> </p>
 			<table class="tbl"><asp:repeater id="rptTemplates" runat="server">
 					<headertemplate>
 						<tr>
