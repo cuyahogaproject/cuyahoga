@@ -11,6 +11,7 @@ namespace Cuyahoga.Core.Domain
 	{
 		private Section _section;
 		private ISession _session;
+		private bool _sessionFactoryRebuilt = false;
 
 		/// <summary>
 		/// The NHibernate session from the current ASP.NET context.
@@ -31,6 +32,15 @@ namespace Cuyahoga.Core.Domain
 			}
 		}
 
+		/// <summary>
+		/// Flag that indicates if the SessionFactory is rebuilt. TODO: can't we handle this more elegantly?
+		/// </summary>
+		public bool SessionFactoryRebuilt
+		{
+			get { return this._sessionFactoryRebuilt; }
+			set { this._sessionFactoryRebuilt = value; }
+		}
+
 		public delegate void NHSessionEventHandler(object sender, NHSessionEventArgs e);
 
 		public event NHSessionEventHandler NHSessionRequired;
@@ -40,16 +50,6 @@ namespace Cuyahoga.Core.Domain
 			if (NHSessionRequired != null)
 			{
 				NHSessionRequired(this, e);
-			}
-		}
-
-		public event EventHandler SessionFactoryRebuilt;
-
-		protected void OnSessionFactoryRebuilt(EventArgs e)
-		{
-			if (SessionFactoryRebuilt != null)
-			{
-				SessionFactoryRebuilt(this, e);
 			}
 		}
 

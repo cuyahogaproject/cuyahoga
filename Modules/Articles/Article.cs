@@ -2,7 +2,6 @@ using System;
 using System.Collections;
 
 using Cuyahoga.Core.Domain;
-using Cuyahoga.Core.DAL;
 
 namespace Cuyahoga.Modules.Articles
 {

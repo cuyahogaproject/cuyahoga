@@ -22,7 +22,15 @@ namespace Cuyahoga.Web.Modules.StaticHtml
 			if (module != null)
 			{
 				Literal htmlControl = new Literal();
-				htmlControl.Text = module.StaticHtmlContent.Content;
+				StaticHtmlContent shc = module.GetContent();
+				if (shc != null)
+				{
+					htmlControl.Text = shc.Content;
+				}
+				else
+				{
+					htmlControl.Text = String.Empty;
+				}
 				this.plcContent.Controls.Add(htmlControl);
 			}
 		}

@@ -141,9 +141,9 @@ namespace Cuyahoga.Web.UI
 							this._activeSection = section;
 						}
 						// Create the module that is connected to the section.
+						section.SessionFactoryRebuilt += new EventHandler(Section_SessionFactoryRebuilt);
 						ModuleBase module = section.CreateModule();
 						// Create event handlers for NHibernate-related events that can occur in the module.
-						module.SessionFactoryRebuilt += new EventHandler(Module_SessionFactoryRebuilt);
 						module.NHSessionRequired += new ModuleBase.NHSessionEventHandler(Module_NHSessionRequired);
 
 						if (module != null)
@@ -202,12 +202,19 @@ namespace Cuyahoga.Web.UI
 			base.OnUnload (e);
 		}
 
-		private void Module_SessionFactoryRebuilt(object sender, EventArgs e)
+		private void Section_SessionFactoryRebuilt(object sender, EventArgs e)
 		{
 			// The SessionFactory was rebuilt, so the current NHibernate Session has become invalid.
 			// This is handled by a simple reload of the page. 
 			// TODO: handle more elegantly?
-			Context.Response.Redirect(Context.Items["VirtualUrl"].ToString());
+			if (Context.Items["VirtualUrl"] != null)
+			{
+				Context.Response.Redirect(Context.Items["VirtualUrl"].ToString());
+			}
+			else
+			{
+				Context.Response.Redirect(Context.Request.RawUrl);
+			}
 		}
 
 		private void Module_NHSessionRequired(object sender, ModuleBase.NHSessionEventArgs e)

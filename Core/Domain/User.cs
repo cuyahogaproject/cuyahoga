@@ -2,8 +2,6 @@ using System;
 using System.Collections;
 using System.Security.Principal;
 
-using Cuyahoga.Core.DAL;
-
 namespace Cuyahoga.Core.Domain
 {
 	/// <summary>
@@ -183,18 +181,6 @@ namespace Cuyahoga.Core.Domain
 			this._isAuthenticated = false;
 			this._permissions = new AccessLevel[0];
 			this._roles = new ArrayList();
-		}
-
-		/// <summary>
-		/// Try to log-in the user with the username and password. 
-		/// </summary>
-		/// <returns></returns>
-		public bool Login()
-		{
-            ICmsDataProvider dp = CmsDataFactory.GetInstance();
-            dp.GetUserByUsernameAndPassword(this.UserName, this.Password, this);
-			this._isAuthenticated = (this._id > 0);
-			return this._isAuthenticated;
 		}
 
 		/// <summary>

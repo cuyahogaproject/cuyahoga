@@ -141,24 +141,13 @@
                     BuildAction = "EmbeddedResource"
                 />
                 <File
-                    RelPath = "DAL\IModulesDataProvider.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "DAL\ModulesDataProvider.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "DAL\PgSqlModulesDataProvider.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
                     RelPath = "StaticHtml\StaticHtmlContent.cs"
                     SubType = "Code"
                     BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "StaticHtml\StaticHtmlContent.hbm.xml"
+                    BuildAction = "EmbeddedResource"
                 />
                 <File
                     RelPath = "StaticHtml\StaticHtmlModule.cs"

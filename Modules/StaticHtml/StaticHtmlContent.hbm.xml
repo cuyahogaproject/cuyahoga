@@ -1,0 +1,20 @@
+﻿<?xml version="1.0" encoding="utf-8" ?> 
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.0">
+	<class name="Cuyahoga.Modules.StaticHtml.StaticHtmlContent, Cuyahoga.Modules" table="cm_statichtml">
+		<id name="Id" column="statichtmlid" type="Int32" unsaved-value="-1">
+			<generator class="native">
+				<param name="sequence">cm_statichtml_statichtmlid_seq</param>
+			</generator>
+		</id>
+		
+		<timestamp name="UpdateTimestamp" column="updatetimestamp" />
+		
+		<property name="Title" column="title" type="String" length="255" not-null="false" />
+		<property name="Content" column="content" type="String" />
+
+		<many-to-one name="Section" class="Cuyahoga.Core.Domain.Section, Cuyahoga.Core" column="sectionid" />
+		<many-to-one name="CreatedBy" class="Cuyahoga.Core.Domain.User, Cuyahoga.Core" column="createdby" />
+		<many-to-one name="ModifiedBy" class="Cuyahoga.Core.Domain.User, Cuyahoga.Core" column="modifiedby" not-null="false" />
+
+	</class>
+</hibernate-mapping>

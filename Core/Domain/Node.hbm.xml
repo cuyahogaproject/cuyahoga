@@ -30,7 +30,7 @@
 				<parent name="Node" />
 				<property name="ViewAllowed" column="viewallowed" type="Boolean" />
 				<property name="EditAllowed" column="editallowed" type="Boolean" />
-				<many-to-one name="Role" class="Cuyahoga.Core.Domain.Role, Cuyahoga.Core" column="roleid" />
+				<many-to-one name="Role" class="Cuyahoga.Core.Domain.Role, Cuyahoga.Core" column="roleid" cascade="none" />
 			</composite-element>
 		</bag>
 		

@@ -74,13 +74,13 @@ namespace Cuyahoga.Web.UI
 				this._node = (Node)base.CoreRepository.GetObjectById(typeof(Node), nodeId);
 				int sectionId = Int32.Parse(Context.Request.QueryString["SectionId"]);
 				this._section = (Section)base.CoreRepository.GetObjectById(typeof(Section), sectionId);
+				this._section.SessionFactoryRebuilt += new EventHandler(Section_SessionFactoryRebuilt);
 				if (this._section.Node.Id == this._node.Id)
 				{
 					this._section.Node = this._node;
 				}
 				this._module = this._section.CreateModule();
 				this._module.NHSessionRequired += new ModuleBase.NHSessionEventHandler(Module_NHSessionRequired);
-				this._module.SessionFactoryRebuilt += new EventHandler(Module_SessionFactoryRebuilt);
 			}
 			catch (Exception ex)
 			{
@@ -142,7 +142,7 @@ namespace Cuyahoga.Web.UI
 			e.Session = base.CoreRepository.ActiveSession;
 		}
 
-		private void Module_SessionFactoryRebuilt(object sender, EventArgs e)
+		private void Section_SessionFactoryRebuilt(object sender, EventArgs e)
 		{
 			// The SessionFactory was rebuilt, so the current NHibernate Session has become invalid.
 			// This is handled by a simple reload of the page. 

@@ -1,5 +1,7 @@
 using System;
 
+using Cuyahoga.Core.Domain;
+
 namespace Cuyahoga.Modules.StaticHtml
 {
 	/// <summary>
@@ -10,6 +12,10 @@ namespace Cuyahoga.Modules.StaticHtml
 		private int _id;
 		private string _title;
 		private string _content;
+		private Section _section;
+		private Cuyahoga.Core.Domain.User _createdBy;
+		private Cuyahoga.Core.Domain.User _modifiedBy;
+		private DateTime _updateTimestamp;
 
 		/// <summary>
 		/// Property Id (int)
@@ -38,11 +44,45 @@ namespace Cuyahoga.Modules.StaticHtml
 			set { this._content = value; }
 		}
 
+		/// <summary>
+		/// Property Section (Section)
+		/// </summary>
+		public Section Section
+		{
+			get { return this._section; }
+			set { this._section = value; }
+		}
+
+		/// <summary>
+		/// Property CreatedBy (User)
+		/// </summary>
+		public Cuyahoga.Core.Domain.User CreatedBy
+		{
+			get { return this._createdBy; }
+			set { this._createdBy = value; }
+		}
+
+		/// <summary>
+		/// Property ModifiedBy (User)
+		/// </summary>
+		public Cuyahoga.Core.Domain.User ModifiedBy
+		{
+			get { return this._modifiedBy; }
+			set { this._modifiedBy = value; }
+		}
+
+		/// <summary>
+		/// Property UpdateTimestamp (DateTime)
+		/// </summary>
+		public DateTime UpdateTimestamp
+		{
+			get { return this._updateTimestamp; }
+			set { this._updateTimestamp = value; }
+		}
+
 		public StaticHtmlContent()
 		{
 			this._id = -1;
-			this._title = null;
-			this._content = null;
 		}
 	}
 }

@@ -21,12 +21,8 @@ namespace Cuyahoga.Modules.Articles
 			sf.RegisterPersistentClass(typeof(Cuyahoga.Modules.Articles.Category));
 			sf.RegisterPersistentClass(typeof(Cuyahoga.Modules.Articles.Article));
 			sf.RegisterPersistentClass(typeof(Cuyahoga.Modules.Articles.Comment));
-			if (sf.Rebuild())
-			{
-				// Raise an event that forces the page to reload because the mapping
-				// configuration is changed and the current session is invalid.
-				OnSessionFactoryRebuilt(EventArgs.Empty);
-			}
+
+			base.SessionFactoryRebuilt = sf.Rebuild();
 		}
 
 		public IList GetAvailableCategories()

@@ -8,7 +8,6 @@ namespace Cuyahoga.Core.Domain
 	public abstract class Permission
 	{
 		private int _id;
-		private DateTime _updateTimestamp;
 		private bool _viewAllowed;
 		private bool _editAllowed;
 		private Role _role;

@@ -11,7 +11,6 @@ using System.Web.UI.HtmlControls;
 
 using Cuyahoga.Web.Util;
 using Cuyahoga.Web.UI;
-using Cuyahoga.Modules.DAL;
 using Cuyahoga.Modules.StaticHtml;
 
 namespace Cuyahoga.Web.Modules.StaticHtml
@@ -28,33 +27,40 @@ namespace Cuyahoga.Web.Modules.StaticHtml
 	
 		private void Page_Load(object sender, System.EventArgs e)
 		{
-			this._module = base.Section.CreateModule() as StaticHtmlModule;
+			this._module = base.Module as StaticHtmlModule;
 
 			if (! this.IsPostBack)
 			{
-				if (this._module.StaticHtmlContent != null)
+				StaticHtmlContent shc = this._module.GetContent();
+				if (shc != null)
 				{
-					this.cedStaticHtml.Text = this._module.StaticHtmlContent.Content;
+					this.cedStaticHtml.Text = shc.Content;
+				}
+				else
+				{
+					this.cedStaticHtml.Text = String.Empty;
 				}
 			}
 		}
 
 		private void SaveStaticHtml()
 		{
-			if (this._module.StaticHtmlContent == null)
+			Cuyahoga.Core.Domain.User currentUser = (Cuyahoga.Core.Domain.User)Context.User.Identity;
+			StaticHtmlContent content = this._module.GetContent();
+			if (content == null)
 			{
-				this._module.StaticHtmlContent = new StaticHtmlContent();
-			}
-			this._module.StaticHtmlContent.Content = this.cedStaticHtml.Text;
-			IModulesDataProvider dp = ModulesDataProvider.GetInstance();
-			if (this._module.StaticHtmlContent.Id == -1)
-			{
-				dp.InsertStaticHtmlContent(this._module.Section.Id, Int32.Parse(Context.User.Identity.Name), this._module.StaticHtmlContent);
+				// New
+				content = new StaticHtmlContent();
+				content.Section = this._module.Section;
+				content.CreatedBy = currentUser;
 			}
 			else
 			{
-				dp.UpdateStaticHtmlContent(this._module.Section.Id, Int32.Parse(Context.User.Identity.Name), this._module.StaticHtmlContent);
+				// Exisiting
+				content.ModifiedBy = currentUser;
 			}
+			content.Content = this.cedStaticHtml.Text;
+			this._module.SaveContent(content);	
 		}
 
 		#region Web Form Designer generated code

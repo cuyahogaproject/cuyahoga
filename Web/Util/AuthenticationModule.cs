@@ -100,20 +100,24 @@ namespace Cuyahoga.Web.Util
 			HttpApplication app = (HttpApplication)sender;
 			if (app.Context.User != null && app.Context.User.Identity.IsAuthenticated)
 			{
+				CoreRepository cr = (CoreRepository)HttpContext.Current.Items["CoreRepository"];
 				// There is a logged-in user with a standard Forms Identity. Replace it with
 				// the cached Cuyahoga identity (the User class implements IIdentity). 
 				string cacheIdentifier = USER_CACHE_PREFIX + app.Context.User.Identity.Name;
 				if (app.Context.Cache[cacheIdentifier] == null)
 				{
 					// For some reason the user is still logged-in but the cuyahoga User instance was removed 
-					// from the cache. Fetch a new instance and cache it.
+					// from the cache (for instance when the process is recycled). Fetch a new instance and cache it.
 					int userId = Int32.Parse(app.Context.User.Identity.Name);
-//					User user = new User(userId);
-//					CacheUser(app.Context, user);
+					if (HttpContext.Current.Items["CoreRepository"] != null)
+					{
+						User user = (User)cr.GetObjectById(typeof(User), userId);
+						user.IsAuthenticated = true;
+						CacheUser(app.Context, user);
+					}
 				}
 				User cuyahogaUser = (User)app.Context.Cache[cacheIdentifier];
 				// Attach the user to the current session.
-				CoreRepository cr = (CoreRepository)HttpContext.Current.Items["CoreRepository"];
 				cr.AttachObjectToCurrentSession(cuyahogaUser);
 				// Set the user context for the application.
 				app.Context.User = new CuyahogaPrincipal(cuyahogaUser);

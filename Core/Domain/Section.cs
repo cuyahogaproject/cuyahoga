@@ -140,6 +140,20 @@ namespace Cuyahoga.Core.Domain
 
 		#endregion
 
+		#region events
+
+		public event EventHandler SessionFactoryRebuilt;
+
+		protected void OnSessionFactoryRebuilt(EventArgs e)
+		{
+			if (SessionFactoryRebuilt != null)
+			{
+				SessionFactoryRebuilt(this, e);
+			}
+		}
+
+		#endregion
+
 		#region constructor and initialization
 
 		/// <summary>
@@ -175,6 +189,10 @@ namespace Cuyahoga.Core.Domain
 				string assemblyQualifiedName = this._moduleType.ClassName + ", " + this._moduleType.AssemblyName;
 				Type moduleType = Type.GetType(assemblyQualifiedName);
 				ModuleBase concreteModule = (ModuleBase)Activator.CreateInstance(moduleType);
+				if (concreteModule.SessionFactoryRebuilt)
+				{
+					OnSessionFactoryRebuilt(EventArgs.Empty);
+				}
 				concreteModule.Section = this;
 				return concreteModule;
 			}
