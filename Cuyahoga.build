@@ -2,7 +2,7 @@
 <project default="build" basedir="." xmlns="http://nant.sf.net/release/0.85-rc1/nant.xsd">
 	<!-- global project settings -->
 	<property name="project.name" value="Cuyahoga" />
-	<property name="project.version" value="0.5.3" />
+	<property name="project.version" value="0.6.0" />
 
 	<!-- default configuration -->
 	<property name="project.config" value="debug" /> <!-- debug|release -->
@@ -210,6 +210,7 @@
 	<target name="deploy" depends="build" description="Deploys the website to the deployment directory">
 		<mkdir dir="${build.dir}/UserFiles/Image" />
 		<mkdir dir="${build.dir}/UserFiles/File" />
+		<mkdir dir="${build.dir}/index" />
 		<copy todir="${build.dir}">
 			<fileset basedir="Web">
 				<include name="**/*.as?x" />
@@ -262,6 +263,7 @@
 				<exclude name="Web/UserFiles/File/**/*" />
 				<exclude name="Web/UserFiles/Image/**/*" />
 				<exclude name="Web/log/**/*" />
+				<exclude name="Web/index/**/*" />
 				
 				<!-- exclude VS.NET stuff -->
 				<exclude name="**/*.suo" />

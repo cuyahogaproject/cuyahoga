@@ -30,3 +30,11 @@
 	</h3>
 	<asp:hyperlink id="hplRoles" navigateurl="../Roles.aspx" runat="server">Manage roles</asp:hyperlink>
 </div>
+<br>
+<div class="navsection">
+	<h3>
+		<asp:image imageurl="../Images/search.gif" runat="server" imagealign="absmiddle" id="i5"></asp:image>
+		Search
+	</h3>
+	<asp:hyperlink id="hplRebuild" navigateurl="../RebuildIndex.aspx" runat="server">Rebuild fulltext index</asp:hyperlink>
+</div>

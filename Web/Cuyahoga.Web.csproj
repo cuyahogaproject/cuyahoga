@@ -255,6 +255,22 @@
                     BuildAction = "EmbeddedResource"
                 />
                 <File
+                    RelPath = "Admin\RebuildIndex.aspx"
+                    SubType = "Form"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Admin\RebuildIndex.aspx.cs"
+                    DependentUpon = "RebuildIndex.aspx"
+                    SubType = "ASPXCodeBehind"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "Admin\RebuildIndex.aspx.resx"
+                    DependentUpon = "RebuildIndex.aspx.cs"
+                    BuildAction = "EmbeddedResource"
+                />
+                <File
                     RelPath = "Admin\RoleEdit.aspx"
                     SubType = "Form"
                     BuildAction = "Content"
