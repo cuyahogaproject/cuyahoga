@@ -1,7 +1,7 @@
 <VisualStudioProject>
     <CSHARP LastOpenVersion = "7.10.3077" >
         <Build>
-            <Settings ReferencePath = "E:\Projects\Cuyahoga\ExternalStuff\;E:\Lib\NpgsqlBinaries\ms\;E:\Inetpub\wwwroot\Npgsql\bin\" >
+            <Settings ReferencePath = "E:\Projects\Cuyahoga\ExternalStuff\;E:\Lib\NpgsqlBinaries\ms\;E:\Inetpub\wwwroot\Npgsql\bin\;D:\Projects\Cuyahoga\ExternalStuff\" >
                 <Config
                     Name = "Debug"
                     EnableASPDebugging = "false"

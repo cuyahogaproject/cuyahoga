@@ -16,8 +16,9 @@ namespace Cuyahoga.Web
 	/// </summary>
 	public class Test : System.Web.UI.Page
 	{
+		protected System.Web.UI.WebControls.Button Button1;
+		protected System.Web.UI.WebControls.Label Label1;
 		protected Cuyahoga.ServerControls.Calendar cal1;
-		protected Cuyahoga.ServerControls.Calendar cal2;
 	
 		private void Page_Load(object sender, System.EventArgs e)
 		{
@@ -40,9 +41,15 @@ namespace Cuyahoga.Web
 		/// </summary>
 		private void InitializeComponent()
 		{    
+			this.Button1.Click += new System.EventHandler(this.Button1_Click);
 			this.Load += new System.EventHandler(this.Page_Load);
 
 		}
 		#endregion
+
+		private void Button1_Click(object sender, System.EventArgs e)
+		{
+			this.Label1.Text = this.cal1.SelectedDate.ToString();
+		}
 	}
 }

@@ -76,22 +76,6 @@
                     BuildAction = "Content"
                 />
                 <File
-                    RelPath = "Gentle.Common.dll"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "Gentle.Framework.dll"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "Gentle.Provider.PostgreSQL.dll"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "Gentle.Provider.SQLServer.dll"
-                    BuildAction = "Content"
-                />
-                <File
                     RelPath = "HashCodeProvider.dll"
                     BuildAction = "Content"
                 />
@@ -101,10 +85,6 @@
                 />
                 <File
                     RelPath = "log4net.dll"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "Mailframe.Configuration.dll"
                     BuildAction = "Content"
                 />
                 <File

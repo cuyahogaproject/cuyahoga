@@ -1,9 +1,11 @@
 using System;
+using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.ComponentModel;
 using System.IO;
 using System.Text;
+using System.Globalization;
 
 namespace Cuyahoga.ServerControls
 {
@@ -54,14 +56,14 @@ namespace Cuyahoga.ServerControls
 			set { ViewState["DisplayTime"] = value; }		
 		}
 
-		[Bindable(true), Category("Behavior"), DefaultValue("%Y-%m-%d")]
+		[Browsable(false), Bindable(false)]
 		public string DateFormat
 		{
 			get { return (ViewState["DateFormat"] != null ? (string)ViewState["DateFormat"] : ""); }
 			set { ViewState["DateFormat"] = value; }		
 		}
 
-		[Bindable(true), Category("Behavior"), DefaultValue("%H:%M")]
+		[Browsable(false), Bindable(false)]
 		public string TimeFormat
 		{
 			get { return (ViewState["TimeFormat"] != null ? (string)ViewState["TimeFormat"] : ""); }
@@ -71,8 +73,27 @@ namespace Cuyahoga.ServerControls
 		[Bindable(true), Category("Behavior")]
 		public DateTime SelectedDate
 		{
-			get { return (ViewState["SelectedDate"] != null ? (DateTime)ViewState["SelectedDate"] : DateTime.MinValue); }
-			set { ViewState["SelectedDate"] = value; }
+			get 
+			{ 
+				EnsureChildControls();
+				if (this._dateTextBox.Text.Length > 0)
+				{
+					return DateTime.Parse(this._dateTextBox.Text);
+				}
+				else
+				{
+					return DateTime.MinValue;
+				}
+			}
+			set 
+			{ 
+				EnsureChildControls();
+				this._dateTextBox.Text = value.ToShortDateString();
+				if (this.DisplayTime)
+				{
+					this._dateTextBox.Text += " " + value.ToShortTimeString();
+				}
+			}
 		}
 
 		public override ControlCollection Controls
@@ -83,19 +104,46 @@ namespace Cuyahoga.ServerControls
 				return base.Controls;
 			}
 		}
+		
+		[TypeConverter(typeof(UnitConverter))]
+		public override Unit Width
+		{
+			get
+			{
+				EnsureChildControls();
+				return base.Width;
+			}
+			set
+			{
+				EnsureChildControls();
+				base.Width = value;
+				this._dateTextBox.Width = Unit.Pixel((int)value.Value - 24);
+			}
+		}
+
 
 
 		#endregion
+
+		public event System.EventHandler DateChanged;
+
+		protected virtual void OnDateChanged(object sender)
+		{
+			if (DateChanged != null)
+			{
+				DateChanged(sender, System.EventArgs.Empty);
+			}
+		}
 
 		public Calendar()
 		{
 			// Set defaults
 			this.Theme = CalendarTheme.system;
-			this.Language = CalendarLanguage.en;
 			this.SupportDir = "~/Support/JsCalendar";
 			this.DisplayTime = false;
-			this.DateFormat = "%Y-%m-%d";
-			this.TimeFormat = "%H:%M";
+			this.DateFormat = ConvertDateFormat(CultureInfo.CurrentCulture.DateTimeFormat.ShortDatePattern);
+			this.TimeFormat = ConvertTimeFormat(CultureInfo.CurrentCulture.DateTimeFormat.ShortTimePattern);
+			SetLanguage();
 		}
 
 		protected override void CreateChildControls()
@@ -103,11 +151,15 @@ namespace Cuyahoga.ServerControls
 			this._dateTextBox = new TextBox();
 			this._calendarImage = new Image();
 
+			this._dateTextBox.EnableViewState = true;
 			this._dateTextBox.ID = "dateTextBox";
+			this._dateTextBox.TextChanged += new EventHandler(DateTextBox_TextChanged);
 
+			this._calendarImage.EnableViewState = false;
 			this._calendarImage.ID = "trigger";
 			this._calendarImage.ImageUrl = GetClientFileUrl("cal.gif");
-			this._calendarImage.Attributes["align"] = "absmiddle";
+			this._calendarImage.Attributes["align"] = "top";
+			this._calendarImage.Attributes["hspace"] = "4";
 
 			Controls.Add(this._dateTextBox);
 			Controls.Add(this._calendarImage);
@@ -121,7 +173,8 @@ namespace Cuyahoga.ServerControls
 		{
 			if (this.Site != null && this.Site.DesignMode)
 			{
-				output.Write(Text);
+				this._dateTextBox.RenderControl(output);
+				output.Write(this.ID);
 			}
 			else
 			{
@@ -138,14 +191,28 @@ namespace Cuyahoga.ServerControls
 			Page.RegisterClientScriptBlock("calendarsetupscript", GetClientScriptInclude("calendar-setup.js"));
 			string languageFile = String.Format("lang/calendar-{0}.js", this.Language.ToString());
 			Page.RegisterClientScriptBlock("calendarlanguagescript", GetClientScriptInclude(languageFile));
-			string setupScript = GetCalendarSetupScript(this._dateTextBox.ClientID, this.DateFormat, this.ClientID);
+			string setupScript = GetCalendarSetupScript(this._dateTextBox.ClientID, GetFormatString(), this.ClientID);
 			Page.RegisterStartupScript(this.ClientID + "script", setupScript);
 		}
 
+		private void SetLanguage()
+		{
+			string currentLanguage = CultureInfo.CurrentCulture.TwoLetterISOLanguageName;
+			try
+			{
+				CalendarLanguage cl = (CalendarLanguage)Enum.Parse(typeof(CalendarLanguage), currentLanguage);
+				this.Language = cl;
+			}
+			catch
+			{
+				// Default is 'en'
+				this.Language = CalendarLanguage.en;
+			}
+		}
 
 		private string GetClientFileUrl(string fileName)
 		{
-			return this.Page.ResolveUrl(this.SupportDir + "/" + fileName);
+			return ResolveUrl(this.SupportDir + "/" + fileName);
 		}
 
 		private string GetClientScriptInclude(string scriptFile) 
@@ -168,16 +235,50 @@ namespace Cuyahoga.ServerControls
 			sb.Append(format);
 			sb.Append("\", button : \"");
 			sb.Append(trigger);
-			sb.Append("\" } ); </script>");
+			sb.Append("\", showsTime : ");
+			sb.Append(this.DisplayTime.ToString().ToLower());
+			sb.Append(" } ); </script>");
 			return sb.ToString();
+		}
+
+		public string GetFormatString()
+		{
+			if (this.DisplayTime)
+			{
+				return this.DateFormat + " " + this.TimeFormat;
+			}
+			else
+			{
+				return this.DateFormat;
+			}
+		}
+
+		private void DateTextBox_TextChanged(object sender, EventArgs e)
+		{
+			OnDateChanged(sender);
+		}
+
+		private string ConvertDateFormat(string shortDateFormat)
+		{
+			string tempFormat = shortDateFormat.Replace("yyyy", "%Y");
+			tempFormat = tempFormat.Replace("M", "%m");
+			tempFormat = tempFormat.Replace("d", "%d");
+			return tempFormat;
+		}
+
+		private string ConvertTimeFormat(string shortTimeFormat)
+		{
+			string tempFormat = shortTimeFormat.Replace("H", "%H");
+			tempFormat = tempFormat.Replace("mm", "%M");
+			return tempFormat;
 		}
 	}
 
 	public enum CalendarTheme
 	{
-		winter,
 		blue,
-		summer,
+		blue2,
+		brown,
 		green,
 		win2k_1,
 		win2k_2,
