@@ -151,7 +151,11 @@ namespace Cuyahoga.Web.Admin
 						this.ddlPlaceholder.Items.FindByValue(this._activeSection.PlaceholderId).Selected = true;
 					// Create url for lookup
 					this.hplLookup.NavigateUrl = "javascript:;";
-					this.hplLookup.Attributes.Add("onClick", String.Format("window.open(\"TemplatePreview.aspx?Template={0}&Control={1}\", \"Preview\", \"width=760 height=400\")", templatePath, this.ddlPlaceholder.ClientID));
+					this.hplLookup.Attributes.Add("onClick"
+						, String.Format("window.open(\"TemplatePreview.aspx?TemplateId={0}&Control={1}\", \"Preview\", \"width=760 height=400\")"
+						, this.ActiveNode.Template.Id
+						, this.ddlPlaceholder.ClientID)
+					);
 				}
 				catch (Exception ex)
 				{

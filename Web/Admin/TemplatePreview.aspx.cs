@@ -10,6 +10,8 @@ using System.Web.UI.WebControls;
 using System.Web.UI.HtmlControls;
 using System.Configuration;
 
+using Cuyahoga.Core.Service;
+using Cuyahoga.Core.Domain;
 using Cuyahoga.Core.Util;
 using Cuyahoga.Web.UI;
 using Cuyahoga.Web.Util;
@@ -21,17 +23,19 @@ namespace Cuyahoga.Web.Admin
 	/// </summary>
 	public class TemplatePreview : System.Web.UI.Page
 	{
-		protected override void AddParsedSubObject(object obj)
+		private void InitTemplate()
 		{
-			string template = Context.Request.QueryString["Template"];
-			
-			BaseTemplate templateControl = (BaseTemplate)this.LoadControl(template);
-			// TODO: insert final css (configurationfile?)
-			templateControl.Css = UrlHelper.GetApplicationPath() + Config.GetConfiguration()["Css"];
-			templateControl.InsertContainerButtons();
-			this.Controls.Add(templateControl);
-			
-			base.AddParsedSubObject (obj);
+			if (Context.Request.QueryString["TemplateId"] != null)
+			{
+				int templateId = Int32.Parse(Context.Request.QueryString["TemplateId"]);
+				CoreRepository cr = new CoreRepository(true);
+				Template template = (Template)cr.GetObjectById(typeof(Template), templateId);
+				BaseTemplate templateControl = (BaseTemplate)this.LoadControl(UrlHelper.GetApplicationPath() + template.Path);
+				templateControl.Css = UrlHelper.GetApplicationPath() + Config.GetConfiguration()["CssDir"] + template.Css;
+				templateControl.InsertContainerButtons();
+				this.Controls.Add(templateControl);
+				cr.CloseSession();
+			}
 		}
 
 		private void Page_Load(object sender, System.EventArgs e)
@@ -39,13 +43,13 @@ namespace Cuyahoga.Web.Admin
 			// Put user code to initialize the page here
 		}
 
-		#region Web Form Designer generated code
 		override protected void OnInit(EventArgs e)
 		{
 			//
 			// CODEGEN: This call is required by the ASP.NET Web Form Designer.
 			//
 			InitializeComponent();
+			InitTemplate();
 			base.OnInit(e);
 		}
 		
@@ -57,6 +61,5 @@ namespace Cuyahoga.Web.Admin
 		{    
 			this.Load += new System.EventHandler(this.Page_Load);
 		}
-		#endregion
 	}
 }

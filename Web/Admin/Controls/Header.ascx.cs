@@ -8,15 +8,38 @@ namespace Cuyahoga.Web.Admin.Controls
 	using System.Web.UI.HtmlControls;
 	using System.Web.Security;
 
+	using Cuyahoga.Core.Domain;
+	using Cuyahoga.Web.Admin.UI;
+	using Cuyahoga.Web.Util;
+
 	/// <summary>
 	///		Summary description for Header.
 	/// </summary>
 	public class Header : System.Web.UI.UserControl
 	{
+		private AdminBasePage _page;
+		protected System.Web.UI.WebControls.HyperLink hplSite;
+
 		protected System.Web.UI.WebControls.LinkButton lbtLogout;
 
 		private void Page_Load(object sender, System.EventArgs e)
 		{
+			try
+			{
+				this._page = (AdminBasePage)this.Page;		
+			}
+			catch (InvalidCastException ex)
+			{
+				throw new Exception("This control requires a Page of the type AdminBasePage.", ex);
+			}
+			if (this._page.ActiveNode != null)
+			{
+				this.hplSite.NavigateUrl = this._page.ActiveNode.Site.SiteUrl;
+			}
+			else
+			{
+				this.hplSite.Visible = false;
+			}
 			this.lbtLogout.Visible = this.Page.User.Identity.IsAuthenticated;
 		}
 

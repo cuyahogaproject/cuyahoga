@@ -139,7 +139,7 @@ namespace Cuyahoga.Web.UI
 				// Explicitly set the id to 'p' to save some bytes (otherwise _ctl0 would be added).
 				this._templateControl.ID = "p";
 				this._templateControl.Title = this._activeNode.Title;
-				this._templateControl.Css = appRoot + Config.GetConfiguration()["Css"];
+				this._templateControl.Css = appRoot + Config.GetConfiguration()["CssDir"] + this._activeNode.Template.Css;
 
 				// Load sections and modules
 				int sectionId = -1;

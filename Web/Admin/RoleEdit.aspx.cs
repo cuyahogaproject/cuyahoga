@@ -36,12 +36,10 @@ namespace Cuyahoga.Web.Admin
 			{
 				if (Int32.Parse(Context.Request.QueryString["RoleId"]) == -1)
 				{
-					// Create a new user instance
 					this._activeRole = new Role();
 				}
 				else
 				{
-					// Get user data
 					this._activeRole = (Role)base.CoreRepository.GetObjectById(typeof(Role)
 						, Int32.Parse(Context.Request.QueryString["RoleId"]));			
 				}

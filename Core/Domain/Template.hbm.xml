@@ -10,6 +10,7 @@
 
 		<property name="Name" column="name" type="String" length="100" />
 		<property name="Path" column="path" type="String" length="100" />
+		<property name="Css" column="css" type="String" length="100" />
 		
 	</class>
 </hibernate-mapping>

@@ -73,6 +73,7 @@ namespace Cuyahoga.Web.UI
 		/// <param name="writer"></param>
 		protected override void Render(System.Web.UI.HtmlTextWriter writer)
 		{
+			// TODO: get rid of this html hacking. Need a more declarative approach.
 			writer.Write("<div class=\"section\">");
 			// Section title
 			if (this._module.Section != null && this._module.Section.ShowTitle)
@@ -80,9 +81,10 @@ namespace Cuyahoga.Web.UI
 				writer.Write("<h3>" + this._module.Section.Title + "</h3>");
 			}
 			// Rss feed
+			writer.Write("<div id=\"moduletools\" align=\"right\">");
 			if (this._module is ISyndicatable)
 			{
-				writer.Write(String.Format("<div align=\"right\"><a href=\"{0}\"><img src=\"{1}\" border=\"0\"></a></div>", 
+				writer.Write(String.Format("<a href=\"{0}\"><img src=\"{1}\" border=\"0\"></a>", 
 					UrlHelper.GetRssUrlFromSection(this._module.Section), UrlHelper.GetApplicationPath() + "Images/feed-rss.gif"));
 			}
 			// Edit button
@@ -93,6 +95,7 @@ namespace Cuyahoga.Web.UI
 			{
 				writer.Write(String.Format("<a href=\"{0}?NodeId={1}&SectionId={2}\">Edit</a>", UrlHelper.GetApplicationPath() + this._module.Section.ModuleType.EditPath, this._module.Section.Node.Id, this._module.Section.Id));
 			}
+			writer.Write("</div>");
 			// Write module content and handle caching when neccesary.
 			if (this._module.Section.CacheDuration > 0 && this.Module.CacheKey != null)
 			{

@@ -277,6 +277,22 @@
                     BuildAction = "EmbeddedResource"
                 />
                 <File
+                    RelPath = "Admin\TemplateEdit.aspx"
+                    SubType = "Form"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Admin\TemplateEdit.aspx.cs"
+                    DependentUpon = "TemplateEdit.aspx"
+                    SubType = "ASPXCodeBehind"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "Admin\TemplateEdit.aspx.resx"
+                    DependentUpon = "TemplateEdit.aspx.cs"
+                    BuildAction = "EmbeddedResource"
+                />
+                <File
                     RelPath = "Admin\TemplatePreview.aspx"
                     SubType = "Form"
                     BuildAction = "Content"
@@ -290,6 +306,22 @@
                 <File
                     RelPath = "Admin\TemplatePreview.aspx.resx"
                     DependentUpon = "TemplatePreview.aspx.cs"
+                    BuildAction = "EmbeddedResource"
+                />
+                <File
+                    RelPath = "Admin\Templates.aspx"
+                    SubType = "Form"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Admin\Templates.aspx.cs"
+                    DependentUpon = "Templates.aspx"
+                    SubType = "ASPXCodeBehind"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "Admin\Templates.aspx.resx"
+                    DependentUpon = "Templates.aspx.cs"
                     BuildAction = "EmbeddedResource"
                 />
                 <File

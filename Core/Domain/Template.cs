@@ -12,6 +12,7 @@ namespace Cuyahoga.Core.Domain
 		private DateTime _updateTimestamp;
 		private string _name;
 		private string _path;
+		private string _css;
 
 		/// <summary>
 		/// Property Id (int)
@@ -47,6 +48,15 @@ namespace Cuyahoga.Core.Domain
 		{
 			get { return this._path; }
 			set { this._path = value; }
+		}
+
+		/// <summary>
+		/// Property Css (string)
+		/// </summary>
+		public string Css
+		{
+			get { return this._css; }
+			set { this._css = value; }
 		}
 
 		/// <summary>

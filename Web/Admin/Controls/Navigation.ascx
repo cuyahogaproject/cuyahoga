@@ -12,7 +12,7 @@
 	<h3>
 		<asp:image imageurl="../Images/docs.gif" runat="server" imagealign="absmiddle" id="i2"></asp:image>
 		Templates</h3>
-	View templates
+	<asp:hyperlink id="hplTemplates" navigateurl="../Templates.aspx" runat="server">Manage templates</asp:hyperlink>
 </div>
 <br>
 <div class="navsection">

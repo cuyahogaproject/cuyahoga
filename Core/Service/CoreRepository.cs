@@ -325,6 +325,17 @@ namespace Cuyahoga.Core.Service
 			}
 		}
 
+		/// <summary>
+		/// Retrieve a list of Nodes that are connected to a given template.
+		/// </summary>
+		/// <param name="template"></param>
+		/// <returns></returns>
+		public IList GetNodesByTemplate(Template template)
+		{
+			string hql = "from Node n where n.Template.Id = ? ";
+			return this._activeSession.Find(hql, template.Id, NHibernate.NHibernate.Int32);
+		}
+
 		#endregion
 
 		#region Section specific
@@ -337,7 +348,7 @@ namespace Cuyahoga.Core.Service
 		public IList GetSortedSectionsByNode(Node node)
 		{
 			string hql = "from Section s where s.Node.Id = ? order by s.PlaceholderId, s.Position ";
-			return this._activeSession.Find(hql, node.Id, NHibernate.Type.TypeFactory.GetInt32Type());
+			return this._activeSession.Find(hql, node.Id, NHibernate.NHibernate.Int32);
 		}
 
 		#endregion

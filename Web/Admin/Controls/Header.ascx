@@ -8,5 +8,6 @@
 	</div>
 </div>
 <div id="subheader">
-	<asp:linkbutton id="lbtLogout" runat="server">Log out</asp:linkbutton>
+	[<asp:hyperlink id="hplSite" runat="server">View the current site</asp:hyperlink>]
+	[<asp:linkbutton id="lbtLogout" runat="server">Log out</asp:linkbutton>]
 </div>

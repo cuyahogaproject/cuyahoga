@@ -1,6 +1,6 @@
 ***VERSION***
 2.4
-2004-11-17
+2004-12-07
 Cuyahoga
 
 Martijn Boland
@@ -670,7 +670,7 @@ Cuyahoga_Template
 165
 65
 159
-114
+130
 ***ATTRIBUTE***
 Cuyahoga_Template
 TemplateId
@@ -718,6 +718,22 @@ Yes
 ***ATTRIBUTE***
 Cuyahoga_Template
 Path
+
+
+13
+varchar
+100
+0
+
+No
+No
+Yes
+
+
+
+***ATTRIBUTE***
+Cuyahoga_Template
+Css
 
 
 13
@@ -1124,7 +1140,7 @@ Cuyahoga_Template
 0
 ***SCREEN***
 0
-200
+215
 4
 Horizontal
 50
@@ -2780,7 +2796,7 @@ Cuyahoga_Template
 0
 ***SCREEN***
 0
-185
+236
 4
 Horizontal
 50
