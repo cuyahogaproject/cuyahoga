@@ -14,6 +14,7 @@ namespace Cuyahoga.Core.Search
 		private string _moduleType;
 		private string _path;
 		private string _category;
+		private string _site;
 		private DateTime _dateCreated;
 		private DateTime _dateModified;
 		private int _sectionId;
@@ -79,6 +80,15 @@ namespace Cuyahoga.Core.Search
 		{
 			get { return this._category; }
 			set { this._category = value; }
+		}
+
+		/// <summary>
+		/// Property Site (string)
+		/// </summary>
+		public string Site
+		{
+			get { return this._site; }
+			set { this._site = value; }
 		}
 
 		/// <summary>

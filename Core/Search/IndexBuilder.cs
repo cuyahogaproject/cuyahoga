@@ -28,7 +28,7 @@ namespace Cuyahoga.Core.Search
 		/// </param>
 		public IndexBuilder(string physicalIndexDir, bool rebuildIndex)
 		{
-			this._indexDirectory = FSDirectory.GetDirectory(physicalIndexDir, true);
+			this._indexDirectory = FSDirectory.GetDirectory(physicalIndexDir, false);
 			this._rebuildIndex = rebuildIndex;
 
 			InitIndexWriter();
@@ -85,6 +85,7 @@ namespace Cuyahoga.Core.Search
 				Term term = new Term("path", searchContent.Path);
 				IndexReader rdr = IndexReader.Open(this._indexDirectory);
 				rdr.Delete(term);
+				rdr.Close();
 			}
 		}
 
@@ -93,7 +94,7 @@ namespace Cuyahoga.Core.Search
 		/// </summary>
 		public void Close()
 		{
-			if (! this._isClosed)
+			if (! this._isClosed && this._indexWriter != null)
 			{
 				this._indexWriter.Optimize();
 				this._indexWriter.Close();
@@ -123,6 +124,7 @@ namespace Cuyahoga.Core.Search
 			doc.Add(Field.Keyword("moduletype", searchContent.ModuleType));
 			doc.Add(Field.Keyword("path", searchContent.Path));
 			doc.Add(Field.Keyword("category", searchContent.Category));
+			doc.Add(Field.Keyword("site", searchContent.Site));
 			doc.Add(Field.Keyword("datecreated", DateField.DateToString(searchContent.DateCreated)));
 			doc.Add(Field.Keyword("datemodified", DateField.DateToString(searchContent.DateModified)));
 			doc.Add(Field.UnIndexed("sectionid", searchContent.SectionId.ToString()));

@@ -9,6 +9,7 @@ using NHibernate.Type;
 using Cuyahoga.Core;
 using Cuyahoga.Core.Domain;
 using Cuyahoga.Core.Service;
+using Cuyahoga.Core.Search;
 using Cuyahoga.Core.Util;
 
 namespace Cuyahoga.Modules.Articles
@@ -16,7 +17,7 @@ namespace Cuyahoga.Modules.Articles
 	/// <summary>
 	/// The ArticleModule provides a news system (articles, comments, content expiration, rss feed).
 	/// </summary>
-	public class ArticleModule : ModuleBase, ISyndicatable
+	public class ArticleModule : ModuleBase, ISyndicatable, ISearchable
 	{
 		private int _currentArticleId;
 		private int _currentCategoryId;
@@ -68,6 +69,18 @@ namespace Cuyahoga.Modules.Articles
 			catch (Exception ex)
 			{
 				throw new Exception("Unable to get Categories", ex);
+			}
+		}
+
+		public Category GetCategoryById(int categoryId)
+		{
+			try
+			{
+				return (Category)base.NHSession.Load(typeof(Category), categoryId);
+			}
+			catch (Exception ex)
+			{
+				throw new Exception("Unable to get Category", ex);
 			}
 		}
 
@@ -174,10 +187,12 @@ namespace Cuyahoga.Modules.Articles
 				{
 					article.DateModified = DateTime.Now;
 					base.NHSession.Save(article);
+					OnContentCreated(new IndexEventArgs(ArticleToSearchContent(article)));
 				}
 				else
 				{
 					base.NHSession.Update(article);
+					OnContentUpdated(new IndexEventArgs(ArticleToSearchContent(article)));
 				}
 				tx.Commit();
 			}
@@ -194,6 +209,7 @@ namespace Cuyahoga.Modules.Articles
 			try
 			{
 				base.NHSession.Delete(article);
+				OnContentDeleted(new IndexEventArgs(ArticleToSearchContent(article)));
 				tx.Commit();
 			}
 			catch (Exception ex)
@@ -266,7 +282,6 @@ namespace Cuyahoga.Modules.Articles
 			}
 		}
 
-
 		private void HandleCategory(Category category, ISession session)
 		{
 			if (category != null && category.Id == -1)
@@ -292,6 +307,42 @@ namespace Cuyahoga.Modules.Articles
 				}
 			}
 		}
+
+		private SearchContent ArticleToSearchContent(Article article)
+		{
+			SearchContent sc = new SearchContent();
+			sc.Title = article.Title;
+			if (article.Summary == null || article.Summary == String.Empty)
+			{
+				sc.Summary = Text.TruncateText(article.Content, 200); // truncate summary to 200 chars
+			}
+			else
+			{
+				sc.Summary = article.Summary;
+			}
+			sc.Contents = article.Content;
+			sc.Author = article.ModifiedBy.FullName;
+			sc.ModuleType = this.Section.ModuleType.Name;
+			if (article.Category != null)
+			{
+				sc.Category = article.Category.Title;
+			}
+			else
+			{
+				sc.Category = String.Empty;
+			}
+			sc.Site = this.Section.Node.Site.Name;
+			sc.DateCreated = article.DateCreated;
+			sc.DateModified = article.DateModified;
+			sc.SectionId = this.Section.Id;
+
+			// temporarily set the ModulePathInfo. We really need to have the Section URL in here 
+			// to enable path construction.
+			base.ModulePathInfo = "/" + article.Id.ToString();
+
+			return sc;
+		}
+
 		#region ISyndicatable Members
 
 		public RssChannel GetRssFeed()
@@ -352,6 +403,51 @@ namespace Cuyahoga.Modules.Articles
 				channel.RssItems.Add(item);
 			}
 			return channel;
+		}
+
+		#endregion
+
+		#region ISearchable Members
+
+		public SearchContent[] GetAllSearchableContent()
+		{
+			ArrayList searchableContent = new ArrayList();
+			IList articles = GetAllArticles();
+			foreach (Article article in articles)
+			{
+				searchableContent.Add(ArticleToSearchContent(article));
+			}
+			return (SearchContent[])searchableContent.ToArray(typeof(SearchContent));
+		}
+
+		public event Cuyahoga.Core.Search.IndexEventHandler ContentCreated;
+
+		protected void OnContentCreated(IndexEventArgs e)
+		{
+			if (ContentCreated != null)
+			{
+				ContentCreated(this, e);
+			}
+		}
+
+		public event Cuyahoga.Core.Search.IndexEventHandler ContentDeleted;
+
+		protected void OnContentDeleted(IndexEventArgs e)
+		{
+			if (ContentDeleted != null)
+			{
+				ContentDeleted(this, e);
+			}
+		}
+
+		public event Cuyahoga.Core.Search.IndexEventHandler ContentUpdated;
+
+		protected void OnContentUpdated(IndexEventArgs e)
+		{
+			if (ContentUpdated != null)
+			{
+				ContentUpdated(this, e);
+			}
 		}
 
 		#endregion

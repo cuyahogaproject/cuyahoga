@@ -109,8 +109,8 @@ namespace Cuyahoga.Modules.Articles
 				this._article.Content = this.fckContent.Value;
 				if (this.ddlCategory.SelectedIndex > 0)
 				{
-					this._article.Category = new Category();
-					this._article.Category.Id = Int32.Parse(this.ddlCategory.SelectedValue);
+					
+					this._article.Category = this._articleModule.GetCategoryById(Int32.Parse(this.ddlCategory.SelectedValue));
 				}
 				else if (this.txtCategory.Text.Length > 0)
 				{

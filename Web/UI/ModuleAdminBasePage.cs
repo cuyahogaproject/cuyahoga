@@ -4,6 +4,8 @@ using System.Web.UI.HtmlControls;
 
 using Cuyahoga.Core;
 using Cuyahoga.Core.Domain;
+using Cuyahoga.Core.Search;
+using Cuyahoga.Core.Util;
 using Cuyahoga.Web.Util;
 
 namespace Cuyahoga.Web.UI
@@ -98,6 +100,15 @@ namespace Cuyahoga.Web.UI
 				}
 			}
 
+			// Optional indexing event handlers
+			if (this._module is ISearchable)
+			{
+				ISearchable searchableModule = (ISearchable)this._module;
+				searchableModule.ContentCreated += new IndexEventHandler(searchableModule_ContentCreated);
+				searchableModule.ContentUpdated += new IndexEventHandler(searchableModule_ContentUpdated);
+				searchableModule.ContentDeleted += new IndexEventHandler(searchableModule_ContentDeleted);
+			}
+
 			base.OnInit (e);
 		}
 
@@ -142,6 +153,35 @@ namespace Cuyahoga.Web.UI
 			return String.Format("?NodeId={0}&SectionId={1}", this.Node.Id, this.Section.Id);
 		}
 
+		private string GetPathFromCurrentModule()
+		{
+			// Also include the PathInfo
+			return UrlHelper.GetUrlFromSection(this._section) + this._module.ModulePathInfo;
+		}
+
+		private void IndexContent(SearchContent searchContent, IndexAction action)
+		{
+			// First set the path
+			searchContent.Path = GetPathFromCurrentModule();
+
+			// Index
+			string indexDir = Context.Server.MapPath(Config.GetConfiguration()["SearchIndexDir"]);
+			IndexBuilder ib = new IndexBuilder(indexDir, false);
+			switch (action)
+			{
+				case IndexAction.Create:
+					ib.AddContent(searchContent);
+					break;
+				case IndexAction.Update:
+					ib.UpdateContent(searchContent);
+					break;
+				case IndexAction.Delete:
+					ib.DeleteContent(searchContent);
+					break;
+			}
+			ib.Close();
+		}
+
 		private void Module_NHSessionRequired(object sender, Cuyahoga.Core.Domain.ModuleBase.NHSessionEventArgs e)
 		{
 			e.Session = base.CoreRepository.ActiveSession;
@@ -153,6 +193,28 @@ namespace Cuyahoga.Web.UI
 			// This is handled by a simple reload of the page. 
 			// TODO: handle more elegantly?
 			Context.Response.Redirect(Context.Request.RawUrl);
+		}
+
+		private void searchableModule_ContentCreated(object sender, IndexEventArgs e)
+		{
+			IndexContent(e.SearchContent, IndexAction.Create);	
+		}
+
+		private void searchableModule_ContentUpdated(object sender, IndexEventArgs e)
+		{
+			IndexContent(e.SearchContent, IndexAction.Update);	
+		}
+
+		private void searchableModule_ContentDeleted(object sender, IndexEventArgs e)
+		{
+			IndexContent(e.SearchContent, IndexAction.Delete);	
+		}
+
+		private enum IndexAction
+		{
+			Create,
+			Update,
+			Delete
 		}
 	}
 }

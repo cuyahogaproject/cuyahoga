@@ -52,6 +52,7 @@ namespace Cuyahoga.Modules.StaticHtml
 				content = new StaticHtmlContent();
 				content.Section = this._module.Section;
 				content.CreatedBy = currentUser;
+				content.ModifiedBy = currentUser;
 			}
 			else
 			{
