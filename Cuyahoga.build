@@ -84,12 +84,6 @@
         </csc>
 	</target>
 	<target name="build.web">
-		<mkdir dir="${build.dir}/resources" />
-		<resgen todir="${build.dir}/resources">
-			<resources>
-                <include name="Modules/**/Strings*.resx"/>
-			</resources>
-		</resgen>
 		<csc target="library" output="${build.dir}/bin/Cuyahoga.Web.dll" debug="${build.debug}">
             <sources>
                 <include name="Web/**/*.cs" />
@@ -109,6 +103,12 @@
         </csc>
 	</target>
 	<target name="build.modules" depends="build.core">
+		<mkdir dir="${build.dir}/resources" />
+		<resgen todir="${build.dir}/resources">
+			<resources>
+                <include name="Modules/**/Strings*.resx"/>
+			</resources>
+		</resgen>
 		<csc target="library" output="${build.dir}/bin/Cuyahoga.Modules.dll" debug="${build.debug}">
             <sources>
                 <include name="Modules/**/*.cs" />
