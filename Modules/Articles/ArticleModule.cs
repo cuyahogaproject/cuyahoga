@@ -44,6 +44,9 @@ namespace Cuyahoga.Modules.Articles
 		/// </summary>
 		public ArticleModule()
 		{
+			this._currentArticleId = -1;
+			this._currentCategoryId = -1;
+
 			SessionFactory sf = SessionFactory.GetInstance();
 			// Register classes that are used by the ArticleModule
 			sf.RegisterPersistentClass(typeof(Cuyahoga.Modules.Articles.Category));

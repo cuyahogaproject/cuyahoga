@@ -137,7 +137,17 @@ namespace Cuyahoga.Web.UI
 				else
 				{
 					// Can't load a particular node, so the root node has to be the active node
-					this._activeNode = this._rootNode;
+					// Maybe we have culture information stored in a cookie, so we might need a different 
+					// root Node.
+					if (Context.Request.Cookies["CuyahogaCulture"] != null)
+					{
+						string currentCulture = Context.Request.Cookies["CuyahogaCulture"].Value;
+						this._activeNode = cm.GetRootNodeByCulture(currentCulture);
+					}
+					else
+					{
+						this._activeNode = this._rootNode;
+					}
 				}
 				// Set the root node again, but now based on the active node.
 				if (this._activeNode.NodePath != null)

@@ -91,7 +91,7 @@ namespace Cuyahoga.Web.UI
 			if (this._displaySyndicationIcon)
 			{
 				writer.Write(String.Format("<a href=\"{0}\"><img src=\"{1}\" border=\"0\"></a>", 
-					UrlHelper.GetRssUrlFromSection(this._module.Section) + this._module.ModulePathInfo, UrlHelper.GetApplicationPath()+ "Images/feed-rss.gif"));
+					UrlHelper.GetRssUrlFromSection(this._module.Section) + this._module.ModulePathInfo, UrlHelper.GetApplicationPath() + "Images/feed-rss.gif"));
 			}
 			// Edit button
 			User cuyahogaUser = this.Page.User.Identity as User;

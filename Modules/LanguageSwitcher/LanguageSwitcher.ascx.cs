@@ -12,12 +12,15 @@ namespace Cuyahoga.Modules.LanguageSwitcher
 	using Cuyahoga.Core.Domain;
 	using Cuyahoga.Web.UI;
 	using Cuyahoga.Web.Util;
+	using Cuyahoga.Web.Cache;
 
 	/// <summary>
 	///		Summary description for LanguageSwitcher.
 	/// </summary>
 	public class LanguageSwitcher : BaseModuleControl
 	{
+		private PageEngine _page;
+
 		protected System.Web.UI.WebControls.ImageButton imbGo;
 		protected System.Web.UI.WebControls.DropDownList ddlLanguage;
 
@@ -32,16 +35,16 @@ namespace Cuyahoga.Modules.LanguageSwitcher
 
 		private void BindLanguageOptions()
 		{
-			PageEngine page = this.Page as PageEngine;
-			if (page != null)
+			this._page = this.Page as PageEngine;
+			if (this._page != null)
 			{
-				IList rootNodes = page.CoreRepository.GetRootNodes(page.ActiveNode.Site);
+				IList rootNodes = this._page.CoreRepository.GetRootNodes(this._page.ActiveNode.Site);
 				foreach (Node node in rootNodes)
 				{
 					CultureInfo ci = new CultureInfo(node.Culture);
 					string languageAsText = ci.NativeName.Substring(0, ci.NativeName.IndexOf("(") - 1);
-					ListItem item = new ListItem(languageAsText, node.Id.ToString());
-					if (page.ActiveNode.Culture == ci.Name)
+					ListItem item = new ListItem(languageAsText, node.Culture);
+					if (this._page.ActiveNode.Culture == ci.Name)
 					{
 						item.Selected = true;
 					}
@@ -74,9 +77,21 @@ namespace Cuyahoga.Modules.LanguageSwitcher
 
 		private void imbGo_Click(object sender, System.Web.UI.ImageClickEventArgs e)
 		{
-			int rootNodeId = Int32.Parse(this.ddlLanguage.SelectedValue);
-			string url = UrlHelper.GetUrlFromNodeId(rootNodeId);
-			HttpContext.Current.Response.Redirect(url);
+			string selectedCulture = this.ddlLanguage.SelectedValue;
+			// Get the root node for the selected culture from the cache and build an url from
+			// it where the user will be redirected to.
+			CacheManager cm = (CacheManager)HttpContext.Current.Items["CacheManager"];
+			if (cm != null)
+			{
+				Node rootNodeForSelectedCulture = cm.GetRootNodeByCulture(selectedCulture);
+				if (rootNodeForSelectedCulture != null)
+				{
+					// Set cookie for the selected culture. In the future we might enable persisting
+					// this cookie to remember the prefered language of the user.
+					HttpContext.Current.Response.Cookies.Add(new HttpCookie("CuyahogaCulture", selectedCulture));
+					HttpContext.Current.Response.Redirect(UrlHelper.GetUrlFromNode(rootNodeForSelectedCulture));
+				}
+			}
 		}
 	}
 }

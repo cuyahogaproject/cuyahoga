@@ -150,6 +150,16 @@ namespace Cuyahoga.Web.Cache
 		}
 
 		/// <summary>
+		/// Get the root Node for a given culture. 
+		/// </summary>
+		/// <param name="culture"></param>
+		/// <returns></returns>
+		public Node GetRootNodeByCulture(string culture)
+		{
+			return (Node)this._nodeCache.RootNodes[culture];
+		}
+
+		/// <summary>
 		/// Store the content of the NodeCache object in the ASP.NET cache.
 		/// </summary>
 		public void SaveCache()

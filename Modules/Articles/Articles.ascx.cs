@@ -49,7 +49,7 @@ namespace Cuyahoga.Modules.Articles
 				this._allowSyndication = Boolean.Parse(this.Module.Section.Settings["ALLOW_SYNDICATION"].ToString());
 			}
 			// Don't display the syndication icon on the article view
-			base.DisplaySyndicationIcon = ! (this._allowSyndication && this._module.CurrentArticleId > 0);
+			base.DisplaySyndicationIcon = this._allowSyndication && this._module.CurrentArticleId == -1;
 
 			if (this._module != null && (! base.HasCachedOutput || this.Page.IsPostBack) || this.Page.User.Identity.IsAuthenticated)
 			{
