@@ -9,7 +9,6 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Web.UI.HtmlControls;
 
-using Cuyahoga.Core;
 using Cuyahoga.Core.Domain;
 using Cuyahoga.Core.Service;
 using Cuyahoga.Web.Util;
@@ -40,9 +39,14 @@ namespace Cuyahoga.Web.Support.FreeTextBox.Custom
 		{
 			// Build tree, starting with root nodes
 			CoreRepository cr = new CoreRepository(true);
-			IList nodes = cr.GetRootNodes();
-			DisplayNodes(nodes);			
-			cr.CloseSession();
+			IList sites = cr.GetAll(typeof(Site));
+			foreach (Site site in sites)
+			{
+				this.plhNodes.Controls.Add(CreateDisplaySite(site));
+				IList nodes = site.RootNodes;
+				DisplayNodes(nodes);			
+				cr.CloseSession();
+			}
 		}
 
 		private void DisplayNodes(IList nodes)
@@ -58,9 +62,16 @@ namespace Cuyahoga.Web.Support.FreeTextBox.Custom
 			}
 		}
 
+		private Control CreateDisplaySite(Site site)
+		{
+			HtmlGenericControl container = new HtmlGenericControl("div");
+			container.InnerText = String.Format("{0} ({1})", site.Name, site.SiteUrl);
+			return container;
+		}
+
 		private Control CreateDisplayNode(Node node)
 		{
-			int indent = node.Level * 20;
+			int indent = node.Level * 20 + 20;
 			HtmlGenericControl container = new HtmlGenericControl("div");
 			container.Attributes.Add("style", String.Format("padding-left: {0}px", indent.ToString()));
 			LinkButton lbt = new LinkButton();

@@ -11,17 +11,19 @@ namespace Cuyahoga.Core.Domain
 	public class Node
 	{
 		private int _id;
-		private DateTime _updateTimestamp;
 		private int _parentId;
 		private string _title;
 		private string _shortDescription;
 		private int _position;
+		private Site _site;
 		private Node _parentNode;
 		private IList _childNodes;
 		private IList _sections;
 		private Template _template;
 		private int[] _trail;
 		private IList _nodePermissions;
+		private string _culture;
+		private DateTime _updateTimestamp;
 
 		#region properties
 
@@ -33,16 +35,7 @@ namespace Cuyahoga.Core.Domain
 			get { return this._id; }
 			set { this._id = value; }
 		}
-
-		/// <summary>
-		/// Property UpdateTimestamp (DateTime)
-		/// </summary>
-		public virtual DateTime UpdateTimestamp
-		{
-			get { return this._updateTimestamp; }
-			set { this._updateTimestamp = value; }
-		}
-
+		
 		/// <summary>
 		/// Property ParentId (int)
 		/// </summary>
@@ -86,6 +79,24 @@ namespace Cuyahoga.Core.Domain
 		}
 
 		/// <summary>
+		/// Property Culture (string)
+		/// </summary>
+		public string Culture
+		{
+			get { return this._culture; }
+			set { this._culture = value; }
+		}
+
+		/// <summary>
+		/// Property UpdateTimestamp (DateTime)
+		/// </summary>
+		public virtual DateTime UpdateTimestamp
+		{
+			get { return this._updateTimestamp; }
+			set { this._updateTimestamp = value; }
+		}
+
+		/// <summary>
 		/// Property Level (int)
 		/// </summary>
 		public virtual int Level
@@ -101,6 +112,15 @@ namespace Cuyahoga.Core.Domain
 				}
 				return level;
 			}
+		}
+
+		/// <summary>
+		/// Property Site (Site)
+		/// </summary>
+		public Site Site
+		{
+			get { return this._site; }
+			set { this._site = value; }
 		}
 
 		/// <summary>
@@ -299,9 +319,9 @@ namespace Cuyahoga.Core.Domain
 		}
 
 		/// <summary>
-		/// Ensure that there is no gap between the positions of nodes
+		/// Ensure that there is no gap between the positions of nodes.
 		/// </summary>
-		/// <param name="parentNode"></param>
+		/// <param name="nodeListWithGap"></param>
 		/// <param name="gapPosition"></param>
 		public virtual void ReOrderNodePositions(IList nodeListWithGap, int gapPosition)
 		{

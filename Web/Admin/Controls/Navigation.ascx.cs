@@ -2,14 +2,11 @@ namespace Cuyahoga.Web.Admin.Controls
 {
 	using System;
 	using System.Collections;
-	using System.Web;
 	using System.Web.UI;
 	using System.Web.UI.WebControls;
 	using System.Web.UI.HtmlControls;
 
-	using Cuyahoga.Core;
 	using Cuyahoga.Core.Domain;
-	using Cuyahoga.Core.Collections;
 	using Cuyahoga.Web.Admin.UI;
 
 	/// <summary>
@@ -40,8 +37,17 @@ namespace Cuyahoga.Web.Admin.Controls
 
 		private void BuildNodeTree()
 		{
-			IList nodes = this._page.CoreRepository.GetRootNodes();
-            DisplayNodes(nodes);			
+			IList sites = this._page.CoreRepository.GetAll(typeof(Site));
+			DisplaySites(sites);
+		}
+
+		private void DisplaySites(IList sites)
+		{
+			foreach (Site site in sites)
+			{
+				this.plhNodes.Controls.Add(CreateDisplaySite(site));
+				DisplayNodes(site.RootNodes);
+			}
 		}
 
 		private void DisplayNodes(IList nodes)
@@ -65,9 +71,25 @@ namespace Cuyahoga.Web.Admin.Controls
 			}
 		}
 
+		private Control CreateDisplaySite(Site site)
+		{
+			HtmlGenericControl container = new HtmlGenericControl("div");
+			container.Attributes.Add("class", "node");
+			Image img = new Image();
+			img.ImageUrl ="../Images/doc2.gif";
+			img.ImageAlign = ImageAlign.AbsMiddle;
+			container.Controls.Add(img);
+			HyperLink hpl = new HyperLink();
+			hpl.Text = String.Format("{0} ({1})", site.Name, site.SiteUrl);
+			hpl.NavigateUrl = String.Format("../SiteEdit.aspx?SiteId={0}", site.Id.ToString());
+			hpl.CssClass = "nodeLink";
+			container.Controls.Add(hpl);
+			return container;
+		}
+
 		private Control CreateDisplayNode(Node node)
 		{
-			int indent = node.Level * 20;
+			int indent = node.Level * 20 + 20;
 			HtmlGenericControl container = new HtmlGenericControl("div");
 			container.Attributes.Add("class", "node");
 			container.Attributes.Add("style", String.Format("padding-left: {0}px", indent.ToString()));

@@ -32,6 +32,23 @@ namespace Cuyahoga.Web.Util
 		}
 
 		/// <summary>
+		/// Get the url of the site without any trailing slashes.
+		/// </summary>
+		/// <returns></returns>
+		public static string GetSiteUrl()
+		{
+			string host = HttpContext.Current.Request.ServerVariables["HTTP_HOST"];
+			string path = HttpContext.Current.Request.ApplicationPath;
+			if (path.EndsWith("/") && path.Length == 1)
+			{
+				return host;
+			}
+			else
+			{
+				return host + path;
+			}
+		}
+		/// <summary>
 		/// Returns a formatted url for a given node (/{ApplicationPath}/{Node.ShortDescription}.aspx.
 		/// </summary>
 		/// <param name="nodeId"></param>

@@ -11,7 +11,9 @@
 		<property name="Title" column="title" type="String" length="255" />
 		<property name="ShortDescription" column="shortdescription" type="String" length="255" unique="true" />
 		<property name="Position" column="position" type="Int32" />
+		<property name="Culture" column="culture" type="String" length="8" not-null="false" />
 		
+		<many-to-one name="Site" class="Cuyahoga.Core.Domain.Site, Cuyahoga.Core" column="siteid" not-null="false" />
 		<many-to-one name="ParentNode" class="Cuyahoga.Core.Domain.Node, Cuyahoga.Core" column="parentnodeid" not-null="false" />
 		<many-to-one name="Template" class="Cuyahoga.Core.Domain.Template, Cuyahoga.Core" column="templateid" not-null="false" outer-join="true" />
 		

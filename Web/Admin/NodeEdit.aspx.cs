@@ -10,7 +10,6 @@ using System.Web.UI.HtmlControls;
 
 using Cuyahoga.Core.Domain;
 using Cuyahoga.Core.Service;
-using Cuyahoga.Core.Collections;
 
 namespace Cuyahoga.Web.Admin
 {
@@ -205,7 +204,7 @@ namespace Cuyahoga.Web.Admin
 			}
 			else
 			{
-				IList rootNodes = CoreRepository.GetRootNodes();
+				IList rootNodes = base.CoreRepository.GetRootNodes(this.ActiveNode.Site);
 				this.ActiveNode.CalculateNewPosition(rootNodes);
 				base.CoreRepository.SaveObject(this.ActiveNode);
 				Context.Response.Redirect(String.Format("NodeEdit.aspx?NodeId={0}", this.ActiveNode.Id));
@@ -287,7 +286,7 @@ namespace Cuyahoga.Web.Admin
 
 		private void MoveNode(NodePositionMovement npm)
 		{
-			IList rootNodes = base.CoreRepository.GetRootNodes();
+			IList rootNodes = base.CoreRepository.GetRootNodes(this.ActiveNode.Site);
 			this.ActiveNode.Move(rootNodes, npm);
 			this.CoreRepository.FlushSession();
 			Context.Response.Redirect(Context.Request.RawUrl);
@@ -457,7 +456,7 @@ namespace Cuyahoga.Web.Admin
 					// Reset the position of the 'neighbour' nodes.
 					if (this.ActiveNode.Level == 0)
 					{						
-						this.ActiveNode.ReOrderNodePositions(base.CoreRepository.GetRootNodes(), this.ActiveNode.Position);
+						this.ActiveNode.ReOrderNodePositions(base.CoreRepository.GetRootNodes(this.ActiveNode.Site), this.ActiveNode.Position);
 					}
 					else
 					{

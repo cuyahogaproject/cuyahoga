@@ -200,6 +200,15 @@
                     BuildAction = "Compile"
                 />
                 <File
+                    RelPath = "Domain\Site.cs"
+                    SubType = "Code"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "Domain\Site.hbm.xml"
+                    BuildAction = "EmbeddedResource"
+                />
+                <File
                     RelPath = "Domain\Template.cs"
                     SubType = "Code"
                     BuildAction = "Compile"

@@ -5,11 +5,10 @@ using System.Web.UI.WebControls;
 using System.Web.UI.HtmlControls;
 using System.Diagnostics;
 
-using NHibernate;
+// using NHibernate;
 
 using Cuyahoga.Core.Domain;
 using Cuyahoga.Core.Service;
-using Cuyahoga.Core.Collections;
 using Cuyahoga.Core.Util;
 using Cuyahoga.Web.UI;
 using Cuyahoga.Web.Util;
@@ -91,8 +90,10 @@ namespace Cuyahoga.Web.UI
 //			try
 //			{
 				this._coreRepository = (CoreRepository)HttpContext.Current.Items["CoreRepository"];
+				// Get the current site
+				Site currentSite = this._coreRepository.GetSiteBySiteUrl(Util.UrlHelper.GetSiteUrl());
 				// Get an instance of the CacheManager
-				CacheManager cm = new CacheManager(this._coreRepository);
+				CacheManager cm = new CacheManager(this._coreRepository, currentSite);
 				// Add the CacheManager to the current context, so it can track all objects during the page lifecycle.
 				Context.Items.Add("CacheManager", cm);
 				// Get root node from the CacheManager.

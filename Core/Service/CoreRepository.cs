@@ -123,9 +123,12 @@ namespace Cuyahoga.Core.Service
 		public IList GetAll(Type type, params string[] sortProperties)
 		{
 			ICriteria crit = this._activeSession.CreateCriteria(type);
-			foreach (string sortProperty in sortProperties)
+			if (sortProperties != null)
 			{
-				crit.AddOrder(Order.Asc(sortProperty));
+				foreach (string sortProperty in sortProperties)
+				{
+					crit.AddOrder(Order.Asc(sortProperty));
+				}
 			}
 			return crit.List();
 		}
@@ -223,16 +226,40 @@ namespace Cuyahoga.Core.Service
 
 		#endregion
 
+		#region Site specific
+
+		public Site GetSiteBySiteUrl(string applicationPath)
+		{
+			ICriteria crit = this._activeSession.CreateCriteria(typeof(Site));
+			crit.Add(Expression.Eq("SiteUrl", applicationPath.ToLower()));
+			IList results = crit.List();
+			if (results.Count == 1)
+			{
+				return (Site)results[0];
+			}
+			else if (results.Count > 1)
+			{
+				throw new Exception(String.Format("Multiple sites found for ApplicationPath {0}. The ApplicationPath should be unique.", applicationPath));
+			}
+			else
+			{
+				return null;
+			}
+		}
+
+		#endregion
+
 		#region Node specific
 
 		/// <summary>
-		/// Retrieve the root nodes.
+		/// Retrieve the root nodes for a given site.
 		/// </summary>
 		/// <returns></returns>
-		public IList GetRootNodes()
+		public IList GetRootNodes(Site site)
 		{
 			ICriteria crit = this._activeSession.CreateCriteria(typeof(Node));
 			crit.Add(Expression.IsNull("ParentNode"));
+			crit.Add(Expression.Eq("Site", site));
 			crit.AddOrder(Order.Asc("Position"));
 			return crit.List();
 		}

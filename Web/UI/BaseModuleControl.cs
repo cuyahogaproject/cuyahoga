@@ -38,9 +38,6 @@ namespace Cuyahoga.Web.UI
 
 		public BaseModuleControl()
 		{
-			//
-			// TODO: Add constructor logic here
-			//
 		}
 
 		protected override void OnInit(EventArgs e)

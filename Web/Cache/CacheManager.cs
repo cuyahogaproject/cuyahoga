@@ -1,9 +1,7 @@
 using System;
 using System.Collections;
 using System.Web;
-using System.Web.Caching;
 
-using Cuyahoga.Core;
 using Cuyahoga.Core.Domain;
 using Cuyahoga.Core.Service;
 using Cuyahoga.Core.Util;
@@ -16,6 +14,7 @@ namespace Cuyahoga.Web.Cache
 	public class CacheManager
 	{
 		private CoreRepository _coreRepository;
+		private Site _site;
 		private NodeCache _nodeCache;
 		private bool _hasChanges;
 
@@ -27,21 +26,27 @@ namespace Cuyahoga.Web.Cache
 			get { return this._hasChanges; }
 		}
 
+		public string NodeCacheKey
+		{
+			get { return "NodeCache_" + this._site.Id.ToString(); }
+		}
+
 		/// <summary>
 		/// Default constructor.
 		/// </summary>
-		public CacheManager(CoreRepository coreRepository)
+		public CacheManager(CoreRepository coreRepository, Site site)
 		{
 			this._coreRepository = coreRepository;
+			this._site = site;
 			this._hasChanges = false;
-			if (HttpContext.Current.Cache["NodeCache"] == null)
+			if (HttpContext.Current.Cache[this.NodeCacheKey] == null)
 			{
 				this._nodeCache = new NodeCache();
 				InitNodeCache();
 			}
 			else
 			{
-				this._nodeCache = (NodeCache)HttpContext.Current.Cache["NodeCache"];				
+				this._nodeCache = (NodeCache)HttpContext.Current.Cache[this.NodeCacheKey];				
 			}
 		}
 
@@ -66,9 +71,6 @@ namespace Cuyahoga.Web.Cache
 
 		public Node GetNodeByShortDescription(string shortDescription)
 		{
-//			// MBO, 20041003: Disabled caching because of NHibernate Session sync issues and lazy-loading 
-//			return this._coreRepository.GetNodeByShortDescription(shortDescription);
-
 			if (this._nodeCache.NodeShortDescriptionIndex[shortDescription] == null)
 			{
 				LoadNodeIntoCacheFromShortDescription(shortDescription);
@@ -83,15 +85,10 @@ namespace Cuyahoga.Web.Cache
 
 		public Node GetRootNode()
 		{
-			// TODO: handle multiple root nodes (language?). For the time being, we're getting the first
-			// node in the List.
-
-			// MBO, 20041003: Disabled caching because of NHibernate Session sync issues and lazy-loading 
-//			IList rootNodes = this._coreRepository.GetRootNodes();
-//			return (Node)rootNodes[0];
+			// Get the root node that has the same culture as the default culture of the site.
 			if (this._nodeCache.RootNodes.Count > 0)
 			{
-				Node node = (Node)this._nodeCache.RootNodes.GetByIndex(0);
+				Node node = (Node)this._nodeCache.RootNodes[this._site.DefaultCulture];
 				this._coreRepository.AttachNodeToCurrentSession(node);
 				return node;
 			}
@@ -107,7 +104,7 @@ namespace Cuyahoga.Web.Cache
 		public void SaveCache()
 		{
 			double nodeCacheDuration = Double.Parse(Config.GetConfiguration()["NodeCacheDuration"]);
-			HttpContext.Current.Cache.Insert("NodeCache", this._nodeCache, null, DateTime.Now.AddSeconds(nodeCacheDuration), TimeSpan.Zero);
+			HttpContext.Current.Cache.Insert(this.NodeCacheKey, this._nodeCache, null, DateTime.Now.AddSeconds(nodeCacheDuration), TimeSpan.Zero);
 		}
 
 		/// <summary>
@@ -116,7 +113,7 @@ namespace Cuyahoga.Web.Cache
 		/// </summary>
 		private void InitNodeCache()
 		{
-			IList nodes = this._coreRepository.GetRootNodes();
+			IList nodes = this._coreRepository.GetRootNodes(this._site);
 			foreach (Node node in nodes)
 			{
 				RegisterNode(node, true);
@@ -136,8 +133,8 @@ namespace Cuyahoga.Web.Cache
 			// Add node to NodeCache. It is not yet put in the ASP.NET cache though.
 			if (isRootNode)
 			{
-				// Temporarely store the ID as key. This should be replaced with the language identifier?
-				this._nodeCache.RootNodes.Add(node.Id, node);
+				// Store the culture of the root node as key.
+				this._nodeCache.RootNodes.Add(node.Culture, node);
 			}
 			// Add an index to the NodeCache for easy retrieval.
 			this._nodeCache.NodeIndex[node.Id] = node;
