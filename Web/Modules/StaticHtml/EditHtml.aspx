@@ -1,5 +1,6 @@
-<%@ Register TagPrefix="ftb" Namespace="FreeTextBoxControls" Assembly="FreeTextBox" %>
 <%@ Page language="c#" Codebehind="EditHtml.aspx.cs" AutoEventWireup="false" Inherits="Cuyahoga.Web.Modules.StaticHtml.EditHtml" ValidateRequest="false"  %>
+<%@ Register TagPrefix="cc1" Namespace="Cuyahoga.ServerControls" Assembly="Cuyahoga.ServerControls" %>
+<%@ Register TagPrefix="ftb" Namespace="FreeTextBoxControls" Assembly="FreeTextBox" %>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN" >
 <html>
   <head>
@@ -11,8 +12,7 @@
   </head>
 	<body ms_positioning="FlowLayout">
 		<form id="Form1" method="post" runat="server">
-			<h1>Edit static content</h1>
-			<ftb:freetextbox id="ftbStaticHtml" runat="server" height="400px" width="80%" supportfolder="/Cuyahoga/Support/FreeTextBox/"></ftb:freetextbox><br><asp:button id="btnSave" runat="server" text="Save"></asp:button></form>
+			<h1>Edit static content</h1><cc1:CuyahogaEditor id=cedStaticHtml runat="server" SupportFolder="~/Support/FreeTextBox/" ButtonOverImage="True" ButtonRenderMode="Css" DownLevelCols="80" DownLevelRows="20" Width="700px" Height="400px"></cc1:CuyahogaEditor><br><br><asp:button id="btnSave" runat="server" text="Save"></asp:button></form>
 
 	</body>
 </html>

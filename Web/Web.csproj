@@ -542,6 +542,38 @@
                     BuildAction = "Content"
                 />
                 <File
+                    RelPath = "Support\FreeTextBox\Custom\ImageBrowser.aspx"
+                    SubType = "Form"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Support\FreeTextBox\Custom\ImageBrowser.aspx.cs"
+                    DependentUpon = "ImageBrowser.aspx"
+                    SubType = "ASPXCodeBehind"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "Support\FreeTextBox\Custom\ImageBrowser.aspx.resx"
+                    DependentUpon = "ImageBrowser.aspx.cs"
+                    BuildAction = "EmbeddedResource"
+                />
+                <File
+                    RelPath = "Support\FreeTextBox\Custom\LinkBrowser.aspx"
+                    SubType = "Form"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Support\FreeTextBox\Custom\LinkBrowser.aspx.cs"
+                    DependentUpon = "LinkBrowser.aspx"
+                    SubType = "ASPXCodeBehind"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "Support\FreeTextBox\Custom\LinkBrowser.aspx.resx"
+                    DependentUpon = "LinkBrowser.aspx.cs"
+                    BuildAction = "EmbeddedResource"
+                />
+                <File
                     RelPath = "Support\FreeTextBox\images\bold.gif"
                     BuildAction = "Content"
                 />
