@@ -60,7 +60,7 @@
                 <include name="ExternalStuff/Npgsql.*" />    
                 <include name="ExternalStuff/Mono.Security.Protocol.Tls.*" />
             </references>
-            <resources>
+            <resources dynamicprefix="true" prefix="Cuyahoga">
 				 <include name="Core/Domain/**/*.hbm.xml" />
             </resources>
         </csc>
@@ -70,7 +70,7 @@
             <sources>
                 <include name="Modules/**/*.cs" />
             </sources>
-            <resources  dynamicprefix="true" prefix="Cuyahoga">
+            <resources dynamicprefix="true" prefix="Cuyahoga">
 				<include name="Modules/**/*.hbm.xml" />
 			</resources>
             <references>
