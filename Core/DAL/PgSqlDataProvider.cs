@@ -701,7 +701,7 @@ namespace Cuyahoga.Core.DAL
 				InsertRoles(section, trn);
 				trn.Commit();
 			}
-			catch (NpgsqlException ex)
+			catch (Exception ex)
 			{
 				trn.Rollback();
 				throw new CmsDataException("Error updating section", ex);
@@ -799,7 +799,7 @@ namespace Cuyahoga.Core.DAL
 			foreach (Role role in personalizableObject.EditRoles)
 			{
 				cmd.Parameters.Clear();
-				cmd.Parameters.Add(PgSqlDataHelper.MakeInParam(":sectionid", DbType.Int32, 4, personalizableObject.Id));
+				cmd.Parameters.Add(PgSqlDataHelper.MakeInParam(":objectid", DbType.Int32, 4, personalizableObject.Id));
 				// Check if the role is not in the ViewRoles. If so, the role is already stored and we don't
 				// want to store it twice.
 				if (! personalizableObject.ViewRoles.Contains(role))
