@@ -55,3 +55,20 @@ ALTER TABLE Cuyahoga_Node
 	ALTER COLUMN ShowInNavigation bit NOT NULL
 	
 GO
+
+/************************
+ Cuyahoga_Template changes
+************************/
+EXEC sp_rename 'Cuyahoga_Template.[Path]', 'BasePath', 'COLUMN' 
+
+GO
+
+ALTER TABLE Cuyahoga_Template
+	ADD	TemplateControl varchar(50) NULL
+	
+GO
+
+ALTER TABLE Cuyahoga_Template
+	ALTER COLUMN Css varchar(100) NULL
+	
+GO
