@@ -1,25 +1,21 @@
 Microsoft Visual Studio Solution File, Format Version 8.00
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Web", "Web\Web.csproj", "{DD158F08-6E8F-4234-B3F6-A5402C8E34CC}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cuyahoga.Web", "Web\Cuyahoga.Web.csproj", "{DD158F08-6E8F-4234-B3F6-A5402C8E34CC}"
 	ProjectSection(ProjectDependencies) = postProject
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Core", "Core\Core.csproj", "{723B7D30-6472-4B96-8D09-4F094C96650E}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cuyahoga.Core", "Core\Cuyahoga.Core.csproj", "{723B7D30-6472-4B96-8D09-4F094C96650E}"
 	ProjectSection(ProjectDependencies) = postProject
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExternalStuff", "ExternalStuff\ExternalStuff.csproj", "{CDFEFB7A-48C3-4C60-988B-952913EFBB8F}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cuyahoga.Modules", "Modules\Cuyahoga.Modules.csproj", "{7069F87A-95E1-4E61-B5FD-E0892E6F821F}"
 	ProjectSection(ProjectDependencies) = postProject
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Modules", "Modules\Modules.csproj", "{7069F87A-95E1-4E61-B5FD-E0892E6F821F}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cuyahoga.ServerControls", "ServerControls\Cuyahoga.ServerControls.csproj", "{C64DAA00-AAB1-4AC7-ADE2-119B53B9666A}"
 	ProjectSection(ProjectDependencies) = postProject
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ServerControls", "ServerControls\ServerControls.csproj", "{C64DAA00-AAB1-4AC7-ADE2-119B53B9666A}"
-	ProjectSection(ProjectDependencies) = postProject
-	EndProjectSection
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tests", "Tests\Tests.csproj", "{E737CCAD-734D-4E61-8576-A42E4E803FA2}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cuyahoga.Tests", "Tests\Cuyahoga.Tests.csproj", "{E737CCAD-734D-4E61-8576-A42E4E803FA2}"
 	ProjectSection(ProjectDependencies) = postProject
 	EndProjectSection
 EndProject
@@ -37,8 +33,6 @@ Global
 		{723B7D30-6472-4B96-8D09-4F094C96650E}.Debug.Build.0 = Debug|.NET
 		{723B7D30-6472-4B96-8D09-4F094C96650E}.Release.ActiveCfg = Release|.NET
 		{723B7D30-6472-4B96-8D09-4F094C96650E}.Release.Build.0 = Release|.NET
-		{CDFEFB7A-48C3-4C60-988B-952913EFBB8F}.Debug.ActiveCfg = Debug|.NET
-		{CDFEFB7A-48C3-4C60-988B-952913EFBB8F}.Release.ActiveCfg = Release|.NET
 		{7069F87A-95E1-4E61-B5FD-E0892E6F821F}.Debug.ActiveCfg = Debug|.NET
 		{7069F87A-95E1-4E61-B5FD-E0892E6F821F}.Debug.Build.0 = Debug|.NET
 		{7069F87A-95E1-4E61-B5FD-E0892E6F821F}.Release.ActiveCfg = Release|.NET

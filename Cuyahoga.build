@@ -1,11 +1,13 @@
 <?xml version="1.0" encoding="utf-8" ?> 
-<project default="build" basedir="." xmlns="http://nant.sf.net/schemas/nant-0.84.win32.net-1.0.xsd">
+<project default="build" basedir="." xmlns="http://nant.sf.net/release/0.85-rc1/nant.xsd">
 	<!-- global project settings -->
 	<property name="project.name" value="Cuyahoga" />
 	<property name="project.version" value="0.2" />
 
 	<!-- default configuration -->
 	<property name="project.config" value="debug" /> <!-- debug|release -->
+	
+	<property name="lib.dir" value="lib" />
 	
 	<target name="debug" description="Perform a 'debug' build">
 		<property name="project.config" value="debug" />
@@ -35,13 +37,13 @@
 		<mkdir dir="${build.dir}/bin" />
 		
 		<call target="build.core" />
-		<call target="build.modules" />
 		<call target="build.servercontrols" />
 		<call target="build.web" />
+		<call target="build.modules" />
 
 		<!-- copy libraries -->
 		<copy todir="${build.dir}/bin">
-			<fileset basedir="ExternalStuff">
+			<fileset basedir="${lib.dir}">
 				<include name="**/*.dll" />
 			</fileset>
 		</copy>		
@@ -59,29 +61,10 @@
                 <include name="System.Data.dll" />
                 <include name="System.Xml.dll" />
                 <include name="System.Web.dll" />
-                <include name="ExternalStuff/NHibernate.*" />
+                <include name="${lib.dir}/NHibernate.*" />
                 
-                <include name="ExternalStuff/Npgsql.*" />    
-                <include name="ExternalStuff/Mono.Security.Protocol.Tls.*" />
-            </references>
-        </csc>
-	</target>
-	<target name="build.modules" depends="build.core">
-		<csc target="library" output="${build.dir}/bin/Cuyahoga.Modules.dll" debug="${build.debug}">
-            <sources>
-                <include name="Modules/**/*.cs" />
-            </sources>
-            <resources dynamicprefix="true" prefix="Cuyahoga">
-				<include name="Modules/**/*.hbm.xml" />
-			</resources>
-            <references>
-                <include name="System.dll" />
-                <include name="System.Data.dll" />
-                <include name="System.Xml.dll" />
-                <include name="System.Web.dll" />
-                <include name="ExternalStuff/Npgsql.dll" />    
-                <include name="ExternalStuff/NHibernate.dll" />
-                <include name="${build.dir}/bin/Cuyahoga.Core.dll" />
+                <include name="${lib.dir}/Npgsql.*" />    
+                <include name="${lib.dir}/Mono.Security.Protocol.Tls.*" />
             </references>
         </csc>
 	</target>
@@ -96,7 +79,7 @@
                 <include name="System.Drawing.dll" />
                 <include name="System.Xml.dll" />
                 <include name="System.Web.dll" />
-                <include name="ExternalStuff/FreeTextBox.dll" />
+                <include name="${lib.dir}/FreeTextBox.dll" />
             </references>
         </csc>
 	</target>
@@ -104,26 +87,46 @@
 		<mkdir dir="${build.dir}/resources" />
 		<resgen todir="${build.dir}/resources">
 			<resources>
-				<include name="Web/Modules/**/Strings*.resx"/>
+				<include name="Modules/**/Strings*.resx"/>
 			</resources>
 		</resgen>
 		<csc target="library" output="${build.dir}/bin/Cuyahoga.Web.dll" debug="${build.debug}">
             <sources>
                 <include name="Web/**/*.cs" />
             </sources>
-            <resources dynamicprefix="true" prefix="Cuyahoga">
-				<include name="${build.dir}/resources/*.resources" />
-            </resources>
             <references>
                 <include name="System.dll" />
                 <include name="System.Data.dll" />
                 <include name="System.Drawing.dll" />
                 <include name="System.Xml.dll" />
                 <include name="System.Web.dll" />
-                <include name="ExternalStuff/FreeTextBox.dll" />  
-                <include name="ExternalStuff/NHibernate.dll" />  
+                <include name="${lib.dir}/FreeTextBox.dll" />  
+                <include name="${lib.dir}/NHibernate.dll" />
+                <include name="${lib.dir}/log4net.dll" />
                 <include name="${build.dir}/bin/Cuyahoga.Core.dll" />
-                <include name="${build.dir}/bin/Cuyahoga.Modules.dll" />
+                <include name="${build.dir}/bin/Cuyahoga.ServerControls.dll" />
+            </references>
+        </csc>
+	</target>
+	<target name="build.modules" depends="build.core">
+		<csc target="library" output="${build.dir}/bin/Cuyahoga.Modules.dll" debug="${build.debug}">
+            <sources>
+                <include name="Modules/**/*.cs" />
+            </sources>
+            <resources dynamicprefix="true" prefix="Cuyahoga">
+				<include name="Modules/**/*.hbm.xml" />
+				<include name="${build.dir}/resources/*.resources" />
+			</resources>
+            <references>
+                <include name="System.dll" />
+                <include name="System.Data.dll" />
+                <include name="System.Xml.dll" />
+                <include name="System.Web.dll" />
+                <include name="${lib.dir}/Npgsql.dll" />    
+                <include name="${lib.dir}/NHibernate.dll" />
+                <include name="${lib.dir}/FreeTextBox.dll" />  
+                <include name="${build.dir}/bin/Cuyahoga.Core.dll" />
+                <include name="${build.dir}/bin/Cuyahoga.Web.dll" />
                 <include name="${build.dir}/bin/Cuyahoga.ServerControls.dll" />
             </references>
         </csc>
@@ -131,6 +134,7 @@
 	<target name="deploy" depends="build" description="Deploys the website to the deployment directory">
 		<mkdir dir="${build.dir}/deploy" />
 		<mkdir dir="${build.dir}/deploy/bin" />
+		<mkdir dir="${build.dir}/deploy/Modules" />
 		<copy todir="${build.dir}/deploy">
 			<fileset basedir="Web">
 				<include name="**/*.as?x" />
@@ -145,9 +149,22 @@
 		</copy>
 		<copy todir="${build.dir}/deploy/bin">
 			<fileset basedir="${build.dir}/bin">
-				<include name="*.dll" />
+				<include name="**/*.dll" />
 			</fileset>
 		</copy>
+	    <!-- Copy Modules to the Web dir -->
+        <copy todir="${build.dir}/deploy/Modules">
+			<fileset basedir="Modules">
+				<include name="**/*.as?x" />
+				<include name="**/*.gif" />
+				<include name="**/*.png" />
+				<include name="**/*.jpg" />
+				<include name="**/*.js" />
+				<include name="**/*.xml" />
+				<include name="**/*.css" />
+			</fileset>
+		</copy>
+
 	</target>
 </project>
 

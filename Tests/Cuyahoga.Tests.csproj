@@ -3,13 +3,13 @@
         ProjectType = "Local"
         ProductVersion = "7.10.3077"
         SchemaVersion = "2.0"
-        ProjectGuid = "{C64DAA00-AAB1-4AC7-ADE2-119B53B9666A}"
+        ProjectGuid = "{E737CCAD-734D-4E61-8576-A42E4E803FA2}"
     >
         <Build>
             <Settings
                 ApplicationIcon = ""
                 AssemblyKeyContainerName = ""
-                AssemblyName = "Cuyahoga.ServerControls"
+                AssemblyName = "Cuyahoga.Tests"
                 AssemblyOriginatorKeyFile = ""
                 DefaultClientScript = "JScript"
                 DefaultHTMLPageLayout = "Grid"
@@ -17,8 +17,8 @@
                 DelaySign = "false"
                 OutputType = "Library"
                 PreBuildEvent = ""
-                PostBuildEvent = ""
-                RootNamespace = "Cuyahoga.ServerControls"
+                PostBuildEvent = "copy $(ProjectDir)App.config $(TargetPath).config"
+                RootNamespace = "Cuyahoga.Tests"
                 RunPostBuildEvent = "OnBuildSuccess"
                 StartupObject = ""
             >
@@ -80,41 +80,35 @@
                     HintPath = "..\..\..\WINDOWS\Microsoft.NET\Framework\v1.1.4322\System.XML.dll"
                 />
                 <Reference
-                    Name = "System.Drawing"
-                    AssemblyName = "System.Drawing"
-                    HintPath = "..\..\..\WINDOWS\Microsoft.NET\Framework\v1.1.4322\System.Drawing.dll"
+                    Name = "Core"
+                    Project = "{723B7D30-6472-4B96-8D09-4F094C96650E}"
+                    Package = "{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}"
                 />
                 <Reference
-                    Name = "System.Web"
-                    AssemblyName = "System.Web"
-                    HintPath = "..\..\..\WINDOWS\Microsoft.NET\Framework\v1.1.4322\System.Web.dll"
+                    Name = "nunit.framework"
+                    AssemblyName = "nunit.framework"
+                    HintPath = "..\lib\nunit.framework.dll"
                 />
                 <Reference
-                    Name = "FreeTextBox"
-                    AssemblyName = "FreeTextBox"
-                    HintPath = "..\ExternalStuff\FreeTextBox.dll"
+                    Name = "NHibernate"
+                    AssemblyName = "NHibernate"
+                    HintPath = "..\lib\NHibernate.dll"
                 />
             </References>
         </Build>
         <Files>
             <Include>
                 <File
+                    RelPath = "App.config"
+                    BuildAction = "None"
+                />
+                <File
                     RelPath = "AssemblyInfo.cs"
                     SubType = "Code"
                     BuildAction = "Compile"
                 />
                 <File
-                    RelPath = "Calendar.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "CuyahogaEditor.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "Pager.cs"
+                    RelPath = "ProxyTest.cs"
                     SubType = "Code"
                     BuildAction = "Compile"
                 />

@@ -3,13 +3,13 @@
         ProjectType = "Local"
         ProductVersion = "7.10.3077"
         SchemaVersion = "2.0"
-        ProjectGuid = "{723B7D30-6472-4B96-8D09-4F094C96650E}"
+        ProjectGuid = "{7069F87A-95E1-4E61-B5FD-E0892E6F821F}"
     >
         <Build>
             <Settings
                 ApplicationIcon = ""
                 AssemblyKeyContainerName = ""
-                AssemblyName = "Cuyahoga.Core"
+                AssemblyName = "Cuyahoga.Modules"
                 AssemblyOriginatorKeyFile = ""
                 DefaultClientScript = "JScript"
                 DefaultHTMLPageLayout = "Grid"
@@ -17,8 +17,8 @@
                 DelaySign = "false"
                 OutputType = "Library"
                 PreBuildEvent = ""
-                PostBuildEvent = ""
-                RootNamespace = "Cuyahoga.Core"
+                PostBuildEvent = "xcopy /s /y $(ProjectDir)*.as?x $(SolutionDir)Web\Modules&#xd;&#xa;xcopy /y $(TargetPath) $(SolutionDir)Web\bin"
+                RootNamespace = "Cuyahoga.Modules"
                 RunPostBuildEvent = "OnBuildSuccess"
                 StartupObject = ""
             >
@@ -85,14 +85,39 @@
                     HintPath = "..\..\..\WINDOWS\Microsoft.NET\Framework\v1.1.4322\System.Web.dll"
                 />
                 <Reference
-                    Name = "Npgsql"
-                    AssemblyName = "Npgsql"
-                    HintPath = "..\ExternalStuff\Npgsql.dll"
-                />
-                <Reference
                     Name = "NHibernate"
                     AssemblyName = "NHibernate"
-                    HintPath = "..\ExternalStuff\NHibernate.dll"
+                    HintPath = "..\lib\NHibernate.dll"
+                />
+                <Reference
+                    Name = "Npgsql"
+                    AssemblyName = "Npgsql"
+                    HintPath = "..\lib\Npgsql.dll"
+                />
+                <Reference
+                    Name = "System.Drawing"
+                    AssemblyName = "System.Drawing"
+                    HintPath = "..\..\..\WINDOWS\Microsoft.NET\Framework\v1.1.4322\System.Drawing.dll"
+                />
+                <Reference
+                    Name = "Cuyahoga.Web"
+                    Project = "{DD158F08-6E8F-4234-B3F6-A5402C8E34CC}"
+                    Package = "{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}"
+                />
+                <Reference
+                    Name = "Cuyahoga.ServerControls"
+                    Project = "{C64DAA00-AAB1-4AC7-ADE2-119B53B9666A}"
+                    Package = "{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}"
+                />
+                <Reference
+                    Name = "FreeTextBox"
+                    AssemblyName = "FreeTextBox"
+                    HintPath = "..\lib\FreeTextBox.dll"
+                />
+                <Reference
+                    Name = "Cuyahoga.Core"
+                    Project = "{723B7D30-6472-4B96-8D09-4F094C96650E}"
+                    Package = "{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}"
                 />
             </References>
         </Build>
@@ -104,137 +129,167 @@
                     BuildAction = "Compile"
                 />
                 <File
-                    RelPath = "Exceptions.cs"
-                    SubType = "Code"
+                    RelPath = "Articles\AdminArticles.aspx"
+                    SubType = "Form"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Articles\AdminArticles.aspx.cs"
+                    DependentUpon = "AdminArticles.aspx"
+                    SubType = "ASPXCodeBehind"
                     BuildAction = "Compile"
                 />
                 <File
-                    RelPath = "ISyndicatable.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "Domain\Enumerations.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "Domain\ModuleBase.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "Domain\ModuleSetting.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "Domain\ModuleType.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "Domain\ModuleType.hbm.xml"
+                    RelPath = "Articles\AdminArticles.aspx.resx"
+                    DependentUpon = "AdminArticles.aspx.cs"
                     BuildAction = "EmbeddedResource"
                 />
                 <File
-                    RelPath = "Domain\Node.cs"
+                    RelPath = "Articles\Article.cs"
                     SubType = "Code"
                     BuildAction = "Compile"
                 />
                 <File
-                    RelPath = "Domain\Node.hbm.xml"
+                    RelPath = "Articles\Article.hbm.xml"
                     BuildAction = "EmbeddedResource"
                 />
                 <File
-                    RelPath = "Domain\NodePermission.cs"
+                    RelPath = "Articles\ArticleModule.cs"
                     SubType = "Code"
                     BuildAction = "Compile"
                 />
                 <File
-                    RelPath = "Domain\Permission.cs"
-                    SubType = "Code"
+                    RelPath = "Articles\Articles.ascx"
+                    SubType = "UserControl"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Articles\Articles.ascx.cs"
+                    DependentUpon = "Articles.ascx"
+                    SubType = "ASPXCodeBehind"
                     BuildAction = "Compile"
                 />
                 <File
-                    RelPath = "Domain\Role.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "Domain\Role.hbm.xml"
+                    RelPath = "Articles\Articles.ascx.resx"
+                    DependentUpon = "Articles.ascx.cs"
                     BuildAction = "EmbeddedResource"
                 />
                 <File
-                    RelPath = "Domain\Section.cs"
+                    RelPath = "Articles\Category.cs"
                     SubType = "Code"
                     BuildAction = "Compile"
                 />
                 <File
-                    RelPath = "Domain\Section.hbm.xml"
+                    RelPath = "Articles\Category.hbm.xml"
                     BuildAction = "EmbeddedResource"
                 />
                 <File
-                    RelPath = "Domain\SectionPermission.cs"
+                    RelPath = "Articles\Comment.cs"
                     SubType = "Code"
                     BuildAction = "Compile"
                 />
                 <File
-                    RelPath = "Domain\Site.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "Domain\Site.hbm.xml"
+                    RelPath = "Articles\Comment.hbm.xml"
                     BuildAction = "EmbeddedResource"
                 />
                 <File
-                    RelPath = "Domain\Template.cs"
-                    SubType = "Code"
+                    RelPath = "Articles\EditArticle.aspx"
+                    SubType = "Form"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Articles\EditArticle.aspx.cs"
+                    DependentUpon = "EditArticle.aspx"
+                    SubType = "ASPXCodeBehind"
                     BuildAction = "Compile"
                 />
                 <File
-                    RelPath = "Domain\Template.hbm.xml"
+                    RelPath = "Articles\EditArticle.aspx.resx"
+                    DependentUpon = "EditArticle.aspx.cs"
                     BuildAction = "EmbeddedResource"
                 />
                 <File
-                    RelPath = "Domain\User.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "Domain\User.hbm.xml"
+                    RelPath = "Articles\Resources\Strings.nl.resx"
                     BuildAction = "EmbeddedResource"
                 />
                 <File
-                    RelPath = "Security\CuyahogaPrincipal.cs"
+                    RelPath = "Articles\Resources\Strings.resx"
+                    BuildAction = "EmbeddedResource"
+                />
+                <File
+                    RelPath = "StaticHtml\EditHtml.aspx"
+                    SubType = "Form"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "StaticHtml\EditHtml.aspx.cs"
+                    DependentUpon = "EditHtml.aspx"
+                    SubType = "ASPXCodeBehind"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "StaticHtml\EditHtml.aspx.resx"
+                    DependentUpon = "EditHtml.aspx.cs"
+                    BuildAction = "EmbeddedResource"
+                />
+                <File
+                    RelPath = "StaticHtml\StaticHtml.ascx"
+                    SubType = "UserControl"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "StaticHtml\StaticHtml.ascx.cs"
+                    DependentUpon = "StaticHtml.ascx"
+                    SubType = "ASPXCodeBehind"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "StaticHtml\StaticHtml.ascx.resx"
+                    DependentUpon = "StaticHtml.ascx.cs"
+                    BuildAction = "EmbeddedResource"
+                />
+                <File
+                    RelPath = "StaticHtml\StaticHtmlContent.cs"
                     SubType = "Code"
                     BuildAction = "Compile"
                 />
                 <File
-                    RelPath = "Service\CoreRepository.cs"
+                    RelPath = "StaticHtml\StaticHtmlContent.hbm.xml"
+                    BuildAction = "EmbeddedResource"
+                />
+                <File
+                    RelPath = "StaticHtml\StaticHtmlModule.cs"
                     SubType = "Code"
                     BuildAction = "Compile"
                 />
                 <File
-                    RelPath = "Service\SessionFactory.cs"
+                    RelPath = "User\User.ascx"
+                    SubType = "UserControl"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "User\User.ascx.cs"
+                    DependentUpon = "User.ascx"
+                    SubType = "ASPXCodeBehind"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "User\User.ascx.resx"
+                    DependentUpon = "User.ascx.cs"
+                    BuildAction = "EmbeddedResource"
+                />
+                <File
+                    RelPath = "User\UserModule.cs"
                     SubType = "Code"
                     BuildAction = "Compile"
                 />
                 <File
-                    RelPath = "Util\Config.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
+                    RelPath = "User\Resources\Strings.nl.resx"
+                    BuildAction = "EmbeddedResource"
                 />
                 <File
-                    RelPath = "Util\Encryption.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "Util\Rss.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
+                    RelPath = "User\Resources\Strings.resx"
+                    BuildAction = "EmbeddedResource"
                 />
             </Include>
         </Files>

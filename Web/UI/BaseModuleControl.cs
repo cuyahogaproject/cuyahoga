@@ -14,7 +14,7 @@ namespace Cuyahoga.Web.UI
 {
 	/// <summary>
 	/// Base class for all module user controls.
-	/// Credits to the DotNetNuke team (http://www.dotnetnuke.com) for the output caching solution.
+	/// Credits to the DotNetNuke team (http://www.dotnetnuke.com) for the output caching idea!
 	/// </summary>
 	public class BaseModuleControl : System.Web.UI.UserControl
 	{
@@ -47,9 +47,9 @@ namespace Cuyahoga.Web.UI
 		/// </summary>
 		public BaseModuleControl()
 		{
-			// Base name of the resources consists of Namespace.Resources.Strings
+			// Base name of the resources consists of Namespace_without_Web.Resources.Strings
 			string baseName = this.GetType().BaseType.Namespace + ".Resources.Strings";
-			this._resMan = new ResourceManager(baseName, Assembly.GetExecutingAssembly());
+			this._resMan = new ResourceManager(baseName, this.GetType().BaseType.Assembly);
 			this._currentUICulture = Thread.CurrentThread.CurrentUICulture;
 		}
 

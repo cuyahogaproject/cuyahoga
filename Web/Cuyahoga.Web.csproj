@@ -90,16 +90,6 @@
                     HintPath = "..\..\..\WINDOWS\Microsoft.NET\Framework\v1.1.4322\System.XML.dll"
                 />
                 <Reference
-                    Name = "Modules"
-                    Project = "{7069F87A-95E1-4E61-B5FD-E0892E6F821F}"
-                    Package = "{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}"
-                />
-                <Reference
-                    Name = "FreeTextBox"
-                    AssemblyName = "FreeTextBox"
-                    HintPath = "..\ExternalStuff\FreeTextBox.dll"
-                />
-                <Reference
                     Name = "System.Data"
                     AssemblyName = "System.Data"
                     HintPath = "..\..\..\WINDOWS\Microsoft.NET\Framework\v1.1.4322\System.Data.dll"
@@ -112,12 +102,17 @@
                 <Reference
                     Name = "log4net"
                     AssemblyName = "log4net"
-                    HintPath = "..\ExternalStuff\log4net.dll"
+                    HintPath = "..\lib\log4net.dll"
                 />
                 <Reference
                     Name = "NHibernate"
                     AssemblyName = "NHibernate"
-                    HintPath = "..\ExternalStuff\NHibernate.dll"
+                    HintPath = "..\lib\NHibernate.dll"
+                />
+                <Reference
+                    Name = "FreeTextBox"
+                    AssemblyName = "FreeTextBox"
+                    HintPath = "..\lib\FreeTextBox.dll"
                 />
             </References>
         </Build>
@@ -556,118 +551,7 @@
                     RelPath = "Images\mono-powered-big.gif"
                     BuildAction = "Content"
                 />
-                <File
-                    RelPath = "Modules\Articles\AdminArticles.aspx"
-                    SubType = "Form"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "Modules\Articles\AdminArticles.aspx.cs"
-                    DependentUpon = "AdminArticles.aspx"
-                    SubType = "ASPXCodeBehind"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "Modules\Articles\AdminArticles.aspx.resx"
-                    DependentUpon = "AdminArticles.aspx.cs"
-                    BuildAction = "EmbeddedResource"
-                />
-                <File
-                    RelPath = "Modules\Articles\Articles.ascx"
-                    SubType = "UserControl"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "Modules\Articles\Articles.ascx.cs"
-                    DependentUpon = "Articles.ascx"
-                    SubType = "ASPXCodeBehind"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "Modules\Articles\Articles.ascx.resx"
-                    DependentUpon = "Articles.ascx.cs"
-                    BuildAction = "EmbeddedResource"
-                />
-                <File
-                    RelPath = "Modules\Articles\EditArticle.aspx"
-                    SubType = "Form"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "Modules\Articles\EditArticle.aspx.cs"
-                    DependentUpon = "EditArticle.aspx"
-                    SubType = "ASPXCodeBehind"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "Modules\Articles\EditArticle.aspx.resx"
-                    DependentUpon = "EditArticle.aspx.cs"
-                    BuildAction = "EmbeddedResource"
-                />
-                <File
-                    RelPath = "Modules\Articles\Resources\Strings.nl.resx"
-                    BuildAction = "EmbeddedResource"
-                />
-                <File
-                    RelPath = "Modules\Articles\Resources\Strings.resx"
-                    BuildAction = "EmbeddedResource"
-                />
-                <File
-                    RelPath = "Modules\StaticHtml\EditHtml.aspx"
-                    SubType = "Form"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "Modules\StaticHtml\EditHtml.aspx.cs"
-                    DependentUpon = "EditHtml.aspx"
-                    SubType = "ASPXCodeBehind"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "Modules\StaticHtml\EditHtml.aspx.resx"
-                    DependentUpon = "EditHtml.aspx.cs"
-                    BuildAction = "EmbeddedResource"
-                />
-                <File
-                    RelPath = "Modules\StaticHtml\StaticHtml.ascx"
-                    SubType = "UserControl"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "Modules\StaticHtml\StaticHtml.ascx.cs"
-                    DependentUpon = "StaticHtml.ascx"
-                    SubType = "ASPXCodeBehind"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "Modules\StaticHtml\StaticHtml.ascx.resx"
-                    DependentUpon = "StaticHtml.ascx.cs"
-                    BuildAction = "EmbeddedResource"
-                />
-                <File
-                    RelPath = "Modules\User\User.ascx"
-                    SubType = "UserControl"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "Modules\User\User.ascx.cs"
-                    DependentUpon = "User.ascx"
-                    SubType = "ASPXCodeBehind"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "Modules\User\User.ascx.resx"
-                    DependentUpon = "User.ascx.cs"
-                    BuildAction = "EmbeddedResource"
-                />
-                <File
-                    RelPath = "Modules\User\Resources\Strings.nl.resx"
-                    BuildAction = "EmbeddedResource"
-                />
-                <File
-                    RelPath = "Modules\User\Resources\Strings.resx"
-                    BuildAction = "EmbeddedResource"
-                />
+                <Folder RelPath = "Modules\" />
                 <File
                     RelPath = "Support\FreeTextBox\FreeTextBox-MainScript.js"
                     BuildAction = "Content"

@@ -3,13 +3,13 @@
         ProjectType = "Local"
         ProductVersion = "7.10.3077"
         SchemaVersion = "2.0"
-        ProjectGuid = "{7069F87A-95E1-4E61-B5FD-E0892E6F821F}"
+        ProjectGuid = "{723B7D30-6472-4B96-8D09-4F094C96650E}"
     >
         <Build>
             <Settings
                 ApplicationIcon = ""
                 AssemblyKeyContainerName = ""
-                AssemblyName = "Cuyahoga.Modules"
+                AssemblyName = "Cuyahoga.Core"
                 AssemblyOriginatorKeyFile = ""
                 DefaultClientScript = "JScript"
                 DefaultHTMLPageLayout = "Grid"
@@ -18,7 +18,7 @@
                 OutputType = "Library"
                 PreBuildEvent = ""
                 PostBuildEvent = ""
-                RootNamespace = "Cuyahoga.Modules"
+                RootNamespace = "Cuyahoga.Core"
                 RunPostBuildEvent = "OnBuildSuccess"
                 StartupObject = ""
             >
@@ -80,11 +80,6 @@
                     HintPath = "..\..\..\WINDOWS\Microsoft.NET\Framework\v1.1.4322\System.XML.dll"
                 />
                 <Reference
-                    Name = "Core"
-                    Project = "{723B7D30-6472-4B96-8D09-4F094C96650E}"
-                    Package = "{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}"
-                />
-                <Reference
                     Name = "System.Web"
                     AssemblyName = "System.Web"
                     HintPath = "..\..\..\WINDOWS\Microsoft.NET\Framework\v1.1.4322\System.Web.dll"
@@ -92,12 +87,12 @@
                 <Reference
                     Name = "NHibernate"
                     AssemblyName = "NHibernate"
-                    HintPath = "..\ExternalStuff\NHibernate.dll"
+                    HintPath = "..\lib\NHibernate.dll"
                 />
                 <Reference
                     Name = "Npgsql"
                     AssemblyName = "Npgsql"
-                    HintPath = "..\ExternalStuff\Npgsql.dll"
+                    HintPath = "..\lib\Npgsql.dll"
                 />
             </References>
         </Build>
@@ -109,53 +104,135 @@
                     BuildAction = "Compile"
                 />
                 <File
-                    RelPath = "Articles\Article.cs"
+                    RelPath = "Exceptions.cs"
                     SubType = "Code"
                     BuildAction = "Compile"
                 />
                 <File
-                    RelPath = "Articles\Article.hbm.xml"
+                    RelPath = "ISyndicatable.cs"
+                    SubType = "Code"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "Domain\Enumerations.cs"
+                    SubType = "Code"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "Domain\ModuleBase.cs"
+                    SubType = "Code"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "Domain\ModuleSetting.cs"
+                    SubType = "Code"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "Domain\ModuleType.cs"
+                    SubType = "Code"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "Domain\ModuleType.hbm.xml"
                     BuildAction = "EmbeddedResource"
                 />
                 <File
-                    RelPath = "Articles\ArticleModule.cs"
+                    RelPath = "Domain\Node.cs"
                     SubType = "Code"
                     BuildAction = "Compile"
                 />
                 <File
-                    RelPath = "Articles\Category.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "Articles\Category.hbm.xml"
+                    RelPath = "Domain\Node.hbm.xml"
                     BuildAction = "EmbeddedResource"
                 />
                 <File
-                    RelPath = "Articles\Comment.cs"
+                    RelPath = "Domain\NodePermission.cs"
                     SubType = "Code"
                     BuildAction = "Compile"
                 />
                 <File
-                    RelPath = "Articles\Comment.hbm.xml"
+                    RelPath = "Domain\Permission.cs"
+                    SubType = "Code"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "Domain\Role.cs"
+                    SubType = "Code"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "Domain\Role.hbm.xml"
                     BuildAction = "EmbeddedResource"
                 />
                 <File
-                    RelPath = "StaticHtml\StaticHtmlContent.cs"
+                    RelPath = "Domain\Section.cs"
                     SubType = "Code"
                     BuildAction = "Compile"
                 />
                 <File
-                    RelPath = "StaticHtml\StaticHtmlContent.hbm.xml"
+                    RelPath = "Domain\Section.hbm.xml"
                     BuildAction = "EmbeddedResource"
                 />
                 <File
-                    RelPath = "StaticHtml\StaticHtmlModule.cs"
+                    RelPath = "Domain\SectionPermission.cs"
                     SubType = "Code"
                     BuildAction = "Compile"
                 />
                 <File
-                    RelPath = "User\UserModule.cs"
+                    RelPath = "Domain\Site.cs"
+                    SubType = "Code"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "Domain\Site.hbm.xml"
+                    BuildAction = "EmbeddedResource"
+                />
+                <File
+                    RelPath = "Domain\Template.cs"
+                    SubType = "Code"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "Domain\Template.hbm.xml"
+                    BuildAction = "EmbeddedResource"
+                />
+                <File
+                    RelPath = "Domain\User.cs"
+                    SubType = "Code"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "Domain\User.hbm.xml"
+                    BuildAction = "EmbeddedResource"
+                />
+                <File
+                    RelPath = "Security\CuyahogaPrincipal.cs"
+                    SubType = "Code"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "Service\CoreRepository.cs"
+                    SubType = "Code"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "Service\SessionFactory.cs"
+                    SubType = "Code"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "Util\Config.cs"
+                    SubType = "Code"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "Util\Encryption.cs"
+                    SubType = "Code"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "Util\Rss.cs"
                     SubType = "Code"
                     BuildAction = "Compile"
                 />
