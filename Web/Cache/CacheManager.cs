@@ -138,21 +138,14 @@ namespace Cuyahoga.Web.Cache
 				if (node == null)
 				{
 					// No node found for the default culture of the site, return the first node in the list.
-					if (this._nodeCache.RootNodes.Count > 0)
-					{
-						node = (Node)this._nodeCache.RootNodes.GetByIndex(0);
-					}
-					else
-					{
-						throw new Cuyahoga.Core.NodeNullException("No root node was found for the current site: " + this._nodeCache.Site.SiteUrl);
-					}
+					node = (Node)this._nodeCache.RootNodes.GetByIndex(0);
 				}
 				this._coreRepository.AttachNodeToCurrentSession(node);
 				return node;
 			}
 			else
 			{
-				return null;
+				throw new Cuyahoga.Core.NodeNullException("No root node was found for the current site: " + this._nodeCache.Site.SiteUrl);
 			}
 		}
 

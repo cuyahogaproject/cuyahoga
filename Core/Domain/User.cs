@@ -278,5 +278,22 @@ namespace Cuyahoga.Core.Domain
 			}
 			return false;
 		}
+
+		/// <summary>
+		/// Determine if the user is in a give Role.
+		/// </summary>
+		/// <param name="roleName"></param>
+		/// <returns></returns>
+		public bool IsInRole(string roleName)
+		{
+			foreach (Role role in this.Roles)
+			{
+				if (role.Name == roleName)
+				{
+					return true;
+				}
+			}
+			return false;
+		}
 	}
 }

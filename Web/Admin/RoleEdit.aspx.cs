@@ -11,6 +11,7 @@ using System.Web.UI.HtmlControls;
 
 using Cuyahoga.Core.Domain;
 using Cuyahoga.Core.Service;
+using Cuyahoga.Core.Util;
 
 namespace Cuyahoga.Web.Admin
 {
@@ -160,14 +161,25 @@ namespace Cuyahoga.Web.Admin
 		{
 			if (this._activeRole.Id > 0)
 			{
-				try
+				// Can't delete the Administrator role and the Anonymous role (which has a 
+				// PermissionLevel of 1).
+				// TODO: add an extra flag to determine if a role is a system role.
+				if (this._activeRole.Name != Config.GetConfiguration()["AdministratorRole"]
+					|| this._activeRole.PermissionLevel > 1)
 				{
-					base.CoreRepository.DeleteObject(this._activeRole);
-					Context.Response.Redirect("Roles.aspx");
+					ShowError("You can't delete the Administrator Role or the Anonymous Role.");
 				}
-				catch (Exception ex)
+				else
 				{
-					ShowError(ex.Message);
+					try
+					{
+						base.CoreRepository.DeleteObject(this._activeRole);
+						Context.Response.Redirect("Roles.aspx");
+					}
+					catch (Exception ex)
+					{
+						ShowError(ex.Message);
+					}
 				}
 			}
 		}

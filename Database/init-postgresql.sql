@@ -1,19 +1,4 @@
 --
--- TOC entry 1539 (class 0 OID 822914)
--- Dependencies: 1179
--- Data for Name: cuyahoga_culture; Type: TABLE DATA; Schema: public; Owner: tijn
---
-
-INSERT INTO cuyahoga_culture (culture, neutralculture, description) VALUES ('en-US', 'en', 'English - United States');
-INSERT INTO cuyahoga_culture (culture, neutralculture, description) VALUES ('en-GB', 'en', 'English - United Kingdon');
-INSERT INTO cuyahoga_culture (culture, neutralculture, description) VALUES ('nl-NL', 'nl', 'Dutch - The Netherlands');
-INSERT INTO cuyahoga_culture (culture, neutralculture, description) VALUES ('nl-BE', 'nl', 'Dutch - Belgium');
-INSERT INTO cuyahoga_culture (culture, neutralculture, description) VALUES ('de-DE', 'de', 'German - Germany');
-INSERT INTO cuyahoga_culture (culture, neutralculture, description) VALUES ('fr-FR', 'fr', 'French - France');
-INSERT INTO cuyahoga_culture (culture, neutralculture, description) VALUES ('es-ES', 'es', 'Spanish - Spain');
-
-
---
 -- TOC entry 1534 (class 0 OID 821791)
 -- Dependencies: 1170
 -- Data for Name: cuyahoga_moduletype; Type: TABLE DATA; Schema: public; Owner: tijn
@@ -29,10 +14,10 @@ INSERT INTO cuyahoga_moduletype (moduletypeid, name, assemblyname, classname, pa
 -- Data for Name: cuyahoga_modulesetting; Type: TABLE DATA; Schema: public; Owner: tijn
 --
 
-INSERT INTO cuyahoga_modulesetting (modulesettingid, moduletypeid, name, friendlyname, settingdatatype, iscustomtype) VALUES (1, 2, 'ALLOW_COMMENTS', 'Allow comments', 'System.Boolean', NULL);
-INSERT INTO cuyahoga_modulesetting (modulesettingid, moduletypeid, name, friendlyname, settingdatatype, iscustomtype) VALUES (2, 2, 'NUMBER_OF_ARTICLES_IN_LIST', 'Number of articles to display', 'System.Int16', NULL);
-INSERT INTO cuyahoga_modulesetting (modulesettingid, moduletypeid, name, friendlyname, settingdatatype, iscustomtype) VALUES (3, 2, 'DISPLAY_TYPE', 'Display type', 'Cuyahoga.Modules.Articles.DisplayType', true);
-
+INSERT INTO cuyahoga_modulesetting (modulesettingid, moduletypeid, name, friendlyname, settingdatatype, iscustomtype, isrequired) VALUES (1, 2, 'ALLOW_COMMENTS', 'Allow comments', 'System.Boolean', false, true);
+INSERT INTO cuyahoga_modulesetting (modulesettingid, moduletypeid, name, friendlyname, settingdatatype, iscustomtype, isrequired) VALUES (2, 2, 'NUMBER_OF_ARTICLES_IN_LIST', 'Number of articles to display', 'System.Int16', false, false);
+INSERT INTO cuyahoga_modulesetting (modulesettingid, moduletypeid, name, friendlyname, settingdatatype, iscustomtype, isrequired) VALUES (3, 2, 'DISPLAY_TYPE', 'Display type', 'Cuyahoga.Modules.Articles.DisplayType', true, true);
+INSERT INTO cuyahoga_modulesetting (modulesettingid, moduletypeid, name, friendlyname, settingdatatype, iscustomtype, isrequired) VALUES (4, 2, 'ALLOW_ANONYMOUS_COMMENTS', 'Allow anonymous comments', 'System.Boolean', false, true);
 --
 -- TOC entry 1525 (class 0 OID 17156)
 -- Dependencies: 1152
@@ -51,11 +36,8 @@ INSERT INTO cuyahoga_role (roleid, name, inserttimestamp, updatetimestamp, permi
 -- Data for Name: cuyahoga_template; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-INSERT INTO cuyahoga_template (templateid, name, path, inserttimestamp, updatetimestamp) VALUES (1, 'Default', 'Templates/DefaultTemplate.ascx', '2004-01-26 21:52:52.365', '2004-01-26 21:52:52.365');
-INSERT INTO cuyahoga_template (templateid, name, path, inserttimestamp, updatetimestamp) VALUES (2, 'Homepage', 'Templates/HomeTemplate.ascx', '2004-01-26 21:53:34.365', '2004-01-26 21:53:34.365');
-INSERT INTO cuyahoga_template (templateid, name, path, inserttimestamp, updatetimestamp) VALUES (3, 'Cuyahoga', 'Templates/Cuyahoga.ascx', '2004-03-18 21:16:55.171', '2004-03-18 21:16:55.171');
-
-
+INSERT INTO cuyahoga_template (templateid, name, path, css, inserttimestamp, updatetimestamp) VALUES (1, 'Cuyahoga Home', 'Templates/CuyahogaHome.ascx', 'red.css', '2004-01-26 21:52:52.365', '2004-01-26 21:52:52.365');
+INSERT INTO cuyahoga_template (templateid, name, path, css, inserttimestamp, updatetimestamp) VALUES (2, 'Cuyahoga Standard', 'Templates/CuyahogaStandard.ascx', 'red.css', '2004-01-26 21:52:52.365', '2004-01-26 21:52:52.365');
 --
 -- TOC entry 1524 (class 0 OID 17149)
 -- Dependencies: 1150
@@ -71,5 +53,5 @@ INSERT INTO cuyahoga_user (userid, username, "password", firstname, lastname, em
 -- Data for Name: cuyahoga_userrole; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-INSERT INTO cuyahoga_userrole (userroleid, userid, roleid, inserttimestamp, updatetimestamp) VALUES (20, 1, 1, '2004-09-09 23:30:34.465', '2004-09-09 23:30:34.465');
+INSERT INTO cuyahoga_userrole (userroleid, userid, roleid, inserttimestamp, updatetimestamp) VALUES (1, 1, 1, '2004-09-09 23:30:34.465', '2004-09-09 23:30:34.465');
 

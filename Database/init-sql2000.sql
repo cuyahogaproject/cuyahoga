@@ -1,20 +1,3 @@
-
---
--- TOC entry 1539 (class 0 OID 822914)
--- Dependencies: 1179
--- Data for Name: cuyahoga_culture; Type: TABLE DATA; Schema: public; Owner: tijn
---
-
-INSERT INTO cuyahoga_culture (culture, neutralculture, description) VALUES ('en-US', 'en', 'English - United States')
-INSERT INTO cuyahoga_culture (culture, neutralculture, description) VALUES ('en-GB', 'en', 'English - United Kingdon')
-INSERT INTO cuyahoga_culture (culture, neutralculture, description) VALUES ('nl-NL', 'nl', 'Dutch - The Netherlands')
-INSERT INTO cuyahoga_culture (culture, neutralculture, description) VALUES ('nl-BE', 'nl', 'Dutch - Belgium')
-INSERT INTO cuyahoga_culture (culture, neutralculture, description) VALUES ('de-DE', 'de', 'German - Germany')
-INSERT INTO cuyahoga_culture (culture, neutralculture, description) VALUES ('fr-FR', 'fr', 'French - France')
-INSERT INTO cuyahoga_culture (culture, neutralculture, description) VALUES ('es-ES', 'es', 'Spanish - Spain')
-
-GO
-
 --
 -- TOC entry 1534 (class 0 OID 821791)
 -- Dependencies: 1170
@@ -44,10 +27,10 @@ SET IDENTITY_INSERT cuyahoga_modulesetting ON
 
 GO
 
-INSERT INTO cuyahoga_modulesetting (modulesettingid, moduletypeid, name, friendlyname, settingdatatype, iscustomtype) VALUES (1, 2, 'ALLOW_COMMENTS', 'Allow comments', 'System.Boolean', 0)
-INSERT INTO cuyahoga_modulesetting (modulesettingid, moduletypeid, name, friendlyname, settingdatatype, iscustomtype) VALUES (2, 2, 'NUMBER_OF_ARTICLES_IN_LIST', 'Number of articles to display', 'System.Int16', 0)
-INSERT INTO cuyahoga_modulesetting (modulesettingid, moduletypeid, name, friendlyname, settingdatatype, iscustomtype) VALUES (3, 2, 'DISPLAY_TYPE', 'Display type', 'Cuyahoga.Modules.Articles.DisplayType', 1)
-
+INSERT INTO cuyahoga_modulesetting (modulesettingid, moduletypeid, name, friendlyname, settingdatatype, iscustomtype, isrequired) VALUES (1, 2, 'ALLOW_COMMENTS', 'Allow comments', 'System.Boolean', 0, 1)
+INSERT INTO cuyahoga_modulesetting (modulesettingid, moduletypeid, name, friendlyname, settingdatatype, iscustomtype, isrequired) VALUES (2, 2, 'NUMBER_OF_ARTICLES_IN_LIST', 'Number of articles to display', 'System.Int16', 0, 0)
+INSERT INTO cuyahoga_modulesetting (modulesettingid, moduletypeid, name, friendlyname, settingdatatype, iscustomtype, isrequired) VALUES (3, 2, 'DISPLAY_TYPE', 'Display type', 'Cuyahoga.Modules.Articles.DisplayType', 1, 1)
+INSERT INTO cuyahoga_modulesetting (modulesettingid, moduletypeid, name, friendlyname, settingdatatype, iscustomtype, isrequired) VALUES (4, 2, 'ALLOW_ANONYMOUS_COMMENTS', 'Allow anonymous comments', 'System.Boolean', 0, 1)
 
 GO
 
@@ -85,7 +68,8 @@ SET IDENTITY_INSERT cuyahoga_template ON
 
 GO
 
-INSERT INTO cuyahoga_template (templateid, name, path, inserttimestamp, updatetimestamp) VALUES (3, 'Cuyahoga', 'Templates/Cuyahoga.ascx', '2004-03-18 21:16:55.171', '2004-03-18 21:16:55.171')
+INSERT INTO cuyahoga_template (templateid, [name], path, css, inserttimestamp, updatetimestamp) VALUES (1, 'Cuyahoga Home', 'Templates/CuyahogaHome.ascx', 'red.css', '2004-01-26 21:52:52.365', '2004-01-26 21:52:52.365')
+INSERT INTO cuyahoga_template (templateid, [name], path, css, inserttimestamp, updatetimestamp) VALUES (2, 'Cuyahoga Standard', 'Templates/CuyahogaStandard.ascx', 'red.css', '2004-01-26 21:52:52.365', '2004-01-26 21:52:52.365')
 
 GO
 
@@ -103,7 +87,7 @@ SET IDENTITY_INSERT cuyahoga_user ON
 
 GO
 
-INSERT INTO cuyahoga_user (userid, username, "password", firstname, lastname, email, inserttimestamp, updatetimestamp, lastlogin, lastip) VALUES (1, 'admin', 'ba213b8c28962d5b00140bdc076796c6', '', '', 'admin@cuyahoga.org', '2004-01-04 16:32:35.099', '2004-11-09 22:48:47.359', '2004-11-09 22:48:47', '127.0.0.1')
+INSERT INTO cuyahoga_user (userid, username, [password], firstname, lastname, email, inserttimestamp, updatetimestamp, lastlogin, lastip) VALUES (1, 'admin', 'ba213b8c28962d5b00140bdc076796c6', '', '', 'admin@cuyahoga.org', '2004-01-04 16:32:35.099', '2004-11-09 22:48:47.359', '2004-11-09 22:48:47', '127.0.0.1')
 
 GO
 
@@ -121,7 +105,7 @@ SET IDENTITY_INSERT cuyahoga_userrole ON
 
 GO
 
-INSERT INTO cuyahoga_userrole (userroleid, userid, roleid, inserttimestamp, updatetimestamp) VALUES (20, 1, 1, '2004-09-09 23:30:34.465', '2004-09-09 23:30:34.465')
+INSERT INTO cuyahoga_userrole (userroleid, userid, roleid, inserttimestamp, updatetimestamp) VALUES (1, 1, 1, '2004-09-09 23:30:34.465', '2004-09-09 23:30:34.465')
 
 GO
 

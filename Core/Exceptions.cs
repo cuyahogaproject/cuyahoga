@@ -23,6 +23,13 @@ namespace Cuyahoga.Core
 		}
 	}
 
+	public class AccessForbiddenException : ApplicationException
+	{
+		public AccessForbiddenException(string message) : base(message)
+		{
+		}
+	}
+
 	public class ActionForbiddenException : ApplicationException
 	{
 		public ActionForbiddenException(string message) : base(message)

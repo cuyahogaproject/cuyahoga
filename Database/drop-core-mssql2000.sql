@@ -43,6 +43,10 @@ ALTER TABLE Cuyahoga_Node
 DROP CONSTRAINT FK_Cuyahoga_Node_3 
 go
 
+ALTER TABLE Cuyahoga_Site
+DROP CONSTRAINT FK_Cuyahoga_Site_1 
+go
+
 ALTER TABLE Cuyahoga_UserRole
 DROP CONSTRAINT FK_Cuyahoga_UserRole_1 
 go
@@ -72,19 +76,19 @@ DROP TABLE Cuyahoga_Section
 go
 
 
-DROP TABLE Cuyahoga_ModuleType
-go
-
-
 DROP TABLE Cuyahoga_Node
 go
 
 
-DROP TABLE Cuyahoga_Template
+DROP TABLE Cuyahoga_Site
 go
 
 
-DROP TABLE Cuyahoga_Culture
+DROP TABLE Cuyahoga_ModuleType
+go
+
+
+DROP TABLE Cuyahoga_Template
 go
 
 

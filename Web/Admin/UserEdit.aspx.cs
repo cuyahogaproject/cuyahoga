@@ -11,6 +11,7 @@ using System.Web.UI.HtmlControls;
 
 using Cuyahoga.Core.Domain;
 using Cuyahoga.Core.Service;
+using Cuyahoga.Core.Util;
 
 namespace Cuyahoga.Web.Admin
 {
@@ -127,12 +128,22 @@ namespace Cuyahoga.Web.Admin
 					this._activeUser.Roles.Add(role);
 				}
 			}
+
+			// Check if the Adminstrator role is not accidently deleted for the superuser.
+			string adminRole = Config.GetConfiguration()["AdministratorRole"];
+			if (this._activeUser.UserName == Config.GetConfiguration()["SuperUser"]
+				&& ! this._activeUser.IsInRole(adminRole))
+			{
+				throw new Exception(String.Format("The user '{0}' has to have the '{1}' role."
+					, this._activeUser.UserName, adminRole));
+			}
 		}
 
 		private void SaveUser()
 		{
 			try
 			{
+				SetRoles();
 				if (this._activeUser.Id == -1)
 				{
 					base.CoreRepository.SaveObject(this._activeUser);
@@ -204,9 +215,13 @@ namespace Cuyahoga.Web.Admin
 					this._activeUser.UserName = this.lblUsername.Text;
 				}
 				if (this.txtFirstname.Text.Length > 0)
+				{
 					this._activeUser.FirstName = this.txtFirstname.Text;
+				}
 				if (this.txtLastname.Text.Length > 0)
+				{
 					this._activeUser.LastName = this.txtLastname.Text;
+				}
 				this._activeUser.Email = this.txtEmail.Text;
 				
 				if (this.txtPassword1.Text.Length > 0 && this.txtPassword2.Text.Length > 0)
@@ -227,7 +242,6 @@ namespace Cuyahoga.Web.Admin
 				}
 				else
 				{
-					SetRoles();
 					SaveUser();
 				}
 			}
@@ -237,14 +251,28 @@ namespace Cuyahoga.Web.Admin
 		{
 			if (this._activeUser.Id > 0)
 			{
-				try
+				if (this._activeUser.Id != ((Cuyahoga.Core.Domain.User)this.Page.User.Identity).Id)
 				{
-					base.CoreRepository.DeleteObject(this._activeUser);
-					Context.Response.Redirect("Users.aspx");
+					if (this._activeUser.UserName != Config.GetConfiguration()["SuperUser"])
+					{
+						try
+						{
+							base.CoreRepository.DeleteObject(this._activeUser);
+							Context.Response.Redirect("Users.aspx");
+						}
+						catch (Exception ex)
+						{
+							ShowError(ex.Message);
+						}
+					}
+					else
+					{
+						ShowError("You can't delete the superuser.");
+					}
 				}
-				catch (Exception ex)
+				else
 				{
-					ShowError(ex.Message);
+					ShowError("You can't delete yourself.");
 				}
 			}
 		}

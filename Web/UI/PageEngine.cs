@@ -129,17 +129,30 @@ namespace Cuyahoga.Web.UI
 				Thread.CurrentThread.CurrentCulture = CultureInfo.CreateSpecificCulture(this._activeNode.Culture);	
 				Thread.CurrentThread.CurrentUICulture = CultureInfo.CreateSpecificCulture(this._activeNode.Culture);
 				
-				// Load template and usercontrols
+				// Check node-level security
+				if (! this._activeNode.ViewAllowed(this.User.Identity))
+				{
+					throw new AccessForbiddenException("You are not allowed to view this page.");
+				}
+
+				// ===== Load template and usercontrols =====
 
 				//string appRoot = this.ResolveUrl("~/");
 				string appRoot = UrlHelper.GetApplicationPath();
 				// We know the active node so the template can be loaded
-				string templatePath = appRoot + this._activeNode.Template.Path;
-				this._templateControl = (BaseTemplate)this.LoadControl(templatePath);
-				// Explicitly set the id to 'p' to save some bytes (otherwise _ctl0 would be added).
-				this._templateControl.ID = "p";
-				this._templateControl.Title = this._activeNode.Title;
-				this._templateControl.Css = appRoot + Config.GetConfiguration()["CssDir"] + this._activeNode.Template.Css;
+				if (this._activeNode.Template != null)
+				{
+					string templatePath = appRoot + this._activeNode.Template.Path;
+					this._templateControl = (BaseTemplate)this.LoadControl(templatePath);
+					// Explicitly set the id to 'p' to save some bytes (otherwise _ctl0 would be added).
+					this._templateControl.ID = "p";
+					this._templateControl.Title = this._activeNode.Title;
+					this._templateControl.Css = appRoot + Config.GetConfiguration()["CssDir"] + this._activeNode.Template.Css;
+				}
+				else
+				{
+					throw new Exception("No template associated with the current Node.");
+				}
 
 				// Load sections and modules
 				int sectionId = -1;
