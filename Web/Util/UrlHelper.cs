@@ -37,15 +37,14 @@ namespace Cuyahoga.Web.Util
 		/// <returns></returns>
 		public static string GetSiteUrl()
 		{
-			string host = "http://" + HttpContext.Current.Request.ServerVariables["HTTP_HOST"];
 			string path = HttpContext.Current.Request.ApplicationPath;
 			if (path.EndsWith("/") && path.Length == 1)
 			{
-				return host;
+				return GetHostUrl();
 			}
 			else
 			{
-				return host + path.ToLower();
+				return GetHostUrl() + path.ToLower();
 			}
 		}
 		/// <summary>
@@ -85,8 +84,7 @@ namespace Cuyahoga.Web.Util
 		/// <returns></returns>
 		public static string GetFullUrlFromSection(Section section)
 		{
-			string host = HttpContext.Current.Request.ServerVariables["HTTP_HOST"];
-			return "http://" + host + GetApplicationPath() + section.Id + "/section.aspx";
+			return GetHostUrl() + GetApplicationPath() + section.Id + "/section.aspx";
 		}
 
 		/// <summary>
@@ -97,8 +95,7 @@ namespace Cuyahoga.Web.Util
 		/// <returns></returns>
 		public static string GetRssUrlFromSection(Section section)
 		{
-			string host = HttpContext.Current.Request.ServerVariables["HTTP_HOST"];
-			return "http://" + host + GetApplicationPath() + section.Id + "/feed.aspx";
+			return GetHostUrl() + GetApplicationPath() + section.Id + "/feed.aspx";
 		}
 
 		public static string[] GetModuleParamsFromPathInfo(string pathInfo)
@@ -116,6 +113,11 @@ namespace Cuyahoga.Web.Util
 			{
 				return null;
 			}
+		}
+		
+		private static string GetHostUrl()
+		{
+			return "http://" + HttpContext.Current.Request.ServerVariables["SERVER_NAME"];
 		}
 	}
 }

@@ -3,7 +3,7 @@ body
 	margin: 0;
 	padding : 0;
 	background-color: #fff;
-	background-image: url(../images/bg.gif);
+	background-image: url(../Images/bg.gif);
 	background-repeat: repeat-x;
 	font-family: Trebuchet MS, Arial, Helvetica, sans-serif;
 	font-size: 0.9em;
@@ -67,7 +67,7 @@ select, input, textarea
 {
 	margin: 0;
 	background-color: #000;
-	background-image: url(../images/bg-header.gif);
+	background-image: url(../Images/bg-header.gif);
 	background-repeat: repeat-x;
 	background-position: bottom;
 	height: 80px;
@@ -186,7 +186,7 @@ select, input, textarea
 	margin-bottom: 10px;
 	padding-left: 25px;
 	padding-top: 13px;
-	background-image: url(../images/bgitem.gif);
+	background-image: url(../Images/bgitem.gif);
 	background-repeat: no-repeat;
 }
 
@@ -204,7 +204,7 @@ select, input, textarea
 	margin-bottom: 10px;
 	padding-left: 25px;
 	padding-top: 13px;
-	background-image: url(../images/bgitem.gif);
+	background-image: url(../Images/bgitem.gif);
 	background-repeat: no-repeat;
 }
 

@@ -10,7 +10,8 @@ using System.Globalization;
 namespace Cuyahoga.ServerControls
 {
 	/// <summary>
-	/// Summary description for Calendar.
+	/// An ASP.NET Server Control that wraps mishoo's javascript calendar 
+	/// (http://www.dynarch.com/projects/calendar/). 
 	/// </summary>
 	[DefaultProperty("Text"), ToolboxData("<{0}:Calendar runat=server></{0}:Calendar>")]
 	[ValidationProperty("Text")]
