@@ -122,8 +122,8 @@ td
 	padding: 4px;
 	border-left: solid 10px #ddd;
 	border-bottom: 1px dashed #ddd;
-	border-right: 10px solid #ddd;
-	width: 172px;
+	border-right: 1px solid #ddd;
+	width: 182px;
 }
 
 #nav a:hover
@@ -251,7 +251,7 @@ td
 	padding: 2px;
 	margin-top: 3px;
 	margin-bottom: 7px;
-	border-bottom: 1px solid #666;
+	border-bottom: 1px solid #ddd;
 }
 
 .tbl

@@ -63,7 +63,7 @@ Hints and tips:
 
   InstantIndexing indicates that when you edit the content of a module that is searchable, the
   search index will be updated immediately. If you turn this off, you have to manually index the
-  content from the Administration part.
+  content from the Administration section.
 
 - Check the setting in the Web.config for the location where the uploaded files are placed:
   
