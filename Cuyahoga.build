@@ -87,7 +87,7 @@
 		<mkdir dir="${build.dir}/resources" />
 		<resgen todir="${build.dir}/resources">
 			<resources>
-				<include name="Modules/**/Strings*.resx"/>
+                <include name="Modules/**/Strings*.resx"/>
 			</resources>
 		</resgen>
 		<csc target="library" output="${build.dir}/bin/Cuyahoga.Web.dll" debug="${build.debug}">
