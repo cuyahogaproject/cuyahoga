@@ -4,6 +4,8 @@ using System.Web.UI.WebControls;
 using System.ComponentModel;
 using System.Collections;
 using System.Reflection;
+using System.ComponentModel.Design.Serialization;
+using System.Globalization;
 
 namespace Cuyahoga.ServerControls
 {
@@ -12,23 +14,27 @@ namespace Cuyahoga.ServerControls
 	/// </summary>
 	[DefaultProperty("Text"), 
 		ToolboxData("<{0}:Pager runat=server></{0}:Pager>")]
-	public class Pager : System.Web.UI.WebControls.WebControl
+	public class Pager : System.Web.UI.WebControls.WebControl, INamingContainer
 	{
 		private PagedDataSource _pagedDataSource;
 		private Control _controlToPage;
-		private bool _cacheDataSource;
-		private string[] _cacheParams;
 		private int _cacheDuration;
 
 		#region properties
 
 		/// <summary>
-		/// Property ControlToPage (Control)
+		/// Property ControlToPage (String)
 		/// </summary>
-		public Control ControlToPage
+		public string ControlToPage
 		{
-			get { return this._controlToPage; }
-			set { this._controlToPage = value; }
+			get 
+			{
+				if (ViewState["ControlToPage"] != null)
+					return ViewState["ControlToPage"].ToString();
+				else
+					return String.Empty;
+			}
+			set { ViewState["ControlToPage"] = value; }
 		}
 
 		/// <summary>
@@ -36,8 +42,14 @@ namespace Cuyahoga.ServerControls
 		/// </summary>
 		public bool CacheDataSource
 		{
-			get { return this._cacheDataSource; }
-			set { this._cacheDataSource = value; }
+			get 
+			{
+				if (ViewState["CacheDataSource"] != null)
+					return (bool)ViewState["CacheDataSource"];
+				else
+					return false;
+			}
+			set { ViewState["CacheDataSource"] = value; }
 		}
 
 		/// <summary>
@@ -45,8 +57,14 @@ namespace Cuyahoga.ServerControls
 		/// </summary>
 		public string[] CacheParams
 		{
-			get { return this._cacheParams; }
-			set { this._cacheParams = value; }
+			get 
+			{ 
+				if (ViewState["CacheParams"] != null)
+					return (string[])ViewState["CacheParams"];
+				else
+					return null;
+			}
+			set { ViewState["CacheParams"] = value; }
 		}
 		
 		/// <summary>
@@ -54,21 +72,41 @@ namespace Cuyahoga.ServerControls
 		/// </summary>
 		public int CacheDuration
 		{
-			get { return this._cacheDuration; }
-			set { this._cacheDuration = value; }
+			get 
+			{
+				if (ViewState["CacheDuration"] != null)
+					return (int)ViewState["CacheDuration"];
+				else
+					return this._cacheDuration;
+			}
+			set { ViewState["CacheDuration"] = value; }
 		}
 
 		/// <summary>
 		/// 
 		/// </summary>
+		[Browsable(false)]
 		public int PageCount
 		{
-			get { return this._pagedDataSource.PageCount; }
+			get { return TotalPages; }
+		}
+
+		protected int TotalPages
+		{
+			get
+			{
+				if (ViewState["TotalPages"] != null)
+					return (int)ViewState["TotalPages"];
+				else
+					return this._pagedDataSource.PageCount; 
+			}
+			set { ViewState["TotalPages"] = value; }
 		}
 
 		/// <summary>
 		/// 
 		/// </summary>
+		[Browsable(false)]
 		public int Count
 		{
 			get { return this._pagedDataSource.Count; }
@@ -82,14 +120,11 @@ namespace Cuyahoga.ServerControls
 			get 
 			{
 				if (ViewState["CurrentPageIndex"] != null)
-					return Int32.Parse(ViewState["CurrentPageIndex"].ToString());
+					return (int)ViewState["CurrentPageIndex"];
 				else
-					return 0;
+					return -1;
 			}
-			set 
-			{
-				ViewState["CurrentPageIndex"] = value;
-			}
+			set { ViewState["CurrentPageIndex"] = value; }
 		}
 
 		/// <summary>
@@ -117,12 +152,10 @@ namespace Cuyahoga.ServerControls
 		public Pager()
 		{
 			this._pagedDataSource = new PagedDataSource();
-			this._pagedDataSource.AllowCustomPaging = true;
+			this._pagedDataSource.AllowCustomPaging = false;
 			this._pagedDataSource.AllowPaging = true;
 			this._pagedDataSource.PageSize = 10;
 			this._pagedDataSource.CurrentPageIndex = -1;
-			this._cacheDataSource = false;
-			this._cacheParams = null;
 			this._cacheDuration = 30;
 		}
 		
@@ -130,20 +163,98 @@ namespace Cuyahoga.ServerControls
 
 		protected override void OnInit(EventArgs e)
 		{
-			if (this._controlToPage != null)
-				this._controlToPage.DataBinding += new EventHandler(ControlToPage_DataBinding);
+			if (this.ControlToPage != String.Empty && this.ControlToPage != null)
+			{
+				this._controlToPage = this.Parent.FindControl(this.ControlToPage);
+				if (this._controlToPage != null)
+					this._controlToPage.DataBinding += new EventHandler(ControlToPage_DataBinding);
+				else
+					throw new NullReferenceException("The ControlToPage was not found on the page.");
+			}
 			else
-				throw new NullReferenceException("The Control property may not be null because the pager must know which control to page.");
+				throw new NullReferenceException("The ControlToPage property has to be set to the ID of another control on the page.");
+				
 			base.OnInit (e);
 		}
 
+		protected override void CreateChildControls()
+		{
+			this.Controls.Clear();
+			BuildNavigationControls();
+			base.CreateChildControls ();
+		}
+
+
 		protected override void Render(HtmlTextWriter writer)
 		{
-//			if (this.DesignMode)
-//			{
-//				writer.Write("1 2 3 ...");
-//			}
+			if (this.Site != null && this.Site.DesignMode)
+			{
+				writer.Write("1 2 3 ...");
+			}
 			base.Render (writer);
+		}
+
+		private void BuildNavigationControls()
+		{
+			if (this._controlToPage != null && this.CurrentPageIndex != -1)
+			{
+				LinkButton lbt = null;
+				// First
+				lbt = new LinkButton();
+				lbt.ID = "First";
+				lbt.Text = "<<";
+				if (! this._pagedDataSource.IsFirstPage)
+					lbt.Click += new EventHandler(First_Click);
+				else
+					lbt.Enabled = false;
+				this.Controls.Add(lbt);
+
+				// Prev
+				lbt = new LinkButton();
+				lbt.ID = "Prev";
+				lbt.Text = "<";
+				if (! this._pagedDataSource.IsFirstPage)
+					lbt.Click += new EventHandler(Prev_Click);
+				else
+					lbt.Enabled = false;
+				this.Controls.Add(lbt);
+
+				// Numbers
+				for (int i = 0; i < this.TotalPages; i++)
+				{
+					lbt = new LinkButton();
+					lbt.ID = i.ToString();
+					lbt.Text = Convert.ToString(i + 1);
+					if (this._pagedDataSource.CurrentPageIndex != i)
+						lbt.Click += new EventHandler(Number_Click);
+					else
+					{
+						lbt.Font.Bold = true;
+						lbt.Enabled = false;
+					}
+					this.Controls.Add(lbt);
+				}
+
+				// Next
+				lbt = new LinkButton();
+				lbt.ID = "Next";
+				lbt.Text = ">";
+				if (this._pagedDataSource.DataSource == null || ! this._pagedDataSource.IsLastPage)
+					lbt.Click += new EventHandler(Next_Click);
+				else
+					lbt.Enabled = false;
+				this.Controls.Add(lbt);
+
+				// Last
+				lbt = new LinkButton();
+				lbt.ID = "Last";
+				lbt.Text = ">>";
+				if (this._pagedDataSource.DataSource == null || ! this._pagedDataSource.IsLastPage)
+					lbt.Click += new EventHandler(Last_Click);
+				else
+					lbt.Enabled = false;
+				this.Controls.Add(lbt);
+			}
 		}
 
 		#endregion
@@ -161,14 +272,54 @@ namespace Cuyahoga.ServerControls
 				if (! (controlDataSource is PagedDataSource))
 				{
 					this._pagedDataSource.DataSource = controlDataSource;
+					if (this.CurrentPageIndex == -1)
+						this.CurrentPageIndex = 0;
 					this._pagedDataSource.CurrentPageIndex = this.CurrentPageIndex;
-					controlDataSource = this._pagedDataSource;
+					pi.SetValue(this._controlToPage, this._pagedDataSource, null);
+					TotalPages = this._pagedDataSource.PageCount;
 					// Call databind again, but now with the pageddatasource attached.
 					this._controlToPage.DataBind();
+					// We need to do CreateChildControls again.
+					this.ChildControlsCreated = false;
 				}
 			}
 			else
 				throw new InvalidOperationException("The ControlToPage doesn't have a DataSource property.");
+		}
+
+		private void First_Click(object sender, EventArgs e)
+		{
+			int nextPage = 0;
+			PageChangedEventArgs args = new PageChangedEventArgs(this.CurrentPageIndex, nextPage);
+			OnPageChanged(args);			
+		}
+
+		private void Prev_Click(object sender, EventArgs e)
+		{
+			int nextPage = this.CurrentPageIndex - 1;
+			PageChangedEventArgs args = new PageChangedEventArgs(this.CurrentPageIndex, nextPage);
+			OnPageChanged(args);
+		}
+
+		private void Number_Click(object sender, EventArgs e)
+		{
+			int nextPage = Int32.Parse(((LinkButton)sender).ID);
+			PageChangedEventArgs args = new PageChangedEventArgs(this.CurrentPageIndex, nextPage);
+			OnPageChanged(args);
+		}
+
+		private void Next_Click(object sender, EventArgs e)
+		{
+			int nextPage = this.CurrentPageIndex + 1;
+			PageChangedEventArgs args = new PageChangedEventArgs(this.CurrentPageIndex, nextPage);
+			OnPageChanged(args);
+		}
+
+		private void Last_Click(object sender, EventArgs e)
+		{
+			int nextPage = this.TotalPages -1;
+			PageChangedEventArgs args = new PageChangedEventArgs(this.CurrentPageIndex, nextPage);
+			OnPageChanged(args);
 		}
 	}
 

@@ -141,6 +141,17 @@ input, select, textarea
 	font-weight: bold;
 }
 
+.pager
+{
+	font-size: 120%;
+}
+
+.pager a
+{
+	margin-left: 5px;
+	margin-right: 5px;
+}
+
 table.tbl
 {	
 	color: #333333;

@@ -18,6 +18,7 @@ namespace Cuyahoga.Web.Controls
 	{
 		private Cuyahoga.Web.UI.PageEngine _page;
 		protected System.Web.UI.WebControls.HyperLink hplHome;
+		protected System.Web.UI.WebControls.HyperLink hplAdmin;
 		protected System.Web.UI.WebControls.Repeater rptNav1;
 
 		private void Page_Load(object sender, System.EventArgs e)
@@ -34,6 +35,9 @@ namespace Cuyahoga.Web.Controls
 					this.rptNav1.ItemDataBound += new RepeaterItemEventHandler(rptNav1_ItemDataBound);
 					this.rptNav1.DataSource = this._page.RootNode.ChildNodes;
 					this.rptNav1.DataBind();
+					
+					if (this._page.CuyahogaUser != null)
+						this.hplAdmin.Visible = this._page.CuyahogaUser.HasPermission(AccessLevel.Administrator);
 				}
 			}
 			catch (InvalidCastException ex)

@@ -31,6 +31,24 @@ namespace Cuyahoga.Web.Admin
 			this.Title = "Users";
 		}
 
+		private void BindUsers()
+		{
+			ArrayList userList = new ArrayList();
+			int number = Encoding.ASCII.GetBytes(this.txtUsername.Text)[0];
+			for (int i = 0; i < number; i++)
+			{
+				User user = new User();
+				user.UserName = "User" + i.ToString();
+				user.FirstName = "Firstname " + i.ToString();
+				user.LastName = "Lastname " + i.ToString();
+				user.Email = "User" + i.ToString() + "@cuyahoga.org";
+				userList.Add(user);
+			}
+			this.pnlResults.Visible = true;
+			this.rptUsers.DataSource = userList;
+			this.rptUsers.DataBind();
+		}
+
 		#region Web Form Designer generated code
 		override protected void OnInit(EventArgs e)
 		{
@@ -38,7 +56,6 @@ namespace Cuyahoga.Web.Admin
 			// CODEGEN: This call is required by the ASP.NET Web Form Designer.
 			//
 			InitializeComponent();
-			this.pgrUsers.ControlToPage = this.rptUsers;
 			base.OnInit(e);
 		}
 		
@@ -49,6 +66,7 @@ namespace Cuyahoga.Web.Admin
 		private void InitializeComponent()
 		{    
 			this.btnFind.Click += new System.EventHandler(this.btnFind_Click);
+			this.pgrUsers.PageChanged += new Cuyahoga.ServerControls.PageChangedEventHandler(this.pgrUsers_PageChanged);
 			this.Load += new System.EventHandler(this.Page_Load);
 
 		}
@@ -58,20 +76,14 @@ namespace Cuyahoga.Web.Admin
 		{
 			if (this.txtUsername.Text.Length > 0)
 			{
-				ArrayList userList = new ArrayList();
-				int number = Encoding.ASCII.GetBytes(this.txtUsername.Text)[0];
-				for (int i = 0; i < number; i++)
-				{
-					User user = new User();
-					user.UserName = "User" + i.ToString();
-					user.FirstName = "Firstname " + i.ToString();
-					user.LastName = "Lastname " + i.ToString();
-					user.Email = "User" + i.ToString() + "@cuyahoga.org";
-					userList.Add(user);
-				}
-				this.rptUsers.DataSource = userList;
-				this.rptUsers.DataBind();
+				BindUsers();	
 			}
+		}
+
+		private void pgrUsers_PageChanged(object sender, Cuyahoga.ServerControls.PageChangedEventArgs e)
+		{
+			this.pgrUsers.CurrentPageIndex = e.CurrentPage;
+			BindUsers();
 		}
 	}
 }
