@@ -109,6 +109,11 @@
                     AssemblyName = "System.Data"
                     HintPath = "..\..\..\WINDOWS\Microsoft.NET\Framework\v1.1.4322\System.Data.dll"
                 />
+                <Reference
+                    Name = "ServerControls"
+                    Project = "{C64DAA00-AAB1-4AC7-ADE2-119B53B9666A}"
+                    Package = "{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}"
+                />
             </References>
         </Build>
         <Files>

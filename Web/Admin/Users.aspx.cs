@@ -8,8 +8,10 @@ using System.Web.SessionState;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Web.UI.HtmlControls;
+using System.Text;
 
 using Cuyahoga.Web.UI;
+using Cuyahoga.Core;
 
 namespace Cuyahoga.Web.Admin
 {
@@ -20,6 +22,8 @@ namespace Cuyahoga.Web.Admin
 	{
 		protected System.Web.UI.WebControls.TextBox txtUsername;
 		protected System.Web.UI.WebControls.Panel pnlResults;
+		protected System.Web.UI.WebControls.Repeater rptUsers;
+		protected Cuyahoga.ServerControls.Pager pgrUsers;
 		protected System.Web.UI.WebControls.Button btnFind;
 	
 		private void Page_Load(object sender, System.EventArgs e)
@@ -34,6 +38,7 @@ namespace Cuyahoga.Web.Admin
 			// CODEGEN: This call is required by the ASP.NET Web Form Designer.
 			//
 			InitializeComponent();
+			this.pgrUsers.ControlToPage = this.rptUsers;
 			base.OnInit(e);
 		}
 		
@@ -43,9 +48,30 @@ namespace Cuyahoga.Web.Admin
 		/// </summary>
 		private void InitializeComponent()
 		{    
+			this.btnFind.Click += new System.EventHandler(this.btnFind_Click);
 			this.Load += new System.EventHandler(this.Page_Load);
 
 		}
 		#endregion
+
+		private void btnFind_Click(object sender, System.EventArgs e)
+		{
+			if (this.txtUsername.Text.Length > 0)
+			{
+				ArrayList userList = new ArrayList();
+				int number = Encoding.ASCII.GetBytes(this.txtUsername.Text)[0];
+				for (int i = 0; i < number; i++)
+				{
+					User user = new User();
+					user.UserName = "User" + i.ToString();
+					user.FirstName = "Firstname " + i.ToString();
+					user.LastName = "Lastname " + i.ToString();
+					user.Email = "User" + i.ToString() + "@cuyahoga.org";
+					userList.Add(user);
+				}
+				this.rptUsers.DataSource = userList;
+				this.rptUsers.DataBind();
+			}
+		}
 	}
 }

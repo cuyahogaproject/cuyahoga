@@ -15,6 +15,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Modules", "Modules\Modules.
 	ProjectSection(ProjectDependencies) = postProject
 	EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ServerControls", "ServerControls\ServerControls.csproj", "{C64DAA00-AAB1-4AC7-ADE2-119B53B9666A}"
+	ProjectSection(ProjectDependencies) = postProject
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfiguration) = preSolution
 		Debug = Debug
@@ -35,6 +39,10 @@ Global
 		{7069F87A-95E1-4E61-B5FD-E0892E6F821F}.Debug.Build.0 = Debug|.NET
 		{7069F87A-95E1-4E61-B5FD-E0892E6F821F}.Release.ActiveCfg = Release|.NET
 		{7069F87A-95E1-4E61-B5FD-E0892E6F821F}.Release.Build.0 = Release|.NET
+		{C64DAA00-AAB1-4AC7-ADE2-119B53B9666A}.Debug.ActiveCfg = Debug|.NET
+		{C64DAA00-AAB1-4AC7-ADE2-119B53B9666A}.Debug.Build.0 = Debug|.NET
+		{C64DAA00-AAB1-4AC7-ADE2-119B53B9666A}.Release.ActiveCfg = Release|.NET
+		{C64DAA00-AAB1-4AC7-ADE2-119B53B9666A}.Release.Build.0 = Release|.NET
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 	EndGlobalSection
