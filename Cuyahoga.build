@@ -100,7 +100,10 @@
                 <include name="Web/**/*.cs" />
             </sources>
             <resources dynamicprefix="true" prefix="Cuyahoga">
-				<include name="Web/Controls/**/Strings*.resx" />
+				<include name="Web/Controls/**/Strings*.resx"
+					if="${framework::get-family(framework::get-target-framework()) == 'net'}" />
+				<include name="Web/Controls/**/Strings.resx"
+					if="${framework::get-family(framework::get-target-framework()) == 'mono'}" />
 			</resources>
             <references>
                 <include name="System.dll" />
@@ -123,7 +126,10 @@
             </sources>
             <resources dynamicprefix="true" prefix="Cuyahoga">
 				<include name="Modules/**/*.hbm.xml" />
-				<include name="Modules/**/Strings*.resx" />
+				<include name="Modules/**/Strings*.resx" 
+					if="${framework::get-family(framework::get-target-framework()) == 'net'}" />
+				<include name="Modules/**/Strings.resx" 
+					if="${framework::get-family(framework::get-target-framework()) == 'mono'}" />
 			</resources>
             <references>
                 <include name="System.dll" />
