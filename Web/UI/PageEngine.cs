@@ -156,8 +156,7 @@ namespace Cuyahoga.Web.UI
 							{
 								// Parse the PathInfo of the request because they are the parameters 
 								// of the module that is connected to the active section.
-								// TODO: fix it
-								//section.Module.ModuleParams = UrlHelper.GetModuleParamsFromPathInfo(Context.Request.PathInfo);
+								module.ModulePathInfo = Context.Request.PathInfo;
 							}
 						}
 					}

@@ -69,7 +69,11 @@ namespace Cuyahoga.Core.Domain
 		public string ModulePathInfo
 		{
 			get { return this._modulePathInfo; }
-			set { this._modulePathInfo = value; }
+			set 
+			{ 
+				this._modulePathInfo = value;
+				ParsePathInfo();
+			}
 		}
 
 		/// <summary>

@@ -8,6 +8,7 @@ namespace Cuyahoga.Web.Modules.Articles
 	using System.Web.UI.HtmlControls;
 
 	using Cuyahoga.Web.UI;
+	using Cuyahoga.Web.Util;
 	using Cuyahoga.Modules.Articles;
 
 	/// <summary>
@@ -15,25 +16,42 @@ namespace Cuyahoga.Web.Modules.Articles
 	/// </summary>
 	public class Articles : BaseModuleControl
 	{
+		private ArticleModule _module;
+
 		protected System.Web.UI.WebControls.Panel pnlArticleDetails;
 		protected System.Web.UI.WebControls.Repeater rptArticles;
+		protected System.Web.UI.WebControls.Label lblTitle;
+		protected System.Web.UI.WebControls.Literal litContent;
 		protected System.Web.UI.WebControls.Panel pnlArticleList;
 
 		private void Page_Load(object sender, System.EventArgs e)
 		{
-			ArticleModule module = this.Module as ArticleModule;
-			if (module != null && ! base.HasCachedOutput)
+			this._module = this.Module as ArticleModule;
+			if (this._module != null && ! base.HasCachedOutput)
 			{
-				// Default to max 10 articles in the list.
-				int numberOfArticles = 10;
-				if (module.Section.Settings["NUMBER_OF_ARTICLES_IN_LIST"] != null)
+				if (this._module.CurrentArticleId > 0)
 				{
-					numberOfArticles = Int32.Parse(module.Section.Settings["NUMBER_OF_ARTICLES_IN_LIST"].ToString());
+					Article article = this._module.GetArticleById(this._module.CurrentArticleId);
+					this.lblTitle.Text = article.Title;
+					this.litContent.Text = article.Content;
+					this.pnlArticleDetails.Visible = true;
 				}
-				this.rptArticles.ItemDataBound += new RepeaterItemEventHandler(rptArticles_ItemDataBound);
-				this.rptArticles.DataSource = module.GetDisplayArticles(numberOfArticles);
-				this.rptArticles.DataBind();
-				this.pnlArticleList.Visible = true;
+				else if (this._module.CurrentCategory != null)
+				{
+				}
+				else
+				{
+					// Default to max 10 articles in the list.
+					int numberOfArticles = 10;
+					if (this._module.Section.Settings["NUMBER_OF_ARTICLES_IN_LIST"] != null)
+					{
+						numberOfArticles = Int32.Parse(this._module.Section.Settings["NUMBER_OF_ARTICLES_IN_LIST"].ToString());
+					}
+					this.rptArticles.ItemDataBound += new RepeaterItemEventHandler(rptArticles_ItemDataBound);
+					this.rptArticles.DataSource = this._module.GetDisplayArticles(numberOfArticles);
+					this.rptArticles.DataBind();
+					this.pnlArticleList.Visible = true;
+				}
 			}
 		}
 
@@ -60,7 +78,9 @@ namespace Cuyahoga.Web.Modules.Articles
 
 		private void rptArticles_ItemDataBound(object sender, RepeaterItemEventArgs e)
 		{
-
+			Article article = e.Item.DataItem as Article;
+			HyperLink hpl = e.Item.FindControl("hplTitle") as HyperLink;
+			hpl.NavigateUrl = UrlHelper.GetUrlFromSection(this._module.Section) + "/" + article.Id;
 		}
 	}
 }

@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using System.Text.RegularExpressions;
 
 using NHibernate;
 using NHibernate.Expression;
@@ -15,6 +16,25 @@ namespace Cuyahoga.Modules.Articles
 	/// </summary>
 	public class ArticleModule : ModuleBase
 	{
+		private int _currentArticleId;
+		private string _currentCategory;
+
+		/// <summary>
+		/// Property CurrentArticleId (int)
+		/// </summary>
+		public int CurrentArticleId
+		{
+			get { return this._currentArticleId; }
+		}
+
+		/// <summary>
+		/// Property CurrentCategory (string)
+		/// </summary>
+		public string CurrentCategory
+		{
+			get { return this._currentCategory; }
+		}
+
 		public ArticleModule()
 		{
 			SessionFactory sf = SessionFactory.GetInstance();
@@ -103,6 +123,46 @@ namespace Cuyahoga.Modules.Articles
 			}
 		}
 
+		public void DeleteArticle(Article article)
+		{
+			ITransaction tx = base.NHSession.BeginTransaction();
+			try
+			{
+				base.NHSession.Delete(article);
+				tx.Commit();
+			}
+			catch (Exception ex)
+			{
+				tx.Rollback();
+				throw new Exception("Unable to delete Article", ex);
+			}
+		}
+
+		/// <summary>
+		/// Parse the pathinfo.
+		/// </summary>
+		protected override void ParsePathInfo()
+		{
+			if (base.ModulePathInfo != null)
+			{
+				// try to find an articleId
+				string expression = @"\/(\d+)";
+				Regex articleIdRegEx = new Regex(expression, RegexOptions.Singleline|RegexOptions.CultureInvariant|RegexOptions.Compiled);
+				if (articleIdRegEx.IsMatch(base.ModulePathInfo))
+				{					
+					this._currentArticleId = Int32.Parse(articleIdRegEx.Match(base.ModulePathInfo).Groups[1].Value);
+				}
+				// try to find a category
+				expression = @"\/(\w+)";
+				Regex categoryRegex = new Regex(expression, RegexOptions.Singleline|RegexOptions.CultureInvariant|RegexOptions.Compiled);
+				if (categoryRegex.IsMatch(base.ModulePathInfo))
+				{
+					this._currentCategory = articleIdRegEx.Match(base.ModulePathInfo).Groups[1].Value;
+				}
+			}
+		}
+
+
 		private void HandleCategory(Category category, ISession session)
 		{
 			if (category != null && category.Id == -1)
@@ -119,21 +179,6 @@ namespace Cuyahoga.Modules.Articles
 					// Insert the new one, so the Id will be generated and retrieved.
 					session.Save(category);
 				}
-			}
-		}
-
-		public void DeleteArticle(Article article)
-		{
-			ITransaction tx = base.NHSession.BeginTransaction();
-			try
-			{
-				base.NHSession.Delete(article);
-				tx.Commit();
-			}
-			catch (Exception ex)
-			{
-				tx.Rollback();
-				throw new Exception("Unable to delete Article", ex);
 			}
 		}
 	}
