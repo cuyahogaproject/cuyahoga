@@ -12,6 +12,7 @@ namespace Cuyahoga.Core
 		private string _name;
 		private string _path;
 		private string _editPath;
+		private string[] _moduleParams;
 
 		#region properties
 		
@@ -59,11 +60,21 @@ namespace Cuyahoga.Core
 			get { return this._editPath; }
 			set { this._editPath = value; }
 		}
+
+		/// <summary>
+		/// Property ModuleParams (string[])
+		/// </summary>
+		public string[] ModuleParams
+		{
+			get { return this._moduleParams; }
+			set { this._moduleParams = value; }
+		}
+
 		#endregion
 
 		/// <summary>
 		/// Load the module content. The concrete module has to decide how to implement this
-		/// (e.g. some modules would require that the Section is known)
+		/// (e.g. some modules would require that the Section is known).
 		/// </summary>
 		public abstract void LoadContent();
 

@@ -1,15 +1,14 @@
+using System;
+using System.Drawing;
+using System.Web;
+using System.Web.UI.WebControls;
+using System.Web.UI.HtmlControls;
+
+using Cuyahoga.Web.UI;
+using Cuyahoga.Modules.StaticHtml;
+
 namespace Cuyahoga.Web.Modules.StaticHtml
 {
-	using System;
-	// using System.Data;
-	using System.Drawing;
-	using System.Web;
-	using System.Web.UI.WebControls;
-	using System.Web.UI.HtmlControls;
-
-	using Cuyahoga.Web.UI;
-	using Cuyahoga.Modules.StaticHtml;
-
 	/// <summary>
 	///		Summary description for StaticHtml.
 	/// </summary>

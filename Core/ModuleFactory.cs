@@ -10,7 +10,7 @@ using Cuyahoga.Core.DAL;
 namespace Cuyahoga.Core
 {
 	/// <summary>
-	/// Get Module instance based on concrete classname and assemblyname
+	/// Get Module instance based on concrete classname and assemblyname.
 	/// </summary>
 	public class ModuleFactory
 	{

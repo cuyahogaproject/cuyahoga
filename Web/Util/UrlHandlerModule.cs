@@ -30,7 +30,7 @@ namespace Cuyahoga.Web.Util
 
 		/// <summary>
 		/// Read the match patterns from the configuration and try to rewrite the url.
-		/// TODO: caching? better handling of urls that don't need to be rewritten?
+		/// TODO: caching? 
 		/// </summary>
 		/// <param name="urlToRewrite"></param>
 		/// <param name="context"></param>
@@ -60,7 +60,7 @@ namespace Cuyahoga.Web.Util
 		private void context_BeginRequest(object sender, EventArgs e)
 		{
 			HttpApplication app = (HttpApplication)sender;
-			// register starttime
+			// register start time for performance measurements.
 			app.Context.Items["starttime"] = DateTime.Now;
 			string url = HttpContext.Current.Request.RawUrl;
 			RewriteUrl(url, app.Context);

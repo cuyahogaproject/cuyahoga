@@ -95,7 +95,7 @@ namespace Cuyahoga.Web.Support.FreeTextBox.Custom
 		{
 			int nodeId = Int32.Parse(e.CommandArgument.ToString());
 			Node node = new Node(nodeId);
-			this.txtUrl.Text = UrlHelper.GetUrlFromNode(node);
+			this.txtUrl.Text = UrlHelper.GetFriendlyUrlFromNode(node);
 			// We don't want to overwrite the description when the user already selected a text
 			// for the description of the link.
 			if (Context.Request.QueryString["descr"] == null || Context.Request.QueryString["descr"] == "")

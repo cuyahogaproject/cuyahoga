@@ -142,6 +142,13 @@ namespace Cuyahoga.Web.UI
 							BaseModuleControl ctrl = (BaseModuleControl)this.LoadControl(appRoot + section.Module.Path);
 							ctrl.Module = section.Module;
 							((PlaceHolder)this._templateControl.Containers[section.PlaceholderId]).Controls.Add(ctrl);
+
+							if (Context.Request.PathInfo.Length > 0 && section == this._activeSection)
+							{
+								// Parse the PathInfo of the request because they are the parameters 
+								// of the module that is connected to the active section.
+								section.Module.ModuleParams = UrlHelper.GetModuleParamsFromPathInfo(Context.Request.PathInfo);
+							}
 						}
 					}
 				}
