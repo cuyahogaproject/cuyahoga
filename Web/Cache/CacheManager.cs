@@ -52,9 +52,6 @@ namespace Cuyahoga.Web.Cache
 		/// <returns></returns>
 		public Node GetNodeById(int nodeId)
 		{
-			// MBO, 20041003: Disabled caching because of NHibernate Session sync issues and lazy-loading 
-//			return (Node)this._coreRepository.GetObjectById(typeof(Node), nodeId);
-
 			if (this._nodeCache.NodeIndex[nodeId] == null)
 			{
 				LoadNodeIntoCacheFromNodeId(nodeId);

@@ -12,6 +12,8 @@ namespace Cuyahoga.Core.Domain
 		private Section _section;
 		private ISession _session;
 		private bool _sessionFactoryRebuilt = false;
+		private string _modulePathInfo;
+		private string[] _moduleParams;
 
 		/// <summary>
 		/// The NHibernate session from the current ASP.NET context.
@@ -32,6 +34,26 @@ namespace Cuyahoga.Core.Domain
 			}
 		}
 
+		public virtual string CacheKey
+		{
+			get
+			{
+				if (this._section != null)
+				{
+					string cacheKey = "M_" + this._section.Id.ToString();
+					if (this._modulePathInfo != null)
+					{
+						cacheKey += "_" + this._modulePathInfo;
+					}
+					return cacheKey;
+				}
+				else
+				{
+					return null;
+				}
+			}
+		}
+
 		/// <summary>
 		/// Flag that indicates if the SessionFactory is rebuilt. TODO: can't we handle this more elegantly?
 		/// </summary>
@@ -39,6 +61,23 @@ namespace Cuyahoga.Core.Domain
 		{
 			get { return this._sessionFactoryRebuilt; }
 			set { this._sessionFactoryRebuilt = value; }
+		}
+
+		/// <summary>
+		/// Property ModulePathInfo (string)
+		/// </summary>
+		public string ModulePathInfo
+		{
+			get { return this._modulePathInfo; }
+			set { this._modulePathInfo = value; }
+		}
+
+		/// <summary>
+		/// Property ModuleParams (string[])
+		/// </summary>
+		public string[] ModuleParams
+		{
+			get { return this._moduleParams; }
 		}
 
 		public delegate void NHSessionEventHandler(object sender, NHSessionEventArgs e);
@@ -67,6 +106,18 @@ namespace Cuyahoga.Core.Domain
 		/// </summary>
 		public ModuleBase()
 		{
+		}
+
+		/// <summary>
+		/// Override this method if you module needs module-specific pathinfo parsing.
+		/// </summary>
+		protected virtual void ParsePathInfo()
+		{
+			// Don't do anything special, just split the PathInfo params.
+			if (this._modulePathInfo != null)
+			{
+				this._moduleParams = this._modulePathInfo.Split(new char[] {'/'});
+			}
 		}
 
 		public class NHSessionEventArgs : EventArgs

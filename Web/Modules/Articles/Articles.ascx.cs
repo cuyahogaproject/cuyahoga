@@ -22,7 +22,7 @@ namespace Cuyahoga.Web.Modules.Articles
 		private void Page_Load(object sender, System.EventArgs e)
 		{
 			ArticleModule module = this.Module as ArticleModule;
-			if (module != null)
+			if (module != null && ! base.HasCachedOutput)
 			{
 				// Default to max 10 articles in the list.
 				int numberOfArticles = 10;

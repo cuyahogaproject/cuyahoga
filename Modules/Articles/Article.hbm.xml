@@ -18,7 +18,7 @@
 		<many-to-one name="Section" class="Cuyahoga.Core.Domain.Section, Cuyahoga.Core" column="sectionid" />
 		<many-to-one name="CreatedBy" class="Cuyahoga.Core.Domain.User, Cuyahoga.Core" column="createdby" />
 		<many-to-one name="ModifiedBy" class="Cuyahoga.Core.Domain.User, Cuyahoga.Core" column="modifiedby" />
-		<many-to-one name="Category" class="Cuyahoga.Modules.Articles.Category, Cuyahoga.Modules" column="articlecategoryid" />
+		<many-to-one name="Category" class="Cuyahoga.Modules.Articles.Category, Cuyahoga.Modules" column="articlecategoryid" outer-join="true" />
 
 		<bag name="Comments" cascade="all" inverse="true" lazy="true">
 			<key column="articleid" />

@@ -19,7 +19,7 @@ namespace Cuyahoga.Web.Modules.StaticHtml
 		private void Page_Load(object sender, System.EventArgs e)
 		{
 			StaticHtmlModule module = this.Module as StaticHtmlModule;
-			if (module != null)
+			if (module != null && ! base.HasCachedOutput)
 			{
 				Literal htmlControl = new Literal();
 				StaticHtmlContent shc = module.GetContent();
