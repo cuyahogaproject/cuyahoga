@@ -6,15 +6,17 @@ using NHibernate;
 using NHibernate.Expression;
 using NHibernate.Type;
 
+using Cuyahoga.Core;
 using Cuyahoga.Core.Domain;
 using Cuyahoga.Core.Service;
+using Cuyahoga.Core.Util;
 
 namespace Cuyahoga.Modules.Articles
 {
 	/// <summary>
 	/// The ArticleModule provides a news system (articles, comments, content expiration, rss feed).
 	/// </summary>
-	public class ArticleModule : ModuleBase
+	public class ArticleModule : ModuleBase, ISyndicatable
 	{
 		private int _currentArticleId;
 		private string _currentCategory;
@@ -103,6 +105,24 @@ namespace Cuyahoga.Modules.Articles
 			}
 		}
 
+		public IList GetRssArticles(int number)
+		{
+			try
+			{
+				string hql = "from Article a where a.Section.Id = :sectionId and a.Syndicate = true and a.DateOnline < :now and a.DateOffline > :now order by a.DateOnline asc ";
+				IQuery q = base.NHSession.CreateQuery(hql);
+				q.SetInt32("sectionId", base.Section.Id);
+				q.SetDateTime("now", DateTime.Now);
+				q.SetFirstResult(0);
+				q.SetMaxResults(number);
+				return q.List();
+			}
+			catch (Exception ex)
+			{
+				throw new Exception("Unable to get Articles", ex);
+			}
+		}
+
 		public Article GetArticleById(int id)
 		{
 			try
@@ -168,18 +188,14 @@ namespace Cuyahoga.Modules.Articles
 				{					
 					this._currentArticleId = Int32.Parse(articleIdRegEx.Match(base.ModulePathInfo).Groups[1].Value);
 				}
-				if (base.ModulePathInfo != "/rss")
+				
+				// try to find a category
+				expression = @"^\/([^0-9])";
+				Regex categoryRegex = new Regex(expression, RegexOptions.Singleline|RegexOptions.CultureInvariant|RegexOptions.Compiled);
+				if (categoryRegex.IsMatch(base.ModulePathInfo))
 				{
-					// try to find a category
-					expression = @"^\/([^0-9])";
-					Regex categoryRegex = new Regex(expression, RegexOptions.Singleline|RegexOptions.CultureInvariant|RegexOptions.Compiled);
-					if (categoryRegex.IsMatch(base.ModulePathInfo))
-					{
-						this._currentCategory = articleIdRegEx.Match(base.ModulePathInfo).Groups[1].Value;
-					}
+					this._currentCategory = articleIdRegEx.Match(base.ModulePathInfo).Groups[1].Value;
 				}
-				// try to find if the content should be displayed as rss.
-				this._generateRss = base.ModulePathInfo.EndsWith("/rss");
 			}
 		}
 
@@ -203,6 +219,43 @@ namespace Cuyahoga.Modules.Articles
 				}
 			}
 		}
+		#region ISyndicatable Members
+
+		public RssChannel GetRssFeed()
+		{
+			RssChannel channel = new RssChannel();
+			channel.Title = this.Section.Title;
+			// channel.Link = "" (can't determine link here)
+			channel.Description = this.Section.Title; // TODO: Section needs a description.
+			channel.Language = this.Section.Node.Culture;
+			channel.PubDate = DateTime.Now;
+			channel.LastBuildDate = DateTime.Now;
+			int maxNumberOfItems = Int32.Parse(this.Section.Settings["NUMBER_OF_ARTICLES_IN_LIST"].ToString());
+			DisplayType displayType = (DisplayType)Enum.Parse(typeof(DisplayType), this.Section.Settings["DISPLAY_TYPE"].ToString());
+			IList articles = GetRssArticles(maxNumberOfItems);
+			foreach (Article article in articles)
+			{
+				RssItem item = new RssItem();
+				item.ItemId = article.Id;
+				item.Title = article.Title;
+				// item.Link = "" (can't determine link here)
+				if (displayType == DisplayType.FullContent)
+				{
+					item.Description = article.Content;
+				}
+				else
+				{
+					item.Description = article.Summary;
+				}
+				item.Author = article.ModifiedBy.Email;
+				item.Category = article.Category.Title;
+				item.PubDate = article.DateOnline;
+				channel.RssItems.Add(item);
+			}
+			return channel;
+		}
+
+		#endregion
 	}
 
 	/// <summary>

@@ -79,6 +79,12 @@ namespace Cuyahoga.Web.UI
 			{
 				writer.Write("<h3>" + this._module.Section.Title + "</h3>");
 			}
+			// Rss feed
+			if (this._module is ISyndicatable)
+			{
+				writer.Write(String.Format("<div align=\"right\"><a href=\"{0}\"><img src=\"{1}\" border=\"0\"></a></div>", 
+					UrlHelper.GetRssUrlFromSection(this._module.Section), UrlHelper.GetApplicationPath() + "Images/feed-rss.gif"));
+			}
 			// Edit button
 			User cuyahogaUser = this.Page.User.Identity as User;
 			if (this._module.Section.ModuleType.EditPath != null

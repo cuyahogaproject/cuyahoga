@@ -109,6 +109,11 @@
                     BuildAction = "Compile"
                 />
                 <File
+                    RelPath = "ISyndicatable.cs"
+                    SubType = "Code"
+                    BuildAction = "Compile"
+                />
+                <File
                     RelPath = "Collections\NodeCollection.cs"
                     SubType = "Code"
                     BuildAction = "Compile"
@@ -248,6 +253,11 @@
                 />
                 <File
                     RelPath = "Util\Encryption.cs"
+                    SubType = "Code"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "Util\Rss.cs"
                     SubType = "Code"
                     BuildAction = "Compile"
                 />

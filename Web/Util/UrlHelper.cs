@@ -69,13 +69,36 @@ namespace Cuyahoga.Web.Util
 		}
 
 		/// <summary>
-		/// Returns a formatted url for a given section (/{ApplicationPath}/{Node.Id}/{Section.Id}/view.aspx.
+		/// Returns a formatted url for a given section (/{ApplicationPath}/{Section.Id}/view.aspx).
 		/// </summary>
 		/// <param name="section"></param>
 		/// <returns></returns>
 		public static string GetUrlFromSection(Section section)
 		{
 			return GetApplicationPath() + section.Id + "/section.aspx";
+		}
+
+		/// <summary>
+		/// Returns a formatted url for a given section (/{ApplicationPath}/{Section.Id}/view.aspx).
+		/// </summary>
+		/// <param name="section"></param>
+		/// <returns></returns>
+		public static string GetFullUrlFromSection(Section section)
+		{
+			string host = HttpContext.Current.Request.ServerVariables["HTTP_HOST"];
+			return "http://" + host + GetApplicationPath() + section.Id + "/section.aspx";
+		}
+
+		/// <summary>
+		/// Returns a formatted url for a rss feed for a given section 
+		/// (/{ApplicationPath}/{Section.Id}/rss.aspx).
+		/// </summary>
+		/// <param name="section"></param>
+		/// <returns></returns>
+		public static string GetRssUrlFromSection(Section section)
+		{
+			string host = HttpContext.Current.Request.ServerVariables["HTTP_HOST"];
+			return "http://" + host + GetApplicationPath() + section.Id + "/feed.aspx";
 		}
 
 		public static string[] GetModuleParamsFromPathInfo(string pathInfo)

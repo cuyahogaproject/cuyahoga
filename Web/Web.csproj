@@ -145,6 +145,22 @@
                     BuildAction = "EmbeddedResource"
                 />
                 <File
+                    RelPath = "Rss.aspx"
+                    SubType = "Form"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Rss.aspx.cs"
+                    DependentUpon = "Rss.aspx"
+                    SubType = "ASPXCodeBehind"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "Rss.aspx.resx"
+                    DependentUpon = "Rss.aspx.cs"
+                    BuildAction = "EmbeddedResource"
+                />
+                <File
                     RelPath = "Test.aspx"
                     SubType = "Form"
                     BuildAction = "Content"
@@ -498,6 +514,10 @@
                 />
                 <File
                     RelPath = "Images\email.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Images\feed-rss.gif"
                     BuildAction = "Content"
                 />
                 <File
