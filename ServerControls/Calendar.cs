@@ -15,7 +15,6 @@ namespace Cuyahoga.ServerControls
 	[DefaultProperty("Text"), ToolboxData("<{0}:Calendar runat=server></{0}:Calendar>")]
 	public class Calendar : WebControl, INamingContainer
 	{
-		private string _text;
 		private TextBox _dateTextBox;
 		private Image _calendarImage;
 
@@ -24,8 +23,16 @@ namespace Cuyahoga.ServerControls
 		[Bindable(true), Category("Appearance"), DefaultValue("")] 
 		public string Text 
 		{
-			get { return this._text; }
-			set { this._text = value; }
+			get 
+			{
+				EnsureChildControls();
+				return this._dateTextBox.Text;
+			}
+			set 
+			{ 
+				EnsureChildControls();
+				this._dateTextBox.Text = value;
+			}
 		}
 
 		[Bindable(true), Category("Appearance"), DefaultValue(CalendarTheme.system)]
@@ -76,9 +83,17 @@ namespace Cuyahoga.ServerControls
 			get 
 			{ 
 				EnsureChildControls();
-				if (this._dateTextBox.Text.Length > 0)
+				if (this.Text.Length > 0)
 				{
-					return DateTime.Parse(this._dateTextBox.Text);
+					try
+					{
+						return DateTime.Parse(this.Text);
+					}
+					catch (FormatException ex)
+					{
+						System.Diagnostics.Trace.WriteLine("Invalid datetime: " + this._dateTextBox.Text + " " + ex.Message, this.GetType().FullName);
+						return DateTime.MinValue;
+					}
 				}
 				else
 				{
@@ -88,10 +103,10 @@ namespace Cuyahoga.ServerControls
 			set 
 			{ 
 				EnsureChildControls();
-				this._dateTextBox.Text = value.ToShortDateString();
+				this.Text = value.ToShortDateString();
 				if (this.DisplayTime)
 				{
-					this._dateTextBox.Text += " " + value.ToShortTimeString();
+					this.Text += " " + value.ToShortTimeString();
 				}
 			}
 		}

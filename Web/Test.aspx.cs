@@ -18,6 +18,7 @@ namespace Cuyahoga.Web
 	{
 		protected System.Web.UI.WebControls.Button Button1;
 		protected System.Web.UI.WebControls.Label Label1;
+		protected Cuyahoga.ServerControls.Calendar cla2;
 		protected Cuyahoga.ServerControls.Calendar cal1;
 	
 		private void Page_Load(object sender, System.EventArgs e)
