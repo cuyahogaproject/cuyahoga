@@ -86,6 +86,7 @@
                 <includes name="System.Drawing.dll" />
                 <includes name="System.Xml.dll" />
                 <includes name="System.Web.dll" />
+                <includes name="ExternalStuff/**/*.dll" />
             </references>
         </csc>
 	</target>
