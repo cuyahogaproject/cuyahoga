@@ -1,5 +1,6 @@
 body
 {
+	background-color: #EEEEEE;
 	margin: 0;
 	font-family: Arial, Helvetica;
 	font-size: 8pt;
@@ -8,6 +9,42 @@ body
 td
 {
 	font-size: 8pt;	
+}
+
+a
+{
+	color: #000000;
+	text-decoration: none;
+}
+
+a:hover
+{
+	text-decoration: underline;
+}
+
+input
+{
+	font-family: Arial, Helvetica;
+	font-size: 8pt;
+}
+
+#header
+{
+	background-color: #CC0000;
+	height: 35px;
+}
+
+#folder
+{
+	background-color: #000000;
+	color: #FFFFFF;
+	font-weight: bold;
+	padding: 1px;
+}
+
+#folder a
+{
+	color: #FFFFFF;
 }
 
 #container
@@ -19,6 +56,7 @@ td
 
 #filebrowser
 {
+	background-color: #FFFFFF;
 	width: 300px;
 	height: 300px;
 	overflow: auto;
@@ -39,11 +77,21 @@ td
 	width: 100px;
 	height: 100px;
 	padding: 0;
-	margin: 2px;
 	border: solid 1px #CCCCCC;
 }
 
 #controls
 {
 	clear: both;
+}
+
+#dialogButtons
+{
+	text-align: right;
+	padding: 3px;
+}
+
+#dialogButtons input
+{
+	width: 60px;
 }

@@ -101,7 +101,7 @@ namespace Cuyahoga.ServerControls
 				this.ScriptBlock = @"
 					function CED_ImageGallery(ftbName)
 					{
-						myWindow = window.open(""" + supportFolder + @"ImageBrowser.aspx?textboxname="" + ftbName, ""window"", ""width=600,height=470"");
+						myWindow = window.open(""" + supportFolder + @"ImageBrowser.aspx?textboxname="" + ftbName, ""window"", ""width=510,height=450"");
 					}
 					";
 			}

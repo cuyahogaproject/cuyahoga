@@ -1,5 +1,6 @@
 <%@ Page Language="C#" ContentType="text/html" ResponseEncoding="iso-8859-1" %>
 <script language="C#" runat="server">
+// Thumbnail script by Khaos, see http://www.freetextbox.com/forums/ShowPost.aspx?PostID=1066
 void Page_Load(Object sender, EventArgs e)
 {
 	try{

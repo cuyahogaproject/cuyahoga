@@ -15,7 +15,8 @@ using Cuyahoga.Core;
 namespace Cuyahoga.Web.Support.FreeTextBox.Custom
 {
 	/// <summary>
-	/// Summary description for ImageBrowser.
+	/// Popup image browser for FreeTextbox 2.0.x.
+	/// TODO: fine-tuning (delete images?, create and delete folders?)
 	/// </summary>
 	public class ImageBrowser : System.Web.UI.Page
 	{
@@ -29,28 +30,34 @@ namespace Cuyahoga.Web.Support.FreeTextBox.Custom
 		protected System.Web.UI.WebControls.Label lblFolder;
 		protected System.Web.UI.WebControls.TextBox txtWidth;
 		protected System.Web.UI.WebControls.TextBox txtHeight;
+		protected System.Web.UI.WebControls.Image imgPreview;
 		protected System.Web.UI.WebControls.TextBox txtAlt;
-		protected System.Web.UI.HtmlControls.HtmlGenericControl imgpreview;
+		protected System.Web.UI.HtmlControls.HtmlInputFile uplImage;
 		protected System.Web.UI.WebControls.Repeater rptItems;
 
 		public ImageBrowser()
 		{
 			this._browserItems = new ArrayList();
 		}
+
+		private void UploadImage()
+		{
+			if (uplImage.PostedFile != null)
+			{
+				bool allowedType = ExtensionSupported(System.IO.Path.GetExtension(uplImage.Value));
+
+				if (allowedType)
+				{
+					uplImage.PostedFile.SaveAs(this._currentPhysicalPath + System.IO.Path.GetFileName(uplImage.PostedFile.FileName));
+					ReadFolder();
+					BindBrowserItems();
+				}
+			}
+		}
 		private void Page_Load(object sender, System.EventArgs e)
 		{
 			// Read image dir
-			this._currentVirtualPath = this.ResolveUrl(Core.Util.Config.GetConfiguration()["ImageDir"] + this.lblFolder.Text);
-			this._currentPhysicalPath = Context.Server.MapPath(this._currentVirtualPath);
-			FileInfo[] images = new DirectoryInfo(this._currentPhysicalPath).GetFiles();
-			foreach (FileInfo image in images)
-			{
-				if (ExtensionSupported(image.Extension))
-				{
-					this._browserItems.Add(image);
-				}
-			}
-
+			ReadFolder();
 			BindBrowserItems();
 		}
 
@@ -66,6 +73,37 @@ namespace Cuyahoga.Web.Support.FreeTextBox.Custom
 			return false;
 		}
 
+		private void ReadFolder()
+		{
+			this._browserItems.Clear();
+			this._currentVirtualPath = this.ResolveUrl(Core.Util.Config.GetConfiguration()["ImageDir"] + this.lblFolder.Text);
+			this._currentPhysicalPath = Context.Server.MapPath(this._currentVirtualPath);
+
+			DirectoryInfo dir = new DirectoryInfo(this._currentPhysicalPath);
+			// Move up
+			if (this.lblFolder.Text != "/")
+			{
+				this._browserItems.Add(dir.Parent);
+			}
+
+			// Subdirectories
+			DirectoryInfo[] subDirs = dir.GetDirectories();
+			foreach (DirectoryInfo subDir in subDirs)
+			{
+				this._browserItems.Add(subDir);
+			}
+
+			// Files
+			FileInfo[] images = dir.GetFiles();
+			foreach (FileInfo image in images)
+			{
+				if (ExtensionSupported(image.Extension))
+				{
+					this._browserItems.Add(image);
+				}
+			}
+		}
+
 		private void BindBrowserItems()
 		{
 			this.rptItems.DataSource = this._browserItems;
@@ -78,7 +116,8 @@ namespace Cuyahoga.Web.Support.FreeTextBox.Custom
 			this.txtWidth.Text = imageFile.Width.ToString();
 			this.txtHeight.Text = imageFile.Height.ToString();
 			imageFile.Dispose();
-			this.imgpreview.Attributes["src"] = String.Format("Thumbnail.aspx?image={0}&width=100&height=100", this._currentVirtualPath + fileName);
+			this.imgPreview.ImageUrl = String.Format("Thumbnail.aspx?image={0}&width=100&height=100", this._currentVirtualPath + fileName);
+			this.imgPreview.Visible = true;
 		}
 
 		#region Web Form Designer generated code
@@ -98,6 +137,7 @@ namespace Cuyahoga.Web.Support.FreeTextBox.Custom
 		private void InitializeComponent()
 		{    
 			this.rptItems.ItemDataBound += new System.Web.UI.WebControls.RepeaterItemEventHandler(this.rptItems_ItemDataBound);
+			this.btnUpload.Click += new System.EventHandler(this.btnUpload_Click);
 			this.Load += new System.EventHandler(this.Page_Load);
 
 		}
@@ -106,6 +146,26 @@ namespace Cuyahoga.Web.Support.FreeTextBox.Custom
 		private void rptItems_ItemDataBound(object sender, System.Web.UI.WebControls.RepeaterItemEventArgs e)
 		{
 			System.Web.UI.WebControls.Image icon = (System.Web.UI.WebControls.Image)e.Item.FindControl("imgIcon");
+			if (e.Item.DataItem is DirectoryInfo)
+			{
+				if (this.lblFolder.Text != "/" && e.Item.ItemIndex == 0)
+				{
+					icon.ImageUrl = "images/folderup.gif";
+					LinkButton lbtDirectory = (LinkButton)e.Item.FindControl("lbtItem");
+					lbtDirectory.Text = "..";
+					lbtDirectory.CommandName = "moveup";
+					lbtDirectory.CommandArgument = ((DirectoryInfo)e.Item.DataItem).FullName;
+					lbtDirectory.Command += new CommandEventHandler(lbtDirectory_Command);
+				}
+				else
+				{
+					icon.ImageUrl = "images/folder.gif";
+					LinkButton lbtDirectory = (LinkButton)e.Item.FindControl("lbtItem");
+					lbtDirectory.CommandName = "move";
+					lbtDirectory.CommandArgument = ((DirectoryInfo)e.Item.DataItem).FullName;
+					lbtDirectory.Command += new CommandEventHandler(lbtDirectory_Command);
+				}
+			}
 			if (e.Item.DataItem is FileInfo)
 			{
 				icon.ImageUrl = "images/image.gif";
@@ -126,6 +186,27 @@ namespace Cuyahoga.Web.Support.FreeTextBox.Custom
 				this.txtUrl.Text = imgUrl;
 				SetImageProperties(fileName);
 			}
+		}
+
+		private void lbtDirectory_Command(object sender, CommandEventArgs e)
+		{
+			// PhysicalPath is the CommandArgument
+			string newPhysicalPath = e.CommandArgument.ToString();
+			if (this._currentPhysicalPath.Length > newPhysicalPath.Length)
+			{
+				this.lblFolder.Text = this.lblFolder.Text.Substring(0, this.lblFolder.Text.Length - (this._currentPhysicalPath.Length - newPhysicalPath.Length) + 1);
+			}
+			else
+			{
+				this.lblFolder.Text += newPhysicalPath.Substring(this._currentPhysicalPath.Length, (newPhysicalPath.Length - this._currentPhysicalPath.Length)) + "/";
+			}
+			ReadFolder();
+			BindBrowserItems();
+		}
+
+		private void btnUpload_Click(object sender, System.EventArgs e)
+		{
+			UploadImage();
 		}
 	}
 }
