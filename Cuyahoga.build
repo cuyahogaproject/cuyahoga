@@ -100,17 +100,25 @@
         </csc>
 	</target>
 	<target name="build.web">
+		<mkdir dir="${build.dir}/resources" />
+		<resgen todir="${build.dir}/resources">
+			<resources>
+				<include name="Web/Modules/**/Strings*.resx"/>
+			</resources>
+		</resgen>
 		<csc target="library" output="${build.dir}/bin/Cuyahoga.Web.dll" debug="${build.debug}">
             <sources>
                 <include name="Web/**/*.cs" />
             </sources>
+            <resources dynamicprefix="true" prefix="Cuyahoga">
+				<include name="${build.dir}/resources/*.resources" />
+            </resources>
             <references>
                 <include name="System.dll" />
                 <include name="System.Data.dll" />
                 <include name="System.Drawing.dll" />
                 <include name="System.Xml.dll" />
                 <include name="System.Web.dll" />
-                <include name="ExternalStuff/eWorld.UI.dll" />  
                 <include name="ExternalStuff/FreeTextBox.dll" />  
                 <include name="ExternalStuff/NHibernate.dll" />  
                 <include name="${build.dir}/bin/Cuyahoga.Core.dll" />
