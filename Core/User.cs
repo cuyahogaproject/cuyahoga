@@ -44,12 +44,15 @@ namespace Cuyahoga.Core
         }
 
 		/// <summary>
-		/// Property Password (string)
+		/// Property Password (string). Internally the MD5 hash of the password is used.
 		/// </summary>
 		public string Password
 		{
 			get { return this._password; }
-			set { this._password = value; }
+			set 
+			{
+				SetPassword(value);
+			}
 		}
 
 		/// <summary>
@@ -189,13 +192,11 @@ namespace Cuyahoga.Core
 		/// <summary>
 		/// Try to log-in the user with the username and password. 
 		/// </summary>
-		/// <param name="username"></param>
-		/// <param name="password"></param>
 		/// <returns></returns>
-		public bool Login(string username, string password)
+		public bool Login()
 		{
             ICmsDataProvider dp = CmsDataFactory.GetInstance();
-            dp.GetUserByUsernameAndPassword(username, password, this);
+            dp.GetUserByUsernameAndPassword(this.UserName, this.Password, this);
 			this._isAuthenticated = (this._id > 0);
 			return this._isAuthenticated;
 		}
@@ -244,6 +245,18 @@ namespace Cuyahoga.Core
 				}
 			}
 			return false;
+		}
+
+		private void SetPassword(string password)
+		{
+			if (password.Length > 4)
+			{
+				this._password = Util.Encryption.StringToMD5Hash(password);
+			}
+			else
+			{
+				throw new ArgumentException("The password must contain at least 5 characters");
+			}
 		}
 	}
 }

@@ -93,6 +93,14 @@ namespace Cuyahoga.Core.DAL
 
 		void GetRolesBySection(Section section);
 
+		void GetRoleById(int roleId, Role role);
+
+		void InsertRole(Role role);
+
+		void UpdateRole(Role role);
+
+		void DeleteRole(Role role);
+
 		#endregion
 	}
 }

@@ -10,12 +10,13 @@ namespace Cuyahoga.Core
 		Right
 	}
 
+	[Flags]
 	public enum AccessLevel
 	{
-		Administrator = 8,
-		Editor = 4,
+		Anonymous = 1,
 		Authenticated = 2,
-		Anonymous = 1		
+		Editor = 4,
+		Administrator = 8
 	}
 
 	public enum Action

@@ -367,6 +367,22 @@ namespace Cuyahoga.Core
 				return false;
 		}
 
+		public void CopyRolesFromNode()
+		{
+			InitRoles();
+			if (this._node != null)
+			{
+				foreach (Role role in this._node.ViewRoles)
+				{
+					this._viewRoles.Add(role);
+				}
+				foreach (Role role in this._node.EditRoles)
+				{
+					this._editRoles.Add(role);
+				}
+			}
+		}
+
 		#endregion
 
 		#region private methods

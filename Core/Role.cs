@@ -1,5 +1,8 @@
 using System;
+using System.Text;
 using System.Collections;
+
+using Cuyahoga.Core.DAL;
 
 namespace Cuyahoga.Core
 {
@@ -53,6 +56,11 @@ namespace Cuyahoga.Core
 			get { return this._permissions; }
 		}
 
+		public string PermissionsString
+		{
+			get { return GetPermissionsAsString(); }
+		}
+
 		/// <summary>
 		/// Default constructor.
 		/// </summary>
@@ -61,6 +69,15 @@ namespace Cuyahoga.Core
 			this._id = -1;
 			this._name = null;
 			this._permissionLevel = -1;
+		}
+
+		/// <summary>
+		/// Constructor that accepts the roleId as parameter and retrieves the role from the database.
+		/// </summary>
+		/// <param name="roleId"></param>
+		public Role(int roleId)
+		{
+			CmsDataFactory.GetInstance().GetRoleById(roleId, this);
 		}
 
 		/// <summary>
@@ -76,18 +93,33 @@ namespace Cuyahoga.Core
 		private void TranslatePermissionLevelToAccessLevels()
 		{
 			ArrayList permissions = new ArrayList();
-			int tempPermissionLevel = this._permissionLevel;
 			AccessLevel[] accessLevels = (AccessLevel[])Enum.GetValues(typeof(AccessLevel));
-			Array.Reverse(accessLevels);
+
 			foreach (AccessLevel accesLevel in accessLevels)
 			{
-				if (tempPermissionLevel >= (int)accesLevel)
+				if ((this.PermissionLevel & (int)accesLevel) == (int)accesLevel)
 				{
 					permissions.Add(accesLevel);
-					tempPermissionLevel -= (int)accesLevel;
 				}
 			}
 			this._permissions = (AccessLevel[])permissions.ToArray(typeof(AccessLevel));
+		}
+
+		private string GetPermissionsAsString()
+		{
+			StringBuilder sb = new StringBuilder();
+
+			for (int i = 0; i < this._permissions.Length; i++)
+			{
+				AccessLevel accessLevel = this._permissions[i];
+				sb.Append(accessLevel.ToString());
+				if (i < this._permissions.Length - 1)
+				{
+					sb.Append(", ");
+				}
+			}
+
+			return sb.ToString();
 		}
 	}
 }

@@ -46,10 +46,11 @@ namespace Cuyahoga.Web.Util
 			User user = new User();
 			// Set the user properties we already know.
 			user.UserName = username;
+			user.Password = password;
 			user.LastLogin = DateTime.Now;
 			user.LastIp = currentIp;
 
-			if (user.Login(username, password))
+			if (user.Login())
 			{
 				// We also need the roles, so get them
 				CmsDataFactory.GetInstance().GetRolesByUser(user);

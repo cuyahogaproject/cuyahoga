@@ -53,6 +53,11 @@ namespace Cuyahoga.Web.Admin
 					int parentNodeId = Int32.Parse(Context.Request.QueryString["ParentNodeId"]);
 					this.ActiveNode.ParentId = parentNodeId;
 					this.ActiveNode.ParentNode = new Node(parentNodeId);
+					if (! this.IsPostBack)
+					{
+						// Copy security from parent.
+						this.ActiveNode.CopyRolesFromParent();
+					}
 				}
 			}
 			if (! this.IsPostBack)

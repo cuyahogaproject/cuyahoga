@@ -47,6 +47,11 @@ namespace Cuyahoga.Web.Admin
 				{
 					// Create a new section instance
 					this._activeSection = new Section();
+					this._activeSection.Node = this.ActiveNode;
+					if (! this.IsPostBack)
+					{
+						this._activeSection.CopyRolesFromNode();
+					}
 				}
 				else
 				{

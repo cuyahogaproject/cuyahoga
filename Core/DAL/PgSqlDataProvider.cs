@@ -803,14 +803,14 @@ namespace Cuyahoga.Core.DAL
 
 		#region users and roles
 
-		public void GetUserByUsernameAndPassword(string userName, string password, User user)
+		public void GetUserByUsernameAndPassword(string username, string password, User user)
 		{			
 			string sql = @"	SELECT userid, firstname, lastname, email 
 							FROM cuyahoga_user 
 							WHERE username=:username AND password=:password";
 			NpgsqlConnection con = new NpgsqlConnection(Config.GetConfiguration()["ConnectionString"]);
 			NpgsqlCommand cmd = new NpgsqlCommand(sql, con);
-			cmd.Parameters.Add(PgSqlDataHelper.MakeInParam(":username", DbType.String, 50, userName));
+			cmd.Parameters.Add(PgSqlDataHelper.MakeInParam(":username", DbType.String, 50, username));
 			cmd.Parameters.Add(PgSqlDataHelper.MakeInParam(":password", DbType.String, 100, password));
 			con.Open();
 			try
@@ -939,7 +939,7 @@ namespace Cuyahoga.Core.DAL
 				cmdId.Transaction = trn;
 				cmd.ExecuteNonQuery();
 				user.Id = Convert.ToInt32(cmdId.ExecuteScalar());
-				InsertRoles(user, trn);
+				InsertUserRoles(user, trn);
 				trn.Commit();
 			}
 			catch (NpgsqlException ex)
@@ -986,9 +986,9 @@ namespace Cuyahoga.Core.DAL
 			try
 			{
 				cmd.Transaction = trn;
-				DeleteRoles(user, trn);
+				DeleteUserRoles(user, trn);
 				cmd.ExecuteNonQuery();
-				InsertRoles(user, trn);
+				InsertUserRoles(user, trn);
 				trn.Commit();
 			}
 			catch (NpgsqlException ex)
@@ -1015,7 +1015,7 @@ namespace Cuyahoga.Core.DAL
 			try
 			{
 				cmd.Transaction = trn;
-				DeleteRoles(user, trn);
+				DeleteUserRoles(user, trn);
 				cmd.ExecuteNonQuery();
 				trn.Commit();
 			}
@@ -1165,6 +1165,120 @@ namespace Cuyahoga.Core.DAL
 			}
 		}
 
+		public void GetRoleById(int roleId, Role role)
+		{
+			string sql = @" SELECT name, permissionlevel
+							FROM cuyahoga_role
+							WHERE roleid = :roleid";
+			NpgsqlConnection con = new NpgsqlConnection(Config.GetConfiguration()["ConnectionString"]);
+			NpgsqlCommand cmd = new NpgsqlCommand(sql, con);
+			cmd.Parameters.Add(PgSqlDataHelper.MakeInParam(":roleid", DbType.Int32, 4, roleId));
+
+			con.Open();
+			try
+			{
+				NpgsqlDataReader dr = cmd.ExecuteReader();
+				if (dr.Read())
+				{
+					role.Id = roleId;
+					role.Name = Convert.ToString(dr["name"]);
+					role.PermissionLevel = Convert.ToInt32(dr["permissionlevel"]);
+				}
+			}
+			catch (NpgsqlException ex)
+			{
+				throw new CmsDataException("Error getting role", ex);
+			}
+			finally 
+			{
+				con.Close();
+			}
+		}
+
+		public void InsertRole(Role role)
+		{
+			string sql = @"	INSERT INTO cuyahoga_role (name, permissionlevel)
+							VALUES (:name, :permissionlevel) ";
+			NpgsqlConnection con = new NpgsqlConnection(Config.GetConfiguration()["ConnectionString"]);
+			NpgsqlCommand cmd = new NpgsqlCommand(sql, con);
+			cmd.Parameters.Add(PgSqlDataHelper.MakeInParam(":name", DbType.String, 50, role.Name));
+			cmd.Parameters.Add(PgSqlDataHelper.MakeInParam(":permissionlevel", DbType.Int32, 4, role.PermissionLevel));
+
+			string sqlId = "SELECT CURRVAL('cuyahoga_role_roleid_seq')";
+			NpgsqlCommand cmdId = new NpgsqlCommand(sqlId, con);
+			
+			con.Open();
+			NpgsqlTransaction trn = con.BeginTransaction();
+			try
+			{
+				cmd.Transaction = trn;
+				cmdId.Transaction = trn;
+				cmd.ExecuteNonQuery();
+				role.Id = Convert.ToInt32(cmdId.ExecuteScalar());
+				trn.Commit();
+			}
+			catch (NpgsqlException ex)
+			{
+				trn.Rollback();
+				throw new CmsDataException("Error inserting role", ex);
+			}
+			finally 
+			{
+				con.Close();
+			}
+		}
+
+		public void UpdateRole(Role role)
+		{
+			string sql = @"	UPDATE cuyahoga_role
+							SET name = :name,
+								permissionlevel = :permissionlevel,
+								updatetimestamp = current_timestamp
+							WHERE roleid = :roleid";
+			NpgsqlConnection con = new NpgsqlConnection(Config.GetConfiguration()["ConnectionString"]);
+			NpgsqlCommand cmd = new NpgsqlCommand(sql, con);
+			cmd.Parameters.Add(PgSqlDataHelper.MakeInParam(":name", DbType.String, 50, role.Name));
+			cmd.Parameters.Add(PgSqlDataHelper.MakeInParam(":permissionlevel", DbType.Int32, 4, role.PermissionLevel));
+			cmd.Parameters.Add(PgSqlDataHelper.MakeInParam(":roleid", DbType.Int32, 4, role.Id));
+	
+			con.Open();
+			try
+			{
+				cmd.ExecuteNonQuery();
+			}
+			catch (NpgsqlException ex)
+			{
+				throw new CmsDataException("Error updating role", ex);
+			}
+			finally 
+			{
+				con.Close();
+			}
+		}
+
+		public void DeleteRole(Role role)
+		{
+			string sql = @"	DELETE FROM cuyahoga_role
+							WHERE roleid = :roleid ";
+			NpgsqlConnection con = new NpgsqlConnection(Config.GetConfiguration()["ConnectionString"]);
+			NpgsqlCommand cmd = new NpgsqlCommand(sql, con);
+			cmd.Parameters.Add(PgSqlDataHelper.MakeInParam(":roleid", DbType.Int32, 4, role.Id));
+	
+			con.Open();
+			try
+			{
+				cmd.ExecuteNonQuery();
+			}
+			catch (NpgsqlException ex)
+			{
+				throw new CmsDataException("Error deleting role", ex);
+			}
+			finally 
+			{
+				con.Close();
+			}
+		}
+
 		private void FillUserFromDataReader(NpgsqlDataReader dr, User user)
 		{
 			user.UserName = Convert.ToString(dr["username"]);
@@ -1177,7 +1291,7 @@ namespace Cuyahoga.Core.DAL
 				user.LastIp = Convert.ToString(dr["lastip"]);
 		}
 
-		private void InsertRoles(User user, NpgsqlTransaction trn)
+		private void InsertUserRoles(User user, NpgsqlTransaction trn)
 		{
 			string sql = @"	INSERT INTO cuyahoga_userrole(roleid, userid)
 							VALUES(:roleid, :userid)";
@@ -1192,7 +1306,7 @@ namespace Cuyahoga.Core.DAL
 			}
 		}
 
-		private void DeleteRoles(User user, NpgsqlTransaction trn)
+		private void DeleteUserRoles(User user, NpgsqlTransaction trn)
 		{
 			string sql = @"	DELETE FROM cuyahoga_userrole
 							WHERE userid = :userid";

@@ -20,28 +20,28 @@
 			</script>
 
 <div class=group>
-<h4>General</H4>
+<h4>General</h4>
 <table>
   <tr>
-    <td style="WIDTH: 200px">Username</TD>
-    <td><asp:textbox id=txtUsername runat="server" width="200px"></asp:textbox><asp:requiredfieldvalidator id=rfvUsername runat="server" controltovalidate="txtUsername" forecolor=" " enableclientscript="False" display="Dynamic" cssclass="validator" errormessage="Username is required"></asp:requiredfieldvalidator></TD></TR>
+    <td style="WIDTH: 200px">Username</td>
+    <td><asp:textbox id=txtUsername runat="server" width="200px"></asp:textbox><asp:Label id=lblUsername runat="server" Visible="False"></asp:Label><asp:requiredfieldvalidator id=rfvUsername runat="server" errormessage="Username is required" cssclass="validator" display="Dynamic" enableclientscript="False" forecolor=" " controltovalidate="txtUsername"></asp:requiredfieldvalidator></td></tr>
   <tr>
-    <td>Firstname</TD>
-    <td><asp:textbox id=txtFirstname runat="server" width="200px"></asp:textbox></TD></TR>
+    <td>Firstname</td>
+    <td><asp:textbox id=txtFirstname runat="server" width="200px"></asp:textbox></td></tr>
   <tr>
-    <td>Lastname</TD>
-    <td><asp:textbox id=txtLastname runat="server" width="200px"></asp:textbox></TD></TR>
+    <td>Lastname</td>
+    <td><asp:textbox id=txtLastname runat="server" width="200px"></asp:textbox></td></tr>
   <tr>
-    <td>Email</TD>
-    <td><asp:textbox id=txtEmail runat="server" width="200px"></asp:textbox><asp:requiredfieldvalidator id=RequiredFieldValidator1 runat="server" controltovalidate="txtEmail" forecolor=" " enableclientscript="False" display="Dynamic" cssclass="validator" errormessage="Email is required"></asp:requiredfieldvalidator><asp:regularexpressionvalidator id=revEmail runat="server" controltovalidate="txtEmail" forecolor=" " enableclientscript="False" display="Dynamic" cssclass="validator" errormessage="Invalid email" validationexpression="\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*"></asp:regularexpressionvalidator></TD></TR>
+    <td>Email</td>
+    <td><asp:textbox id=txtEmail runat="server" width="200px"></asp:textbox><asp:requiredfieldvalidator id=RequiredFieldValidator1 runat="server" controltovalidate="txtEmail" forecolor=" " enableclientscript="False" display="Dynamic" cssclass="validator" errormessage="Email is required"></asp:requiredfieldvalidator><asp:regularexpressionvalidator id=revEmail runat="server" controltovalidate="txtEmail" forecolor=" " enableclientscript="False" display="Dynamic" cssclass="validator" errormessage="Invalid email" validationexpression="\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*"></asp:regularexpressionvalidator></td></tr>
   <tr>
-    <td>Password</TD>
-    <td><asp:textbox id=txtPassword1 runat="server" width="200px" textmode="Password"></asp:textbox></TD></TR>
+    <td>Password</td>
+    <td><asp:textbox id=txtPassword1 runat="server" width="200px" textmode="Password"></asp:textbox></td></tr>
   <tr>
-    <td>Confirm password</TD>
-    <td><asp:textbox id=txtPassword2 runat="server" width="200px" textmode="Password"></asp:textbox><asp:comparevalidator id=covPassword runat="server" controltovalidate="txtPassword1" forecolor=" " enableclientscript="False" display="Dynamic" cssclass="validator" errormessage="Both passwords must be the same" controltocompare="txtPassword2"></asp:comparevalidator></TD></TR></TABLE></DIV>
+    <td>Confirm password</td>
+    <td><asp:textbox id=txtPassword2 runat="server" width="200px" textmode="Password"></asp:textbox><asp:comparevalidator id=covPassword runat="server" controltovalidate="txtPassword1" forecolor=" " enableclientscript="False" display="Dynamic" cssclass="validator" errormessage="Both passwords must be the same" controltocompare="txtPassword2"></asp:comparevalidator></td></tr></table></div>
 <div class=group>
-<h4>Roles</H4>
+<h4>Roles</h4>
 <table class=tbl><asp:repeater id=rptRoles runat="server">
 						<headertemplate>
 							<tr>
@@ -55,7 +55,7 @@
 								<td style="text-align:center"><asp:checkbox id="chkRole" runat="server"></asp:checkbox></td>
 							</tr>
 						</itemtemplate>
-					</asp:repeater></TABLE></DIV>
-<div><asp:button id=btnSave runat="server" text="Save"></asp:button><asp:Button id=btnCancel runat="server" Text="Cancel" CausesValidation="False"></asp:Button><asp:Button id=btnDelete runat="server" Text="Delete"></asp:Button></DIV></FORM>
+					</asp:repeater></table></div>
+<div><asp:button id=btnSave runat="server" text="Save"></asp:button><asp:Button id=btnCancel runat="server" Text="Cancel" CausesValidation="False"></asp:Button><asp:Button id=btnDelete runat="server" Text="Delete"></asp:Button></div></form>
 	</body>
 </html>

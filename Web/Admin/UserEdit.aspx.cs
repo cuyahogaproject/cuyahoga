@@ -28,13 +28,14 @@ namespace Cuyahoga.Web.Admin
 		protected System.Web.UI.WebControls.TextBox txtPassword1;
 		protected System.Web.UI.WebControls.TextBox txtPassword2;
 		protected System.Web.UI.WebControls.Repeater rptRoles;
-		protected System.Web.UI.WebControls.RequiredFieldValidator rfvUsername;
 		protected System.Web.UI.WebControls.RequiredFieldValidator RequiredFieldValidator1;
 		protected System.Web.UI.WebControls.RegularExpressionValidator revEmail;
 		protected System.Web.UI.WebControls.CompareValidator covPassword;
 		protected System.Web.UI.WebControls.Button btnSave;
 		protected System.Web.UI.WebControls.Button btnCancel;
 		protected System.Web.UI.WebControls.Button btnDelete;
+		protected System.Web.UI.WebControls.Label lblUsername;
+		protected System.Web.UI.WebControls.RequiredFieldValidator rfvUsername;
 		protected System.Web.UI.WebControls.TextBox txtFirstname;
 	
 		private void Page_Load(object sender, System.EventArgs e)
@@ -64,7 +65,20 @@ namespace Cuyahoga.Web.Admin
 
 		private void BindUserControls()
 		{
-			this.txtUsername.Text = this._activeUser.UserName;
+			if (this._activeUser.Id > 0)
+			{
+				this.txtUsername.Visible = false;
+				this.lblUsername.Text = this._activeUser.UserName;
+				this.lblUsername.Visible = true;
+				this.rfvUsername.Enabled = false;
+			}
+			else
+			{
+				this.txtUsername.Text = this._activeUser.UserName;
+				this.txtUsername.Visible = true;
+				this.lblUsername.Visible = false;
+				this.rfvUsername.Enabled = true;
+			}
 			this.txtFirstname.Text = this._activeUser.FirstName;
 			this.txtLastname.Text = this._activeUser.LastName;
 			this.txtEmail.Text = this._activeUser.Email;
@@ -181,15 +195,30 @@ namespace Cuyahoga.Web.Admin
 		{
 			if (this.IsValid)
 			{
-				this._activeUser.UserName = txtUsername.Text;
+				if (this._activeUser.Id == -1)
+				{
+					this._activeUser.UserName = this.txtUsername.Text;
+				}
+				else
+				{
+					this._activeUser.UserName = this.lblUsername.Text;
+				}
 				if (this.txtFirstname.Text.Length > 0)
 					this._activeUser.FirstName = this.txtFirstname.Text;
 				if (this.txtLastname.Text.Length > 0)
 					this._activeUser.LastName = this.txtLastname.Text;
 				this._activeUser.Email = this.txtEmail.Text;
+				
 				if (this.txtPassword1.Text.Length > 0 && this.txtPassword2.Text.Length > 0)
 				{
-					this._activeUser.Password = this.txtPassword1.Text;
+					try
+					{
+						this._activeUser.Password = this.txtPassword1.Text;
+					}
+					catch (Exception ex)
+					{
+						ShowError(ex.Message);
+					}
 				}
 
 				if (this._activeUser.Id == -1 && this._activeUser.Password == null)
@@ -208,8 +237,15 @@ namespace Cuyahoga.Web.Admin
 		{
 			if (this._activeUser.Id > 0)
 			{
-				CmsDataFactory.GetInstance().DeleteUser(this._activeUser);
-				Context.Response.Redirect("Users.aspx");
+				try
+				{
+					CmsDataFactory.GetInstance().DeleteUser(this._activeUser);
+					Context.Response.Redirect("Users.aspx");
+				}
+				catch (Exception ex)
+				{
+					ShowError(ex.Message);
+				}
 			}
 		}
 	}

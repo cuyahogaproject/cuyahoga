@@ -443,6 +443,22 @@ namespace Cuyahoga.Core
 				return false;
 		}
 
+		public void CopyRolesFromParent()
+		{
+			InitRoles();
+			if (this._parentNode != null)
+			{
+				foreach (Role role in this._parentNode.ViewRoles)
+				{
+					this._viewRoles.Add(role);
+				}
+				foreach (Role role in this._parentNode.EditRoles)
+				{
+					this._editRoles.Add(role);
+				}
+			}
+		}
+
 		private void InitRoles()
 		{
 			this._viewRoles = new RoleCollection();

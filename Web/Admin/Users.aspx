@@ -16,9 +16,10 @@
 				Username <asp:textbox id="txtUsername" runat="server"></asp:textbox><asp:button id="btnFind" runat="server" text="Find"></asp:button>
 			</div>
 			<asp:panel id="pnlResults" runat="server" cssclass="group">
-<h4>Search results</h4>
-<p>
-<table class=tbl><asp:repeater id=rptUsers runat="server">
+				<h4>Search results</h4>
+				<p>
+					<table class="tbl">
+						<asp:repeater id=rptUsers runat="server">
 							<headertemplate>
 								<tr>
 									<th>Username</th>
@@ -43,10 +44,16 @@
 									</td>
 								</tr>
 							</itemtemplate>
-						</asp:repeater></table></p>
-<div class=pager><csc:pager id=pgrUsers runat="server" controltopage="rptUsers" cachedatasource="True" pagesize="10" CacheDuration="10"></csc:pager></div>
-<div><asp:button id=btnNew runat="server" text="Add new user"></asp:button></div>
+						</asp:repeater>
+					</table>
+				</p>
+				<div class=pager>
+					<csc:pager id="pgrUsers" runat="server" controltopage="rptUsers" cachedatasource="True" pagesize="10" CacheDuration="10"></csc:pager>
+				</div>
 			</asp:panel>
+			<div>
+				<asp:button id="btnNew" runat="server" text="Add new user"></asp:button>
+			</div>
 		</form>
 	</body>
 </html>
