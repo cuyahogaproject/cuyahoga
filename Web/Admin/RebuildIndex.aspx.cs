@@ -10,6 +10,8 @@ using System.Web.UI.WebControls;
 using System.Web.UI.HtmlControls;
 using System.Threading;
 
+using log4net;
+
 using Cuyahoga.Web.Util;
 using Cuyahoga.Core.Util;
 using Cuyahoga.Core.Domain;
@@ -23,6 +25,8 @@ namespace Cuyahoga.Web.Admin
 	/// </summary>
 	public class RebuildIndex : Cuyahoga.Web.Admin.UI.AdminBasePage
 	{
+		private static readonly ILog log = LogManager.GetLogger(typeof(RebuildIndex));
+
 		protected System.Web.UI.WebControls.Button btnRebuild;
 		protected System.Web.UI.WebControls.Label lblMessage;
 	
@@ -49,7 +53,14 @@ namespace Cuyahoga.Web.Admin
 			{
 				foreach (Node node in site.RootNodes)
 				{
-					BuildIndexByNode(node, ib);
+					try
+					{
+						BuildIndexByNode(node, ib);
+					}
+					catch (Exception ex)
+					{
+						log.Error(String.Format("Indexing contents of Node {0} - {1} failed.", node.Id, node.Title), ex);
+					}
 				}
 			}
 			ib.Close();
@@ -66,19 +77,25 @@ namespace Cuyahoga.Web.Admin
 				{
 					module = section.CreateModule(sectionUrl);
 				}
-				catch
+				catch (Exception ex)
 				{
-					// HACK: skip exceptions raised by non-existent modules
-					break;
+					log.Error(String.Format("Unable to create Module for Section {0} - {1}.", section.Id, section.Title), ex);
 				}
 
 				if (module is ISearchable)
 				{
 					module.NHSessionRequired += new Cuyahoga.Core.Domain.ModuleBase.NHSessionEventHandler(module_NHSessionRequired);
 					ISearchable searchableModule = (ISearchable)module;
-					foreach (SearchContent sc in searchableModule.GetAllSearchableContent())
+					try
 					{
-						ib.AddContent(sc);
+						foreach (SearchContent sc in searchableModule.GetAllSearchableContent())
+						{
+							ib.AddContent(sc);
+						}
+					}
+					catch (Exception ex)
+					{
+						log.Error(String.Format("Indexing contents of Section {0} - {1} failed.", section.Id, section.Title), ex);
 					}
 				}
 			}

@@ -7,10 +7,12 @@ namespace Cuyahoga.Modules.Search
 	using System.Web.UI.WebControls;
 	using System.Web.UI.HtmlControls;
 
+	using Cuyahoga.Core.Domain;
 	using Cuyahoga.Core.Search;
 	using Cuyahoga.Core.Util;
 	using Cuyahoga.Web.UI;
 	using Cuyahoga.ServerControls;
+	using Cuyahoga.Web.Cache;
 
 	/// <summary>
 	///		Summary description for Search.
@@ -18,6 +20,7 @@ namespace Cuyahoga.Modules.Search
 	public class Search : BaseModuleControl
 	{
 		private const int RESULTS_PER_PAGE = 10;
+
 		private string _indexDir;
 		private SearchModule _module;
 
@@ -40,37 +43,76 @@ namespace Cuyahoga.Modules.Search
 			this._module = this.Module as SearchModule;
 			this._indexDir = Context.Server.MapPath(Config.GetConfiguration()["SearchIndexDir"]);
 			this.pgrResults.PageSize = RESULTS_PER_PAGE;
-			this.pgrResults.AllowCustomPaging = true;
+			//this.pgrResults.AllowCustomPaging = true;
 		}
 
 		private void BindSearchResults(int pageIndex)
 		{
-			SearchResultCollection results = this._module.GetSearchResults(this.txtSearchText.Text, pageIndex, RESULTS_PER_PAGE, this._indexDir);
-			if (results.Count > 0)
+			SearchResultCollection results = this._module.GetSearchResults(this.txtSearchText.Text, this._indexDir);
+			SearchResultCollection filteredResults = FilterResults(results);
+			if (filteredResults.Count > 0)
 			{
 				int start = pageIndex * RESULTS_PER_PAGE;
 				int end = start + RESULTS_PER_PAGE;
-				if (end > results.TotalCount)
+				if (end > filteredResults.Count)
 				{
-					end = results.TotalCount;
+					end = filteredResults.Count;
 				}
 				this.pnlResults.Visible = true;
 				this.pnlNotFound.Visible = false;
 
 				this.lblFrom.Text = (start + 1).ToString();
 				this.lblTo.Text = end.ToString();
-				this.lblTotal.Text = results.TotalCount.ToString();
+				this.lblTotal.Text = filteredResults.Count.ToString();
 				this.lblQueryText.Text = this.txtSearchText.Text;
 				float duration = results.ExecutionTime * 0.0000001F;
 				this.lblDuration.Text = duration.ToString();
-				this.pgrResults.VirtualItemCount = results.TotalCount;
-				this.rptResults.DataSource = results;
+				//this.pgrResults.VirtualItemCount = results.TotalCount;
+				this.rptResults.DataSource = filteredResults;
 				this.rptResults.DataBind();
 			}
 			else
 			{
 				this.pnlResults.Visible = false;
 				this.pnlNotFound.Visible = true;
+			}
+		}
+
+		/// <summary>
+		/// A searchresult contains a SectionId propery that indicates to which section the 
+		/// result belongs. We need to get a real Section to determine if the current user 
+		/// has view access to that Section. The fastest way is to retrieve the Sections from 
+		/// the Cache.
+		/// </summary>
+		/// <param name="nonFilteredResults"></param>
+		/// <returns></returns>
+		private SearchResultCollection FilterResults(SearchResultCollection nonFilteredResults)
+		{
+			SearchResultCollection filteredResults = new SearchResultCollection();
+			//
+			if (this.Page is PageEngine)
+			{
+				PageEngine pe = (PageEngine)this.Page;
+				CacheManager cm = new CacheManager(pe.CoreRepository, this.Module.Section.Node.Site.SiteUrl);
+				
+				foreach (SearchResult result in nonFilteredResults)
+				{
+					Section section = cm.GetSectionById(result.SectionId);
+					if (section.ViewAllowed(this.Page.User.Identity))
+					{
+						filteredResults.Add(result);
+					}
+				}
+				if (cm.HasChanges)
+				{
+					cm.SaveCache();
+				}
+
+				return filteredResults;
+			}
+			else
+			{
+				throw new InvalidOperationException("The Page property of the control has to be of the type PageEngine.");
 			}
 		}
 

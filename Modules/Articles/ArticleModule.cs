@@ -72,6 +72,11 @@ namespace Cuyahoga.Modules.Articles
 			}
 		}
 
+		/// <summary>
+		/// 
+		/// </summary>
+		/// <param name="categoryId"></param>
+		/// <returns></returns>
 		public Category GetCategoryById(int categoryId)
 		{
 			try
@@ -84,6 +89,10 @@ namespace Cuyahoga.Modules.Articles
 			}
 		}
 
+		/// <summary>
+		/// 
+		/// </summary>
+		/// <returns></returns>
 		public IList GetAllArticles()
 		{
 			try
@@ -97,6 +106,11 @@ namespace Cuyahoga.Modules.Articles
 			}
 		}
 
+		/// <summary>
+		/// 
+		/// </summary>
+		/// <param name="number"></param>
+		/// <returns></returns>
 		public IList GetDisplayArticles(int number)
 		{
 			try
@@ -114,6 +128,10 @@ namespace Cuyahoga.Modules.Articles
 			}
 		}
 
+		/// <summary>
+		/// 
+		/// </summary>
+		/// <returns></returns>
 		public IList GetDisplayArticlesByCategory()
 		{
 			try
@@ -130,6 +148,10 @@ namespace Cuyahoga.Modules.Articles
 			}
 		}
 
+		/// <summary>
+		/// 
+		/// </summary>
+		/// <returns></returns>
 		public IList GetRssArticlesByCategory()
 		{
 			try
@@ -146,6 +168,11 @@ namespace Cuyahoga.Modules.Articles
 			}
 		}
 
+		/// <summary>
+		/// 
+		/// </summary>
+		/// <param name="number"></param>
+		/// <returns></returns>
 		public IList GetRssArticles(int number)
 		{
 			try
@@ -165,6 +192,11 @@ namespace Cuyahoga.Modules.Articles
 			}
 		}
 
+		/// <summary>
+		/// 
+		/// </summary>
+		/// <param name="id"></param>
+		/// <returns></returns>
 		public Article GetArticleById(int id)
 		{
 			try
@@ -177,6 +209,10 @@ namespace Cuyahoga.Modules.Articles
 			}
 		}
 
+		/// <summary>
+		/// 
+		/// </summary>
+		/// <param name="article"></param>
 		public void SaveArticle(Article article)
 		{
 			ITransaction tx = base.NHSession.BeginTransaction();
@@ -203,6 +239,10 @@ namespace Cuyahoga.Modules.Articles
 			}
 		}
 
+		/// <summary>
+		/// 
+		/// </summary>
+		/// <param name="article"></param>
 		public void DeleteArticle(Article article)
 		{
 			ITransaction tx = base.NHSession.BeginTransaction();
@@ -219,6 +259,10 @@ namespace Cuyahoga.Modules.Articles
 			}
 		}
 
+		/// <summary>
+		/// 
+		/// </summary>
+		/// <param name="comment"></param>
 		public void SaveComment(Comment comment)
 		{
 			ITransaction tx = base.NHSession.BeginTransaction();
@@ -242,6 +286,10 @@ namespace Cuyahoga.Modules.Articles
 			}
 		}
 
+		/// <summary>
+		/// 
+		/// </summary>
+		/// <param name="comment"></param>
 		public void DeleteComment(Comment comment)
 		{
 			ITransaction tx = base.NHSession.BeginTransaction();
@@ -281,6 +329,15 @@ namespace Cuyahoga.Modules.Articles
 				}
 			}
 		}
+
+		public override void DeleteModuleContent()
+		{
+			if (this.GetAllArticles().Count > 0)
+			{
+				throw new ActionForbiddenException("You have to manually delete the related Articles before you can delete the Section.");
+			}
+		}
+
 
 		private void HandleCategory(Category category, ISession session)
 		{

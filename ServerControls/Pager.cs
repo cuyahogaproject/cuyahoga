@@ -147,6 +147,10 @@ namespace Cuyahoga.ServerControls
 			set 
 			{ 
 				ViewState["PageSize"] = value;
+				if (this._pagedDataSource != null)
+				{
+					this._pagedDataSource.PageSize = value;
+				}
 				this.ChildControlsCreated = false;
 			}
 		}

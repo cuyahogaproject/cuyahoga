@@ -122,6 +122,12 @@ namespace Cuyahoga.Core.Domain
 			}
 		}
 
+		/// <summary>
+		/// Delete the ModuleContent in the module. Leave it up to the concrete Module how to do that.
+		/// This method will likely be called before deleting a Section.
+		/// </summary>
+		public abstract void DeleteModuleContent();
+
 		public class NHSessionEventArgs : EventArgs
 		{
 			private ISession _session;

@@ -108,6 +108,17 @@ namespace Cuyahoga.Modules.StaticHtml
 			}
 		}
 
+		public override void DeleteModuleContent()
+		{
+			// Delete the associated StaticHtmlContent
+			StaticHtmlContent content = this.GetContent();
+			if (content != null)
+			{
+				DeleteContent(content);
+			}
+		}
+
+
 		private SearchContent StaticHtmlContentToSearchContent(StaticHtmlContent shc)
 		{
 			SearchContent sc = new SearchContent();

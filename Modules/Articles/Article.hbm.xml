@@ -9,7 +9,7 @@
 		<timestamp name="DateModified" column="updatetimestamp" />
 		<property name="Title" column="title" type="String" length="100" />
 		<property name="Summary" column="summary" type="String" length="255" />
-		<property name="Content" column="content" type="String" />
+		<property name="Content" column="content" type="StringClob" />
 		<property name="DateOnline" column="dateonline" type="DateTime" />
 		<property name="DateOffline" column="dateoffline" type="DateTime" />
 		<property name="DateCreated" column="inserttimestamp" type="DateTime" />

@@ -4,6 +4,7 @@ using Lucene.Net.Index;
 using Lucene.Net.Documents;
 using Lucene.Net.Analysis.Standard;
 using Lucene.Net.Store;
+using log4net;
 
 using Cuyahoga.Core.Util;
 
@@ -14,6 +15,8 @@ namespace Cuyahoga.Core.Search
 	/// </summary>
 	public class IndexBuilder : IDisposable
 	{
+		private static readonly ILog log = LogManager.GetLogger(typeof(IndexBuilder));
+
 		private Directory _indexDirectory;
 		private IndexWriter _indexWriter;
 		private bool _isClosed = false;
@@ -32,6 +35,8 @@ namespace Cuyahoga.Core.Search
 			this._rebuildIndex = rebuildIndex;
 
 			InitIndexWriter();
+
+			log.Info("IndexBuilder created.");
 		}
 
 		/// <summary>
@@ -99,6 +104,7 @@ namespace Cuyahoga.Core.Search
 				this._indexWriter.Optimize();
 				this._indexWriter.Close();
 				this._isClosed = true; 
+				log.Info("New or updated search index written to disk.");
 			}
 		}
 

@@ -142,6 +142,9 @@ namespace Cuyahoga.Core.Domain
 
 		#region events
 
+		/// <summary>
+		/// Notify the caller that the SessionFactory is rebuilt.
+		/// </summary>
 		public event EventHandler SessionFactoryRebuilt;
 
 		protected void OnSessionFactoryRebuilt(EventArgs e)

@@ -9,7 +9,10 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Web.UI.HtmlControls;
 
+using log4net;
+
 using Cuyahoga.Core.Domain;
+using Cuyahoga.Web.Util;
 
 namespace Cuyahoga.Web.Admin
 {
@@ -18,6 +21,8 @@ namespace Cuyahoga.Web.Admin
 	/// </summary>
 	public class NodeEdit : Cuyahoga.Web.Admin.UI.AdminBasePage
 	{
+		private static readonly ILog log = LogManager.GetLogger(typeof(NodeEdit));
+
 		protected System.Web.UI.WebControls.Label lblParentNode;
 		protected System.Web.UI.WebControls.DropDownList ddlTemplates;
 		protected System.Web.UI.WebControls.Button btnSave;
@@ -262,14 +267,21 @@ namespace Cuyahoga.Web.Admin
 			}
 			else if (Context.Request.QueryString["Action"] == "Delete")
 			{
+				// MBO, 20050217: TODO: this must be handled better and safer.
 				// We consider deleting a section also a 'Movement' :-)
 				try
 				{
+					// First tell the module to remove its content.
+					ModuleBase module = section.CreateModule(UrlHelper.GetUrlFromSection(section));
+					module.NHSessionRequired += new Cuyahoga.Core.Domain.ModuleBase.NHSessionEventHandler(module_NHSessionRequired);
+					module.DeleteModuleContent();
+					// Now delete the Section.
 					base.CoreRepository.DeleteObject(section);
 				}
 				catch (Exception ex)
 				{
 					ShowError(ex.Message);
+					log.Error(String.Format("Error deleting section : {0}.", section.Id.ToString()), ex);
 				}
 			}
 			// Redirect to the same page without the section movement parameters
@@ -378,6 +390,7 @@ namespace Cuyahoga.Web.Admin
 					msg += ", " + ex.InnerException.Message;
 				}
 				ShowError(msg);
+				log.Error("Error saving Node", ex);
 			}
 		}
 
@@ -420,6 +433,7 @@ namespace Cuyahoga.Web.Admin
 			catch (Exception ex)
 			{
 				this.ShowError(ex.Message);
+				log.Error("Error while switching the Template.", ex);
 			}
 		}
 
@@ -507,6 +521,7 @@ namespace Cuyahoga.Web.Admin
 				catch (Exception ex)
 				{
 					this.ShowError(ex.Message);
+					log.Error(String.Format("Error deleting Node: {0}.", this.ActiveNode.Id), ex);
 				}
 			}
 		}
@@ -530,6 +545,11 @@ namespace Cuyahoga.Web.Admin
 				// Add RoleId to the ViewState with the ClientID of the repeateritem as key.
 				this.ViewState[e.Item.ClientID] = role.Id;
 			}
+		}
+
+		private void module_NHSessionRequired(object sender, Cuyahoga.Core.Domain.ModuleBase.NHSessionEventArgs e)
+		{
+			e.Session = base.CoreRepository.ActiveSession;
 		}
 	}
 }

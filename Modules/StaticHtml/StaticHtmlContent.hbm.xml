@@ -10,7 +10,7 @@
 		<timestamp name="UpdateTimestamp" column="updatetimestamp" />
 		
 		<property name="Title" column="title" type="String" length="255" not-null="false" />
-		<property name="Content" column="content" type="String" />
+		<property name="Content" column="content" type="StringClob" />
 
 		<many-to-one name="Section" class="Cuyahoga.Core.Domain.Section, Cuyahoga.Core" column="sectionid" />
 		<many-to-one name="CreatedBy" class="Cuyahoga.Core.Domain.User, Cuyahoga.Core" column="createdby" />
