@@ -1,6 +1,6 @@
 ***VERSION***
 2.4
-2004-05-22
+2004-07-14
 Cuyahoga
 
 Martijn Boland
@@ -541,12 +541,12 @@ ShortDescription
 
 13
 varchar
-100
+255
 0
 
+Yes
 No
-No
-No
+Yes
 
 
 
