@@ -2,9 +2,16 @@ using System;
 
 namespace Cuyahoga.Core
 {
-	public class DeleteForbiddenException : ApplicationException
+	public class SiteNullException : ApplicationException
 	{
-		public DeleteForbiddenException(string message) : base(message)
+		public SiteNullException(string message) : base(message)
+		{
+		}
+	}
+
+	public class NodeNullException : ApplicationException
+	{
+		public NodeNullException(string message) : base(message)
 		{
 		}
 	}
@@ -19,6 +26,13 @@ namespace Cuyahoga.Core
 	public class ActionForbiddenException : ApplicationException
 	{
 		public ActionForbiddenException(string message) : base(message)
+		{
+		}
+	}
+
+	public class DeleteForbiddenException : ApplicationException
+	{
+		public DeleteForbiddenException(string message) : base(message)
 		{
 		}
 	}

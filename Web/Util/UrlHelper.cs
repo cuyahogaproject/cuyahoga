@@ -45,7 +45,7 @@ namespace Cuyahoga.Web.Util
 			}
 			else
 			{
-				return host + path;
+				return host + path.ToLower();
 			}
 		}
 		/// <summary>

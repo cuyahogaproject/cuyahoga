@@ -2,7 +2,7 @@ using System;
 using System.Web;
 using System.Collections;
 
-using Cuyahoga.Core;
+using Cuyahoga.Core.Domain;
 
 namespace Cuyahoga.Web.Cache
 {
@@ -15,6 +15,7 @@ namespace Cuyahoga.Web.Cache
 		private Hashtable _nodeIndex;
 		private Hashtable _nodeShortDescriptionIndex;
 		private Hashtable _sectionIndex;
+		private Site _site;
 
 		/// <summary>
 		/// Property RootNodes (Hashtable)
@@ -50,6 +51,15 @@ namespace Cuyahoga.Web.Cache
 		{
 			get { return this._sectionIndex; }
 			set { this._sectionIndex = value; }
+		}
+
+		/// <summary>
+		/// Property Site (Site)
+		/// </summary>
+		public Site Site
+		{
+			get { return this._site; }
+			set { this._site = value; }
 		}
 
 		/// <summary>

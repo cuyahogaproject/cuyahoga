@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Web;
 
+using Cuyahoga;
 using Cuyahoga.Core.Domain;
 using Cuyahoga.Core.Service;
 using Cuyahoga.Core.Util;
@@ -9,12 +10,12 @@ using Cuyahoga.Core.Util;
 namespace Cuyahoga.Web.Cache
 {
 	/// <summary>
-	/// Summary description for CacheManager.
+	/// The CacheManager stores the site structure objects (Site, Node, Section) in the ASP.NET cache and 
+	/// provides methods for retrieval of these objects.
 	/// </summary>
 	public class CacheManager
 	{
 		private CoreRepository _coreRepository;
-		private Site _site;
 		private NodeCache _nodeCache;
 		private bool _hasChanges;
 
@@ -26,27 +27,32 @@ namespace Cuyahoga.Web.Cache
 			get { return this._hasChanges; }
 		}
 
-		public string NodeCacheKey
-		{
-			get { return "NodeCache_" + this._site.Id.ToString(); }
-		}
-
 		/// <summary>
-		/// Default constructor.
+		/// Default constructor. If the cache is empty, it will be initialized based on the 
+		/// given siteUrl.
 		/// </summary>
-		public CacheManager(CoreRepository coreRepository, Site site)
+		/// <param name="coreRepository">The repository service where the CacheManager can retrieve objects.</param>
+		/// <param name="siteUrl">The base url for the site.</param>
+		public CacheManager(CoreRepository coreRepository, string siteUrl)
 		{
 			this._coreRepository = coreRepository;
-			this._site = site;
 			this._hasChanges = false;
-			if (HttpContext.Current.Cache[this.NodeCacheKey] == null)
+			if (HttpContext.Current.Cache[siteUrl] == null)
 			{
 				this._nodeCache = new NodeCache();
-				InitNodeCache();
+				this._nodeCache.Site = coreRepository.GetSiteBySiteUrl(siteUrl);
+				if (this._nodeCache.Site != null)
+				{
+					InitNodeCache();
+				}
+				else
+				{
+					throw new Cuyahoga.Core.SiteNullException("No site found for at following base url: " + siteUrl);
+				}
 			}
 			else
 			{
-				this._nodeCache = (NodeCache)HttpContext.Current.Cache[this.NodeCacheKey];				
+				this._nodeCache = (NodeCache)HttpContext.Current.Cache[siteUrl];
 			}
 		}
 
@@ -70,6 +76,12 @@ namespace Cuyahoga.Web.Cache
 			return (Node)this._nodeCache.NodeIndex[nodeId];
 		}
 
+		/// <summary>
+		/// Load a cached Section. If it's not found, it will be loaded from the database with its
+		/// associated Node and then cached.
+		/// </summary>
+		/// <param name="sectionId"></param>
+		/// <returns></returns>
 		public Section GetSectionById(int sectionId)
 		{
 			if (this._nodeCache.SectionIndex[sectionId] == null)
@@ -82,6 +94,10 @@ namespace Cuyahoga.Web.Cache
 					// Putting the node into the cache will also make an entry in the SectionIndex 
 					// table of the NodeCache.
 					LoadNodeIntoCache(section.Node);
+				}
+				else
+				{
+					throw new Cuyahoga.Core.SectionNullException("The section was not found: " + sectionId.ToString());
 				}
 			}
 			else
@@ -108,16 +124,28 @@ namespace Cuyahoga.Web.Cache
 			return (Node)this._nodeCache.NodeShortDescriptionIndex[shortDescription];
 		}
 
+		/// <summary>
+		/// Get the root node for the current site. This is the root node that has the same culture as the site.
+		/// If not found, this method returns the first root node found or null if none are available.
+		/// </summary>
+		/// <returns></returns>
 		public Node GetRootNode()
 		{
 			// Get the root node that has the same culture as the default culture of the site.
 			if (this._nodeCache.RootNodes.Count > 0)
 			{
-				Node node = (Node)this._nodeCache.RootNodes[this._site.DefaultCulture];
+				Node node = (Node)this._nodeCache.RootNodes[this._nodeCache.Site.DefaultCulture];
 				if (node == null)
 				{
 					// No node found for the default culture of the site, return the first node in the list.
-					node = (Node)this._nodeCache.RootNodes.GetByIndex(0);
+					if (this._nodeCache.RootNodes.Count > 0)
+					{
+						node = (Node)this._nodeCache.RootNodes.GetByIndex(0);
+					}
+					else
+					{
+						throw new Cuyahoga.Core.NodeNullException("No root node was found for the current site: " + this._nodeCache.Site.SiteUrl);
+					}
 				}
 				this._coreRepository.AttachNodeToCurrentSession(node);
 				return node;
@@ -134,7 +162,7 @@ namespace Cuyahoga.Web.Cache
 		public void SaveCache()
 		{
 			double nodeCacheDuration = Double.Parse(Config.GetConfiguration()["NodeCacheDuration"]);
-			HttpContext.Current.Cache.Insert(this.NodeCacheKey, this._nodeCache, null, DateTime.Now.AddSeconds(nodeCacheDuration), TimeSpan.Zero);
+			HttpContext.Current.Cache.Insert(this._nodeCache.Site.SiteUrl, this._nodeCache, null, DateTime.Now.AddSeconds(nodeCacheDuration), TimeSpan.Zero);
 		}
 
 		/// <summary>
@@ -142,7 +170,7 @@ namespace Cuyahoga.Web.Cache
 		/// </summary>
 		private void InitNodeCache()
 		{
-			IList nodes = this._coreRepository.GetRootNodes(this._site);
+			IList nodes = this._coreRepository.GetRootNodes(this._nodeCache.Site);
 			foreach (Node node in nodes)
 			{
 				RegisterNode(node, true);
@@ -220,13 +248,13 @@ namespace Cuyahoga.Web.Cache
 		/// <param name="node"></param>
 		private void LoadNodeIntoCache(Node node)
 		{
-			if (node.Id == -1)
+			if (node != null)
 			{
-				throw new ArgumentException("No node found with the given Id", "nodeId");
+				RegisterNode(node, false);
 			}
 			else
 			{
-				RegisterNode(node, false);
+				throw new Cuyahoga.Core.NodeNullException("Node was not found");
 			}
 		}
 

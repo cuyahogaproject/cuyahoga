@@ -10,7 +10,9 @@ using System.Web.UI.WebControls;
 using System.Web.UI.HtmlControls;
 using System.Configuration;
 
+using Cuyahoga.Core.Util;
 using Cuyahoga.Web.UI;
+using Cuyahoga.Web.Util;
 
 namespace Cuyahoga.Web.Admin
 {
@@ -25,7 +27,7 @@ namespace Cuyahoga.Web.Admin
 			
 			BaseTemplate templateControl = (BaseTemplate)this.LoadControl(template);
 			// TODO: insert final css (configurationfile?)
-			templateControl.Css = this.ResolveUrl(ConfigurationSettings.AppSettings["Css"]);
+			templateControl.Css = UrlHelper.GetApplicationPath() + Config.GetConfiguration()["Css"];
 			templateControl.InsertContainerButtons();
 			this.Controls.Add(templateControl);
 			

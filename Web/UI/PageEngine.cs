@@ -7,6 +7,7 @@ using System.Diagnostics;
 using System.Threading;
 using System.Globalization;
 
+using Cuyahoga.Core;
 using Cuyahoga.Core.Domain;
 using Cuyahoga.Core.Service;
 using Cuyahoga.Core.Util;
@@ -87,13 +88,11 @@ namespace Cuyahoga.Web.UI
 		/// <param name="obj"></param>
 		protected override void OnInit(EventArgs e)
 		{
-//			try
-//			{
+			try
+			{
 				this._coreRepository = (CoreRepository)HttpContext.Current.Items["CoreRepository"];
-				// Get the current site
-				Site currentSite = this._coreRepository.GetSiteBySiteUrl(Util.UrlHelper.GetSiteUrl());
-				// Get an instance of the CacheManager
-				CacheManager cm = new CacheManager(this._coreRepository, currentSite);
+				// Get the cachemanager for the current site.
+				CacheManager cm = new CacheManager(this._coreRepository, Util.UrlHelper.GetSiteUrl());
 				// Add the CacheManager to the current context, so it can track all objects during the page lifecycle.
 				Context.Items.Add("CacheManager", cm);
 				// Get initial root node from the CacheManager.
@@ -182,11 +181,24 @@ namespace Cuyahoga.Web.UI
 				// remove html that was in the original page (Default.aspx)
 				for (int i = this.Controls.Count -1; i < 0; i --)
 					this.Controls.RemoveAt(i);
-//			}
-//			catch (Exception ex)
-//			{
-//				Context.Response.Write("<h1>An error occured:</h1>" + ex.Message);
-//			}
+			}
+			// TODO: proper logging and error displaying.
+			catch (SiteNullException ex)
+			{
+				Response.Write(ex.Message);
+			}
+			catch (NodeNullException ex)
+			{
+				Response.Write(ex.Message);
+			}
+			catch (SectionNullException ex)
+			{
+				Response.Write(ex.Message);
+			}
+			catch (Exception ex)
+			{
+				throw ex;
+			}
 			base.OnInit(e);
 		}
 
