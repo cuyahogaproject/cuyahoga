@@ -17,7 +17,7 @@
                 DelaySign = "false"
                 OutputType = "Library"
                 PreBuildEvent = ""
-                PostBuildEvent = 'xcopy /s /y "$(ProjectDir)"*.as?x "$(SolutionDir)"Web\Modules&#xd;&#xa;xcopy /s /y "$(ProjectDir)"*.xslt "$(SolutionDir)"Web\Modules&#xd;&#xa;xcopy /s /y "$(TargetDir)"Cuyahoga.Modules*.dll "$(SolutionDir)"Web\bin'
+                PostBuildEvent = 'xcopy /s /y "$(ProjectDir)"*.as?x "$(SolutionDir)"Web\Modules&#xd;&#xa;xcopy /s /y "$(TargetDir)"Cuyahoga.Modules*.dll "$(SolutionDir)"Web\bin&#xd;&#xa;xcopy /s /y "$(TargetDir)"FredCK.FCKeditorV2.dll "$(SolutionDir)"Web\bin'
                 RootNamespace = "Cuyahoga.Modules"
                 RunPostBuildEvent = "OnBuildSuccess"
                 StartupObject = ""
