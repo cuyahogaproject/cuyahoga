@@ -1,6 +1,8 @@
 using System;
 using System.Collections;
 
+using Gentle.Framework;
+
 using Cuyahoga.Core;
 
 namespace Cuyahoga.Modules.Articles
@@ -17,8 +19,17 @@ namespace Cuyahoga.Modules.Articles
 		/// </summary>
 		public IList Articles
 		{
-			get { return this._articles; }
-			set { this._articles = value; }
+			get 
+			{ 
+				if (this._articles == null && base.Section != null)
+				{
+					SqlBuilder sb = new SqlBuilder(StatementType.Select, typeof(Article));
+					sb.AddConstraint(Operator.Equals, "sectionid", base.Section.Id);
+					SqlResult res = Broker.Execute(sb.GetStatement());
+					this._articles = ObjectFactory.GetCollection(typeof(Article), res);
+				}
+				return this._articles; 
+			}
 		}
 
 		public ArticleModule()
@@ -33,7 +44,7 @@ namespace Cuyahoga.Modules.Articles
 
 		public override void DeleteContent()
 		{
-			if (this._articles != null && this._articles.Count > 0)
+			if (this.Articles != null && this.Articles.Count > 0)
 			{
 				throw new DeleteForbiddenException("You can't delete an article section when there is still content in it.");
 			}

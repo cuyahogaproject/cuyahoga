@@ -474,6 +474,22 @@
                     BuildAction = "EmbeddedResource"
                 />
                 <File
+                    RelPath = "Modules\Articles\EditArticles.aspx"
+                    SubType = "Form"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Modules\Articles\EditArticles.aspx.cs"
+                    DependentUpon = "EditArticles.aspx"
+                    SubType = "ASPXCodeBehind"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "Modules\Articles\EditArticles.aspx.resx"
+                    DependentUpon = "EditArticles.aspx.cs"
+                    BuildAction = "EmbeddedResource"
+                />
+                <File
                     RelPath = "Modules\StaticHtml\EditHtml.aspx"
                     SubType = "Form"
                     BuildAction = "Content"

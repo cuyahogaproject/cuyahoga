@@ -12,7 +12,14 @@
 	</head>
 	<body ms_positioning="FlowLayout">
 		<form id="Form1" method="post" runat="server">
-			<h1>Edit static content</h1><cc1:cuyahogaeditor id="cedStaticHtml" runat="server" supportfolder="~/Support/FreeTextBox/" buttonoverimage="True" buttonrendermode="Css" downlevelcols="80" downlevelrows="20" width="700px" height="400px" imagedir="~/UserFiles/Images"></cc1:cuyahogaeditor><br><br><asp:button id="btnSave" runat="server" text="Save"></asp:button></form>
+			<div id="moduleadminpane">
+				<h1>Edit static content</h1>
+				<cc1:cuyahogaeditor id="cedStaticHtml" runat="server" supportfolder="~/Support/FreeTextBox/" buttonoverimage="True" buttonrendermode="Css" downlevelcols="80" downlevelrows="20" width="700px" height="400px" imagedir="~/UserFiles/Images"></cc1:cuyahogaeditor>
+				<br>
+				<br>
+				<asp:button id="btnSave" runat="server" text="Save"></asp:button>
+			</div>
+		</form>
 
 	</body>
 </html>

@@ -315,6 +315,7 @@ namespace Cuyahoga.Modules.Articles
 				if (category.Id == 0)
 				{
 					// verify existence
+					// note: perhaps this is not the most elegant place for this logic.
 					SqlBuilder sb = new SqlBuilder(StatementType.Select, typeof(Category));
 					sb.AddConstraint(Operator.Equals, "title", category.Title);
 					SqlResult res = Broker.Execute(sb.GetStatement());

@@ -236,6 +236,13 @@ table.tbl a
 	background-color: #FFFFFF;
 }
 
+#moduleadminpane
+{
+	margin: 10px;
+	padding: 10px;
+	background-color: #FFFFFF;
+}
+
 #login
 {
 	background-color: #FFFFFF;

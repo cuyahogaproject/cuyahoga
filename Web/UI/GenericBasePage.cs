@@ -42,7 +42,7 @@ namespace Cuyahoga.Web.UI
 			this._css = css;
 		}
 
-		protected override void AddParsedSubObject(object obj)
+		protected override void OnInit(EventArgs e)
 		{
 			// Init
 			PlaceHolder plc = null;
@@ -80,7 +80,7 @@ namespace Cuyahoga.Web.UI
 				while (col.Count > 1)
 					col.Remove(col[1]);				
 			}
-			base.AddParsedSubObject (obj);
+			base.OnInit(e);
 		}
 
 		/// <summary>
