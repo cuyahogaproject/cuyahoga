@@ -38,8 +38,8 @@ namespace Cuyahoga.Web.Modules.StaticHtml
 				{
 					this.ftbStaticHtml.Text = this._module.StaticHtmlContent.Content;
 				}
-				InsertFtbWordClean();
 			}
+			InsertFtbWordClean();
 		}
 
 		private void InsertFtbWordClean()

@@ -37,7 +37,9 @@ function FTB_Initialize(ftbName) {
 	}
 	
 	editor.document.open();
+	//if (!isIE) editor.document.write("<html><body><style type='text/css'>body { direction: rtl; }</style>");
 	editor.document.write(hiddenHtml.value);
+	//if (!isIE) editor.document.write("</body><html>");
 	editor.document.close();
 		
 	if (isIE) {
@@ -58,6 +60,8 @@ function FTB_Initialize(ftbName) {
 	}
 	
 	editor.document.body.style.border = '0';
+	if (FTB_GetTextDirection(ftbName) == "RightToLeft")
+		editor.document.body.style.direction = 'rtl';
 	
 	if (isIE) {
 		editor.document.onkeydown = function() {
@@ -107,6 +111,7 @@ function FTB_ChangeMode(ftb,goToHtmlMode) {
 	var toolbar = FTB_GetToolbar(ftbName);
 	var hideToolbar = FTB_HideToolbar(ftbName);
 	var editorContent;
+	var iframe = document.getElementById(ftbName + "_Editor");
 	
 	editor.focus();
 	
@@ -126,13 +131,17 @@ function FTB_ChangeMode(ftb,goToHtmlMode) {
 			editor.document.body.innerText = editorContent;
 		
 		} else {			
+
 			editorContent = document.createTextNode(editor.document.body.innerHTML);
 			editor.document.body.innerHTML = "";
-			editor.document.body.appendChild(editorContent);			
+			editor.document.body.appendChild(editorContent);	
+			
 		}
 		
 		if (toolbar != null && hideToolbar ) {
+			if (!isIE) iframe.style.height = '50%';
 			toolbar.style.display = 'none';
+			if (!isIE) setTimeout(function() { iframe.style.height = '100%'; }, 0);				
 		}		
 		return true;
 	} else {
@@ -158,7 +167,9 @@ function FTB_ChangeMode(ftb,goToHtmlMode) {
 		}
 
 		if (toolbar != null && hideToolbar ) {
-			toolbar.style.display = 'inline';
+			if (!isIE) iframe.style.height = '50%';
+			toolbar.style.display = '';
+			if (!isIE) setTimeout(function() { iframe.style.height = '100%'; editor.focus();}, 0);				
 		}
 		
 		editor.focus(); 
@@ -196,11 +207,14 @@ function FTB_Format(ftbName,commandName) {
 	if (FTB_IsHtmlMode(ftbName)) return;
 	editor.focus();
 	editor.document.execCommand(commandName,'',null);
+	
+	//FTB_Event(ftbName);
 }
 
 function FTB_SurroundText(ftbName,start,end) {
 	if (FTB_IsHtmlMode(ftbName)) return;
 	editor = FTB_GetIFrame(ftbName);
+	editor.focus();
 	
 	if (isIE) {
 		var sel = editor.document.selection.createRange();
@@ -311,8 +325,16 @@ function FTB_UpdateToolbar(ftbName) {
 	return (eval(ftbName + "_UpdateToolbar"));
 }
 
+function FTB_ButtonRenderMode(ftbName) {
+	return (eval(ftbName + "_ButtonRenderMode"));
+}
+
 function FTB_GetHiddenField(ftbName) {
 	return document.getElementById(ftbName);
+}
+
+function FTB_GetTextDirection(ftbName) {
+	return (eval(ftbName + "_TextDirection"));
 }
 
 function FTB_GetIFrame(ftbName) {
@@ -330,7 +352,6 @@ function FTB_GetToolbar(ftbName) {
 function FTB_GetToolbarArray(ftbName) {
 	return eval(ftbName + "_ToolbarItems");
 }
-
 function FTB_GetCssID(ftbName) {
 	cssID = ftbName;
 	while (cssID.substring(0,1) == '_') {
@@ -338,10 +359,10 @@ function FTB_GetCssID(ftbName) {
 	}
 	return cssID;
 }
-/** END:PROPERTIES ********************/
 
-/** START: BUTTONS **********************/
+/** START: BUTTONS **************/
 
+/** CSS BUTTON FUNCTIONS **************/
 function FTB_SetButtonStyle(buttonTD,style,checkstyle) {
 	if (buttonTD == null) return;
 	if (buttonTD.className != checkstyle)
@@ -353,6 +374,8 @@ function FTB_GetClassSubName(className) {
 	if (underscore < 0) return className;
 	return className.substring(underscore+1);
 }
+
+/** JS BUTTON FUNCTIONS **************/
 function FTB_ButtonOver(theTD,ftbName,imageOver,imageDown) {
 	FTB_SetButtonStyle(theTD,FTB_GetCssID(ftbName)+'_ButtonOver',null);
 	
@@ -418,8 +441,8 @@ function FTB_ButtonUp(theTD,ftbName,imageOver,imageDown) {
 	
 	//FTB_Event(ftbName);
 }
-/** END:BUTTONS ********************/
 
+/** END:PROPERTIES ********************/
 
 /** START:TABS ********************/
 function FTB_SetActiveTab(theTD,ftbName) {
@@ -600,9 +623,318 @@ function FTB_SetButtonState(buttonName,ftbName,value) {
 	
 	if (buttonTD) {
 		if (value) {
-			FTB_ButtonOver(buttonTD,ftbName,0,0);
+			if (FTB_ButtonRenderMode(ftbName) == 'Css') 
+				buttonTD.className = FTB_GetCssID(ftbName) + "_ButtonActive";
+			else 
+				FTB_ButtonOver(buttonTD,ftbName,0,0);
 		} else {
-			FTB_ButtonOut(buttonTD,ftbName,0,0);
+			if (FTB_ButtonRenderMode(ftbName) == 'Css') 
+				buttonTD.className = FTB_GetCssID(ftbName) + "_ButtonNormal";
+			else 
+				FTB_ButtonOut(buttonTD,ftbName,0,0);
 		}
 	}
+}
+
+// *******************************
+
+function FTB_GetParentElement(ftbName) {
+	editor = FTB_GetIFrame(ftbName);
+
+	var sel = FTB_GetSelection(ftbName);
+	var range = FTB_CreateRange(ftbName,sel);
+	if (isIE) {
+		switch (sel.type) {
+		    case "Text":
+		    case "None":
+				// It seems that even for selection of type "None",
+				// there _is_ a parent element and it's value is not
+				// only correct, but very important to us.  MSIE is
+				// certainly the buggiest browser in the world and I
+				// wonder, God, how can Earth stand it?
+				return range.parentElement();
+		    case "Control":
+				return range.item(0);
+		    default:
+				return editor.document.body;
+		}
+	} else try {
+		var p = range.commonAncestorContainer;
+		if (!range.collapsed && range.startContainer == range.endContainer &&
+		    range.startOffset - range.endOffset <= 1 && range.startContainer.hasChildNodes())
+			p = range.startContainer.childNodes[range.startOffset];
+		/*
+		alert(range.startContainer + ":" + range.startOffset + "\n" +
+		      range.endContainer + ":" + range.endOffset);
+		*/
+		while (p.nodeType == 3) {
+			p = p.parentNode;
+		}
+		return p;
+	} catch (e) {
+		return null;
+	}
+}
+
+function FTB_InsertNodeAtSelection(ftbName,toBeInserted) {
+	if (!isIE) {
+		var editor = FTB_GetIFrame(ftbName);
+		var sel = FTB_GetSelection(ftbName);
+		var range = FTB_CreateRange(ftbName,sel);
+		// remove the current selection
+		sel.removeAllRanges();
+		range.deleteContents();
+		var node = range.startContainer;
+		var pos = range.startOffset;
+		switch (node.nodeType) {
+		    case 3: // Node.TEXT_NODE
+			// we have to split it at the caret position.
+			if (toBeInserted.nodeType == 3) {
+				// do optimized insertion
+				node.insertData(pos, toBeInserted.data);
+				range = this._createRange();
+				range.setEnd(node, pos + toBeInserted.length);
+				range.setStart(node, pos + toBeInserted.length);
+				sel.addRange(range);
+			} else {
+				node = node.splitText(pos);
+				var selnode = toBeInserted;
+				if (toBeInserted.nodeType == 11 /* Node.DOCUMENT_FRAGMENT_NODE */) {
+					selnode = selnode.firstChild;
+				}
+				node.parentNode.insertBefore(toBeInserted, node);
+				editor.selectNodeContents(selnode);
+			}
+			break;
+		    case 1: // Node.ELEMENT_NODE
+			var selnode = toBeInserted;
+			if (toBeInserted.nodeType == 11 /* Node.DOCUMENT_FRAGMENT_NODE */) {
+				selnode = selnode.firstChild;
+			}
+			node.insertBefore(toBeInserted, node.childNodes[pos]);
+			FTB_SelectNodeContents(editor,selnode);
+			break;
+		}
+	}
+}
+
+// Selects the contents inside the given node
+function FTB_SelectNodeContents(ftbName, node, pos) {
+	
+
+	editor = FTB_GetIFrame(ftbName);
+	
+
+	var range;
+	var collapsed = (typeof pos != "undefined");
+	if (isIE) {
+		range = editor.document.body.createTextRange();
+		range.moveToElementText(node);
+		(collapsed) && range.collapse(pos);
+		range.select();
+	} else {
+		var sel = FTB_GetSelection(ftbName);
+		range = editor.document.createRange();
+		range.selectNodeContents(node);
+		(collapsed) && range.collapse(pos);
+		sel.removeAllRanges();
+		sel.addRange(range);
+	}
+};
+
+// returns the current selection object
+function FTB_GetSelection(ftbName) {
+	editor = FTB_GetIFrame(ftbName);
+	if (isIE) {
+		return editor.document.selection;
+	} else {
+		return editor.getSelection();
+	}
+}
+
+// returns a range for the current selection
+function FTB_CreateRange(ftbName,sel) {
+	editor = FTB_GetIFrame(ftbName);
+	if (isIE) {
+		return sel.createRange();
+	} else {
+		//TODO: this.focusEditor();
+		if (typeof sel != "undefined") {
+			try {
+				return sel.getRangeAt(0);
+			} catch(e) {
+				return editor.document.createRange();
+			}
+		} else {
+			return editor.document.createRange();
+		}
+	}
+}
+
+/* TABLE FUNCTIONS 
+   MODIFIED FROM HtmlArea (thanks guys!)
+**********************************************/
+
+// helper function that clears the content in a table row
+function FTB_ClearRow(tr) {
+	var tds = tr.getElementsByTagName("td");
+	for (var i = tds.length; --i >= 0;) {
+		var td = tds[i];
+		td.rowSpan = 1;
+		td.innerHTML = (isIE) ? "" : "<br />";
+	}
+}
+
+function FTB_SplitRow(td) {
+	var n = parseInt("" + td.rowSpan);
+	var nc = parseInt("" + td.colSpan);
+	td.rowSpan = 1;
+	tr = td.parentNode;
+	var itr = tr.rowIndex;
+	var trs = tr.parentNode.rows;
+	var index = td.cellIndex;
+	while (--n > 0) {
+		tr = trs[++itr];
+		var otd = editor._doc.createElement("td");
+		otd.colSpan = td.colSpan;
+		otd.innerHTML = mozbr;
+		tr.insertBefore(otd, tr.cells[index]);
+	}
+	//editor.forceRedraw();
+	//editor.updateToolbar();
+}
+
+function FTB_SplitCol(td) {
+	var nc = parseInt("" + td.colSpan);
+	td.colSpan = 1;
+	tr = td.parentNode;
+	var ref = td.nextSibling;
+	while (--nc > 0) {
+		var otd = editor._doc.createElement("td");
+		otd.rowSpan = td.rowSpan;
+		otd.innerHTML = mozbr;
+		tr.insertBefore(otd, ref);
+	}
+	//editor.forceRedraw();
+	//editor.updateToolbar();
+}
+
+function FTB_SplitCell(td) {
+	var nc = parseInt("" + td.colSpan);
+	splitCol(td);
+	var items = td.parentNode.cells;
+	var index = td.cellIndex;
+	while (nc-- > 0) {
+		FTB_SplitRow(items[index++]);
+	}
+}
+
+function FTB_SelectNextNode(el) {
+	var node = el.nextSibling;
+	while (node && node.nodeType != 1) {
+		node = node.nextSibling;
+	}
+	if (!node) {
+		node = el.previousSibling;
+		while (node && node.nodeType != 1) {
+			node = node.previousSibling;
+		}
+	}
+	if (!node) {
+		node = el.parentNode;
+	}
+	//editor.selectNodeContents(node);
+}
+
+function FTB_GetClosest(ftbName,tagName) {
+	var editor = FTB_GetIFrame(ftbName);
+	var ancestors = FTB_GetAllAncestors(ftbName);
+	var ret = null;
+	tagName = ("" + tagName).toLowerCase();
+	for (var i in ancestors) {
+		var el = ancestors[i];
+		if (el.tagName.toLowerCase() == tagName) {
+			ret = el;
+			break;
+		}
+	}
+	return ret;
+}
+function FTB_GetAllAncestors(ftbName) {
+	editor = FTB_GetIFrame(ftbName);
+	var p = FTB_GetParentElement(ftbName);
+	var a = [];
+	while (p && (p.nodeType == 1) && (p.tagName.toLowerCase() != 'body')) {
+		a.push(p);
+		p = p.parentNode;
+	}
+	a.push(editor.document.body);
+	return a;
+}
+
+function FTB_InsertColumn(ftbName,after) {
+	editor = FTB_GetIFrame(ftbName);
+	var td = FTB_GetClosest(ftbName,"td");
+	if (!td) {
+		return;
+	}
+	var rows = td.parentNode.parentNode.rows;
+	var index = td.cellIndex;
+	for (var i = rows.length; --i >= 0;) {
+		var tr = rows[i];
+		var ref = tr.cells[index + ((after) ? 1 : 0)];  // 0
+		var otd = editor.document.createElement("td");
+		otd.innerHTML = (isIE) ? "" : "<br />";
+		tr.insertBefore(otd, ref);
+	}
+}
+function FTB_InsertTableRow(ftbName,after) { 
+	if (FTB_IsHtmlMode(ftbName)) return;	
+	var tr = FTB_GetClosest(ftbName,"tr");
+	if (!tr) {
+		return;
+	}
+	var otr = tr.cloneNode(true);
+	FTB_ClearRow(otr);
+	tr.parentNode.insertBefore(otr, ((after) ? tr.nextSibling : tr));
+}
+function FTB_CreateTable(ftbName,cols,rows,width,widthUnit,align,cellpadding,cellspacing,border) {
+	var editor = FTB_GetIFrame(ftbName);
+	var sel = FTB_GetSelection(ftbName);
+	var range = FTB_CreateRange(ftbName,sel);	
+	
+	var doc = editor.document;
+	// create the table element
+	var table = doc.createElement("table");
+	
+
+	// assign the given arguments
+	table.style.width 	= width + widthUnit;
+	table.align	 		= align;
+	table.border	 	= border;
+	table.cellspacing 	= cellspacing;
+	table.cellpadding 	= cellpadding;
+
+	
+	var tbody = doc.createElement("tbody");
+	table.appendChild(tbody);	
+
+	for (var i = 0; i < rows; ++i) {
+		var tr = doc.createElement("tr");
+		tbody.appendChild(tr);
+		for (var j = 0; j < cols; ++j) {
+			var td = doc.createElement("td");
+			tr.appendChild(td);
+			// Mozilla likes to see something inside the cell.
+			if (!isIE) td.appendChild(doc.createElement("br"));
+		}
+	}
+	
+	if (isIE) {
+		range.pasteHTML(table.outerHTML);
+	} else {
+		FTB_InsertNodeAtSelection(ftbName,table);
+	}
+	
+	return true;
 }

@@ -1,4 +1,4 @@
-//** FreeTextBox Builtin ToolbarItems Script ***/
+//** FreeTextBox Builtin ToolbarItems Script (2.0.5) ***/
 //   by John Dyer
 //   http://www.freetextbox.com/
 //**********************************************/
@@ -46,6 +46,54 @@ function FTB_Delete(ftbName) {
 	}
 	editor.focus();
 }
+function FTB_DeleteTableColumn(ftbName) { 
+	if (FTB_IsHtmlMode(ftbName)) return;
+	var td = this.FTB_GetClosest(ftbName,"td");
+	if (!td) {
+		return;
+	}
+	var index = td.cellIndex;
+	if (td.parentNode.cells.length == 1) {
+		//alert("Don't delete last column");
+		return;
+	}
+	// set the caret first to a position that doesn't disappear
+	FTB_SelectNextNode(td);
+	var rows = td.parentNode.parentNode.rows;
+	for (var i = rows.length; --i >= 0;) {
+		var tr = rows[i];
+		tr.removeChild(tr.cells[index]);
+	}
+}
+function FTB_DeleteTableRow(ftbName) {
+	var tr = FTB_GetClosest(ftbName,"tr");
+	if (!tr) {
+		return;
+	}
+	var par = tr.parentNode;
+	if (par.rows.length == 1) {
+		//alert("Don't delete the last row!");
+		return;
+	}
+	// set the caret first to a position that doesn't
+	// disappear.
+	FTB_SelectNextNode(tr);
+	par.removeChild(tr);
+}
+function FTB_ieSpellCheck(ftbName) { 
+    if (FTB_IsHtmlMode(ftbName)) return;
+	if (!isIE) {
+		alert('IE Spell is not supported in Mozilla');
+		return;
+	}
+	try {
+		var tspell = new ActiveXObject('ieSpell.ieSpellExtension');
+		tspell.CheckAllLinkedDocuments(window.document);
+	} catch (err){
+		if (window.confirm('You need ieSpell to use spell check. Would you like to install it?')){window.open('http://www.iespell.com/download.php');};
+	};
+
+}
 function FTB_Indent(ftbName) { 
 	FTB_Format(ftbName,'indent'); 
 }
@@ -61,6 +109,18 @@ function FTB_InsertImage(ftbName) {
 }
 function FTB_InsertRule(ftbName) { 
 	FTB_Format(ftbName,'inserthorizontalrule');
+}
+function FTB_InsertTableColumnAfter(ftbName) { 
+	FTB_InsertColumn(ftbName,true);
+}
+function FTB_InsertTableColumnBefore(ftbName) { 
+	FTB_InsertColumn(ftbName,false);
+}
+function FTB_InsertTableRowAfter(ftbName) { 
+	FTB_InsertTableRow(ftbName,true);
+}
+function FTB_InsertTableRowBefore(ftbName) { 
+	FTB_InsertTableRow(ftbName,false);
 }
 function FTB_InsertTime(ftbName) { 
 	var d = new Date();
@@ -80,6 +140,14 @@ function FTB_JustifyFull(ftbName) {
 }
 function FTB_JustifyLeft(ftbName) { 
 	FTB_Format(ftbName,'justifyleft'); 
+}
+function FTB_NetSpell(ftbName) { 
+    if (FTB_IsHtmlMode(ftbName)) return;
+	try {
+		checkSpellingById(ftbName + '_Editor');
+	} catch(e) {
+		alert('Netspell libraries not properly linked.');
+	}
 }
 function FTB_NumberedList(ftbName) { 
 	FTB_Format(ftbName,'insertorderedlist'); 
@@ -174,156 +242,142 @@ function FTB_SetParagraph(ftbName,name,value) {
 	}
 	editor.document.execCommand('formatBlock','',value);
 }
+function FTB_SetStyle(ftbName,name,value) { 
+
+}
 function FTB_SymbolsMenu(ftbName,name,value) {
 	FTB_InsertText(ftbName,value);
 }
-function FTB_SetStyle(ftbName,name,value) { 
+function FTB_InsertTable(ftbName) {
 	editor = FTB_GetIFrame(ftbName);
-	cssClass = value;
-
+	editor.focus();
 	
-	if (cssClass == "[Remove Style]") { 
-		if (editor.document.selection.type == "Control") { 
-			var oControlRange = editor.document.selection.createRange(); 
-			var oControlItem = oControlRange.item(0); 
-			var oTextRange = editor.document.body.createTextRange(); 
-			oTextRange.moveToElementText(oControlItem); 
-			oTextRange.select(); 
-			var sHTML = oTextRange.htmlText; 
-			sHTML = sHTML.replace(/<SPAN[^>]*>([\s\S]*?)<\/SPAN>/ig, "<FONT face=ftb_removestyle>$1</FONT>"); 
-			oTextRange.pasteHTML(sHTML); 
-		} else { 
-			var oRange = editor.document.selection.createRange(); 
-			oRange.execCommand("FontName", false, "ftb_removestyle"); 
-		} 
-		FTB_RemoveStyle(editor.document.body); 
-		FTB_RemoveStyleClean(editor.document.body); 
-	} else { 
-		if (editor.document.selection.type == "Control") { 
-			var oControlRange = editor.document.selection.createRange(); 
-			var oControlItem = oControlRange.item(0); 
-			var oTextRange = editor.document.body.createTextRange(); 
-			oTextRange.moveToElementText(oControlItem); oTextRange.select(); 
-			var sHTML = oTextRange.htmlText; 
-			sHTML = sHTML.replace(/<SPAN[^>]*>([\s\S]*?)<\/SPAN>/ig, "$1"); 
-			oTextRange.pasteHTML("<FONT face=ftb_span>" + sHTML + "</FONT>"); 
-		} else { 
-			var oRange = editor.document.selection.createRange(); 
-			var sBookmark = oRange.getBookmark(); 
-			var sHTML = oRange.htmlText; 
-			sHTML = sHTML.replace(/class=\w*/ig,""); 
-			oRange.pasteHTML(sHTML); oRange.moveToBookmark(sBookmark); 
-			oRange.execCommand("FontName", false, "ftb_span"); 
-		} 
-		FTB_FontsToSpans(editor.document, editor.document.body, cssClass); 
-		FTB_JoinSpans(editor.document.body, null); 
-		FTB_RemoveEmptySpans(editor.document.body); 
-	} 
-} 
-function FTB_RemoveStyle(oElement) { 
-	for (var i=0;i<oElement.childNodes.length;i++) { 
-		FTB_RemoveStyle(oElement.childNodes[i]); 
-	} 
-	if(oElement.tagName=="SPAN") { 
-		if(oElement.innerHTML.indexOf("ftb_removestyle")!=-1) { 
-			oElement.removeNode(false); 
-		} 
-	} 
-} 
-function FTB_RemoveStyleClean(oElement) { 
-	for(var i=0;i<oElement.childNodes.length;i++) { 
-		FTB_RemoveStyleClean(oElement.childNodes[i]); 
-	} 
-	if (oElement.tagName=="FONT") { 
-		if (oElement.face=="ftb_removestyle") { 
-			oElement.removeNode(false); 
-		} 
-	} 
-} 
-function FTB_FontsToSpans(oDocument, oElement, sClass) { 
-	for(var i=0;i<oElement.childNodes.length;i++) { 
-		FTB_FontsToSpans(oDocument, oElement.childNodes[i], sClass); 
-	} 
-	if (oElement.tagName=="FONT") { 
-		if(oElement.face=="ftb_span") { 
-			sPreserve=oElement.innerHTML; 
-			oSpan=oDocument.createElement("SPAN"); 
-			oElement.replaceNode(oSpan); 
-			oSpan.innerHTML=sPreserve; 
-			oSpan.className=sClass; 
-		} else { 
-			var sStyle = ""; 
-			if (oElement.face.length) { 
-				sStyle += "font-family: " + oElement.face + ";"; 
-			} 
-			if (oElement.size.length) { 
-				var sSize = oElement.size; 
-				if (sSize=="1") sSize = "xx-small"; 
-				if (sSize=="2") sSize = "x-small"; 
-				if (sSize=="3") sSize = "small"; 
-				if (sSize=="4") sSize = "medium"; 
-				if (sSize=="5") sSize = "large"; 
-				if (sSize=="6") sSize = "x-large"; 
-				if (sSize=="7") sSize = "xx-large"; 
-				if (sSize.substring(0, 1)=="-") sSize = "smaller"; 
-				if (sSize.substring(0, 1)=="+") sSize = "larger"; 
-				sStyle += "font-size: " + sSize + ";"; 
-			} 
-			if (oElement.color.length) { 
-				sStyle += "color: " + oElement.color + ";"; 
-			} 
-			if (sStyle.length) { 
-				sPreserve=oElement.innerHTML; 
-				oSpan=oDocument.createElement("SPAN"); 
-				oElement.replaceNode(oSpan); 
-				oSpan.innerHTML=sPreserve; 
-				oSpan.style.cssText=sStyle; 
-			} 
-		} 
-	} 
-} 
-function FTB_JoinSpans(oElement, oParent) { 
-	for(var i=0;i<oElement.childNodes.length;i++) { 
-		var oChild = oElement.childNodes[i]; 
-		oElement = FTB_JoinSpans(oChild, oElement); 
-	} 
-	if (oElement.tagName=="SPAN" && oParent != null && oParent.tagName =="SPAN") { 
-		if (oElement.innerText == oParent.innerText) { 
-			sElementClass=oElement.className; 
-			sParentClass=oParent.className; 
-			if(sParentClass.length && !sElementClass.length) { 
-				oElement.setAttribute("class", sParentClass); 
-			} 
-			var parentAttributes = oParent.style.cssText.split("; "); 
-			var elementAttributes = oElement.style.cssText.split("; "); 
-			for (var i=0;i<parentAttributes.length;i++) { 
-				var parentPairs = parentAttributes[i].split(":"); 
-				var sPKey = parentPairs[0]; 
-				var sPValue = parentPairs[1]; 
-				var bKeyExists = false; 
-				for (var k=0;k<elementAttributes.length;k++) { 
-					var elementPairs = elementAttributes[k].split(":"); 
-					var sEKey = elementPairs[0]; 
-					var sEValue = elementPairs[1]; 
-					if (sEKey == sPKey) { 
-						bKeyExists = true; break; 
-					} 
-				} 
-				if (!bKeyExists) { 
-					oElement.style.cssText = oElement.style.cssText + ";" + sPKey + ":" + sPValue; 
-				} 
-			} 
-			oParent.removeNode(false); 
-			return oElement; 
-		} 
-	} 
-	return oParent; 
-} 
-function FTB_RemoveEmptySpans(oElement) { 
-	for(var i=0;i<oElement.childNodes.length;i++) { 
-		FTB_RemoveEmptySpans(oElement.childNodes[i]); 
-	} 
-	if (oElement.tagName=="SPAN" && oElement.className.length==0 && oElement.style.cssText=="") { 
-		oElement.removeNode(false); 
-	} 
+	var tableWin = window.open("","tableWin","width=400,height=180");
+	tableWin.focus();
+	
+	tableWin.document.body.innerHTML = "";
+	tableWin.document.write("<html>\
+<head> \
+<style type='text/css'> \
+html, body { \
+  background: ButtonFace; \
+  color: ButtonText; \
+  font: 11px Tahoma,Verdana,sans-serif; \
+  margin: 0px; \
+  padding: 0px; \
+} \
+body { padding: 5px; } \
+table { \
+  font: 11px Tahoma,Verdana,sans-serif; \
+} \
+form p { \
+  margin-top: 5px; \
+  margin-bottom: 5px; \
+} \
+.fl { width: 9em; float: left; padding: 2px 5px; text-align: right; } \
+.fr { width: 7em; float: left; padding: 2px 5px; text-align: right; } \
+fieldset { padding: 0px 10px 5px 5px; } \
+select, input, button { font: 11px Tahoma,Verdana,sans-serif; } \
+button { width: 70px; } \
+.space { padding: 2px; } \
+ \
+.title { background: #ddf; color: #000; font-weight: bold; font-size: 120%; padding: 3px 10px; margin-bottom: 10px; \
+border-bottom: 1px solid black; letter-spacing: 2px; \
+} \
+form { padding: 0px; margin: 0px; } \
+</style> \
+<script language='JavaScript'> \
+function insertTable() { \
+	cols = parseInt(document.getElementById('f_cols').value); \
+	rows = parseInt(document.getElementById('f_rows').value); \
+	width = document.getElementById('f_width').value; \
+	widthUnit = document.getElementById('f_unit').options[document.getElementById('f_unit').selectedIndex].value; \
+	align = document.getElementById('f_align').value; \
+	cellpadding = document.getElementById('f_padding').value; \
+	cellspacing = document.getElementById('f_spacing').value; \
+	border = document.getElementById('f_border').value; \
+	window.opener.FTB_CreateTable('" + ftbName + "',cols,rows,width,widthUnit,align,cellpadding,cellspacing,border); \
+} \
+</script> \
+</head> \
+<body> \
+<form action=''> \
+ \
+<table border='0' style='padding: 0px; margin: 0px'> \
+  <tbody> \
+  <tr> \
+    <td style='width: 4em; text-align: right'>Rows:</td> \
+    <td><input type='text' name='rows' id='f_rows' size='5' title='Number of rows' value='2' /></td> \
+    <td></td> \
+    <td></td> \
+    <td></td> \
+  </tr> \
+  <tr> \
+    <td style='width: 4em; text-align: right'>Cols:</td> \
+    <td><input type='text' name='cols' id='f_cols' size='5' title='Number of columns' value='4' /></td> \
+    <td style='width: 4em; text-align: right'>Width:</td> \
+    <td><input type='text' name='width' id='f_width' size='5' title='Width of the table' value='100' /></td> \
+    <td><select size='1' name='unit' id='f_unit' title='Width unit'> \
+      <option value='%' selected='1'  >Percent</option> \
+      <option value='px'              >Pixels</option> \
+      <option value='em'              >Em</option> \
+    </select></td> \
+  </tr> \
+  </tbody> \
+</table> \
+ \
+<fieldset style='float: left; margin-left: 5px;'> \
+<legend>Layout</legend> \
+ \
+<div class='space'></div> \
+ \
+<div class='fl'>Alignment:</div> \
+<select size='1' name='align' id='f_align' \
+  title='Positioning of this image'> \
+  <option value='' selected='1'                >Not set</option> \
+  <option value='left'                         >Left</option> \
+  <option value='right'                        >Right</option> \
+  <option value='texttop'                      >Texttop</option> \
+  <option value='absmiddle'                    >Absmiddle</option> \
+  <option value='baseline'                     >Baseline</option> \
+  <option value='absbottom'                    >Absbottom</option> \
+  <option value='bottom'                       >Bottom</option> \
+  <option value='middle'                       >Middle</option> \
+  <option value='top'                          >Top</option> \
+</select> \
+ \
+<p /> \
+ \
+<div class='fl'>Border thickness:</div> \
+<input type='text' name='border' id='f_border' size='5' value='1' title='Leave empty for no border' /> \
+ \
+<div class='space'></div> \
+ \
+</fieldset> \
+ \
+<fieldset style='float:right; margin-right: 5px;'> \
+<legend>Spacing</legend> \
+ \
+<div class='space'></div> \
+ \
+<div class='fr'>Cell spacing:</div> \
+<input type='text' name='spacing' id='f_spacing' size='5' value='1' \
+title='Space between adjacent cells' /> \
+ \
+<p /> \
+ \
+<div class='fr'>Cell padding:</div> \
+<input type='text' name='padding' id='f_padding' size='5' value='1' \
+title='Space between content and border in cell' /> \
+ \
+<div class='space'></div> \
+ \
+</fieldset> \
+\
+<div style='margin-top: 85px; border-top: 1px solid #999; padding: 2px; text-align: right;'> \
+<button type='button' name='ok' onclick='insertTable();window.close();'>Insert</button> \
+<button type='button' name='cancel' onclick='window.close();'>Cancel</button> \
+</div> \
+</form> \
+</body></html>");
 }

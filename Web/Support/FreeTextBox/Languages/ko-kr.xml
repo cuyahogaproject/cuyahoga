@@ -60,3 +60,4 @@
  <resource name = "FontFacesMenu">글꼴</resource>
  <resource name = "InsertHtmlMenu">Html 삽입</resource>
  <resource name = "SymbolsMenu">특수문자</resource>
+</root>

@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8" ?>
+﻿<?xml version="1.0" encoding="UTF-8" ?>
 <root>
  <!-- General -->
  <resource name = "Ja">Yes</resource>
@@ -22,7 +22,7 @@
  <!-- Buttons -->
  <resource name = "Bold">Vet</resource>
  <resource name = "BulletedList">Opsommingslijst</resource>
- <resource name = "Copy">Kopi�ren</resource>
+ <resource name = "Copy">Kopiëren</resource>
  <resource name = "CreateLink">Maak hyperlink</resource>
  <resource name = "Cut">Knippen</resource>
  <resource name = "Delete">Verwijderen</resource>
