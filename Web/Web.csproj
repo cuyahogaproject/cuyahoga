@@ -1,0 +1,1469 @@
+<VisualStudioProject>
+    <CSHARP
+        ProjectType = "Local"
+        ProductVersion = "7.10.3077"
+        SchemaVersion = "2.0"
+        ProjectGuid = "{DD158F08-6E8F-4234-B3F6-A5402C8E34CC}"
+    >
+        <Build>
+            <Settings
+                ApplicationIcon = ""
+                AssemblyKeyContainerName = ""
+                AssemblyName = "Cuyahoga.Web"
+                AssemblyOriginatorKeyFile = ""
+                DefaultClientScript = "JScript"
+                DefaultHTMLPageLayout = "Flow"
+                DefaultTargetSchema = "IE50"
+                DelaySign = "false"
+                OutputType = "Library"
+                PreBuildEvent = ""
+                PostBuildEvent = ""
+                RootNamespace = "Cuyahoga.Web"
+                RunPostBuildEvent = "OnBuildSuccess"
+                StartupObject = ""
+            >
+                <Config
+                    Name = "Debug"
+                    AllowUnsafeBlocks = "false"
+                    BaseAddress = "285212672"
+                    CheckForOverflowUnderflow = "false"
+                    ConfigurationOverrideFile = ""
+                    DefineConstants = "DEBUG;TRACE"
+                    DocumentationFile = ""
+                    DebugSymbols = "true"
+                    FileAlignment = "4096"
+                    IncrementalBuild = "false"
+                    NoStdLib = "false"
+                    NoWarn = ""
+                    Optimize = "false"
+                    OutputPath = "bin\"
+                    RegisterForComInterop = "false"
+                    RemoveIntegerChecks = "false"
+                    TreatWarningsAsErrors = "false"
+                    WarningLevel = "4"
+                />
+                <Config
+                    Name = "Release"
+                    AllowUnsafeBlocks = "false"
+                    BaseAddress = "285212672"
+                    CheckForOverflowUnderflow = "false"
+                    ConfigurationOverrideFile = ""
+                    DefineConstants = "TRACE"
+                    DocumentationFile = ""
+                    DebugSymbols = "false"
+                    FileAlignment = "4096"
+                    IncrementalBuild = "false"
+                    NoStdLib = "false"
+                    NoWarn = ""
+                    Optimize = "true"
+                    OutputPath = "bin\"
+                    RegisterForComInterop = "false"
+                    RemoveIntegerChecks = "false"
+                    TreatWarningsAsErrors = "false"
+                    WarningLevel = "4"
+                />
+            </Settings>
+            <References>
+                <Reference
+                    Name = "Core"
+                    Project = "{723B7D30-6472-4B96-8D09-4F094C96650E}"
+                    Package = "{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}"
+                />
+                <Reference
+                    Name = "System"
+                    AssemblyName = "System"
+                    HintPath = "..\..\..\WINDOWS\Microsoft.NET\Framework\v1.1.4322\System.dll"
+                />
+                <Reference
+                    Name = "System.Web"
+                    AssemblyName = "System.Web"
+                    HintPath = "..\..\..\WINDOWS\Microsoft.NET\Framework\v1.1.4322\System.Web.dll"
+                />
+                <Reference
+                    Name = "System.Drawing"
+                    AssemblyName = "System.Drawing"
+                    HintPath = "..\..\..\WINDOWS\Microsoft.NET\Framework\v1.1.4322\System.Drawing.dll"
+                />
+                <Reference
+                    Name = "System.XML"
+                    AssemblyName = "System.Xml"
+                    HintPath = "..\..\..\WINDOWS\Microsoft.NET\Framework\v1.1.4322\System.XML.dll"
+                />
+                <Reference
+                    Name = "Modules"
+                    Project = "{7069F87A-95E1-4E61-B5FD-E0892E6F821F}"
+                    Package = "{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}"
+                />
+                <Reference
+                    Name = "FreeTextBox"
+                    AssemblyName = "FreeTextBox"
+                    HintPath = "..\ExternalStuff\FreeTextBox.dll"
+                />
+                <Reference
+                    Name = "System.Windows.Forms"
+                    AssemblyName = "System.Windows.Forms"
+                    HintPath = "..\..\..\WINDOWS\Microsoft.NET\Framework\v1.1.4322\System.Windows.Forms.dll"
+                />
+                <Reference
+                    Name = "System.Data"
+                    AssemblyName = "System.Data"
+                    HintPath = "..\..\..\WINDOWS\Microsoft.NET\Framework\v1.1.4322\System.Data.dll"
+                />
+            </References>
+        </Build>
+        <Files>
+            <Include>
+                <File
+                    RelPath = "Default.aspx"
+                    SubType = "Form"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Login.aspx"
+                    SubType = "Form"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Login.aspx.cs"
+                    DependentUpon = "Login.aspx"
+                    SubType = "ASPXCodeBehind"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "Login.aspx.resx"
+                    DependentUpon = "Login.aspx.cs"
+                    BuildAction = "EmbeddedResource"
+                />
+                <File
+                    RelPath = "Show.aspx"
+                    SubType = "Form"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Show.aspx.cs"
+                    DependentUpon = "Show.aspx"
+                    SubType = "ASPXCodeBehind"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "Show.aspx.resx"
+                    DependentUpon = "Show.aspx.cs"
+                    BuildAction = "EmbeddedResource"
+                />
+                <File
+                    RelPath = "Web.config"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Admin\Default.aspx"
+                    SubType = "Form"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Admin\Default.aspx.cs"
+                    DependentUpon = "Default.aspx"
+                    SubType = "ASPXCodeBehind"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "Admin\Default.aspx.resx"
+                    DependentUpon = "Default.aspx.cs"
+                    BuildAction = "EmbeddedResource"
+                />
+                <File
+                    RelPath = "Admin\NodeEdit.aspx"
+                    SubType = "Form"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Admin\NodeEdit.aspx.cs"
+                    DependentUpon = "NodeEdit.aspx"
+                    SubType = "ASPXCodeBehind"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "Admin\NodeEdit.aspx.resx"
+                    DependentUpon = "NodeEdit.aspx.cs"
+                    BuildAction = "EmbeddedResource"
+                />
+                <File
+                    RelPath = "Admin\RoleEdit.aspx"
+                    SubType = "Form"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Admin\RoleEdit.aspx.cs"
+                    DependentUpon = "RoleEdit.aspx"
+                    SubType = "ASPXCodeBehind"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "Admin\RoleEdit.aspx.resx"
+                    DependentUpon = "RoleEdit.aspx.cs"
+                    BuildAction = "EmbeddedResource"
+                />
+                <File
+                    RelPath = "Admin\Roles.aspx"
+                    SubType = "Form"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Admin\Roles.aspx.cs"
+                    DependentUpon = "Roles.aspx"
+                    SubType = "ASPXCodeBehind"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "Admin\Roles.aspx.resx"
+                    DependentUpon = "Roles.aspx.cs"
+                    BuildAction = "EmbeddedResource"
+                />
+                <File
+                    RelPath = "Admin\SectionEdit.aspx"
+                    SubType = "Form"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Admin\SectionEdit.aspx.cs"
+                    DependentUpon = "SectionEdit.aspx"
+                    SubType = "ASPXCodeBehind"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "Admin\SectionEdit.aspx.resx"
+                    DependentUpon = "SectionEdit.aspx.cs"
+                    BuildAction = "EmbeddedResource"
+                />
+                <File
+                    RelPath = "Admin\TemplatePreview.aspx"
+                    SubType = "Form"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Admin\TemplatePreview.aspx.cs"
+                    DependentUpon = "TemplatePreview.aspx"
+                    SubType = "ASPXCodeBehind"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "Admin\TemplatePreview.aspx.resx"
+                    DependentUpon = "TemplatePreview.aspx.cs"
+                    BuildAction = "EmbeddedResource"
+                />
+                <File
+                    RelPath = "Admin\UserEdit.aspx"
+                    SubType = "Form"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Admin\UserEdit.aspx.cs"
+                    DependentUpon = "UserEdit.aspx"
+                    SubType = "ASPXCodeBehind"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "Admin\UserEdit.aspx.resx"
+                    DependentUpon = "UserEdit.aspx.cs"
+                    BuildAction = "EmbeddedResource"
+                />
+                <File
+                    RelPath = "Admin\Users.aspx"
+                    SubType = "Form"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Admin\Users.aspx.cs"
+                    DependentUpon = "Users.aspx"
+                    SubType = "ASPXCodeBehind"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "Admin\Users.aspx.resx"
+                    DependentUpon = "Users.aspx.cs"
+                    BuildAction = "EmbeddedResource"
+                />
+                <File
+                    RelPath = "Admin\Web.config"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Admin\Controls\AdminTemplate.ascx"
+                    SubType = "UserControl"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Admin\Controls\AdminTemplate.ascx.cs"
+                    DependentUpon = "AdminTemplate.ascx"
+                    SubType = "ASPXCodeBehind"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "Admin\Controls\AdminTemplate.ascx.resx"
+                    DependentUpon = "AdminTemplate.ascx.cs"
+                    BuildAction = "EmbeddedResource"
+                />
+                <File
+                    RelPath = "Admin\Controls\Footer.ascx"
+                    SubType = "UserControl"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Admin\Controls\Footer.ascx.cs"
+                    DependentUpon = "Footer.ascx"
+                    SubType = "ASPXCodeBehind"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "Admin\Controls\Footer.ascx.resx"
+                    DependentUpon = "Footer.ascx.cs"
+                    BuildAction = "EmbeddedResource"
+                />
+                <File
+                    RelPath = "Admin\Controls\Header.ascx"
+                    SubType = "UserControl"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Admin\Controls\Header.ascx.cs"
+                    DependentUpon = "Header.ascx"
+                    SubType = "ASPXCodeBehind"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "Admin\Controls\Header.ascx.resx"
+                    DependentUpon = "Header.ascx.cs"
+                    BuildAction = "EmbeddedResource"
+                />
+                <File
+                    RelPath = "Admin\Controls\Navigation.ascx"
+                    SubType = "UserControl"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Admin\Controls\Navigation.ascx.cs"
+                    DependentUpon = "Navigation.ascx"
+                    SubType = "ASPXCodeBehind"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "Admin\Controls\Navigation.ascx.resx"
+                    DependentUpon = "Navigation.ascx.cs"
+                    BuildAction = "EmbeddedResource"
+                />
+                <File
+                    RelPath = "Admin\Images\doc1.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Admin\Images\doc2.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Admin\Images\docs.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Admin\Images\downred.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Admin\Images\home.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Admin\Images\leftred.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Admin\Images\new.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Admin\Images\rightred.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Admin\Images\upred.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Admin\Images\user.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Admin\Images\users.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Admin\UI\AdminBasePage.cs"
+                    SubType = "ASPXCodeBehind"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "Cache\CacheManager.cs"
+                    SubType = "Code"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "Cache\NodeCache.cs"
+                    SubType = "Code"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "Controls\ModuleAdminHeader.ascx"
+                    SubType = "UserControl"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Controls\ModuleAdminHeader.ascx.cs"
+                    DependentUpon = "ModuleAdminHeader.ascx"
+                    SubType = "ASPXCodeBehind"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "Controls\ModuleAdminHeader.ascx.resx"
+                    DependentUpon = "ModuleAdminHeader.ascx.cs"
+                    BuildAction = "EmbeddedResource"
+                />
+                <File
+                    RelPath = "Controls\Nav1.ascx"
+                    SubType = "UserControl"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Controls\Nav1.ascx.cs"
+                    DependentUpon = "Nav1.ascx"
+                    SubType = "ASPXCodeBehind"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "Controls\Nav1.ascx.resx"
+                    DependentUpon = "Nav1.ascx.cs"
+                    BuildAction = "EmbeddedResource"
+                />
+                <File
+                    RelPath = "Css\Admin.css"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Css\Cuyahoga.css"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Css\Default.css"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Css\Modules.css"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Css\Print.css"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Images\email.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Images\mono-powered-big.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Modules\Articles\Articles.ascx"
+                    SubType = "UserControl"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Modules\Articles\Articles.ascx.cs"
+                    DependentUpon = "Articles.ascx"
+                    SubType = "ASPXCodeBehind"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "Modules\Articles\Articles.ascx.resx"
+                    DependentUpon = "Articles.ascx.cs"
+                    BuildAction = "EmbeddedResource"
+                />
+                <File
+                    RelPath = "Modules\StaticHtml\EditHtml.aspx"
+                    SubType = "Form"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Modules\StaticHtml\EditHtml.aspx.cs"
+                    DependentUpon = "EditHtml.aspx"
+                    SubType = "ASPXCodeBehind"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "Modules\StaticHtml\EditHtml.aspx.resx"
+                    DependentUpon = "EditHtml.aspx.cs"
+                    BuildAction = "EmbeddedResource"
+                />
+                <File
+                    RelPath = "Modules\StaticHtml\StaticHtml.ascx"
+                    SubType = "UserControl"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Modules\StaticHtml\StaticHtml.ascx.cs"
+                    DependentUpon = "StaticHtml.ascx"
+                    SubType = "ASPXCodeBehind"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "Modules\StaticHtml\StaticHtml.ascx.resx"
+                    DependentUpon = "StaticHtml.ascx.cs"
+                    BuildAction = "EmbeddedResource"
+                />
+                <File
+                    RelPath = "Modules\User\User.ascx"
+                    SubType = "UserControl"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Modules\User\User.ascx.cs"
+                    DependentUpon = "User.ascx"
+                    SubType = "ASPXCodeBehind"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "Modules\User\User.ascx.resx"
+                    DependentUpon = "User.ascx.cs"
+                    BuildAction = "EmbeddedResource"
+                />
+                <File
+                    RelPath = "Support\FreeTextBox\FreeTextBox-MainScript.js"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Support\FreeTextBox\FreeTextBox-ToolbarItemsScript.js"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Support\FreeTextBox\images\bold.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Support\FreeTextBox\images\bulletedlist.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Support\FreeTextBox\images\copy.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Support\FreeTextBox\images\createlink.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Support\FreeTextBox\images\csharp.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Support\FreeTextBox\images\cut.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Support\FreeTextBox\images\delete.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Support\FreeTextBox\images\deletetablecolumn.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Support\FreeTextBox\images\deletetablerow.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Support\FreeTextBox\images\fontbackcolorpicker.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Support\FreeTextBox\images\fontforecolorpicker.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Support\FreeTextBox\images\indent.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Support\FreeTextBox\images\insertdate.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Support\FreeTextBox\images\insertimage.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Support\FreeTextBox\images\insertimagefromgallery.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Support\FreeTextBox\images\insertrule.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Support\FreeTextBox\images\inserttable.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Support\FreeTextBox\images\inserttablecolumn.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Support\FreeTextBox\images\inserttablerow.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Support\FreeTextBox\images\inserttime.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Support\FreeTextBox\images\italic.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Support\FreeTextBox\images\justifycenter.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Support\FreeTextBox\images\justifyfull.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Support\FreeTextBox\images\justifyleft.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Support\FreeTextBox\images\justifyright.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Support\FreeTextBox\images\mode.design.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Support\FreeTextBox\images\mode.html.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Support\FreeTextBox\images\numberedlist.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Support\FreeTextBox\images\outdent.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Support\FreeTextBox\images\paste.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Support\FreeTextBox\images\print.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Support\FreeTextBox\images\redo.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Support\FreeTextBox\images\removeformat.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Support\FreeTextBox\images\save.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Support\FreeTextBox\images\separator.horizontal.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Support\FreeTextBox\images\separator.vertical.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Support\FreeTextBox\images\spellcheck.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Support\FreeTextBox\images\strikethrough.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Support\FreeTextBox\images\subscript.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Support\FreeTextBox\images\superscript.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Support\FreeTextBox\images\toolbar.horizontal.background.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Support\FreeTextBox\images\toolbar.horizontal.end.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Support\FreeTextBox\images\toolbar.horizontal.start.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Support\FreeTextBox\images\toolbar.vertical.background.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Support\FreeTextBox\images\toolbar.vertical.end.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Support\FreeTextBox\images\toolbar.vertical.start.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Support\FreeTextBox\images\toolbarbutton.down.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Support\FreeTextBox\images\toolbarbutton.over.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Support\FreeTextBox\images\underline.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Support\FreeTextBox\images\undo.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Support\FreeTextBox\images\unlink.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Support\FreeTextBox\images\wordclean.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Support\FreeTextBox\images\wordcount.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Support\FreeTextBox\Languages\de-de.xml"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Support\FreeTextBox\Languages\en-en.xml"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Support\FreeTextBox\Languages\es-ES.xml"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Support\FreeTextBox\Languages\fr-FR.xml"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Support\FreeTextBox\Languages\ja-JP.xml"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Support\FreeTextBox\Languages\ko-kr.xml"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Support\FreeTextBox\Languages\Languages.xml"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Support\FreeTextBox\Languages\nl-NL.xml"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Support\FreeTextBox\Languages\pt-pt.xml"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Support\FreeTextBox\Languages\zh-cn.xml"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Support\FreeTextBox\office2000\bold.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Support\FreeTextBox\office2000\bulletedlist.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Support\FreeTextBox\office2000\center.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Support\FreeTextBox\office2000\copy.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Support\FreeTextBox\office2000\createlink.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Support\FreeTextBox\office2000\cut.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Support\FreeTextBox\office2000\deletetablecolumn.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Support\FreeTextBox\office2000\deletetablerow.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Support\FreeTextBox\office2000\fontbackcolorpicker.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Support\FreeTextBox\office2000\fontforecolorpicker.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Support\FreeTextBox\office2000\indent.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Support\FreeTextBox\office2000\insertdate.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Support\FreeTextBox\office2000\insertimage.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Support\FreeTextBox\office2000\insertimagefromgallery.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Support\FreeTextBox\office2000\insertrule.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Support\FreeTextBox\office2000\inserttable.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Support\FreeTextBox\office2000\inserttablecolumn.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Support\FreeTextBox\office2000\inserttablerow.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Support\FreeTextBox\office2000\inserttime.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Support\FreeTextBox\office2000\italic.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Support\FreeTextBox\office2000\justifycenter.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Support\FreeTextBox\office2000\justifyfull.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Support\FreeTextBox\office2000\justifyleft.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Support\FreeTextBox\office2000\justifyright.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Support\FreeTextBox\office2000\link.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Support\FreeTextBox\office2000\mode.design.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Support\FreeTextBox\office2000\mode.html.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Support\FreeTextBox\office2000\numberedlist.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Support\FreeTextBox\office2000\numbers.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Support\FreeTextBox\office2000\outdent.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Support\FreeTextBox\office2000\paste.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Support\FreeTextBox\office2000\print.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Support\FreeTextBox\office2000\redo.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Support\FreeTextBox\office2000\removeformat.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Support\FreeTextBox\office2000\save.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Support\FreeTextBox\office2000\separator.horizontal.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Support\FreeTextBox\office2000\spellcheck.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Support\FreeTextBox\office2000\strikethrough.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Support\FreeTextBox\office2000\subscript.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Support\FreeTextBox\office2000\superscript.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Support\FreeTextBox\office2000\table.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Support\FreeTextBox\office2000\toolbar.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Support\FreeTextBox\office2000\toolbar.horizontal.end.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Support\FreeTextBox\office2000\toolbar.horizontal.start.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Support\FreeTextBox\office2000\underline.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Support\FreeTextBox\office2000\undo.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Support\FreeTextBox\office2000\unlink.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Support\FreeTextBox\office2000\wordcount.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Support\FreeTextBox\officexp\bgcolor.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Support\FreeTextBox\officexp\bold.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Support\FreeTextBox\officexp\bold.over.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Support\FreeTextBox\officexp\borders.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Support\FreeTextBox\officexp\bulletedlist.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Support\FreeTextBox\officexp\bulletedlist.over.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Support\FreeTextBox\officexp\changecase.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Support\FreeTextBox\officexp\changecase.over.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Support\FreeTextBox\officexp\copy.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Support\FreeTextBox\officexp\copy.over.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Support\FreeTextBox\officexp\createlink.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Support\FreeTextBox\officexp\createlink.over.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Support\FreeTextBox\officexp\cut.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Support\FreeTextBox\officexp\cut.over.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Support\FreeTextBox\officexp\delete.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Support\FreeTextBox\officexp\delete.over.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Support\FreeTextBox\officexp\deletetablecolumn.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Support\FreeTextBox\officexp\deletetablecolumn.over.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Support\FreeTextBox\officexp\deletetablerow.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Support\FreeTextBox\officexp\deletetablerow.over.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Support\FreeTextBox\officexp\details.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Support\FreeTextBox\officexp\find.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Support\FreeTextBox\officexp\find.over.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Support\FreeTextBox\officexp\fontbackcolorpicker.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Support\FreeTextBox\officexp\fontbackcolorpicker.over.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Support\FreeTextBox\officexp\fontforecolorpicker.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Support\FreeTextBox\officexp\fontforecolorpicker.over.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Support\FreeTextBox\officexp\help.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Support\FreeTextBox\officexp\help.over.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Support\FreeTextBox\officexp\indent.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Support\FreeTextBox\officexp\indent.over.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Support\FreeTextBox\officexp\insertdate.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Support\FreeTextBox\officexp\insertdate.over.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Support\FreeTextBox\officexp\insertemail.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Support\FreeTextBox\officexp\insertemail.over.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Support\FreeTextBox\officexp\insertimage.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Support\FreeTextBox\officexp\insertimage.over.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Support\FreeTextBox\officexp\insertimagefromgallery.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Support\FreeTextBox\officexp\insertimagefromgallery.over.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Support\FreeTextBox\officexp\insertrule.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Support\FreeTextBox\officexp\insertrule.over.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Support\FreeTextBox\officexp\inserttable.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Support\FreeTextBox\officexp\inserttable.over.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Support\FreeTextBox\officexp\inserttablecolumn.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Support\FreeTextBox\officexp\inserttablecolumn.over.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Support\FreeTextBox\officexp\inserttablerow.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Support\FreeTextBox\officexp\inserttablerow.over.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Support\FreeTextBox\officexp\inserttime.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Support\FreeTextBox\officexp\inserttime.over.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Support\FreeTextBox\officexp\italic.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Support\FreeTextBox\officexp\italic.over.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Support\FreeTextBox\officexp\justifycenter.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Support\FreeTextBox\officexp\justifycenter.over.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Support\FreeTextBox\officexp\justifyfull.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Support\FreeTextBox\officexp\justifyfull.over.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Support\FreeTextBox\officexp\justifyleft.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Support\FreeTextBox\officexp\justifyleft.over.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Support\FreeTextBox\officexp\justifyright.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Support\FreeTextBox\officexp\justifyright.over.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Support\FreeTextBox\officexp\mode.design.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Support\FreeTextBox\officexp\mode.html.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Support\FreeTextBox\officexp\numberedlist.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Support\FreeTextBox\officexp\numberedlist.over.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Support\FreeTextBox\officexp\outdent.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Support\FreeTextBox\officexp\outdent.over.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Support\FreeTextBox\officexp\paste.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Support\FreeTextBox\officexp\paste.over.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Support\FreeTextBox\officexp\print.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Support\FreeTextBox\officexp\print.over.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Support\FreeTextBox\officexp\redo.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Support\FreeTextBox\officexp\redo.over.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Support\FreeTextBox\officexp\removeformat.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Support\FreeTextBox\officexp\removeformat.over.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Support\FreeTextBox\officexp\save.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Support\FreeTextBox\officexp\save.over.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Support\FreeTextBox\officexp\separator.horizontal.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Support\FreeTextBox\officexp\spellcheck.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Support\FreeTextBox\officexp\spellcheck.over.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Support\FreeTextBox\officexp\strikethrough.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Support\FreeTextBox\officexp\strikethrough.over.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Support\FreeTextBox\officexp\subscript.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Support\FreeTextBox\officexp\subscript.over.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Support\FreeTextBox\officexp\superscript.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Support\FreeTextBox\officexp\superscript.over.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Support\FreeTextBox\officexp\toggleborders.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Support\FreeTextBox\officexp\toggledetails.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Support\FreeTextBox\officexp\toggledetails.over.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Support\FreeTextBox\officexp\toolbar.horizontal.end.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Support\FreeTextBox\officexp\toolbar.horizontal.start.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Support\FreeTextBox\officexp\underline.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Support\FreeTextBox\officexp\underline.over.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Support\FreeTextBox\officexp\undo.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Support\FreeTextBox\officexp\undo.over.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Support\FreeTextBox\officexp\unlink.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Support\FreeTextBox\officexp\unlink.over.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Support\FreeTextBox\officexp\verse.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Support\FreeTextBox\officexp\verse.over.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Support\FreeTextBox\officexp\wordcount.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Support\FreeTextBox\officexp\wordcount.over.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Templates\Cuyahoga.ascx"
+                    SubType = "UserControl"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Templates\DefaultTemplate.ascx"
+                    SubType = "UserControl"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Templates\HomeTemplate.ascx"
+                    SubType = "UserControl"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Templates\ModuleAdminTemplate.ascx"
+                    SubType = "UserControl"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Templates\ModuleAdminTemplate.ascx.cs"
+                    DependentUpon = "ModuleAdminTemplate.ascx"
+                    SubType = "ASPXCodeBehind"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "Templates\ModuleAdminTemplate.ascx.resx"
+                    DependentUpon = "ModuleAdminTemplate.ascx.cs"
+                    BuildAction = "EmbeddedResource"
+                />
+                <File
+                    RelPath = "UI\BaseModuleControl.cs"
+                    SubType = "ASPXCodeBehind"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "UI\BasePageControl.cs"
+                    SubType = "ASPXCodeBehind"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "UI\BaseTemplate.cs"
+                    SubType = "ASPXCodeBehind"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "UI\GenericBasePage.cs"
+                    SubType = "ASPXCodeBehind"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "UI\ModuleAdminBasePage.cs"
+                    SubType = "ASPXCodeBehind"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "UI\PageEngine.cs"
+                    SubType = "ASPXCodeBehind"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "Util\AuthenticationModule.cs"
+                    SubType = "Code"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "Util\FormFixerHtmlTextWriter.cs"
+                    SubType = "Code"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "Util\UrlHandlerModule.cs"
+                    SubType = "Code"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "Util\UrlHelper.cs"
+                    SubType = "Code"
+                    BuildAction = "Compile"
+                />
+            </Include>
+        </Files>
+    </CSHARP>
+</VisualStudioProject>
+

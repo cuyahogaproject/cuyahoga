@@ -1,0 +1,18 @@
+<%@ Register TagPrefix="ftb" Namespace="FreeTextBoxControls" Assembly="FreeTextBox" %>
+<%@ Page language="c#" Codebehind="EditHtml.aspx.cs" AutoEventWireup="false" Inherits="Cuyahoga.Web.Modules.StaticHtml.EditHtml" ValidateRequest="false"  %>
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN" >
+<html>
+  <head>
+		<title>EditHtml</title>
+		<meta content="Microsoft Visual Studio .NET 7.1" name="GENERATOR">
+		<meta content="C#" name="CODE_LANGUAGE">
+		<meta content="JavaScript" name="vs_defaultClientScript">
+		<meta content="http://schemas.microsoft.com/intellisense/ie5" name="vs_targetSchema">
+  </head>
+	<body ms_positioning="FlowLayout">
+		<form id="Form1" method="post" runat="server">
+			<h1>Edit static content</h1>
+			<ftb:freetextbox id="ftbStaticHtml" runat="server" height="400px" width="80%" supportfolder="/Cuyahoga/Support/FreeTextBox/"></ftb:freetextbox><br><asp:button id="btnSave" runat="server" text="Save"></asp:button></form>
+
+	</body>
+</html>
