@@ -119,4 +119,14 @@ namespace Cuyahoga.Modules.Articles
 			}
 		}
 	}
+
+	/// <summary>
+	/// The displaytype of the articles in the list.
+	/// </summary>
+	public enum DisplayType
+	{
+		HeadersOnly,
+		HeadersAndSummary,
+		FullContent,
+	}
 }

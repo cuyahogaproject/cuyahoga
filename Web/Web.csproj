@@ -410,6 +410,11 @@
                     BuildAction = "Compile"
                 />
                 <File
+                    RelPath = "Admin\UI\SettingControlHelper.cs"
+                    SubType = "Code"
+                    BuildAction = "Compile"
+                />
+                <File
                     RelPath = "Cache\CacheManager.cs"
                     SubType = "Code"
                     BuildAction = "Compile"

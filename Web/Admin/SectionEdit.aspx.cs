@@ -13,6 +13,7 @@ using Cuyahoga.Core.Domain;
 using Cuyahoga.Core.Service;
 using Cuyahoga.Core.Collections;
 using Cuyahoga.Web.UI;
+using Cuyahoga.Web.Admin.UI;
 
 namespace Cuyahoga.Web.Admin
 {
@@ -35,6 +36,7 @@ namespace Cuyahoga.Web.Admin
 		protected System.Web.UI.WebControls.RequiredFieldValidator rfvCache;
 		protected System.Web.UI.WebControls.CompareValidator cpvCache;
 		protected System.Web.UI.WebControls.Repeater rptRoles;
+		protected System.Web.UI.WebControls.Repeater rptCustomSettings;
 		protected System.Web.UI.WebControls.Button btnCancel;
 	
 		private void Page_Load(object sender, System.EventArgs e)
@@ -65,6 +67,7 @@ namespace Cuyahoga.Web.Admin
 					BindSectionControls();
 					BindModules();
 					BindPlaceholders();
+					BindCustomSettings();
 					BindRoles();
 				}
 			}		
@@ -125,6 +128,20 @@ namespace Cuyahoga.Web.Admin
 				{
 					this.ShowError(ex.Message);
 				}
+			}
+		}
+
+		private void BindCustomSettings()
+		{
+			if (this._activeSection.ModuleType != null)
+			{
+				this.rptCustomSettings.ItemDataBound += new RepeaterItemEventHandler(rptCustomSettings_ItemDataBound);
+				this.rptCustomSettings.DataSource = this._activeSection.ModuleType.ModuleSettings;
+				this.rptCustomSettings.DataBind();
+			}
+			else
+			{
+				this.rptCustomSettings.Visible = false;
 			}
 		}
 
@@ -260,6 +277,21 @@ namespace Cuyahoga.Web.Admin
 				}
 				// Add RoleId to the ViewState with the ClientID of the repeateritem as key.
 				this.ViewState[e.Item.ClientID] = role.Id;
+			}
+		}
+
+		private void rptCustomSettings_ItemDataBound(object sender, RepeaterItemEventArgs e)
+		{
+			ModuleSetting ms = e.Item.DataItem as ModuleSetting;
+			if (ms != null)
+			{
+				string val = null;
+				PlaceHolder plc = e.Item.FindControl("plcSettingControl") as PlaceHolder;
+				if (this._activeSection.Settings != null && this._activeSection.Settings[ms.Name] != null)
+				{
+					val = this._activeSection.Settings[ms.Name].ToString();
+				}
+				plc.Controls.Add(SettingControlHelper.CreateSettingControl(ms.Name, ms.GetRealType(), val));
 			}
 		}
 	}

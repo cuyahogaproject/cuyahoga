@@ -22,6 +22,7 @@ namespace Cuyahoga.Core.Domain
 		private ModuleBase _module;
 		private Node _node;
 		private IList _sectionPermissions;
+		private IDictionary _settings;
 
 		#region properties
 
@@ -121,6 +122,15 @@ namespace Cuyahoga.Core.Domain
 		{
 			get { return this._sectionPermissions; }
 			set { this._sectionPermissions = value; }
+		}
+
+		/// <summary>
+		/// Property Settings (IDictionary)
+		/// </summary>
+		public IDictionary Settings
+		{
+			get { return this._settings; }
+			set { this._settings = value; }
 		}
 
 		public virtual bool AnonymousViewAllowed

@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 
 namespace Cuyahoga.Core.Domain
 {
@@ -14,7 +15,7 @@ namespace Cuyahoga.Core.Domain
 		private string _className;
 		private string _path;
 		private string _editPath;
-		private string[] _moduleParams;
+		private IList _moduleSettings;
 
 		#region properties
 		
@@ -73,12 +74,12 @@ namespace Cuyahoga.Core.Domain
 		}
 
 		/// <summary>
-		/// Property ModuleParams (string[])
+		/// Property ModuleSettings (IList)
 		/// </summary>
-		public string[] ModuleParams
+		public IList ModuleSettings
 		{
-			get { return this._moduleParams; }
-			set { this._moduleParams = value; }
+			get { return this._moduleSettings; }
+			set { this._moduleSettings = value; }
 		}
 
 		#endregion
@@ -86,6 +87,7 @@ namespace Cuyahoga.Core.Domain
 		public ModuleType()
 		{
 			this._moduleTypeId = -1;
+			this._moduleSettings = new ArrayList();
 		}
 	}
 }

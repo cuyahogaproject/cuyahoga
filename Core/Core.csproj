@@ -144,6 +144,11 @@
                     BuildAction = "Compile"
                 />
                 <File
+                    RelPath = "Domain\ModuleSetting.cs"
+                    SubType = "Code"
+                    BuildAction = "Compile"
+                />
+                <File
                     RelPath = "Domain\ModuleType.cs"
                     SubType = "Code"
                     BuildAction = "Compile"
