@@ -24,7 +24,7 @@
 <table>
   <tr>
     <td style="WIDTH: 200px">Username</td>
-    <td><asp:textbox id=txtUsername runat="server" width="200px"></asp:textbox><asp:Label id=lblUsername runat="server" Visible="False"></asp:Label><asp:requiredfieldvalidator id=rfvUsername runat="server" errormessage="Username is required" cssclass="validator" display="Dynamic" enableclientscript="False" forecolor=" " controltovalidate="txtUsername"></asp:requiredfieldvalidator></td></tr>
+    <td><asp:textbox id=txtUsername runat="server" width="200px"></asp:textbox><asp:Label id=lblUsername runat="server" Visible="False"></asp:Label><asp:requiredfieldvalidator id=rfvUsername runat="server" errormessage="Username is required" cssclass="validator" display="Dynamic" enableclientscript="False" controltovalidate="txtUsername"></asp:requiredfieldvalidator></td></tr>
   <tr>
     <td>Firstname</td>
     <td><asp:textbox id=txtFirstname runat="server" width="200px"></asp:textbox></td></tr>
