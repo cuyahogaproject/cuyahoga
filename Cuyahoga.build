@@ -2,7 +2,7 @@
 <project default="build" basedir="." xmlns="http://nant.sf.net/release/0.85-rc1/nant.xsd">
 	<!-- global project settings -->
 	<property name="project.name" value="Cuyahoga" />
-	<property name="project.version" value="0.6.0" />
+	<property name="project.version" value="0.7.0" />
 
 	<!-- default configuration -->
 	<property name="project.config" value="debug" /> <!-- debug|release -->
@@ -62,7 +62,7 @@
 			</fileset>
 		</copy>
 		
-		<csc target="library" output="${build.dir}/bin/Cuyahoga.Core.dll" debug="${build.debug}">
+		<csc target="library" output="${build.dir}/bin/Cuyahoga.Core.dll" debug="${build.debug}" doc="${build.dir}/bin/Cuyahoga.Core.xml">
             <sources>
                 <include name="Core/**/*.cs" />
             </sources>
@@ -82,7 +82,7 @@
 	</target>
 	
 	<target name="build.servercontrols">
-		<csc target="library" output="${build.dir}/bin/Cuyahoga.ServerControls.dll" debug="${build.debug}">
+		<csc target="library" output="${build.dir}/bin/Cuyahoga.ServerControls.dll" debug="${build.debug}" doc="${build.dir}/bin/Cuyahoga.ServerControls.xml">
             <sources>
                 <include name="ServerControls/**/*.cs" />
             </sources>
@@ -97,7 +97,7 @@
 	</target>
 	
 	<target name="build.web">
-		<csc target="library" output="${build.dir}/bin/Cuyahoga.Web.dll" debug="${build.debug}">
+		<csc target="library" output="${build.dir}/bin/Cuyahoga.Web.dll" debug="${build.debug}" doc="${build.dir}/bin/Cuyahoga.Web.xml">
             <sources>
                 <include name="Web/**/*.cs" />
             </sources>
@@ -122,7 +122,7 @@
 	</target>
 	
 	<target name="build.modules" depends="build.core">
-		<csc target="library" output="${build.dir}/bin/Cuyahoga.Modules.dll" debug="${build.debug}">
+		<csc target="library" output="${build.dir}/bin/Cuyahoga.Modules.dll" debug="${build.debug}" doc="${build.dir}/bin/Cuyahoga.Modules.xml">
             <sources>
                 <include name="Modules/**/*.cs" />
             </sources>

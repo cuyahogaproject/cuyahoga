@@ -88,11 +88,29 @@ namespace Cuyahoga.Core.Domain
 				{
 					// Use the assemblyname of the ModuleType to find the custom type
 					string fullName = this._settingDataType + ", " + this._moduleType.AssemblyName;
-					return Type.GetType(fullName);
+					Type realType = Type.GetType(fullName);
+					if (realType == null)
+					{
+						throw new NullReferenceException(String.Format("The custom type {0} was not found in assembly {1}."
+							, this._settingDataType, this._moduleType.AssemblyName));
+					}
+					else
+					{
+						return realType;
+					}
 				}
 				else
 				{
-					return Type.GetType(this._settingDataType, true, true);
+					Type realType = Type.GetType(this._settingDataType, true, true);
+					if (realType == null)
+					{
+						throw new NullReferenceException(String.Format("The CLR type {0} is invalid."
+							, this._settingDataType));
+					}
+					else
+					{
+						return realType;
+					}
 				}
 			}
 			else

@@ -1,166 +1,203 @@
 
-
-CREATE TABLE Cuyahoga_User(
-UserId INT NOT NULL AUTO_INCREMENT,
-Username VARCHAR(50) NOT NULL,
-Password VARCHAR(100) NOT NULL,
-Firstname VARCHAR(100),
-Lastname VARCHAR(100),
-Email VARCHAR(100) NOT NULL,
-Website VARCHAR(100),
-IsActive TINYINT,
-LastLogin DATETIME,
-LastIp VARCHAR(40),
-InsertTimestamp TIMESTAMP DEFAULT CURRENT_TIMESTAMP()  NOT NULL,
-UpdateTimestamp DATETIME  NOT NULL,
-PRIMARY KEY (UserId),
-UNIQUE UC_UserId (UserId),
-UNIQUE UC_Username (Username));
-
-
-CREATE TABLE Cuyahoga_Role(
-RoleId INT NOT NULL AUTO_INCREMENT,
-Name VARCHAR(50) NOT NULL,
-PermissionLevel INT DEFAULT 1 NOT NULL,
-InsertTimestamp TIMESTAMP DEFAULT CURRENT_TIMESTAMP()  NOT NULL,
-UpdateTimestamp DATETIME  NOT NULL,
-PRIMARY KEY (RoleId),
-UNIQUE UC_RoleId (RoleId),
-UNIQUE UC_Name (Name));
+CREATE TABLE cuyahoga_user(
+userid INT NOT NULL AUTO_INCREMENT,
+username VARCHAR(50) NOT NULL,
+password VARCHAR(100) NOT NULL,
+firstname VARCHAR(100),
+lastname VARCHAR(100),
+email VARCHAR(100) NOT NULL,
+website VARCHAR(100),
+isactive TINYINT,
+lastlogin DATETIME,
+lastip VARCHAR(40),
+inserttimestamp TIMESTAMP DEFAULT CURRENT_TIMESTAMP()  NOT NULL,
+updatetimestamp DATETIME  NOT NULL,
+PRIMARY KEY (userid),
+UNIQUE UC_userid (userid),
+UNIQUE UC_username (username));
 
 
-CREATE TABLE Cuyahoga_UserRole(
-UserRoleId INT NOT NULL AUTO_INCREMENT,
-UserId INT NOT NULL,
-RoleId INT NOT NULL,
-InsertTimestamp TIMESTAMP DEFAULT CURRENT_TIMESTAMP()  NOT NULL,
-UpdateTimestamp DATETIME  NOT NULL,
-FOREIGN KEY (RoleId) REFERENCES Cuyahoga_Role (RoleId),
-FOREIGN KEY (UserId) REFERENCES Cuyahoga_User (UserId),
-PRIMARY KEY (UserRoleId),
-UNIQUE UC_UserRoleId (UserRoleId));
+CREATE TABLE cuyahoga_role(
+roleid INT NOT NULL AUTO_INCREMENT,
+name VARCHAR(50) NOT NULL,
+permissionlevel INT DEFAULT 1 NOT NULL,
+inserttimestamp TIMESTAMP DEFAULT CURRENT_TIMESTAMP()  NOT NULL,
+updatetimestamp DATETIME  NOT NULL,
+PRIMARY KEY (roleid),
+UNIQUE UC_roleid (roleid),
+UNIQUE UC_name (name));
 
 
-CREATE TABLE Cuyahoga_Template(
-TemplateId INT NOT NULL AUTO_INCREMENT,
-Name VARCHAR(100) NOT NULL,
-Path VARCHAR(100) NOT NULL,
-Css VARCHAR(100) NOT NULL,
-InsertTimestamp TIMESTAMP DEFAULT CURRENT_TIMESTAMP()  NOT NULL,
-UpdateTimestamp DATETIME  NOT NULL,
-PRIMARY KEY (TemplateId),
-UNIQUE UC_TemplateId (TemplateId));
+CREATE TABLE cuyahoga_userrole(
+userroleid INT NOT NULL AUTO_INCREMENT,
+userid INT NOT NULL,
+roleid INT NOT NULL,
+inserttimestamp TIMESTAMP DEFAULT CURRENT_TIMESTAMP()  NOT NULL,
+updatetimestamp DATETIME  NOT NULL,
+FOREIGN KEY (roleid) REFERENCES cuyahoga_role (roleid),
+FOREIGN KEY (userid) REFERENCES cuyahoga_user (userid),
+PRIMARY KEY (userroleid),
+UNIQUE UC_userroleid (userroleid));
 
 
-CREATE TABLE Cuyahoga_ModuleType(
-ModuleTypeId INT NOT NULL AUTO_INCREMENT,
-Name VARCHAR(100) NOT NULL,
-AssemblyName VARCHAR(100),
-ClassName VARCHAR(255) NOT NULL,
-Path VARCHAR(255) NOT NULL,
-EditPath VARCHAR(255),
-InsertTimestamp TIMESTAMP DEFAULT CURRENT_TIMESTAMP()  NOT NULL,
-UpdateTimestamp DATETIME  NOT NULL,
-PRIMARY KEY (ModuleTypeId),
-UNIQUE UC_ClassName (ClassName));
+CREATE TABLE cuyahoga_template(
+templateid INT NOT NULL AUTO_INCREMENT,
+name VARCHAR(100) NOT NULL,
+basepath VARCHAR(100) NOT NULL,
+templatecontrol VARCHAR(50) NOT NULL,
+css VARCHAR(100) NOT NULL,
+inserttimestamp TIMESTAMP DEFAULT CURRENT_TIMESTAMP()  NOT NULL,
+updatetimestamp DATETIME  NOT NULL,
+PRIMARY KEY (templateid),
+UNIQUE UC_templateid (templateid));
 
 
-CREATE TABLE Cuyahoga_Site(
-SiteId INT NOT NULL AUTO_INCREMENT,
-TemplateId INT,
-RoleId INT NOT NULL,
-Name VARCHAR(100) NOT NULL,
-HomeUrl VARCHAR(100) NOT NULL,
-DefaultCulture VARCHAR(8) NOT NULL,
-DefaultPlaceholder VARCHAR(100),
-WebmasterEmail VARCHAR(100) NOT NULL,
-InsertTimestamp TIMESTAMP DEFAULT CURRENT_TIMESTAMP()  NOT NULL,
-UpdateTimestamp DATETIME  NOT NULL,
-FOREIGN KEY (RoleId) REFERENCES Cuyahoga_Role (RoleId),
-FOREIGN KEY (TemplateId) REFERENCES Cuyahoga_Template (TemplateId),
-PRIMARY KEY (SiteId),
-UNIQUE UC_Name (Name));
+CREATE TABLE cuyahoga_moduletype(
+moduletypeid INT NOT NULL AUTO_INCREMENT,
+name VARCHAR(100) NOT NULL,
+assemblyname VARCHAR(100),
+classname VARCHAR(255) NOT NULL,
+path VARCHAR(255) NOT NULL,
+editpath VARCHAR(255),
+inserttimestamp TIMESTAMP DEFAULT CURRENT_TIMESTAMP()  NOT NULL,
+updatetimestamp DATETIME  NOT NULL,
+PRIMARY KEY (moduletypeid),
+UNIQUE UC_classname (classname));
 
 
-CREATE TABLE Cuyahoga_Node(
-NodeId INT NOT NULL AUTO_INCREMENT,
-ParentNodeId INT,
-TemplateId INT,
-SiteId INT NOT NULL,
-Title VARCHAR(255) NOT NULL,
-ShortDescription VARCHAR(255) NOT NULL,
-Position INT DEFAULT 0 NOT NULL,
-Culture VARCHAR(8) NOT NULL,
-InsertTimestamp TIMESTAMP DEFAULT CURRENT_TIMESTAMP()  NOT NULL,
-UpdateTimestamp DATETIME  NOT NULL,
-FOREIGN KEY (ParentNodeId) REFERENCES Cuyahoga_Node (NodeId),
-FOREIGN KEY (SiteId) REFERENCES Cuyahoga_Site (SiteId),
-FOREIGN KEY (TemplateId) REFERENCES Cuyahoga_Template (TemplateId),
-PRIMARY KEY (NodeId),
-UNIQUE UC_NodeId (NodeId),
-UNIQUE UC_ShortDescription (ShortDescription));
+CREATE TABLE cuyahoga_modulesetting(
+modulesettingid INT NOT NULL AUTO_INCREMENT,
+moduletypeid INT NOT NULL,
+name VARCHAR(50) NOT NULL,
+friendlyname VARCHAR(50) NOT NULL,
+settingdatatype VARCHAR(100) NOT NULL,
+iscustomtype TINYINT NOT NULL,
+isrequired TINYINT NOT NULL,
+FOREIGN KEY (moduletypeid) REFERENCES cuyahoga_moduletype (moduletypeid),
+PRIMARY KEY (modulesettingid),
+UNIQUE IDX_cuyahoga_modulesetting_1 (moduletypeid,name));
 
 
-CREATE TABLE Cuyahoga_Section(
-SectionId INT NOT NULL AUTO_INCREMENT,
-NodeId INT,
-ModuleTypeId INT NOT NULL,
-Title VARCHAR(100) NOT NULL,
-ShowTitle TINYINT DEFAULT 1 NOT NULL,
-Placeholder VARCHAR(100),
-Position INT DEFAULT 0 NOT NULL,
-CacheDuration INT,
-InsertTimestamp TIMESTAMP DEFAULT CURRENT_TIMESTAMP()  NOT NULL,
-UpdateTimestamp DATETIME  NOT NULL,
-FOREIGN KEY (ModuleTypeId) REFERENCES Cuyahoga_ModuleType (ModuleTypeId),
-FOREIGN KEY (NodeId) REFERENCES Cuyahoga_Node (NodeId),
-PRIMARY KEY (SectionId),
-UNIQUE UC_SectionId (SectionId));
+CREATE TABLE cuyahoga_site(
+siteid INT NOT NULL AUTO_INCREMENT,
+templateid INT,
+roleid INT NOT NULL,
+name VARCHAR(100) NOT NULL,
+homeurl VARCHAR(100) NOT NULL,
+defaultculture VARCHAR(8) NOT NULL,
+defaultplaceholder VARCHAR(100),
+webmasteremail VARCHAR(100) NOT NULL,
+inserttimestamp TIMESTAMP DEFAULT CURRENT_TIMESTAMP()  NOT NULL,
+updatetimestamp DATETIME  NOT NULL,
+FOREIGN KEY (roleid) REFERENCES cuyahoga_role (roleid),
+FOREIGN KEY (templateid) REFERENCES cuyahoga_template (templateid),
+PRIMARY KEY (siteid),
+UNIQUE UC_name (name));
 
 
-CREATE TABLE Cuyahoga_NodeRole(
-NodeRoleId INT NOT NULL AUTO_INCREMENT,
-NodeId INT NOT NULL,
-RoleId INT NOT NULL,
-ViewAllowed TINYINT NOT NULL,
-EditAllowed TINYINT NOT NULL,
-FOREIGN KEY (NodeId) REFERENCES Cuyahoga_Node (NodeId),
-FOREIGN KEY (RoleId) REFERENCES Cuyahoga_Role (RoleId),
-PRIMARY KEY (NodeRoleId),
-UNIQUE IDX_Cuyahoga_NodeRole_1 (NodeId,RoleId));
+CREATE TABLE cuyahoga_node(
+nodeid INT NOT NULL AUTO_INCREMENT,
+parentnodeid INT,
+templateid INT,
+siteid INT NOT NULL,
+title VARCHAR(255) NOT NULL,
+shortdescription VARCHAR(255) NOT NULL,
+position INT DEFAULT 0 NOT NULL,
+culture VARCHAR(8) NOT NULL,
+showinnavigation TINYINT NOT NULL,
+inserttimestamp TIMESTAMP DEFAULT CURRENT_TIMESTAMP()  NOT NULL,
+updatetimestamp DATETIME  NOT NULL,
+FOREIGN KEY (parentnodeid) REFERENCES cuyahoga_node (nodeid),
+FOREIGN KEY (siteid) REFERENCES cuyahoga_site (siteid),
+FOREIGN KEY (templateid) REFERENCES cuyahoga_template (templateid),
+PRIMARY KEY (nodeid),
+UNIQUE UC_nodeid (nodeid),
+UNIQUE UC_shortdescription (shortdescription));
 
 
-CREATE TABLE Cuyahoga_SectionRole(
-SectionRoleId INT NOT NULL AUTO_INCREMENT,
-SectionId INT NOT NULL,
-RoleId INT NOT NULL,
-ViewAllowed TINYINT NOT NULL,
-EditAllowed TINYINT NOT NULL,
-FOREIGN KEY (RoleId) REFERENCES Cuyahoga_Role (RoleId),
-FOREIGN KEY (SectionId) REFERENCES Cuyahoga_Section (SectionId),
-PRIMARY KEY (SectionRoleId),
-UNIQUE IDX_Cuyahoga_SectionRole_1 (RoleId,SectionId));
+CREATE TABLE cuyahoga_section(
+sectionid INT NOT NULL AUTO_INCREMENT,
+nodeid INT,
+moduletypeid INT NOT NULL,
+title VARCHAR(100) NOT NULL,
+showtitle TINYINT DEFAULT 1 NOT NULL,
+placeholder VARCHAR(100),
+position INT DEFAULT 0 NOT NULL,
+cacheduration INT,
+inserttimestamp TIMESTAMP DEFAULT CURRENT_TIMESTAMP()  NOT NULL,
+updatetimestamp DATETIME  NOT NULL,
+FOREIGN KEY (moduletypeid) REFERENCES cuyahoga_moduletype (moduletypeid),
+FOREIGN KEY (nodeid) REFERENCES cuyahoga_node (nodeid),
+PRIMARY KEY (sectionid),
+UNIQUE UC_sectionid (sectionid));
 
 
-CREATE TABLE Cuyahoga_ModuleSetting(
-ModuleSettingId INT NOT NULL AUTO_INCREMENT,
-ModuleTypeId INT NOT NULL,
-Name VARCHAR(50) NOT NULL,
-FriendlyName VARCHAR(50) NOT NULL,
-SettingDataType VARCHAR(100) NOT NULL,
-IsCustomType TINYINT NOT NULL,
-IsRequired TINYINT NOT NULL,
-FOREIGN KEY (ModuleTypeId) REFERENCES Cuyahoga_ModuleType (ModuleTypeId),
-PRIMARY KEY (ModuleSettingId),
-UNIQUE IDX_Cuyahoga_ModuleSetting_1 (ModuleTypeId,Name));
+CREATE TABLE cuyahoga_sectionsetting(
+sectionsettingid INT NOT NULL AUTO_INCREMENT,
+sectionid INT NOT NULL,
+name VARCHAR(50) NOT NULL,
+value VARCHAR(100),
+FOREIGN KEY (sectionid) REFERENCES cuyahoga_section (sectionid),
+PRIMARY KEY (sectionsettingid),
+UNIQUE IDX_cuyahoga_sectionsetting_1 (sectionid,name));
 
 
-CREATE TABLE Cuyahoga_SectionSetting(
-SectionSettingId INT NOT NULL AUTO_INCREMENT,
-SectionId INT NOT NULL,
-Name VARCHAR(50) NOT NULL,
-Value VARCHAR(100),
-FOREIGN KEY (SectionId) REFERENCES Cuyahoga_Section (SectionId),
-PRIMARY KEY (SectionSettingId),
-UNIQUE IDX_Cuyahoga_SectionSetting_1 (SectionId,Name));
+CREATE TABLE cuyahoga_noderole(
+noderoleid INT NOT NULL AUTO_INCREMENT,
+nodeid INT NOT NULL,
+roleid INT NOT NULL,
+viewallowed TINYINT NOT NULL,
+editallowed TINYINT NOT NULL,
+FOREIGN KEY (nodeid) REFERENCES cuyahoga_node (nodeid),
+FOREIGN KEY (roleid) REFERENCES cuyahoga_role (roleid),
+PRIMARY KEY (noderoleid),
+UNIQUE IDX_cuyahoga_noderole_1 (nodeid,roleid));
+
+
+CREATE TABLE cuyahoga_menu(
+menuid INT NOT NULL AUTO_INCREMENT,
+rootnodeid INT NOT NULL,
+name VARCHAR(50) NOT NULL,
+placeholder VARCHAR(50) NOT NULL,
+inserttimestamp TIMESTAMP DEFAULT CURRENT_TIMESTAMP()  NOT NULL,
+updatetimestamp DATETIME  NOT NULL,
+FOREIGN KEY (rootnodeid) REFERENCES cuyahoga_node (nodeid),
+PRIMARY KEY (menuid),
+UNIQUE UC_menuid (menuid));
+
+
+CREATE TABLE cuyahoga_menunode(
+menunodeid INT NOT NULL AUTO_INCREMENT,
+menuid INT NOT NULL,
+nodeid INT NOT NULL,
+position INT NOT NULL,
+FOREIGN KEY (menuid) REFERENCES cuyahoga_menu (menuid),
+FOREIGN KEY (nodeid) REFERENCES cuyahoga_node (nodeid),
+PRIMARY KEY (menunodeid),
+UNIQUE UC_menunodeid (menunodeid));
+
+
+CREATE TABLE cuyahoga_sectionrole(
+sectionroleid INT NOT NULL AUTO_INCREMENT,
+sectionid INT NOT NULL,
+roleid INT NOT NULL,
+viewallowed TINYINT NOT NULL,
+editallowed TINYINT NOT NULL,
+FOREIGN KEY (roleid) REFERENCES cuyahoga_role (roleid),
+FOREIGN KEY (sectionid) REFERENCES cuyahoga_section (sectionid),
+PRIMARY KEY (sectionroleid),
+UNIQUE IDX_cuyahoga_sectionrole_1 (roleid,sectionid));
+
+
+CREATE TABLE cuyahoga_sitealias(
+sitealiasid INT NOT NULL AUTO_INCREMENT,
+siteid INT NOT NULL,
+nodeid INT,
+url VARCHAR(100) NOT NULL,
+inserttimestamp TIMESTAMP DEFAULT CURRENT_TIMESTAMP()  NOT NULL,
+updatetimestamp DATETIME  NOT NULL,
+FOREIGN KEY (nodeid) REFERENCES cuyahoga_node (nodeid),
+FOREIGN KEY (siteid) REFERENCES cuyahoga_site (siteid),
+PRIMARY KEY (sitealiasid),
+UNIQUE UC_sitealiasid (sitealiasid));
 

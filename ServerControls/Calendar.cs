@@ -6,6 +6,7 @@ using System.ComponentModel;
 using System.IO;
 using System.Text;
 using System.Globalization;
+using System.Text.RegularExpressions;
 
 namespace Cuyahoga.ServerControls
 {
@@ -280,19 +281,28 @@ namespace Cuyahoga.ServerControls
 
 		private string ConvertDateFormat(string shortDateFormat)
 		{
-			string tempFormat = shortDateFormat.Replace("yyyy", "%Y");
-			tempFormat = tempFormat.Replace("M", "%m");
-			tempFormat = tempFormat.Replace("d", "%d");
+			string tempFormat = ReplaceFormatCharacter(shortDateFormat, "y", "%Y");
+			tempFormat = ReplaceFormatCharacter(tempFormat, "M", "%m");
+			tempFormat = ReplaceFormatCharacter(tempFormat, "d", "%d");
 			return tempFormat;
 		}
 
 		private string ConvertTimeFormat(string shortTimeFormat)
 		{
-			string tempFormat = shortTimeFormat.Replace("H", "%H");
-			tempFormat = tempFormat.Replace("mm", "%M");
-			tempFormat = tempFormat.Replace("h", "%I");
+			string tempFormat = ReplaceFormatCharacter(shortTimeFormat, "H", "%H");
+			tempFormat = ReplaceFormatCharacter(tempFormat, "m", "%M");
+			tempFormat = ReplaceFormatCharacter(tempFormat, "h", "%I");
 			tempFormat = tempFormat.Replace("tt", "%p");
 			return tempFormat;
+		}
+
+		private string ReplaceFormatCharacter(string shortDateFormat, string from, string to)
+		{
+			// This method replaces 1 to 4 occurences of the given 'from' string to the 'to'
+			// string.
+			string pattern = from + "{1,4}";
+			Regex regex = new Regex(pattern, RegexOptions.Compiled);
+			return regex.Replace(shortDateFormat, to);
 		}
 	}
 
