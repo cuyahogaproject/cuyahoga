@@ -12,9 +12,9 @@ namespace Cuyahoga.Modules.DAL
 	/// <summary>
 	/// Summary description for ModuleDataFactory.
 	/// </summary>
-	public class ModulesDataFactory
+	public class ModulesDataProvider
 	{
-		private ModulesDataFactory()
+		private ModulesDataProvider()
 		{
 		}
 

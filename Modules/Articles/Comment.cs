@@ -1,11 +1,13 @@
 using System;
 
+using Gentle.Framework;
+
 namespace Cuyahoga.Modules.Articles
 {
 	/// <summary>
 	/// Summary description for Comment.
 	/// </summary>
-	public class Comment
+	public class Comment : Persistent
 	{
 		private int _id;
 		private int _articleId;

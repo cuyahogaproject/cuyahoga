@@ -46,7 +46,7 @@ namespace Cuyahoga.Web.Modules.StaticHtml
 				this._module.StaticHtmlContent = new StaticHtmlContent();
 			}
 			this._module.StaticHtmlContent.Content = this.cedStaticHtml.Text;
-			IModulesDataProvider dp = ModulesDataFactory.GetInstance();
+			IModulesDataProvider dp = ModulesDataProvider.GetInstance();
 			if (this._module.StaticHtmlContent.Id == -1)
 			{
 				dp.InsertStaticHtmlContent(this._module.Section.Id, Int32.Parse(Context.User.Identity.Name), this._module.StaticHtmlContent);

@@ -23,7 +23,7 @@ namespace Cuyahoga.Modules.StaticHtml
 				if (this._staticHtmlContent == null && this.Section != null)
 				{
 					this._staticHtmlContent = new StaticHtmlContent();
-					IModulesDataProvider dp = ModulesDataFactory.GetInstance();
+					IModulesDataProvider dp = ModulesDataProvider.GetInstance();
 					dp.GetStaticHtmlContentBySectionId(this.Section.Id, this._staticHtmlContent);
 				}
 				return this._staticHtmlContent; 

@@ -1,6 +1,8 @@
 using System;
 using System.Collections;
 
+using Gentle.Framework;
+
 using Cuyahoga.Core;
 
 namespace Cuyahoga.Modules.Articles
@@ -8,7 +10,7 @@ namespace Cuyahoga.Modules.Articles
 	/// <summary>
 	/// Summary description for Category.
 	/// </summary>
-	public class Category
+	public class Category : Persistent
 	{
 		private int _id;
 		private string _title;

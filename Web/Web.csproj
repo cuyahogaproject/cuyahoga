@@ -119,6 +119,10 @@
                     BuildAction = "Content"
                 />
                 <File
+                    RelPath = "Gentle.config"
+                    BuildAction = "None"
+                />
+                <File
                     RelPath = "Login.aspx"
                     SubType = "Form"
                     BuildAction = "Content"

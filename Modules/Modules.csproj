@@ -99,6 +99,21 @@
                     AssemblyName = "Mono.Security.Protocol.Tls"
                     HintPath = "..\ExternalStuff\Mono.Security.Protocol.Tls.dll"
                 />
+                <Reference
+                    Name = "Gentle.Common"
+                    AssemblyName = "Gentle.Common"
+                    HintPath = "..\ExternalStuff\Gentle.Common.dll"
+                />
+                <Reference
+                    Name = "Gentle.Framework"
+                    AssemblyName = "Gentle.Framework"
+                    HintPath = "..\ExternalStuff\Gentle.Framework.dll"
+                />
+                <Reference
+                    Name = "Mailframe.Configuration"
+                    AssemblyName = "Mailframe.Configuration"
+                    HintPath = "..\ExternalStuff\Mailframe.Configuration.dll"
+                />
             </References>
         </Build>
         <Files>
@@ -134,7 +149,7 @@
                     BuildAction = "Compile"
                 />
                 <File
-                    RelPath = "DAL\ModulesDataFactory.cs"
+                    RelPath = "DAL\ModulesDataProvider.cs"
                     SubType = "Code"
                     BuildAction = "Compile"
                 />
