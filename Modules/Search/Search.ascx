@@ -13,7 +13,7 @@
 <asp:label id="lblQueryText" runat="server" font-bold="True"></asp:label>
 (<asp:label id="lblDuration" runat="server"></asp:label> <%= base.GetText("SECONDS") %>) 
 <ul class="searchresults">
-		<asp:repeater id="rptResults" runat="server">
+		<asp:repeater id="rptResults" runat="server" enableviewstate="False">
 			<itemtemplate>
 				<li>
 					<h4>

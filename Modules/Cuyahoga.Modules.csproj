@@ -17,7 +17,7 @@
                 DelaySign = "false"
                 OutputType = "Library"
                 PreBuildEvent = ""
-                PostBuildEvent = 'xcopy /s /y "$(ProjectDir)"*.as?x "$(SolutionDir)"Web\Modules&#xd;&#xa;xcopy /s /y "$(TargetDir)"Cuyahoga.Modules*.dll "$(SolutionDir)"Web\bin&#xd;&#xa;xcopy /s /y "$(TargetDir)"FredCK.FCKeditorV2.dll "$(SolutionDir)"Web\bin'
+                PostBuildEvent = 'xcopy /s /y "$(ProjectDir)"*.as?x "$(SolutionDir)"Web\Modules&#xd;&#xa;xcopy /s /y "$(ProjectDir)"*.gif "$(SolutionDir)"Web\Modules&#xd;&#xa;xcopy /s /y "$(TargetDir)"Cuyahoga.Modules*.dll "$(SolutionDir)"Web\bin&#xd;&#xa;xcopy /s /y "$(TargetDir)"FredCK.FCKeditorV2.dll "$(SolutionDir)"Web\bin'
                 RootNamespace = "Cuyahoga.Modules"
                 RunPostBuildEvent = "OnBuildSuccess"
                 StartupObject = ""
@@ -226,6 +226,31 @@
                 <File
                     RelPath = "Articles\Resources\Strings.resx"
                     BuildAction = "EmbeddedResource"
+                />
+                <File
+                    RelPath = "LanguageSwitcher\LanguageSwitcher.ascx"
+                    SubType = "UserControl"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "LanguageSwitcher\LanguageSwitcher.ascx.cs"
+                    DependentUpon = "LanguageSwitcher.ascx"
+                    SubType = "ASPXCodeBehind"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "LanguageSwitcher\LanguageSwitcher.ascx.resx"
+                    DependentUpon = "LanguageSwitcher.ascx.cs"
+                    BuildAction = "EmbeddedResource"
+                />
+                <File
+                    RelPath = "LanguageSwitcher\LanguageSwitcherModule.cs"
+                    SubType = "Code"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "LanguageSwitcher\Images\go.gif"
+                    BuildAction = "Content"
                 />
                 <File
                     RelPath = "Search\Search.ascx"

@@ -64,7 +64,17 @@ namespace Cuyahoga.Web.Util
 		/// <returns></returns>
 		public static string GetUrlFromNode(Node node)
 		{
-			return GetApplicationPath() + node.Id + "/view.aspx";
+			return GetApplicationPath() + node.Id.ToString() + "/view.aspx";
+		}
+
+		/// <summary>
+		/// Returns a formatted url for a given nodeId (/{ApplicationPath}/{nodeId}/view.aspx.
+		/// </summary>
+		/// <param name="nodeId"></param>
+		/// <returns></returns>
+		public static string GetUrlFromNodeId(int nodeId)
+		{
+			return GetApplicationPath() + nodeId.ToString() + "/view.aspx";
 		}
 
 		/// <summary>
@@ -74,7 +84,7 @@ namespace Cuyahoga.Web.Util
 		/// <returns></returns>
 		public static string GetUrlFromSection(Section section)
 		{
-			return GetApplicationPath() + section.Id + "/section.aspx";
+			return GetApplicationPath() + section.Id.ToString() + "/section.aspx";
 		}
 
 		/// <summary>
@@ -95,7 +105,7 @@ namespace Cuyahoga.Web.Util
 		/// <returns></returns>
 		public static string GetRssUrlFromSection(Section section)
 		{
-			return GetHostUrl() + GetApplicationPath() + section.Id + "/feed.aspx";
+			return GetHostUrl() + GetApplicationPath() + section.Id.ToString() + "/feed.aspx";
 		}
 
 		public static string[] GetParamsFromPathInfo(string pathInfo)

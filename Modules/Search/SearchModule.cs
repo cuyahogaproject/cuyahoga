@@ -45,12 +45,5 @@ namespace Cuyahoga.Modules.Search
 		{
 			return GetSearchResults(queryText, 0, 200, indexDir);
 		}
-
-		public override void DeleteModuleContent()
-		{
-			// No content to be deleted here. Leave the search index as it is.
-			return;
-		}
-
 	}
 }

@@ -16,11 +16,5 @@ namespace Cuyahoga.Modules.User
 	/// </summary>
 	public class UserModule : ModuleBase
 	{
-		public override void DeleteModuleContent()
-		{
-			// No content, so nothing has to be done.
-			return;
-		}
-
 	}
 }
