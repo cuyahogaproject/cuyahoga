@@ -176,6 +176,22 @@
                     BuildAction = "EmbeddedResource"
                 />
                 <File
+                    RelPath = "Profile.aspx"
+                    SubType = "Form"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Profile.aspx.cs"
+                    DependentUpon = "Profile.aspx"
+                    SubType = "ASPXCodeBehind"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "Profile.aspx.resx"
+                    DependentUpon = "Profile.aspx.cs"
+                    BuildAction = "EmbeddedResource"
+                />
+                <File
                     RelPath = "Rss.aspx"
                     SubType = "Form"
                     BuildAction = "Content"
@@ -520,6 +536,22 @@
                     BuildAction = "Compile"
                 />
                 <File
+                    RelPath = "Controls\EditProfile.ascx"
+                    SubType = "UserControl"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Controls\EditProfile.ascx.cs"
+                    DependentUpon = "EditProfile.ascx"
+                    SubType = "ASPXCodeBehind"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "Controls\EditProfile.ascx.resx"
+                    DependentUpon = "EditProfile.ascx.cs"
+                    BuildAction = "EmbeddedResource"
+                />
+                <File
                     RelPath = "Controls\ModuleAdminHeader.ascx"
                     SubType = "UserControl"
                     BuildAction = "Content"
@@ -549,6 +581,54 @@
                 <File
                     RelPath = "Controls\ModuleAdminTemplate.ascx.resx"
                     DependentUpon = "ModuleAdminTemplate.ascx.cs"
+                    BuildAction = "EmbeddedResource"
+                />
+                <File
+                    RelPath = "Controls\Register.ascx"
+                    SubType = "UserControl"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Controls\Register.ascx.cs"
+                    DependentUpon = "Register.ascx"
+                    SubType = "ASPXCodeBehind"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "Controls\Register.ascx.resx"
+                    DependentUpon = "Register.ascx.cs"
+                    BuildAction = "EmbeddedResource"
+                />
+                <File
+                    RelPath = "Controls\ResetPassword.ascx"
+                    SubType = "UserControl"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Controls\ResetPassword.ascx.cs"
+                    DependentUpon = "ResetPassword.ascx"
+                    SubType = "ASPXCodeBehind"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "Controls\ResetPassword.ascx.resx"
+                    DependentUpon = "ResetPassword.ascx.cs"
+                    BuildAction = "EmbeddedResource"
+                />
+                <File
+                    RelPath = "Controls\ViewProfile.ascx"
+                    SubType = "UserControl"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Controls\ViewProfile.ascx.cs"
+                    DependentUpon = "ViewProfile.ascx"
+                    SubType = "ASPXCodeBehind"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "Controls\ViewProfile.ascx.resx"
+                    DependentUpon = "ViewProfile.ascx.cs"
                     BuildAction = "EmbeddedResource"
                 />
                 <File
@@ -589,6 +669,14 @@
                 />
                 <Folder RelPath = "log\" />
                 <Folder RelPath = "Modules\" />
+                <File
+                    RelPath = "Resources\Strings.nl.resx"
+                    BuildAction = "EmbeddedResource"
+                />
+                <File
+                    RelPath = "Resources\Strings.resx"
+                    BuildAction = "EmbeddedResource"
+                />
                 <File
                     RelPath = "Support\FreeTextBox\FreeTextBox-MainScript.js"
                     BuildAction = "Content"
@@ -1744,6 +1832,11 @@
                 />
                 <File
                     RelPath = "UI\BaseTemplate.cs"
+                    SubType = "ASPXCodeBehind"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "UI\GeneralPage.cs"
                     SubType = "ASPXCodeBehind"
                     BuildAction = "Compile"
                 />

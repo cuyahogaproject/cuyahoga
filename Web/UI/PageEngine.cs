@@ -28,8 +28,17 @@ namespace Cuyahoga.Web.UI
 		private Section _activeSection;
 		private BaseTemplate _templateControl;
 		private CoreRepository _coreRepository;
+		private bool _shouldLoadContent;
 
 		#region properties
+
+		/// <summary>
+		/// Flag to indicate if the engine should load content (Templates, Nodes and Sections).
+		/// </summary>
+		protected bool ShouldLoadContent
+		{
+			set { this._shouldLoadContent = value; }
+		}
 
 		/// <summary>
 		/// Property RootNode (Node)
@@ -79,6 +88,7 @@ namespace Cuyahoga.Web.UI
 			this._activeNode = null;
 			this._activeSection = null;
 			this._templateControl = null;
+			this._shouldLoadContent = true;
 		}
 
 		/// <summary>
@@ -135,68 +145,13 @@ namespace Cuyahoga.Web.UI
 					throw new AccessForbiddenException("You are not allowed to view this page.");
 				}
 
-				// ===== Load template and usercontrols =====
-
-				//string appRoot = this.ResolveUrl("~/");
-				string appRoot = UrlHelper.GetApplicationPath();
-				// We know the active node so the template can be loaded
-				if (this._activeNode.Template != null)
+				if (this._shouldLoadContent)
 				{
-					string templatePath = appRoot + this._activeNode.Template.Path;
-					this._templateControl = (BaseTemplate)this.LoadControl(templatePath);
-					// Explicitly set the id to 'p' to save some bytes (otherwise _ctl0 would be added).
-					this._templateControl.ID = "p";
-					this._templateControl.Title = this._activeNode.Title;
-					this._templateControl.Css = appRoot + Config.GetConfiguration()["CssDir"] + this._activeNode.Template.Css;
+					 LoadContent(cm);				
 				}
-				else
-				{
-					throw new Exception("No template associated with the current Node.");
-				}
-
-				// Load sections and modules
-				int sectionId = -1;
-				if (Context.Request.QueryString["SectionId"] != null)
-				{
-					sectionId = Int32.Parse(Context.Request.QueryString["SectionId"]);
-				}
-				foreach (Section section in this._activeNode.Sections)
-				{
-					// Check view permissions before adding the section to the page.
-					if (section.ViewAllowed(this.User.Identity))
-					{
-						if (section.Id == sectionId && this._activeSection == null)
-						{
-							this._activeSection = section;
-						}
-						// Create the module that is connected to the section.
-						section.SessionFactoryRebuilt += new EventHandler(Section_SessionFactoryRebuilt);
-						ModuleBase module = section.CreateModule();
-						// Create event handlers for NHibernate-related events that can occur in the module.
-						module.NHSessionRequired += new ModuleBase.NHSessionEventHandler(Module_NHSessionRequired);
-
-						if (module != null)
-						{
-							BaseModuleControl ctrl = (BaseModuleControl)this.LoadControl(appRoot + section.ModuleType.Path);
-							ctrl.Module = module;
-							((PlaceHolder)this._templateControl.Containers[section.PlaceholderId]).Controls.Add(ctrl);
-
-							if (Context.Request.PathInfo.Length > 0 && section == this._activeSection)
-							{
-								// Parse the PathInfo of the request because they are the parameters 
-								// of the module that is connected to the active section.
-								module.ModulePathInfo = Context.Request.PathInfo;
-							}
-						}
-					}
-				}
-				this.Controls.AddAt(0, this._templateControl);
-				// remove html that was in the original page (Default.aspx)
-				for (int i = this.Controls.Count -1; i < 0; i --)
-					this.Controls.RemoveAt(i);
 			}
-				// TODO: we could handle some exceptions here, but for now rethrow it, so it will be handled
-				// by the general error page (and logged!).
+			// TODO: we could handle some exceptions here, but for now rethrow it, so it will be handled
+			// by the general error page (and logged!).
 			catch (Exception ex)
 			{
 				throw ex;
@@ -230,6 +185,68 @@ namespace Cuyahoga.Web.UI
 			TimeSpan ts = DateTime.Now - (DateTime)Context.Items["starttime"];
 			Debug.WriteLine("Total execution time : " + ts.Milliseconds.ToString() + " milliseconds. \n");
 			base.OnUnload (e);
+		}
+
+		private void LoadContent(CacheManager cm)
+		{
+			// ===== Load template and usercontrols =====
+
+			string appRoot = UrlHelper.GetApplicationPath();
+			// We know the active node so the template can be loaded.
+			if (this._activeNode.Template != null)
+			{
+				string templatePath = appRoot + this._activeNode.Template.Path;
+				this._templateControl = (BaseTemplate)this.LoadControl(templatePath);
+				// Explicitly set the id to 'p' to save some bytes (otherwise _ctl0 would be added).
+				this._templateControl.ID = "p";
+				this._templateControl.Title = this._activeNode.Title;
+				this._templateControl.Css = appRoot + Config.GetConfiguration()["CssDir"] + this._activeNode.Template.Css;
+			}
+			else
+			{
+				throw new Exception("No template associated with the current Node.");
+			}
+
+			// Load sections and modules
+			int sectionId = -1;
+			if (Context.Request.QueryString["SectionId"] != null)
+			{
+				sectionId = Int32.Parse(Context.Request.QueryString["SectionId"]);
+			}
+			foreach (Section section in this._activeNode.Sections)
+			{
+				// Check view permissions before adding the section to the page.
+				if (section.ViewAllowed(this.User.Identity))
+				{
+					if (section.Id == sectionId && this._activeSection == null)
+					{
+						this._activeSection = section;
+					}
+					// Create the module that is connected to the section.
+					// Create event handlers for NHibernate-related events that can occur in the module.
+					section.SessionFactoryRebuilt += new EventHandler(Section_SessionFactoryRebuilt);
+					ModuleBase module = section.CreateModule();
+					module.NHSessionRequired += new ModuleBase.NHSessionEventHandler(Module_NHSessionRequired);
+
+					if (module != null)
+					{
+						BaseModuleControl ctrl = (BaseModuleControl)this.LoadControl(appRoot + section.ModuleType.Path);
+						ctrl.Module = module;
+						((PlaceHolder)this._templateControl.Containers[section.PlaceholderId]).Controls.Add(ctrl);
+
+						if (Context.Request.PathInfo.Length > 0 && section == this._activeSection)
+						{
+							// Parse the PathInfo of the request because they are the parameters 
+							// of the module that is connected to the active section.
+							module.ModulePathInfo = Context.Request.PathInfo;
+						}
+					}
+				}
+			}
+			this.Controls.AddAt(0, this._templateControl);
+			// remove html that was in the original page (Default.aspx)
+			for (int i = this.Controls.Count -1; i < 0; i --)
+				this.Controls.RemoveAt(i);
 		}
 
 		private void Section_SessionFactoryRebuilt(object sender, EventArgs e)

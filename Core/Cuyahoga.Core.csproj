@@ -89,11 +89,6 @@
                     AssemblyName = "NHibernate"
                     HintPath = "..\lib\NHibernate.dll"
                 />
-                <Reference
-                    Name = "Npgsql"
-                    AssemblyName = "Npgsql"
-                    HintPath = "..\lib\Npgsql.dll"
-                />
             </References>
         </Build>
         <Files>

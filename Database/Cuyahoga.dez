@@ -1,6 +1,6 @@
 ***VERSION***
 2.4
-2004-12-26
+2004-12-27
 Cuyahoga
 
 Martijn Boland
@@ -272,6 +272,9 @@ Cuyahoga_NodeRole
 RoleId
 ***LINKEDATTRIBUTE***
 Cuyahoga_SectionRole
+RoleId
+***LINKEDATTRIBUTE***
+Cuyahoga_Site
 RoleId
 ***VARIABLEVALUE***
 increment_by=1
@@ -2757,7 +2760,7 @@ Cuyahoga_Site
 21
 277
 120
-162
+178
 ***ATTRIBUTE***
 Cuyahoga_Site
 SiteId
@@ -2790,6 +2793,26 @@ __FK__
 Cuyahoga_Template
 TemplateId
 Cuyahoga_Site_Cuyahoga_Template
+
+
+18
+AUTONUMBER
+0
+0
+
+No
+No
+No
+
+
+
+***ATTRIBUTE***
+Cuyahoga_Site
+RoleId
+__FK__
+Cuyahoga_Role
+RoleId
+Cuyahoga_Role_Cuyahoga_Site
 
 
 18
@@ -2939,6 +2962,30 @@ Cuyahoga_Site
 0
 2
 Vertical
+50
+50
+50
+50
+50
+50
+50
+50
+***RELATION***
+Cuyahoga_Role_Cuyahoga_Site
+
+
+0:N
+1:1
+Cuyahoga_Role
+Cuyahoga_Site
+
+0
+0
+***SCREEN***
+0
+744
+4
+Horizontal
 50
 50
 50

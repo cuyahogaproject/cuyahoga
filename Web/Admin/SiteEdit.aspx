@@ -1,14 +1,14 @@
 <%@ Page language="c#" Codebehind="SiteEdit.aspx.cs" AutoEventWireup="false" Inherits="Cuyahoga.Web.Admin.SiteEdit" %>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN" >
 <html>
-	<head>
+  <head>
 		<title>SiteEdit</title>
 		<meta content="Microsoft Visual Studio .NET 7.1" name="GENERATOR">
 		<meta content="C#" name="CODE_LANGUAGE">
 		<meta content="JavaScript" name="vs_defaultClientScript">
 		<meta content="http://schemas.microsoft.com/intellisense/ie5" name="vs_targetSchema">
-	</head>
-	<body ms_positioning="FlowLayout">
+  </head>
+	<body>
 		<form id="Form1" method="post" runat="server">
 			<div class="group">
 				<h4>General</h4>
@@ -25,15 +25,28 @@
 				<table>
 					<tr>
 						<td style="WIDTH: 100px">Template</td>
-						<td><asp:dropdownlist id="ddlTemplates" runat="server"></asp:dropdownlist></td></tr>
+						<td><asp:dropdownlist id="ddlTemplates" runat="server" autopostback="True"></asp:dropdownlist></td>
+					</tr>
 					<tr>
+						<td>Placeholder</td>
+						<td><asp:dropdownlist id="ddlPlaceholders" runat="server"></asp:dropdownlist><em>(this 
+      is the placeholder where the content of&nbsp;general pages&nbsp;is 
+      inserted)</em></td>
+					</tr>
 					<tr>
 						<td>Culture</td>
-						<td><asp:dropdownlist id="ddlCultures" runat="server"></asp:dropdownlist></td></tr></table></div>
+						<td><asp:dropdownlist id="ddlCultures" runat="server"></asp:dropdownlist></td>
+					</tr>
+					<tr>
+						<td>Role for registered users</td>
+						<td><asp:dropdownlist id="ddlRoles" runat="server"></asp:dropdownlist></td>
+					</tr>
+				</table>
+			</div>
 			<div>
 				<asp:button id="btnSave" runat="server" text="Save"></asp:button>
 				<asp:button id="btnCancel" runat="server" text="Cancel" causesvalidation="False"></asp:button>
-				<asp:button id="btnDelete" runat="server" text="Delete"></asp:button>
+				<asp:button id="btnDelete" runat="server" text="Delete" causesvalidation="False"></asp:button>
 			</div></form>
 
 	</body>

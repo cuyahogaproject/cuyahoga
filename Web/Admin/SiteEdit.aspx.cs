@@ -31,6 +31,8 @@ namespace Cuyahoga.Web.Admin
 		protected System.Web.UI.WebControls.Button btnSave;
 		protected System.Web.UI.WebControls.Button btnCancel;
 		protected System.Web.UI.WebControls.Button btnDelete;
+		protected System.Web.UI.WebControls.DropDownList ddlPlaceholders;
+		protected System.Web.UI.WebControls.DropDownList ddlRoles;
 		protected System.Web.UI.WebControls.RequiredFieldValidator rfvSiteUrl;
 	
 		private void Page_Load(object sender, System.EventArgs e)
@@ -58,6 +60,7 @@ namespace Cuyahoga.Web.Admin
 					BindSiteControls();
 					BindTemplates();
 					BindCultures();
+					BindRoles();
 				}
 			}
 		}
@@ -85,8 +88,40 @@ namespace Cuyahoga.Web.Admin
 			if (this._activeSite.DefaultTemplate != null)
 			{
 				ddlTemplates.Items.FindByValue(this._activeSite.DefaultTemplate.Id.ToString()).Selected = true;
+				BindPlaceholders();
 			}
 			this.ddlTemplates.Visible = true;
+		}
+
+		private void BindPlaceholders()
+		{
+			// Try to find the placeholder in the selected template.
+			if (this.ddlTemplates.SelectedIndex > 0)
+			{
+				try
+				{
+					Template template = (Template)base.CoreRepository.GetObjectById(typeof(Template), Int32.Parse(this.ddlTemplates.SelectedValue));
+					// Read template control and get the containers (placeholders)
+					string templatePath = Util.UrlHelper.GetApplicationPath() + template.Path;
+					BaseTemplate templateControl = (BaseTemplate)this.LoadControl(templatePath);
+					this.ddlPlaceholders.DataSource = templateControl.Containers;
+					this.ddlPlaceholders.DataValueField = "Key";
+					this.ddlPlaceholders.DataTextField = "Key";
+					this.ddlPlaceholders.DataBind();
+					if (this._activeSite.DefaultPlaceholder != null && this._activeSite.DefaultPlaceholder != String.Empty)
+					{
+						this.ddlPlaceholders.Items.FindByValue(this._activeSite.DefaultPlaceholder).Selected = true;
+					}
+				}
+				catch (Exception ex)
+				{
+					ShowError(ex.Message);
+				}
+			}
+			else
+			{
+				this.ddlPlaceholders.Items.Clear();
+			}
 		}
 
 		private void BindCultures()
@@ -98,6 +133,18 @@ namespace Cuyahoga.Web.Admin
 			if (this._activeSite.DefaultCulture != null)
 			{
 				ddlCultures.Items.FindByValue(this._activeSite.DefaultCulture).Selected = true;
+			}
+		}
+
+		private void BindRoles()
+		{
+			this.ddlRoles.DataSource = base.CoreRepository.GetAll(typeof(Role), "PermissionLevel");
+			this.ddlRoles.DataValueField = "Id";
+			this.ddlRoles.DataTextField = "Name";
+			this.ddlRoles.DataBind();
+			if (this._activeSite.DefaultRole != null)
+			{
+				ddlRoles.Items.FindByValue(this._activeSite.DefaultRole.Id.ToString()).Selected = true;
 			}
 		}
 
@@ -138,6 +185,7 @@ namespace Cuyahoga.Web.Admin
 		/// </summary>
 		private void InitializeComponent()
 		{    
+			this.ddlTemplates.SelectedIndexChanged += new System.EventHandler(this.ddlTemplates_SelectedIndexChanged);
 			this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
 			this.btnCancel.Click += new System.EventHandler(this.btnCancel_Click);
 			this.btnDelete.Click += new System.EventHandler(this.btnDelete_Click);
@@ -157,12 +205,20 @@ namespace Cuyahoga.Web.Admin
 					int templateId = Int32.Parse(this.ddlTemplates.SelectedValue);
 					Template template = (Template) base.CoreRepository.GetObjectById(typeof (Template), templateId);
 					this._activeSite.DefaultTemplate = template;
+					if (this.ddlPlaceholders.SelectedIndex > -1)
+					{
+						this._activeSite.DefaultPlaceholder = this.ddlPlaceholders.SelectedValue;
+					}
 				}
 				else if (this.ddlTemplates.SelectedValue == "-1")
 				{
 					this._activeSite.DefaultTemplate = null;
+					this._activeSite.DefaultPlaceholder = null;
 				}
 				this._activeSite.DefaultCulture = this.ddlCultures.SelectedValue;
+				int defaultRoleId = Int32.Parse(this.ddlRoles.SelectedValue);
+				this._activeSite.DefaultRole = (Role)base.CoreRepository.GetObjectById(typeof(Role), defaultRoleId);
+
 				SaveSite();
 			}
 		}
@@ -192,5 +248,9 @@ namespace Cuyahoga.Web.Admin
 			}
 		}
 
+		private void ddlTemplates_SelectedIndexChanged(object sender, System.EventArgs e)
+		{
+			BindPlaceholders();
+		}
 	}
 }

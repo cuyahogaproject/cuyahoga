@@ -234,10 +234,10 @@ namespace Cuyahoga.Core.Service
 
 		#region Site specific
 
-		public Site GetSiteBySiteUrl(string applicationPath)
+		public Site GetSiteBySiteUrl(string siteUrl)
 		{
 			ICriteria crit = this._activeSession.CreateCriteria(typeof(Site));
-			crit.Add(Expression.Eq("SiteUrl", applicationPath.ToLower()));
+			crit.Add(Expression.Eq("SiteUrl", siteUrl.ToLower()));
 			IList results = crit.List();
 			if (results.Count == 1)
 			{
@@ -245,7 +245,7 @@ namespace Cuyahoga.Core.Service
 			}
 			else if (results.Count > 1)
 			{
-				throw new Exception(String.Format("Multiple sites found for ApplicationPath {0}. The ApplicationPath should be unique.", applicationPath));
+				throw new Exception(String.Format("Multiple sites found for SiteUrl {0}. The SiteUrl should be unique.", siteUrl));
 			}
 			else
 			{
@@ -311,6 +311,11 @@ namespace Cuyahoga.Core.Service
 						foreach (Section section in node.Sections)
 						{
 							this._activeSession.Update(section);
+						}
+						// The same for the Site, otherwise the proxied properties of Site don't work.
+						if (! this._activeSession.Contains(node.Site))
+						{
+							this._activeSession.Update(node.Site);
 						}
 					}
 				}

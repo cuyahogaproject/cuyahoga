@@ -2,8 +2,6 @@ using System;
 using System.Web.UI;
 using System.Web.UI.HtmlControls;
 
-using NHibernate;
-
 using Cuyahoga.Core;
 using Cuyahoga.Core.Domain;
 using Cuyahoga.Web.Util;
@@ -89,7 +87,7 @@ namespace Cuyahoga.Web.UI
 			// Check permissions
 			if (! Context.User.Identity.IsAuthenticated)
 			{
-				throw new ActionForbiddenException("You are not logged in.");
+				throw new AccessForbiddenException("You are not logged in.");
 			}
 			else
 			{

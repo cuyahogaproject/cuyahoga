@@ -57,7 +57,7 @@ namespace Cuyahoga.Web.UI
 		/// </summary>
 		public BaseModuleControl()
 		{
-			// Base name of the resources consists of Namespace_without_Web.Resources.Strings
+			// Base name of the resources consists of ModuleNamespace.Resources.Strings
 			string baseName = this.GetType().BaseType.Namespace + ".Resources.Strings";
 			this._resMan = new ResourceManager(baseName, this.GetType().BaseType.Assembly);
 			this._currentUICulture = Thread.CurrentThread.CurrentUICulture;

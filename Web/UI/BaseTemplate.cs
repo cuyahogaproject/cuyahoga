@@ -30,7 +30,7 @@ namespace Cuyahoga.Web.UI
 		}
 
 		/// <summary>
-		/// Path to external stylesheet file, relative from the application root.
+		/// Path to external stylesheet file, including the application root.
 		/// </summary>
 		public string Css
 		{

@@ -13,6 +13,8 @@ namespace Cuyahoga.Core.Domain
 		private string _siteUrl;
 		private string _defaultCulture;
 		private Template _defaultTemplate;
+		private string _defaultPlaceholder;
+		private Role _defaultRole;
 		private IList _rootNodes;
 		private DateTime _updateTimestamp;
 
@@ -61,6 +63,24 @@ namespace Cuyahoga.Core.Domain
 		{
 			get { return this._defaultTemplate; }
 			set { this._defaultTemplate = value; }
+		}
+
+		/// <summary>
+		/// The default role for registered users.
+		/// </summary>
+		public virtual Role DefaultRole
+		{
+			get { return this._defaultRole; }
+			set { this._defaultRole = value; }
+		}
+
+		/// <summary>
+		/// Property DefaultPlaceholder (string)
+		/// </summary>
+		public virtual string DefaultPlaceholder
+		{
+			get { return this._defaultPlaceholder; }
+			set { this._defaultPlaceholder = value; }
 		}
 
 		/// <summary>

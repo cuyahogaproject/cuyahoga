@@ -16,6 +16,8 @@ namespace Cuyahoga.Core.Domain
 		private string _firstName;
 		private string _lastName;
 		private string _email;
+		private string _website;
+		private bool _isActive;
 		private DateTime _lastLogin;
 		private string _lastIp;
 		private bool _isAuthenticated;
@@ -70,13 +72,24 @@ namespace Cuyahoga.Core.Domain
 		}
 
 		/// <summary>
-		/// The full name of the user. This can be used for display purposes.
+		/// The full name of the user. This can be used for display purposes. If there is no firstname
+		/// and lastname, the username will be returned.
 		/// </summary>
 		public virtual string FullName
 		{
-			get { return this._firstName + " " + this._lastName; }
+			get 
+			{ 
+				if (this._firstName != null && this._firstName != String.Empty 
+					&& this._lastName != null && this._lastName != String.Empty)
+				{
+					return this._firstName + " " + this._lastName; 
+				}
+				else
+				{
+					return this._userName;
+				}
+			}
 		}
-
 
 		/// <summary>
 		/// Property Email (string)
@@ -85,6 +98,24 @@ namespace Cuyahoga.Core.Domain
 		{
 			get { return this._email; }
 			set { this._email = value; }
+		}
+
+		/// <summary>
+		/// Property Website (string)
+		/// </summary>
+		public string Website
+		{
+			get { return this._website; }
+			set { this._website = value; }
+		}
+
+		/// <summary>
+		/// Property IsActive (bool)
+		/// </summary>
+		public bool IsActive
+		{
+			get { return this._isActive; }
+			set { this._isActive = value; }
 		}
 
 		/// <summary>

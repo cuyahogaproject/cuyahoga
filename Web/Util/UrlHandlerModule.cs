@@ -48,13 +48,13 @@ namespace Cuyahoga.Web.Util
 					{
 						// Store the original url in the Context.Items collection. We need to save this for setting
 						// the action of the form.
-						context.Items["VirtualUrl"] = urlToRewrite;
 						string rewritePath = regEx.Replace(urlToRewrite, UrlHelper.GetApplicationPath() + mappings[i]);
 						context.RewritePath(rewritePath);
 					}
 					break;
 				}
 			}
+			context.Items["VirtualUrl"] = urlToRewrite;
 		}
 
 		private void context_BeginRequest(object sender, EventArgs e)

@@ -63,6 +63,11 @@ select, input, textarea
 	font-size: 0.8em;
 }
 
+td
+{
+	font-size: 0.9em;
+}
+
 #header
 {
 	margin: 0;

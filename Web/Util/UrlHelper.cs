@@ -98,7 +98,7 @@ namespace Cuyahoga.Web.Util
 			return GetHostUrl() + GetApplicationPath() + section.Id + "/feed.aspx";
 		}
 
-		public static string[] GetModuleParamsFromPathInfo(string pathInfo)
+		public static string[] GetParamsFromPathInfo(string pathInfo)
 		{
 			if (pathInfo.Length > 0)
 			{
