@@ -1,11 +1,11 @@
 ***VERSION***
 2.4
-2004-12-16
+2004-12-18
 Cuyahoga
 
 Martijn Boland
 
-13
+11
 2003-12-26
 E:\Projects\Cuyahoga\Database\
 2000
@@ -29,7 +29,7 @@ UserId
 
 
 18
-autonumber
+AUTONUMBER
 0
 0
 
@@ -69,7 +69,7 @@ Username
 
 
 13
-varchar
+VARCHAR
 50
 0
 
@@ -85,7 +85,7 @@ Password
 
 
 13
-varchar
+VARCHAR
 100
 0
 
@@ -101,7 +101,7 @@ Firstname
 
 
 13
-varchar
+VARCHAR
 100
 0
 
@@ -117,7 +117,7 @@ Lastname
 
 
 13
-varchar
+VARCHAR
 100
 0
 
@@ -133,7 +133,7 @@ Email
 
 
 13
-varchar
+VARCHAR
 100
 0
 
@@ -149,7 +149,7 @@ LastLogin
 
 
 7
-timestamp
+TIMESTAMP
 0
 0
 
@@ -165,7 +165,7 @@ LastIp
 
 
 13
-varchar
+VARCHAR
 40
 0
 
@@ -181,7 +181,7 @@ InsertTimestamp
 
 
 7
-timestamp
+TIMESTAMP
 0
 0
 
@@ -197,7 +197,7 @@ UpdateTimestamp
 
 
 7
-timestamp
+TIMESTAMP
 0
 0
 
@@ -222,7 +222,7 @@ RoleId
 
 
 18
-autonumber
+AUTONUMBER
 0
 0
 
@@ -253,7 +253,7 @@ Name
 
 
 13
-varchar
+VARCHAR
 50
 0
 
@@ -269,7 +269,7 @@ PermissionLevel
 
 
 16
-integer
+INTEGER
 0
 0
 
@@ -287,7 +287,7 @@ InsertTimestamp
 
 
 7
-timestamp
+TIMESTAMP
 0
 0
 
@@ -303,7 +303,7 @@ UpdateTimestamp
 
 
 7
-timestamp
+TIMESTAMP
 0
 0
 
@@ -328,7 +328,7 @@ UserRoleId
 
 
 18
-autonumber
+AUTONUMBER
 0
 0
 
@@ -354,7 +354,7 @@ User_UserRole
 
 
 18
-autonumber
+AUTONUMBER
 0
 0
 
@@ -374,7 +374,7 @@ Role_UserRole
 
 
 18
-autonumber
+AUTONUMBER
 0
 0
 
@@ -390,7 +390,7 @@ InsertTimestamp
 
 
 7
-timestamp
+TIMESTAMP
 0
 0
 
@@ -406,7 +406,7 @@ UpdateTimestamp
 
 
 7
-timestamp
+TIMESTAMP
 0
 0
 
@@ -479,7 +479,7 @@ NodeId
 
 
 18
-autonumber
+AUTONUMBER
 0
 0
 
@@ -514,7 +514,7 @@ Cuyahoga_Node_Cuyahoga_Node
 
 
 18
-autonumber
+AUTONUMBER
 0
 0
 
@@ -534,7 +534,7 @@ Node_Template
 
 
 18
-autonumber
+AUTONUMBER
 0
 0
 
@@ -554,7 +554,7 @@ Cuyahoga_Node_Cuyahoga_Site
 
 
 18
-autonumber
+AUTONUMBER
 0
 0
 
@@ -570,7 +570,7 @@ Title
 
 
 13
-varchar
+VARCHAR
 255
 0
 
@@ -586,7 +586,7 @@ ShortDescription
 
 
 13
-varchar
+VARCHAR
 255
 0
 
@@ -602,7 +602,7 @@ Position
 
 
 16
-integer
+INTEGER
 0
 0
 
@@ -620,7 +620,7 @@ Culture
 
 
 13
-varchar
+VARCHAR
 8
 0
 
@@ -636,7 +636,7 @@ InsertTimestamp
 
 
 7
-timestamp
+TIMESTAMP
 0
 0
 
@@ -652,7 +652,7 @@ UpdateTimestamp
 
 
 7
-timestamp
+TIMESTAMP
 0
 0
 
@@ -677,7 +677,7 @@ TemplateId
 
 
 18
-autonumber
+AUTONUMBER
 0
 0
 
@@ -705,7 +705,7 @@ Name
 
 
 13
-varchar
+VARCHAR
 100
 0
 
@@ -721,7 +721,7 @@ Path
 
 
 13
-varchar
+VARCHAR
 100
 0
 
@@ -737,7 +737,7 @@ Css
 
 
 13
-varchar
+VARCHAR
 100
 0
 
@@ -753,7 +753,7 @@ InsertTimestamp
 
 
 7
-timestamp
+TIMESTAMP
 0
 0
 
@@ -769,7 +769,7 @@ UpdateTimestamp
 
 
 7
-timestamp
+TIMESTAMP
 0
 0
 
@@ -794,7 +794,7 @@ ModuleTypeId
 
 
 18
-autonumber
+AUTONUMBER
 0
 0
 
@@ -822,7 +822,7 @@ Name
 
 
 13
-varchar
+VARCHAR
 100
 0
 
@@ -838,7 +838,7 @@ AssemblyName
 
 
 13
-varchar
+VARCHAR
 100
 0
 
@@ -854,7 +854,7 @@ ClassName
 
 
 13
-varchar
+VARCHAR
 255
 0
 
@@ -870,7 +870,7 @@ Path
 
 
 13
-varchar
+VARCHAR
 255
 0
 
@@ -886,7 +886,7 @@ EditPath
 
 
 13
-varchar
+VARCHAR
 255
 0
 
@@ -902,7 +902,7 @@ InsertTimestamp
 
 
 7
-timestamp
+TIMESTAMP
 0
 0
 
@@ -918,7 +918,7 @@ UpdateTimestamp
 
 
 7
-timestamp
+TIMESTAMP
 0
 0
 
@@ -943,7 +943,7 @@ SectionId
 
 
 18
-autonumber
+AUTONUMBER
 0
 0
 
@@ -981,7 +981,7 @@ Page_Section
 
 
 18
-autonumber
+AUTONUMBER
 0
 0
 
@@ -1001,7 +1001,7 @@ Module_Section
 
 
 18
-autonumber
+AUTONUMBER
 0
 0
 
@@ -1017,7 +1017,7 @@ Title
 
 
 13
-varchar
+VARCHAR
 100
 0
 
@@ -1033,7 +1033,7 @@ ShowTitle
 
 
 8
-boolean
+BOOLEAN
 0
 0
 
@@ -1049,7 +1049,7 @@ Placeholder
 
 
 13
-varchar
+VARCHAR
 100
 0
 
@@ -1065,7 +1065,7 @@ Position
 
 
 16
-integer
+INTEGER
 0
 0
 
@@ -1083,7 +1083,7 @@ CacheDuration
 
 
 16
-integer
+INTEGER
 0
 0
 
@@ -1101,7 +1101,7 @@ InsertTimestamp
 
 
 7
-timestamp
+TIMESTAMP
 0
 0
 
@@ -1117,7 +1117,7 @@ UpdateTimestamp
 
 
 7
-timestamp
+TIMESTAMP
 0
 0
 
@@ -1238,7 +1238,7 @@ StaticHtmlId
 
 
 18
-autonumber
+AUTONUMBER
 0
 0
 
@@ -1264,7 +1264,7 @@ Cuyahoga_Section_CM_StaticHtml
 
 
 18
-autonumber
+AUTONUMBER
 0
 0
 
@@ -1284,7 +1284,7 @@ Cuyahoga_User_CM_StaticHtml_CreatedBy
 
 
 18
-autonumber
+AUTONUMBER
 0
 0
 
@@ -1304,7 +1304,7 @@ Cuyahoga_User_CM_StaticHtml_ModifiedBy
 
 
 18
-autonumber
+AUTONUMBER
 0
 0
 
@@ -1320,7 +1320,7 @@ Title
 
 
 13
-varchar
+VARCHAR
 255
 0
 
@@ -1336,7 +1336,7 @@ Content
 
 
 10
-text
+TEXT
 0
 0
 
@@ -1352,7 +1352,7 @@ InsertTimestamp
 
 
 7
-timestamp
+TIMESTAMP
 0
 0
 
@@ -1368,7 +1368,7 @@ UpdateTimestamp
 
 
 7
-timestamp
+TIMESTAMP
 0
 0
 
@@ -1465,7 +1465,7 @@ ArticleId
 
 
 18
-autonumber
+AUTONUMBER
 0
 0
 
@@ -1494,7 +1494,7 @@ Cuyahoga_Section_CM_Article
 
 
 18
-autonumber
+AUTONUMBER
 0
 0
 
@@ -1514,7 +1514,7 @@ Cuyahoga_User_CM_Article_CreatedBy
 
 
 18
-autonumber
+AUTONUMBER
 0
 0
 
@@ -1534,7 +1534,7 @@ Cuyahoga_User_CM_Article_ModifiedBy
 
 
 18
-autonumber
+AUTONUMBER
 0
 0
 
@@ -1554,7 +1554,7 @@ CM_ArticleCategory_CM_Article
 
 
 18
-autonumber
+AUTONUMBER
 0
 0
 
@@ -1570,7 +1570,7 @@ Title
 
 
 13
-varchar
+VARCHAR
 100
 0
 
@@ -1586,7 +1586,7 @@ Summary
 
 
 13
-varchar
+VARCHAR
 255
 0
 
@@ -1602,7 +1602,7 @@ Content
 
 
 10
-text
+TEXT
 0
 0
 
@@ -1618,7 +1618,7 @@ Syndicate
 
 
 8
-boolean
+BOOLEAN
 0
 0
 
@@ -1634,7 +1634,7 @@ DateOnline
 
 
 7
-timestamp
+TIMESTAMP
 0
 0
 
@@ -1650,7 +1650,7 @@ DateOffline
 
 
 7
-timestamp
+TIMESTAMP
 0
 0
 
@@ -1666,7 +1666,7 @@ InsertTimestamp
 
 
 7
-timestamp
+TIMESTAMP
 0
 0
 
@@ -1682,7 +1682,7 @@ UpdateTimestamp
 
 
 7
-timestamp
+TIMESTAMP
 0
 0
 
@@ -1707,7 +1707,7 @@ ArticleCategoryId
 
 
 18
-autonumber
+AUTONUMBER
 0
 0
 
@@ -1732,7 +1732,7 @@ Title
 
 
 13
-varchar
+VARCHAR
 100
 0
 
@@ -1748,7 +1748,7 @@ Summary
 
 
 13
-varchar
+VARCHAR
 255
 0
 
@@ -1764,7 +1764,7 @@ Syndicate
 
 
 8
-boolean
+BOOLEAN
 0
 0
 
@@ -1780,7 +1780,7 @@ InsertTimestamp
 
 
 7
-timestamp
+TIMESTAMP
 0
 0
 
@@ -1796,7 +1796,7 @@ UpdateTimestamp
 
 
 7
-timestamp
+TIMESTAMP
 0
 0
 
@@ -1821,7 +1821,7 @@ CommentId
 
 
 18
-autonumber
+AUTONUMBER
 0
 0
 
@@ -1847,7 +1847,7 @@ CM_Article_CM_ArticleComment
 
 
 18
-autonumber
+AUTONUMBER
 0
 0
 
@@ -1867,7 +1867,7 @@ Cuyahoga_User_CM_ArticleComment
 
 
 18
-autonumber
+AUTONUMBER
 0
 0
 
@@ -1883,7 +1883,7 @@ Name
 
 
 13
-varchar
+VARCHAR
 100
 0
 
@@ -1899,7 +1899,7 @@ Website
 
 
 13
-varchar
+VARCHAR
 100
 0
 
@@ -1915,7 +1915,7 @@ CommentText
 
 
 13
-varchar
+VARCHAR
 2000
 0
 
@@ -1931,7 +1931,7 @@ UserIP
 
 
 13
-varchar
+VARCHAR
 15
 0
 
@@ -1947,7 +1947,7 @@ InsertTimestamp
 
 
 7
-timestamp
+TIMESTAMP
 0
 0
 
@@ -1963,7 +1963,7 @@ UpdateTimestamp
 
 
 7
-timestamp
+TIMESTAMP
 0
 0
 
@@ -2132,7 +2132,7 @@ NodeRoleId
 
 
 18
-autonumber
+AUTONUMBER
 0
 0
 
@@ -2158,7 +2158,7 @@ Cuyahoga_Node_Cuyahoga_NodeRole
 
 
 18
-autonumber
+AUTONUMBER
 0
 0
 
@@ -2178,7 +2178,7 @@ Cuyahoga_Role_Cuyahoga_NodeRole
 
 
 18
-autonumber
+AUTONUMBER
 0
 0
 
@@ -2194,7 +2194,7 @@ ViewAllowed
 
 
 8
-boolean
+BOOLEAN
 0
 0
 
@@ -2210,7 +2210,7 @@ EditAllowed
 
 
 8
-boolean
+BOOLEAN
 0
 0
 
@@ -2292,7 +2292,7 @@ SectionRoleId
 
 
 18
-autonumber
+AUTONUMBER
 0
 0
 
@@ -2318,7 +2318,7 @@ Cuyahoga_Section_Cuyahoga_SectionRole
 
 
 18
-autonumber
+AUTONUMBER
 0
 0
 
@@ -2338,7 +2338,7 @@ Cuyahoga_Role_Cuyahoga_SectionRole
 
 
 18
-autonumber
+AUTONUMBER
 0
 0
 
@@ -2354,7 +2354,7 @@ ViewAllowed
 
 
 8
-boolean
+BOOLEAN
 0
 0
 
@@ -2370,7 +2370,7 @@ EditAllowed
 
 
 8
-boolean
+BOOLEAN
 0
 0
 
@@ -2452,7 +2452,7 @@ ModuleSettingId
 
 
 18
-autonumber
+AUTONUMBER
 0
 0
 
@@ -2478,7 +2478,7 @@ Cuyahoga_ModuleType_Cuyahoga_ModuleSetting
 
 
 18
-autonumber
+AUTONUMBER
 0
 0
 
@@ -2494,7 +2494,7 @@ Name
 
 
 13
-varchar
+VARCHAR
 50
 0
 
@@ -2510,7 +2510,7 @@ FriendlyName
 
 
 13
-varchar
+VARCHAR
 50
 0
 
@@ -2526,7 +2526,7 @@ SettingDataType
 
 
 13
-varchar
+VARCHAR
 100
 0
 
@@ -2542,7 +2542,7 @@ IsCustomType
 
 
 8
-boolean
+BOOLEAN
 0
 0
 
@@ -2558,7 +2558,7 @@ IsRequired
 
 
 8
-boolean
+BOOLEAN
 0
 0
 
@@ -2616,7 +2616,7 @@ SectionSettingId
 
 
 18
-autonumber
+AUTONUMBER
 0
 0
 
@@ -2642,7 +2642,7 @@ Cuyahoga_Section_Cuyahoga_SectionSetting
 
 
 18
-autonumber
+AUTONUMBER
 0
 0
 
@@ -2658,7 +2658,7 @@ Name
 
 
 13
-varchar
+VARCHAR
 50
 0
 
@@ -2674,7 +2674,7 @@ Value
 
 
 13
-varchar
+VARCHAR
 100
 0
 
@@ -2732,7 +2732,7 @@ SiteId
 
 
 18
-autonumber
+AUTONUMBER
 0
 0
 
@@ -2747,6 +2747,10 @@ Cuyahoga_Node
 SiteId
 ***VARIABLEVALUE***
 unsigned=0
+***VARIABLEVALUE***
+increment_by=1
+***VARIABLEVALUE***
+seed=1
 ***ATTRIBUTE***
 Cuyahoga_Site
 TemplateId
@@ -2757,7 +2761,7 @@ Cuyahoga_Site_Cuyahoga_Template
 
 
 18
-autonumber
+AUTONUMBER
 0
 0
 
@@ -2773,7 +2777,7 @@ Name
 
 
 13
-varchar
+VARCHAR
 100
 0
 
@@ -2789,7 +2793,7 @@ HomeUrl
 
 
 13
-varchar
+VARCHAR
 100
 0
 
@@ -2805,7 +2809,7 @@ DefaultCulture
 
 
 13
-varchar
+VARCHAR
 8
 0
 
@@ -2821,7 +2825,7 @@ InsertTimestamp
 
 
 7
-timestamp
+TIMESTAMP
 0
 0
 
@@ -2837,7 +2841,7 @@ UpdateTimestamp
 
 
 7
-timestamp
+TIMESTAMP
 0
 0
 

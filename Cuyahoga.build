@@ -102,19 +102,13 @@
         </csc>
 	</target>
 	<target name="build.modules" depends="build.core">
-		<mkdir dir="${build.dir}/resources" />
-		<resgen todir="${build.dir}/resources">
-			<resources>
-                <include name="Modules/**/Strings*.resx"/>
-			</resources>
-		</resgen>
 		<csc target="library" output="${build.dir}/bin/Cuyahoga.Modules.dll" debug="${build.debug}">
             <sources>
                 <include name="Modules/**/*.cs" />
             </sources>
             <resources dynamicprefix="true" prefix="Cuyahoga">
 				<include name="Modules/**/*.hbm.xml" />
-				<include name="${build.dir}/resources/*.resources" />
+				<include name="Modules/**/*.resx" />
 			</resources>
             <references>
                 <include name="System.dll" />
