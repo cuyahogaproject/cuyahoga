@@ -213,7 +213,7 @@ namespace Cuyahoga.Web.Admin
 				{
 					try
 					{
-						this._activeUser.Password = this.txtPassword1.Text;
+						this._activeUser.Password = Core.Domain.User.HashPassword(this.txtPassword1.Text);
 					}
 					catch (Exception ex)
 					{
