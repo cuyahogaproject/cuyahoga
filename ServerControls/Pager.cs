@@ -1,4 +1,5 @@
 using System;
+using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.ComponentModel;
@@ -55,16 +56,17 @@ namespace Cuyahoga.ServerControls
 		/// <summary>
 		/// Property CacheParams (string)
 		/// </summary>
-		public string[] CacheParams
+		[TypeConverterAttribute(typeof(ParamsConverter))]
+		public string[] CacheVaryByParams
 		{
 			get 
 			{ 
-				if (ViewState["CacheParams"] != null)
-					return (string[])ViewState["CacheParams"];
+				if (ViewState["CacheVaryByParams"] != null)
+					return (string[])ViewState["CacheVaryByParams"];
 				else
 					return null;
 			}
-			set { ViewState["CacheParams"] = value; }
+			set { ViewState["CacheVaryByParams"] = value; }
 		}
 		
 		/// <summary>
@@ -138,24 +140,33 @@ namespace Cuyahoga.ServerControls
 
 		#endregion
 
+		#region events
+
 		public event PageChangedEventHandler PageChanged;
             
 		protected virtual void OnPageChanged(PageChangedEventArgs e)
 		{
+			this.CurrentPageIndex = e.CurrentPage;
 			if (PageChanged != null)
 				PageChanged(this, e);
 		}
+
+		public event EventHandler CacheEmpty;
+
+		protected virtual void OnCacheEmpty(EventArgs e)
+		{
+			if (CacheEmpty != null)
+				CacheEmpty(this, e);
+		}
+
+		#endregion
 
 		/// <summary>
 		/// Default constructor.
 		/// </summary>
 		public Pager()
 		{
-			this._pagedDataSource = new PagedDataSource();
-			this._pagedDataSource.AllowCustomPaging = false;
-			this._pagedDataSource.AllowPaging = true;
-			this._pagedDataSource.PageSize = 10;
-			this._pagedDataSource.CurrentPageIndex = -1;
+			InitPagedDataSource();
 			this._cacheDuration = 30;
 		}
 		
@@ -192,6 +203,15 @@ namespace Cuyahoga.ServerControls
 				writer.Write("1 2 3 ...");
 			}
 			base.Render (writer);
+		}
+
+		private void InitPagedDataSource()
+		{
+			this._pagedDataSource = new PagedDataSource();
+			this._pagedDataSource.AllowCustomPaging = false;
+			this._pagedDataSource.AllowPaging = true;
+			this._pagedDataSource.PageSize = 10;
+			this._pagedDataSource.CurrentPageIndex = this.CurrentPageIndex;
 		}
 
 		private void BuildNavigationControls()
@@ -257,6 +277,20 @@ namespace Cuyahoga.ServerControls
 			}
 		}
 
+		private string GetCacheKey()
+		{
+			string cacheKey = "Pager_" + this._controlToPage.ID;
+			if (this.CacheVaryByParams != null && this.CacheVaryByParams.Length > 0)
+			{
+				// Add the values of the individual cache parameters to the cache key
+				foreach (string param in this.CacheVaryByParams)
+				{
+					cacheKey += "_" + HttpContext.Current.Request.Params[param];
+				}
+			}
+			return cacheKey;
+		}
+
 		#endregion
 
 		private void ControlToPage_DataBinding(object sender, EventArgs e)
@@ -272,7 +306,25 @@ namespace Cuyahoga.ServerControls
 				if (! (controlDataSource is PagedDataSource))
 				{
 					// Maybe we have a cached datasource
-					this._pagedDataSource.DataSource = controlDataSource;
+					string cacheKey = GetCacheKey();
+					if (this.CacheDataSource && controlDataSource == null)
+					{
+						this._pagedDataSource = (PagedDataSource)HttpContext.Current.Cache[cacheKey];
+						// The cache can be empty. If so, raise the CacheEmpty event so that the DataSource 
+						// of the controlToPage can be set (again).
+						if (this._pagedDataSource == null)
+						{
+							InitPagedDataSource();
+							OnCacheEmpty(EventArgs.Empty);
+							// Re-fetch the DataSource property value
+							controlDataSource = (IEnumerable)pi.GetValue(this._controlToPage, null);
+							this._pagedDataSource.DataSource = controlDataSource;							
+						}
+					}
+					else
+					{
+						this._pagedDataSource.DataSource = controlDataSource;
+					}
 					if (this.CurrentPageIndex == -1)
 						this.CurrentPageIndex = 0;
 					this._pagedDataSource.CurrentPageIndex = this.CurrentPageIndex;
@@ -282,6 +334,11 @@ namespace Cuyahoga.ServerControls
 					this._controlToPage.DataBind();
 					// ChildControls have to be created again.
 					this.ChildControlsCreated = false;
+					// Cache the datasource when required
+					if (this.CacheDataSource)
+					{
+						HttpContext.Current.Cache.Insert(cacheKey, this._pagedDataSource, null, DateTime.Now.AddSeconds(this.CacheDuration), TimeSpan.Zero);
+					}
 				}
 			}
 			else
@@ -350,5 +407,78 @@ namespace Cuyahoga.ServerControls
 
 	public delegate void PageChangedEventHandler(object sender, PageChangedEventArgs e);
 
+	#endregion
+
+	#region Type Converters
+
+	public class ParamsConverter : TypeConverter
+	{
+		public override bool CanConvertFrom(ITypeDescriptorContext context, Type sourceType)
+		{
+			if (sourceType == typeof(string)) 
+			{
+				return true;
+			}
+			return base.CanConvertFrom (context, sourceType);
+		}
+
+		public override bool CanConvertTo(ITypeDescriptorContext context, Type destinationType)
+		{
+			if (destinationType == typeof(string)) 
+			{
+				return true;
+			}
+			return base.CanConvertTo (context, destinationType);
+		}
+
+		public override object ConvertFrom(ITypeDescriptorContext context, CultureInfo culture, object value)
+		{
+			if (value == null) 
+			{
+				return new string[0];
+			}
+
+			if (value is string) 
+			{
+				string s = (string)value;
+				if (s.Length == 0) 
+				{
+					return new string[0];
+				}
+				string[] parts = s.Split(culture.TextInfo.ListSeparator[0]);
+				return parts;
+			}
+
+			return base.ConvertFrom (context, culture, value);
+		}
+
+		public override object ConvertTo(ITypeDescriptorContext context, CultureInfo culture, object value, Type destinationType)
+		{
+			if (value != null) 
+			{
+				if (!(value is string[])) 
+				{
+					throw new ArgumentException("Invalid string array", "value");
+				}
+			}
+
+			if (destinationType == typeof(string)) 
+			{
+				if (value == null) 
+				{
+					return String.Empty;
+				}
+
+				string[] prms = (string[])value;
+				if (prms.Length == 0) 
+				{
+					return String.Empty;
+				}
+				return String.Join(culture.TextInfo.ListSeparator, prms);
+			}
+
+			return base.ConvertTo (context, culture, value, destinationType);
+		}
+	}
 	#endregion
 }

@@ -29,10 +29,18 @@ namespace Cuyahoga.Web.Admin
 		private void Page_Load(object sender, System.EventArgs e)
 		{
 			this.Title = "Users";
+			this.pgrUsers.CacheVaryByParams = new string[1] {this.txtUsername.UniqueID};
 		}
 
 		private void BindUsers()
 		{
+			GetUserData();
+			this.rptUsers.DataBind();
+		}
+
+		private void GetUserData()
+		{
+			// Generate dummy data and set it as the DataSource of the repeater.
 			ArrayList userList = new ArrayList();
 			int number = Encoding.ASCII.GetBytes(this.txtUsername.Text)[0];
 			for (int i = 0; i < number; i++)
@@ -46,7 +54,6 @@ namespace Cuyahoga.Web.Admin
 			}
 			this.pnlResults.Visible = true;
 			this.rptUsers.DataSource = userList;
-			this.rptUsers.DataBind();
 		}
 
 		#region Web Form Designer generated code
@@ -67,6 +74,7 @@ namespace Cuyahoga.Web.Admin
 		{    
 			this.btnFind.Click += new System.EventHandler(this.btnFind_Click);
 			this.pgrUsers.PageChanged += new Cuyahoga.ServerControls.PageChangedEventHandler(this.pgrUsers_PageChanged);
+			this.pgrUsers.CacheEmpty += new System.EventHandler(this.pgrUsers_CacheEmpty);
 			this.Load += new System.EventHandler(this.Page_Load);
 
 		}
@@ -82,8 +90,17 @@ namespace Cuyahoga.Web.Admin
 
 		private void pgrUsers_PageChanged(object sender, Cuyahoga.ServerControls.PageChangedEventArgs e)
 		{
-			this.pgrUsers.CurrentPageIndex = e.CurrentPage;
-			BindUsers();
+			//this.pgrUsers.CurrentPageIndex = e.CurrentPage;
+			//BindUsers();
+			this.rptUsers.DataBind();
+		}
+
+		private void pgrUsers_CacheEmpty(object sender, System.EventArgs e)
+		{
+			// The CacheEmpty event is raised when the pager can't find any cached data so 
+			// the data has to be retrieved again and set as DataSource of the control that is
+			// being paged.
+			GetUserData();
 		}
 	}
 }
