@@ -1,7 +1,6 @@
-namespace Cuyahoga.Web.Templates
+namespace Cuyahoga.Web.Controls
 {
 	using System;
-	// using System.Data;
 	using System.Drawing;
 	using System.Web;
 	using System.Web.UI.WebControls;

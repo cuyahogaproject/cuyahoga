@@ -1,7 +1,5 @@
 <%@ Control Language="c#" AutoEventWireup="false" Codebehind="User.ascx.cs" Inherits="Cuyahoga.Web.Modules.User.User" TargetSchema="http://schemas.microsoft.com/intellisense/ie5"%>
-<asp:Panel id=pnlLogin runat="server">
-	Username<br><asp:TextBox id=txtUsername runat="server" width="120px"></asp:TextBox><br>Password<br><asp:TextBox id=txtPassword runat="server" TextMode="Password" width="120px"></asp:TextBox><br><asp:label id=lblLoginError runat="server" enableviewstate="False" visible="False" cssclass="error"></asp:label><br><asp:Button id=btnLogin runat="server" Text="Login"></asp:Button>
-</asp:Panel>
-<asp:Panel id=pnlUserInfo runat="server" Visible="False">
-	Logged in as <asp:Label id=lblUsername runat="server"></asp:Label><br><asp:Button id=btnLogout runat="server" Text="Logout"></asp:Button>
-</asp:Panel>
+<asp:panel id="pnlLogin" runat="server"><asp:label id="lblUsername" runat="server"></asp:label><br><asp:textbox id="txtUsername" runat="server" width="120px"></asp:textbox><br><asp:label id="lblPassword" runat="server"></asp:label><br><asp:textbox id="txtPassword" runat="server" width="120px" textmode="Password"></asp:textbox><br><asp:label id="lblLoginError" runat="server" cssclass="error" visible="False" enableviewstate="False"></asp:label><br><asp:button id="btnLogin" runat="server"></asp:button>
+</asp:panel>
+<asp:panel id="pnlUserInfo" runat="server" visible="False"><asp:label id="lblLoggedInText" runat="server"></asp:label>&nbsp; <asp:label id="lblLoggedInUser" runat="server"></asp:label><br><asp:button id="btnLogout" runat="server"></asp:button>
+</asp:panel>

@@ -1,6 +1,9 @@
 using System;
 using System.Web;
 using System.IO;
+using System.Globalization;
+using System.Resources;
+using System.Reflection;
 
 using Cuyahoga.Core;
 using Cuyahoga.Core.Domain;
@@ -16,6 +19,7 @@ namespace Cuyahoga.Web.UI
 	{
 		private ModuleBase _module;
 		private string _cachedOutput;
+		private ResourceManager _resMan;
 
 		/// <summary>
 		/// Indicator if there is cached content. The derived ModuleControls should determine whether to
@@ -24,6 +28,14 @@ namespace Cuyahoga.Web.UI
 		protected bool HasCachedOutput
 		{
 			get { return this._cachedOutput != null; }
+		}
+
+		/// <summary>
+		/// The resource manager for the module.
+		/// </summary>
+		protected ResourceManager ResMan
+		{
+			get { return this._resMan; }
 		}
 
 		/// <summary>
@@ -38,6 +50,9 @@ namespace Cuyahoga.Web.UI
 
 		public BaseModuleControl()
 		{
+			// Base name of the resources consists of Namespace.Resources.Strings
+			string baseName = this.GetType().BaseType.Namespace + ".Resources.Strings";
+			this._resMan = new ResourceManager(baseName, Assembly.GetExecutingAssembly());
 		}
 
 		protected override void OnInit(EventArgs e)

@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8" ?> 
+<?xml version="1.0" encoding="utf-8" ?> 
 <hibernate-mapping xmlns="urn:nhibernate-mapping-2.0">
 	<class name="Cuyahoga.Core.Domain.Node, Cuyahoga.Core" table="cuyahoga_node">
 		<id name="Id" column="nodeid" type="Int32" unsaved-value="-1">
@@ -15,7 +15,7 @@
 		
 		<many-to-one name="Site" class="Cuyahoga.Core.Domain.Site, Cuyahoga.Core" column="siteid" not-null="false" />
 		<many-to-one name="ParentNode" class="Cuyahoga.Core.Domain.Node, Cuyahoga.Core" column="parentnodeid" not-null="false" />
-		<many-to-one name="Template" class="Cuyahoga.Core.Domain.Template, Cuyahoga.Core" column="templateid" not-null="false" outer-join="true" />
+		<many-to-one name="Template" class="Cuyahoga.Core.Domain.Template, Cuyahoga.Core" column="templateid" not-null="false" />
 		
 		<bag name="ChildNodes" cascade="delete" inverse="true" order-by="position asc" lazy="true">
 			<key column="parentnodeid" />

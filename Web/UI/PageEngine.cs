@@ -120,8 +120,9 @@ namespace Cuyahoga.Web.UI
 				}
 
 				// Set culture
-				// TODO: fix this because ASP.NET pages are not guaranteed to run in 1 thread
-				Thread.CurrentThread.CurrentCulture = CultureInfo.CreateSpecificCulture(this._activeNode.Culture);				
+				// TODO: fix this because ASP.NET pages are not guaranteed to run in 1 thread.
+				Thread.CurrentThread.CurrentCulture = CultureInfo.CreateSpecificCulture(this._activeNode.Culture);	
+				Thread.CurrentThread.CurrentUICulture = CultureInfo.CreateSpecificCulture(this._activeNode.Culture);
 				
 				// Load template and usercontrols
 

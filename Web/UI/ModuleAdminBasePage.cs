@@ -55,7 +55,7 @@ namespace Cuyahoga.Web.UI
 		/// Default constructor calls base constructor with parameters for templatecontrol, 
 		/// templatepath and stylesheet.
 		/// </summary>
-		public ModuleAdminBasePage() : base("ModuleAdminTemplate.ascx",  "~/Templates/", "~/Css/Admin.css")
+		public ModuleAdminBasePage() : base("ModuleAdminTemplate.ascx",  "~/Controls/", "~/Css/Admin.css")
 		{
 			this._node = null;
 			this._section = null;

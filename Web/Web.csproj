@@ -457,6 +457,22 @@
                     BuildAction = "EmbeddedResource"
                 />
                 <File
+                    RelPath = "Controls\ModuleAdminTemplate.ascx"
+                    SubType = "UserControl"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Controls\ModuleAdminTemplate.ascx.cs"
+                    DependentUpon = "ModuleAdminTemplate.ascx"
+                    SubType = "ASPXCodeBehind"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "Controls\ModuleAdminTemplate.ascx.resx"
+                    DependentUpon = "ModuleAdminTemplate.ascx.cs"
+                    BuildAction = "EmbeddedResource"
+                />
+                <File
                     RelPath = "Controls\Nav1.ascx"
                     SubType = "UserControl"
                     BuildAction = "Content"
@@ -569,6 +585,14 @@
                     BuildAction = "EmbeddedResource"
                 />
                 <File
+                    RelPath = "Modules\Articles\Resources\Strings.nl.resx"
+                    BuildAction = "EmbeddedResource"
+                />
+                <File
+                    RelPath = "Modules\Articles\Resources\Strings.resx"
+                    BuildAction = "EmbeddedResource"
+                />
+                <File
                     RelPath = "Modules\StaticHtml\EditHtml.aspx"
                     SubType = "Form"
                     BuildAction = "Content"
@@ -614,6 +638,14 @@
                 <File
                     RelPath = "Modules\User\User.ascx.resx"
                     DependentUpon = "User.ascx.cs"
+                    BuildAction = "EmbeddedResource"
+                />
+                <File
+                    RelPath = "Modules\User\Resources\Strings.nl.resx"
+                    BuildAction = "EmbeddedResource"
+                />
+                <File
+                    RelPath = "Modules\User\Resources\Strings.resx"
                     BuildAction = "EmbeddedResource"
                 />
                 <File
@@ -1726,22 +1758,6 @@
                     RelPath = "Templates\CuyahogaStandard.ascx"
                     SubType = "UserControl"
                     BuildAction = "Content"
-                />
-                <File
-                    RelPath = "Templates\ModuleAdminTemplate.ascx"
-                    SubType = "UserControl"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "Templates\ModuleAdminTemplate.ascx.cs"
-                    DependentUpon = "ModuleAdminTemplate.ascx"
-                    SubType = "ASPXCodeBehind"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "Templates\ModuleAdminTemplate.ascx.resx"
-                    DependentUpon = "ModuleAdminTemplate.ascx.cs"
-                    BuildAction = "EmbeddedResource"
                 />
                 <File
                     RelPath = "UI\BaseModuleControl.cs"

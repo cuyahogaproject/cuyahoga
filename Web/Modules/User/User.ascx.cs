@@ -6,6 +6,8 @@ namespace Cuyahoga.Web.Modules.User
 	using System.Web;
 	using System.Web.UI.WebControls;
 	using System.Web.UI.HtmlControls;
+	using System.Threading;
+	using System.Globalization;
 
 	using Cuyahoga.Web.UI;
 	using Cuyahoga.Web.Util;
@@ -23,6 +25,9 @@ namespace Cuyahoga.Web.Modules.User
 		protected System.Web.UI.WebControls.Label lblLoginError;
 		protected System.Web.UI.WebControls.Label lblUsername;
 		protected System.Web.UI.WebControls.Button btnLogout;
+		protected System.Web.UI.WebControls.Label lblLoggedInText;
+		protected System.Web.UI.WebControls.Label lblLoggedInUser;
+		protected System.Web.UI.WebControls.Label lblPassword;
 		protected System.Web.UI.WebControls.Panel pnlUserInfo;
 
 		private void Page_Load(object sender, System.EventArgs e)
@@ -36,11 +41,12 @@ namespace Cuyahoga.Web.Modules.User
 			{
 				if (isAuthenticated)
 				{
-					this.lblUsername.Text = ((Cuyahoga.Core.Domain.User)Context.User.Identity).UserName;
+					this.lblLoggedInUser.Text = ((Cuyahoga.Core.Domain.User)Context.User.Identity).UserName;
 				}
 
 				this.pnlLogin.Visible = ! isAuthenticated;
 				this.pnlUserInfo.Visible = isAuthenticated;
+				Translate();
 			}
 		}
 
@@ -67,6 +73,16 @@ namespace Cuyahoga.Web.Modules.User
 		}
 		#endregion
 
+		private void Translate()
+		{
+			CultureInfo ci = Thread.CurrentThread.CurrentUICulture;
+			this.lblUsername.Text = base.ResMan.GetString("USERNAME", ci);
+			this.lblPassword.Text = base.ResMan.GetString("PASSWORD", ci);
+			this.lblLoggedInText.Text = base.ResMan.GetString("LOGGEDINTEXT", ci);
+			this.btnLogin.Text = base.ResMan.GetString("LOGIN", ci);
+			this.btnLogout.Text = base.ResMan.GetString("LOGOUT", ci);			
+		}
+
 		private void btnLogin_Click(object sender, System.EventArgs e)
 		{
 			AuthenticationModule am = (AuthenticationModule)Context.ApplicationInstance.Modules["AuthenticationModule"];
@@ -76,7 +92,7 @@ namespace Cuyahoga.Web.Modules.User
 				{
 					if (am.AuthenticateUser(this.txtUsername.Text, this.txtPassword.Text))
 					{
-						this.lblUsername.Text = this.txtUsername.Text;
+						this.lblLoggedInUser.Text = this.txtUsername.Text;
 						this.pnlUserInfo.Visible = true;
 						this.pnlLogin.Visible = false;
 					}

@@ -64,7 +64,14 @@ namespace Cuyahoga.Web.Cache
 			else
 			{
 				// We need to attach the node to the current session to enable lazy-load.
-				this._coreRepository.AttachNodeToCurrentSession((Node)this._nodeCache.NodeIndex[nodeId]);
+				// HACK: also register the parent nodes since they are not lazy loaded (yet)
+				Node tmpNode = (Node)this._nodeCache.NodeIndex[nodeId];
+				this._coreRepository.AttachNodeToCurrentSession(tmpNode);
+				while (tmpNode.ParentNode != null)
+				{
+					tmpNode = tmpNode.ParentNode;
+					this._coreRepository.AttachNodeToCurrentSession(tmpNode);
+				}
 			}
 			return (Node)this._nodeCache.NodeIndex[nodeId];
 		}
@@ -114,7 +121,6 @@ namespace Cuyahoga.Web.Cache
 
 		/// <summary>
 		/// Initialization of the NodeCache. Load the root nodes. 
-		/// TODO: handle the language thing?
 		/// </summary>
 		private void InitNodeCache()
 		{
