@@ -84,6 +84,10 @@ namespace Cuyahoga.Web.Admin
 					BindRoles();
 				}
 			}
+			if (this.ActiveNode != null)
+			{
+				BindPositionButtonsVisibility();
+			}
 		}
 
 		private void BindNodeControls()
@@ -94,15 +98,19 @@ namespace Cuyahoga.Web.Admin
 			{
 				this.lblParentNode.Text = this.ActiveNode.ParentNode.Title;
 			}
+			// main buttons visibility
+			btnNew.Visible = (this.ActiveNode.Id > 0);
+			btnDelete.Visible = (this.ActiveNode.Id > 0);
+			btnDelete.Attributes.Add("onClick", "return confirmDeleteNode();");
+		}
+
+		private void BindPositionButtonsVisibility()
+		{
 			// node location buttons visibility
 			btnUp.Visible = (this.ActiveNode.Position > 0);
 			btnDown.Visible = ((this.ActiveNode.ParentNode != null) && (this.ActiveNode.Position != this.ActiveNode.ParentNode.ChildNodes.Count -1) && this.ActiveNode.Id != -1);
 			btnLeft.Visible = (this.ActiveNode.Level > 0 && this.ActiveNode.Id != -1);
 			btnRight.Visible = (this.ActiveNode.Position > 0);
-			// main buttons visibility
-			btnNew.Visible = (this.ActiveNode.Id > 0);
-			btnDelete.Visible = (this.ActiveNode.Id > 0);
-			btnDelete.Attributes.Add("onClick", "return confirmDeleteNode();");
 		}
 
 		private void BindTemplates()
@@ -137,12 +145,12 @@ namespace Cuyahoga.Web.Admin
 
 		private void BindSections()
 		{
-			this.rptSections.DataSource = this.ActiveNode.Sections;
+			this.rptSections.DataSource = base.CoreRepository.GetSortedSectionsByNode(this.ActiveNode);
 			this.rptSections.DataBind();
 			if (this.ActiveNode.Template != null)
 			{
 				// Also enable add section link
-				this.hplNewSection.NavigateUrl = String.Format("../SectionEdit.aspx?SectionId=-1&NodeId={0}", this.ActiveNode.Id.ToString());
+				this.hplNewSection.NavigateUrl = String.Format("~/Admin/SectionEdit.aspx?SectionId=-1&NodeId={0}", this.ActiveNode.Id.ToString());
 				this.hplNewSection.Visible = true;
 			}
 		}
@@ -165,7 +173,9 @@ namespace Cuyahoga.Web.Admin
 				this.ActiveNode.Template = template;
 			}
 			else if (this.ddlTemplates.SelectedValue == "-1")
+			{
 				this.ActiveNode.Template = null;
+			}
 		}
 
 		private void SetRoles()
@@ -276,6 +286,14 @@ namespace Cuyahoga.Web.Admin
 			}
 		}
 
+		private void MoveNode(NodePositionMovement npm)
+		{
+			IList rootNodes = base.CoreRepository.GetRootNodes();
+			this.ActiveNode.Move(rootNodes, npm);
+			this.CoreRepository.FlushSession();
+			Context.Response.Redirect(Context.Request.RawUrl);
+		}
+
 		#region Web Form Designer generated code
 		override protected void OnInit(EventArgs e)
 		{
@@ -376,34 +394,22 @@ namespace Cuyahoga.Web.Admin
 
 		private void btnUp_Click(object sender, System.Web.UI.ImageClickEventArgs e)
 		{
-			IList rootNodes = base.CoreRepository.GetRootNodes();
-			this.ActiveNode.MoveUp(rootNodes);
-			this.CoreRepository.FlushSession();
-			Context.Response.Redirect(Context.Request.RawUrl);
+			MoveNode(NodePositionMovement.Up);
 		}
 
 		private void btnDown_Click(object sender, System.Web.UI.ImageClickEventArgs e)
 		{
-			IList rootNodes = base.CoreRepository.GetRootNodes();
-			this.ActiveNode.MoveDown(rootNodes);
-			this.CoreRepository.FlushSession();
-			Context.Response.Redirect(Context.Request.RawUrl);
+			MoveNode(NodePositionMovement.Down);		
 		}
 
 		private void btnLeft_Click(object sender, System.Web.UI.ImageClickEventArgs e)
 		{
-			IList rootNodes = base.CoreRepository.GetRootNodes();
-			this.ActiveNode.MoveLeft(rootNodes);
-			this.CoreRepository.FlushSession();
-			Context.Response.Redirect(Context.Request.RawUrl);	
+			MoveNode(NodePositionMovement.Left);
 		}
 
 		private void btnRight_Click(object sender, System.Web.UI.ImageClickEventArgs e)
 		{
-			IList rootNodes = base.CoreRepository.GetRootNodes();
-			this.ActiveNode.MoveRight(rootNodes);
-			this.CoreRepository.FlushSession();
-			Context.Response.Redirect(Context.Request.RawUrl);
+			MoveNode(NodePositionMovement.Right);
 		}
 
 		private void rptSections_ItemDataBound(object sender, RepeaterItemEventArgs e)

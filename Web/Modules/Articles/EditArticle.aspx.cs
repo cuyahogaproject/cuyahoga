@@ -21,7 +21,7 @@ namespace Cuyahoga.Web.Modules.Articles
 	public class EditArticle : ModuleAdminBasePage
 	{
 		private Article _article;
-		private ArticleModule _module;
+		private ArticleModule _articleModule;
 
 		protected System.Web.UI.WebControls.Button btnSave;
 		protected System.Web.UI.WebControls.Button btnDelete;
@@ -38,7 +38,7 @@ namespace Cuyahoga.Web.Modules.Articles
 
 		private void Page_Load(object sender, System.EventArgs e)
 		{
-			this._module = base.Section.CreateModule() as ArticleModule;
+			this._articleModule = base.Module as ArticleModule;
 			this.btnCancel.Attributes.Add("onClick", String.Format("document.location.href='AdminArticles.aspx{0}'", base.GetBaseQueryString()));
 
 			if (! this.IsPostBack)
@@ -51,7 +51,7 @@ namespace Cuyahoga.Web.Modules.Articles
 				int articleId = Int32.Parse(Request.QueryString["ArticleId"]);
 				if (articleId > 0)
 				{
-					this._article = this._module.GetArticleById(articleId);
+					this._article = this._articleModule.GetArticleById(articleId);
 					if (! this.IsPostBack)
 					{
 						BindArticle();
@@ -65,7 +65,7 @@ namespace Cuyahoga.Web.Modules.Articles
 		private void BindCategories()
 		{
 			this.ddlCategory.Items.Add(new ListItem("none", "0"));
-			IList categories = this._module.GetAvailableCategories();
+			IList categories = this._articleModule.GetAvailableCategories();
 			foreach (Category category in categories)
 			{
 				this.ddlCategory.Items.Add(new ListItem(category.Title, category.Id.ToString()));
@@ -123,7 +123,7 @@ namespace Cuyahoga.Web.Modules.Articles
 				this._article.DateOffline = this.calDateOffline.SelectedDate;
 				this._article.ModifiedBy = (Cuyahoga.Core.Domain.User)this.User.Identity;
 				this._article.DateModified = DateTime.Now;
-				this._module.SaveArticle(this._article);
+				this._articleModule.SaveArticle(this._article);
 				Response.Redirect(String.Format("AdminArticles.aspx{0}", base.GetBaseQueryString()));
 			}
 			catch (Exception ex)
@@ -162,7 +162,7 @@ namespace Cuyahoga.Web.Modules.Articles
 				if (this._article == null)
 				{
 					this._article = new Article();
-					this._article.Section = this._module.Section;
+					this._article.Section = this._articleModule.Section;
 					this._article.CreatedBy = (Cuyahoga.Core.Domain.User)this.User.Identity;
 				}
 				SaveArticle();
@@ -175,7 +175,7 @@ namespace Cuyahoga.Web.Modules.Articles
 			{
 				try
 				{
-					this._module.DeleteArticle(this._article);
+					this._articleModule.DeleteArticle(this._article);
 					Response.Redirect(String.Format("AdminArticles.aspx{0}", base.GetBaseQueryString()));
 				}
 				catch (Exception ex)
@@ -185,7 +185,7 @@ namespace Cuyahoga.Web.Modules.Articles
 			}
 			else
 			{
-				ShowError("No article found for deletion");
+				ShowError("No article found to delete");
 			}
 		}
 	}

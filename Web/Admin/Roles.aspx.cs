@@ -10,8 +10,7 @@ using System.Web.UI.WebControls;
 using System.Web.UI.HtmlControls;
 
 using Cuyahoga.Core.Domain;
-using Cuyahoga.Core.DAL;
-using Cuyahoga.Core.Collections;
+using Cuyahoga.Core.Service;
 
 namespace Cuyahoga.Web.Admin
 {
@@ -34,9 +33,7 @@ namespace Cuyahoga.Web.Admin
 
 		private void BindRoles()
 		{
-			RoleCollection roles = new RoleCollection();
-			CmsDataFactory.GetInstance().GetAllRoles(roles);
-			this.rptRoles.DataSource = roles;
+			this.rptRoles.DataSource = base.CoreRepository.GetAll(typeof(Role), "PermissionLevel");
 			this.rptRoles.DataBind();
 		}
 

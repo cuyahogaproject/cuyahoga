@@ -19,7 +19,7 @@ namespace Cuyahoga.Core.Domain
 		/// <summary>
 		/// Property Id (int)
 		/// </summary>
-		public int Id
+		public virtual int Id
 		{
 			get { return this._id; }
 			set { this._id = value; }
@@ -28,7 +28,7 @@ namespace Cuyahoga.Core.Domain
 		/// <summary>
 		/// Property Name (string)
 		/// </summary>
-		public string Name
+		public virtual string Name
 		{
 			get { return this._name; }
 			set { this._name = value; }
@@ -38,7 +38,7 @@ namespace Cuyahoga.Core.Domain
 		/// Property PermissionLevel (int). When set, the integer value is translated to a list of 
 		/// AccessLevel enums (Permissions).
 		/// </summary>
-		public int PermissionLevel
+		public virtual int PermissionLevel
 		{
 			get { return this._permissionLevel; }
 			set 
@@ -51,12 +51,12 @@ namespace Cuyahoga.Core.Domain
 		/// <summary>
 		/// Gets a list of translated AccessLevel enums of the Role.
 		/// </summary>
-		public AccessLevel[] Permissions
+		public virtual AccessLevel[] Permissions
 		{
 			get { return this._permissions; }
 		}
 
-		public string PermissionsString
+		public virtual string PermissionsString
 		{
 			get { return GetPermissionsAsString(); }
 		}
@@ -64,7 +64,7 @@ namespace Cuyahoga.Core.Domain
 		/// <summary>
 		/// Property UpdateTimestamp (DateTime)
 		/// </summary>
-		public DateTime UpdateTimestamp
+		public virtual DateTime UpdateTimestamp
 		{
 			get { return this._updateTimestamp; }
 			set { this._updateTimestamp = value; }
@@ -85,7 +85,7 @@ namespace Cuyahoga.Core.Domain
 		/// </summary>
 		/// <param name="accessLevel"></param>
 		/// <returns></returns>
-		public bool HasPermission(AccessLevel permission)
+		public virtual bool HasPermission(AccessLevel permission)
 		{
 			return Array.IndexOf(this.Permissions, permission) > -1;
 		}

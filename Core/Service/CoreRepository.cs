@@ -10,7 +10,7 @@ namespace Cuyahoga.Core.Service
 {
 	/// <summary>
 	/// This is the repository for persistance of the Cuyahoga core classes. Maybe it 
-	/// should be split up into several classes, but for simplicity we'll start with one
+	/// should be split up into several classes, but we'll start with one
 	/// repository for all core classes.
 	/// </summary>
 	public class CoreRepository
@@ -18,6 +18,13 @@ namespace Cuyahoga.Core.Service
 		private ISessionFactory _factory;
 		private ISession _activeSession;
 
+		/// <summary>
+		/// Get the active NHibernate session.
+		/// </summary>
+		public ISession ActiveSession
+		{
+			get { return this._activeSession; }
+		}
 		/// <summary>
 		/// Create a repository for core objects.
 		/// </summary>
@@ -75,7 +82,7 @@ namespace Cuyahoga.Core.Service
 			}
 		}
 
-		#region generic methods
+		#region Generic methods
 
 		/// <summary>
 		/// Generic method for retrieving single objects by primary key.
@@ -182,6 +189,30 @@ namespace Cuyahoga.Core.Service
 		}
 
 		/// <summary>
+		/// Attach potentially stale objects to the current NHibernate session. This is required
+		/// when objects are cached in the ASP.NET cache and they contain lazy loaded members.
+		/// </summary>
+		/// <param name="obj"></param>
+		public void AttachObjectToCurrentSession(object obj)
+		{
+			if (this._activeSession != null)
+			{
+				if (this._activeSession.IsOpen)
+				{
+					this._activeSession.Update(obj);
+				}
+				else
+				{
+					throw new InvalidOperationException("The current NHibernate session is not open, so no objects can be attached.");
+				}
+			}
+			else
+			{
+				throw new NullReferenceException("No active NHibernate session available to attach the object to.");
+			}
+		}
+
+		/// <summary>
 		/// Mark an object for deletion. Commit the deletion with Session.Flush.
 		/// </summary>
 		/// <param name="obj"></param>
@@ -194,6 +225,10 @@ namespace Cuyahoga.Core.Service
 
 		#region Node specific
 
+		/// <summary>
+		/// Retrieve the root nodes.
+		/// </summary>
+		/// <returns></returns>
 		public IList GetRootNodes()
 		{
 			ICriteria crit = this._activeSession.CreateCriteria(typeof(Node));
@@ -202,6 +237,11 @@ namespace Cuyahoga.Core.Service
 			return crit.List();
 		}
 
+		/// <summary>
+		/// Retrieve a node by short description (friendly url).
+		/// </summary>
+		/// <param name="shortDescription"></param>
+		/// <returns></returns>
 		public Node GetNodeByShortDescription(string shortDescription)
 		{
 			ICriteria crit = this._activeSession.CreateCriteria(typeof(Node));
@@ -224,12 +264,28 @@ namespace Cuyahoga.Core.Service
 		#endregion
 
 		#region Section specific
-
+		
+		/// <summary>
+		/// Retrieve the sections belonging to a given node sorted by PlaceholderId and Position.
+		/// </summary>
+		/// <param name="node"></param>
+		/// <returns></returns>
+		public IList GetSortedSectionsByNode(Node node)
+		{
+			string hql = "from Section s where s.Node.Id = ? order by s.PlaceholderId, s.Position ";
+			return this._activeSession.Find(hql, node.Id, NHibernate.Type.TypeFactory.GetInt32Type());
+		}
 
 		#endregion
 
 		#region User specific
 
+		/// <summary>
+		/// Get a User by username and password. Use for login.
+		/// </summary>
+		/// <param name="username"></param>
+		/// <param name="password"></param>
+		/// <returns></returns>
 		public User GetUserByUsernameAndPassword(string username, string password)
 		{
 			ICriteria crit = this._activeSession.CreateCriteria(typeof(User));
@@ -249,6 +305,27 @@ namespace Cuyahoga.Core.Service
 				return null;
 			}
 		}
+
+		/// <summary>
+		/// Find users with a given name or with a name that starts with the given search string.
+		/// When the search string is empty, all users will be fetched.
+		/// </summary>
+		/// <param name="searchString"></param>
+		/// <returns></returns>
+		public IList FindUsersByUsername(string searchString)
+		{
+			string hql;
+			if (searchString.Length > 0)
+			{
+				hql = "from User u where u.UserName like ? order by u.UserName ";
+				return this._activeSession.Find(hql, searchString + "%", NHibernate.Type.TypeFactory.GetStringType());
+			}
+			else
+			{
+				return GetAll(typeof(User), "UserName");
+			}
+		}
+
 		#endregion
 	}
 }

@@ -114,6 +114,11 @@
                     AssemblyName = "log4net"
                     HintPath = "..\ExternalStuff\log4net.dll"
                 />
+                <Reference
+                    Name = "NHibernate"
+                    AssemblyName = "NHibernate"
+                    HintPath = "..\ExternalStuff\NHibernate.dll"
+                />
             </References>
         </Build>
         <Files>
@@ -1745,6 +1750,11 @@
                 />
                 <File
                     RelPath = "Util\FormFixerHtmlTextWriter.cs"
+                    SubType = "Code"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "Util\NHSessionModule.cs"
                     SubType = "Code"
                     BuildAction = "Compile"
                 />

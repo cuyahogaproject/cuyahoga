@@ -14,7 +14,7 @@
                     StartArguments = ""
                     StartPage = ""
                     StartProgram = ""
-                    StartURL = "http://localhost/Cuyahoga/Admin/"
+                    StartURL = "http://localhost/Cuyahoga"
                     StartWorkingDirectory = ""
                     StartWithIE = "true"
                 />

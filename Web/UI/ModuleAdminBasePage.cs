@@ -2,6 +2,8 @@ using System;
 using System.Web.UI;
 using System.Web.UI.HtmlControls;
 
+using NHibernate;
+
 using Cuyahoga.Core;
 using Cuyahoga.Core.Domain;
 using Cuyahoga.Web.Util;
@@ -15,6 +17,7 @@ namespace Cuyahoga.Web.UI
 	{
 		private Node _node;
 		private Section _section;
+		private ModuleBase _module;
 
 		/// <summary>
 		/// Property Node (Node)
@@ -30,6 +33,14 @@ namespace Cuyahoga.Web.UI
 		public Section Section
 		{
 			get { return this._section; }
+		}
+
+		/// <summary>
+		/// Property Module (ModuleBase)
+		/// </summary>
+		protected ModuleBase Module
+		{
+			get { return this._module; }
 		}
 
 		public HtmlGenericControl MessageBox
@@ -63,10 +74,13 @@ namespace Cuyahoga.Web.UI
 				this._node = (Node)base.CoreRepository.GetObjectById(typeof(Node), nodeId);
 				int sectionId = Int32.Parse(Context.Request.QueryString["SectionId"]);
 				this._section = (Section)base.CoreRepository.GetObjectById(typeof(Section), sectionId);
-				if (this._section.NodeId == this._node.Id)
+				if (this._section.Node.Id == this._node.Id)
 				{
 					this._section.Node = this._node;
 				}
+				this._module = this._section.CreateModule();
+				this._module.NHSessionRequired += new ModuleBase.NHSessionEventHandler(Module_NHSessionRequired);
+				this._module.SessionFactoryRebuilt += new EventHandler(Module_SessionFactoryRebuilt);
 			}
 			catch (Exception ex)
 			{
@@ -121,6 +135,19 @@ namespace Cuyahoga.Web.UI
 		public string GetBaseQueryString()
 		{
 			return String.Format("?NodeId={0}&SectionId={1}", this.Node.Id, this.Section.Id);
+		}
+
+		private void Module_NHSessionRequired(object sender, Cuyahoga.Core.Domain.ModuleBase.NHSessionEventArgs e)
+		{
+			e.Session = base.CoreRepository.ActiveSession;
+		}
+
+		private void Module_SessionFactoryRebuilt(object sender, EventArgs e)
+		{
+			// The SessionFactory was rebuilt, so the current NHibernate Session has become invalid.
+			// This is handled by a simple reload of the page. 
+			// TODO: handle more elegantly?
+			Context.Response.Redirect(Context.Request.RawUrl);
 		}
 	}
 }

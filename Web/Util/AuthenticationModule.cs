@@ -26,7 +26,7 @@ namespace Cuyahoga.Web.Util
 
 		public void Init(HttpApplication context)
 		{
-			context.AuthenticateRequest += new EventHandler(context_AuthenticateRequest);
+			context.AuthenticateRequest += new EventHandler(Context_AuthenticateRequest);
 		}
 
 		public void Dispose()
@@ -43,7 +43,7 @@ namespace Cuyahoga.Web.Util
 		/// <returns></returns>
 		public bool AuthenticateUser(string username, string password)
 		{
-			CoreRepository cr = new CoreRepository(true);
+			CoreRepository cr = (CoreRepository)HttpContext.Current.Items["CoreRepository"];
 			string hashedPassword = Encryption.StringToMD5Hash(password);
 			try
 			{
@@ -74,10 +74,6 @@ namespace Cuyahoga.Web.Util
 			{
 				throw new Exception(String.Format("Unable to log in user {0}", username), ex);
 			}
-			finally
-			{
-				cr.CloseSession();
-			}
 		}
 
 		/// <summary>
@@ -99,7 +95,7 @@ namespace Cuyahoga.Web.Util
 			context.Cache.Insert(cacheIdentifier, user, null, DateTime.MaxValue, new TimeSpan(0, AUTHENTICATION_TIMEOUT, 0));
 		}
 
-		private void context_AuthenticateRequest(object sender, EventArgs e)
+		private void Context_AuthenticateRequest(object sender, EventArgs e)
 		{
 			HttpApplication app = (HttpApplication)sender;
 			if (app.Context.User != null && app.Context.User.Identity.IsAuthenticated)
@@ -116,6 +112,10 @@ namespace Cuyahoga.Web.Util
 //					CacheUser(app.Context, user);
 				}
 				User cuyahogaUser = (User)app.Context.Cache[cacheIdentifier];
+				// Attach the user to the current session.
+				CoreRepository cr = (CoreRepository)HttpContext.Current.Items["CoreRepository"];
+				cr.AttachObjectToCurrentSession(cuyahogaUser);
+				// Set the user context for the application.
 				app.Context.User = new CuyahogaPrincipal(cuyahogaUser);
 			}
 		}

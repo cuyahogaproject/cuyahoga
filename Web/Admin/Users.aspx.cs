@@ -12,8 +12,7 @@ using System.Text;
 
 using Cuyahoga.Web.UI;
 using Cuyahoga.Core.Domain;
-using Cuyahoga.Core.DAL;
-using Cuyahoga.Core.Collections;
+using Cuyahoga.Core.Service;
 
 namespace Cuyahoga.Web.Admin
 {
@@ -43,10 +42,7 @@ namespace Cuyahoga.Web.Admin
 
 		private void GetUserData()
 		{
-			ICmsDataProvider dp = CmsDataFactory.GetInstance();
-			UserCollection users = new UserCollection();
-			dp.FindUsersByName(this.txtUsername.Text, users);
-			this.rptUsers.DataSource = users;
+			this.rptUsers.DataSource = base.CoreRepository.FindUsersByUsername(this.txtUsername.Text);
 		}
 
 		#region Web Form Designer generated code

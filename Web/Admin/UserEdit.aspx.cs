@@ -9,10 +9,8 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Web.UI.HtmlControls;
 
-using Cuyahoga.Core;
 using Cuyahoga.Core.Domain;
-using Cuyahoga.Core.Collections;
-using Cuyahoga.Core.DAL;
+using Cuyahoga.Core.Service;
 
 namespace Cuyahoga.Web.Admin
 {
@@ -90,8 +88,7 @@ namespace Cuyahoga.Web.Admin
 
 		private void BindRoles()
 		{
-			RoleCollection roles = new RoleCollection();
-			CmsDataFactory.GetInstance().GetAllRoles(roles);
+			IList roles = base.CoreRepository.GetAll(typeof(Role), "PermissionLevel");
 			FilterAnonymousRoles(roles);
 			this.rptRoles.ItemDataBound += new RepeaterItemEventHandler(rptRoles_ItemDataBound);
 			this.rptRoles.DataSource = roles;
@@ -101,12 +98,12 @@ namespace Cuyahoga.Web.Admin
 		/// <summary>
 		/// Filter the anonymous roles from the list.
 		/// </summary>
-		private void FilterAnonymousRoles(RoleCollection roles)
+		private void FilterAnonymousRoles(IList roles)
 		{
 			int roleCount = roles.Count;
 			for (int i = roleCount -1; i >= 0; i--)
 			{
-				Role role = roles[i];
+				Role role = (Role)roles[i];
 				if (role.PermissionLevel == (int)AccessLevel.Anonymous)
 				{
 					roles.Remove(role);
@@ -122,27 +119,28 @@ namespace Cuyahoga.Web.Admin
 			{	
 				// HACK: RoleId is stored in the ViewState because the repeater doesn't have a DataKeys property.
 				// Another HACK: we're only using the role id's to save database roundtrips.
-				Role role = new Role();
-				role.Id = (int)this.ViewState[ri.ClientID];
 				CheckBox chkRole = (CheckBox)ri.FindControl("chkRole");
 				if (chkRole.Checked)
+				{
+					int roleId = (int)this.ViewState[ri.ClientID];
+					Role role = (Role)base.CoreRepository.GetObjectById(typeof(Role), roleId);
 					this._activeUser.Roles.Add(role);
+				}
 			}
 		}
 
 		private void SaveUser()
 		{
-			ICmsDataProvider dp = CmsDataFactory.GetInstance();
 			try
 			{
 				if (this._activeUser.Id == -1)
 				{
-					dp.InsertUser(this._activeUser);
+					base.CoreRepository.SaveObject(this._activeUser);
 					Context.Response.Redirect("UserEdit.aspx?UserId=" + this._activeUser.Id);
 				}
 				else
 				{
-					dp.UpdateUser(this._activeUser);
+					base.CoreRepository.UpdateObject(this._activeUser);
 					ShowMessage("User saved");
 				}
 			}
@@ -241,7 +239,7 @@ namespace Cuyahoga.Web.Admin
 			{
 				try
 				{
-					CmsDataFactory.GetInstance().DeleteUser(this._activeUser);
+					base.CoreRepository.DeleteObject(this._activeUser);
 					Context.Response.Redirect("Users.aspx");
 				}
 				catch (Exception ex)

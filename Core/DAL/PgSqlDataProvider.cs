@@ -696,7 +696,7 @@ namespace Cuyahoga.Core.DAL
 		{
 			section.Id = Convert.ToInt32(dr["sectionid"]);
 			if (dr["nodeid"] != DBNull.Value)
-				section.NodeId = Convert.ToInt32(dr["nodeid"]);
+			//	section.NodeId = Convert.ToInt32(dr["nodeid"]);
 			if (dr["title"] != DBNull.Value)
 				section.Title = Convert.ToString(dr["title"]);
 			section.ShowTitle = Convert.ToBoolean(dr["showtitle"]);

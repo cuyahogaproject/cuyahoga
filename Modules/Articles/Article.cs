@@ -203,6 +203,7 @@ namespace Cuyahoga.Modules.Articles
 			this._dateOffline = DateTime.MinValue;
 			this._dateCreated = DateTime.Now;
 			this._dateModified = DateTime.Now;
+			this._comments = new ArrayList();
 		}
 
 		#endregion

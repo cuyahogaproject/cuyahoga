@@ -2,8 +2,6 @@ using System;
 using System.Security.Principal;
 using System.Collections;
 
-using Cuyahoga.Core.DAL;
-
 namespace Cuyahoga.Core.Domain
 {
 	/// <summary>
@@ -30,7 +28,7 @@ namespace Cuyahoga.Core.Domain
 		/// <summary>
 		/// Property Id (int)
 		/// </summary>
-		public int Id
+		public virtual int Id
 		{
 			get { return this._id; }
 			set { this._id = value; }
@@ -39,26 +37,16 @@ namespace Cuyahoga.Core.Domain
 		/// <summary>
 		/// Property UpdateTimestamp (DateTime)
 		/// </summary>
-		public DateTime UpdateTimestamp
+		public virtual DateTime UpdateTimestamp
 		{
 			get { return this._updateTimestamp; }
 			set { this._updateTimestamp = value; }
 		}
 
 		/// <summary>
-		/// Property NodeId (int). Use this property only for quick and dirty access to the Id of the node.
-		/// In most cases the Section will be created within the context of a Node (Node.Sections).
-		/// </summary>
-		public int NodeId
-		{
-			get { return this._nodeId; }
-			set { this._nodeId = value; }
-		}
-
-		/// <summary>
 		/// Property Title (string)
 		/// </summary>
-		public string Title
+		public virtual string Title
 		{
 			get { return this._title; }
 			set { this._title = value; }
@@ -68,7 +56,7 @@ namespace Cuyahoga.Core.Domain
 		/// Property PlaceholderId (string). Setting this property also changes the position of this section
 		/// and sections that have the same Node and PlaceholderId.
 		/// </summary>
-		public string PlaceholderId
+		public virtual string PlaceholderId
 		{
 			get { return this._placeholderId; }
 			set 
@@ -80,7 +68,7 @@ namespace Cuyahoga.Core.Domain
 		/// <summary>
 		/// Property Position (int)
 		/// </summary>
-		public int Position
+		public virtual int Position
 		{
 			get { return this._position; }
 			set { this._position = value; }
@@ -89,7 +77,7 @@ namespace Cuyahoga.Core.Domain
 		/// <summary>
 		/// Property CacheDuration (int)
 		/// </summary>
-		public int CacheDuration
+		public virtual int CacheDuration
 		{
 			get { return this._cacheDuration; }
 			set { this._cacheDuration = value; }
@@ -98,7 +86,7 @@ namespace Cuyahoga.Core.Domain
 		/// <summary>
 		/// Property ShowTitle (bool)
 		/// </summary>
-		public bool ShowTitle
+		public virtual bool ShowTitle
 		{
 			get { return this._showTitle; }
 			set { this._showTitle = value; }
@@ -107,7 +95,7 @@ namespace Cuyahoga.Core.Domain
 		/// <summary>
 		/// Property Module
 		/// </summary>
-		public ModuleType ModuleType
+		public virtual ModuleType ModuleType
 		{
 			get { return this._moduleType; }
 			set { this._moduleType = value; }
@@ -116,7 +104,7 @@ namespace Cuyahoga.Core.Domain
 		/// <summary>
 		/// Property Node (Node)
 		/// </summary>
-		public Node Node
+		public virtual Node Node
 		{
 			get { return this._node; }
 			set 
@@ -129,13 +117,13 @@ namespace Cuyahoga.Core.Domain
 		/// <summary>
 		/// Property SectionPermissions (IList)
 		/// </summary>
-		public IList SectionPermissions
+		public virtual IList SectionPermissions
 		{
 			get { return this._sectionPermissions; }
 			set { this._sectionPermissions = value; }
 		}
 
-		public bool AnonymousViewAllowed
+		public virtual bool AnonymousViewAllowed
 		{
 			get
 			{
@@ -169,6 +157,7 @@ namespace Cuyahoga.Core.Domain
 			this._showTitle = false;
 			this._position = -1;
 			this._cacheDuration = 0;
+			this._sectionPermissions = new ArrayList();
 		}
 
 		#endregion
@@ -179,7 +168,7 @@ namespace Cuyahoga.Core.Domain
 		/// Factory for the concrete module connected to this Section.
 		/// </summary>
 		/// <returns></returns>
-		public ModuleBase CreateModule()
+		public virtual ModuleBase CreateModule()
 		{
 			if (this._moduleType != null)
 			{
@@ -195,13 +184,15 @@ namespace Cuyahoga.Core.Domain
 			}
 		}
 
-		public void CalculateNewPosition()
+		/// <summary>
+		/// Calculate the position of the new Section. If there are more sections with the same PlaceholderId
+		/// the position will 1 higher than the top position.
+		/// </summary>
+		public virtual void CalculateNewPosition()
 		{
 			if (this.Node != null)
 			{
 				int maxPosition = -1;
-				// Iterate other sections. If there are more sections with the same PlaceholderId
-				// the position will 1 higher than the top position.
 				foreach (Section section in this.Node.Sections)
 				{
 					if (section.PlaceholderId == this.PlaceholderId && section.Position > maxPosition)
@@ -218,7 +209,7 @@ namespace Cuyahoga.Core.Domain
 		/// the same placeholder.
 		/// </summary>
 		/// <returns></returns>
-		public bool CanMoveDown()
+		public virtual bool CanMoveDown()
 		{
 			if (this.Node != null)
 			{
@@ -236,7 +227,7 @@ namespace Cuyahoga.Core.Domain
 		/// the same placeholder.
 		/// </summary>
 		/// <returns></returns>
-		public bool CanMoveUp()
+		public virtual bool CanMoveUp()
 		{
 			if (this.Node != null)
 			{
@@ -252,7 +243,7 @@ namespace Cuyahoga.Core.Domain
 		/// <summary>
 		/// Increase the position of the section and decrease the position of the previous section.
 		/// </summary>
-		public void MoveDown()		
+		public virtual void MoveDown()		
 		{
 			if (this.Node != null)
 			{
@@ -272,7 +263,7 @@ namespace Cuyahoga.Core.Domain
 		/// <summary>
 		/// Decrease the position of the section and increase the position of the following section.
 		/// </summary>
-		public void MoveUp()
+		public virtual void MoveUp()
 		{
 			if (this.Node != null)
 			{
@@ -290,24 +281,12 @@ namespace Cuyahoga.Core.Domain
 		}
 
 		/// <summary>
-		/// Remove a section. This includes deleting all the content of any associated module and
-		/// rearranging the 'neighbour' section positions.
-		/// </summary>
-		public void Remove()
-		{
-			ICmsDataProvider dp = CmsDataFactory.GetInstance();
-			dp.DeleteSection(this);
-			// Then rearrange positions of neighbour sections (kind of abusing an already existing method :-))
-			this.ChangeAndUpdatePositionsAfterPlaceholderChange(this.PlaceholderId, this.Position);
-		}
-
-		/// <summary>
 		/// Update section positions of the sections that have the same Node and PlaceholderId
 		//  when the PlaceholderId is changed or deleted (close the gap).
 		/// </summary>
 		/// <param name="oldPlaceholderId"></param>
 		/// <param name="oldPosition"></param>
-		public void ChangeAndUpdatePositionsAfterPlaceholderChange(string oldPlaceholderId, int oldPosition)
+		public virtual void ChangeAndUpdatePositionsAfterPlaceholderChange(string oldPlaceholderId, int oldPosition)
 		{
 			if (this.Node != null)
 			{
@@ -329,33 +308,65 @@ namespace Cuyahoga.Core.Domain
 		/// </summary>
 		/// <param name="user"></param>
 		/// <returns></returns>
-		public bool ViewAllowed(IIdentity user)
+		public virtual bool ViewAllowed(IIdentity user)
 		{
 			User cuyahogaUser = user as User;
 			if (this.AnonymousViewAllowed)
+			{
 				return true;
+			}
 			else if (cuyahogaUser != null)
+			{
 				return cuyahogaUser.CanView(this);
+			}
 			else
+			{
 				return false;
+			}
 		}
 
-		public void CopyRolesFromNode()
+		public virtual bool ViewAllowed(Role role)
 		{
-//			InitRoles();
-//			if (this._node != null)
-//			{
-//				foreach (Role role in this._node.ViewRoles)
-//				{
-//					this._viewRoles.Add(role);
-//				}
-//				foreach (Role role in this._node.EditRoles)
-//				{
-//					this._editRoles.Add(role);
-//				}
-//			}
+			foreach (SectionPermission sp in this.SectionPermissions)
+			{
+				if (sp.Role == role && sp.ViewAllowed)
+				{
+					return true;
+				}
+			}
+			return false;
 		}
 
+		public virtual bool EditAllowed(Role role)
+		{
+			foreach (SectionPermission sp in this.SectionPermissions)
+			{
+				if (sp.Role == role && sp.EditAllowed)
+				{
+					return true;
+				}
+			}
+			return false;
+		}
+
+		/// <summary>
+		/// 
+		/// </summary>
+		public virtual void CopyRolesFromNode()
+		{
+			if (this.Node != null)
+			{
+				foreach (NodePermission np in this.Node.NodePermissions)
+				{
+					SectionPermission sp = new SectionPermission();
+					sp.Section = this;
+					sp.Role = np.Role;
+					sp.ViewAllowed = np.ViewAllowed;
+					sp.EditAllowed = np.EditAllowed;
+					this.SectionPermissions.Add(sp);
+				}
+			}
+		}
 		#endregion
 
 		#region private methods

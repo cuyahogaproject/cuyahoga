@@ -9,9 +9,8 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Web.UI.HtmlControls;
 
-using Cuyahoga.Core;
 using Cuyahoga.Core.Domain;
-using Cuyahoga.Core.DAL;
+using Cuyahoga.Core.Service;
 
 namespace Cuyahoga.Web.Admin
 {
@@ -94,17 +93,16 @@ namespace Cuyahoga.Web.Admin
 
 		private void SaveRole()
 		{
-			ICmsDataProvider dp = CmsDataFactory.GetInstance();
 			try
 			{
 				if (this._activeRole.Id == -1)
 				{
-					dp.InsertRole(this._activeRole);
+					base.CoreRepository.SaveObject(this._activeRole);
 					Context.Response.Redirect("Roles.aspx");
 				}
 				else
 				{
-					dp.UpdateRole(this._activeRole);
+					base.CoreRepository.UpdateObject(this._activeRole);
 					ShowMessage("Role saved");
 				}
 			}
@@ -166,7 +164,7 @@ namespace Cuyahoga.Web.Admin
 			{
 				try
 				{
-					CmsDataFactory.GetInstance().DeleteRole(this._activeRole);
+					base.CoreRepository.DeleteObject(this._activeRole);
 					Context.Response.Redirect("Roles.aspx");
 				}
 				catch (Exception ex)

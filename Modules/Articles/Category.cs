@@ -15,13 +15,14 @@ namespace Cuyahoga.Modules.Articles
 		private string _summary;
 		private bool _syndicate;
 		private IList _articles;
+		private DateTime _updateTimestamp;
 
 		#region properties
 
 		/// <summary>
 		/// Property Id (int)
 		/// </summary>
-		public int Id
+		public virtual int Id
 		{
 			get { return this._id; }
 			set { this._id = value; }
@@ -30,7 +31,7 @@ namespace Cuyahoga.Modules.Articles
 		/// <summary>
 		/// Property Title (string)
 		/// </summary>
-		public string Title
+		public virtual string Title
 		{
 			get { return this._title; }
 			set { this._title = value; }
@@ -39,7 +40,7 @@ namespace Cuyahoga.Modules.Articles
 		/// <summary>
 		/// Property Summary (string)
 		/// </summary>
-		public string Summary
+		public virtual string Summary
 		{
 			get { return this._summary; }
 			set { this._summary = value; }
@@ -48,7 +49,7 @@ namespace Cuyahoga.Modules.Articles
 		/// <summary>
 		/// Property Syndicate (bool)
 		/// </summary>
-		public bool Syndicate
+		public virtual bool Syndicate
 		{
 			get { return this._syndicate; }
 			set { this._syndicate = value; }
@@ -57,10 +58,19 @@ namespace Cuyahoga.Modules.Articles
 		/// <summary>
 		/// Property Articles (IList)
 		/// </summary>
-		public IList Articles
+		public virtual IList Articles
 		{
 			get { return this._articles; }
 			set { this._articles = value; }
+		}
+
+		/// <summary>
+		/// Property UpdateTimestamp (DateTime)
+		/// </summary>
+		public DateTime UpdateTimestamp
+		{
+			get { return this._updateTimestamp; }
+			set { this._updateTimestamp = value; }
 		}
 
 		#endregion

@@ -1,7 +1,7 @@
 using System;
 
-using Cuyahoga.Core.Domain;
 using Cuyahoga.Modules.DAL;
+using Cuyahoga.Core.Domain;
 
 namespace Cuyahoga.Modules.StaticHtml
 {

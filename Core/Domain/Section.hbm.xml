@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8" ?> 
 <hibernate-mapping xmlns="urn:nhibernate-mapping-2.0">
-	<class name="Cuyahoga.Core.Domain.Section, Cuyahoga.Core" table="cuyahoga_section">
+	<class name="Cuyahoga.Core.Domain.Section, Cuyahoga.Core" table="cuyahoga_section"
+		proxy="Cuyahoga.Core.Domain.Section, Cuyahoga.Core">
 		<id name="Id" column="sectionid" type="Int32" unsaved-value="-1">
 			<generator class="native">
 				<param name="sequence">cuyahoga_section_sectionid_seq</param>

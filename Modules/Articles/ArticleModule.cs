@@ -14,8 +14,6 @@ namespace Cuyahoga.Modules.Articles
 	/// </summary>
 	public class ArticleModule : ModuleBase
 	{
-		private ISessionFactory _factory;
-
 		public ArticleModule()
 		{
 			SessionFactory sf = SessionFactory.GetInstance();
@@ -23,81 +21,64 @@ namespace Cuyahoga.Modules.Articles
 			sf.RegisterPersistentClass(typeof(Cuyahoga.Modules.Articles.Category));
 			sf.RegisterPersistentClass(typeof(Cuyahoga.Modules.Articles.Article));
 			sf.RegisterPersistentClass(typeof(Cuyahoga.Modules.Articles.Comment));
-			sf.Rebuild();
-			this._factory = sf.GetNHibernateFactory();
+			if (sf.Rebuild())
+			{
+				// Raise an event that forces the page to reload because the mapping
+				// configuration is changed and the current session is invalid.
+				OnSessionFactoryRebuilt(EventArgs.Empty);
+			}
 		}
 
 		public IList GetAvailableCategories()
 		{
-			IList categories = null;
-			ISession session = this._factory.OpenSession();
 			try
 			{
-				categories = session.CreateCriteria(typeof(Category)).List();
+				return base.NHSession.CreateCriteria(typeof(Category)).List();
 			}
 			catch (Exception ex)
 			{
 				throw new Exception("Unable to get Categories", ex);
 			}
-			finally
-			{
-				session.Close();
-			}
-			return categories;
 		}
 
 		public IList GetAllArticles()
 		{
-			IList articles = null;
-			ISession session = this._factory.OpenSession();
 			try
 			{
-				articles = session.CreateCriteria(typeof(Article)).Add(Expression.Eq("SectionId", this.Section.Id)).List();
+				string hql = "from Article a where a.Section.Id = ? order by a.DateOnline desc ";
+				return base.NHSession.Find(hql, this.Section.Id, NHibernate.Type.TypeFactory.GetInt32Type());
 			}
 			catch (Exception ex)
 			{
 				throw new Exception("Unable to get Articles", ex);
 			}
-			finally
-			{
-				session.Close();
-			}
-			return articles;
 		}
 
 		public Article GetArticleById(int id)
 		{
-			Article article = null;
-			ISession session = this._factory.OpenSession();
 			try
 			{
-				article = (Article)session.Load(typeof(Article), id);
+				return (Article)base.NHSession.Load(typeof(Article), id);
 			}
 			catch (Exception ex)
 			{
 				throw new Exception("Unable to get Article", ex);
 			}
-			finally
-			{
-				session.Close();
-			}
-			return article;
 		}
 
 		public void SaveArticle(Article article)
 		{
-			ISession session = this._factory.OpenSession();
-			ITransaction tx = session.BeginTransaction();
+			ITransaction tx = base.NHSession.BeginTransaction();
 			try
 			{
-				HandleCategory(article.Category, session);
+				HandleCategory(article.Category, base.NHSession);
 				if (article.Id == -1)
 				{
-					session.Save(article);
+					base.NHSession.Save(article);
 				}
 				else
 				{
-					session.Update(article);
+					base.NHSession.Update(article);
 				}
 				tx.Commit();
 			}
@@ -106,15 +87,11 @@ namespace Cuyahoga.Modules.Articles
 				tx.Rollback();
 				throw new Exception("Unable to save Article", ex);
 			}
-			finally
-			{
-				session.Close();
-			}
 		}
 
 		private void HandleCategory(Category category, ISession session)
 		{
-			if (category.Id == -1)
+			if (category != null && category.Id == -1)
 			{
 				// Unknown category, this could be a new one or maybe still an existing one.
 				IList categories = session.CreateCriteria(typeof(Category)).Add(Expression.Eq("Title", category.Title)).List();
@@ -133,21 +110,16 @@ namespace Cuyahoga.Modules.Articles
 
 		public void DeleteArticle(Article article)
 		{
-			ISession session = this._factory.OpenSession();
-			ITransaction tx = session.BeginTransaction();
+			ITransaction tx = base.NHSession.BeginTransaction();
 			try
 			{
-				session.Delete(article);
+				base.NHSession.Delete(article);
 				tx.Commit();
 			}
 			catch (Exception ex)
 			{
 				tx.Rollback();
 				throw new Exception("Unable to delete Article", ex);
-			}
-			finally
-			{
-				session.Close();
 			}
 		}
 	}

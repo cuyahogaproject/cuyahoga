@@ -76,13 +76,18 @@ namespace Cuyahoga.Core.Service
 		/// <summary>
 		/// Rebuild the NHibernate ISessionFactory. Use it after registering new classes.
 		/// </summary>
-		public void Rebuild()
+		public bool Rebuild()
 		{
 			// Rebuild NHibernate SessionFactory to activate the new mapping.
 			if (this._classesAdded)
 			{
 				this._nhibernateFactory = this._nhibernateConfiguration.BuildSessionFactory();
 				this._classesAdded = false;
+				return true;
+			}
+			else
+			{
+				return false;
 			}
 		}
 

@@ -5,11 +5,11 @@ using System.Web.UI.WebControls;
 using System.Web.UI.HtmlControls;
 using System.Diagnostics;
 
-using Cuyahoga.Core;
+using NHibernate;
+
 using Cuyahoga.Core.Domain;
 using Cuyahoga.Core.Service;
 using Cuyahoga.Core.Collections;
-using Cuyahoga.Core.DAL;
 using Cuyahoga.Core.Util;
 using Cuyahoga.Web.UI;
 using Cuyahoga.Web.Util;
@@ -90,8 +90,7 @@ namespace Cuyahoga.Web.UI
 		{
 //			try
 //			{
-				// Create the repository for Core objects
-				this._coreRepository = new CoreRepository(true);
+				this._coreRepository = (CoreRepository)HttpContext.Current.Items["CoreRepository"];
 				// Get an instance of the CacheManager
 				CacheManager cm = new CacheManager(this._coreRepository);
 				// Add the CacheManager to the current context, so it can track all objects during the page lifecycle.
@@ -143,6 +142,10 @@ namespace Cuyahoga.Web.UI
 						}
 						// Create the module that is connected to the section.
 						ModuleBase module = section.CreateModule();
+						// Create event handlers for NHibernate-related events that can occur in the module.
+						module.SessionFactoryRebuilt += new EventHandler(Module_SessionFactoryRebuilt);
+						module.NHSessionRequired += new ModuleBase.NHSessionEventHandler(Module_NHSessionRequired);
+
 						if (module != null)
 						{
 							BaseModuleControl ctrl = (BaseModuleControl)this.LoadControl(appRoot + section.ModuleType.Path);
@@ -193,16 +196,23 @@ namespace Cuyahoga.Web.UI
 				cm.SaveCache();
 			}
 
-			// Close the session of the CoreRepository
-			if (this._coreRepository != null)
-			{
-				this._coreRepository.CloseSession();
-			}
-
 			// Ready, write the execution time to the debug output.
 			TimeSpan ts = DateTime.Now - (DateTime)Context.Items["starttime"];
 			Debug.WriteLine("Total execution time : " + ts.Milliseconds.ToString() + " milliseconds. \n");
 			base.OnUnload (e);
+		}
+
+		private void Module_SessionFactoryRebuilt(object sender, EventArgs e)
+		{
+			// The SessionFactory was rebuilt, so the current NHibernate Session has become invalid.
+			// This is handled by a simple reload of the page. 
+			// TODO: handle more elegantly?
+			Context.Response.Redirect(Context.Items["VirtualUrl"].ToString());
+		}
+
+		private void Module_NHSessionRequired(object sender, ModuleBase.NHSessionEventArgs e)
+		{
+			e.Session = this._coreRepository.ActiveSession;
 		}
 	}
 }

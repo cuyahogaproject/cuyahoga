@@ -2,9 +2,6 @@ using System;
 using System.Collections;
 using System.Security.Principal;
 
-using Cuyahoga.Core.Collections;
-using Cuyahoga.Core.DAL;
-
 namespace Cuyahoga.Core.Domain
 {
 	/// <summary>
@@ -254,6 +251,7 @@ namespace Cuyahoga.Core.Domain
 			this._sections = null;
 			this._position = -1;
 			this._trail = null;
+			this._nodePermissions = new ArrayList();
 		}
 
 		#endregion
@@ -261,106 +259,26 @@ namespace Cuyahoga.Core.Domain
 		#region methods
 
 		/// <summary>
-		/// Move the node one position upwards and move the node above this one one position downwards.
+		/// Move the node to a different position in the tree.
 		/// </summary>
-		/// <param name="rootNodes">We need these when the node has no ParentNode.</param>
-		public virtual void MoveUp(IList rootNodes)
+		/// <param name="rootNodes">We need the root nodes when the node has no ParentNode</param>
+		/// <param name="npm">Direction</param>
+		public virtual void Move(IList rootNodes, NodePositionMovement npm)
 		{
-			if (this._position > 0)
+			switch (npm)
 			{
-				// HACK: Assume that the node indexes are the same as the value of the positions.
-				this._position--;
-				if (this.ParentNode == null)
-				{
-					((Node)rootNodes[this._position]).Position++;
-				}
-				else
-				{
-					((Node)this.ParentNode.ChildNodes[this._position]).Position++;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Move the node one position downwards and move the node above this one one position upwards.
-		/// </summary>
-		/// <param name="rootNodes">We need these when the node has no ParentNode.</param>
-		public virtual void MoveDown(IList rootNodes)
-		{
-			if (this._position < this.ParentNode.ChildNodes.Count - 1)
-			{
-				// HACK: Assume that the node indexes are the same as the value of the positions.
-				this._position++;
-				if (this.ParentNode == null)
-				{
-					((Node)rootNodes[this._position]).Position--;
-				}
-				else
-				{
-					((Node)this.ParentNode.ChildNodes[this._position]).Position--;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Move node to the same level as the parentnode at the position just beneath the parent node.
-		/// </summary>
-		/// <param name="rootNodes">The root nodes. We need these when a node is moved to the
-		/// root level because the nodes that come after this one ahve to be moved and can't be reached
-		/// anymore by traversing related nodes.</param>
-		public virtual void MoveLeft(IList rootNodes)
-		{
-			int newPosition = this.ParentNode.Position + 1;
-			if (this.ParentNode.Level == 0)
-			{
-				for (int i = newPosition; i < rootNodes.Count; i++)
-				{
-					Node nodeAlsoToBeMoved = (Node)rootNodes[i];
-					nodeAlsoToBeMoved.Position++;
-				}
-			}
-			else
-			{
-				for (int i = newPosition; i < this.ParentNode.ParentNode.ChildNodes.Count; i++)
-				{
-					Node nodeAlsoToBeMoved = (Node)this.ParentNode.ParentNode.ChildNodes[i];
-					nodeAlsoToBeMoved.Position++;
-				}
-			}
-			this.ParentNode.ChildNodes.Remove(this);
-			ReOrderNodePositions(this.ParentNode.ChildNodes, this.Position);
-			this.ParentNode = this.ParentNode.ParentNode;
-			if (this.ParentNode != null)
-			{
-				this.ParentNode.ChildNodes.Add(this);
-			}
-			this.Position = newPosition;
-		}
-
-		/// <summary>
-		/// Add node to the children of the previous node in the list.
-		/// </summary>
-		/// <param name="rootNodes"></param>
-		public virtual void MoveRight(IList rootNodes)
-		{
-			if (this._position > 0)
-			{
-				Node previousSibling;
-				if (this.ParentNode != null)
-				{
-					previousSibling = (Node)this.ParentNode.ChildNodes[this._position - 1];
-					this.ParentNode.ChildNodes.Remove(this);
-					ReOrderNodePositions(this.ParentNode.ChildNodes, this.Position);
-				}
-				else
-				{
-					previousSibling = (Node)rootNodes[this._position - 1];
-					ReOrderNodePositions(rootNodes, this.Position);
-				}
-
-				this.Position = previousSibling.ChildNodes.Count;
-				previousSibling.ChildNodes.Add(this);
-				this.ParentNode = previousSibling;
+				case NodePositionMovement.Up:
+					MoveUp(rootNodes);
+					break;
+				case NodePositionMovement.Down:
+					MoveDown(rootNodes);
+					break;
+				case NodePositionMovement.Left:
+					MoveLeft(rootNodes);
+					break;
+				case NodePositionMovement.Right:
+					MoveRight(rootNodes);
+					break;
 			}
 		}
 
@@ -416,11 +334,17 @@ namespace Cuyahoga.Core.Domain
 		{
 			User cuyahogaUser = user as User;
 			if (this.AnonymousViewAllowed)
+			{
 				return true;
+			}
 			else if (cuyahogaUser != null)
+			{
 				return cuyahogaUser.CanView(this);
+			}
 			else
+			{
 				return false;
+			}
 		}
 
 		public virtual bool ViewAllowed(Role role)
@@ -440,18 +364,6 @@ namespace Cuyahoga.Core.Domain
 			foreach (NodePermission np in this.NodePermissions)
 			{
 				if (np.Role == role && np.EditAllowed)
-				{
-					return true;
-				}
-			}
-			return false;
-		}
-
-		public virtual bool ActionAllowed(Role role)
-		{
-			foreach (NodePermission np in this.NodePermissions)
-			{
-				if (np.Role == role && (np.ViewAllowed || np.EditAllowed))
 				{
 					return true;
 				}
@@ -499,6 +411,110 @@ namespace Cuyahoga.Core.Domain
 		{
 			string tmpShortDescription = this._shortDescription.Substring(0, this._shortDescription.Length - 2);
 			this._shortDescription = tmpShortDescription + "_" + suffix.ToString();
+		}
+
+		/// <summary>
+		/// Move the node one position upwards and move the node above this one one position downwards.
+		/// </summary>
+		/// <param name="rootNodes">We need these when the node has no ParentNode.</param>
+		private void MoveUp(IList rootNodes)
+		{
+			if (this._position > 0)
+			{
+				// HACK: Assume that the node indexes are the same as the value of the positions.
+				this._position--;
+				if (this.ParentNode == null)
+				{
+					((Node)rootNodes[this._position]).Position++;
+				}
+				else
+				{
+					((Node)this.ParentNode.ChildNodes[this._position]).Position++;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Move the node one position downwards and move the node above this one one position upwards.
+		/// </summary>
+		/// <param name="rootNodes">We need these when the node has no ParentNode.</param>
+		private void MoveDown(IList rootNodes)
+		{
+			if (this._position < this.ParentNode.ChildNodes.Count - 1)
+			{
+				// HACK: Assume that the node indexes are the same as the value of the positions.
+				this._position++;
+				if (this.ParentNode == null)
+				{
+					((Node)rootNodes[this._position]).Position--;
+				}
+				else
+				{
+					((Node)this.ParentNode.ChildNodes[this._position]).Position--;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Move node to the same level as the parentnode at the position just beneath the parent node.
+		/// </summary>
+		/// <param name="rootNodes">The root nodes. We need these when a node is moved to the
+		/// root level because the nodes that come after this one ahve to be moved and can't be reached
+		/// anymore by traversing related nodes.</param>
+		private void MoveLeft(IList rootNodes)
+		{
+			int newPosition = this.ParentNode.Position + 1;
+			if (this.ParentNode.Level == 0)
+			{
+				for (int i = newPosition; i < rootNodes.Count; i++)
+				{
+					Node nodeAlsoToBeMoved = (Node)rootNodes[i];
+					nodeAlsoToBeMoved.Position++;
+				}
+			}
+			else
+			{
+				for (int i = newPosition; i < this.ParentNode.ParentNode.ChildNodes.Count; i++)
+				{
+					Node nodeAlsoToBeMoved = (Node)this.ParentNode.ParentNode.ChildNodes[i];
+					nodeAlsoToBeMoved.Position++;
+				}
+			}
+			this.ParentNode.ChildNodes.Remove(this);
+			ReOrderNodePositions(this.ParentNode.ChildNodes, this.Position);
+			this.ParentNode = this.ParentNode.ParentNode;
+			if (this.ParentNode != null)
+			{
+				this.ParentNode.ChildNodes.Add(this);
+			}
+			this.Position = newPosition;
+		}
+
+		/// <summary>
+		/// Add node to the children of the previous node in the list.
+		/// </summary>
+		/// <param name="rootNodes"></param>
+		private void MoveRight(IList rootNodes)
+		{
+			if (this._position > 0)
+			{
+				Node previousSibling;
+				if (this.ParentNode != null)
+				{
+					previousSibling = (Node)this.ParentNode.ChildNodes[this._position - 1];
+					this.ParentNode.ChildNodes.Remove(this);
+					ReOrderNodePositions(this.ParentNode.ChildNodes, this.Position);
+				}
+				else
+				{
+					previousSibling = (Node)rootNodes[this._position - 1];
+					ReOrderNodePositions(rootNodes, this.Position);
+				}
+
+				this.Position = previousSibling.ChildNodes.Count;
+				previousSibling.ChildNodes.Add(this);
+				this.ParentNode = previousSibling;
+			}
 		}
 
 		#endregion

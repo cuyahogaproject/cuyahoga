@@ -23,16 +23,17 @@ namespace Cuyahoga.Web.Modules.Articles
 		protected System.Web.UI.WebControls.Repeater rptArticles;
 		protected Cuyahoga.ServerControls.Pager pgrArticles;
 		protected System.Web.UI.HtmlControls.HtmlInputButton btnNew;
-		private ArticleModule _module;
+		private ArticleModule _articleModule;
 
 		private void Page_Load(object sender, System.EventArgs e)
 		{
-			this._module = base.Section.CreateModule() as ArticleModule;
+			// The base page has already created the module, we only have to cast it here to the right type.
+			this._articleModule = base.Module as ArticleModule;
 			this.btnNew.Attributes.Add("onClick", String.Format("document.location.href='EditArticle.aspx{0}&ArticleId=-1'", base.GetBaseQueryString()));
 
 			if (! this.IsPostBack)
 			{
-				this.rptArticles.DataSource = this._module.GetAllArticles();
+				this.rptArticles.DataSource = this._articleModule.GetAllArticles();
 				this.rptArticles.DataBind();
 			}
 		}

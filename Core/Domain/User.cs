@@ -182,6 +182,7 @@ namespace Cuyahoga.Core.Domain
 			this._id = -1;
 			this._isAuthenticated = false;
 			this._permissions = new AccessLevel[0];
+			this._roles = new ArrayList();
 		}
 
 		/// <summary>

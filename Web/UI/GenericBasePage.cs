@@ -1,4 +1,5 @@
 using System;
+using System.Web;
 using System.Web.UI;
 using System.Web.UI.HtmlControls;
 using System.Web.UI.WebControls;
@@ -20,7 +21,6 @@ namespace Cuyahoga.Web.UI
 		private string _title;
 		private string _css;
 		private string _templateDir;
-		private CoreRepository _coreRepository;
 
 		#region properties
 		/// <summary>
@@ -82,11 +82,7 @@ namespace Cuyahoga.Web.UI
 		{
 			get 
 			{ 
-				if (this._coreRepository == null)
-				{
-					this._coreRepository = new CoreRepository(true);
-				}
-				return this._coreRepository; 
+				return HttpContext.Current.Items["CoreRepository"] as CoreRepository;
 			}
 		}
 
@@ -193,19 +189,5 @@ namespace Cuyahoga.Web.UI
 			html = html.Replace("document." + formID, "document." + replace);
 			writer.Write(html);
 		}
-
-		/// <summary>
-		/// Clean up
-		/// </summary>
-		/// <param name="e"></param>
-		protected override void OnUnload(EventArgs e)
-		{
-			if (this._coreRepository != null)
-			{
-				this._coreRepository.CloseSession();
-			}
-			base.OnUnload (e);
-		}
-
 	}
 }

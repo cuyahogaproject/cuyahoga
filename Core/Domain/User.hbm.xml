@@ -16,7 +16,7 @@
 		<property name="LastLogin" column="lastlogin" type="DateTime" not-null="false" />
 		<property name="LastIp" column="lastip" type="String" length="40" />
 		
-		<bag name="Roles" table="cuyahoga_userrole" cascade="all">
+		<bag name="Roles" table="cuyahoga_userrole" cascade="none" lazy="true">
 			<key column="userid" />
 			<many-to-many class="Cuyahoga.Core.Domain.Role, Cuyahoga.Core" column="roleid" outer-join="true" />
 		</bag>
