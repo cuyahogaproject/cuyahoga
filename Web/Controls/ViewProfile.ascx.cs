@@ -70,7 +70,7 @@ namespace Cuyahoga.Web.Controls
 				this.hplWebsite.Text = user.Website;
 			}
 			this.lblRegisteredOn.Text = user.InsertTimestamp.ToShortDateString();
-			if (user.LastLogin != DateTime.MinValue)
+			if (user.LastLogin != null)
 			{
 				this.lblLastLogin.Text = user.LastLogin.ToString();
 			}

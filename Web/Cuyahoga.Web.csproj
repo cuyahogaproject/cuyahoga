@@ -17,7 +17,7 @@
                 DelaySign = "false"
                 OutputType = "Library"
                 PreBuildEvent = ""
-                PostBuildEvent = ""
+                PostBuildEvent = 'xcopy /s /y "$(SolutionDir)"lib\Nullables.NHibernate.dll "$(TargetDir)"'
                 RootNamespace = "Cuyahoga.Web"
                 RunPostBuildEvent = "OnBuildSuccess"
                 StartupObject = ""
@@ -108,6 +108,11 @@
                     Name = "NHibernate"
                     AssemblyName = "NHibernate"
                     HintPath = "..\lib\NHibernate.dll"
+                />
+                <Reference
+                    Name = "Nullables"
+                    AssemblyName = "Nullables"
+                    HintPath = "..\lib\Nullables.dll"
                 />
             </References>
         </Build>
@@ -741,7 +746,6 @@
                     RelPath = "Controls\Resources\Strings.resx"
                     BuildAction = "EmbeddedResource"
                 />
-                <Folder RelPath = "Css\" />
                 <File
                     RelPath = "Images\feed-rss.gif"
                     BuildAction = "Content"

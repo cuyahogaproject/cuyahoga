@@ -50,6 +50,7 @@ Global
 		Cuyahoga.build = Cuyahoga.build
 		Install.txt = Install.txt
 		LICENSE.txt = LICENSE.txt
+		Releasenotes.txt = Releasenotes.txt
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 	EndGlobalSection

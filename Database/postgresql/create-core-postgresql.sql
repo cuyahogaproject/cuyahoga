@@ -102,7 +102,7 @@ sectionid serial NOT NULL CONSTRAINT UC_cuyahoga_section1 UNIQUE CONSTRAINT PK_c
 nodeid int4,
 moduletypeid int4 NOT NULL,
 title varchar(100) NOT NULL,
-showtitle bool DEFAULT 1 NOT NULL,
+showtitle bool DEFAULT true NOT NULL,
 placeholder varchar(100),
 position int4 DEFAULT 0 NOT NULL,
 cacheduration int4,

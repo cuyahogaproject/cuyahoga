@@ -16,7 +16,7 @@
 		<property name="Email" column="email" type="String" length="100" />
 		<property name="Website" column="website" type="String" length="100" />
 		<property name="IsActive" column="isactive" type="Boolean" length="100" />
-		<property name="LastLogin" column="lastlogin" type="DateTime" not-null="false" />
+		<property name="LastLogin" column="lastlogin" type="Nullables.NHibernate.NullableDateTimeType, Nullables.NHibernate" />
 		<property name="LastIp" column="lastip" type="String" length="40" />
 		<property name="InsertTimestamp" column="inserttimestamp" type="DateTime" />
 		

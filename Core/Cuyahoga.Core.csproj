@@ -99,6 +99,11 @@
                     AssemblyName = "log4net"
                     HintPath = "..\lib\log4net.dll"
                 />
+                <Reference
+                    Name = "Nullables"
+                    AssemblyName = "Nullables"
+                    HintPath = "..\lib\Nullables.dll"
+                />
             </References>
         </Build>
         <Files>

@@ -2,6 +2,8 @@ using System;
 using System.Collections;
 using System.Security.Principal;
 
+using Nullables;
+
 namespace Cuyahoga.Core.Domain
 {
 	/// <summary>
@@ -18,7 +20,7 @@ namespace Cuyahoga.Core.Domain
 		private string _email;
 		private string _website;
 		private bool _isActive;
-		private DateTime _lastLogin;
+		private NullableDateTime _lastLogin;
 		private string _lastIp;
 		private bool _isAuthenticated;
 		private IList _roles;
@@ -122,7 +124,7 @@ namespace Cuyahoga.Core.Domain
 		/// <summary>
 		/// Property LastLogin (DateTime)
 		/// </summary>
-		public virtual DateTime LastLogin
+		public virtual NullableDateTime LastLogin
 		{
 			get { return this._lastLogin; }
 			set { this._lastLogin = value; }

@@ -308,7 +308,7 @@ namespace Cuyahoga.Web.Cache
 			// HACK: bruto-force refresh of the cache indexes here.
 			// A better solution would be to only update the indexes of the nodes that are 
 			// being refreshed but I can't find a way to determine when childnodes are being pulled
-			// from the database, and they have to be added to the database. NHibernate does provide
+			// from the database. NHibernate does provide
 			// some lifecycle events but we don't want any NHibernate references in the domain objects.
 			// Maybe AOP is a solution here (inject notifications).
 			this._nodeCache.NodeIndex.Clear();
