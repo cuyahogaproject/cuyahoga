@@ -100,6 +100,7 @@ namespace Cuyahoga.Web.UI
 				this._rootNode = cm.GetRootNode();
 
 				// Load the active node
+				// Query the cache by ShortDescription, then NodeId and last, SectionId.
 				if (Context.Request.QueryString["ShortDescription"] != null)
 				{
 					this._activeNode = cm.GetNodeByShortDescription(Context.Request.QueryString["ShortDescription"]);
@@ -107,6 +108,11 @@ namespace Cuyahoga.Web.UI
 				else if (Context.Request.QueryString["NodeId"] != null)
 				{
 					this._activeNode = cm.GetNodeById(Int32.Parse(Context.Request.QueryString["NodeId"]));
+				}
+				else if (Context.Request.QueryString["SectionId"] != null)
+				{
+					this._activeSection = cm.GetSectionById(Int32.Parse(Context.Request.QueryString["SectionId"]));
+					this._activeNode = this._activeSection.Node;
 				}
 				else
 				{
@@ -147,7 +153,7 @@ namespace Cuyahoga.Web.UI
 					// Check view permissions before adding the section to the page.
 					if (section.ViewAllowed(this.User.Identity))
 					{
-						if (section.Id == sectionId)
+						if (section.Id == sectionId && this._activeSection == null)
 						{
 							this._activeSection = section;
 						}

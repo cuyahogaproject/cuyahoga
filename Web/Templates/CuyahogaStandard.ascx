@@ -1,6 +1,6 @@
 <%@ Control Language="c#" AutoEventWireup="false" Inherits="Cuyahoga.Web.UI.BaseTemplate" %>
-<%@ Register TagPrefix="uc1" TagName="navigation" Src="../Controls/Nav1.ascx" %>
-<%@ Register TagPrefix="uc2" TagName="subnavigation" Src="../Controls/Nav2.ascx" %>
+<%@ Register TagPrefix="uc1" TagName="navigation" Src="Controls/Nav1.ascx" %>
+<%@ Register TagPrefix="uc2" TagName="subnavigation" Src="Controls/Nav2.ascx" %>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 TRANSITIONAL//EN" >
 <html>
 	<head>

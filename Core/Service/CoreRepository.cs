@@ -304,11 +304,14 @@ namespace Cuyahoga.Core.Service
 			{
 				if (this._activeSession.IsOpen)
 				{
-					this._activeSession.Update(node);
-					// Also re-attach the sections. Updating the node doesn't automatically re-attach the sections.
-					foreach (Section section in node.Sections)
+					if (! this._activeSession.Contains(node))
 					{
-						this._activeSession.Update(section);
+						this._activeSession.Update(node);
+						// Also re-attach the sections. Updating the node doesn't automatically re-attach the sections.
+						foreach (Section section in node.Sections)
+						{
+							this._activeSession.Update(section);
+						}
 					}
 				}
 				else

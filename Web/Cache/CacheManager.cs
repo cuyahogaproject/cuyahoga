@@ -64,16 +64,34 @@ namespace Cuyahoga.Web.Cache
 			else
 			{
 				// We need to attach the node to the current session to enable lazy-load.
-				// HACK: also register the parent nodes since they are not lazy loaded (yet)
 				Node tmpNode = (Node)this._nodeCache.NodeIndex[nodeId];
-				this._coreRepository.AttachNodeToCurrentSession(tmpNode);
-				while (tmpNode.ParentNode != null)
-				{
-					tmpNode = tmpNode.ParentNode;
-					this._coreRepository.AttachNodeToCurrentSession(tmpNode);
-				}
+				AttachNodeToCurrentSession(tmpNode);
 			}
 			return (Node)this._nodeCache.NodeIndex[nodeId];
+		}
+
+		public Section GetSectionById(int sectionId)
+		{
+			if (this._nodeCache.SectionIndex[sectionId] == null)
+			{
+				// Always cache a Section related to its Node so there won't be
+				// any orphaned Sections in the cache.
+				Section section = this._coreRepository.GetObjectById(typeof(Section), sectionId) as Section;
+				if (section != null)
+				{
+					// Putting the node into the cache will also make an entry in the SectionIndex 
+					// table of the NodeCache.
+					LoadNodeIntoCache(section.Node);
+				}
+			}
+			else
+			{
+				Section section = (Section)this._nodeCache.SectionIndex[sectionId];
+				// Attach the related Node to the current session to enable lazy-load.
+				// NOTE: when attaching a Node the Sections are also attached.
+				AttachNodeToCurrentSession(section.Node);
+			}
+			return this._nodeCache.SectionIndex[sectionId] as Section;
 		}
 
 		public Node GetNodeByShortDescription(string shortDescription)
@@ -85,7 +103,7 @@ namespace Cuyahoga.Web.Cache
 			else
 			{
 				// We need to attach the node to the current session to enable lazy-load.
-				this._coreRepository.AttachNodeToCurrentSession((Node)this._nodeCache.NodeShortDescriptionIndex[shortDescription]);
+				AttachNodeToCurrentSession((Node)this._nodeCache.NodeShortDescriptionIndex[shortDescription]);
 			}
 			return (Node)this._nodeCache.NodeShortDescriptionIndex[shortDescription];
 		}
@@ -151,8 +169,29 @@ namespace Cuyahoga.Web.Cache
 			this._nodeCache.NodeIndex[node.Id] = node;
 			// Add another index to the NodeCache to enable retrieval by ShortDescription
 			this._nodeCache.NodeShortDescriptionIndex[node.ShortDescription] = node;
+			// Register Sections
+			foreach (Section section in node.Sections)
+			{
+				this._nodeCache.SectionIndex[section.Id] = section;
+			}
 			// Set hasChanges to true, so the changes will be in the ASP.NET cache later.
 			this._hasChanges = true;
+		}
+
+		/// <summary>
+		/// Attach the node to the current NHibernate Session.
+		/// </summary>
+		/// <param name="node"></param>
+		private void AttachNodeToCurrentSession(Node node)
+		{
+			// HACK: also register the parent nodes since they are not lazy loaded (yet)
+			// TODO: some AOP-ish solution would provide a much more elegant solution.
+			this._coreRepository.AttachNodeToCurrentSession(node);
+			while (node.ParentNode != null)
+			{
+				node = node.ParentNode;
+				this._coreRepository.AttachNodeToCurrentSession(node);
+			}
 		}
 
 		/// <summary>

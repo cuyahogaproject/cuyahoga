@@ -75,7 +75,7 @@ namespace Cuyahoga.Web.Util
 		/// <returns></returns>
 		public static string GetUrlFromSection(Section section)
 		{
-			return GetApplicationPath() + section.Node.Id + "/" + section.Id + "/view.aspx";
+			return GetApplicationPath() + section.Id + "/section.aspx";
 		}
 
 		public static string[] GetModuleParamsFromPathInfo(string pathInfo)

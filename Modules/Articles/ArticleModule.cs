@@ -171,7 +171,7 @@ namespace Cuyahoga.Modules.Articles
 				if (base.ModulePathInfo != "/rss")
 				{
 					// try to find a category
-					expression = @"^\/([^0-9]|^rss)";
+					expression = @"^\/([^0-9])";
 					Regex categoryRegex = new Regex(expression, RegexOptions.Singleline|RegexOptions.CultureInvariant|RegexOptions.Compiled);
 					if (categoryRegex.IsMatch(base.ModulePathInfo))
 					{

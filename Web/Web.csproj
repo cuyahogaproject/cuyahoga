@@ -473,38 +473,6 @@
                     BuildAction = "EmbeddedResource"
                 />
                 <File
-                    RelPath = "Controls\Nav1.ascx"
-                    SubType = "UserControl"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "Controls\Nav1.ascx.cs"
-                    DependentUpon = "Nav1.ascx"
-                    SubType = "ASPXCodeBehind"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "Controls\Nav1.ascx.resx"
-                    DependentUpon = "Nav1.ascx.cs"
-                    BuildAction = "EmbeddedResource"
-                />
-                <File
-                    RelPath = "Controls\Nav2.ascx"
-                    SubType = "UserControl"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "Controls\Nav2.ascx.cs"
-                    DependentUpon = "Nav2.ascx"
-                    SubType = "ASPXCodeBehind"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "Controls\Nav2.ascx.resx"
-                    DependentUpon = "Nav2.ascx.cs"
-                    BuildAction = "EmbeddedResource"
-                />
-                <File
                     RelPath = "Css\Admin.css"
                     BuildAction = "Content"
                 />
@@ -1758,6 +1726,38 @@
                     RelPath = "Templates\CuyahogaStandard.ascx"
                     SubType = "UserControl"
                     BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Templates\Controls\Nav1.ascx"
+                    SubType = "UserControl"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Templates\Controls\Nav1.ascx.cs"
+                    DependentUpon = "Nav1.ascx"
+                    SubType = "ASPXCodeBehind"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "Templates\Controls\Nav1.ascx.resx"
+                    DependentUpon = "Nav1.ascx.cs"
+                    BuildAction = "EmbeddedResource"
+                />
+                <File
+                    RelPath = "Templates\Controls\Nav2.ascx"
+                    SubType = "UserControl"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Templates\Controls\Nav2.ascx.cs"
+                    DependentUpon = "Nav2.ascx"
+                    SubType = "ASPXCodeBehind"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "Templates\Controls\Nav2.ascx.resx"
+                    DependentUpon = "Nav2.ascx.cs"
+                    BuildAction = "EmbeddedResource"
                 />
                 <File
                     RelPath = "UI\BaseModuleControl.cs"

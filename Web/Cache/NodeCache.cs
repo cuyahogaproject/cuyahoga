@@ -7,13 +7,14 @@ using Cuyahoga.Core;
 namespace Cuyahoga.Web.Cache
 {
 	/// <summary>
-	/// The NodeCache stores a list of root nodes and an indexed list of all nodes.
+	/// The NodeCache stores a list of root nodes and an indexed list of all nodes and sections.
 	/// </summary>
 	public class NodeCache
 	{
 		private SortedList _rootNodes;
 		private Hashtable _nodeIndex;
 		private Hashtable _nodeShortDescriptionIndex;
+		private Hashtable _sectionIndex;
 
 		/// <summary>
 		/// Property RootNodes (Hashtable)
@@ -43,6 +44,15 @@ namespace Cuyahoga.Web.Cache
 		}
 
 		/// <summary>
+		/// Property SectionIndex (Hashtable)
+		/// </summary>
+		public Hashtable SectionIndex
+		{
+			get { return this._sectionIndex; }
+			set { this._sectionIndex = value; }
+		}
+
+		/// <summary>
 		/// Default constructor.
 		/// </summary>
 		public NodeCache()
@@ -50,6 +60,7 @@ namespace Cuyahoga.Web.Cache
 			this._rootNodes = new SortedList();
 			this._nodeIndex = new Hashtable();
 			this._nodeShortDescriptionIndex = new Hashtable();
+			this._sectionIndex = new Hashtable();
 		}
 
 	}
