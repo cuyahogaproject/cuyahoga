@@ -12,6 +12,8 @@ using System.Text;
 
 using Cuyahoga.Web.UI;
 using Cuyahoga.Core;
+using Cuyahoga.Core.DAL;
+using Cuyahoga.Core.Collections;
 
 namespace Cuyahoga.Web.Admin
 {
@@ -40,20 +42,10 @@ namespace Cuyahoga.Web.Admin
 
 		private void GetUserData()
 		{
-			// Generate dummy data and set it as the DataSource of the repeater.
-			ArrayList userList = new ArrayList();
-			int number = Encoding.ASCII.GetBytes(this.txtUsername.Text)[0];
-			for (int i = 0; i < number; i++)
-			{
-				User user = new User();
-				user.UserName = "User" + i.ToString();
-				user.FirstName = "Firstname " + i.ToString();
-				user.LastName = "Lastname " + i.ToString();
-				user.Email = "User" + i.ToString() + "@cuyahoga.org";
-				userList.Add(user);
-			}
-			this.pnlResults.Visible = true;
-			this.rptUsers.DataSource = userList;
+			ICmsDataProvider dp = CmsDataFactory.GetInstance();
+			UserCollection users = new UserCollection();
+			dp.FindUsersByName(this.txtUsername.Text, users);
+			this.rptUsers.DataSource = users;
 		}
 
 		#region Web Form Designer generated code
@@ -73,6 +65,7 @@ namespace Cuyahoga.Web.Admin
 		private void InitializeComponent()
 		{    
 			this.btnFind.Click += new System.EventHandler(this.btnFind_Click);
+			this.rptUsers.ItemDataBound += new System.Web.UI.WebControls.RepeaterItemEventHandler(this.rptUsers_ItemDataBound);
 			this.pgrUsers.PageChanged += new Cuyahoga.ServerControls.PageChangedEventHandler(this.pgrUsers_PageChanged);
 			this.pgrUsers.CacheEmpty += new System.EventHandler(this.pgrUsers_CacheEmpty);
 			this.Load += new System.EventHandler(this.Page_Load);
@@ -82,10 +75,7 @@ namespace Cuyahoga.Web.Admin
 
 		private void btnFind_Click(object sender, System.EventArgs e)
 		{
-			if (this.txtUsername.Text.Length > 0)
-			{
-				BindUsers();	
-			}
+			BindUsers();	
 		}
 
 		private void pgrUsers_PageChanged(object sender, Cuyahoga.ServerControls.PageChangedEventArgs e)
@@ -101,6 +91,21 @@ namespace Cuyahoga.Web.Admin
 			// the data has to be retrieved again and set as DataSource of the control that is
 			// being paged.
 			GetUserData();
+		}
+
+		private void rptUsers_ItemDataBound(object sender, System.Web.UI.WebControls.RepeaterItemEventArgs e)
+		{
+			User user = e.Item.DataItem as User;
+			if (user != null)
+			{
+				HyperLink hplEdit = (HyperLink)e.Item.FindControl("hplEdit");
+				HyperLink hplDelete = (HyperLink)e.Item.FindControl("hplDelete");
+
+				// HACK: as long as ~/ doesn't work properly in mono we have to use a relative path from the Controls
+				// directory due to the template construction.
+				hplEdit.NavigateUrl = String.Format("../UserEdit.aspx?UserId={0}", user.Id);
+				hplDelete.NavigateUrl = String.Format("javascript:confirmDeleteUser({0});", user.Id);
+			}
 		}
 	}
 }

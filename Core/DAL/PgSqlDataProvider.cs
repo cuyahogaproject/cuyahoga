@@ -861,14 +861,7 @@ namespace Cuyahoga.Core.DAL
 				if (dr.Read())
 				{
 					user.Id = userId;
-					user.UserName = Convert.ToString(dr["username"]);
-					user.FirstName = Convert.ToString(dr["firstname"]);
-					user.LastName = Convert.ToString(dr["lastname"]);
-					user.Email = Convert.ToString(dr["email"]);
-					if (dr["lastlogin"] != DBNull.Value)
-						user.LastLogin = Convert.ToDateTime(dr["lastlogin"]);
-					if (dr["lastip"] != DBNull.Value)
-						user.LastIp = Convert.ToString(dr["lastip"]);
+					FillUserFromDataReader(dr, user);
 				}
 				dr.Close();
 			}
@@ -880,6 +873,156 @@ namespace Cuyahoga.Core.DAL
 			{
 				con.Close();
 			}			
+		}
+
+		public void FindUsersByName(string userName, UserCollection users)
+		{
+			string sql = @"	SELECT userid, username, firstname, lastname, email, lastlogin, lastip
+							FROM cuyahoga_user ";
+			NpgsqlConnection con = new NpgsqlConnection(Config.GetConfiguration()["ConnectionString"]);
+			NpgsqlCommand cmd = new NpgsqlCommand(sql, con);
+			if (userName.Trim().Length > 0)
+			{
+				cmd.CommandText += "WHERE username LIKE :username ";
+				cmd.Parameters.Add(PgSqlDataHelper.MakeInParam(":username", DbType.String, 255, userName + "%"));
+			}
+			cmd.CommandText += "ORDER BY username ";
+			con.Open();
+			try
+			{
+				NpgsqlDataReader dr = cmd.ExecuteReader();
+				while (dr.Read())
+				{
+					User user = new User();
+					user.Id = Convert.ToInt32(dr["userid"]);
+					FillUserFromDataReader(dr, user);
+					users.Add(user);
+				}
+				dr.Close();
+			}
+			catch (NpgsqlException ex)
+			{
+				throw new CmsDataException("Error reading users", ex);
+			}
+			finally
+			{
+				con.Close();
+			}			
+		}
+
+		public void InsertUser(User user)
+		{
+			string sql = @"	INSERT INTO cuyahoga_user (username, password, firstname, lastname, email)
+							VALUES (:username, :password, :firstname, :lastname, :email) ";
+			NpgsqlConnection con = new NpgsqlConnection(Config.GetConfiguration()["ConnectionString"]);
+			NpgsqlCommand cmd = new NpgsqlCommand(sql, con);
+			cmd.Parameters.Add(PgSqlDataHelper.MakeInParam(":username", DbType.String, 50, user.UserName));
+			cmd.Parameters.Add(PgSqlDataHelper.MakeInParam(":password", DbType.String, 100, user.Password));
+			if (user.FirstName != null)
+				cmd.Parameters.Add(PgSqlDataHelper.MakeInParam(":firstname", DbType.String, 100, user.FirstName));
+			else
+				cmd.Parameters.Add(PgSqlDataHelper.MakeInParam(":firstname", DbType.String, 100, DBNull.Value));
+			if (user.LastName != null)
+				cmd.Parameters.Add(PgSqlDataHelper.MakeInParam(":lastname", DbType.String, 100, user.LastName));
+			else
+				cmd.Parameters.Add(PgSqlDataHelper.MakeInParam(":lastname", DbType.String, 100, DBNull.Value));
+			cmd.Parameters.Add(PgSqlDataHelper.MakeInParam(":email", DbType.String, 100, user.Email));
+
+			string sqlId = "SELECT CURRVAL('cuyahoga_user_userid_seq')";
+			NpgsqlCommand cmdId = new NpgsqlCommand(sqlId, con);
+			
+			con.Open();
+			NpgsqlTransaction trn = con.BeginTransaction();
+			try
+			{
+				cmd.Transaction = trn;
+				cmdId.Transaction = trn;
+				cmd.ExecuteNonQuery();
+				user.Id = Convert.ToInt32(cmdId.ExecuteScalar());
+				InsertRoles(user, trn);
+				trn.Commit();
+			}
+			catch (NpgsqlException ex)
+			{
+				trn.Rollback();
+				throw new CmsDataException("Error inserting user", ex);
+			}
+			finally 
+			{
+				con.Close();
+			}
+		}
+
+		public void UpdateUser(User user)
+		{
+			string sql = @"	UPDATE cuyahoga_users
+							SET	username = :username,
+								firstname = :firstname,
+								lastname = :lastname,
+								email = :email,
+								updatetimestamp = current_timestamp ";
+			if (user.Password != null)
+				sql += ", password = :password ";
+			sql += "WHERE userid = :userid ";
+
+			NpgsqlConnection con = new NpgsqlConnection(Config.GetConfiguration()["ConnectionString"]);
+			NpgsqlCommand cmd = new NpgsqlCommand(sql, con);
+			cmd.Parameters.Add(PgSqlDataHelper.MakeInParam(":username", DbType.String, 50, user.UserName));
+			if (user.Password != null)
+				cmd.Parameters.Add(PgSqlDataHelper.MakeInParam(":password", DbType.String, 100, user.Password));
+			if (user.FirstName != null)
+				cmd.Parameters.Add(PgSqlDataHelper.MakeInParam(":firstname", DbType.String, 100, user.FirstName));
+			else
+				cmd.Parameters.Add(PgSqlDataHelper.MakeInParam(":firstname", DbType.String, 100, DBNull.Value));
+			if (user.LastName != null)
+				cmd.Parameters.Add(PgSqlDataHelper.MakeInParam(":lastname", DbType.String, 100, user.LastName));
+			else
+				cmd.Parameters.Add(PgSqlDataHelper.MakeInParam(":lastname", DbType.String, 100, DBNull.Value));
+			cmd.Parameters.Add(PgSqlDataHelper.MakeInParam(":email", DbType.String, 100, user.Email));
+			cmd.Parameters.Add(PgSqlDataHelper.MakeInParam(":userid", DbType.Int32, 4, user.Id));
+		
+			con.Open();
+			NpgsqlTransaction trn = con.BeginTransaction();
+			try
+			{
+				cmd.Transaction = trn;
+				DeleteRoles(user, trn);
+				cmd.ExecuteNonQuery();
+				InsertRoles(user, trn);
+				trn.Commit();
+			}
+			catch (NpgsqlException ex)
+			{
+				trn.Rollback();
+				throw new CmsDataException("Error updating user", ex);
+			}
+			finally 
+			{
+				con.Close();
+			}
+		}
+
+		public void DeleteUser(User user)
+		{
+			string sql = @"	DELETE cuyahoga_users
+							WHERE userid = :userid ";
+			NpgsqlConnection con = new NpgsqlConnection(Config.GetConfiguration()["ConnectionString"]);
+			NpgsqlCommand cmd = new NpgsqlCommand(sql, con);
+			cmd.Parameters.Add(PgSqlDataHelper.MakeInParam(":userid", DbType.Int32, 4, user.Id));
+		
+			con.Open();
+			try
+			{
+				cmd.ExecuteNonQuery();
+			}
+			catch (NpgsqlException ex)
+			{
+				throw new CmsDataException("Error deleting user", ex);
+			}
+			finally 
+			{
+				con.Close();
+			}
 		}
 
 		public void GetAllRoles(RoleCollection roles)
@@ -1017,6 +1160,42 @@ namespace Cuyahoga.Core.DAL
 			}
 		}
 
+		private void FillUserFromDataReader(NpgsqlDataReader dr, User user)
+		{
+			user.UserName = Convert.ToString(dr["username"]);
+			user.FirstName = Convert.ToString(dr["firstname"]);
+			user.LastName = Convert.ToString(dr["lastname"]);
+			user.Email = Convert.ToString(dr["email"]);
+			if (dr["lastlogin"] != DBNull.Value)
+				user.LastLogin = Convert.ToDateTime(dr["lastlogin"]);
+			if (dr["lastip"] != DBNull.Value)
+				user.LastIp = Convert.ToString(dr["lastip"]);
+		}
+
+		private void InsertRoles(User user, NpgsqlTransaction trn)
+		{
+			string sql = @"	INSERT INTO cuyahoga_userrole(roleid, userid)
+							VALUES(:roleid, :userid)";
+			NpgsqlCommand cmd = new NpgsqlCommand(sql, trn.Connection, trn);
+			
+			foreach (Role role in user.Roles)
+			{
+				cmd.Parameters.Clear();
+				cmd.Parameters.Add(PgSqlDataHelper.MakeInParam(":userid", DbType.Int32, 4, user.Id));
+				cmd.Parameters.Add(PgSqlDataHelper.MakeInParam(":roleid", DbType.Int32, 4, role.Id));
+				cmd.ExecuteNonQuery();
+			}
+		}
+
+		private void DeleteRoles(User user, NpgsqlTransaction trn)
+		{
+			string sql = @"	DELETE cuyahoga_userrole
+							WHERE userid = :userid";
+			NpgsqlCommand cmd = new NpgsqlCommand(sql, trn.Connection, trn);
+			
+			cmd.Parameters.Add(PgSqlDataHelper.MakeInParam(":userid", DbType.Int32, 4, user.Id));
+			cmd.ExecuteNonQuery();
+		}
 		
 		#endregion
 

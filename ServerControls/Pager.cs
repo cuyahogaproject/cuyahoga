@@ -81,7 +81,10 @@ namespace Cuyahoga.ServerControls
 				else
 					return this._cacheDuration;
 			}
-			set { ViewState["CacheDuration"] = value; }
+			set 
+			{ 
+				ViewState["CacheDuration"] = value; 
+			}
 		}
 
 		/// <summary>
@@ -134,8 +137,17 @@ namespace Cuyahoga.ServerControls
 		/// </summary>
 		public int PageSize
 		{
-			get { return this._pagedDataSource.PageSize; }
-			set { this._pagedDataSource.PageSize = value; }
+			get 
+			{ 
+				if (ViewState["PageSize"] != null)
+					return (int)ViewState["PageSize"];
+				else
+					return 10; // Default PageSize = 10
+			}
+			set 
+			{ 
+				ViewState["PageSize"] = value; 
+			}
 		}
 
 		#endregion
@@ -166,7 +178,6 @@ namespace Cuyahoga.ServerControls
 		/// </summary>
 		public Pager()
 		{
-			InitPagedDataSource();
 			this._cacheDuration = 30;
 		}
 		
@@ -184,7 +195,9 @@ namespace Cuyahoga.ServerControls
 			}
 			else
 				throw new NullReferenceException("The ControlToPage property has to be set to the ID of another control on the page.");
-				
+
+			InitPagedDataSource();	
+
 			base.OnInit (e);
 		}
 
@@ -192,7 +205,7 @@ namespace Cuyahoga.ServerControls
 		{
 			this.Controls.Clear();
 			BuildNavigationControls();
-			base.CreateChildControls ();
+			base.CreateChildControls();
 		}
 
 
@@ -210,7 +223,7 @@ namespace Cuyahoga.ServerControls
 			this._pagedDataSource = new PagedDataSource();
 			this._pagedDataSource.AllowCustomPaging = false;
 			this._pagedDataSource.AllowPaging = true;
-			this._pagedDataSource.PageSize = 10;
+			this._pagedDataSource.PageSize = this.PageSize;
 			this._pagedDataSource.CurrentPageIndex = this.CurrentPageIndex;
 		}
 

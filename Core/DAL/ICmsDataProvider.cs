@@ -77,6 +77,14 @@ namespace Cuyahoga.Core.DAL
 
 		void GetUserById(int id, User user);
 
+		void FindUsersByName(string userName, UserCollection users);
+
+		void InsertUser(User user);
+
+		void UpdateUser(User user);
+
+		void DeleteUser(User user);
+
 		void GetAllRoles(RoleCollection roles);
 
 		void GetRolesByUser(User user);

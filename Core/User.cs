@@ -14,6 +14,7 @@ namespace Cuyahoga.Core
 	{
 		private int _id;
 		private string _userName;
+		private string _password;
 		private string _firstName;
 		private string _lastName;
 		private string _email;
@@ -41,6 +42,15 @@ namespace Cuyahoga.Core
         	get { return this._userName; }
         	set { this._userName = value; }
         }
+
+		/// <summary>
+		/// Property Password (string)
+		/// </summary>
+		public string Password
+		{
+			get { return this._password; }
+			set { this._password = value; }
+		}
 
 		/// <summary>
 		/// Property FirstName (string)

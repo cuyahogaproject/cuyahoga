@@ -14,11 +14,11 @@ namespace Cuyahoga.Web.Admin
 	/// <summary>
 	/// Summary description for UserEdit.
 	/// </summary>
-	public class UserEdit : System.Web.UI.Page
+	public class UserEdit : Cuyahoga.Web.Admin.UI.AdminBasePage
 	{
 		private void Page_Load(object sender, System.EventArgs e)
 		{
-			// Put user code to initialize the page here
+			this.Title = "Edit user";
 		}
 
 		#region Web Form Designer generated code
