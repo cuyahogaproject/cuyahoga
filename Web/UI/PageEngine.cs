@@ -6,6 +6,7 @@ using System.Web.UI.HtmlControls;
 using System.Diagnostics;
 using System.Threading;
 using System.Globalization;
+using System.Collections;
 
 using Cuyahoga.Core;
 using Cuyahoga.Core.Domain;
@@ -168,7 +169,8 @@ namespace Cuyahoga.Web.UI
 
 				if (this._shouldLoadContent)
 				{
-					 LoadContent(cm);				
+					LoadContent();			
+					LoadMenus();
 				}
 			}
 			// TODO: we could handle some exceptions here, but for now rethrow them, so it will be handled
@@ -208,7 +210,7 @@ namespace Cuyahoga.Web.UI
 			base.OnUnload (e);
 		}
 
-		private void LoadContent(CacheManager cm)
+		private void LoadContent()
 		{
 			// ===== Load template and usercontrols =====
 
@@ -264,10 +266,51 @@ namespace Cuyahoga.Web.UI
 					}
 				}
 			}
+
 			this.Controls.AddAt(0, this._templateControl);
 			// remove html that was in the original page (Default.aspx)
 			for (int i = this.Controls.Count -1; i < 0; i --)
 				this.Controls.RemoveAt(i);
+		}
+
+		private void LoadMenus()
+		{
+			// TODO: cache menus
+			IList menus = this._coreRepository.GetMenusByRootNode(this._rootNode);
+			foreach (Menu menu in menus)
+			{
+				PlaceHolder plc = this._templateControl.Containers[menu.Placeholder] as PlaceHolder;
+				if (plc != null)
+				{
+					plc.Controls.Add(GetMenuControls(menu));
+				}
+			}
+		}
+
+		private Control GetMenuControls(Menu menu)
+		{
+			if (menu.Nodes.Count > 0)
+			{
+				// The menu is just a simple <ul> list.
+				HtmlGenericControl listControl = new HtmlGenericControl("ul");
+				foreach (Node node in menu.Nodes)
+				{
+					if (node.ViewAllowed(this.CuyahogaUser))
+					{
+						HtmlGenericControl listItem = new HtmlGenericControl("li");
+						HyperLink hpl = new HyperLink();
+						hpl.NavigateUrl = UrlHelper.GetUrlFromNode(node);
+						hpl.Text = node.Title;
+						listItem.Controls.Add(hpl);
+						listControl.Controls.Add(listItem);
+					}
+				}
+				return listControl;
+			}
+			else
+			{
+				return null;
+			}
 		}
 
 		private void Section_SessionFactoryRebuilt(object sender, EventArgs e)

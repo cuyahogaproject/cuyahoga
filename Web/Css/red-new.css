@@ -197,6 +197,26 @@ td
 	text-align: right;
 }
 
+#globalmenu ul
+{
+	padding: 0;
+	margin: 0;
+	list-style: none;
+}
+
+#globalmenu li
+{
+	display: inline;
+	padding-left: 5px;
+	padding-right: 5px;
+	margin-left: 1px;
+}
+
+#globalmenu a
+{
+	color: #fff;
+}
+
 #content
 {
 	padding: 0;
