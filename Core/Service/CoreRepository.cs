@@ -350,6 +350,18 @@ namespace Cuyahoga.Core.Service
 
 		#endregion
 
+		#region Menu specific
+
+		public IList GetMenusByRootNode(Node rootNode)
+		{
+			string hql = "from Menu m where m.RootNode.Id = :rootNodeId";
+			IQuery q = this._activeSession.CreateQuery(hql);
+			q.SetInt32("rootNodeId", rootNode.Id);
+			return q.List();
+		}
+
+		#endregion
+
 		#region Section specific
 		
 		/// <summary>

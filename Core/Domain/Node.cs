@@ -5,13 +5,12 @@ using System.Security.Principal;
 namespace Cuyahoga.Core.Domain
 {
 	/// <summary>
-	/// Summary description for Node.
+	/// The Node class represents a node in the page hierarchy of the site.
 	/// </summary>
 	[Serializable]
 	public class Node
 	{
 		private int _id;
-		private int _parentId;
 		private string _title;
 		private string _shortDescription;
 		private int _position;
@@ -24,6 +23,7 @@ namespace Cuyahoga.Core.Domain
 		private Node[] _nodePath;
 		private IList _nodePermissions;
 		private string _culture;
+		private bool _showInNavigation;
 		private DateTime _updateTimestamp;
 
 		#region properties
@@ -35,15 +35,6 @@ namespace Cuyahoga.Core.Domain
 		{
 			get { return this._id; }
 			set { this._id = value; }
-		}
-		
-		/// <summary>
-		/// Property ParentId (int)
-		/// </summary>
-		public virtual int ParentId
-		{
-			get { return this._parentId; }
-			set { this._parentId = value; }
 		}
 
 		/// <summary>
@@ -86,6 +77,15 @@ namespace Cuyahoga.Core.Domain
 		{
 			get { return this._culture; }
 			set { this._culture = value; }
+		}
+
+		/// <summary>
+		/// Property ShowInNavigation (bool)
+		/// </summary>
+		public virtual bool ShowInNavigation
+		{
+			get { return this._showInNavigation; }
+			set { this._showInNavigation = value; }
 		}
 
 		/// <summary>
@@ -228,6 +228,14 @@ namespace Cuyahoga.Core.Domain
 			}
 		}
 
+		/// <summary>
+		/// Indicates if the node a root node (home)?
+		/// </summary>
+		public virtual bool IsRootNode
+		{
+			get { return this._id > -1 && this._parentNode == null; }
+		}
+	
 		#endregion
 
 		#region events
@@ -272,7 +280,6 @@ namespace Cuyahoga.Core.Domain
 
 		private void InitNode()
 		{
-			this._parentId = -1;
 			this._shortDescription = null;
 			this._parentNode = null;
 			this._template = null;

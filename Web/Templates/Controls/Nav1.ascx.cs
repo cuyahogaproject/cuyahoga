@@ -72,7 +72,7 @@ namespace Cuyahoga.Web.Templates.Controls
 		private void rptNav1_ItemDataBound(object sender, RepeaterItemEventArgs e)
 		{
 			Node node = (Node)e.Item.DataItem;
-			if (node.ViewAllowed(this._page.CuyahogaUser))
+			if (node.ShowInNavigation && node.ViewAllowed(this._page.CuyahogaUser))
 			{
 				HyperLink hpl = (HyperLink)e.Item.FindControl("hplNav1");
 				hpl.NavigateUrl = UrlHelper.GetUrlFromNode(node);

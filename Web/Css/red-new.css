@@ -179,6 +179,8 @@ td
 	background-position: bottom;
 }
 
+
+
 #subtitle
 {
 	margin-bottom: 0px;
@@ -186,6 +188,13 @@ td
 	font-size: 110%;
 	font-weight: bold;
 	color: #fff;
+	float: left;
+}
+
+#globalmenu
+{
+	color: #fff;
+	text-align: right;
 }
 
 #content

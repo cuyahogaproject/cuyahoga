@@ -124,6 +124,15 @@
                     BuildAction = "Compile"
                 />
                 <File
+                    RelPath = "Domain\Menu.cs"
+                    SubType = "Code"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "Domain\Menu.hbm.xml"
+                    BuildAction = "EmbeddedResource"
+                />
+                <File
                     RelPath = "Domain\ModuleBase.cs"
                     SubType = "Code"
                     BuildAction = "Compile"

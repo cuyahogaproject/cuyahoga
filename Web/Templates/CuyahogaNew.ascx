@@ -23,7 +23,10 @@
 			</div>
 			<div id="main">
 				<div id="headermain">
-					<span id="subtitle">A .NET Website Framework</span>
+					<div id="subtitle">A .NET Website Framework</div>
+					<div id="globalmenu">
+						<asp:placeholder id="globalMenu" runat="server"></asp:placeholder>
+					</div>
 				</div>
 				<div id="content">
 					<asp:placeholder id="maincontent" runat="server"></asp:placeholder>

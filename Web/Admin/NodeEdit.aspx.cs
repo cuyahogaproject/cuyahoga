@@ -43,6 +43,10 @@ namespace Cuyahoga.Web.Admin
 		protected System.Web.UI.WebControls.Repeater rptRoles;
 		protected System.Web.UI.WebControls.RequiredFieldValidator rfvShortDescription;
 		protected System.Web.UI.WebControls.DropDownList ddlCultures;
+		protected System.Web.UI.WebControls.CheckBox chkShowInNavigation;
+		protected System.Web.UI.WebControls.Repeater rptMenus;
+		protected System.Web.UI.WebControls.HyperLink hplNewMenu;
+		protected System.Web.UI.WebControls.Panel pnlMenus;
 		protected System.Web.UI.WebControls.TextBox txtTitle;
 	
 		private void Page_Load(object sender, System.EventArgs e)
@@ -99,6 +103,10 @@ namespace Cuyahoga.Web.Admin
 					{
 						BindNodeControls();
 						BindSections();
+						if (this.ActiveNode.IsRootNode)
+						{
+							BindMenus();
+						}
 					}
 					BindCultures();
 					BindTemplates();
@@ -119,6 +127,8 @@ namespace Cuyahoga.Web.Admin
 			{
 				this.lblParentNode.Text = this.ActiveNode.ParentNode.Title;
 			}
+			this.chkShowInNavigation.Checked = this.ActiveNode.ShowInNavigation;
+
 			// main buttons visibility
 			btnNew.Visible = (this.ActiveNode.Id > 0);
 			btnDelete.Visible = (this.ActiveNode.Id > 0);
@@ -174,6 +184,14 @@ namespace Cuyahoga.Web.Admin
 				this.lblTemplates.Text = this.ActiveNode.Template.Name;
 				this.lblTemplates.Visible = true;
 			}
+		}
+
+		private void BindMenus()
+		{
+			this.pnlMenus.Visible = true;
+			this.rptMenus.DataSource = base.CoreRepository.GetMenusByRootNode(this.ActiveNode);
+			this.rptMenus.DataBind();
+			this.hplNewMenu.NavigateUrl = String.Format("~/Admin/MenuEdit.aspx?MenuId=-1&NodeId={0}", this.ActiveNode.Id);
 		}
 
 		private void BindSections()
@@ -355,6 +373,7 @@ namespace Cuyahoga.Web.Admin
 			this.btnLeft.Click += new System.Web.UI.ImageClickEventHandler(this.btnLeft_Click);
 			this.btnRight.Click += new System.Web.UI.ImageClickEventHandler(this.btnRight_Click);
 			this.ddlTemplates.SelectedIndexChanged += new System.EventHandler(this.ddlTemplates_SelectedIndexChanged);
+			this.rptMenus.ItemDataBound += new System.Web.UI.WebControls.RepeaterItemEventHandler(this.rptMenus_ItemDataBound);
 			this.rptSections.ItemDataBound += new System.Web.UI.WebControls.RepeaterItemEventHandler(this.rptSections_ItemDataBound);
 			this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
 			this.btnCancel.Click += new System.EventHandler(this.btnCancel_Click);
@@ -373,8 +392,8 @@ namespace Cuyahoga.Web.Admin
 				if (this.IsValid)
 				{
 					this.ActiveNode.Title = this.txtTitle.Text;
-					// TODO: ensure a unique culture when the node is a root node
 					this.ActiveNode.Culture = this.ddlCultures.SelectedValue;
+					this.ActiveNode.ShowInNavigation = this.chkShowInNavigation.Checked;
 					this.ActiveNode.Validate();
 					SetShortDescription();
 					SetRoles();
@@ -550,6 +569,16 @@ namespace Cuyahoga.Web.Admin
 		private void module_NHSessionRequired(object sender, Cuyahoga.Core.Domain.ModuleBase.NHSessionEventArgs e)
 		{
 			e.Session = base.CoreRepository.ActiveSession;
+		}
+
+		private void rptMenus_ItemDataBound(object sender, System.Web.UI.WebControls.RepeaterItemEventArgs e)
+		{
+			Menu menu = e.Item.DataItem as Menu;
+			if (menu != null)
+			{
+				HyperLink hplEdit = e.Item.FindControl("hplEditMenu") as HyperLink;
+				hplEdit.NavigateUrl = String.Format("~/Admin/MenuEdit.aspx?MenuId={0}&NodeId={1}", menu.Id, this.ActiveNode.Id);
+			}
 		}
 	}
 }

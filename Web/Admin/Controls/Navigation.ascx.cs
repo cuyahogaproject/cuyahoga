@@ -79,7 +79,7 @@ namespace Cuyahoga.Web.Admin.Controls
 			HtmlGenericControl container = new HtmlGenericControl("div");
 			container.Attributes.Add("class", "site");
 			Image img = new Image();
-			img.ImageUrl ="../Images/doc2.gif";
+			img.ImageUrl ="../Images/internet.gif";
 			img.ImageAlign = ImageAlign.AbsMiddle;
 			container.Controls.Add(img);
 			HyperLink hpl = new HyperLink();
@@ -109,25 +109,45 @@ namespace Cuyahoga.Web.Admin.Controls
 
 		private Control CreateDisplayNode(Node node)
 		{
+			string nodeText;
+			string imgUrl;
+			// Display root nodes with their culture.
+			if (node.Level == 0)
+			{
+				nodeText = node.Title + " (" + node.Culture + ")";
+				imgUrl = "../Images/home.gif";
+			}
+			else
+			{
+				nodeText = node.Title;
+				if (node.ShowInNavigation)
+				{
+					imgUrl = "../Images/doc2.gif";
+				}
+				else
+				{
+					imgUrl = "../Images/doc2-disabled.gif";
+				}
+			}
 			int indent = node.Level * 20 + 20;
 			HtmlGenericControl container = new HtmlGenericControl("div");
 			container.Attributes.Add("class", "node");
 			container.Attributes.Add("style", String.Format("padding-left: {0}px", indent.ToString()));
 			Image img = new Image();
-			img.ImageUrl ="../Images/doc2.gif";
+			img.ImageUrl = imgUrl;
 			img.ImageAlign = ImageAlign.AbsMiddle;
 			container.Controls.Add(img);
 			if (this._page.ActiveNode != null && node.Id == this._page.ActiveNode.Id)
 			{
 				Label lbl = new Label();
 				lbl.CssClass = "nodeActive";
-				lbl.Text = node.Title;
+				lbl.Text = nodeText;
 				container.Controls.Add(lbl);
 			}
 			else
 			{
 				HyperLink hpl = new HyperLink();
-				hpl.Text = node.Title;
+				hpl.Text = nodeText;
 				hpl.NavigateUrl = String.Format("../NodeEdit.aspx?NodeId={0}", node.Id.ToString());
 				hpl.CssClass = "nodeLink";
 				container.Controls.Add(hpl);

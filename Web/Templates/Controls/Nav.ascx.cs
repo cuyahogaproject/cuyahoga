@@ -35,7 +35,7 @@ namespace Cuyahoga.Web.Templates.Controls
 			mainList.Controls.Add(BuildListItemFromNode(this._page.RootNode));
 			foreach (Node node in this._page.RootNode.ChildNodes)
 			{
-				if (node.ViewAllowed(this._page.CuyahogaUser))
+				if (node.ShowInNavigation && node.ViewAllowed(this._page.CuyahogaUser))
 				{
 					HtmlControl listItem = BuildListItemFromNode(node);
 					if (node.Level <= this._page.ActiveNode.Level 

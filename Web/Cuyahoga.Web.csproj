@@ -239,6 +239,22 @@
                     BuildAction = "EmbeddedResource"
                 />
                 <File
+                    RelPath = "Admin\MenuEdit.aspx"
+                    SubType = "Form"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Admin\MenuEdit.aspx.cs"
+                    DependentUpon = "MenuEdit.aspx"
+                    SubType = "ASPXCodeBehind"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "Admin\MenuEdit.aspx.resx"
+                    DependentUpon = "MenuEdit.aspx.cs"
+                    BuildAction = "EmbeddedResource"
+                />
+                <File
                     RelPath = "Admin\NodeEdit.aspx"
                     SubType = "Form"
                     BuildAction = "Content"
@@ -503,6 +519,10 @@
                     BuildAction = "Content"
                 />
                 <File
+                    RelPath = "Admin\Images\internet.gif"
+                    BuildAction = "Content"
+                />
+                <File
                     RelPath = "Admin\Images\leftred.gif"
                     BuildAction = "Content"
                 />
@@ -512,6 +532,10 @@
                 />
                 <File
                     RelPath = "Admin\Images\rightred.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Admin\Images\search.gif"
                     BuildAction = "Content"
                 />
                 <File

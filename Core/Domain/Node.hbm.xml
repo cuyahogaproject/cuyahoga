@@ -13,6 +13,7 @@
 		<property name="ShortDescription" column="shortdescription" type="String" length="255" unique="true" />
 		<property name="Position" column="position" type="Int32" />
 		<property name="Culture" column="culture" type="String" length="8" not-null="false" />
+		<property name="ShowInNavigation" column="showinnavigation" type="Boolean" />
 		
 		<many-to-one name="Site" class="Cuyahoga.Core.Domain.Site, Cuyahoga.Core" column="siteid" not-null="false" />
 		<many-to-one name="ParentNode" class="Cuyahoga.Core.Domain.Node, Cuyahoga.Core" column="parentnodeid" not-null="false" />

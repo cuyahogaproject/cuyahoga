@@ -9,7 +9,6 @@
 		<meta name="vs_targetSchema" content="http://schemas.microsoft.com/intellisense/ie5">
 	</head>
 	<body ms_positioning="FlowLayout">
-
 		<form id="Form1" method="post" runat="server">
 			<div class="group">
 				<h4>General</h4>
@@ -17,10 +16,13 @@
 					<tr>
 						<td style="WIDTH:100px">Section title</td>
 						<td><asp:textbox id="txtTitle" runat="server" width="300px"></asp:textbox>
-							<asp:requiredfieldvalidator id="rfvTitle" runat="server" display="Dynamic" cssclass="validator" controltovalidate="txtTitle" enableclientscript="False">Title is required</asp:requiredfieldvalidator></td></tr>
+							<asp:requiredfieldvalidator id="rfvTitle" runat="server" display="Dynamic" cssclass="validator" controltovalidate="txtTitle"
+								enableclientscript="False">Title is required</asp:requiredfieldvalidator></td>
+					</tr>
 					<tr>
 						<td>Show section title</td>
-						<td><asp:checkbox id="chkShowTitle" runat="server"></asp:checkbox></td></tr>
+						<td><asp:checkbox id="chkShowTitle" runat="server"></asp:checkbox></td>
+					</tr>
 					<tr>
 						<td style="HEIGHT: 16px">Module</td>
 						<td style="HEIGHT: 16px">
@@ -37,7 +39,9 @@
 					</tr>
 					<tr>
 						<td>Cache duration</td>
-						<td><asp:textbox id="txtCacheDuration" runat="server" width="30px"></asp:textbox><asp:requiredfieldvalidator id="rfvCache" runat="server" display="Dynamic" cssclass="validator" controltovalidate="txtCacheDuration" enableclientscript="False">Cache duration is required (0 for no cache)</asp:requiredfieldvalidator><asp:comparevalidator id="cpvCache" runat="server" display="Dynamic" cssclass="validator" controltovalidate="txtCacheDuration" enableclientscript="False" errormessage="Only positive integers allowed" operator="GreaterThanEqual" valuetocompare="0" type="Integer"></asp:comparevalidator></td>
+						<td><asp:textbox id="txtCacheDuration" runat="server" width="30px"></asp:textbox><asp:requiredfieldvalidator id="rfvCache" runat="server" display="Dynamic" cssclass="validator" controltovalidate="txtCacheDuration"
+								enableclientscript="False">Cache duration is required (0 for no cache)</asp:requiredfieldvalidator><asp:comparevalidator id="cpvCache" runat="server" display="Dynamic" cssclass="validator" controltovalidate="txtCacheDuration"
+								enableclientscript="False" errormessage="Only positive integers allowed" operator="GreaterThanEqual" valuetocompare="0" type="Integer"></asp:comparevalidator></td>
 					</tr>
 				</table>
 			</div>
@@ -53,23 +57,28 @@
 					<asp:repeater id="rptRoles" runat="server">
 						<headertemplate>
 							<tr>
-								<th>Role</th>
-								<th>View allowed</th>
-								<th>Edit allowed</th>
+								<th>
+									Role</th>
+								<th>
+									View allowed</th>
+								<th>
+									Edit allowed</th>
 							</tr>
 						</headertemplate>
 						<itemtemplate>
 							<tr>
 								<td><%# DataBinder.Eval(Container.DataItem, "Name") %></td>
-								<td style="text-align:center"><asp:checkbox id="chkViewAllowed" runat="server"></asp:checkbox></td>
-								<td style="text-align:center"><asp:checkbox id="chkEditAllowed" runat="server"></asp:checkbox></td>
+								<td style="text-align:center">
+									<asp:checkbox id="chkViewAllowed" runat="server"></asp:checkbox></td>
+								<td style="text-align:center">
+									<asp:checkbox id="chkEditAllowed" runat="server"></asp:checkbox></td>
 							</tr>
 						</itemtemplate>
 					</asp:repeater></table>
 			</div>
 			<div>
 				<asp:button id="btnSave" runat="server" text="Save"></asp:button>
-				<asp:button id="btnCancel" runat="server" text="Cancel" causesvalidation="False"></asp:button>
+				<asp:button id="btnBack" runat="server" text="Back" causesvalidation="False"></asp:button>
 			</div>
 			<script language="javascript"> <!--
 			function setPlaceholderValue(ddlist, val)
@@ -89,6 +98,5 @@
 			// -->
 			</script>
 		</form>
-
 	</body>
 </html>

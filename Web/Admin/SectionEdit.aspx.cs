@@ -36,8 +36,8 @@ namespace Cuyahoga.Web.Admin
 		protected System.Web.UI.WebControls.CompareValidator cpvCache;
 		protected System.Web.UI.WebControls.Repeater rptRoles;
 		protected System.Web.UI.WebControls.Repeater rptCustomSettings;
+		protected System.Web.UI.WebControls.Button btnBack;
 		protected System.Web.UI.WebControls.PlaceHolder plcCustomSettings;
-		protected System.Web.UI.WebControls.Button btnCancel;
 	
 		private void Page_Load(object sender, System.EventArgs e)
 		{
@@ -58,7 +58,7 @@ namespace Cuyahoga.Web.Admin
 		/// </summary>
 		private void LoadSection()
 		{
-			// Note: Called from OnInit!
+			// NOTE: Called from OnInit!
 			if (Context.Request.QueryString["SectionId"] != null)
 			{
 				if (Int32.Parse(Context.Request.QueryString["SectionId"]) == -1)
@@ -237,7 +237,7 @@ namespace Cuyahoga.Web.Admin
 			else
 			{
 				base.CoreRepository.SaveObject(this._activeSection);
-				Context.Response.Redirect(String.Format("SectionEdit.aspx?SectionId={0}&NodeId={1}", this._activeSection.Id, this.ActiveNode.Id));
+				Context.Response.Redirect(String.Format("NodeEdit.aspx?NodeId={0}", this.ActiveNode.Id));
 			}
 		}
 
@@ -329,13 +329,13 @@ namespace Cuyahoga.Web.Admin
 		private void InitializeComponent()
 		{    
 			this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
-			this.btnCancel.Click += new System.EventHandler(this.btnCancel_Click);
+			this.btnBack.Click += new System.EventHandler(this.btnBack_Click);
 			this.Load += new System.EventHandler(this.Page_Load);
 
 		}
 		#endregion
 
-		private void btnCancel_Click(object sender, System.EventArgs e)
+		private void btnBack_Click(object sender, System.EventArgs e)
 		{
 			Context.Response.Redirect(String.Format("NodeEdit.aspx?NodeId={0}", this.ActiveNode.Id));
 		}
