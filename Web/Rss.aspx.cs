@@ -4,11 +4,13 @@ using System.Web;
 using System.Text;
 using System.IO;
 using System.Xml;
+using System.Text.RegularExpressions;
 
 using Cuyahoga.Core;
 using Cuyahoga.Core.Domain;
 using Cuyahoga.Core.Service;
 using Cuyahoga.Core.Util;
+using Cuyahoga.Web.Util;
 
 namespace Cuyahoga.Web
 {
@@ -38,7 +40,7 @@ namespace Cuyahoga.Web
 					// Create event handlers for NHibernate-related events that can occur in the module.
 					module.NHSessionRequired += new ModuleBase.NHSessionEventHandler(Module_NHSessionRequired);
 
-					module.ModulePathInfo = Context.Request.PathInfo;
+					module.ModulePathInfo = pathInfo;
 					ISyndicatable syndicatableModule = module as ISyndicatable;
 					if (syndicatableModule != null)
 					{
@@ -58,16 +60,23 @@ namespace Cuyahoga.Web
 
 						// write out -level elements
 						writer.WriteElementString("title", channel.Title);
-						writer.WriteElementString("link", Util.UrlHelper.GetFullUrlFromSection(section));
+						writer.WriteElementString("link", Util.UrlHelper.GetFullUrlFromSection(section) + pathInfo);
 						writer.WriteElementString("description", channel.Description);
 						writer.WriteElementString("language", channel.Language);
 						writer.WriteElementString("pubDate", channel.PubDate.ToString("r"));
 						writer.WriteElementString("lastBuildDate", channel.LastBuildDate.ToString("r"));
 						writer.WriteElementString("generator", channel.Generator);
 						writer.WriteElementString("ttl", channel.Ttl.ToString());
+						
+						// Regular expression to find relative urls
+						string expression = String.Format(@"=[""']{0}", UrlHelper.GetApplicationPath());
+						Regex regExUrl = new Regex(expression, RegexOptions.Singleline|RegexOptions.CultureInvariant|RegexOptions.Compiled);
 
 						foreach (RssItem item in channel.RssItems)
 						{
+							// replace inline relative hyperlinks with full hyperlinks
+							item.Description = regExUrl.Replace(item.Description, String.Format(@"=""{0}/", UrlHelper.GetSiteUrl()));
+
 							// write out 
 							writer.WriteStartElement("item");
 

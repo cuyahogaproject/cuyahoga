@@ -1,7 +1,7 @@
 namespace Cuyahoga.Modules.Articles
 {
 	using System;
-	// using System.Data;
+	using System.Collections;
 	using System.Drawing;
 	using System.Web;
 	using System.Web.UI.WebControls;
@@ -22,6 +22,7 @@ namespace Cuyahoga.Modules.Articles
 		private bool _allowComments;
 		private bool _allowAnonymousComments;
 		private int _numberOfArticlesInList;
+		private bool _allowSyndication;
 
 		protected System.Web.UI.WebControls.Panel pnlArticleDetails;
 		protected System.Web.UI.WebControls.Repeater rptArticles;
@@ -43,10 +44,14 @@ namespace Cuyahoga.Modules.Articles
 		private void Page_Load(object sender, System.EventArgs e)
 		{
 			this._module = this.Module as ArticleModule;
+			if (this.Module.Section.Settings["ALLOW_SYNDICATION"] != null)
+			{
+				this._allowSyndication = Boolean.Parse(this.Module.Section.Settings["ALLOW_SYNDICATION"].ToString());
+			}
 			// Don't display the syndication icon on the article view
-			base.DisplaySyndicationIcon = ! (this._module.CurrentArticleId > 0);
+			base.DisplaySyndicationIcon = ! (this._allowSyndication && this._module.CurrentArticleId > 0);
 
-			if (this._module != null && (! base.HasCachedOutput || this.Page.IsPostBack))
+			if (this._module != null && (! base.HasCachedOutput || this.Page.IsPostBack) || this.Page.User.Identity.IsAuthenticated)
 			{
 				// Custom settings
 				this._allowComments = Boolean.Parse(this.Module.Section.Settings["ALLOW_COMMENTS"].ToString());
@@ -81,9 +86,19 @@ namespace Cuyahoga.Modules.Articles
 					this.rptComments.ItemDataBound += new RepeaterItemEventHandler(rptComments_ItemDataBound);
 					this.rptComments.DataBind();
 				}
-				else if (this._module.CurrentCategory != null)
+				else if (this._module.CurrentCategoryId > 0)
 				{
 					// Category view
+					this.rptArticles.ItemDataBound += new RepeaterItemEventHandler(rptArticles_ItemDataBound);
+					this.rptArticles.DataSource = this._module.GetDisplayArticlesByCategory(); // ArticleModule knows its currentCategoryId.
+					this.rptArticles.DataBind();
+					this.pnlArticleList.Visible = true;
+					if (this.rptArticles.Items.Count > 0)
+					{
+						// HACK: Get the name of the category from the first article in the list.
+						Article firstArticle = ((IList)this.rptArticles.DataSource)[0] as Article;
+						base.Module.Section.Title = base.GetText("CATEGORY") + " " + firstArticle.Category.Title;
+					}
 				}
 				else
 				{
@@ -128,11 +143,22 @@ namespace Cuyahoga.Modules.Articles
 			Article article = e.Item.DataItem as Article;
 			HyperLink hpl = e.Item.FindControl("hplTitle") as HyperLink;
 			hpl.NavigateUrl = UrlHelper.GetUrlFromSection(this._module.Section) + "/" + article.Id;
+			HyperLink hplAuthor = e.Item.FindControl("hplAuthor") as HyperLink;
+			hplAuthor.NavigateUrl = this.Page.ResolveUrl(String.Format("~/Profile.aspx/view/{0}", article.CreatedBy.Id));
+			hplAuthor.Text = article.CreatedBy.FullName;
+			HyperLink hplCategory = e.Item.FindControl("hplCategory") as HyperLink;
+			hplCategory.NavigateUrl = UrlHelper.GetUrlFromSection(this.Module.Section) + 
+				String.Format("/category/{0}", article.Category.Id);
+			hplCategory.Text = article.Category.Title;
+			HyperLink hplComments = e.Item.FindControl("hplComments") as HyperLink;
+			hplComments.NavigateUrl = UrlHelper.GetUrlFromSection(this._module.Section) 
+				+ String.Format("/{0}#comments", article.Id);
+			hplComments.Text = base.GetText("COMMENTS") + " " + article.Comments.Count.ToString();
 
 			Panel pnlSummary = e.Item.FindControl("pnlSummary") as Panel;
 			Panel pnlContent = e.Item.FindControl("pnlContent") as Panel;
 			DisplayType displayType = (DisplayType)Enum.Parse(typeof(DisplayType), this._module.Section.Settings["DISPLAY_TYPE"].ToString());
-			pnlSummary.Visible = (displayType == DisplayType.FullContent || displayType == DisplayType.HeadersAndSummary);
+			pnlSummary.Visible = (displayType == DisplayType.HeadersAndSummary);
 			pnlContent.Visible = (displayType == DisplayType.FullContent);
 		}
 

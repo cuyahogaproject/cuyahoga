@@ -19,8 +19,7 @@ namespace Cuyahoga.Modules.Articles
 	public class ArticleModule : ModuleBase, ISyndicatable
 	{
 		private int _currentArticleId;
-		private string _currentCategory;
-		private bool _generateRss;
+		private int _currentCategoryId;
 
 		/// <summary>
 		/// Property CurrentArticleId (int)
@@ -31,19 +30,11 @@ namespace Cuyahoga.Modules.Articles
 		}
 
 		/// <summary>
-		/// Property CurrentCategory (string)
+		/// Property CurrentCategory (int)
 		/// </summary>
-		public string CurrentCategory
+		public int CurrentCategoryId
 		{
-			get { return this._currentCategory; }
-		}
-
-		/// <summary>
-		/// Property GenerateRss (bool)
-		/// </summary>
-		public bool GenerateRss
-		{
-			get { return this._generateRss; }
+			get { return this._currentCategoryId; }
 		}
 
 		/// <summary>
@@ -52,8 +43,6 @@ namespace Cuyahoga.Modules.Articles
 		/// </summary>
 		public ArticleModule()
 		{
-			this._generateRss = false;
-
 			SessionFactory sf = SessionFactory.GetInstance();
 			// Register classes that are used by the ArticleModule
 			sf.RegisterPersistentClass(typeof(Cuyahoga.Modules.Articles.Category));
@@ -63,11 +52,18 @@ namespace Cuyahoga.Modules.Articles
 			base.SessionFactoryRebuilt = sf.Rebuild();
 		}
 
+		/// <summary>
+		/// Get the available categories for the current site (via Article -> Section -> Node -> Site). 
+		/// </summary>
+		/// <returns></returns>
 		public IList GetAvailableCategories()
 		{
 			try
 			{
-				return base.NHSession.CreateCriteria(typeof(Category)).List();
+				string hql = "select distinct c from Category c, Article a where a in elements(c.Articles) and a.Section.Node.Site.Id = :siteId";
+				IQuery q = base.NHSession.CreateQuery(hql);
+				q.SetInt32("siteId", base.Section.Node.Site.Id);
+				return q.List();
 			}
 			catch (Exception ex)
 			{
@@ -97,6 +93,38 @@ namespace Cuyahoga.Modules.Articles
 				q.SetInt32("sectionId", base.Section.Id);
 				q.SetDateTime("now", DateTime.Now);
 				q.SetMaxResults(number);
+				return q.List();
+			}
+			catch (Exception ex)
+			{
+				throw new Exception("Unable to get Articles", ex);
+			}
+		}
+
+		public IList GetDisplayArticlesByCategory()
+		{
+			try
+			{
+				string hql = "from Article a where a.Category.Id = :categoryId and a.DateOnline < :now and a.DateOffline > :now order by a.DateOnline desc ";
+				IQuery q = base.NHSession.CreateQuery(hql);
+				q.SetInt32("categoryId", this._currentCategoryId);
+				q.SetDateTime("now", DateTime.Now);
+				return q.List();
+			}
+			catch (Exception ex)
+			{
+				throw new Exception("Unable to get Articles", ex);
+			}
+		}
+
+		public IList GetRssArticlesByCategory()
+		{
+			try
+			{
+				string hql = "from Article a where a.Category.Id = :categoryId and a.DateOnline < :now and a.DateOffline > :now order by a.DateOnline desc ";
+				IQuery q = base.NHSession.CreateQuery(hql);
+				q.SetInt32("categoryId", this._currentCategoryId);
+				q.SetDateTime("now", DateTime.Now);
 				return q.List();
 			}
 			catch (Exception ex)
@@ -228,12 +256,12 @@ namespace Cuyahoga.Modules.Articles
 					this._currentArticleId = Int32.Parse(articleIdRegEx.Match(base.ModulePathInfo).Groups[1].Value);
 				}
 				
-				// try to find a category
-				expression = @"^\/([^0-9])";
+				// try to find a categoryid
+				expression = @"^\/category\/(\d+)";
 				Regex categoryRegex = new Regex(expression, RegexOptions.Singleline|RegexOptions.CultureInvariant|RegexOptions.Compiled);
 				if (categoryRegex.IsMatch(base.ModulePathInfo))
 				{
-					this._currentCategory = articleIdRegEx.Match(base.ModulePathInfo).Groups[1].Value;
+					this._currentCategoryId = Int32.Parse(categoryRegex.Match(base.ModulePathInfo).Groups[1].Value);
 				}
 			}
 		}
@@ -270,14 +298,33 @@ namespace Cuyahoga.Modules.Articles
 		{
 			RssChannel channel = new RssChannel();
 			channel.Title = this.Section.Title;
-			// channel.Link = "" (can't determine link here)
+			// channel.Link = "" (can't determine link here because the ArticleModule has no notion of any URL context).
 			channel.Description = this.Section.Title; // TODO: Section needs a description.
 			channel.Language = this.Section.Node.Culture;
 			channel.PubDate = DateTime.Now;
 			channel.LastBuildDate = DateTime.Now;
-			int maxNumberOfItems = Int32.Parse(this.Section.Settings["NUMBER_OF_ARTICLES_IN_LIST"].ToString());
+			IList articles = null;
+			// We can have an rss feed for the normal article list but also for the category view.
+			if (base.ModulePathInfo.ToLower().IndexOf("category") > 0)
+			{
+				string expression = @"^\/category\/(\d+)";
+				Regex categoryRegex = new Regex(expression, RegexOptions.Singleline|RegexOptions.CultureInvariant|RegexOptions.Compiled);
+				if (categoryRegex.IsMatch(base.ModulePathInfo))
+				{
+					this._currentCategoryId = Int32.Parse(categoryRegex.Match(base.ModulePathInfo).Groups[1].Value);
+					articles = GetRssArticlesByCategory();
+					// We still need the category for the title.
+					Category category = (Category)base.NHSession.Load(typeof(Category), this._currentCategoryId);
+					channel.Title += String.Format(" ({0}) ", category.Title);
+				}
+			}
+			else
+			{
+				int maxNumberOfItems = Int32.Parse(this.Section.Settings["NUMBER_OF_ARTICLES_IN_LIST"].ToString());
+				articles = GetRssArticles(maxNumberOfItems);
+			}
+			
 			DisplayType displayType = (DisplayType)Enum.Parse(typeof(DisplayType), this.Section.Settings["DISPLAY_TYPE"].ToString());
-			IList articles = GetRssArticles(maxNumberOfItems);
 			foreach (Article article in articles)
 			{
 				RssItem item = new RssItem();
@@ -292,7 +339,7 @@ namespace Cuyahoga.Modules.Articles
 				{
 					item.Description = article.Summary;
 				}
-				item.Author = article.ModifiedBy.Email;
+				item.Author = article.ModifiedBy.FullName;
 				if (article.Category != null)
 				{
 					item.Category = article.Category.Title;

@@ -57,7 +57,10 @@ namespace Cuyahoga.Web.UI
 
 		protected override void OnInit(EventArgs e)
 		{
-			if (this.Module.Section.CacheDuration > 0 && this.Module.CacheKey != null)
+			if (this.Module.Section.CacheDuration > 0 
+				&& this.Module.CacheKey != null
+				&& ! this.Page.User.Identity.IsAuthenticated
+				&& ! this.Page.IsPostBack)
 			{
 				// Get the cached content. Don't use cached output after a postback.
 				if (HttpContext.Current.Cache[this.Module.CacheKey] != null && ! this.IsPostBack)
@@ -88,7 +91,7 @@ namespace Cuyahoga.Web.UI
 			if (this._displaySyndicationIcon)
 			{
 				writer.Write(String.Format("<a href=\"{0}\"><img src=\"{1}\" border=\"0\"></a>", 
-					UrlHelper.GetRssUrlFromSection(this._module.Section), UrlHelper.GetApplicationPath() + "Images/feed-rss.gif"));
+					UrlHelper.GetRssUrlFromSection(this._module.Section) + this._module.ModulePathInfo, UrlHelper.GetApplicationPath()+ "Images/feed-rss.gif"));
 			}
 			// Edit button
 			User cuyahogaUser = this.Page.User.Identity as User;
@@ -100,7 +103,11 @@ namespace Cuyahoga.Web.UI
 			}
 			writer.Write("</div>");
 			// Write module content and handle caching when neccesary.
-			if (this._module.Section.CacheDuration > 0 && this.Module.CacheKey != null)
+			// Don't cache when the user is logged in or after a postback.
+			if (this._module.Section.CacheDuration > 0 
+				&& this.Module.CacheKey != null
+				&& ! this.Page.User.Identity.IsAuthenticated
+				&& ! this.Page.IsPostBack)
 			{
 				if (this._cachedOutput == null)
 				{

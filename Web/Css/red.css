@@ -215,6 +215,7 @@ td
 {
 	color: #666;
 	font-size: 0.8em;
+	border-top: dashed 1px #ccc;
 }
 
 .articlecontent

@@ -14,23 +14,32 @@
 							<%# DataBinder.Eval(Container.DataItem, "Content") %>
 						</p>
 					</asp:panel>
-					<div class="articlesub"><%= base.GetText("PUBLISHED") %>&nbsp;<%# DataBinder.Eval(Container.DataItem, "DateOnline", "{0:D}") %>&nbsp;
-						<%= base.GetText("BY") %>&nbsp;<%# DataBinder.Eval(Container.DataItem, "CreatedBy.FullName") %>.&nbsp;
-						<%= base.GetText("CATEGORY") %>&nbsp;<%# DataBinder.Eval(Container.DataItem, "Category.Title") %>.
+					<div class="articlesub">
+						<%= base.GetText("PUBLISHED") %>
+						<%# DataBinder.Eval(Container.DataItem, "DateOnline", "{0:D}") %>
+						<%= base.GetText("BY") %>
+						<asp:hyperlink id="hplAuthor" runat="server"></asp:hyperlink> -
+						<%= base.GetText("CATEGORY") %>
+						<asp:hyperlink id="hplCategory" runat="server"></asp:hyperlink> -
+						<asp:hyperlink id="hplComments" runat="server"></asp:hyperlink>
 					</div>
 				</li>
 			</itemtemplate>
-		</asp:repeater></ul></asp:panel><asp:panel id="pnlArticleDetails" runat="server" visible="False">
+		</asp:repeater>
+	</ul>
+</asp:panel>
+<asp:panel id="pnlArticleDetails" runat="server" visible="False">
 	<div class="articlecontent">
 		<h4><asp:literal id="litTitle" runat="server"></asp:literal></h4>
 		<p><asp:literal id="litContent" runat="server"></asp:literal></p>
-		<h5><%= base.GetText("COMMENTS") %></h5>
+		<h5><a name="comments"><%= base.GetText("COMMENTS") %></a></h5>
 		<ul class="articlecomments"><asp:repeater id="rptComments" runat="server">
 				<itemtemplate>
 					<li>
 						<p><%# DataBinder.Eval(Container.DataItem, "CommentText") %></p>
 						<div class="articlesub">
-							<%= base.GetText("BY") %>&nbsp;<asp:placeholder id="plhCommentBy" runat="server"></asp:placeholder>
+							<%= base.GetText("BY") %>
+							<asp:placeholder id="plhCommentBy" runat="server"></asp:placeholder>
 							- <%# DataBinder.Eval(Container.DataItem, "UpdateTimestamp", "{0:g}") %>
 						</div>
 					</li>
