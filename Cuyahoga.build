@@ -6,33 +6,38 @@
 
 	<!-- default configuration -->
 	<property name="project.config" value="debug" /> <!-- debug|release -->
-	
 	<property name="lib.dir" value="lib" />
 	
 	<target name="debug" description="Perform a 'debug' build">
 		<property name="project.config" value="debug" />
 		<property name="build.debug" value="true" />
 		<property name="build.dir" value="${nant.project.basedir}/build/${nant.settings.currentframework}.${nant.platform.name}/${project.name}-${project.version}-${project.config}" />
+		<property name="build.name" value="${project.name}-${project.version}-${project.config}" />
 	</target>
 
 	<target name="release" description="Perform a 'release' build">
 		<property name="project.config" value="release" />
 		<property name="build.debug" value="false" />
 		<property name="build.dir" value="${nant.project.basedir}/build/${project.name}-${project.version}" />
+		<property name="build.name" value="${project.name}-${project.version}" />
 	</target>
 
 	<!-- build tasks -->
 	<target name="init" description="Initializes build properties">
 		<call target="${project.config}" />
 	</target>
+	
 	<target name="clean" depends="init" description="Deletes current build configuration">
 		<delete dir="${build.dir}" failonerror="false" />
 	</target>
+	
 	<target name="cleanall" description="Deletes every build configuration">
 		<echo message="Deleting all builds from all configurations" />
 		<delete dir="build" failonerror="false" />
 	</target>
+	
 	<target name="build" depends="init" description="Builds current configuration">
+		<echo message="Building ${build.name}..." />
 		<echo message="Build Directory is ${build.dir}" />
 		<mkdir dir="${build.dir}/bin" />
 		
@@ -48,6 +53,7 @@
 			</fileset>
 		</copy>		
 	</target>
+	
 	<target name="build.core">
 		<csc target="library" output="${build.dir}/bin/Cuyahoga.Core.dll" debug="${build.debug}">
             <sources>
@@ -67,6 +73,7 @@
             </references>
         </csc>
 	</target>
+	
 	<target name="build.servercontrols">
 		<csc target="library" output="${build.dir}/bin/Cuyahoga.ServerControls.dll" debug="${build.debug}">
             <sources>
@@ -82,6 +89,7 @@
             </references>
         </csc>
 	</target>
+	
 	<target name="build.web">
 		<csc target="library" output="${build.dir}/bin/Cuyahoga.Web.dll" debug="${build.debug}">
             <sources>
@@ -101,6 +109,7 @@
             </references>
         </csc>
 	</target>
+	
 	<target name="build.modules" depends="build.core">
 		<csc target="library" output="${build.dir}/bin/Cuyahoga.Modules.dll" debug="${build.debug}">
             <sources>
@@ -125,6 +134,67 @@
             </references>
         </csc>
 	</target>
+	
+	<target name="sdkdoc" depends="init" description="Generates MSDN style documentation">
+		<mkdir dir="${build.dir}/doc/sdk" />
+		<ndoc>
+			<assemblies basedir="${build.dir}/bin">
+				<include name="Cuyahoga.*.dll" />
+			</assemblies>
+			<documenters>
+				<documenter name="MSDN">
+					<property name="OutputDirectory" value="${build.dir}/doc/sdk" />
+					<property name="HtmlHelpName" value="CuyahogaReference" />
+					<property name="IncludeFavorites" value="False" />
+					<property name="Title" value="Cuyahoga Class Library - v.${project.version}" />
+					<property name="SplitTOCs" value="False" />
+					<property name="DefaulTOC" value="" />
+					<property name="IncludeHierarchy" value="True" />
+					<property name="ShowVisualBasic" value="False" />
+					<property name="RootPageContainsNamespaces" value="True" />
+					<property name="SortTOCByNamespace" value="True" />
+					<property name="OutputTarget" value="HtmlHelp" />
+					<property name="HeaderHtml" value="" />
+					<property name="FooterHtml" value="" />
+					<property name="FilesToInclude" value="" />
+					<property name="LinkToSdkDocVersion" value="SDK_v1_1" />
+					<property name="ShowMissingSummaries" value="True" />
+					<property name="ShowMissingRemarks" value="False" />
+					<property name="ShowMissingParams" value="False" />
+					<property name="ShowMissingReturns" value="False" />
+					<property name="ShowMissingValues" value="False" />
+					<property name="DocumentInternals" value="False" />
+					<property name="DocumentProtected" value="True" />
+					<property name="DocumentPrivates" value="False" />
+					<property name="DocumentProtectedInternalAsProtected" value="False" />
+					<property name="DocumentEmptyNamespaces" value="False" />
+					<property name="IncludeAssemblyVersion" value="True" />
+					<property name="CopyrightText" value="" />
+					<property name="CopyrightHref" value="" />
+					<property name="ReferencesPath" value="" />
+					<property name="SkipNamespacesWithoutSummaries" value="False" />
+					<property name="UseNamespaceDocSummaries" value="False" />
+					<property name="AutoPropertyBackerSummaries" value="False" />
+					<property name="AutoDocumentConstructors" value="True" />
+					<property name="DocumentAttributes" value="True" />
+					<property name="ShowTypeIdInAttributes" value="False" />
+					<property name="DocumentedAttributes" value="True" />
+					<property name="GetExternalSummaries" value="True" />
+					<property name="EditorBrowsableFilter" value="Off" />
+					<property name="UseNDocXmlFile" value="" />
+				</documenter>
+			</documenters> 
+		</ndoc>
+		
+		<delete>
+			<!-- remove all of the html, gif, etc... files and leave only the chm -->
+			<fileset basedir="${build.dir}/doc/sdk">
+				<include name="*" />
+				<exclude name="*.chm" />
+			</fileset>
+		</delete>
+	</target>
+	
 	<target name="deploy" depends="build" description="Deploys the website to the deployment directory">
 		<mkdir dir="${build.dir}/deploy" />
 		<mkdir dir="${build.dir}/deploy/bin" />
@@ -160,6 +230,56 @@
 			</fileset>
 		</copy>
 
+	</target>
+	
+	<target name="package-source" depends="init" description="Create a Zip file for Source Releases">
+		<mkdir dir="${build.dir}/package" />
+		<copy todir="${build.dir}/package" includeemptydirs="true">
+			<fileset>
+				<include name="*" />
+				<include name="${lib.dir}/**" />
+				<include name="Core/**" />
+				<include name="ServerControls/**" />
+				<include name="Web/**" />
+				<include name="Modules/**" />
+				<include name="Tests/**" />
+				<include name="Database/**/*.sql" />
+							
+
+				<exclude name="Web/Modules/**/*" />
+				<exclude name="Web/UserFiles/Documents/**/*" />
+				<exclude name="Web/UserFiles/Images/**/*" />
+				<exclude name="Web/log/**/*" />
+				
+				<!-- exclude VS.NET stuff -->
+				<exclude name="**/*.suo" />
+				<exclude name="**/*j.user" />
+				<exclude name="**/bin/**" />
+				<exclude name="**/obj/**" />
+							
+			</fileset>
+		</copy>
+		<!-- Remove the connnection string information... -->
+		<xmlpoke
+			file="${build.dir}/package/Web/Web.config"
+			xpath="/configuration/nhibernate/add[@key='hibernate.connection.connection_string']/@value"
+			value="Put your database connection string here" 
+		/>
+		<xmlpoke
+			file="${build.dir}/package/Tests/App.config"
+			xpath="/configuration/nhibernate/add[@key='hibernate.connection.connection_string']/@value"
+			value="Put your database connection string here" 
+		/>
+		<property name="project.zip-path" value="build/${project.name}-${project.version}-src.zip" />
+		
+		<zip zipfile="${project.zip-path}" includeemptydirs="true">
+			<fileset basedir="${build.dir}/package">
+				<include name="**/*" />
+			</fileset>
+		</zip>
+		
+		<!-- delete the directory that was used to create the zip -->
+		<delete dir="${build.dir}/package" />		
 	</target>
 </project>
 

@@ -8,6 +8,7 @@ using System.Text;
 using System.IO;
 
 using Cuyahoga.Core.Service;
+using Cuyahoga.Core.Util;
 
 namespace Cuyahoga.Web.UI
 {
@@ -30,6 +31,14 @@ namespace Cuyahoga.Web.UI
 		public string TemplateFilename
 		{
 			set { this._templateFilename = value; }
+		}
+
+		/// <summary>
+		/// 
+		/// </summary>
+		protected string TemplateDir
+		{
+			set { this._templateDir = value; }
 		}
 
 		/// <summary>
@@ -119,11 +128,15 @@ namespace Cuyahoga.Web.UI
 
 			// Set template directory
 			if (this._templateDir == null && ConfigurationSettings.AppSettings["TemplateDir"] != null)
+			{
 				this._templateDir = ConfigurationSettings.AppSettings["TemplateDir"];
+			}
 
 			// Get the template control
 			if (this._templateFilename == null)
+			{
 				this._templateFilename = ConfigurationSettings.AppSettings["DefaultTemplate"];
+			}
 			BasePageControl pageControl = (BasePageControl)this.LoadControl(this.ResolveUrl(this._templateDir + this._templateFilename));
 
 			// Add the pagecontrol on top of the control collection of the page
@@ -163,9 +176,13 @@ namespace Cuyahoga.Web.UI
 
 			// Set the stylesheet and title properties
 			if (this._css == null)
+			{
 				this._css = ResolveUrl(ConfigurationSettings.AppSettings["DefaultCss"]);
+			}
 			if (this._title == null)
+			{
 				this._title = ConfigurationSettings.AppSettings["DefaultTitle"];
+			}
 			pageControl.Title = this._title;
 			pageControl.Css = this._css;
 		}

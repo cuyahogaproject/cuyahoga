@@ -1,6 +1,7 @@
 using System;
 using System.Web;
 using System.Web.UI.HtmlControls;
+using System.Configuration;
 
 using Cuyahoga.Core;
 using Cuyahoga.Core.Domain;
@@ -54,6 +55,12 @@ namespace Cuyahoga.Web.Admin.UI
 
 		protected override void OnInit(EventArgs e)
 		{
+			// Set template dir, template filename and css.
+			base.TemplateDir = ConfigurationSettings.AppSettings["TemplateDir"];
+			base.TemplateFilename = ConfigurationSettings.AppSettings["DefaultTemplate"];
+			base.Css = ConfigurationSettings.AppSettings["DefaultCss"];
+
+			// Try to set active Node.
 			if (Context.Request.QueryString["NodeId"] != null)
 			{
 				int nodeId = Int32.Parse(Context.Request.QueryString["NodeId"]);
