@@ -19,7 +19,6 @@ namespace Cuyahoga.Core.Domain
 		private int _cacheDuration;
 		private bool _showTitle;
 		private ModuleType _moduleType;
-		private ModuleBase _module;
 		private Node _node;
 		private IList _sectionPermissions;
 		private IDictionary _settings;
@@ -127,7 +126,7 @@ namespace Cuyahoga.Core.Domain
 		/// <summary>
 		/// Property Settings (IDictionary)
 		/// </summary>
-		public IDictionary Settings
+		public virtual IDictionary Settings
 		{
 			get { return this._settings; }
 			set { this._settings = value; }
@@ -182,6 +181,7 @@ namespace Cuyahoga.Core.Domain
 			this._position = -1;
 			this._cacheDuration = 0;
 			this._sectionPermissions = new ArrayList();
+			this._settings = new Hashtable();
 		}
 
 		#endregion

@@ -43,21 +43,9 @@
 			</div>
 			<div class="group">
 				<h4>Custom settings</h4>
-				<table class="tbl">
-					<asp:repeater id="rptCustomSettings" runat="server">
-						<headertemplate>
-							<tr>
-								<th>Setting</th>
-								<th>Value</th>
-							</tr>
-						</headertemplate>
-						<itemtemplate>
-							<tr>
-								<td><%# DataBinder.Eval(Container.DataItem, "FriendlyName") %></td>
-								<td><asp:placeholder id="plcSettingControl" runat="server"></asp:placeholder></td>
-							</tr>
-						</itemtemplate>
-					</asp:repeater></table>
+				<table>
+					<asp:placeholder id="plcCustomSettings" runat="server" />
+				</table>
 			</div>
 			<div class="group">
 				<h4>Authorization</h4>

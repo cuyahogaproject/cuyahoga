@@ -37,12 +37,29 @@ namespace Cuyahoga.Web.Admin
 		protected System.Web.UI.WebControls.CompareValidator cpvCache;
 		protected System.Web.UI.WebControls.Repeater rptRoles;
 		protected System.Web.UI.WebControls.Repeater rptCustomSettings;
+		protected System.Web.UI.WebControls.PlaceHolder plcCustomSettings;
 		protected System.Web.UI.WebControls.Button btnCancel;
 	
 		private void Page_Load(object sender, System.EventArgs e)
 		{
 			this.Title = "Edit section";
 
+			if (this._activeSection != null && ! this.IsPostBack)
+			{
+				BindSectionControls();
+				BindModules();
+				BindPlaceholders();
+				BindCustomSettings();
+				BindRoles();
+			}		
+		}
+
+		/// <summary>
+		/// Loads aan existing Section from the database or creates a new one if the SectionId = -1
+		/// </summary>
+		private void LoadSection()
+		{
+			// Note: Called from OnInit
 			if (Context.Request.QueryString["SectionId"] != null)
 			{
 				if (Int32.Parse(Context.Request.QueryString["SectionId"]) == -1)
@@ -61,16 +78,30 @@ namespace Cuyahoga.Web.Admin
 					this._activeSection = (Section)base.CoreRepository.GetObjectById(typeof(Section), 
 						Int32.Parse(Context.Request.QueryString["SectionId"]));
 				}
+			}
+			// Create the controls for the ModuleType-specific settings.
+			if (this._activeSection.ModuleType != null)
+			{
+				CreateCustomSettings();
+			}
+		}
 
-				if (! this.IsPostBack)
+		private void CreateCustomSettings()
+		{
+			if (this._activeSection.ModuleType.ModuleSettings.Count > 0)
+			{
+				foreach (ModuleSetting ms in this._activeSection.ModuleType.ModuleSettings)
 				{
-					BindSectionControls();
-					BindModules();
-					BindPlaceholders();
-					BindCustomSettings();
-					BindRoles();
+					HtmlTableRow settingRow = new HtmlTableRow();
+					HtmlTableCell labelCell = new HtmlTableCell();
+					labelCell.InnerText = ms.FriendlyName;
+					HtmlTableCell controlCell = new HtmlTableCell();
+					controlCell.Controls.Add(SettingControlHelper.CreateSettingControl(ms.Name, ms.GetRealType(), null));
+					settingRow.Cells.Add(labelCell);
+					settingRow.Cells.Add(controlCell);
+					this.plcCustomSettings.Controls.Add(settingRow);
 				}
-			}		
+			}
 		}
 
 		private void BindSectionControls()
@@ -133,15 +164,30 @@ namespace Cuyahoga.Web.Admin
 
 		private void BindCustomSettings()
 		{
-			if (this._activeSection.ModuleType != null)
+			if (this._activeSection.Settings.Count > 0)
 			{
-				this.rptCustomSettings.ItemDataBound += new RepeaterItemEventHandler(rptCustomSettings_ItemDataBound);
-				this.rptCustomSettings.DataSource = this._activeSection.ModuleType.ModuleSettings;
-				this.rptCustomSettings.DataBind();
-			}
-			else
-			{
-				this.rptCustomSettings.Visible = false;
+				foreach (ModuleSetting ms in this._activeSection.ModuleType.ModuleSettings)
+				{
+					Control ctrl = this.TemplateControl.FindControl(ms.Name);
+					string settingValue = this._activeSection.Settings[ms.Name].ToString();
+					if (ctrl is TextBox)
+					{
+						((TextBox)ctrl).Text = settingValue;
+					}
+					else if (ctrl is CheckBox)
+					{
+						((CheckBox)ctrl).Checked = Boolean.Parse(settingValue);
+					}
+					else if (ctrl is DropDownList)
+					{
+						DropDownList ddl = (DropDownList)ctrl;
+						ListItem li = ddl.Items.FindByValue(settingValue);
+						if (li != null)
+						{
+							li.Selected = true;
+						}
+					}
+				}
 			}
 		}
 
@@ -163,6 +209,50 @@ namespace Cuyahoga.Web.Admin
 			{
 				base.CoreRepository.SaveObject(this._activeSection);
 				Context.Response.Redirect(String.Format("SectionEdit.aspx?SectionId={0}&NodeId={1}", this._activeSection.Id, this.ActiveNode.Id));
+			}
+		}
+
+		private void SetCustomSettings()
+		{
+			//this._activeSection.Settings.Clear();
+			foreach(ModuleSetting ms in this._activeSection.ModuleType.ModuleSettings)
+			{
+				Control ctrl = this.TemplateControl.FindControl(ms.Name);
+				object val = null;
+				if (ctrl is TextBox)
+				{
+					val = ((TextBox)ctrl).Text;
+				}
+				else if (ctrl is CheckBox)
+				{
+					val = ((CheckBox)ctrl).Checked;
+				}
+				else if (ctrl is DropDownList)
+				{
+					val = ((DropDownList)ctrl).SelectedValue;
+				}
+				try
+				{
+					// Check if the datatype is correct -> brute force casting :)
+					Type type = ms.GetRealType();
+					if (type.IsEnum && val is string)
+					{
+						val = Enum.Parse(type, val.ToString());
+					}
+					else
+					{
+						if (val.ToString().Length > 0)
+						{
+							object testObj = Convert.ChangeType(val, type);
+						}
+					}
+				}
+				catch (InvalidCastException ex)
+				{
+					throw new Exception(String.Format("Invalid value entered for {0}: {1}", ms.FriendlyName, val.ToString()), ex);
+				}
+				this._activeSection.Settings[ms.Name] = val.ToString();
+				//this._activeSection.Settings.Add(ms.Name, val.ToString());
 			}
 		}
 
@@ -194,6 +284,10 @@ namespace Cuyahoga.Web.Admin
 			//
 			InitializeComponent();
 			base.OnInit(e);
+			// Load the section here because we need to create dynamic controls based on the 
+			// ModuleType of the section. This method comes after base.OnInit because there,
+			// the ActiveNode is set and we need that to attach that one to the section.
+			LoadSection();
 		}
 		
 		/// <summary>
@@ -239,6 +333,12 @@ namespace Cuyahoga.Web.Admin
 					if (this._activeSection.Id == -1 || this._activeSection.PlaceholderId != oldPlaceholderId)
 						this._activeSection.CalculateNewPosition();
 
+					// Custom settings
+					if (this._activeSection.Id > -1)
+					{
+						SetCustomSettings();
+					}
+
 					// Roles
 					SetRoles();
 
@@ -277,21 +377,6 @@ namespace Cuyahoga.Web.Admin
 				}
 				// Add RoleId to the ViewState with the ClientID of the repeateritem as key.
 				this.ViewState[e.Item.ClientID] = role.Id;
-			}
-		}
-
-		private void rptCustomSettings_ItemDataBound(object sender, RepeaterItemEventArgs e)
-		{
-			ModuleSetting ms = e.Item.DataItem as ModuleSetting;
-			if (ms != null)
-			{
-				string val = null;
-				PlaceHolder plc = e.Item.FindControl("plcSettingControl") as PlaceHolder;
-				if (this._activeSection.Settings != null && this._activeSection.Settings[ms.Name] != null)
-				{
-					val = this._activeSection.Settings[ms.Name].ToString();
-				}
-				plc.Controls.Add(SettingControlHelper.CreateSettingControl(ms.Name, ms.GetRealType(), val));
 			}
 		}
 	}
