@@ -89,9 +89,16 @@ namespace Cuyahoga.Web.Cache
 			// MBO, 20041003: Disabled caching because of NHibernate Session sync issues and lazy-loading 
 //			IList rootNodes = this._coreRepository.GetRootNodes();
 //			return (Node)rootNodes[0];
-			Node node = (Node)this._nodeCache.RootNodes.GetByIndex(0);
-			this._coreRepository.AttachNodeToCurrentSession(node);
-			return node;
+			if (this._nodeCache.RootNodes.Count > 0)
+			{
+				Node node = (Node)this._nodeCache.RootNodes.GetByIndex(0);
+				this._coreRepository.AttachNodeToCurrentSession(node);
+				return node;
+			}
+			else
+			{
+				return null;
+			}
 		}
 
 		/// <summary>

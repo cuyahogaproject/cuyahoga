@@ -1,6 +1,6 @@
 ***VERSION***
 2.4
-2004-10-21
+2004-11-10
 Cuyahoga
 
 Martijn Boland
@@ -57,6 +57,10 @@ ModifiedBy
 ***LINKEDATTRIBUTE***
 CM_ArticleComment
 UserId
+***VARIABLEVALUE***
+increment_by=1
+***VARIABLEVALUE***
+seed=1
 ***ATTRIBUTE***
 Cuyahoga_User
 Username
@@ -235,6 +239,10 @@ RoleId
 ***LINKEDATTRIBUTE***
 Cuyahoga_SectionRole
 RoleId
+***VARIABLEVALUE***
+increment_by=1
+***VARIABLEVALUE***
+seed=1
 ***ATTRIBUTE***
 Cuyahoga_Role
 Name
@@ -324,6 +332,10 @@ Yes
 
 
 
+***VARIABLEVALUE***
+increment_by=1
+***VARIABLEVALUE***
+seed=1
 ***ATTRIBUTE***
 Cuyahoga_UserRole
 UserId
@@ -478,6 +490,10 @@ ParentNodeId
 ***LINKEDATTRIBUTE***
 Cuyahoga_NodeRole
 NodeId
+***VARIABLEVALUE***
+increment_by=1
+***VARIABLEVALUE***
+seed=1
 ***ATTRIBUTE***
 Cuyahoga_Node
 ParentNodeId
@@ -529,7 +545,7 @@ Cuyahoga_Culture_Cuyahoga_Node
 
 13
 varchar
-0
+8
 0
 
 No
@@ -646,6 +662,10 @@ Yes
 ***LINKEDATTRIBUTE***
 Cuyahoga_Node
 TemplateId
+***VARIABLEVALUE***
+increment_by=1
+***VARIABLEVALUE***
+seed=1
 ***ATTRIBUTE***
 Cuyahoga_Template
 Name
@@ -741,6 +761,10 @@ ModuleTypeId
 ***LINKEDATTRIBUTE***
 Cuyahoga_ModuleSetting
 ModuleTypeId
+***VARIABLEVALUE***
+increment_by=1
+***VARIABLEVALUE***
+seed=1
 ***ATTRIBUTE***
 Cuyahoga_ModuleType
 Name
@@ -890,6 +914,10 @@ SectionId
 ***LINKEDATTRIBUTE***
 Cuyahoga_SectionSetting
 SectionId
+***VARIABLEVALUE***
+increment_by=1
+***VARIABLEVALUE***
+seed=1
 ***ATTRIBUTE***
 Cuyahoga_Section
 NodeId
@@ -1163,6 +1191,10 @@ Yes
 
 
 
+***VARIABLEVALUE***
+increment_by=1
+***VARIABLEVALUE***
+seed=1
 ***ATTRIBUTE***
 CM_StaticHtml
 SectionId
@@ -1387,6 +1419,10 @@ Yes
 ***LINKEDATTRIBUTE***
 CM_ArticleComment
 ArticleId
+***VARIABLEVALUE***
+increment_by=1
+***VARIABLEVALUE***
+seed=1
 ***ATTRIBUTE***
 CM_Article
 SectionId
@@ -1623,6 +1659,10 @@ Yes
 ***LINKEDATTRIBUTE***
 CM_Article
 ArticleCategoryId
+***VARIABLEVALUE***
+increment_by=1
+***VARIABLEVALUE***
+seed=1
 ***ATTRIBUTE***
 CM_ArticleCategory
 Title
@@ -1728,6 +1768,10 @@ Yes
 
 
 
+***VARIABLEVALUE***
+increment_by=1
+***VARIABLEVALUE***
+seed=1
 ***ATTRIBUTE***
 CM_ArticleComment
 ArticleId
@@ -1985,6 +2029,10 @@ Yes
 
 
 
+***VARIABLEVALUE***
+increment_by=1
+***VARIABLEVALUE***
+seed=1
 ***ATTRIBUTE***
 Cuyahoga_NodeRole
 NodeId
@@ -2139,6 +2187,10 @@ Yes
 
 
 
+***VARIABLEVALUE***
+increment_by=1
+***VARIABLEVALUE***
+seed=1
 ***ATTRIBUTE***
 Cuyahoga_SectionRole
 SectionId
@@ -2293,6 +2345,10 @@ Yes
 
 
 
+***VARIABLEVALUE***
+increment_by=1
+***VARIABLEVALUE***
+seed=1
 ***ATTRIBUTE***
 Cuyahoga_ModuleSetting
 ModuleTypeId
@@ -2435,6 +2491,10 @@ Yes
 
 
 
+***VARIABLEVALUE***
+increment_by=1
+***VARIABLEVALUE***
+seed=1
 ***ATTRIBUTE***
 Cuyahoga_SectionSetting
 SectionId

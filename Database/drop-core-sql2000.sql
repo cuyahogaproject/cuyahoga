@@ -1,10 +1,10 @@
 
-ALTER TABLE CM_ArticleComment
-DROP CONSTRAINT FK_CM_ArticleComment_1 
+ALTER TABLE Cuyahoga_SectionSetting
+DROP CONSTRAINT FK_Cuyahoga_SectionSetting_1 
 go
 
-ALTER TABLE CM_ArticleComment
-DROP CONSTRAINT FK_CM_ArticleComment_2 
+ALTER TABLE Cuyahoga_ModuleSetting
+DROP CONSTRAINT FK_Cuyahoga_ModuleSetting_1 
 go
 
 ALTER TABLE Cuyahoga_SectionRole
@@ -23,34 +23,6 @@ ALTER TABLE Cuyahoga_NodeRole
 DROP CONSTRAINT FK_Cuyahoga_NodeRole_2 
 go
 
-ALTER TABLE CM_Article
-DROP CONSTRAINT FK_CM_Article_1 
-go
-
-ALTER TABLE CM_Article
-DROP CONSTRAINT FK_CM_Article_2 
-go
-
-ALTER TABLE CM_Article
-DROP CONSTRAINT FK_CM_Article_3 
-go
-
-ALTER TABLE CM_Article
-DROP CONSTRAINT FK_CM_Article_4 
-go
-
-ALTER TABLE CM_StaticHtml
-DROP CONSTRAINT FK_CM_StaticHtml_1 
-go
-
-ALTER TABLE CM_StaticHtml
-DROP CONSTRAINT FK_CM_StaticHtml_2 
-go
-
-ALTER TABLE CM_StaticHtml
-DROP CONSTRAINT FK_CM_StaticHtml_3 
-go
-
 ALTER TABLE Cuyahoga_Section
 DROP CONSTRAINT FK_Cuyahoga_Section_1 
 go
@@ -67,6 +39,10 @@ ALTER TABLE Cuyahoga_Node
 DROP CONSTRAINT FK_Cuyahoga_Node_2 
 go
 
+ALTER TABLE Cuyahoga_Node
+DROP CONSTRAINT FK_Cuyahoga_Node_3 
+go
+
 ALTER TABLE Cuyahoga_UserRole
 DROP CONSTRAINT FK_Cuyahoga_UserRole_1 
 go
@@ -76,7 +52,11 @@ DROP CONSTRAINT FK_Cuyahoga_UserRole_2
 go
 
 
-DROP TABLE CM_ArticleComment
+DROP TABLE Cuyahoga_SectionSetting
+go
+
+
+DROP TABLE Cuyahoga_ModuleSetting
 go
 
 
@@ -85,18 +65,6 @@ go
 
 
 DROP TABLE Cuyahoga_NodeRole
-go
-
-
-DROP TABLE CM_Article
-go
-
-
-DROP TABLE CM_ArticleCategory
-go
-
-
-DROP TABLE CM_StaticHtml
 go
 
 
@@ -113,6 +81,10 @@ go
 
 
 DROP TABLE Cuyahoga_Template
+go
+
+
+DROP TABLE Cuyahoga_Culture
 go
 
 

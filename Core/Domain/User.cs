@@ -202,7 +202,7 @@ namespace Cuyahoga.Core.Domain
 		{
 			foreach (Permission p in node.NodePermissions)
 			{
-				if (p.ViewAllowed && this.Roles.Contains(p.Role))
+				if (p.ViewAllowed && IsInRole(p.Role))
 				{
 					return true;
 				}
@@ -219,7 +219,7 @@ namespace Cuyahoga.Core.Domain
 		{
 			foreach (Permission p in section.SectionPermissions)
 			{
-				if (p.ViewAllowed && this.Roles.Contains(p.Role))
+				if (p.ViewAllowed && IsInRole(p.Role))
 				{
 					return true;
 				}
@@ -236,7 +236,7 @@ namespace Cuyahoga.Core.Domain
 		{
 			foreach (Permission p in section.SectionPermissions)
 			{
-				if (this.Roles.Contains(p.Role))
+				if (IsInRole(p.Role))
 				{
 					return true;
 				}
@@ -260,6 +260,23 @@ namespace Cuyahoga.Core.Domain
 			{
 				throw new ArgumentException("The password must contain at least 5 characters");
 			}
+		}
+
+		/// <summary>
+		/// Determine if the user is in a give Role.
+		/// </summary>
+		/// <param name="roleToCheck"></param>
+		/// <returns></returns>
+		public bool IsInRole(Role roleToCheck)
+		{
+			foreach (Role role in this.Roles)
+			{
+				if (role.Id == roleToCheck.Id && role.Name == roleToCheck.Name)
+				{
+					return true;
+				}
+			}
+			return false;
 		}
 	}
 }

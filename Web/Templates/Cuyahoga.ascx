@@ -11,7 +11,7 @@
 <form id="t" method="post" runat="server">
 <div id="container">
 	<div id="header">
-		<h1>www.martijn.boland.org</h1>
+		<h1>C U Y A H O G A</h1>
 		<uc1:navigation id="Nav1" runat="server"></uc1:navigation>
 	</div>
 	<div id="control">
@@ -21,7 +21,7 @@
 		<asp:placeholder id="primary" runat="server"></asp:placeholder>
 	</div>
 	<div id="footer">
-		<a href="http://www.go-mono.org" target="_blank"><img src="../Images/mono-powered-big.gif" alt="Powered by mono" border="0"/></a>
+
 	</div>
 </div>
 </form>

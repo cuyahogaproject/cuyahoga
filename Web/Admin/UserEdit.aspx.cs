@@ -185,7 +185,7 @@ namespace Cuyahoga.Web.Admin
 			if (role != null)
 			{
 				CheckBox chkRole = (CheckBox)e.Item.FindControl("chkRole");
-				chkRole.Checked = this._activeUser.Roles.Contains(role);
+				chkRole.Checked = this._activeUser.IsInRole(role);
 				// Add RoleId to the ViewState with the ClientID of the repeateritem as key.
 				this.ViewState[e.Item.ClientID] = role.Id;
 			}
