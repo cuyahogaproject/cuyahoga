@@ -222,23 +222,23 @@
                 />
                 <File
                     RelPath = "Domain\mono\Node.hbm.xml"
-                    BuildAction = "EmbeddedResource"
+                    BuildAction = "None"
                 />
                 <File
                     RelPath = "Domain\mono\Section.hbm.xml"
-                    BuildAction = "EmbeddedResource"
+                    BuildAction = "None"
                 />
                 <File
                     RelPath = "Domain\mono\Site.hbm.xml"
-                    BuildAction = "EmbeddedResource"
+                    BuildAction = "None"
                 />
                 <File
                     RelPath = "Domain\mono\Template.hbm.xml"
-                    BuildAction = "EmbeddedResource"
+                    BuildAction = "None"
                 />
                 <File
                     RelPath = "Domain\mono\User.hbm.xml"
-                    BuildAction = "EmbeddedResource"
+                    BuildAction = "None"
                 />
                 <File
                     RelPath = "Search\IndexBuilder.cs"

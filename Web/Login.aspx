@@ -7,7 +7,7 @@
 		<meta name="CODE_LANGUAGE" content="C#">
 		<meta name="vs_defaultClientScript" content="JavaScript">
 		<meta name="vs_targetSchema" content="http://schemas.microsoft.com/intellisense/ie5">
-		<link rel="stylesheet" type="text/css" href="Css/Admin.css">
+		<link rel="stylesheet" type="text/css" href="Admin/Css/Admin.css">
 	</head>
 	<body ms_positioning="FlowLayout">
 

@@ -1,4 +1,4 @@
-<%@ Control Language="c#" AutoEventWireup="false" Codebehind="Nav1.ascx.cs" Inherits="Cuyahoga.Web.Templates.Controls.Nav1" TargetSchema="http://schemas.microsoft.com/intellisense/ie5"%>
+<%@ Control Language="c#" AutoEventWireup="false" Codebehind="NavigationLevelZeroOne.ascx.cs" Inherits="Cuyahoga.Web.Templates.Controls.NavigationLevelZeroOne" TargetSchema="http://schemas.microsoft.com/intellisense/ie5"%>
 <div id="mainmenuarea">
 	<ul id="mainmenu">
 		<li><asp:hyperlink id="hplHome" runat="server"></asp:hyperlink></li>

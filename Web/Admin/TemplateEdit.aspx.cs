@@ -31,6 +31,9 @@ namespace Cuyahoga.Web.Admin
 		protected System.Web.UI.WebControls.Button btnSave;
 		protected System.Web.UI.WebControls.Button btnCancel;
 		protected System.Web.UI.WebControls.DropDownList ddlCss;
+		protected System.Web.UI.WebControls.TextBox txtBasePath;
+		protected System.Web.UI.WebControls.RequiredFieldValidator rfvBasePath;
+		protected System.Web.UI.WebControls.DropDownList ddlTemplateControls;
 		protected System.Web.UI.WebControls.Button btnDelete;
 	
 		private void Page_Load(object sender, System.EventArgs e)
@@ -52,6 +55,7 @@ namespace Cuyahoga.Web.Admin
 				if (! this.IsPostBack)
 				{
 					BindTemplateControls();
+					BindTemplateUserControls();
 					BindCss();
 				}
 			}	
@@ -60,25 +64,48 @@ namespace Cuyahoga.Web.Admin
 		private void BindTemplateControls()
 		{
 			this.txtName.Text = this._activeTemplate.Name;
-			this.txtPath.Text = this._activeTemplate.Path;
+			this.txtBasePath.Text = this._activeTemplate.BasePath;
 			this.btnDelete.Visible = (this._activeTemplate.Id > 0 && base.CoreRepository.GetNodesByTemplate(this._activeTemplate).Count <= 0);
 			this.btnDelete.Attributes.Add("onClick", "return confirm('Are you sure?')");
+		}
+
+		private void BindTemplateUserControls()
+		{
+			string physicalTemplateDir = Context.Server.MapPath(
+				UrlHelper.GetApplicationPath() + this._activeTemplate.BasePath);
+			DirectoryInfo dir = new DirectoryInfo(physicalTemplateDir);
+			if (dir.Exists)
+			{
+				FileInfo[] templateControls = dir.GetFiles("*.ascx");
+				foreach (FileInfo templateControlFile in templateControls)
+				{
+					this.ddlTemplateControls.Items.Add(templateControlFile.Name);
+				}
+				ListItem li = this.ddlTemplateControls.Items.FindByValue(this._activeTemplate.TemplateControl);
+				if (li != null)
+				{
+					li.Selected = true;
+				}
+			}
 		}
 
 		private void BindCss()
 		{
 			string physicalCssDir = Context.Server.MapPath(
-				UrlHelper.GetApplicationPath() + Config.GetConfiguration()["CssDir"]);
+				UrlHelper.GetApplicationPath() + this._activeTemplate.BasePath + "/Css");
 			DirectoryInfo dir = new DirectoryInfo(physicalCssDir);
-			FileInfo[] cssSheets = dir.GetFiles();
-			foreach (FileInfo css in cssSheets)
+			if (dir.Exists)
 			{
-				this.ddlCss.Items.Add(css.Name);
-			}
-			ListItem li = this.ddlCss.Items.FindByValue(this._activeTemplate.Css);
-			if (li != null)
-			{
-				li.Selected = true;
+				FileInfo[] cssSheets = dir.GetFiles("*.css");
+				foreach (FileInfo css in cssSheets)
+				{
+					this.ddlCss.Items.Add(css.Name);
+				}
+				ListItem li = this.ddlCss.Items.FindByValue(this._activeTemplate.Css);
+				if (li != null)
+				{
+					li.Selected = true;
+				}
 			}
 		}
 
@@ -131,9 +158,10 @@ namespace Cuyahoga.Web.Admin
 		{
 			if (this.IsValid)
 			{
-				this._activeTemplate.Name = txtName.Text;
-				this._activeTemplate.Path = txtPath.Text;
-				this._activeTemplate.Css = ddlCss.SelectedValue;
+				this._activeTemplate.Name = this.txtName.Text;
+				this._activeTemplate.BasePath = this.txtBasePath.Text;
+				this._activeTemplate.TemplateControl = this.ddlTemplateControls.SelectedValue;
+				this._activeTemplate.Css = this.ddlCss.SelectedValue;
 				SaveTemplate();
 			}	
 		}

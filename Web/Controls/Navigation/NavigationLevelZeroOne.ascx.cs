@@ -1,7 +1,6 @@
 namespace Cuyahoga.Web.Templates.Controls
 {
 	using System;
-	using System.Data;
 	using System.Drawing;
 	using System.Web;
 	using System.Web.UI.WebControls;
@@ -12,12 +11,14 @@ namespace Cuyahoga.Web.Templates.Controls
 	using Cuyahoga.Web.Util;
 
 	/// <summary>
-	///		Summary description for Nav2.
+	///		Summary description for NavigationLevelZeroOne.
 	/// </summary>
-	public class Nav2 : System.Web.UI.UserControl
+	public class NavigationLevelZeroOne : System.Web.UI.UserControl
 	{
 		private Cuyahoga.Web.UI.PageEngine _page;
-		protected System.Web.UI.WebControls.Repeater rptNav2;
+		protected System.Web.UI.WebControls.HyperLink hplHome;
+		protected System.Web.UI.WebControls.HyperLink hplAdmin;
+		protected System.Web.UI.WebControls.Repeater rptNav1;
 
 		private void Page_Load(object sender, System.EventArgs e)
 		{
@@ -26,12 +27,18 @@ namespace Cuyahoga.Web.Templates.Controls
 				if (this.Page is PageEngine)
 				{
 					this._page = (PageEngine)this.Page;	
-					// Bind level 2 nodes
-					if (this._page.ActiveNode.Level > 0)
+					// Bind home hyperlink
+					this.hplHome.NavigateUrl = UrlHelper.GetUrlFromNode(this._page.RootNode);
+					this.hplHome.Text = this._page.RootNode.Title;
+					// Bind level 1 nodes
+					this.rptNav1.ItemDataBound += new RepeaterItemEventHandler(rptNav1_ItemDataBound);
+					this.rptNav1.DataSource = this._page.RootNode.ChildNodes;
+					this.rptNav1.DataBind();
+					
+					if (this._page.CuyahogaUser != null)
 					{
-						this.rptNav2.ItemDataBound += new RepeaterItemEventHandler(rptNav2_ItemDataBound);
-						this.rptNav2.DataSource = this._page.ActiveNode.NodePath[1].ChildNodes;
-						this.rptNav2.DataBind();
+						this.hplAdmin.NavigateUrl = this._page.ResolveUrl("~/Admin");
+						this.hplAdmin.Visible = this._page.CuyahogaUser.HasPermission(AccessLevel.Administrator);
 					}
 				}
 			}
@@ -57,23 +64,22 @@ namespace Cuyahoga.Web.Templates.Controls
 		/// </summary>
 		private void InitializeComponent()
 		{
-			this.rptNav2.ItemDataBound += new System.Web.UI.WebControls.RepeaterItemEventHandler(this.rptNav2_ItemDataBound);
 			this.Load += new System.EventHandler(this.Page_Load);
 
 		}
 		#endregion
 
-		private void rptNav2_ItemDataBound(object sender, System.Web.UI.WebControls.RepeaterItemEventArgs e)
+		private void rptNav1_ItemDataBound(object sender, RepeaterItemEventArgs e)
 		{
 			Node node = (Node)e.Item.DataItem;
 			if (node.ShowInNavigation && node.ViewAllowed(this._page.CuyahogaUser))
 			{
-				HyperLink hpl = (HyperLink)e.Item.FindControl("hplNav2");
+				HyperLink hpl = (HyperLink)e.Item.FindControl("hplNav1");
 				hpl.NavigateUrl = UrlHelper.GetUrlFromNode(node);
 				hpl.Text = node.Title;
 				if (node.Level <= this._page.ActiveNode.Level && node.Id == this._page.ActiveNode.Trail[node.Level])
 				{
-					hpl.CssClass = "subselected";
+					hpl.CssClass = "selected";
 				}
 			}
 			else

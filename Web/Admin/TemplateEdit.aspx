@@ -9,12 +9,11 @@
 		<meta name="vs_targetSchema" content="http://schemas.microsoft.com/intellisense/ie5">
 	</head>
 	<body ms_positioning="FlowLayout">
-
 		<form id="Form1" method="post" runat="server">
 			<p>
-				<em>Make sure you have placed at least one physical css file in the Css directory 
-					that
-					is configured in the web.config.</em>
+				<em>Make sure you have placed at least one&nbsp;template control (.ascx)&nbsp;in 
+					the directory specified as the Base path and at least one css file in Base 
+					path/Css directory.</em>&nbsp;
 			</p>
 			<div class="group">
 				<h4>General</h4>
@@ -22,14 +21,21 @@
 					<tr>
 						<td style="WIDTH: 200px">Name</td>
 						<td><asp:textbox id="txtName" runat="server" width="200px"></asp:textbox>
-							<asp:requiredfieldvalidator id="rfvName" runat="server" errormessage="Name is required" cssclass="validator" display="Dynamic" enableclientscript="False" controltovalidate="txtName"></asp:requiredfieldvalidator>
+							<asp:requiredfieldvalidator id="rfvName" runat="server" errormessage="Name is required" cssclass="validator"
+								display="Dynamic" enableclientscript="False" controltovalidate="txtName"></asp:requiredfieldvalidator>
 						</td>
 					</tr>
 					<tr>
-						<td>Path</td>
-						<td><asp:textbox id="txtPath" runat="server" width="200px"></asp:textbox>
-							<asp:requiredfieldvalidator id="rfvPath" runat="server" errormessage="Path is required" cssclass="validator" display="Dynamic" enableclientscript="False" controltovalidate="txtPath"></asp:requiredfieldvalidator>
+						<td>Base path</td>
+						<td><asp:textbox id="txtBasePath" runat="server" width="200px"></asp:textbox>
+							<asp:requiredfieldvalidator id="rfvBasePath" runat="server" errormessage="Path is required" cssclass="validator"
+								display="Dynamic" enableclientscript="False" controltovalidate="txtBasePath"></asp:requiredfieldvalidator>
 						</td>
+					</tr>
+					<tr>
+						<td>Template control</td>
+						<td>
+							<asp:dropdownlist id="ddlTemplateControls" runat="server"></asp:dropdownlist></td>
 					</tr>
 					<tr>
 						<td>Css</td>
@@ -43,6 +49,5 @@
 			<asp:button id="btnCancel" runat="server" text="Cancel" causesvalidation="false"></asp:button>
 			<asp:button id="btnDelete" runat="server" text="Delete" causesvalidation="false"></asp:button>
 		</form>
-
 	</body>
 </html>

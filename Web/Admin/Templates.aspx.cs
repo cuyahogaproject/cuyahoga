@@ -33,7 +33,7 @@ namespace Cuyahoga.Web.Admin
 
 		private void BindTemplates()
 		{
-			this.rptTemplates.DataSource = base.CoreRepository.GetAll(typeof(Template), "Name");
+			this.rptTemplates.DataSource = base.CoreRepository.GetAll(typeof(Template), "BasePath", "Name");
 			this.rptTemplates.DataBind();
 		}
 

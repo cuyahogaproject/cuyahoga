@@ -499,6 +499,10 @@
                     BuildAction = "EmbeddedResource"
                 />
                 <File
+                    RelPath = "Admin\Css\Admin.css"
+                    BuildAction = "Content"
+                />
+                <File
                     RelPath = "Admin\Images\doc1.gif"
                     BuildAction = "Content"
                 />
@@ -667,6 +671,53 @@
                     BuildAction = "EmbeddedResource"
                 />
                 <File
+                    RelPath = "Controls\Navigation\HierarchicalMenu.ascx"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Controls\Navigation\HierarchicalMenu.ascx.cs"
+                    DependentUpon = "HierarchicalMenu.ascx"
+                    SubType = "ASPXCodeBehind"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "Controls\Navigation\HierarchicalMenu.ascx.resx"
+                    DependentUpon = "HierarchicalMenu.ascx.cs"
+                    BuildAction = "EmbeddedResource"
+                />
+                <File
+                    RelPath = "Controls\Navigation\NavigationLevelTwo.ascx"
+                    SubType = "UserControl"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Controls\Navigation\NavigationLevelTwo.ascx.cs"
+                    DependentUpon = "NavigationLevelTwo.ascx"
+                    SubType = "ASPXCodeBehind"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "Controls\Navigation\NavigationLevelTwo.ascx.resx"
+                    DependentUpon = "NavigationLevelTwo.ascx.cs"
+                    BuildAction = "EmbeddedResource"
+                />
+                <File
+                    RelPath = "Controls\Navigation\NavigationLevelZeroOne.ascx"
+                    SubType = "UserControl"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Controls\Navigation\NavigationLevelZeroOne.ascx.cs"
+                    DependentUpon = "NavigationLevelZeroOne.ascx"
+                    SubType = "ASPXCodeBehind"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "Controls\Navigation\NavigationLevelZeroOne.ascx.resx"
+                    DependentUpon = "NavigationLevelZeroOne.ascx.cs"
+                    BuildAction = "EmbeddedResource"
+                />
+                <File
                     RelPath = "Controls\Resources\Strings.nl.resx"
                     BuildAction = "EmbeddedResource"
                 />
@@ -674,52 +725,9 @@
                     RelPath = "Controls\Resources\Strings.resx"
                     BuildAction = "EmbeddedResource"
                 />
-                <File
-                    RelPath = "Css\Admin.css"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "Css\red.css"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "Css\red-new.css"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "Images\bg.gif"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "Images\bg-header.gif"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "Images\bg-header-new.gif"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "Images\bgitem.gif"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "Images\bg-left2.gif"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "Images\bgsectionheader.gif"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "Images\email.gif"
-                    BuildAction = "Content"
-                />
+                <Folder RelPath = "Css\" />
                 <File
                     RelPath = "Images\feed-rss.gif"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "Images\mono-powered-big.gif"
                     BuildAction = "Content"
                 />
                 <Folder RelPath = "index\" />
@@ -2483,65 +2491,46 @@
                     BuildAction = "Content"
                 />
                 <File
-                    RelPath = "Templates\CuyahogaHome.ascx"
+                    RelPath = "Templates\Classic\CuyahogaHome.ascx"
                     SubType = "UserControl"
                     BuildAction = "Content"
                 />
                 <File
-                    RelPath = "Templates\CuyahogaNew.ascx"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "Templates\CuyahogaStandard.ascx"
+                    RelPath = "Templates\Classic\CuyahogaStandard.ascx"
                     SubType = "UserControl"
                     BuildAction = "Content"
                 />
                 <File
-                    RelPath = "Templates\Controls\Nav.ascx"
+                    RelPath = "Templates\Classic\Css\red.css"
                     BuildAction = "Content"
                 />
                 <File
-                    RelPath = "Templates\Controls\Nav.ascx.cs"
-                    DependentUpon = "Nav.ascx"
-                    SubType = "ASPXCodeBehind"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "Templates\Controls\Nav.ascx.resx"
-                    DependentUpon = "Nav.ascx.cs"
-                    BuildAction = "EmbeddedResource"
-                />
-                <File
-                    RelPath = "Templates\Controls\Nav1.ascx"
-                    SubType = "UserControl"
+                    RelPath = "Templates\Classic\Images\bg.gif"
                     BuildAction = "Content"
                 />
                 <File
-                    RelPath = "Templates\Controls\Nav1.ascx.cs"
-                    DependentUpon = "Nav1.ascx"
-                    SubType = "ASPXCodeBehind"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "Templates\Controls\Nav1.ascx.resx"
-                    DependentUpon = "Nav1.ascx.cs"
-                    BuildAction = "EmbeddedResource"
-                />
-                <File
-                    RelPath = "Templates\Controls\Nav2.ascx"
-                    SubType = "UserControl"
+                    RelPath = "Templates\Classic\Images\bg-header.gif"
                     BuildAction = "Content"
                 />
                 <File
-                    RelPath = "Templates\Controls\Nav2.ascx.cs"
-                    DependentUpon = "Nav2.ascx"
-                    SubType = "ASPXCodeBehind"
-                    BuildAction = "Compile"
+                    RelPath = "Templates\Classic\Images\bgitem.gif"
+                    BuildAction = "Content"
                 />
                 <File
-                    RelPath = "Templates\Controls\Nav2.ascx.resx"
-                    DependentUpon = "Nav2.ascx.cs"
-                    BuildAction = "EmbeddedResource"
+                    RelPath = "Templates\Default\CuyahogaNew.ascx"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Templates\Default\Css\red-new.css"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Templates\Default\Images\bg-header-new.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Templates\Default\Images\bg-left2.gif"
+                    BuildAction = "Content"
                 />
                 <File
                     RelPath = "UI\BaseModuleControl.cs"

@@ -11,7 +11,8 @@ namespace Cuyahoga.Core.Domain
 		private int _id;
 		private DateTime _updateTimestamp;
 		private string _name;
-		private string _path;
+		private string _basePath;
+		private string _templateControl;
 		private string _css;
 
 		/// <summary>
@@ -42,17 +43,41 @@ namespace Cuyahoga.Core.Domain
 		}
 
 		/// <summary>
-		/// Property Path (string)
+		/// Property BasePath (string)
 		/// </summary>
-		public virtual string Path
+		public virtual string BasePath
 		{
-			get { return this._path; }
-			set { this._path = value; }
+			get { return this._basePath; }
+			set { this._basePath = value; }
 		}
 
 		/// <summary>
-		/// Property Css (string)
+		/// Property TemplateControl (string)
 		/// </summary>
+		public virtual string TemplateControl
+		{
+			get { return this._templateControl; }
+			set { this._templateControl = value; }
+		}
+
+		/// <summary>
+		/// The path to the Template control from the application root.
+		/// </summary>
+		/// <remarks>
+		/// This is a combination of BasePath and TemplateControl. This is the same as pre-0.7 Path property.
+		/// </remarks>
+		public virtual string Path
+		{
+			get { return this._basePath + "/" + this._templateControl; }
+		}
+
+
+		/// <summary>
+		/// The filename of the stylesheet file to be used with this Template.
+		/// </summary>
+		/// <remarks>
+		/// The stylesheet file has to be in the [BasePath]/Css directory.
+		/// </remarks>
 		public virtual string Css
 		{
 			get { return this._css; }

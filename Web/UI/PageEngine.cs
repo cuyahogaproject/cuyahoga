@@ -223,7 +223,7 @@ namespace Cuyahoga.Web.UI
 				// Explicitly set the id to 'p' to save some bytes (otherwise _ctl0 would be added).
 				this._templateControl.ID = "p";
 				this._templateControl.Title = this._activeNode.Site.Name + " - " + this._activeNode.Title;
-				this._templateControl.Css = appRoot + Config.GetConfiguration()["CssDir"] + this._activeNode.Template.Css;
+				this._templateControl.Css = appRoot + this._activeNode.Template.BasePath + "/Css/" + this._activeNode.Template.Css;
 			}
 			else
 			{

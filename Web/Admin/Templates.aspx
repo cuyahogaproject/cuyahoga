@@ -16,7 +16,8 @@
 					<headertemplate>
 						<tr>
 							<th>Template name</th>
-							<th>Path</th>
+							<th>Base path</th>
+							<th>Template control</th>
 							<th>Css</th>
 							<th></th>
 						</tr>
@@ -24,7 +25,8 @@
 					<itemtemplate>
 						<tr>
 							<td><%# DataBinder.Eval(Container.DataItem, "Name") %></td>
-							<td><%# DataBinder.Eval(Container.DataItem, "Path") %></td>
+							<td><%# DataBinder.Eval(Container.DataItem, "BasePath") %></td>
+							<td><%# DataBinder.Eval(Container.DataItem, "TemplateControl") %></td>
 							<td><%# DataBinder.Eval(Container.DataItem, "Css") %></td>
 							<td>
 								<asp:hyperlink id="hplEdit" runat="server">Edit</asp:hyperlink>

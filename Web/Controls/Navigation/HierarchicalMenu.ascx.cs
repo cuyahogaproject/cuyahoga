@@ -13,9 +13,9 @@ namespace Cuyahoga.Web.Templates.Controls
 	using Cuyahoga.Web.Util;
 
 	/// <summary>
-	///		Summary description for Nav.
+	///		Summary description for HierarchicalMenu.
 	/// </summary>
-	public class Nav : System.Web.UI.UserControl
+	public class HierarchicalMenu : System.Web.UI.UserControl
 	{
 		private Cuyahoga.Web.UI.PageEngine _page;
 		protected System.Web.UI.WebControls.PlaceHolder plhNodes;

@@ -1,4 +1,4 @@
-<%@ Control Language="c#" AutoEventWireup="false" Codebehind="Nav2.ascx.cs" Inherits="Cuyahoga.Web.Templates.Controls.Nav2" TargetSchema="http://schemas.microsoft.com/intellisense/ie5"%>
+<%@ Control Language="c#" AutoEventWireup="false" Codebehind="NavigationLevelTwo.ascx.cs" Inherits="Cuyahoga.Web.Templates.Controls.NavigationLevelTwo" TargetSchema="http://schemas.microsoft.com/intellisense/ie5"%>
 <ul class="submenu">
 	<asp:repeater id="rptNav2" runat="server" enableviewstate="False">
 		<itemtemplate>
