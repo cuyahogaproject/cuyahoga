@@ -23,7 +23,7 @@ go
 
 ALTER TABLE Cuyahoga_Menu
 ADD CONSTRAINT FK_Cuyahoga_Menu_1 
-FOREIGN KEY (ParentNodeId) REFERENCES Cuyahoga_Node (NodeId)
+FOREIGN KEY (RootNodeId) REFERENCES Cuyahoga_Node (NodeId)
 go
 
 
