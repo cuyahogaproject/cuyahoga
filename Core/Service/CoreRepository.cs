@@ -232,7 +232,7 @@ namespace Cuyahoga.Core.Service
 
 		#endregion
 
-		#region Site specific
+		#region Site / SiteAlias specific
 
 		/// <summary>
 		/// 
@@ -241,9 +241,12 @@ namespace Cuyahoga.Core.Service
 		/// <returns></returns>
 		public Site GetSiteBySiteUrl(string siteUrl)
 		{
-			ICriteria crit = this._activeSession.CreateCriteria(typeof(Site));
-			crit.Add(Expression.Eq("SiteUrl", siteUrl.ToLower()));
-			IList results = crit.List();
+			// The query is case insensitive.
+			string hql = "from Site s where lower(s.SiteUrl) = :siteUrl1 or lower(s.SiteUrl) = :siteUrl2";
+			IQuery q = this._activeSession.CreateQuery(hql);
+			q.SetString("siteUrl1", siteUrl.ToLower());
+			q.SetString("siteUrl2", siteUrl.ToLower() + "/"); // Also allow trailing slashes
+			IList results = q.List();
 			if (results.Count == 1)
 			{
 				return (Site)results[0];
@@ -251,6 +254,28 @@ namespace Cuyahoga.Core.Service
 			else if (results.Count > 1)
 			{
 				throw new Exception(String.Format("Multiple sites found for SiteUrl {0}. The SiteUrl should be unique.", siteUrl));
+			}
+			else
+			{
+				return null;
+			}
+		}
+
+		public SiteAlias GetSiteAliasByUrl(string url)
+		{
+			// The query is case insensitive.
+			string hql = "from SiteAlias sa where lower(sa.Url) = :url1 or lower(sa.Url) = :url2";
+			IQuery q = this._activeSession.CreateQuery(hql);
+			q.SetString("url1", url.ToLower());
+			q.SetString("url2", url.ToLower() + "/"); // Also allow trailing slashes
+			IList results = q.List();
+			if (results.Count == 1)
+			{
+				return (SiteAlias)results[0];
+			}
+			else if (results.Count > 1)
+			{
+				throw new Exception(String.Format("Multiple site aliases found for Url {0}. The Url should be unique.", url));
 			}
 			else
 			{
@@ -335,13 +360,13 @@ namespace Cuyahoga.Core.Service
 						{
 							AttachNodeToCurrentSession(childNode);
 						}
-// 20050227, MBO: 
-// using Session.Lock cascades into the Sections (save-update) so we don't need this anymore.
-//						// Also re-attach the sections. Updating the node doesn't automatically re-attach the sections.
-//						foreach (Section section in node.Sections)
-//						{
-//							//this._activeSession.Lock(section, LockMode.None);
-//						}						
+						// 20050227, MBO: 
+						// using Session.Lock cascades into the Sections (save-update) so we don't need this anymore.
+						//						// Also re-attach the sections. Updating the node doesn't automatically re-attach the sections.
+						//						foreach (Section section in node.Sections)
+						//						{
+						//							//this._activeSession.Lock(section, LockMode.None);
+						//						}
 					}
 				}
 				else

@@ -135,6 +135,10 @@ namespace Cuyahoga.Web.UI
 					this._activeSection = cm.GetSectionById(Int32.Parse(Context.Request.QueryString["SectionId"]));
 					this._activeNode = this._activeSection.Node;
 				}
+				else if (cm.EntryNode != null)
+				{
+					this._activeNode = cm.EntryNode;
+				}
 				else
 				{
 					// Can't load a particular node, so the root node has to be the active node

@@ -12,12 +12,15 @@ namespace Cuyahoga.Web.Cache
 	/// <summary>
 	/// The CacheManager stores the site structure objects (Site, Node, Section) in the ASP.NET cache and 
 	/// provides methods for retrieval of these objects. 
+	/// TODO: refactor the site alias stuff.
 	/// </summary>
 	public class CacheManager
 	{
 		private CoreRepository _coreRepository;
 		private NodeCache _nodeCache;
 		private bool _hasChanges;
+		private Node _entryNode;
+		private string _siteAliasUrl;
 
 		/// <summary>
 		/// Property HasChanges (bool)
@@ -28,11 +31,19 @@ namespace Cuyahoga.Web.Cache
 		}
 
 		/// <summary>
+		/// The EntryNode is used with site aliases that point to a specific node in the site.
+		/// </summary>
+		public Node EntryNode
+		{
+			get { return this._entryNode; }
+		}
+
+		/// <summary>
 		/// Default constructor. If the cache is empty, it will be initialized based on the 
 		/// given siteUrl.
 		/// </summary>
 		/// <param name="coreRepository">The repository service where the CacheManager can retrieve objects.</param>
-		/// <param name="siteUrl">The base url for the site.</param>
+		/// <param name="siteUrl">The base url for the site or an url alias.</param>
 		public CacheManager(CoreRepository coreRepository, string siteUrl)
 		{
 			this._coreRepository = coreRepository;
@@ -40,7 +51,22 @@ namespace Cuyahoga.Web.Cache
 			if (HttpContext.Current.Cache[siteUrl] == null)
 			{
 				this._nodeCache = new NodeCache();
-				this._nodeCache.Site = coreRepository.GetSiteBySiteUrl(siteUrl);
+				// First check if we have to do with an alias.
+				SiteAlias siteAlias = coreRepository.GetSiteAliasByUrl(siteUrl);
+				if (siteAlias != null)
+				{
+					this._siteAliasUrl = siteUrl;
+					this._nodeCache.Site = siteAlias.Site;
+					if (siteAlias.EntryNode != null)
+					{
+						this._entryNode = siteAlias.EntryNode;
+					}
+				}
+				else
+				{
+					// No, just a regular site
+					this._nodeCache.Site = coreRepository.GetSiteBySiteUrl(siteUrl);
+				}
 				if (this._nodeCache.Site != null)
 				{
 					InitNodeCache();
@@ -52,7 +78,23 @@ namespace Cuyahoga.Web.Cache
 			}
 			else
 			{
-				this._nodeCache = (NodeCache)HttpContext.Current.Cache[siteUrl];
+				// First check if it is an alias.
+				if (HttpContext.Current.Cache[siteUrl] is CacheManager.SiteAliasInfo)
+				{
+					// The url is an alias, so we have to get the real siteUrl from a cached SiteAliasInfo object.
+					this._siteAliasUrl = siteUrl;
+					CacheManager.SiteAliasInfo sai = (CacheManager.SiteAliasInfo)HttpContext.Current.Cache[siteUrl];
+					this._nodeCache = (NodeCache)HttpContext.Current.Cache[sai.SiteUrl];
+					if (sai.EntryNode != null)
+					{
+						this._entryNode = GetNodeById(sai.EntryNode.Id);
+					}
+				}
+				else
+				{
+					// Just a normal siteUrl.
+					this._nodeCache = (NodeCache)HttpContext.Current.Cache[siteUrl];
+				}
 			}
 		}
 
@@ -164,8 +206,15 @@ namespace Cuyahoga.Web.Cache
 		/// </summary>
 		public void SaveCache()
 		{
+			SynchronizeCacheIndexes();
 			double nodeCacheDuration = Double.Parse(Config.GetConfiguration()["NodeCacheDuration"]);
 			HttpContext.Current.Cache.Insert(this._nodeCache.Site.SiteUrl, this._nodeCache, null, DateTime.Now.AddSeconds(nodeCacheDuration), TimeSpan.Zero);
+			// Check if there is a site alias url and an optional entry node. These should be stored separately.
+			if (this._siteAliasUrl != null)
+			{
+				CacheManager.SiteAliasInfo sai = new CacheManager.SiteAliasInfo(this._nodeCache.Site.SiteUrl, this._entryNode);
+				HttpContext.Current.Cache.Insert(this._siteAliasUrl, sai, null, DateTime.Now.AddSeconds(nodeCacheDuration), TimeSpan.Zero);
+			}
 		}
 
 		/// <summary>
@@ -254,6 +303,42 @@ namespace Cuyahoga.Web.Cache
 			}
 		}
 
+		private void SynchronizeCacheIndexes()
+		{
+			// HACK: bruto-force refresh of the cache indexes here.
+			// A better solution would be to only update the indexes of the nodes that are 
+			// being refreshed but I can't find a way to determine when childnodes are being pulled
+			// from the database, and they have to be added to the database. NHibernate does provide
+			// some lifecycle events but we don't want any NHibernate references in the domain objects.
+			// Maybe AOP is a solution here (inject notifications).
+			this._nodeCache.NodeIndex.Clear();
+			this._nodeCache.NodeShortDescriptionIndex.Clear();
+			this._nodeCache.SectionIndex.Clear();
+			foreach (Node node in this._nodeCache.RootNodes.Values)
+			{
+				//this._nodeCache.RootNodes.Add(node.Culture, node);
+				AddNodeToCacheIndex(node);
+			}
+		}
+
+		private void AddNodeToCacheIndex(Node node)
+		{
+			// Add an index to the NodeCache for easy retrieval.
+			this._nodeCache.NodeIndex[node.Id] = node;
+			// Add another index to the NodeCache to enable retrieval by ShortDescription
+			this._nodeCache.NodeShortDescriptionIndex[node.ShortDescription] = node;
+			// Register Sections
+			foreach (Section section in node.Sections)
+			{
+				this._nodeCache.SectionIndex[section.Id] = section;
+			}
+			// Add child nodes to index.
+			foreach (Node childNode in node.ChildNodes)
+			{
+				AddNodeToCacheIndex(childNode);
+			}
+		}
+
 		/// <summary>
 		/// The childnodes seem to have been loaded from the database. Let's store them in the NodeCache.
 		/// </summary>
@@ -278,6 +363,42 @@ namespace Cuyahoga.Web.Cache
 		private void Node_NodeUpdated(object sender)
 		{
 			// TODO
+		}
+
+		/// <summary>
+		/// Container class to store some site alias info.
+		/// </summary>
+		private class SiteAliasInfo
+		{
+			private string _siteUrl;
+			private Node _entryNode;
+
+			/// <summary>
+			/// Property SiteUrl (string)
+			/// </summary>
+			public string SiteUrl
+			{
+				get { return this._siteUrl; }
+			}
+
+			/// <summary>
+			/// Property EntryNode (Node)
+			/// </summary>
+			public Node EntryNode
+			{
+				get { return this._entryNode; }
+			}
+
+			/// <summary>
+			/// Default constructor.
+			/// </summary>
+			/// <param name="siteUrl"></param>
+			/// <param name="entryNode"></param>
+			public SiteAliasInfo(string siteUrl, Node entryNode)
+			{
+				this._siteUrl = siteUrl;
+				this._entryNode = entryNode;
+			}
 		}
 	}
 }
