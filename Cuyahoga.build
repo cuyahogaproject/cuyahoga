@@ -117,6 +117,7 @@
 				<includes name="**/*.jpg" />
 				<includes name="**/*.js" />
 				<includes name="**/*.xml" />
+				<includes name="**/*.css" />
 			</fileset>
 		</copy>
 	</target>
