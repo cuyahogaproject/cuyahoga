@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<configuration>
+	<configSections>
+		<!-- Yet Another Forum.net handler -->
+		<section name="yafnet" type="yaf.SectionHandler,yaf" />
+	</configSections>
+	
+	<!-- Yet Another Forum.net configuration -->
+	<yafnet>
+		<connstr>data source=(local);initial catalog=Yaf;user id=sa;password=joyjoy;</connstr>
+		<root>/Cuyahoga/Modules/Yaf/</root>
+		<language>english.xml</language>
+		<theme>standard.xml</theme>
+		<uploaddir>/Cuyahoga/Modules/Yaf/upload/</uploaddir>
+		<!--logtomail>email=;server=;user=;pass=;</logtomail-->
+	</yafnet>
+</configuration>

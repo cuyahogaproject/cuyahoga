@@ -1,27 +1,42 @@
 <%@ Control Language="c#" AutoEventWireup="false" Codebehind="EditProfile.ascx.cs" Inherits="Cuyahoga.Web.Controls.EditProfile" TargetSchema="http://schemas.microsoft.com/intellisense/ie5"%>
-<table>
-	<tr>
-		<td>Username</td>
-		<td></td>
-		<td>Registered on</td>
-		<td></td>
-	</tr>
-	<tr>
-		<td>First name</td>
-		<td></td>
-		<td>Last login on</td>
-		<td></td>
-	</tr>
-	<tr>
-		<td>Last name</td>
-		<td></td>
-		<td></td>
-		<td></td>
-	</tr>
-	<tr>
-		<td>Website</td>
-		<td></td>
-		<td></td>
-		<td></td>
-	</tr>
-</table>
+<h3><%= GetText("EDITPROFILETITLE") %></h3>
+<br>
+<asp:panel id="pnlEdit" runat="server"><%= GetText("EDITPROFILEINFO") %><br><asp:label id="lblError" runat="server" enableviewstate="False" cssclass="error" visible="False"></asp:label><br>
+	<table class="tbl">
+		<tr>
+			<td style="WIDTH: 200px"><%= GetText("USERNAME") %></td>
+			<td class="tblvalue"><asp:label id="lblUsername" runat="server"></asp:label></td></tr>
+		<tr>
+			<td><%= GetText("FIRSTNAME") %></td>
+			<td><asp:textbox id="txtFirstname" runat="server" width="200px" maxlength="100"></asp:textbox></td></tr>
+		<tr>
+			<td><%= GetText("LASTNAME") %></td>
+			<td><asp:textbox id="txtLastname" runat="server" width="200px" maxlength="100"></asp:textbox></td>
+		<tr>
+			<td><%= GetText("EMAIL") %></td>
+			<td><asp:textbox id="txtEmail" runat="server" width="200px" maxlength="100"></asp:textbox><asp:requiredfieldvalidator id=rfvEmail runat="server" cssclass="error" enableclientscript="False" controltovalidate="txtEmail" display="Dynamic" errormessage='<%# GetText("EMAILREQUIRED") %>'></asp:requiredfieldvalidator><asp:regularexpressionvalidator id=revEmail runat="server" cssclass="error" enableclientscript="False" controltovalidate="txtEmail" display="Dynamic" errormessage='<%# GetText("EMAILINVALID") %>' validationexpression="\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*"></asp:regularexpressionvalidator></td>
+		<tr>
+			<td><%= GetText("WEBSITE") %></td>
+			<td><asp:textbox id="txtWebsite" runat="server" width="200px" maxlength="100"></asp:textbox></td>
+		<tr>
+			<td></td>
+			<td><asp:button id=btnSave runat="server" text='<%# GetText("SAVEPROFILE") %>'></asp:button></td></tr></table>
+	<br>
+	<table class="tbl">
+		<tr>
+			<td><%= GetText("CURRENTPASSWORD") %></td>
+			<td><asp:textbox id="txtCurrentPassword" runat="server" width="100px" maxlength="100" textmode="Password"></asp:textbox></td></tr>
+		<tr>
+			<td style="WIDTH: 200px"><%= GetText("NEWPASSWORD") %></td>
+			<td><asp:textbox id="txtNewPassword" runat="server" width="100px" maxlength="100" textmode="Password"></asp:textbox></td></tr>
+		</TR>
+		<tr>
+			<td><%= GetText("NEWPASSWORDCONFIRMATION") %></td>
+			<td><asp:textbox id="txtNewPasswordConfirmation" runat="server" width="100px" maxlength="100" textmode="Password"></asp:textbox></td></tr>
+		</TR>
+		<tr>
+			<td></td>
+			<td><asp:button id=btnSavePassword runat="server" text='<%# GetText("SAVEPASSWORD") %>'></asp:button></td></tr></table>
+</asp:panel>
+<asp:panel id="pnlInfo" runat="server" visible="False"><asp:label id="lblInfo" runat="server"></asp:label>
+</asp:panel>

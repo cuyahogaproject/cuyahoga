@@ -2,7 +2,7 @@
 <project default="build" basedir="." xmlns="http://nant.sf.net/release/0.85-rc1/nant.xsd">
 	<!-- global project settings -->
 	<property name="project.name" value="Cuyahoga" />
-	<property name="project.version" value="0.4" />
+	<property name="project.version" value="0.5" />
 
 	<!-- default configuration -->
 	<property name="project.config" value="debug" /> <!-- debug|release -->
@@ -95,6 +95,9 @@
             <sources>
                 <include name="Web/**/*.cs" />
             </sources>
+            <resources dynamicprefix="true" prefix="Cuyahoga">
+				<include name="Web/Controls/**/Strings*.resx" />
+			</resources>
             <references>
                 <include name="System.dll" />
                 <include name="System.Data.dll" />
@@ -117,7 +120,7 @@
             </sources>
             <resources dynamicprefix="true" prefix="Cuyahoga">
 				<include name="Modules/**/*.hbm.xml" />
-				<include name="Modules/**/*.resx" />
+				<include name="Modules/**/Strings*.resx" />
 			</resources>
             <references>
                 <include name="System.dll" />
@@ -229,7 +232,8 @@
 		<mkdir dir="${build.dir}/package" />
 		<copy todir="${build.dir}/package" includeemptydirs="true">
 			<fileset>
-				<include name="*.*" />
+				<include name="Cuyahoga.*" />
+				<include name="*.txt" />
 				<include name="${lib.dir}/**" />
 				<include name="Core/**" />
 				<include name="ServerControls/**" />

@@ -387,6 +387,28 @@ namespace Cuyahoga.Core.Service
 		}
 
 		/// <summary>
+		/// Get a User by username and email.
+		/// </summary>
+		/// <param name="username"></param>
+		/// <param name="email"></param>
+		/// <returns></returns>
+		public User GetUserByUsernameAndEmail(string username, string email)
+		{
+			ICriteria crit = this._activeSession.CreateCriteria(typeof(User));
+			crit.Add(Expression.Eq("UserName", username));
+			crit.Add(Expression.Eq("Email", email));
+			IList results = crit.List();
+			if (results.Count == 1)
+			{
+				return (User)results[0];
+			}
+			else
+			{
+				return null;
+			}
+		}
+
+		/// <summary>
 		/// Find users with a given name or with a name that starts with the given search string.
 		/// When the search string is empty, all users will be fetched.
 		/// </summary>
@@ -405,7 +427,6 @@ namespace Cuyahoga.Core.Service
 				return GetAll(typeof(User), "UserName");
 			}
 		}
-
 		#endregion
 	}
 }

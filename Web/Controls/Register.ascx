@@ -15,6 +15,6 @@
 			<td></td>
 			<td><asp:button id=btnRegister runat="server" Text='<%# GetText("REGISTER") %>'></asp:button></td></tr></table>
 </asp:panel>
-<asp:panel id="pnlConfirmation" runat="server" visible="False"><asp:label id="lblConfirmation" runat="server"></asp:label>
-
+<asp:panel id="pnlConfirmation" runat="server" visible="False">
+	<asp:label id="lblConfirmation" runat="server"></asp:label>
 </asp:panel>

@@ -28,6 +28,9 @@ namespace Cuyahoga.Modules.User
 		protected System.Web.UI.WebControls.Label lblLoggedInText;
 		protected System.Web.UI.WebControls.Label lblLoggedInUser;
 		protected System.Web.UI.WebControls.Label lblPassword;
+		protected System.Web.UI.WebControls.HyperLink hplRegister;
+		protected System.Web.UI.WebControls.HyperLink hplResetPassword;
+		protected System.Web.UI.WebControls.HyperLink hplEdit;
 		protected System.Web.UI.WebControls.Panel pnlUserInfo;
 
 		private void Page_Load(object sender, System.EventArgs e)
@@ -46,6 +49,9 @@ namespace Cuyahoga.Modules.User
 
 				this.pnlLogin.Visible = ! isAuthenticated;
 				this.pnlUserInfo.Visible = isAuthenticated;
+				this.hplRegister.NavigateUrl = this.Page.ResolveUrl("~/Profile.aspx/register");
+				this.hplResetPassword.NavigateUrl = this.Page.ResolveUrl("~/Profile.aspx/reset");
+				this.hplEdit.NavigateUrl = this.Page.ResolveUrl("~/Profile.aspx/edit");
 				Translate();
 			}
 		}
@@ -79,7 +85,10 @@ namespace Cuyahoga.Modules.User
 			this.lblPassword.Text = base.GetText("PASSWORD");
 			this.lblLoggedInText.Text = base.GetText("LOGGEDINTEXT");
 			this.btnLogin.Text = base.GetText("LOGIN");
-			this.btnLogout.Text = base.GetText("LOGOUT");			
+			this.btnLogout.Text = base.GetText("LOGOUT");	
+			this.hplRegister.Text = base.GetText("REGISTER");
+			this.hplResetPassword.Text = base.GetText("RESET");
+			this.hplEdit.Text = base.GetText("EDITACCOUNT");
 		}
 
 		private void btnLogin_Click(object sender, System.EventArgs e)

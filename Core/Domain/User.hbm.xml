@@ -18,6 +18,7 @@
 		<property name="IsActive" column="isactive" type="Boolean" length="100" />
 		<property name="LastLogin" column="lastlogin" type="DateTime" not-null="false" />
 		<property name="LastIp" column="lastip" type="String" length="40" />
+		<property name="InsertTimestamp" column="inserttimestamp" type="DateTime" />
 		
 		<bag name="Roles" table="cuyahoga_userrole" cascade="none" lazy="true">
 			<key column="userid" />

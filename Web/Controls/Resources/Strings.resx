@@ -97,35 +97,68 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=1.0.5000.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="USERNOTFOUND">
+    <value>The user with ID {0} could not be found.</value>
+  </data>
+  <data name="CURRENTPASSWORD">
+    <value>Current password</value>
+  </data>
+  <data name="EDITPASSWORDCONFIRMATION">
+    <value>Your password was successfully updated.</value>
+  </data>
+  <data name="EDITPASSWORDCONFIRMERROR">
+    <value>The confirmation password has to be the same as the new password.</value>
+  </data>
+  <data name="EDITPASSWORDCURRENTERROR">
+    <value>The current password you entered doesn't match your real current password.</value>
+  </data>
+  <data name="EDITPROFILECONFIRMATION">
+    <value>Your account information was successfully updated.</value>
+  </data>
+  <data name="EDITPROFILEINFO">
+    <value>Update your account information. Note that your e-mail address will never be publicly shown.</value>
+  </data>
+  <data name="EDITPROFILETITLE">
+    <value>Update account</value>
+  </data>
   <data name="EMAIL">
     <value>E-mail</value>
-  </data>
-  <data name="EMAILREQUIRED">
-    <value>The e-mail address is required</value>
-  </data>
-  <data name="REGISTER">
-    <value>Register</value>
   </data>
   <data name="EMAILINVALID">
     <value>Invalid e-mail address</value>
   </data>
-  <data name="REGISTERTITLE">
-    <value>Register as new user</value>
+  <data name="EMAILREQUIRED">
+    <value>The e-mail address is required</value>
   </data>
-  <data name="REGISTERINFO">
-    <value>Please enter the desired username and your e-mail address. The password will be sent to your e-mail address.</value>
+  <data name="FIRSTNAME">
+    <value>First name</value>
+  </data>
+  <data name="INVALIDPASSWORD">
+    <value>You entered an invalid password. The password has to be at least 5 characters long.</value>
+  </data>
+  <data name="LASTLOGINON">
+    <value>Last visit</value>
+  </data>
+  <data name="LASTNAME">
+    <value>Last name</value>
+  </data>
+  <data name="NEWPASSWORD">
+    <value>New password</value>
+  </data>
+  <data name="NEWPASSWORDCONFIRMATION">
+    <value>New password (confirmation)</value>
+  </data>
+  <data name="NOTAUTHENTICATED">
+    <value>You have to be logged in perform this action.</value>
+  </data>
+  <data name="REGISTER">
+    <value>Register</value>
   </data>
   <data name="REGISTERCONFIRMATION">
     <value>Thank you for registering with this site. An e-mail with the password is sent to {0}.</value>
   </data>
-  <data name="USEREXISTS">
-    <value>A user with username {0} already exists. Please choose a different username.</value>
-  </data>
-  <data name="USERNAMEREQUIRED">
-    <value>The username is required</value>
-  </data>
-  <data name="USERNAME">
-    <value>Username</value>
+  <data name="REGISTEREDON">
+    <value>Registered</value>
   </data>
   <data name="REGISTEREMAILBODY">
     <value>Your registration at {site}.
@@ -135,10 +168,64 @@ Password: {password}
 
 Have fun!</value>
   </data>
+  <data name="REGISTEREMAILERROR">
+    <value>The registration failed because an error occured while sending your account information. Please try again later.</value>
+  </data>
   <data name="REGISTEREMAILSUBJECT">
     <value>{site} account information</value>
   </data>
-  <data name="REGISTEREMAILERROR">
-    <value>The registration failed because an error occured while sending your account information. Please try again later.</value>
+  <data name="REGISTERINFO">
+    <value>Please enter the desired username and your e-mail address. The password will be sent to your e-mail address.</value>
+  </data>
+  <data name="REGISTERTITLE">
+    <value>Register as new user</value>
+  </data>
+  <data name="RESET">
+    <value>Reset password</value>
+  </data>
+  <data name="RESETCONFIRMATION">
+    <value>An e-mail with a new password is sent to {0}.</value>
+  </data>
+  <data name="RESETEMAILBODY">
+    <value>Your updated login information:
+
+Username: {username}
+Password: {password}</value>
+  </data>
+  <data name="RESETEMAILERROR">
+    <value>Resetting of your password failed because an error occured while sending your account information. Please try to reset again later.</value>
+  </data>
+  <data name="RESETEMAILSUBJECT">
+    <value>{site} updated account information.</value>
+  </data>
+  <data name="RESETINFO">
+    <value>Please enter your username and e-mail address. A new password will be generated and send to you.</value>
+  </data>
+  <data name="RESETTITLE">
+    <value>Reset password</value>
+  </data>
+  <data name="RESETUSERERROR">
+    <value>No user was found with the given username and e-mail.</value>
+  </data>
+  <data name="SAVEPASSWORD">
+    <value>Save new password</value>
+  </data>
+  <data name="SAVEPROFILE">
+    <value>Save account information</value>
+  </data>
+  <data name="USEREXISTS">
+    <value>A user with username {0} already exists. Please choose a different username.</value>
+  </data>
+  <data name="USERNAME">
+    <value>Username</value>
+  </data>
+  <data name="USERNAMEREQUIRED">
+    <value>The username is required</value>
+  </data>
+  <data name="VIEWPROFILETITLE">
+    <value>Profile of {0}</value>
+  </data>
+  <data name="WEBSITE">
+    <value>Website</value>
   </data>
 </root>

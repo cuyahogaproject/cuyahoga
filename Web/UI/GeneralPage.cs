@@ -11,7 +11,7 @@ using Cuyahoga.Web.Util;
 namespace Cuyahoga.Web.UI
 {
 	/// <summary>
-	/// The GeneralPage serves as a base page for pages that are not related to a Node.
+	/// The GeneralPage serves as a base page for pages that are not related to a specific Node.
 	/// It uses the default template and placeholder from the current Site to inject the
 	/// content of inherited pages.
 	/// </summary>
@@ -20,6 +20,7 @@ namespace Cuyahoga.Web.UI
 		private BaseTemplate _templateControl;
 		private PlaceHolder _contentPlaceHolder;
 		private Site _currentSite;
+		private string _title;
 
 		/// <summary>
 		/// The GeneralPage only utilizes one placeholder. This property exposes that property to inherited pages.
@@ -27,6 +28,22 @@ namespace Cuyahoga.Web.UI
 		protected PlaceHolder ContentPlaceHolder
 		{
 			get { return this._contentPlaceHolder; }
+		}
+
+		/// <summary>
+		/// The page title.
+		/// </summary>
+		public string Title
+		{
+			get { return this._title; }
+			set 
+			{ 
+				this._title = value; 
+				if (this._templateControl != null)
+				{
+					this._templateControl.Title = value;
+				}
+			}
 		}
 
 		/// <summary>
@@ -54,6 +71,10 @@ namespace Cuyahoga.Web.UI
 				this._templateControl = (BaseTemplate)this.LoadControl(UrlHelper.GetApplicationPath() 
 					+ this._currentSite.DefaultTemplate.Path);
 				this._templateControl.Css = UrlHelper.GetApplicationPath() + Config.GetConfiguration()["CssDir"] + this._currentSite.DefaultTemplate.Css;
+				if (this._title != null)
+				{
+					this._templateControl.Title = this._title;
+				}
 
 				// Add the pagecontrol on top of the control collection of the page
 				this._templateControl.ID = "p";

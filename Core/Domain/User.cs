@@ -23,6 +23,7 @@ namespace Cuyahoga.Core.Domain
 		private bool _isAuthenticated;
 		private IList _roles;
 		private AccessLevel[] _permissions;
+		private DateTime _insertTimestamp;
 		private DateTime _updateTimestamp;
 
 		#region properties
@@ -178,6 +179,15 @@ namespace Cuyahoga.Core.Domain
 		}
 
 		/// <summary>
+		/// Property InsertTimestamp (DateTime)
+		/// </summary>
+		public virtual DateTime InsertTimestamp
+		{
+			get { return this._insertTimestamp; }
+			set { this._insertTimestamp = value; }
+		}
+
+		/// <summary>
 		/// Property UpdateTimestamp (DateTime)
 		/// </summary>
 		public virtual DateTime UpdateTimestamp
@@ -291,15 +301,25 @@ namespace Cuyahoga.Core.Domain
 		/// <returns>The MD5 hash of the password</returns>
 		public static string HashPassword(string password)
 		{
-			// Very simple password rule. Extend here when required.
-			if (password.Length >= 5)
+			if (ValidatePassword(password))
 			{
 				return Util.Encryption.StringToMD5Hash(password);
 			}
 			else
 			{
-				throw new ArgumentException("The password must contain at least 5 characters");
+				throw new ArgumentException("Invalid password");
 			}
+		}
+
+		/// <summary>
+		/// Check if the password is valid.
+		/// </summary>
+		/// <param name="password"></param>
+		/// <returns></returns>
+		public static bool ValidatePassword(string password)
+		{
+			// Very simple password rule. Extend here when required.
+			return (password.Length >= 5);
 		}
 
 		/// <summary>

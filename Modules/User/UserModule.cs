@@ -10,6 +10,8 @@ namespace Cuyahoga.Modules.User
 	/// Note that the core user functionality is not in this module but in Cuyahoga.Core and
 	/// Cuyahoga.Web.Util.AuthenticationModule. This class is needed because every module requires 
 	/// a corresponding class. Perhaps functionality like 'forgot password?' will be added here in the future.
+	/// 
+	/// MBO, 20041229: User functionality implemented in core. This module stays pretty empty.
 	/// </remark>
 	/// </summary>
 	public class UserModule : ModuleBase

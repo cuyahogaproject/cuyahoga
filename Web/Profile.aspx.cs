@@ -22,7 +22,6 @@ namespace Cuyahoga.Web
 	
 		private void Page_Load(object sender, System.EventArgs e)
 		{
-			// Put user code to initialize the page here
 		}
 
 		private void InitPage()
@@ -38,15 +37,25 @@ namespace Cuyahoga.Web
 				{
 					case "view":
 						ctrl = this.LoadControl("~/Controls/ViewProfile.ascx");
+						base.Title = "View profile";
+						if (parameters.Length == 2)
+						{
+							// The second pathinfo parameter should be the UserId.
+							int userId = Int32.Parse(parameters[1]);
+							(ctrl as Cuyahoga.Web.Controls.ViewProfile).UserId = userId;
+						}
 						break;
 					case "edit":
 						ctrl = this.LoadControl("~/Controls/EditProfile.ascx");
+						base.Title = "Edit profile";
 						break;
 					case "register":
 						ctrl = this.LoadControl("~/Controls/Register.ascx");
+						base.Title = "Register";
 						break;
 					case "reset":
 						ctrl = this.LoadControl("~/Controls/ResetPassword.ascx");
+						base.Title = "Reset password";
 						break;
 					default:
 						throw new Exception("Invalid command found in pathinfo.");

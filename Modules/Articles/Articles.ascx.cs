@@ -182,9 +182,19 @@ namespace Cuyahoga.Modules.Articles
 				if (comment.User != null)
 				{
 					// Comment by registered user.
-					Literal lit = new Literal();
-					lit.Text = comment.User.FullName;
-					plhCommentBy.Controls.Add(lit);
+					if (comment.User.Website != null && comment.User.Website != String.Empty)
+					{
+						HyperLink hpl = new HyperLink();
+						hpl.NavigateUrl = this.Page.ResolveUrl(String.Format("~/Profile.aspx/view/{0}", comment.User.Id));
+						hpl.Text = comment.User.FullName;
+						plhCommentBy.Controls.Add(hpl);
+					}
+					else
+					{
+						Literal lit = new Literal();
+						lit.Text = comment.User.FullName;
+						plhCommentBy.Controls.Add(lit);
+					}
 				}
 				else
 				{

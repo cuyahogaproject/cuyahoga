@@ -99,7 +99,7 @@ namespace Cuyahoga.Web.Controls
 					}
 					catch
 					{
-						// delete user
+						// delete user when sending email fails.
 						this._page.CoreRepository.DeleteObject(user);
 						this.lblError.Text = GetText("REGISTEREMAILERROR");
 						this.lblError.Visible = true;
@@ -107,7 +107,7 @@ namespace Cuyahoga.Web.Controls
 
 					this.pnlRegister.Visible = false;
 					this.pnlConfirmation.Visible = true;
-					this.lblConfirmation.Text = String.Format(GetText("REGISTERCONFIRMATION"), this.txtEmail.Text);
+					this.lblConfirmation.Text = String.Format(GetText("REGISTERCONFIRMATION"), user.Email);
 				}
 			}
 		}
