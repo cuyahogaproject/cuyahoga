@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8" ?> 
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.0">
+	<class name="Cuyahoga.Core.Domain.Section, Cuyahoga.Core" table="cuyahoga_section">
+		
+		<id name="Id" column="sectionid" type="Int32" unsaved-value="-1">
+			<generator class="native">
+				<param name="sequence">cuyahoga_section_sectionid_seq</param>
+			</generator>
+		</id>
+		<timestamp name="UpdateTimestamp" column="updatetimestamp" />
+
+		<property name="Title" column="title" type="String" length="100" />
+		<property name="PlaceholderId" column="placeholder" type="String" length="100" not-null="false" />
+		<property name="Position" column="position" type="Int32" />
+		<property name="CacheDuration" column="cacheduration" type="Int32" not-null="false" />
+		<property name="ShowTitle" column="showtitle" type="Boolean" not-null="false" />
+		
+		<many-to-one name="Node" class="Cuyahoga.Core.Domain.Node, Cuyahoga.Core" column="nodeid" not-null="false" />
+		<many-to-one name="ModuleType" class="Cuyahoga.Core.Domain.ModuleType, Cuyahoga.Core" column="moduletypeid" />
+		
+		<bag name="SectionPermissions" cascade="all" lazy="true" table="cuyahoga_sectionrole">
+			<key column="sectionid" />
+			<composite-element class="Cuyahoga.Core.Domain.SectionPermission, Cuyahoga.Core">
+				<parent name="Section" />
+				<property name="ViewAllowed" column="viewallowed" type="Boolean" />
+				<property name="EditAllowed" column="editallowed" type="Boolean" />
+				<many-to-one name="Role" class="Cuyahoga.Core.Domain.Role, Cuyahoga.Core" column="roleid" cascade="none" />
+			</composite-element>
+		</bag>
+		
+		<map name="Settings" table="cuyahoga_sectionsetting" lazy="true" cascade="all">
+		    <key column="sectionid" />
+		    <index column="Name" type="String" length="50" />
+			<element column="Value" type="String" length="100" />
+		</map>
+		
+	</class>
+</hibernate-mapping>

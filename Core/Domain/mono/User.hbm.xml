@@ -1,0 +1,27 @@
+﻿<?xml version="1.0" encoding="utf-8" ?> 
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.0">
+	<class name="Cuyahoga.Core.Domain.User, Cuyahoga.Core" table="cuyahoga_user">
+		<id name="Id" column="userid" type="Int32" unsaved-value="-1">
+			<generator class="native">
+				<param name="sequence">cuyahoga_user_userid_seq</param>
+			</generator>
+		</id>
+		<timestamp name="UpdateTimestamp" column="updatetimestamp" />
+
+		<property name="UserName" column="username" type="String" length="50" />
+		<property name="Password" column="password" type="String" length="100" />		
+		<property name="FirstName" column="firstname" type="String" length="100" not-null="false" />
+		<property name="LastName" column="lastname" type="String" length="100" not-null="false" />
+		<property name="Email" column="email" type="String" length="100" />
+		<property name="Website" column="website" type="String" length="100" />
+		<property name="IsActive" column="isactive" type="Boolean" length="100" />
+		<property name="LastLogin" column="lastlogin" type="DateTime" not-null="false" />
+		<property name="LastIp" column="lastip" type="String" length="40" />
+		<property name="InsertTimestamp" column="inserttimestamp" type="DateTime" />
+		
+		<bag name="Roles" table="cuyahoga_userrole" cascade="none" lazy="true">
+			<key column="userid" />
+			<many-to-many class="Cuyahoga.Core.Domain.Role, Cuyahoga.Core" column="roleid" outer-join="true" />
+		</bag>
+	</class>
+</hibernate-mapping>

@@ -55,12 +55,22 @@
 	</target>
 	
 	<target name="build.core">
+		<!-- copy mapping files without proxies for mono -->
+		<copy 
+			todir="Core/Domain" 
+			if="${framework::get-family(framework::get-target-framework()) == 'mono'}"
+			overwrite="true">
+			<fileset basedir="Core/Domain/mono">
+				<include name="*.hbm.xml" />
+			</fileset>
+		</copy>
+		
 		<csc target="library" output="${build.dir}/bin/Cuyahoga.Core.dll" debug="${build.debug}">
             <sources>
                 <include name="Core/**/*.cs" />
             </sources>
             <resources dynamicprefix="true" prefix="Cuyahoga">
-				 <include name="Core/Domain/**/*.hbm.xml" />
+				<include name="Core/Domain/**/*.hbm.xml" />
             </resources>
             <references>
                 <include name="System.dll" />
