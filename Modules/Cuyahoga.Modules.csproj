@@ -105,14 +105,14 @@
                     Package = "{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}"
                 />
                 <Reference
-                    Name = "FreeTextBox"
-                    AssemblyName = "FreeTextBox"
-                    HintPath = "..\lib\FreeTextBox.dll"
-                />
-                <Reference
                     Name = "Cuyahoga.Core"
                     Project = "{723B7D30-6472-4B96-8D09-4F094C96650E}"
                     Package = "{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}"
+                />
+                <Reference
+                    Name = "FredCK.FCKeditorV2"
+                    AssemblyName = "FredCK.FCKeditorV2"
+                    HintPath = "..\lib\FredCK.FCKeditorV2.dll"
                 />
             </References>
         </Build>
@@ -226,36 +226,6 @@
                 <File
                     RelPath = "Articles\Resources\Strings.resx"
                     BuildAction = "EmbeddedResource"
-                />
-                <File
-                    RelPath = "RemoteContent\Feed.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "RemoteContent\FeedDisplay.ascx"
-                    SubType = "UserControl"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "RemoteContent\FeedDisplay.ascx.cs"
-                    DependentUpon = "FeedDisplay.ascx"
-                    SubType = "ASPXCodeBehind"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "RemoteContent\FeedDisplay.ascx.resx"
-                    DependentUpon = "FeedDisplay.ascx.cs"
-                    BuildAction = "EmbeddedResource"
-                />
-                <File
-                    RelPath = "RemoteContent\RemoteContentModule.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "RemoteContent\xslt\RSS20.xslt"
-                    BuildAction = "Content"
                 />
                 <File
                     RelPath = "StaticHtml\EditHtml.aspx"

@@ -2,7 +2,7 @@
 <project default="build" basedir="." xmlns="http://nant.sf.net/release/0.85-rc1/nant.xsd">
 	<!-- global project settings -->
 	<property name="project.name" value="Cuyahoga" />
-	<property name="project.version" value="0.5.1" />
+	<property name="project.version" value="0.5.2" />
 
 	<!-- default configuration -->
 	<property name="project.config" value="debug" /> <!-- debug|release -->
@@ -90,7 +90,6 @@
                 <include name="System.Drawing.dll" />
                 <include name="System.Xml.dll" />
                 <include name="System.Web.dll" />
-                <include name="${lib.dir}/FreeTextBox.dll" />
             </references>
         </csc>
 	</target>
@@ -109,7 +108,6 @@
                 <include name="System.Drawing.dll" />
                 <include name="System.Xml.dll" />
                 <include name="System.Web.dll" />
-                <include name="${lib.dir}/FreeTextBox.dll" />  
                 <include name="${lib.dir}/NHibernate.dll" />
                 <include name="${lib.dir}/log4net.dll" />
                 <include name="${build.dir}/bin/Cuyahoga.Core.dll" />
@@ -134,7 +132,7 @@
                 <include name="System.Drawing.dll" />
                 <include name="System.Web.dll" />
                 <include name="${lib.dir}/NHibernate.dll" />
-                <include name="${lib.dir}/FreeTextBox.dll" />  
+                <include name="${lib.dir}/FredCK.FCKeditorV2.dll" />  
                 <include name="${build.dir}/bin/Cuyahoga.Core.dll" />
                 <include name="${build.dir}/bin/Cuyahoga.Web.dll" />
                 <include name="${build.dir}/bin/Cuyahoga.ServerControls.dll" />
@@ -203,7 +201,8 @@
 	</target>
 	
 	<target name="deploy" depends="build" description="Deploys the website to the deployment directory">
-		<mkdir dir="${build.dir}/UserFiles/Images" />
+		<mkdir dir="${build.dir}/UserFiles/Image" />
+		<mkdir dir="${build.dir}/UserFiles/File" />
 		<copy todir="${build.dir}">
 			<fileset basedir="Web">
 				<include name="**/*.as?x" />
@@ -214,7 +213,10 @@
 				<include name="**/*.js" />
 				<include name="**/*.xml" />
 				<include name="**/*.css" />
-				<exclude name="UserFiles/Images/*.*" />
+				<include name="**/*.txt" />
+				<include name="**/*.html" />
+				<exclude name="UserFiles/Image/*.*" />
+				<exclude name="UserFiles/File/*.*" />
 			</fileset>
 		</copy>
 	    <!-- Copy Modules to the Web dir -->
@@ -249,8 +251,8 @@
 							
 
 				<exclude name="Web/Modules/**/*" />
-				<exclude name="Web/UserFiles/Documents/**/*" />
-				<exclude name="Web/UserFiles/Images/**/*" />
+				<exclude name="Web/UserFiles/File/**/*" />
+				<exclude name="Web/UserFiles/Image/**/*" />
 				<exclude name="Web/log/**/*" />
 				
 				<!-- exclude VS.NET stuff -->

@@ -109,11 +109,6 @@
                     AssemblyName = "NHibernate"
                     HintPath = "..\lib\NHibernate.dll"
                 />
-                <Reference
-                    Name = "FreeTextBox"
-                    AssemblyName = "FreeTextBox"
-                    HintPath = "..\lib\FreeTextBox.dll"
-                />
             </References>
         </Build>
         <Files>
@@ -678,908 +673,1564 @@
                 <Folder RelPath = "log\" />
                 <Folder RelPath = "Modules\" />
                 <File
-                    RelPath = "Support\FreeTextBox\FreeTextBox-MainScript.js"
+                    RelPath = "Support\FCKEditor\fckconfig.js"
                     BuildAction = "Content"
                 />
                 <File
-                    RelPath = "Support\FreeTextBox\FreeTextBox-ToolbarItemsScript.js"
+                    RelPath = "Support\FCKEditor\fckeditor.js"
                     BuildAction = "Content"
                 />
                 <File
-                    RelPath = "Support\FreeTextBox\Custom\ImageBrowser.aspx"
-                    SubType = "Form"
+                    RelPath = "Support\FCKEditor\fckstyles.xml"
                     BuildAction = "Content"
                 />
                 <File
-                    RelPath = "Support\FreeTextBox\Custom\ImageBrowser.aspx.cs"
-                    DependentUpon = "ImageBrowser.aspx"
-                    SubType = "ASPXCodeBehind"
-                    BuildAction = "Compile"
+                    RelPath = "Support\FCKEditor\license.txt"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Support\FCKEditor\editor\fckdebug.html"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Support\FCKEditor\editor\fckdialog.html"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Support\FCKEditor\editor\fckeditor.html"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Support\FCKEditor\editor\fckeditor.original.html"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Support\FCKEditor\editor\fckeditorarea.html"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Support\FCKEditor\editor\_source\classes\fckcontextmenugroup.js"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Support\FCKEditor\editor\_source\classes\fckcontextmenuitem.js"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Support\FCKEditor\editor\_source\classes\fckcontextmenuseparator.js"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Support\FCKEditor\editor\_source\classes\fckevents.js"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Support\FCKEditor\editor\_source\classes\fckpanel_gecko.js"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Support\FCKEditor\editor\_source\classes\fckpanel_ie.js"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Support\FCKEditor\editor\_source\classes\fckplugin.js"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Support\FCKEditor\editor\_source\classes\fckspecialcombo.js"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Support\FCKEditor\editor\_source\classes\fckstyledef.js"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Support\FCKEditor\editor\_source\classes\fckstyledef_gecko.js"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Support\FCKEditor\editor\_source\classes\fckstyledef_ie.js"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Support\FCKEditor\editor\_source\classes\fckstylesloader.js"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Support\FCKEditor\editor\_source\classes\fcktoolbar.js"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Support\FCKEditor\editor\_source\classes\fcktoolbarbutton.js"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Support\FCKEditor\editor\_source\classes\fcktoolbarcombo.js"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Support\FCKEditor\editor\_source\classes\fcktoolbarfontformatcombo.js"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Support\FCKEditor\editor\_source\classes\fcktoolbarfontscombo.js"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Support\FCKEditor\editor\_source\classes\fcktoolbarfontsizecombo.js"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Support\FCKEditor\editor\_source\classes\fcktoolbarpanelbutton.js"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Support\FCKEditor\editor\_source\classes\fcktoolbarspecialcombo.js"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Support\FCKEditor\editor\_source\classes\fcktoolbarstylecombo.js"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Support\FCKEditor\editor\_source\classes\fckxml.js"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Support\FCKEditor\editor\_source\commandclasses\fck_othercommands.js"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Support\FCKEditor\editor\_source\commandclasses\fcknamedcommand.js"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Support\FCKEditor\editor\_source\commandclasses\fckpasteplaintextcommand.js"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Support\FCKEditor\editor\_source\commandclasses\fckpastewordcommand.js"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Support\FCKEditor\editor\_source\commandclasses\fckstylecommand.js"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Support\FCKEditor\editor\_source\commandclasses\fcktablecommand.js"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Support\FCKEditor\editor\_source\commandclasses\fcktextcolorcommand.js"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Support\FCKEditor\editor\_source\globals\fck_constants.js"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Support\FCKEditor\editor\_source\globals\fckeditorapi.js"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Support\FCKEditor\editor\_source\internals\fck.js"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Support\FCKEditor\editor\_source\internals\fck_1.js"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Support\FCKEditor\editor\_source\internals\fck_1_gecko.js"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Support\FCKEditor\editor\_source\internals\fck_1_ie.js"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Support\FCKEditor\editor\_source\internals\fck_2.js"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Support\FCKEditor\editor\_source\internals\fck_2_gecko.js"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Support\FCKEditor\editor\_source\internals\fck_2_ie.js"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Support\FCKEditor\editor\_source\internals\fck_last.js"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Support\FCKEditor\editor\_source\internals\fck_onload.js"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Support\FCKEditor\editor\_source\internals\fckbrowserinfo.js"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Support\FCKEditor\editor\_source\internals\fckcommands.js"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Support\FCKEditor\editor\_source\internals\fckconfig.js"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Support\FCKEditor\editor\_source\internals\fckcontextmenu.js"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Support\FCKEditor\editor\_source\internals\fckcontextmenu_gecko.js"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Support\FCKEditor\editor\_source\internals\fckcontextmenu_ie.js"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Support\FCKEditor\editor\_source\internals\fckcoreextensions.js"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Support\FCKEditor\editor\_source\internals\fckdebug.js"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Support\FCKEditor\editor\_source\internals\fckdialog.js"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Support\FCKEditor\editor\_source\internals\fckdialog_gecko.js"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Support\FCKEditor\editor\_source\internals\fckdialog_ie.js"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Support\FCKEditor\editor\_source\internals\fcklanguagemanager.js"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Support\FCKEditor\editor\_source\internals\fckplugins.js"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Support\FCKEditor\editor\_source\internals\fckregexlib.js"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Support\FCKEditor\editor\_source\internals\fckscriptloader.js"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Support\FCKEditor\editor\_source\internals\fckselection.js"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Support\FCKEditor\editor\_source\internals\fckselection_gecko.js"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Support\FCKEditor\editor\_source\internals\fckselection_ie.js"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Support\FCKEditor\editor\_source\internals\fcktablehandler.js"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Support\FCKEditor\editor\_source\internals\fcktablehandler_gecko.js"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Support\FCKEditor\editor\_source\internals\fcktablehandler_ie.js"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Support\FCKEditor\editor\_source\internals\fcktoolbaritems.js"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Support\FCKEditor\editor\_source\internals\fcktoolbarset.js"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Support\FCKEditor\editor\_source\internals\fcktools.js"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Support\FCKEditor\editor\_source\internals\fcktools_gecko.js"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Support\FCKEditor\editor\_source\internals\fcktools_ie.js"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Support\FCKEditor\editor\_source\internals\fckurlparams.js"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Support\FCKEditor\editor\_source\internals\fckxhtml.js"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Support\FCKEditor\editor\_source\internals\fckxhtmlentities.js"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Support\FCKEditor\editor\css\fck_editorarea.css"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Support\FCKEditor\editor\dialog\fck_about.html"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Support\FCKEditor\editor\dialog\fck_colorselector.html"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Support\FCKEditor\editor\dialog\fck_find.html"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Support\FCKEditor\editor\dialog\fck_image.html"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Support\FCKEditor\editor\dialog\fck_link.html"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Support\FCKEditor\editor\dialog\fck_paste.html"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Support\FCKEditor\editor\dialog\fck_replace.html"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Support\FCKEditor\editor\dialog\fck_smiley.html"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Support\FCKEditor\editor\dialog\fck_specialchar.html"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Support\FCKEditor\editor\dialog\fck_table.html"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Support\FCKEditor\editor\dialog\fck_tablecell.html"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Support\FCKEditor\editor\dialog\css\common.css"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Support\FCKEditor\editor\dialog\images\locked.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Support\FCKEditor\editor\dialog\images\logo_fckeditor.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Support\FCKEditor\editor\dialog\images\logo_fredck.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Support\FCKEditor\editor\dialog\images\reset.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Support\FCKEditor\editor\dialog\images\unlocked.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Support\FCKEditor\editor\dialog\js\fck_dialog_common.js"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Support\FCKEditor\editor\dialog\js\fck_image.js"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Support\FCKEditor\editor\dialog\js\fck_link.js"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Support\FCKEditor\editor\filemanager\browser\default\Browser.css"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Support\FCKEditor\editor\filemanager\browser\default\browser.html"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Support\FCKEditor\editor\filemanager\browser\default\frmactualfolder.html"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Support\FCKEditor\editor\filemanager\browser\default\frmcreatefolder.html"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Support\FCKEditor\editor\filemanager\browser\default\frmfolders.html"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Support\FCKEditor\editor\filemanager\browser\default\frmresourceslist.html"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Support\FCKEditor\editor\filemanager\browser\default\frmresourcetype.html"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Support\FCKEditor\editor\filemanager\browser\default\frmupload.html"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Support\FCKEditor\editor\filemanager\browser\default\connectors\test.html"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Support\FCKEditor\editor\filemanager\browser\default\connectors\asp\basexml.asp"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Support\FCKEditor\editor\filemanager\browser\default\connectors\asp\class_upload.asp"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Support\FCKEditor\editor\filemanager\browser\default\connectors\asp\commands.asp"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Support\FCKEditor\editor\filemanager\browser\default\connectors\asp\connector.asp"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Support\FCKEditor\editor\filemanager\browser\default\connectors\asp\io.asp"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Support\FCKEditor\editor\filemanager\browser\default\connectors\asp\util.asp"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Support\FCKEditor\editor\filemanager\browser\default\connectors\aspx\connector.aspx"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Support\FCKEditor\editor\filemanager\browser\default\connectors\cfm\connector.cfm"
+                    BuildAction = "None"
+                />
+                <File
+                    RelPath = "Support\FCKEditor\editor\filemanager\browser\default\connectors\php\basexml.php"
+                    BuildAction = "None"
+                />
+                <File
+                    RelPath = "Support\FCKEditor\editor\filemanager\browser\default\connectors\php\commands.php"
+                    BuildAction = "None"
+                />
+                <File
+                    RelPath = "Support\FCKEditor\editor\filemanager\browser\default\connectors\php\connector.php"
+                    BuildAction = "None"
+                />
+                <File
+                    RelPath = "Support\FCKEditor\editor\filemanager\browser\default\connectors\php\io.php"
+                    BuildAction = "None"
+                />
+                <File
+                    RelPath = "Support\FCKEditor\editor\filemanager\browser\default\connectors\php\util.php"
+                    BuildAction = "None"
+                />
+                <File
+                    RelPath = "Support\FCKEditor\editor\filemanager\browser\default\images\ButtonArrow.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Support\FCKEditor\editor\filemanager\browser\default\images\Folder.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Support\FCKEditor\editor\filemanager\browser\default\images\Folder32.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Support\FCKEditor\editor\filemanager\browser\default\images\FolderOpened.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Support\FCKEditor\editor\filemanager\browser\default\images\FolderOpened32.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Support\FCKEditor\editor\filemanager\browser\default\images\FolderUp.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Support\FCKEditor\editor\filemanager\browser\default\images\spacer.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Support\FCKEditor\editor\filemanager\browser\default\images\icons\ai.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Support\FCKEditor\editor\filemanager\browser\default\images\icons\avi.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Support\FCKEditor\editor\filemanager\browser\default\images\icons\bmp.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Support\FCKEditor\editor\filemanager\browser\default\images\icons\cs.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Support\FCKEditor\editor\filemanager\browser\default\images\icons\default.icon.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Support\FCKEditor\editor\filemanager\browser\default\images\icons\dll.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Support\FCKEditor\editor\filemanager\browser\default\images\icons\doc.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Support\FCKEditor\editor\filemanager\browser\default\images\icons\exe.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Support\FCKEditor\editor\filemanager\browser\default\images\icons\fla.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Support\FCKEditor\editor\filemanager\browser\default\images\icons\gif.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Support\FCKEditor\editor\filemanager\browser\default\images\icons\htm.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Support\FCKEditor\editor\filemanager\browser\default\images\icons\html.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Support\FCKEditor\editor\filemanager\browser\default\images\icons\jpg.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Support\FCKEditor\editor\filemanager\browser\default\images\icons\js.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Support\FCKEditor\editor\filemanager\browser\default\images\icons\mdb.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Support\FCKEditor\editor\filemanager\browser\default\images\icons\mp3.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Support\FCKEditor\editor\filemanager\browser\default\images\icons\pdf.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Support\FCKEditor\editor\filemanager\browser\default\images\icons\ppt.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Support\FCKEditor\editor\filemanager\browser\default\images\icons\rdp.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Support\FCKEditor\editor\filemanager\browser\default\images\icons\swf.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Support\FCKEditor\editor\filemanager\browser\default\images\icons\swt.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Support\FCKEditor\editor\filemanager\browser\default\images\icons\txt.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Support\FCKEditor\editor\filemanager\browser\default\images\icons\vsd.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Support\FCKEditor\editor\filemanager\browser\default\images\icons\xls.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Support\FCKEditor\editor\filemanager\browser\default\images\icons\xml.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Support\FCKEditor\editor\filemanager\browser\default\images\icons\zip.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Support\FCKEditor\editor\filemanager\browser\default\images\icons\32\ai.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Support\FCKEditor\editor\filemanager\browser\default\images\icons\32\avi.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Support\FCKEditor\editor\filemanager\browser\default\images\icons\32\bmp.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Support\FCKEditor\editor\filemanager\browser\default\images\icons\32\cs.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Support\FCKEditor\editor\filemanager\browser\default\images\icons\32\default.icon.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Support\FCKEditor\editor\filemanager\browser\default\images\icons\32\dll.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Support\FCKEditor\editor\filemanager\browser\default\images\icons\32\doc.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Support\FCKEditor\editor\filemanager\browser\default\images\icons\32\exe.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Support\FCKEditor\editor\filemanager\browser\default\images\icons\32\fla.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Support\FCKEditor\editor\filemanager\browser\default\images\icons\32\gif.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Support\FCKEditor\editor\filemanager\browser\default\images\icons\32\htm.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Support\FCKEditor\editor\filemanager\browser\default\images\icons\32\html.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Support\FCKEditor\editor\filemanager\browser\default\images\icons\32\jpg.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Support\FCKEditor\editor\filemanager\browser\default\images\icons\32\js.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Support\FCKEditor\editor\filemanager\browser\default\images\icons\32\mdb.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Support\FCKEditor\editor\filemanager\browser\default\images\icons\32\mp3.gif"
+                    BuildAction = "Content"
                 />
                 <File
-                    RelPath = "Support\FreeTextBox\Custom\ImageBrowser.aspx.resx"
-                    DependentUpon = "ImageBrowser.aspx.cs"
-                    BuildAction = "EmbeddedResource"
+                    RelPath = "Support\FCKEditor\editor\filemanager\browser\default\images\icons\32\pdf.gif"
+                    BuildAction = "Content"
                 />
                 <File
-                    RelPath = "Support\FreeTextBox\Custom\LinkBrowser.aspx"
-                    SubType = "Form"
+                    RelPath = "Support\FCKEditor\editor\filemanager\browser\default\images\icons\32\ppt.gif"
                     BuildAction = "Content"
                 />
                 <File
-                    RelPath = "Support\FreeTextBox\Custom\LinkBrowser.aspx.cs"
-                    DependentUpon = "LinkBrowser.aspx"
-                    SubType = "ASPXCodeBehind"
-                    BuildAction = "Compile"
+                    RelPath = "Support\FCKEditor\editor\filemanager\browser\default\images\icons\32\rdp.gif"
+                    BuildAction = "Content"
                 />
                 <File
-                    RelPath = "Support\FreeTextBox\Custom\LinkBrowser.aspx.resx"
-                    DependentUpon = "LinkBrowser.aspx.cs"
-                    BuildAction = "EmbeddedResource"
+                    RelPath = "Support\FCKEditor\editor\filemanager\browser\default\images\icons\32\swf.gif"
+                    BuildAction = "Content"
                 />
                 <File
-                    RelPath = "Support\FreeTextBox\Custom\SupportCustom.css"
+                    RelPath = "Support\FCKEditor\editor\filemanager\browser\default\images\icons\32\swt.gif"
                     BuildAction = "Content"
                 />
                 <File
-                    RelPath = "Support\FreeTextBox\Custom\Thumbnail.aspx"
-                    SubType = "Form"
+                    RelPath = "Support\FCKEditor\editor\filemanager\browser\default\images\icons\32\txt.gif"
                     BuildAction = "Content"
                 />
                 <File
-                    RelPath = "Support\FreeTextBox\Custom\images\folder.gif"
+                    RelPath = "Support\FCKEditor\editor\filemanager\browser\default\images\icons\32\vsd.gif"
                     BuildAction = "Content"
                 />
                 <File
-                    RelPath = "Support\FreeTextBox\Custom\images\folderup.gif"
+                    RelPath = "Support\FCKEditor\editor\filemanager\browser\default\images\icons\32\xls.gif"
                     BuildAction = "Content"
                 />
                 <File
-                    RelPath = "Support\FreeTextBox\Custom\images\image.gif"
+                    RelPath = "Support\FCKEditor\editor\filemanager\browser\default\images\icons\32\xml.gif"
                     BuildAction = "Content"
                 />
                 <File
-                    RelPath = "Support\FreeTextBox\Custom\images\thumberror.gif"
+                    RelPath = "Support\FCKEditor\editor\filemanager\browser\default\images\icons\32\zip.gif"
                     BuildAction = "Content"
                 />
                 <File
-                    RelPath = "Support\FreeTextBox\images\bold.gif"
+                    RelPath = "Support\FCKEditor\editor\filemanager\browser\default\js\common.js"
                     BuildAction = "Content"
                 />
                 <File
-                    RelPath = "Support\FreeTextBox\images\bulletedlist.gif"
+                    RelPath = "Support\FCKEditor\editor\filemanager\browser\default\js\fckxml.js"
                     BuildAction = "Content"
                 />
                 <File
-                    RelPath = "Support\FreeTextBox\images\copy.gif"
+                    RelPath = "Support\FCKEditor\editor\images\spacer.gif"
                     BuildAction = "Content"
                 />
                 <File
-                    RelPath = "Support\FreeTextBox\images\createlink.gif"
+                    RelPath = "Support\FCKEditor\editor\images\smiley\fun\aiua.gif"
                     BuildAction = "Content"
                 />
                 <File
-                    RelPath = "Support\FreeTextBox\images\csharp.gif"
+                    RelPath = "Support\FCKEditor\editor\images\smiley\fun\ak.gif"
                     BuildAction = "Content"
                 />
                 <File
-                    RelPath = "Support\FreeTextBox\images\cut.gif"
+                    RelPath = "Support\FCKEditor\editor\images\smiley\fun\alien.gif"
                     BuildAction = "Content"
                 />
                 <File
-                    RelPath = "Support\FreeTextBox\images\delete.gif"
+                    RelPath = "Support\FCKEditor\editor\images\smiley\fun\alien2.gif"
                     BuildAction = "Content"
                 />
                 <File
-                    RelPath = "Support\FreeTextBox\images\deletetablecolumn.gif"
+                    RelPath = "Support\FCKEditor\editor\images\smiley\fun\angry.gif"
                     BuildAction = "Content"
                 />
                 <File
-                    RelPath = "Support\FreeTextBox\images\deletetablerow.gif"
+                    RelPath = "Support\FCKEditor\editor\images\smiley\fun\angry1.gif"
                     BuildAction = "Content"
                 />
                 <File
-                    RelPath = "Support\FreeTextBox\images\fontbackcolorpicker.gif"
+                    RelPath = "Support\FCKEditor\editor\images\smiley\fun\apophys.gif"
                     BuildAction = "Content"
                 />
                 <File
-                    RelPath = "Support\FreeTextBox\images\fontforecolorpicker.gif"
+                    RelPath = "Support\FCKEditor\editor\images\smiley\fun\assjani.gif"
                     BuildAction = "Content"
                 />
                 <File
-                    RelPath = "Support\FreeTextBox\images\indent.gif"
+                    RelPath = "Support\FCKEditor\editor\images\smiley\fun\asthanos.gif"
                     BuildAction = "Content"
                 />
                 <File
-                    RelPath = "Support\FreeTextBox\images\insertdate.gif"
+                    RelPath = "Support\FCKEditor\editor\images\smiley\fun\bazuzeus.gif"
                     BuildAction = "Content"
                 />
                 <File
-                    RelPath = "Support\FreeTextBox\images\insertimage.gif"
+                    RelPath = "Support\FCKEditor\editor\images\smiley\fun\beaute.gif"
                     BuildAction = "Content"
                 />
                 <File
-                    RelPath = "Support\FreeTextBox\images\insertimagefromgallery.gif"
+                    RelPath = "Support\FCKEditor\editor\images\smiley\fun\bigsmile.gif"
                     BuildAction = "Content"
                 />
                 <File
-                    RelPath = "Support\FreeTextBox\images\insertrule.gif"
+                    RelPath = "Support\FCKEditor\editor\images\smiley\fun\blush.gif"
                     BuildAction = "Content"
                 />
                 <File
-                    RelPath = "Support\FreeTextBox\images\inserttable.gif"
+                    RelPath = "Support\FCKEditor\editor\images\smiley\fun\boid.gif"
                     BuildAction = "Content"
                 />
                 <File
-                    RelPath = "Support\FreeTextBox\images\inserttablecolumn.gif"
+                    RelPath = "Support\FCKEditor\editor\images\smiley\fun\bonk.gif"
                     BuildAction = "Content"
                 />
                 <File
-                    RelPath = "Support\FreeTextBox\images\inserttablerow.gif"
+                    RelPath = "Support\FCKEditor\editor\images\smiley\fun\bored.gif"
                     BuildAction = "Content"
                 />
                 <File
-                    RelPath = "Support\FreeTextBox\images\inserttime.gif"
+                    RelPath = "Support\FCKEditor\editor\images\smiley\fun\borg.gif"
                     BuildAction = "Content"
                 />
                 <File
-                    RelPath = "Support\FreeTextBox\images\italic.gif"
+                    RelPath = "Support\FCKEditor\editor\images\smiley\fun\capo.gif"
                     BuildAction = "Content"
                 />
                 <File
-                    RelPath = "Support\FreeTextBox\images\justifycenter.gif"
+                    RelPath = "Support\FCKEditor\editor\images\smiley\fun\confused.gif"
                     BuildAction = "Content"
                 />
                 <File
-                    RelPath = "Support\FreeTextBox\images\justifyfull.gif"
+                    RelPath = "Support\FCKEditor\editor\images\smiley\fun\cool.gif"
                     BuildAction = "Content"
                 />
                 <File
-                    RelPath = "Support\FreeTextBox\images\justifyleft.gif"
+                    RelPath = "Support\FCKEditor\editor\images\smiley\fun\crazy.gif"
                     BuildAction = "Content"
                 />
                 <File
-                    RelPath = "Support\FreeTextBox\images\justifyright.gif"
+                    RelPath = "Support\FCKEditor\editor\images\smiley\fun\cwm14.gif"
                     BuildAction = "Content"
                 />
                 <File
-                    RelPath = "Support\FreeTextBox\images\mode.Design.gif"
+                    RelPath = "Support\FCKEditor\editor\images\smiley\fun\demis_roussos.gif"
                     BuildAction = "Content"
                 />
                 <File
-                    RelPath = "Support\FreeTextBox\images\mode.Html.gif"
+                    RelPath = "Support\FCKEditor\editor\images\smiley\fun\devil.gif"
                     BuildAction = "Content"
                 />
                 <File
-                    RelPath = "Support\FreeTextBox\images\numberedlist.gif"
+                    RelPath = "Support\FCKEditor\editor\images\smiley\fun\devil2.gif"
                     BuildAction = "Content"
                 />
                 <File
-                    RelPath = "Support\FreeTextBox\images\outdent.gif"
+                    RelPath = "Support\FCKEditor\editor\images\smiley\fun\double0smile.gif"
                     BuildAction = "Content"
                 />
                 <File
-                    RelPath = "Support\FreeTextBox\images\paste.gif"
+                    RelPath = "Support\FCKEditor\editor\images\smiley\fun\eek3.gif"
                     BuildAction = "Content"
                 />
                 <File
-                    RelPath = "Support\FreeTextBox\images\print.gif"
+                    RelPath = "Support\FCKEditor\editor\images\smiley\fun\eltaf.gif"
                     BuildAction = "Content"
                 />
                 <File
-                    RelPath = "Support\FreeTextBox\images\redo.gif"
+                    RelPath = "Support\FCKEditor\editor\images\smiley\fun\gele.gif"
                     BuildAction = "Content"
                 />
                 <File
-                    RelPath = "Support\FreeTextBox\images\removeformat.gif"
+                    RelPath = "Support\FCKEditor\editor\images\smiley\fun\halm.gif"
                     BuildAction = "Content"
                 />
                 <File
-                    RelPath = "Support\FreeTextBox\images\save.gif"
+                    RelPath = "Support\FCKEditor\editor\images\smiley\fun\happy.gif"
                     BuildAction = "Content"
                 />
                 <File
-                    RelPath = "Support\FreeTextBox\images\separator.Horizontal.gif"
+                    RelPath = "Support\FCKEditor\editor\images\smiley\fun\icon_angel.gif"
                     BuildAction = "Content"
                 />
                 <File
-                    RelPath = "Support\FreeTextBox\images\separator.Vertical.gif"
+                    RelPath = "Support\FCKEditor\editor\images\smiley\fun\icon_bandit.gif"
                     BuildAction = "Content"
                 />
                 <File
-                    RelPath = "Support\FreeTextBox\images\spellcheck.gif"
+                    RelPath = "Support\FCKEditor\editor\images\smiley\fun\icon_bravo.gif"
                     BuildAction = "Content"
                 />
                 <File
-                    RelPath = "Support\FreeTextBox\images\strikethrough.gif"
+                    RelPath = "Support\FCKEditor\editor\images\smiley\fun\icon_clown.gif"
                     BuildAction = "Content"
                 />
                 <File
-                    RelPath = "Support\FreeTextBox\images\subscript.gif"
+                    RelPath = "Support\FCKEditor\editor\images\smiley\fun\icon12.gif"
                     BuildAction = "Content"
                 />
                 <File
-                    RelPath = "Support\FreeTextBox\images\superscript.gif"
+                    RelPath = "Support\FCKEditor\editor\images\smiley\fun\icon23.gif"
                     BuildAction = "Content"
                 />
                 <File
-                    RelPath = "Support\FreeTextBox\images\toolbar.Horizontal.background.gif"
+                    RelPath = "Support\FCKEditor\editor\images\smiley\fun\icon26.gif"
                     BuildAction = "Content"
                 />
                 <File
-                    RelPath = "Support\FreeTextBox\images\toolbar.Horizontal.end.gif"
+                    RelPath = "Support\FCKEditor\editor\images\smiley\fun\jesors.gif"
                     BuildAction = "Content"
                 />
                 <File
-                    RelPath = "Support\FreeTextBox\images\toolbar.Horizontal.start.gif"
+                    RelPath = "Support\FCKEditor\editor\images\smiley\fun\jesors1.gif"
                     BuildAction = "Content"
                 />
                 <File
-                    RelPath = "Support\FreeTextBox\images\toolbar.Vertical.background.gif"
+                    RelPath = "Support\FCKEditor\editor\images\smiley\fun\lol3.gif"
                     BuildAction = "Content"
                 />
                 <File
-                    RelPath = "Support\FreeTextBox\images\toolbar.Vertical.end.gif"
+                    RelPath = "Support\FCKEditor\editor\images\smiley\fun\love.gif"
                     BuildAction = "Content"
                 />
                 <File
-                    RelPath = "Support\FreeTextBox\images\toolbar.Vertical.start.gif"
+                    RelPath = "Support\FCKEditor\editor\images\smiley\fun\mad.gif"
                     BuildAction = "Content"
                 />
                 <File
-                    RelPath = "Support\FreeTextBox\images\toolbarbutton.down.gif"
+                    RelPath = "Support\FCKEditor\editor\images\smiley\fun\megaphone.gif"
                     BuildAction = "Content"
                 />
                 <File
-                    RelPath = "Support\FreeTextBox\images\toolbarbutton.over.gif"
+                    RelPath = "Support\FCKEditor\editor\images\smiley\fun\mmm.gif"
                     BuildAction = "Content"
                 />
                 <File
-                    RelPath = "Support\FreeTextBox\images\underline.gif"
+                    RelPath = "Support\FCKEditor\editor\images\smiley\fun\music.gif"
                     BuildAction = "Content"
                 />
                 <File
-                    RelPath = "Support\FreeTextBox\images\undo.gif"
+                    RelPath = "Support\FCKEditor\editor\images\smiley\fun\notify.gif"
                     BuildAction = "Content"
                 />
                 <File
-                    RelPath = "Support\FreeTextBox\images\unlink.gif"
+                    RelPath = "Support\FCKEditor\editor\images\smiley\fun\nuts.gif"
                     BuildAction = "Content"
                 />
                 <File
-                    RelPath = "Support\FreeTextBox\images\wordclean.gif"
+                    RelPath = "Support\FCKEditor\editor\images\smiley\fun\obanon.gif"
                     BuildAction = "Content"
                 />
                 <File
-                    RelPath = "Support\FreeTextBox\images\wordcount.gif"
+                    RelPath = "Support\FCKEditor\editor\images\smiley\fun\ouaip.gif"
                     BuildAction = "Content"
                 />
                 <File
-                    RelPath = "Support\FreeTextBox\Languages\de-de.xml"
+                    RelPath = "Support\FCKEditor\editor\images\smiley\fun\pleure.gif"
                     BuildAction = "Content"
                 />
                 <File
-                    RelPath = "Support\FreeTextBox\Languages\en-en.xml"
+                    RelPath = "Support\FCKEditor\editor\images\smiley\fun\plugin.gif"
                     BuildAction = "Content"
                 />
                 <File
-                    RelPath = "Support\FreeTextBox\Languages\es-ES.xml"
+                    RelPath = "Support\FCKEditor\editor\images\smiley\fun\question.gif"
                     BuildAction = "Content"
                 />
                 <File
-                    RelPath = "Support\FreeTextBox\Languages\fr-FR.xml"
+                    RelPath = "Support\FCKEditor\editor\images\smiley\fun\question2.gif"
                     BuildAction = "Content"
                 />
                 <File
-                    RelPath = "Support\FreeTextBox\Languages\ja-JP.xml"
+                    RelPath = "Support\FCKEditor\editor\images\smiley\fun\rasta2.gif"
                     BuildAction = "Content"
                 />
                 <File
-                    RelPath = "Support\FreeTextBox\Languages\ko-kr.xml"
+                    RelPath = "Support\FCKEditor\editor\images\smiley\fun\rastapop.gif"
                     BuildAction = "Content"
                 />
                 <File
-                    RelPath = "Support\FreeTextBox\Languages\Languages.xml"
+                    RelPath = "Support\FCKEditor\editor\images\smiley\fun\rosebud.gif"
                     BuildAction = "Content"
                 />
                 <File
-                    RelPath = "Support\FreeTextBox\Languages\nl-NL.xml"
+                    RelPath = "Support\FCKEditor\editor\images\smiley\fun\sad.gif"
                     BuildAction = "Content"
                 />
                 <File
-                    RelPath = "Support\FreeTextBox\Languages\pt-pt.xml"
+                    RelPath = "Support\FCKEditor\editor\images\smiley\fun\sad2.gif"
                     BuildAction = "Content"
                 />
                 <File
-                    RelPath = "Support\FreeTextBox\Languages\zh-cn.xml"
+                    RelPath = "Support\FCKEditor\editor\images\smiley\fun\shocked.gif"
                     BuildAction = "Content"
                 />
                 <File
-                    RelPath = "Support\FreeTextBox\office2000\bold.gif"
+                    RelPath = "Support\FCKEditor\editor\images\smiley\fun\sick.gif"
                     BuildAction = "Content"
                 />
                 <File
-                    RelPath = "Support\FreeTextBox\office2000\bulletedlist.gif"
+                    RelPath = "Support\FCKEditor\editor\images\smiley\fun\sick2.gif"
                     BuildAction = "Content"
                 />
                 <File
-                    RelPath = "Support\FreeTextBox\office2000\center.gif"
+                    RelPath = "Support\FCKEditor\editor\images\smiley\fun\slaap.gif"
                     BuildAction = "Content"
                 />
                 <File
-                    RelPath = "Support\FreeTextBox\office2000\copy.gif"
+                    RelPath = "Support\FCKEditor\editor\images\smiley\fun\sleep.gif"
                     BuildAction = "Content"
                 />
                 <File
-                    RelPath = "Support\FreeTextBox\office2000\createlink.gif"
+                    RelPath = "Support\FCKEditor\editor\images\smiley\fun\smile.gif"
                     BuildAction = "Content"
                 />
                 <File
-                    RelPath = "Support\FreeTextBox\office2000\cut.gif"
+                    RelPath = "Support\FCKEditor\editor\images\smiley\fun\smiley_peur.gif"
                     BuildAction = "Content"
                 />
                 <File
-                    RelPath = "Support\FreeTextBox\office2000\deletetablecolumn.gif"
+                    RelPath = "Support\FCKEditor\editor\images\smiley\fun\sors.gif"
                     BuildAction = "Content"
                 />
                 <File
-                    RelPath = "Support\FreeTextBox\office2000\deletetablerow.gif"
+                    RelPath = "Support\FCKEditor\editor\images\smiley\fun\sovxx.gif"
                     BuildAction = "Content"
                 />
                 <File
-                    RelPath = "Support\FreeTextBox\office2000\fontbackcolorpicker.gif"
+                    RelPath = "Support\FCKEditor\editor\images\smiley\fun\spamafote.gif"
                     BuildAction = "Content"
                 />
                 <File
-                    RelPath = "Support\FreeTextBox\office2000\fontforecolorpicker.gif"
+                    RelPath = "Support\FCKEditor\editor\images\smiley\fun\tap67.gif"
                     BuildAction = "Content"
                 />
                 <File
-                    RelPath = "Support\FreeTextBox\office2000\indent.gif"
+                    RelPath = "Support\FCKEditor\editor\images\smiley\fun\thumbdown.gif"
                     BuildAction = "Content"
                 />
                 <File
-                    RelPath = "Support\FreeTextBox\office2000\insertdate.gif"
+                    RelPath = "Support\FCKEditor\editor\images\smiley\fun\thumbup.gif"
                     BuildAction = "Content"
                 />
                 <File
-                    RelPath = "Support\FreeTextBox\office2000\insertimage.gif"
+                    RelPath = "Support\FCKEditor\editor\images\smiley\fun\tigi.gif"
                     BuildAction = "Content"
                 />
                 <File
-                    RelPath = "Support\FreeTextBox\office2000\insertimagefromgallery.gif"
+                    RelPath = "Support\FCKEditor\editor\images\smiley\fun\toad666.gif"
                     BuildAction = "Content"
                 />
                 <File
-                    RelPath = "Support\FreeTextBox\office2000\insertrule.gif"
+                    RelPath = "Support\FCKEditor\editor\images\smiley\fun\tongue.gif"
                     BuildAction = "Content"
                 />
                 <File
-                    RelPath = "Support\FreeTextBox\office2000\inserttable.gif"
+                    RelPath = "Support\FCKEditor\editor\images\smiley\fun\tuffgong.gif"
                     BuildAction = "Content"
                 />
                 <File
-                    RelPath = "Support\FreeTextBox\office2000\inserttablecolumn.gif"
+                    RelPath = "Support\FCKEditor\editor\images\smiley\fun\urgeman.gif"
                     BuildAction = "Content"
                 />
                 <File
-                    RelPath = "Support\FreeTextBox\office2000\inserttablerow.gif"
+                    RelPath = "Support\FCKEditor\editor\images\smiley\fun\vanadium.gif"
                     BuildAction = "Content"
                 />
                 <File
-                    RelPath = "Support\FreeTextBox\office2000\inserttime.gif"
+                    RelPath = "Support\FCKEditor\editor\images\smiley\fun\wink.gif"
                     BuildAction = "Content"
                 />
                 <File
-                    RelPath = "Support\FreeTextBox\office2000\italic.gif"
+                    RelPath = "Support\FCKEditor\editor\images\smiley\fun\worship.gif"
                     BuildAction = "Content"
                 />
                 <File
-                    RelPath = "Support\FreeTextBox\office2000\justifycenter.gif"
+                    RelPath = "Support\FCKEditor\editor\images\smiley\fun\wouaf.gif"
                     BuildAction = "Content"
                 />
                 <File
-                    RelPath = "Support\FreeTextBox\office2000\justifyfull.gif"
+                    RelPath = "Support\FCKEditor\editor\images\smiley\fun\wow.gif"
                     BuildAction = "Content"
                 />
                 <File
-                    RelPath = "Support\FreeTextBox\office2000\justifyleft.gif"
+                    RelPath = "Support\FCKEditor\editor\images\smiley\fun\xp1700.gif"
                     BuildAction = "Content"
                 />
                 <File
-                    RelPath = "Support\FreeTextBox\office2000\justifyright.gif"
+                    RelPath = "Support\FCKEditor\editor\images\smiley\fun\yltype.gif"
                     BuildAction = "Content"
                 />
                 <File
-                    RelPath = "Support\FreeTextBox\office2000\link.gif"
+                    RelPath = "Support\FCKEditor\editor\images\smiley\fun\yopyopyop.gif"
                     BuildAction = "Content"
                 />
                 <File
-                    RelPath = "Support\FreeTextBox\office2000\mode.design.gif"
+                    RelPath = "Support\FCKEditor\editor\images\smiley\fun\youpi.gif"
                     BuildAction = "Content"
                 />
                 <File
-                    RelPath = "Support\FreeTextBox\office2000\mode.html.gif"
+                    RelPath = "Support\FCKEditor\editor\images\smiley\fun\zoor.gif"
                     BuildAction = "Content"
                 />
                 <File
-                    RelPath = "Support\FreeTextBox\office2000\numberedlist.gif"
+                    RelPath = "Support\FCKEditor\editor\images\smiley\msn\angel_smile.gif"
                     BuildAction = "Content"
                 />
                 <File
-                    RelPath = "Support\FreeTextBox\office2000\numbers.gif"
+                    RelPath = "Support\FCKEditor\editor\images\smiley\msn\angry_smile.gif"
                     BuildAction = "Content"
                 />
                 <File
-                    RelPath = "Support\FreeTextBox\office2000\outdent.gif"
+                    RelPath = "Support\FCKEditor\editor\images\smiley\msn\broken_heart.gif"
                     BuildAction = "Content"
                 />
                 <File
-                    RelPath = "Support\FreeTextBox\office2000\paste.gif"
+                    RelPath = "Support\FCKEditor\editor\images\smiley\msn\cake.gif"
                     BuildAction = "Content"
                 />
                 <File
-                    RelPath = "Support\FreeTextBox\office2000\print.gif"
+                    RelPath = "Support\FCKEditor\editor\images\smiley\msn\confused_smile.gif"
                     BuildAction = "Content"
                 />
                 <File
-                    RelPath = "Support\FreeTextBox\office2000\redo.gif"
+                    RelPath = "Support\FCKEditor\editor\images\smiley\msn\cry_smile.gif"
                     BuildAction = "Content"
                 />
                 <File
-                    RelPath = "Support\FreeTextBox\office2000\removeformat.gif"
+                    RelPath = "Support\FCKEditor\editor\images\smiley\msn\devil_smile.gif"
                     BuildAction = "Content"
                 />
                 <File
-                    RelPath = "Support\FreeTextBox\office2000\save.gif"
+                    RelPath = "Support\FCKEditor\editor\images\smiley\msn\embaressed_smile.gif"
                     BuildAction = "Content"
                 />
                 <File
-                    RelPath = "Support\FreeTextBox\office2000\separator.horizontal.gif"
+                    RelPath = "Support\FCKEditor\editor\images\smiley\msn\envelope.gif"
                     BuildAction = "Content"
                 />
                 <File
-                    RelPath = "Support\FreeTextBox\office2000\spellcheck.gif"
+                    RelPath = "Support\FCKEditor\editor\images\smiley\msn\heart.gif"
                     BuildAction = "Content"
                 />
                 <File
-                    RelPath = "Support\FreeTextBox\office2000\strikethrough.gif"
+                    RelPath = "Support\FCKEditor\editor\images\smiley\msn\kiss.gif"
                     BuildAction = "Content"
                 />
                 <File
-                    RelPath = "Support\FreeTextBox\office2000\subscript.gif"
+                    RelPath = "Support\FCKEditor\editor\images\smiley\msn\lightbulb.gif"
                     BuildAction = "Content"
                 />
                 <File
-                    RelPath = "Support\FreeTextBox\office2000\superscript.gif"
+                    RelPath = "Support\FCKEditor\editor\images\smiley\msn\omg_smile.gif"
                     BuildAction = "Content"
                 />
                 <File
-                    RelPath = "Support\FreeTextBox\office2000\table.gif"
+                    RelPath = "Support\FCKEditor\editor\images\smiley\msn\regular_smile.gif"
                     BuildAction = "Content"
                 />
                 <File
-                    RelPath = "Support\FreeTextBox\office2000\toolbar.gif"
+                    RelPath = "Support\FCKEditor\editor\images\smiley\msn\sad_smile.gif"
                     BuildAction = "Content"
                 />
                 <File
-                    RelPath = "Support\FreeTextBox\office2000\toolbar.horizontal.end.gif"
+                    RelPath = "Support\FCKEditor\editor\images\smiley\msn\shades_smile.gif"
                     BuildAction = "Content"
                 />
                 <File
-                    RelPath = "Support\FreeTextBox\office2000\toolbar.horizontal.start.gif"
+                    RelPath = "Support\FCKEditor\editor\images\smiley\msn\teeth_smile.gif"
                     BuildAction = "Content"
                 />
                 <File
-                    RelPath = "Support\FreeTextBox\office2000\underline.gif"
+                    RelPath = "Support\FCKEditor\editor\images\smiley\msn\thumbs_down.gif"
                     BuildAction = "Content"
                 />
                 <File
-                    RelPath = "Support\FreeTextBox\office2000\undo.gif"
+                    RelPath = "Support\FCKEditor\editor\images\smiley\msn\thumbs_up.gif"
                     BuildAction = "Content"
                 />
                 <File
-                    RelPath = "Support\FreeTextBox\office2000\unlink.gif"
+                    RelPath = "Support\FCKEditor\editor\images\smiley\msn\tounge_smile.gif"
                     BuildAction = "Content"
                 />
                 <File
-                    RelPath = "Support\FreeTextBox\office2000\wordcount.gif"
+                    RelPath = "Support\FCKEditor\editor\images\smiley\msn\whatchutalkingabout_smile.gif"
                     BuildAction = "Content"
                 />
                 <File
-                    RelPath = "Support\FreeTextBox\officexp\bgcolor.gif"
+                    RelPath = "Support\FCKEditor\editor\images\smiley\msn\wink_smile.gif"
                     BuildAction = "Content"
                 />
                 <File
-                    RelPath = "Support\FreeTextBox\officexp\bold.gif"
+                    RelPath = "Support\FCKEditor\editor\js\fck_startup.js"
                     BuildAction = "Content"
                 />
                 <File
-                    RelPath = "Support\FreeTextBox\officexp\bold.over.gif"
+                    RelPath = "Support\FCKEditor\editor\js\fckeditorcode_gecko_1.js"
                     BuildAction = "Content"
                 />
                 <File
-                    RelPath = "Support\FreeTextBox\officexp\borders.gif"
+                    RelPath = "Support\FCKEditor\editor\js\fckeditorcode_gecko_2.js"
                     BuildAction = "Content"
                 />
                 <File
-                    RelPath = "Support\FreeTextBox\officexp\bulletedlist.gif"
+                    RelPath = "Support\FCKEditor\editor\js\fckeditorcode_ie_1.js"
                     BuildAction = "Content"
                 />
                 <File
-                    RelPath = "Support\FreeTextBox\officexp\bulletedlist.over.gif"
+                    RelPath = "Support\FCKEditor\editor\js\fckeditorcode_ie_2.js"
                     BuildAction = "Content"
                 />
                 <File
-                    RelPath = "Support\FreeTextBox\officexp\changecase.gif"
+                    RelPath = "Support\FCKEditor\editor\lang\ar.js"
                     BuildAction = "Content"
                 />
                 <File
-                    RelPath = "Support\FreeTextBox\officexp\changecase.over.gif"
+                    RelPath = "Support\FCKEditor\editor\lang\bs.js"
                     BuildAction = "Content"
                 />
                 <File
-                    RelPath = "Support\FreeTextBox\officexp\copy.gif"
+                    RelPath = "Support\FCKEditor\editor\lang\ca.js"
                     BuildAction = "Content"
                 />
                 <File
-                    RelPath = "Support\FreeTextBox\officexp\copy.over.gif"
+                    RelPath = "Support\FCKEditor\editor\lang\cs.js"
                     BuildAction = "Content"
                 />
                 <File
-                    RelPath = "Support\FreeTextBox\officexp\createlink.gif"
+                    RelPath = "Support\FCKEditor\editor\lang\da.js"
                     BuildAction = "Content"
                 />
                 <File
-                    RelPath = "Support\FreeTextBox\officexp\createlink.over.gif"
+                    RelPath = "Support\FCKEditor\editor\lang\de.js"
                     BuildAction = "Content"
                 />
                 <File
-                    RelPath = "Support\FreeTextBox\officexp\cut.gif"
+                    RelPath = "Support\FCKEditor\editor\lang\en.js"
                     BuildAction = "Content"
                 />
                 <File
-                    RelPath = "Support\FreeTextBox\officexp\cut.over.gif"
+                    RelPath = "Support\FCKEditor\editor\lang\es.js"
                     BuildAction = "Content"
                 />
                 <File
-                    RelPath = "Support\FreeTextBox\officexp\delete.gif"
+                    RelPath = "Support\FCKEditor\editor\lang\et.js"
                     BuildAction = "Content"
                 />
                 <File
-                    RelPath = "Support\FreeTextBox\officexp\delete.over.gif"
+                    RelPath = "Support\FCKEditor\editor\lang\fcklanguagemanager.js"
                     BuildAction = "Content"
                 />
                 <File
-                    RelPath = "Support\FreeTextBox\officexp\deletetablecolumn.gif"
+                    RelPath = "Support\FCKEditor\editor\lang\fi.js"
                     BuildAction = "Content"
                 />
                 <File
-                    RelPath = "Support\FreeTextBox\officexp\deletetablecolumn.over.gif"
+                    RelPath = "Support\FCKEditor\editor\lang\fr.js"
                     BuildAction = "Content"
                 />
                 <File
-                    RelPath = "Support\FreeTextBox\officexp\deletetablerow.gif"
+                    RelPath = "Support\FCKEditor\editor\lang\gr.js"
                     BuildAction = "Content"
                 />
                 <File
-                    RelPath = "Support\FreeTextBox\officexp\deletetablerow.over.gif"
+                    RelPath = "Support\FCKEditor\editor\lang\he.js"
                     BuildAction = "Content"
                 />
                 <File
-                    RelPath = "Support\FreeTextBox\officexp\details.gif"
+                    RelPath = "Support\FCKEditor\editor\lang\hr.js"
                     BuildAction = "Content"
                 />
                 <File
-                    RelPath = "Support\FreeTextBox\officexp\find.gif"
+                    RelPath = "Support\FCKEditor\editor\lang\it.js"
                     BuildAction = "Content"
                 />
                 <File
-                    RelPath = "Support\FreeTextBox\officexp\find.over.gif"
+                    RelPath = "Support\FCKEditor\editor\lang\ko.js"
                     BuildAction = "Content"
                 />
                 <File
-                    RelPath = "Support\FreeTextBox\officexp\fontbackcolorpicker.gif"
+                    RelPath = "Support\FCKEditor\editor\lang\lt.js"
                     BuildAction = "Content"
                 />
                 <File
-                    RelPath = "Support\FreeTextBox\officexp\fontbackcolorpicker.over.gif"
+                    RelPath = "Support\FCKEditor\editor\lang\nl.js"
                     BuildAction = "Content"
                 />
                 <File
-                    RelPath = "Support\FreeTextBox\officexp\fontforecolorpicker.gif"
+                    RelPath = "Support\FCKEditor\editor\lang\no.js"
                     BuildAction = "Content"
                 />
                 <File
-                    RelPath = "Support\FreeTextBox\officexp\fontforecolorpicker.over.gif"
+                    RelPath = "Support\FCKEditor\editor\lang\pl.js"
                     BuildAction = "Content"
                 />
                 <File
-                    RelPath = "Support\FreeTextBox\officexp\help.gif"
+                    RelPath = "Support\FCKEditor\editor\lang\pt.js"
                     BuildAction = "Content"
                 />
                 <File
-                    RelPath = "Support\FreeTextBox\officexp\help.over.gif"
+                    RelPath = "Support\FCKEditor\editor\lang\ru.js"
                     BuildAction = "Content"
                 />
                 <File
-                    RelPath = "Support\FreeTextBox\officexp\indent.gif"
+                    RelPath = "Support\FCKEditor\editor\lang\sl.js"
                     BuildAction = "Content"
                 />
                 <File
-                    RelPath = "Support\FreeTextBox\officexp\indent.over.gif"
+                    RelPath = "Support\FCKEditor\editor\lang\sr.js"
                     BuildAction = "Content"
                 />
                 <File
-                    RelPath = "Support\FreeTextBox\officexp\insertdate.gif"
+                    RelPath = "Support\FCKEditor\editor\lang\sr-latn.js"
                     BuildAction = "Content"
                 />
                 <File
-                    RelPath = "Support\FreeTextBox\officexp\insertdate.over.gif"
+                    RelPath = "Support\FCKEditor\editor\lang\sv.js"
                     BuildAction = "Content"
                 />
                 <File
-                    RelPath = "Support\FreeTextBox\officexp\insertemail.gif"
+                    RelPath = "Support\FCKEditor\editor\lang\zh-cn.js"
                     BuildAction = "Content"
                 />
                 <File
-                    RelPath = "Support\FreeTextBox\officexp\insertemail.over.gif"
+                    RelPath = "Support\FCKEditor\editor\lang\zh-hk.js"
                     BuildAction = "Content"
                 />
                 <File
-                    RelPath = "Support\FreeTextBox\officexp\insertimage.gif"
+                    RelPath = "Support\FCKEditor\editor\lang\zh-tw.js"
                     BuildAction = "Content"
                 />
+                <Folder RelPath = "Support\FCKEditor\editor\plugins\" />
                 <File
-                    RelPath = "Support\FreeTextBox\officexp\insertimage.over.gif"
+                    RelPath = "Support\FCKEditor\editor\skins\default\fck_contextmenu.css"
                     BuildAction = "Content"
                 />
                 <File
-                    RelPath = "Support\FreeTextBox\officexp\insertimagefromgallery.gif"
+                    RelPath = "Support\FCKEditor\editor\skins\default\fck_dialog.css"
                     BuildAction = "Content"
                 />
                 <File
-                    RelPath = "Support\FreeTextBox\officexp\insertimagefromgallery.over.gif"
+                    RelPath = "Support\FCKEditor\editor\skins\default\fck_editor.css"
                     BuildAction = "Content"
                 />
                 <File
-                    RelPath = "Support\FreeTextBox\officexp\insertrule.gif"
+                    RelPath = "Support\FCKEditor\editor\skins\default\images\toolbar.arrowright.gif"
                     BuildAction = "Content"
                 />
                 <File
-                    RelPath = "Support\FreeTextBox\officexp\insertrule.over.gif"
+                    RelPath = "Support\FCKEditor\editor\skins\default\images\toolbar.buttonarrow.gif"
                     BuildAction = "Content"
                 />
                 <File
-                    RelPath = "Support\FreeTextBox\officexp\inserttable.gif"
+                    RelPath = "Support\FCKEditor\editor\skins\default\images\toolbar.collapse.gif"
                     BuildAction = "Content"
                 />
                 <File
-                    RelPath = "Support\FreeTextBox\officexp\inserttable.over.gif"
+                    RelPath = "Support\FCKEditor\editor\skins\default\images\toolbar.end.gif"
                     BuildAction = "Content"
                 />
                 <File
-                    RelPath = "Support\FreeTextBox\officexp\inserttablecolumn.gif"
+                    RelPath = "Support\FCKEditor\editor\skins\default\images\toolbar.expand.gif"
                     BuildAction = "Content"
                 />
                 <File
-                    RelPath = "Support\FreeTextBox\officexp\inserttablecolumn.over.gif"
+                    RelPath = "Support\FCKEditor\editor\skins\default\images\toolbar.separator.gif"
                     BuildAction = "Content"
                 />
                 <File
-                    RelPath = "Support\FreeTextBox\officexp\inserttablerow.gif"
+                    RelPath = "Support\FCKEditor\editor\skins\default\images\toolbar.start.gif"
                     BuildAction = "Content"
                 />
                 <File
-                    RelPath = "Support\FreeTextBox\officexp\inserttablerow.over.gif"
+                    RelPath = "Support\FCKEditor\editor\skins\default\toolbar\button.about.gif"
                     BuildAction = "Content"
                 />
                 <File
-                    RelPath = "Support\FreeTextBox\officexp\inserttime.gif"
+                    RelPath = "Support\FCKEditor\editor\skins\default\toolbar\button.bgcolor.gif"
                     BuildAction = "Content"
                 />
                 <File
-                    RelPath = "Support\FreeTextBox\officexp\inserttime.over.gif"
+                    RelPath = "Support\FCKEditor\editor\skins\default\toolbar\button.bold.gif"
                     BuildAction = "Content"
                 />
                 <File
-                    RelPath = "Support\FreeTextBox\officexp\italic.gif"
+                    RelPath = "Support\FCKEditor\editor\skins\default\toolbar\button.copy.gif"
                     BuildAction = "Content"
                 />
                 <File
-                    RelPath = "Support\FreeTextBox\officexp\italic.over.gif"
+                    RelPath = "Support\FCKEditor\editor\skins\default\toolbar\button.cut.gif"
                     BuildAction = "Content"
                 />
                 <File
-                    RelPath = "Support\FreeTextBox\officexp\justifycenter.gif"
+                    RelPath = "Support\FCKEditor\editor\skins\default\toolbar\button.find.gif"
                     BuildAction = "Content"
                 />
                 <File
-                    RelPath = "Support\FreeTextBox\officexp\justifycenter.over.gif"
+                    RelPath = "Support\FCKEditor\editor\skins\default\toolbar\button.image.gif"
                     BuildAction = "Content"
                 />
                 <File
-                    RelPath = "Support\FreeTextBox\officexp\justifyfull.gif"
+                    RelPath = "Support\FCKEditor\editor\skins\default\toolbar\button.indent.gif"
                     BuildAction = "Content"
                 />
                 <File
-                    RelPath = "Support\FreeTextBox\officexp\justifyfull.over.gif"
+                    RelPath = "Support\FCKEditor\editor\skins\default\toolbar\button.inserthorizontalrule.gif"
                     BuildAction = "Content"
                 />
                 <File
-                    RelPath = "Support\FreeTextBox\officexp\justifyleft.gif"
+                    RelPath = "Support\FCKEditor\editor\skins\default\toolbar\button.insertorderedlist.gif"
                     BuildAction = "Content"
                 />
                 <File
-                    RelPath = "Support\FreeTextBox\officexp\justifyleft.over.gif"
+                    RelPath = "Support\FCKEditor\editor\skins\default\toolbar\button.insertunorderedlist.gif"
                     BuildAction = "Content"
                 />
                 <File
-                    RelPath = "Support\FreeTextBox\officexp\justifyright.gif"
+                    RelPath = "Support\FCKEditor\editor\skins\default\toolbar\button.italic.gif"
                     BuildAction = "Content"
                 />
                 <File
-                    RelPath = "Support\FreeTextBox\officexp\justifyright.over.gif"
+                    RelPath = "Support\FCKEditor\editor\skins\default\toolbar\button.justifycenter.gif"
                     BuildAction = "Content"
                 />
                 <File
-                    RelPath = "Support\FreeTextBox\officexp\mode.design.gif"
+                    RelPath = "Support\FCKEditor\editor\skins\default\toolbar\button.justifyfull.gif"
                     BuildAction = "Content"
                 />
                 <File
-                    RelPath = "Support\FreeTextBox\officexp\mode.html.gif"
+                    RelPath = "Support\FCKEditor\editor\skins\default\toolbar\button.justifyleft.gif"
                     BuildAction = "Content"
                 />
                 <File
-                    RelPath = "Support\FreeTextBox\officexp\numberedlist.gif"
+                    RelPath = "Support\FCKEditor\editor\skins\default\toolbar\button.justifyright.gif"
                     BuildAction = "Content"
                 />
                 <File
-                    RelPath = "Support\FreeTextBox\officexp\numberedlist.over.gif"
+                    RelPath = "Support\FCKEditor\editor\skins\default\toolbar\button.link.gif"
                     BuildAction = "Content"
                 />
                 <File
-                    RelPath = "Support\FreeTextBox\officexp\outdent.gif"
+                    RelPath = "Support\FCKEditor\editor\skins\default\toolbar\button.newpage.gif"
                     BuildAction = "Content"
                 />
                 <File
-                    RelPath = "Support\FreeTextBox\officexp\outdent.over.gif"
+                    RelPath = "Support\FCKEditor\editor\skins\default\toolbar\button.outdent.gif"
                     BuildAction = "Content"
                 />
                 <File
-                    RelPath = "Support\FreeTextBox\officexp\paste.gif"
+                    RelPath = "Support\FCKEditor\editor\skins\default\toolbar\button.paste.gif"
                     BuildAction = "Content"
                 />
                 <File
-                    RelPath = "Support\FreeTextBox\officexp\paste.over.gif"
+                    RelPath = "Support\FCKEditor\editor\skins\default\toolbar\button.pastetext.gif"
                     BuildAction = "Content"
                 />
                 <File
-                    RelPath = "Support\FreeTextBox\officexp\print.gif"
+                    RelPath = "Support\FCKEditor\editor\skins\default\toolbar\button.pasteword.gif"
                     BuildAction = "Content"
                 />
                 <File
-                    RelPath = "Support\FreeTextBox\officexp\print.over.gif"
+                    RelPath = "Support\FCKEditor\editor\skins\default\toolbar\button.preview.gif"
                     BuildAction = "Content"
                 />
                 <File
-                    RelPath = "Support\FreeTextBox\officexp\redo.gif"
+                    RelPath = "Support\FCKEditor\editor\skins\default\toolbar\button.print.gif"
                     BuildAction = "Content"
                 />
                 <File
-                    RelPath = "Support\FreeTextBox\officexp\redo.over.gif"
+                    RelPath = "Support\FCKEditor\editor\skins\default\toolbar\button.redo.gif"
                     BuildAction = "Content"
                 />
                 <File
-                    RelPath = "Support\FreeTextBox\officexp\removeformat.gif"
+                    RelPath = "Support\FCKEditor\editor\skins\default\toolbar\button.removeformat.gif"
                     BuildAction = "Content"
                 />
                 <File
-                    RelPath = "Support\FreeTextBox\officexp\removeformat.over.gif"
+                    RelPath = "Support\FCKEditor\editor\skins\default\toolbar\button.replace.gif"
                     BuildAction = "Content"
                 />
                 <File
-                    RelPath = "Support\FreeTextBox\officexp\save.gif"
+                    RelPath = "Support\FCKEditor\editor\skins\default\toolbar\button.save.gif"
                     BuildAction = "Content"
                 />
                 <File
-                    RelPath = "Support\FreeTextBox\officexp\save.over.gif"
+                    RelPath = "Support\FCKEditor\editor\skins\default\toolbar\button.selectall.gif"
                     BuildAction = "Content"
                 />
                 <File
-                    RelPath = "Support\FreeTextBox\officexp\separator.horizontal.gif"
+                    RelPath = "Support\FCKEditor\editor\skins\default\toolbar\button.showdetails.gif"
                     BuildAction = "Content"
                 />
                 <File
-                    RelPath = "Support\FreeTextBox\officexp\spellcheck.gif"
+                    RelPath = "Support\FCKEditor\editor\skins\default\toolbar\button.showtableborders.gif"
                     BuildAction = "Content"
                 />
                 <File
-                    RelPath = "Support\FreeTextBox\officexp\spellcheck.over.gif"
+                    RelPath = "Support\FCKEditor\editor\skins\default\toolbar\button.smiley.gif"
                     BuildAction = "Content"
                 />
                 <File
-                    RelPath = "Support\FreeTextBox\officexp\strikethrough.gif"
+                    RelPath = "Support\FCKEditor\editor\skins\default\toolbar\button.source.gif"
                     BuildAction = "Content"
                 />
                 <File
-                    RelPath = "Support\FreeTextBox\officexp\strikethrough.over.gif"
+                    RelPath = "Support\FCKEditor\editor\skins\default\toolbar\button.specialchar.gif"
                     BuildAction = "Content"
                 />
                 <File
-                    RelPath = "Support\FreeTextBox\officexp\subscript.gif"
+                    RelPath = "Support\FCKEditor\editor\skins\default\toolbar\button.spellcheck.gif"
                     BuildAction = "Content"
                 />
                 <File
-                    RelPath = "Support\FreeTextBox\officexp\subscript.over.gif"
+                    RelPath = "Support\FCKEditor\editor\skins\default\toolbar\button.strikethrough.gif"
                     BuildAction = "Content"
                 />
                 <File
-                    RelPath = "Support\FreeTextBox\officexp\superscript.gif"
+                    RelPath = "Support\FCKEditor\editor\skins\default\toolbar\button.subscript.gif"
                     BuildAction = "Content"
                 />
                 <File
-                    RelPath = "Support\FreeTextBox\officexp\superscript.over.gif"
+                    RelPath = "Support\FCKEditor\editor\skins\default\toolbar\button.superscript.gif"
                     BuildAction = "Content"
                 />
                 <File
-                    RelPath = "Support\FreeTextBox\officexp\toggleborders.gif"
+                    RelPath = "Support\FCKEditor\editor\skins\default\toolbar\button.table.gif"
                     BuildAction = "Content"
                 />
                 <File
-                    RelPath = "Support\FreeTextBox\officexp\toggledetails.gif"
+                    RelPath = "Support\FCKEditor\editor\skins\default\toolbar\button.tablecell.gif"
                     BuildAction = "Content"
                 />
                 <File
-                    RelPath = "Support\FreeTextBox\officexp\toggledetails.over.gif"
+                    RelPath = "Support\FCKEditor\editor\skins\default\toolbar\button.tabledeletecells.gif"
                     BuildAction = "Content"
                 />
                 <File
-                    RelPath = "Support\FreeTextBox\officexp\toolbar.horizontal.end.gif"
+                    RelPath = "Support\FCKEditor\editor\skins\default\toolbar\button.tabledeletecolumns.gif"
                     BuildAction = "Content"
                 />
                 <File
-                    RelPath = "Support\FreeTextBox\officexp\toolbar.horizontal.start.gif"
+                    RelPath = "Support\FCKEditor\editor\skins\default\toolbar\button.tabledeleterows.gif"
                     BuildAction = "Content"
                 />
                 <File
-                    RelPath = "Support\FreeTextBox\officexp\underline.gif"
+                    RelPath = "Support\FCKEditor\editor\skins\default\toolbar\button.tableinsertcell.gif"
                     BuildAction = "Content"
                 />
                 <File
-                    RelPath = "Support\FreeTextBox\officexp\underline.over.gif"
+                    RelPath = "Support\FCKEditor\editor\skins\default\toolbar\button.tableinsertcolumn.gif"
                     BuildAction = "Content"
                 />
                 <File
-                    RelPath = "Support\FreeTextBox\officexp\undo.gif"
+                    RelPath = "Support\FCKEditor\editor\skins\default\toolbar\button.tableinsertrow.gif"
                     BuildAction = "Content"
                 />
                 <File
-                    RelPath = "Support\FreeTextBox\officexp\undo.over.gif"
+                    RelPath = "Support\FCKEditor\editor\skins\default\toolbar\button.tablemergecells.gif"
                     BuildAction = "Content"
                 />
                 <File
-                    RelPath = "Support\FreeTextBox\officexp\unlink.gif"
+                    RelPath = "Support\FCKEditor\editor\skins\default\toolbar\button.tablesplitcell.gif"
                     BuildAction = "Content"
                 />
                 <File
-                    RelPath = "Support\FreeTextBox\officexp\unlink.over.gif"
+                    RelPath = "Support\FCKEditor\editor\skins\default\toolbar\button.textcolor.gif"
                     BuildAction = "Content"
                 />
                 <File
-                    RelPath = "Support\FreeTextBox\officexp\verse.gif"
+                    RelPath = "Support\FCKEditor\editor\skins\default\toolbar\button.underline.gif"
                     BuildAction = "Content"
                 />
                 <File
-                    RelPath = "Support\FreeTextBox\officexp\verse.over.gif"
+                    RelPath = "Support\FCKEditor\editor\skins\default\toolbar\button.undo.gif"
                     BuildAction = "Content"
                 />
                 <File
-                    RelPath = "Support\FreeTextBox\officexp\wordcount.gif"
+                    RelPath = "Support\FCKEditor\editor\skins\default\toolbar\button.unlink.gif"
                     BuildAction = "Content"
                 />
                 <File
-                    RelPath = "Support\FreeTextBox\officexp\wordcount.over.gif"
+                    RelPath = "Support\FCKEditor\editor\skins\default\toolbar\button.unorderedlist.gif"
                     BuildAction = "Content"
                 />
                 <File
@@ -1860,8 +2511,8 @@
                     SubType = "ASPXCodeBehind"
                     BuildAction = "Compile"
                 />
-                <Folder RelPath = "UserFiles\Documents\" />
-                <Folder RelPath = "UserFiles\Images\" />
+                <Folder RelPath = "UserFiles\File\" />
+                <Folder RelPath = "UserFiles\Image\" />
                 <File
                     RelPath = "Util\AuthenticationModule.cs"
                     SubType = "Code"

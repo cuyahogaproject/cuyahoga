@@ -28,7 +28,6 @@ namespace Cuyahoga.Modules.Articles
 		protected System.Web.UI.HtmlControls.HtmlInputButton btnCancel;
 		protected System.Web.UI.WebControls.TextBox txtTitle;
 		protected System.Web.UI.WebControls.TextBox txtSummary;
-		protected Cuyahoga.ServerControls.CuyahogaEditor cedContent;
 		protected System.Web.UI.WebControls.CheckBox chkSyndicate;
 		protected System.Web.UI.WebControls.RequiredFieldValidator rfvTitle;
 		protected System.Web.UI.WebControls.TextBox txtCategory;
@@ -37,10 +36,12 @@ namespace Cuyahoga.Modules.Articles
 		protected System.Web.UI.WebControls.RequiredFieldValidator rfvDateOnline;
 		protected System.Web.UI.WebControls.RequiredFieldValidator rfvDateOffline;
 		protected System.Web.UI.WebControls.RequiredFieldValidator rfvContent;
+		protected FredCK.FCKeditorV2.FCKeditor fckContent;
 		protected Cuyahoga.ServerControls.Calendar calDateOffline;
 
 		private void Page_Load(object sender, System.EventArgs e)
 		{
+			this.fckContent.BasePath = this.Page.ResolveUrl("~/Support/FCKEditor/");
 			this._articleModule = base.Module as ArticleModule;
 			this.btnCancel.Attributes.Add("onClick", String.Format("document.location.href='AdminArticles.aspx{0}'", base.GetBaseQueryString()));
 
@@ -79,7 +80,7 @@ namespace Cuyahoga.Modules.Articles
 		{
 			this.txtTitle.Text = this._article.Title;
 			this.txtSummary.Text = this._article.Summary;
-			this.cedContent.Text = this._article.Content;
+			this.fckContent.Value = this._article.Content;
 			this.chkSyndicate.Checked = this._article.Syndicate;
 			this.calDateOnline.SelectedDate = this._article.DateOnline;
 			this.calDateOffline.SelectedDate	= this._article.DateOffline;
@@ -106,7 +107,7 @@ namespace Cuyahoga.Modules.Articles
 				{
 					this._article.Summary = null;
 				}
-				this._article.Content = this.cedContent.Text;
+				this._article.Content = this.fckContent.Value;
 				if (this.ddlCategory.SelectedIndex > 0)
 				{
 					this._article.Category = new Category();

@@ -20,12 +20,12 @@ namespace Cuyahoga.Modules.StaticHtml
 	public class EditHtml : ModuleAdminBasePage
 	{
 		private StaticHtmlModule _module;
-
-		protected Cuyahoga.ServerControls.CuyahogaEditor cedStaticHtml;
+		protected FredCK.FCKeditorV2.FCKeditor fckEditor;
 		protected System.Web.UI.WebControls.Button btnSave;
 	
 		private void Page_Load(object sender, System.EventArgs e)
 		{
+			this.fckEditor.BasePath = this.Page.ResolveUrl("~/Support/FCKEditor/");
 			this._module = base.Module as StaticHtmlModule;
 
 			if (! this.IsPostBack)
@@ -33,11 +33,11 @@ namespace Cuyahoga.Modules.StaticHtml
 				StaticHtmlContent shc = this._module.GetContent();
 				if (shc != null)
 				{
-					this.cedStaticHtml.Text = shc.Content;
+					this.fckEditor.Value = shc.Content;
 				}
 				else
 				{
-					this.cedStaticHtml.Text = String.Empty;
+					this.fckEditor.Value = String.Empty;
 				}
 			}
 		}
@@ -58,7 +58,7 @@ namespace Cuyahoga.Modules.StaticHtml
 				// Exisiting
 				content.ModifiedBy = currentUser;
 			}
-			content.Content = this.cedStaticHtml.Text;
+			content.Content = this.fckEditor.Value;
 			this._module.SaveContent(content);	
 		}
 

@@ -1,6 +1,6 @@
-<%@ Page language="c#" Codebehind="EditHtml.aspx.cs" AutoEventWireup="false" Inherits="Cuyahoga.Modules.StaticHtml.EditHtml" ValidateRequest="false" %>
 <%@ Register TagPrefix="cc1" Namespace="Cuyahoga.ServerControls" Assembly="Cuyahoga.ServerControls" %>
-<%@ Register TagPrefix="ftb" Namespace="FreeTextBoxControls" Assembly="FreeTextBox" %>
+<%@ Register TagPrefix="fckeditorv2" Namespace="FredCK.FCKeditorV2" Assembly="FredCK.FCKeditorV2" %>
+<%@ Page language="c#" Codebehind="EditHtml.aspx.cs" AutoEventWireup="false" Inherits="Cuyahoga.Modules.StaticHtml.EditHtml" ValidateRequest="false" %>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN" >
 <html>
 	<head>
@@ -14,12 +14,11 @@
 		<form id="Form1" method="post" runat="server">
 			<div id="moduleadminpane">
 				<h1>Edit static content</h1>
-				<cc1:cuyahogaeditor id="cedStaticHtml" runat="server" supportfolder="~/Support/FreeTextBox/" buttonoverimage="True" buttonrendermode="Css" downlevelcols="80" downlevelrows="20" width="700px" height="400px" imagedir="~/UserFiles/Images"></cc1:cuyahogaeditor>
+				<fckeditorv2:fckeditor id="fckEditor" runat="server" height="400px" width="700px"></fckeditorv2:fckeditor>
 				<br>
 				<br>
 				<asp:button id="btnSave" runat="server" text="Save"></asp:button>
 			</div>
 		</form>
-
 	</body>
 </html>
