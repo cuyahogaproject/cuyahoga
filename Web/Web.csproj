@@ -140,6 +140,22 @@
                     BuildAction = "EmbeddedResource"
                 />
                 <File
+                    RelPath = "Test.aspx"
+                    SubType = "Form"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Test.aspx.cs"
+                    DependentUpon = "Test.aspx"
+                    SubType = "ASPXCodeBehind"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "Test.aspx.resx"
+                    DependentUpon = "Test.aspx.cs"
+                    BuildAction = "EmbeddedResource"
+                />
+                <File
                     RelPath = "Web.config"
                     BuildAction = "Content"
                 />
@@ -1461,6 +1477,202 @@
                 />
                 <File
                     RelPath = "Support\FreeTextBox\officexp\wordcount.over.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Support\JsCalendar\cal.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Support\JsCalendar\calendar.js"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Support\JsCalendar\calendar_stripped.js"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Support\JsCalendar\calendar-blue.css"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Support\JsCalendar\calendar-blue2.css"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Support\JsCalendar\calendar-brown.css"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Support\JsCalendar\calendar-green.css"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Support\JsCalendar\calendar-setup.js"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Support\JsCalendar\calendar-setup_stripped.js"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Support\JsCalendar\calendar-system.css"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Support\JsCalendar\calendar-tas.css"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Support\JsCalendar\calendar-win2k-1.css"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Support\JsCalendar\calendar-win2k-2.css"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Support\JsCalendar\calendar-win2k-cold-1.css"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Support\JsCalendar\calendar-win2k-cold-2.css"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Support\JsCalendar\lang\calendar-af.js"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Support\JsCalendar\lang\calendar-br.js"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Support\JsCalendar\lang\calendar-ca.js"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Support\JsCalendar\lang\calendar-cs-win.js"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Support\JsCalendar\lang\calendar-da.js"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Support\JsCalendar\lang\calendar-de.js"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Support\JsCalendar\lang\calendar-du.js"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Support\JsCalendar\lang\calendar-el.js"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Support\JsCalendar\lang\calendar-en.js"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Support\JsCalendar\lang\calendar-es.js"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Support\JsCalendar\lang\calendar-fi.js"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Support\JsCalendar\lang\calendar-fr.js"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Support\JsCalendar\lang\calendar-hr.js"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Support\JsCalendar\lang\calendar-hr-utf8.js"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Support\JsCalendar\lang\calendar-hu.js"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Support\JsCalendar\lang\calendar-it.js"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Support\JsCalendar\lang\calendar-jp.js"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Support\JsCalendar\lang\calendar-ko.js"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Support\JsCalendar\lang\calendar-ko-utf8.js"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Support\JsCalendar\lang\calendar-lt.js"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Support\JsCalendar\lang\calendar-lt-utf8.js"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Support\JsCalendar\lang\calendar-nl.js"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Support\JsCalendar\lang\calendar-no.js"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Support\JsCalendar\lang\calendar-pl.js"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Support\JsCalendar\lang\calendar-pl-utf8.js"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Support\JsCalendar\lang\calendar-pt.js"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Support\JsCalendar\lang\calendar-ro.js"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Support\JsCalendar\lang\calendar-ru.js"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Support\JsCalendar\lang\calendar-si.js"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Support\JsCalendar\lang\calendar-sk.js"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Support\JsCalendar\lang\calendar-sp.js"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Support\JsCalendar\lang\calendar-sv.js"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Support\JsCalendar\lang\calendar-tr.js"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Support\JsCalendar\lang\calendar-zh.js"
                     BuildAction = "Content"
                 />
                 <File

@@ -1,7 +1,7 @@
 <VisualStudioProject>
     <CSHARP LastOpenVersion = "7.10.3077" >
         <Build>
-            <Settings ReferencePath = "E:\Projects\Cuyahoga\ExternalStuff\" >
+            <Settings ReferencePath = "E:\Projects\Cuyahoga\ExternalStuff\;D:\Projects\Cuyahoga\ExternalStuff\" >
                 <Config
                     Name = "Debug"
                     EnableASPDebugging = "false"
@@ -14,7 +14,7 @@
                     StartArguments = ""
                     StartPage = ""
                     StartProgram = ""
-                    StartURL = "http://localhost/Cuyahoga"
+                    StartURL = "http://localhost/Cuyahoga/Test.aspx"
                     StartWorkingDirectory = ""
                     StartWithIE = "true"
                 />
