@@ -724,11 +724,11 @@
                     BuildAction = "Content"
                 />
                 <File
-                    RelPath = "Support\FreeTextBox\images\mode.design.gif"
+                    RelPath = "Support\FreeTextBox\images\mode.Design.gif"
                     BuildAction = "Content"
                 />
                 <File
-                    RelPath = "Support\FreeTextBox\images\mode.html.gif"
+                    RelPath = "Support\FreeTextBox\images\mode.Html.gif"
                     BuildAction = "Content"
                 />
                 <File
@@ -760,11 +760,11 @@
                     BuildAction = "Content"
                 />
                 <File
-                    RelPath = "Support\FreeTextBox\images\separator.horizontal.gif"
+                    RelPath = "Support\FreeTextBox\images\separator.Horizontal.gif"
                     BuildAction = "Content"
                 />
                 <File
-                    RelPath = "Support\FreeTextBox\images\separator.vertical.gif"
+                    RelPath = "Support\FreeTextBox\images\separator.Vertical.gif"
                     BuildAction = "Content"
                 />
                 <File
@@ -784,27 +784,27 @@
                     BuildAction = "Content"
                 />
                 <File
-                    RelPath = "Support\FreeTextBox\images\toolbar.horizontal.background.gif"
+                    RelPath = "Support\FreeTextBox\images\toolbar.Horizontal.background.gif"
                     BuildAction = "Content"
                 />
                 <File
-                    RelPath = "Support\FreeTextBox\images\toolbar.horizontal.end.gif"
+                    RelPath = "Support\FreeTextBox\images\toolbar.Horizontal.end.gif"
                     BuildAction = "Content"
                 />
                 <File
-                    RelPath = "Support\FreeTextBox\images\toolbar.horizontal.start.gif"
+                    RelPath = "Support\FreeTextBox\images\toolbar.Horizontal.start.gif"
                     BuildAction = "Content"
                 />
                 <File
-                    RelPath = "Support\FreeTextBox\images\toolbar.vertical.background.gif"
+                    RelPath = "Support\FreeTextBox\images\toolbar.Vertical.background.gif"
                     BuildAction = "Content"
                 />
                 <File
-                    RelPath = "Support\FreeTextBox\images\toolbar.vertical.end.gif"
+                    RelPath = "Support\FreeTextBox\images\toolbar.Vertical.end.gif"
                     BuildAction = "Content"
                 />
                 <File
-                    RelPath = "Support\FreeTextBox\images\toolbar.vertical.start.gif"
+                    RelPath = "Support\FreeTextBox\images\toolbar.Vertical.start.gif"
                     BuildAction = "Content"
                 />
                 <File

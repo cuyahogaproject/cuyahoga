@@ -91,6 +91,7 @@ namespace Cuyahoga.Modules.Articles
 			ITransaction tx = session.BeginTransaction();
 			try
 			{
+				HandleCategory(article.Category, session);
 				if (article.Id == -1)
 				{
 					session.Save(article);
@@ -109,6 +110,25 @@ namespace Cuyahoga.Modules.Articles
 			finally
 			{
 				session.Close();
+			}
+		}
+
+		private void HandleCategory(Category category, ISession session)
+		{
+			if (category.Id == -1)
+			{
+				// Unknown category, this could be a new one or maybe still an existing one.
+				IList categories = session.CreateCriteria(typeof(Category)).Add(Expression.Eq("Title", category.Title)).List();
+				if (categories.Count > 0)
+				{
+					// Use the existing one.
+					category = (Category)categories[0];
+				}
+				else
+				{
+					// Insert the new one, so the Id will be generated and retrieved.
+					session.Save(category);
+				}
 			}
 		}
 
