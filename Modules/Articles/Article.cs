@@ -215,15 +215,7 @@ namespace Cuyahoga.Modules.Articles
 			}
 			set 
 			{ 
-				this._category = value; 
-				if (value != null)
-				{
-					this._categoryId = this._category.Id;
-				}
-				else
-				{
-					this._categoryId = 0;
-				}
+				SetCategory(value);
 			}
 		}
 
@@ -311,5 +303,39 @@ namespace Cuyahoga.Modules.Articles
 		}
 
 		#endregion
+
+		private void SetCategory(Category category)
+		{
+			this._category = category; 
+			if (category != null)
+			{
+				// If the id of the category is 0, we have to create a new one, but we're going to
+				// check if the category doesn't already exist. In that case we're using the existent
+				// category.
+				if (category.Id == 0)
+				{
+					// verify existence
+					SqlBuilder sb = new SqlBuilder(StatementType.Select, typeof(Category));
+					sb.AddConstraint(Operator.Equals, "title", category.Title);
+					SqlResult res = Broker.Execute(sb.GetStatement(true));
+					if (res.Count > 0)
+					{
+						// yep, already exists, set the category to the existing one
+						this._category = ObjectFactory.GetInstance(typeof(Category), res) as Category;
+					}
+					else
+					{
+						// add the new category to the database
+						this._category.Persist();
+					}					
+				}
+				this._categoryId = this._category.Id;
+			}
+			else
+			{
+				this._categoryId = 0;
+			}
+		}
+
 	}
 }

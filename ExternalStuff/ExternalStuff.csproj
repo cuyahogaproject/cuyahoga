@@ -72,11 +72,39 @@
                     BuildAction = "Content"
                 />
                 <File
-                    RelPath = "Mono.Security.Protocol.Tls.dll"
+                    RelPath = "Gentle.Common.dll"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Gentle.Framework.dll"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Gentle.Provider.PostgreSQL.dll"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Gentle.Provider.SQLServer.dll"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "log4net.dll"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Mailframe.Configuration.dll"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Mono.Security.dll"
                     BuildAction = "Content"
                 />
                 <File
                     RelPath = "Npgsql.dll"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "nunit.framework.dll"
                     BuildAction = "Content"
                 />
             </Include>
