@@ -108,6 +108,7 @@
                 <include name="System.Web.dll" />
                 <include name="ExternalStuff/eWorld.UI.dll" />  
                 <include name="ExternalStuff/FreeTextBox.dll" />  
+                <include name="ExternalStuff/NHibernate.dll" />  
                 <include name="${build.dir}/bin/Cuyahoga.Core.dll" />
                 <include name="${build.dir}/bin/Cuyahoga.Modules.dll" />
                 <include name="${build.dir}/bin/Cuyahoga.ServerControls.dll" />
