@@ -36,7 +36,7 @@ namespace Cuyahoga.Web.Modules.User
 			{
 				if (isAuthenticated)
 				{
-					this.lblUsername.Text = ((Cuyahoga.Core.User)Context.User.Identity).UserName;
+					this.lblUsername.Text = ((Cuyahoga.Core.Domain.User)Context.User.Identity).UserName;
 				}
 
 				this.pnlLogin.Visible = ! isAuthenticated;

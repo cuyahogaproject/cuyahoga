@@ -1,7 +1,7 @@
 using System;
 using System.Collections;
 
-using Cuyahoga.Core;
+using Cuyahoga.Core.Domain;
 using Cuyahoga.Core.DAL;
 
 namespace Cuyahoga.Modules.Articles
@@ -25,8 +25,8 @@ namespace Cuyahoga.Modules.Articles
 		private DateTime _dateCreated;
 		private DateTime _dateModified;
 		private Section _section;
-		private Cuyahoga.Core.User _createdBy;
-		private Cuyahoga.Core.User _modifiedBy;
+		private Cuyahoga.Core.Domain.User _createdBy;
+		private Cuyahoga.Core.Domain.User _modifiedBy;
 		private Category _category;
 		private IList _comments;
 
@@ -147,13 +147,13 @@ namespace Cuyahoga.Modules.Articles
 		/// <summary>
 		/// Property CreatedBy (User)
 		/// </summary>
-		public Cuyahoga.Core.User CreatedBy
+		public Cuyahoga.Core.Domain.User CreatedBy
 		{
 			get 
 			{ 
 				if (this._createdBy == null && this._createdById > 0)
 				{
-					this._createdBy = new Cuyahoga.Core.User(this._createdById);
+					this._createdBy = new Cuyahoga.Core.Domain.User(this._createdById);
 				}
 				return this._createdBy; 
 			}
@@ -179,13 +179,13 @@ namespace Cuyahoga.Modules.Articles
 		/// <summary>
 		/// Property ModifiedBy (User)
 		/// </summary>
-		public Cuyahoga.Core.User ModifiedBy
+		public Cuyahoga.Core.Domain.User ModifiedBy
 		{
 			get 
 			{ 
 				if (this._modifiedBy == null && this._modifiedById > 0)
 				{
-					this._modifiedBy = new Cuyahoga.Core.User(this._modifiedById);
+					this._modifiedBy = new Cuyahoga.Core.Domain.User(this._modifiedById);
 				}
 				return this._modifiedBy; 
 			}

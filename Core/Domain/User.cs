@@ -5,7 +5,7 @@ using System.Security.Principal;
 using Cuyahoga.Core.DAL;
 using Cuyahoga.Core.Collections;
 
-namespace Cuyahoga.Core
+namespace Cuyahoga.Core.Domain
 {
 	/// <summary>
 	/// Summary description for User.

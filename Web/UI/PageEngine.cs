@@ -6,6 +6,7 @@ using System.Web.UI.HtmlControls;
 using System.Diagnostics;
 
 using Cuyahoga.Core;
+using Cuyahoga.Core.Domain;
 using Cuyahoga.Core.Collections;
 using Cuyahoga.Core.DAL;
 using Cuyahoga.Core.Util;

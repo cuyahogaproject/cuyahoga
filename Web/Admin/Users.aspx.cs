@@ -11,7 +11,7 @@ using System.Web.UI.HtmlControls;
 using System.Text;
 
 using Cuyahoga.Web.UI;
-using Cuyahoga.Core;
+using Cuyahoga.Core.Domain;
 using Cuyahoga.Core.DAL;
 using Cuyahoga.Core.Collections;
 

@@ -7,7 +7,7 @@ namespace Cuyahoga.Web.Controls
 	using System.Web.UI.WebControls;
 	using System.Web.UI.HtmlControls;
 
-	using Cuyahoga.Core;
+	using Cuyahoga.Core.Domain;
 	using Cuyahoga.Web.UI;
 	using Cuyahoga.Web.Util;
 

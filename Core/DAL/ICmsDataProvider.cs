@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 
+using Cuyahoga.Core.Domain;
 using Cuyahoga.Core.Collections;
 
 namespace Cuyahoga.Core.DAL

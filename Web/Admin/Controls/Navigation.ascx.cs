@@ -7,6 +7,7 @@ namespace Cuyahoga.Web.Admin.Controls
 	using System.Web.UI.HtmlControls;
 
 	using Cuyahoga.Core;
+	using Cuyahoga.Core.Domain;
 	using Cuyahoga.Core.Collections;
 	using Cuyahoga.Core.DAL;
 	using Cuyahoga.Web.Admin.UI;

@@ -11,7 +11,7 @@ namespace Cuyahoga.Modules.Articles
 		private int _userId;
 		private string _commentText;
 		private Article _article;
-		private Cuyahoga.Core.User _user;
+		private Cuyahoga.Core.Domain.User _user;
 
 		#region properties
 
@@ -36,13 +36,13 @@ namespace Cuyahoga.Modules.Articles
 		/// <summary>
 		/// Property User (Cuyahoga.Core.User)
 		/// </summary>
-		public Cuyahoga.Core.User User
+		public Cuyahoga.Core.Domain.User User
 		{
 			get 
 			{ 
 				if (this._user == null && this._userId > 0)
 				{
-					this._user = new Cuyahoga.Core.User(this._userId);
+					this._user = new Cuyahoga.Core.Domain.User(this._userId);
 				}
 				return this._user; 
 			}

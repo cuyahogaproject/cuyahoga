@@ -2,6 +2,7 @@ using System;
 using System.Web;
 
 using Cuyahoga.Core;
+using Cuyahoga.Core.Domain;
 using Cuyahoga.Web.Util;
 
 namespace Cuyahoga.Web.UI

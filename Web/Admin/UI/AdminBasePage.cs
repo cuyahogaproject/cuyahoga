@@ -3,6 +3,7 @@ using System.Web;
 using System.Web.UI.HtmlControls;
 
 using Cuyahoga.Core;
+using Cuyahoga.Core.Domain;
 using Cuyahoga.Web.UI;
 
 namespace Cuyahoga.Web.Admin.UI

@@ -1,6 +1,6 @@
 using System;
 
-namespace Cuyahoga.Core
+namespace Cuyahoga.Core.Domain
 {
 	/// <summary>
 	/// Base class for all modules. 

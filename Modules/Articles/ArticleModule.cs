@@ -2,10 +2,10 @@ using System;
 using System.Collections;
 
 using NHibernate;
-using NHibernate.Cfg;
 using NHibernate.Expression;
 
-using Cuyahoga.Core;
+using Cuyahoga.Core.Domain;
+using Cuyahoga.Core.Service;
 
 namespace Cuyahoga.Modules.Articles
 {
@@ -14,18 +14,18 @@ namespace Cuyahoga.Modules.Articles
 	/// </summary>
 	public class ArticleModule : Module
 	{
-		Configuration _config;
 		ISessionFactory _factory;
 
 		public ArticleModule()
 		{
 			base.Section = null;
-
-			this._config = new Configuration();
-			this._config.AddClass(typeof(Cuyahoga.Modules.Articles.Category));
-			this._config.AddClass(typeof(Cuyahoga.Modules.Articles.Article));
-			this._config.AddClass(typeof(Cuyahoga.Modules.Articles.Comment));
-			this._factory = this._config.BuildSessionFactory();
+			SessionFactory sf = SessionFactory.GetInstance();
+			// Register classes that are used by the ArticleModule
+			sf.RegisterPersistentClass(typeof(Cuyahoga.Modules.Articles.Category));
+			sf.RegisterPersistentClass(typeof(Cuyahoga.Modules.Articles.Article));
+			sf.RegisterPersistentClass(typeof(Cuyahoga.Modules.Articles.Comment));
+			sf.Rebuild();
+			this._factory = sf.GetNHibernateFactory();
 		}
 
 		public IList GetAvailableCategories()

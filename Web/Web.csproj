@@ -114,6 +114,11 @@
                     AssemblyName = "eWorld.UI"
                     HintPath = "..\ExternalStuff\eWorld.UI.dll"
                 />
+                <Reference
+                    Name = "log4net"
+                    AssemblyName = "log4net"
+                    HintPath = "..\ExternalStuff\log4net.dll"
+                />
             </References>
         </Build>
         <Files>

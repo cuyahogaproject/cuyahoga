@@ -1,7 +1,7 @@
 using System;
 using System.Web;
 
-using Cuyahoga.Core;
+using Cuyahoga.Core.Domain;
 
 namespace Cuyahoga.Web.Util
 {

@@ -4,6 +4,7 @@ using System.Web.Security;
 using System.Web.Caching;
 
 using Cuyahoga.Core;
+using Cuyahoga.Core.Domain;
 using Cuyahoga.Core.DAL;
 using Cuyahoga.Core.Security;
 

@@ -17,7 +17,7 @@
 		<property name="SectionId" column="sectionid" type="Int32" />
 		<property name="CreatedById" column="createdby" type="Int32" />
 		<property name="ModifiedById" column="modifiedby" type="Int32" />
-		<bag name="Comments" cascade="all" inverse="true">
+		<bag name="Comments" cascade="all" inverse="true" lazy="true">
 			<key column="articleid" />
 			<one-to-many class="Cuyahoga.Modules.Articles.Comment, Cuyahoga.Modules" />
 		</bag>

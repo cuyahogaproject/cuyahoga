@@ -2,7 +2,7 @@ using System;
 using System.Security;
 using System.Security.Principal;
 
-using Cuyahoga.Core;
+using Cuyahoga.Core.Domain;
 
 namespace Cuyahoga.Core.Security
 {

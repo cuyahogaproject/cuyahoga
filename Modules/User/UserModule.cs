@@ -1,6 +1,6 @@
 using System;
 
-using Cuyahoga.Core;
+using Cuyahoga.Core.Domain;
 
 namespace Cuyahoga.Modules.User
 {

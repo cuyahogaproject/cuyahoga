@@ -1,7 +1,7 @@
 using System;
 using System.Collections;
 
-using Cuyahoga.Core;
+using Cuyahoga.Core.Domain;
 
 namespace Cuyahoga.Modules.Articles
 {

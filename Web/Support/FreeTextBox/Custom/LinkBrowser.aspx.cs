@@ -10,6 +10,7 @@ using System.Web.UI.WebControls;
 using System.Web.UI.HtmlControls;
 
 using Cuyahoga.Core;
+using Cuyahoga.Core.Domain;
 using Cuyahoga.Core.Collections;
 using Cuyahoga.Core.DAL;
 using Cuyahoga.Web.Util;
@@ -46,7 +47,7 @@ namespace Cuyahoga.Web.Support.FreeTextBox.Custom
 		{
 			foreach (Node node in nodes)
 			{
-				if (node.ViewAllowed((Cuyahoga.Core.User)this.User.Identity))
+				if (node.ViewAllowed((Cuyahoga.Core.Domain.User)this.User.Identity))
 				{
 					this.plhNodes.Controls.Add(CreateDisplayNode(node));
 					// Expand all nodes

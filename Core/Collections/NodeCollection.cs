@@ -1,6 +1,8 @@
 using System;
 using System.Collections;
 
+using Cuyahoga.Core.Domain;
+
 namespace Cuyahoga.Core.Collections
 {
 	/// <summary>

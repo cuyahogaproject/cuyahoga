@@ -3,6 +3,7 @@ using System.Web;
 using System.Web.Caching;
 
 using Cuyahoga.Core;
+using Cuyahoga.Core.Domain;
 using Cuyahoga.Core.DAL;
 using Cuyahoga.Core.Collections;
 using Cuyahoga.Core.Util;

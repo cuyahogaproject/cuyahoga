@@ -5,7 +5,7 @@ using System.Security.Principal;
 using Cuyahoga.Core.Collections;
 using Cuyahoga.Core.DAL;
 
-namespace Cuyahoga.Core
+namespace Cuyahoga.Core.Domain
 {
 	/// <summary>
 	/// Summary description for Node.

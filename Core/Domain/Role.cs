@@ -4,7 +4,7 @@ using System.Collections;
 
 using Cuyahoga.Core.DAL;
 
-namespace Cuyahoga.Core
+namespace Cuyahoga.Core.Domain
 {
 	/// <summary>
 	/// Summary description for Role.

@@ -9,7 +9,7 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Web.UI.HtmlControls;
 
-using Cuyahoga.Core;
+using Cuyahoga.Core.Domain;
 using Cuyahoga.Modules.Articles;
 using Cuyahoga.Web.UI;
 
@@ -121,7 +121,7 @@ namespace Cuyahoga.Web.Modules.Articles
 				this._article.Syndicate = this.chkSyndicate.Checked;
 				this._article.DateOnline = this.calDateOnline.SelectedDate;
 				this._article.DateOffline = this.calDateOffline.SelectedDate;
-				this._article.ModifiedBy = (Cuyahoga.Core.User)this.User.Identity;
+				this._article.ModifiedBy = (Cuyahoga.Core.Domain.User)this.User.Identity;
 				this._article.DateModified = DateTime.Now;
 				this._module.SaveArticle(this._article);
 				Response.Redirect(String.Format("AdminArticles.aspx{0}", base.GetBaseQueryString()));
@@ -163,7 +163,7 @@ namespace Cuyahoga.Web.Modules.Articles
 				{
 					this._article = new Article();
 					this._article.Section = this._module.Section;
-					this._article.CreatedBy = (Cuyahoga.Core.User)this.User.Identity;
+					this._article.CreatedBy = (Cuyahoga.Core.Domain.User)this.User.Identity;
 				}
 				SaveArticle();
 			}

@@ -6,6 +6,7 @@ using System.Web.Caching;
 using System.Collections;
 
 using Cuyahoga.Core;
+using Cuyahoga.Core.Domain;
 using Cuyahoga.Core.Util;
 using Cuyahoga.Core.Collections;
 
