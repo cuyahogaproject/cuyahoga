@@ -261,6 +261,34 @@ namespace Cuyahoga.Core.Service
 			}
 		}
 
+		/// <summary>
+		/// Attach a node to the current session (we need this for cached nodes that lose their sessions).
+		/// </summary>
+		/// <param name="node"></param>
+		public void AttachNodeToCurrentSession(Node node)
+		{
+			if (this._activeSession != null)
+			{
+				if (this._activeSession.IsOpen)
+				{
+					this._activeSession.Update(node);
+					// Also re-attach the sections. Updating the node doesn't automatically re-attach the sections.
+					foreach (Section section in node.Sections)
+					{
+						this._activeSession.Update(section);
+					}
+				}
+				else
+				{
+					throw new InvalidOperationException("The current NHibernate session is not open, so no nodes can be attached.");
+				}
+			}
+			else
+			{
+				throw new NullReferenceException("No active NHibernate session available to attach the node to.");
+			}
+		}
+
 		#endregion
 
 		#region Section specific

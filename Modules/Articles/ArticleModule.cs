@@ -3,6 +3,7 @@ using System.Collections;
 
 using NHibernate;
 using NHibernate.Expression;
+using NHibernate.Type;
 
 using Cuyahoga.Core.Domain;
 using Cuyahoga.Core.Service;
@@ -42,7 +43,24 @@ namespace Cuyahoga.Modules.Articles
 			try
 			{
 				string hql = "from Article a where a.Section.Id = ? order by a.DateOnline desc ";
-				return base.NHSession.Find(hql, this.Section.Id, NHibernate.Type.TypeFactory.GetInt32Type());
+				return base.NHSession.Find(hql, this.Section.Id, TypeFactory.GetInt32Type());
+			}
+			catch (Exception ex)
+			{
+				throw new Exception("Unable to get Articles", ex);
+			}
+		}
+
+		public IList GetDisplayArticles(int number)
+		{
+			try
+			{
+				string hql = "from Article a where a.Section.Id = :sectionId and a.DateOnline < :now and a.DateOffline > :now order by a.DateOnline desc ";
+				IQuery q = base.NHSession.CreateQuery(hql);
+				q.SetInt32("sectionId", base.Section.Id);
+				q.SetDateTime("now", DateTime.Now);
+				q.SetMaxResults(number);
+				return q.List();
 			}
 			catch (Exception ex)
 			{

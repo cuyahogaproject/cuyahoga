@@ -34,15 +34,15 @@ namespace Cuyahoga.Web.Cache
 		{
 			this._coreRepository = coreRepository;
 			this._hasChanges = false;
-//			if (HttpContext.Current.Cache["NodeCache"] == null)
-//			{
-//				this._nodeCache = new NodeCache();
-//				InitNodeCache();
-//			}
-//			else
-//			{
-//				this._nodeCache = (NodeCache)HttpContext.Current.Cache["NodeCache"];				
-//			}
+			if (HttpContext.Current.Cache["NodeCache"] == null)
+			{
+				this._nodeCache = new NodeCache();
+				InitNodeCache();
+			}
+			else
+			{
+				this._nodeCache = (NodeCache)HttpContext.Current.Cache["NodeCache"];				
+			}
 		}
 
 		/// <summary>
@@ -53,25 +53,35 @@ namespace Cuyahoga.Web.Cache
 		public Node GetNodeById(int nodeId)
 		{
 			// MBO, 20041003: Disabled caching because of NHibernate Session sync issues and lazy-loading 
-			return (Node)this._coreRepository.GetObjectById(typeof(Node), nodeId);
+//			return (Node)this._coreRepository.GetObjectById(typeof(Node), nodeId);
 
-//			if (this._nodeCache.NodeIndex[nodeId] == null)
-//			{
-//				LoadNodeIntoCacheFromNodeId(nodeId);
-//			}
-//			return (Node)this._nodeCache.NodeIndex[nodeId];
+			if (this._nodeCache.NodeIndex[nodeId] == null)
+			{
+				LoadNodeIntoCacheFromNodeId(nodeId);
+			}
+			else
+			{
+				// We need to attach the node to the current session to enable lazy-load.
+				this._coreRepository.AttachNodeToCurrentSession((Node)this._nodeCache.NodeIndex[nodeId]);
+			}
+			return (Node)this._nodeCache.NodeIndex[nodeId];
 		}
 
 		public Node GetNodeByShortDescription(string shortDescription)
 		{
-			// MBO, 20041003: Disabled caching because of NHibernate Session sync issues and lazy-loading 
-			return this._coreRepository.GetNodeByShortDescription(shortDescription);
+//			// MBO, 20041003: Disabled caching because of NHibernate Session sync issues and lazy-loading 
+//			return this._coreRepository.GetNodeByShortDescription(shortDescription);
 
-//			if (this._nodeCache.NodeShortDescriptionIndex[shortDescription] == null)
-//			{
-//				LoadNodeIntoCacheFromShortDescription(shortDescription);
-//			}
-//			return (Node)this._nodeCache.NodeShortDescriptionIndex[shortDescription];
+			if (this._nodeCache.NodeShortDescriptionIndex[shortDescription] == null)
+			{
+				LoadNodeIntoCacheFromShortDescription(shortDescription);
+			}
+			else
+			{
+				// We need to attach the node to the current session to enable lazy-load.
+				this._coreRepository.AttachNodeToCurrentSession((Node)this._nodeCache.NodeShortDescriptionIndex[shortDescription]);
+			}
+			return (Node)this._nodeCache.NodeShortDescriptionIndex[shortDescription];
 		}
 
 		public Node GetRootNode()
@@ -80,10 +90,11 @@ namespace Cuyahoga.Web.Cache
 			// node in the List.
 
 			// MBO, 20041003: Disabled caching because of NHibernate Session sync issues and lazy-loading 
-			IList rootNodes = this._coreRepository.GetRootNodes();
-			return (Node)rootNodes[0];
-
-			// return (Node)this._nodeCache.RootNodes.GetByIndex(0);			
+//			IList rootNodes = this._coreRepository.GetRootNodes();
+//			return (Node)rootNodes[0];
+			Node node = (Node)this._nodeCache.RootNodes.GetByIndex(0);
+			this._coreRepository.AttachNodeToCurrentSession(node);
+			return node;
 		}
 
 		/// <summary>
@@ -138,8 +149,8 @@ namespace Cuyahoga.Web.Cache
 		/// <param name="nodeId"></param>
 		private void LoadNodeIntoCacheFromNodeId(int nodeId)
 		{
-//			Node node = (Node)this._coreRepository.GetObjectById(typeof(Node), nodeId);
-//			LoadNodeIntoCache(node);			
+			Node node = (Node)this._coreRepository.GetObjectById(typeof(Node), nodeId);
+			LoadNodeIntoCache(node);			
 		}
 
 		/// <summary>
@@ -148,15 +159,12 @@ namespace Cuyahoga.Web.Cache
 		/// <param name="shortDescription"></param>
 		private void LoadNodeIntoCacheFromShortDescription(string shortDescription)
 		{
-//			Node node = this._coreRepository.GetNodeByShortDescription(shortDescription);
-//			LoadNodeIntoCache(node);
+			Node node = this._coreRepository.GetNodeByShortDescription(shortDescription);
+			LoadNodeIntoCache(node);
 		}
 		
 		/// <summary>
-		/// Try to find a node. If the node is found, build the Node tree up to the position
-		/// where that particular node is located. A slightly redundant database call is made to
-		/// determine if the node at least exists, but that prevents unnessecary node traversals
-		/// when a node is requested that doesn't exist at all.
+		/// Cache a particular node.
 		/// </summary>
 		/// <param name="node"></param>
 		private void LoadNodeIntoCache(Node node)
@@ -177,14 +185,14 @@ namespace Cuyahoga.Web.Cache
 		/// <param name="sender"></param>
 		private void Node_ChildrenLoaded(object sender)
 		{
-			Node node = sender as Node;
-			if (node != null)
-			{
-				foreach (Node childNode in node.ChildNodes)
-				{
-					RegisterNode(childNode, false);
-				}
-			}
+//			Node node = sender as Node;
+//			if (node != null)
+//			{
+//				foreach (Node childNode in node.ChildNodes)
+//				{
+//					RegisterNode(childNode, false);
+//				}
+//			}
 		}
 
 		/// <summary>
