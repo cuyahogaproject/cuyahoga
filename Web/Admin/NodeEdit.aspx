@@ -31,8 +31,8 @@
 						<td style="WIDTH: 100px">Node title</td>
 						<td><asp:textbox id="txtTitle" runat="server" width="300px"></asp:textbox><asp:requiredfieldvalidator id="rfvTitle" runat="server" enableclientscript="False" controltovalidate="txtTitle" cssclass="validator" display="Dynamic" errormessage="Title is required"></asp:requiredfieldvalidator></td></tr>
 					<tr>
-						<td>Node path</td>
-						<td><asp:textbox id="txtShortDescription" runat="server" width="300px" tooltip="You can use this for 'nice' links ([shortdescription].aspx). Make sure it's unique."></asp:textbox><asp:regularexpressionvalidator id="revShortDescription" runat="server" enableclientscript="False" controltovalidate="txtShortDescription" cssclass="validator" display="Dynamic" errormessage="No spaces are allowed" validationexpression="\S+"></asp:regularexpressionvalidator><asp:requiredfieldvalidator id="rfvShortDescription" runat="server" errormessage="Short description is required" controltovalidate="txtShortDescription" display="Dynamic" enableclientscript="False"></asp:requiredfieldvalidator></td></tr>
+						<td>Node url</td>
+						<td><asp:textbox id="txtShortDescription" runat="server" width="300px" tooltip="You can use this for 'nice' links ([shortdescription].aspx). Make sure it's unique."></asp:textbox>.aspx&nbsp;<asp:regularexpressionvalidator id="revShortDescription" runat="server" enableclientscript="False" controltovalidate="txtShortDescription" cssclass="validator" display="Dynamic" errormessage="No spaces are allowed" validationexpression="\S+"></asp:regularexpressionvalidator><asp:requiredfieldvalidator id="rfvShortDescription" runat="server" errormessage="Short description is required" controltovalidate="txtShortDescription" display="Dynamic" enableclientscript="False"></asp:requiredfieldvalidator></td></tr>
 					<tr>
 						<td>Parent node</td>
 						<td><asp:label id="lblParentNode" runat="server"></asp:label></td></tr>

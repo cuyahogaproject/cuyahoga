@@ -201,6 +201,9 @@ namespace Cuyahoga.Core
 			}
 		}
 
+		/// <summary>
+		/// 
+		/// </summary>
 		public Node PreviousSibling
 		{
 			get
@@ -257,6 +260,9 @@ namespace Cuyahoga.Core
 			set { this._editRoles = value; }
 		}
 
+		/// <summary>
+		/// Can the node be viewed by anonymous users?
+		/// </summary>
 		public bool AnonymousViewAllowed
 		{
 			get

@@ -28,7 +28,9 @@
 			<div id="header"><h1>Create hyperlink</h1></div>
 			<div id="folder"></div>
 			<div id="container">
-				<div id="browser"></div>
+				<div id="browser">
+					<asp:placeholder id="plhNodes" runat="server"></asp:placeholder>
+				</div>
 				<div>Select an item from the list or enter the complete url
 					in the box below. </div>
 				<div id="controls">

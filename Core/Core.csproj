@@ -218,7 +218,6 @@
                     SubType = "Code"
                     BuildAction = "Compile"
                 />
-                <Folder RelPath = "UI\" />
                 <File
                     RelPath = "Util\Config.cs"
                     SubType = "Code"

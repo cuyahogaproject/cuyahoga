@@ -76,7 +76,14 @@ namespace Cuyahoga.Web.Support.FreeTextBox.Custom
 		private void ReadFolder()
 		{
 			this._browserItems.Clear();
-			this._currentVirtualPath = this.ResolveUrl(Core.Util.Config.GetConfiguration()["ImageDir"] + this.lblFolder.Text);
+			if (Context.Request.QueryString["imagedir"] != null && Context.Request.QueryString["imagedir"] != "")
+			{
+				this._currentVirtualPath = Context.Request.QueryString["imagedir"] + this.lblFolder.Text;
+			}
+			else
+			{
+				this._currentVirtualPath = this.ResolveUrl(Core.Util.Config.GetConfiguration()["ImageDir"] + this.lblFolder.Text);
+			}
 			this._currentPhysicalPath = Context.Server.MapPath(this._currentVirtualPath);
 
 			DirectoryInfo dir = new DirectoryInfo(this._currentPhysicalPath);

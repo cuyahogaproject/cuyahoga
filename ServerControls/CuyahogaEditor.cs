@@ -11,6 +11,18 @@ namespace Cuyahoga.ServerControls
 	/// </summary>
 	public class CuyahogaEditor : FreeTextBox
 	{
+		private string _imageDir;
+
+		/// <summary>
+		/// The (virtual) path where the images are located for this editor. If left empty, the ImageDir 
+		/// from web.config will be used.
+		/// </summary>
+		public string ImageDir
+		{
+			get { return this._imageDir; }
+			set { this._imageDir = value; }
+		}
+
 		/// <summary>
 		/// Initializes a new CuyahogaEditor class.
 		/// </summary>
@@ -22,7 +34,7 @@ namespace Cuyahoga.ServerControls
 		{
 			Toolbar customToolbar = new Toolbar();
 			customToolbar.Items.Add(new InsertLink(this.SupportFolder + "Custom/"));
-			customToolbar.Items.Add(new ImageGallery(this.SupportFolder + "Custom/"));
+			customToolbar.Items.Add(new ImageGallery(this.SupportFolder + "Custom/", this.Page.ResolveUrl(this._imageDir)));
 			customToolbar.Items.Add(new WordClean());
 			this.Toolbars.Add(customToolbar);
 
@@ -88,7 +100,20 @@ namespace Cuyahoga.ServerControls
 				this.ScriptBlock = @"
 					function CED_InsertLink(ftbName)
 					{
-						myWindow = window.open(""" + supportFolder + @"LinkBrowser.aspx?textboxname="" + ftbName, ""window"", ""width=600,height=470"");
+						myWindow = window.open(""" + supportFolder + @"LinkBrowser.aspx?textboxname="" + ftbName + ""&descr="" + CED_GetSelectedText(), ""window"", ""width=550,height=470"");
+					}
+
+					function CED_GetSelectedText()
+					{
+						var sel;
+						if (isIE) {
+							range = editor.document.selection.createRange();
+							sel = range.htmlText;
+						}
+						else {
+							sel = editor.window.getSelection();
+						}
+						return sel;
 					}
 					";
 			}
@@ -96,12 +121,12 @@ namespace Cuyahoga.ServerControls
 
 		public class ImageGallery : ToolbarButton
 		{
-			public ImageGallery(string supportFolder) : base("Insert Image from gallery", "CED_ImageGallery", "insertimagefromgallery")
+			public ImageGallery(string supportFolder, string imageDir) : base("Insert Image from gallery", "CED_ImageGallery", "insertimagefromgallery")
 			{
 				this.ScriptBlock = @"
 					function CED_ImageGallery(ftbName)
 					{
-						myWindow = window.open(""" + supportFolder + @"ImageBrowser.aspx?textboxname="" + ftbName, ""window"", ""width=510,height=450"");
+						myWindow = window.open(""" + supportFolder + @"ImageBrowser.aspx?textboxname="" + ftbName + ""&imagedir=" + imageDir + @""" , ""window"", ""width=510,height=450"");
 					}
 					";
 			}
