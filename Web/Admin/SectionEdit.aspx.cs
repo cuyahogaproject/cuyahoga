@@ -141,12 +141,13 @@ namespace Cuyahoga.Web.Admin
 
 		private void SaveSection()
 		{
-			ICmsDataProvider dp = CmsDataFactory.GetInstance();
 			if (this._activeSection.Id > 0)
-				dp.UpdateSection(this._activeSection);
+			{
+				base.CoreRepository.UpdateObject(this._activeSection);
+			}
 			else
 			{
-				dp.InsertSection(this._activeSection);
+				base.CoreRepository.SaveObject(this._activeSection);
 				Context.Response.Redirect(String.Format("SectionEdit.aspx?SectionId={0}&NodeId={1}", this._activeSection.Id, this.ActiveNode.Id));
 			}
 		}

@@ -45,7 +45,8 @@ namespace Cuyahoga.Web.Admin
 		{
 			this.Title = "Edit node";
 
-			// Note: ActiveNode is hanlded primarily by the AdminBasePage because other controls als use it.
+			// Note: ActiveNode is handled primarily by the AdminBasePage because other controls als use it.
+			// ActiveNode is always freshly retrieved (also after postbacks), so it will be tracked by NHibernate.
 			if (Context.Request.QueryString["NodeId"] != null && Int32.Parse(Context.Request.QueryString["NodeId"]) == -1)
 			{
 				// Create an empty new node if NodeId is set to -1
@@ -192,12 +193,13 @@ namespace Cuyahoga.Web.Admin
 		{
 			if (this.ActiveNode.Id > 0)
 			{
-				base.CoreRepository.UpdateNode(this.ActiveNode);
+				base.CoreRepository.UpdateObject(this.ActiveNode);
 			}
 			else
 			{
-				this.ActiveNode.CalculateNewPosition();
-				base.CoreRepository.SaveNode(this.ActiveNode);
+				IList rootNodes = CoreRepository.GetRootNodes();
+				this.ActiveNode.CalculateNewPosition(rootNodes);
+				base.CoreRepository.SaveObject(this.ActiveNode);
 				Context.Response.Redirect(String.Format("NodeEdit.aspx?NodeId={0}", this.ActiveNode.Id));
 			}
 		}
@@ -208,15 +210,25 @@ namespace Cuyahoga.Web.Admin
 			Section section = (Section)base.CoreRepository.GetObjectById(typeof(Section), sectionId);
 			section.Node = this.ActiveNode;
 			if (Context.Request.QueryString["Action"] == "MoveUp")
+			{
 				section.MoveUp();
+				base.CoreRepository.FlushSession();
+				// reset sections, so they will be refreshed from the database when required.
+				this.ActiveNode.ResetSections();
+			}
 			else if (Context.Request.QueryString["Action"] == "MoveDown")
+			{
 				section.MoveDown();
+				base.CoreRepository.FlushSession();
+				// reset sections, so they will be refreshed from the database when required.
+				this.ActiveNode.ResetSections();
+			}
 			else if (Context.Request.QueryString["Action"] == "Delete")
 			{
 				// We consider deleting a section also a 'Movement' :-)
 				try
 				{
-					section.Remove();
+					base.CoreRepository.DeleteObject(section);
 				}
 				catch (Exception ex)
 				{
@@ -232,10 +244,10 @@ namespace Cuyahoga.Web.Admin
 			if (this.ActiveNode.Id > 0)
 			{
 				this.ActiveNode.ShortDescription = this.txtShortDescription.Text;
-				if (! this.ActiveNode.CheckUniqueShortDescription())
-				{
-					throw new Exception("The short description is not unique");
-				}
+//				if (! this.ActiveNode.CheckUniqueShortDescription())
+//				{
+//					throw new Exception("The short description is not unique");
+//				}
 			}
 			else
 			{
@@ -339,26 +351,33 @@ namespace Cuyahoga.Web.Admin
 
 		private void btnUp_Click(object sender, System.Web.UI.ImageClickEventArgs e)
 		{
-			this.ActiveNode.MoveUp();
-			// HACK: self-redirect to force a refresh of the controls
+			IList rootNodes = base.CoreRepository.GetRootNodes();
+			this.ActiveNode.MoveUp(rootNodes);
+			this.CoreRepository.FlushSession();
 			Context.Response.Redirect(Context.Request.RawUrl);
 		}
 
 		private void btnDown_Click(object sender, System.Web.UI.ImageClickEventArgs e)
 		{
-			this.ActiveNode.MoveDown();
+			IList rootNodes = base.CoreRepository.GetRootNodes();
+			this.ActiveNode.MoveDown(rootNodes);
+			this.CoreRepository.FlushSession();
 			Context.Response.Redirect(Context.Request.RawUrl);
 		}
 
 		private void btnLeft_Click(object sender, System.Web.UI.ImageClickEventArgs e)
 		{
-			this.ActiveNode.MoveLeft();
+			IList rootNodes = base.CoreRepository.GetRootNodes();
+			this.ActiveNode.MoveLeft(rootNodes);
+			this.CoreRepository.FlushSession();
 			Context.Response.Redirect(Context.Request.RawUrl);	
 		}
 
 		private void btnRight_Click(object sender, System.Web.UI.ImageClickEventArgs e)
 		{
-			this.ActiveNode.MoveRight();
+			IList rootNodes = base.CoreRepository.GetRootNodes();
+			this.ActiveNode.MoveRight(rootNodes);
+			this.CoreRepository.FlushSession();
 			Context.Response.Redirect(Context.Request.RawUrl);
 		}
 
@@ -393,16 +412,27 @@ namespace Cuyahoga.Web.Admin
 		private void btnDelete_Click(object sender, System.EventArgs e)
 		{
 			if (this.ActiveNode.Sections.Count > 0)
+			{
 				this.ShowError("Can't delete a node when there are sections attached. Please delete or detach all sections first.");
+			}
 			else if (this.ActiveNode.ChildNodes.Count > 0)
+			{
 				this.ShowError("Can't delete a node when there are child nodes attached. Please delete all childnodes first.");
+			}
 			else
 			{
 				try
 				{
 					base.CoreRepository.DeleteObject(this.ActiveNode);
 					// Reset the position of the 'neighbour' nodes.
-					this.ActiveNode.ReOrderNodePositions(this.ActiveNode.ParentNode, this.ActiveNode.Position);
+					if (this.ActiveNode.Level == 0)
+					{						
+						this.ActiveNode.ReOrderNodePositions(base.CoreRepository.GetRootNodes(), this.ActiveNode.Position);
+					}
+					else
+					{
+						this.ActiveNode.ReOrderNodePositions(this.ActiveNode.ParentNode.ChildNodes, this.ActiveNode.Position);
+					}
 					if (this.ActiveNode.ParentNode != null)
 					{
 						Context.Response.Redirect(String.Format("NodeEdit.aspx?NodeId={0}", this.ActiveNode.ParentNode.Id));

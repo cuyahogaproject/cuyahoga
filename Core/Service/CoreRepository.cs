@@ -54,6 +54,17 @@ namespace Cuyahoga.Core.Service
 		}
 
 		/// <summary>
+		/// Flushes the current active NHibernate session.
+		/// </summary>
+		public void FlushSession()
+		{
+			if (this._activeSession != null && this._activeSession.IsOpen)
+			{
+				this._activeSession.Flush();
+			}
+		}
+
+		/// <summary>
 		/// Close the active NHibernate session
 		/// </summary>
 		public void CloseSession()
@@ -64,8 +75,10 @@ namespace Cuyahoga.Core.Service
 			}
 		}
 
+		#region generic methods
+
 		/// <summary>
-		/// Generic method for retrieving single objects by primary key
+		/// Generic method for retrieving single objects by primary key.
 		/// </summary>
 		/// <param name="type"></param>
 		/// <param name="id"></param>
@@ -82,11 +95,24 @@ namespace Cuyahoga.Core.Service
 			}
 		}
 
+		/// <summary>
+		/// Get all objects of a given type.
+		/// </summary>
+		/// <param name="type"></param>
+		/// <returns></returns>
 		public IList GetAll(Type type)
 		{
 			return GetAll(type, null);
 		}
 
+		/// <summary>
+		/// Get all objects of a given type and add one or more names of properties to sort on.
+		/// </summary>
+		/// <param name="type"></param>
+		/// <param name="sortProperties"></param>
+		/// <remarks>Sorting is Ascending order. Construct a specific query/method when the sort order
+		/// should be different.</remarks>
+		/// <returns></returns>
 		public IList GetAll(Type type, params string[] sortProperties)
 		{
 			ICriteria crit = this._activeSession.CreateCriteria(type);
@@ -97,6 +123,49 @@ namespace Cuyahoga.Core.Service
 			return crit.List();
 		}
 
+		/// <summary>
+		/// Generic method to insert an object.
+		/// </summary>
+		/// <param name="obj"></param>
+		public void SaveObject(object obj)
+		{
+			ITransaction trn = this._activeSession.BeginTransaction();
+			try
+			{
+				this._activeSession.Save(obj);
+				trn.Commit();
+			}
+			catch (Exception ex)
+			{
+				trn.Rollback();
+				throw ex;
+			}
+		}
+
+		/// <summary>
+		/// Generic method to update an object.
+		/// </summary>
+		/// <param name="obj"></param>
+		public void UpdateObject(object obj)
+		{
+			ITransaction trn = this._activeSession.BeginTransaction();
+			try
+			{
+				this._activeSession.Update(obj);
+				trn.Commit();
+			}
+			catch (Exception ex)
+			{
+				trn.Rollback();
+				throw ex;
+			}
+		}
+
+		/// <summary>
+		/// Delete a specific object. Settings in the mapping file determine if this cascades
+		/// to related objects.
+		/// </summary>
+		/// <param name="obj"></param>
 		public void DeleteObject(object obj)
 		{
 			ITransaction trn = this._activeSession.BeginTransaction();
@@ -112,13 +181,15 @@ namespace Cuyahoga.Core.Service
 			}
 		}
 
+		#endregion
+
 		#region Node specific
 
 		public IList GetRootNodes()
 		{
 			ICriteria crit = this._activeSession.CreateCriteria(typeof(Node));
 			crit.Add(Expression.IsNull("ParentNode"));
-			crit.AddOrder(Order.Asc("Id")); 
+			crit.AddOrder(Order.Asc("Position"));
 			return crit.List();
 		}
 
@@ -141,36 +212,10 @@ namespace Cuyahoga.Core.Service
 			}
 		}
 
-		public void SaveNode(Node node)
-		{
-			ITransaction trn = this._activeSession.BeginTransaction();
-			try
-			{
-				this._activeSession.Save(node);
-				trn.Commit();
-			}
-			catch (Exception ex)
-			{
-				trn.Rollback();
-				throw ex;
-			}
-		}
+		#endregion
 
-		public void UpdateNode(Node node)
-		{
-			ITransaction trn = this._activeSession.BeginTransaction();
-			try
-			{
-				// No need to do an update since we've always load nodes, just flush.
-				this._activeSession.Update(node);
-				trn.Commit();
-			}
-			catch (Exception ex)
-			{
-				trn.Rollback();
-				throw ex;
-			}
-		}
+		#region section specific
+
 
 		#endregion
 	}

@@ -25,7 +25,6 @@ namespace Cuyahoga.Core.Domain
 		private Template _template;
 		private int[] _trail;
 		// flag to prevent lazy loading of the parent node when set to null
-		private bool _parentSetToNull = false;
 		private RoleCollection _viewRoles;
 		private RoleCollection _editRoles;
 
@@ -34,7 +33,7 @@ namespace Cuyahoga.Core.Domain
 		/// <summary>
 		/// Property Id (int)
 		/// </summary>
-		public int Id
+		public virtual int Id
 		{
 			get { return this._id; }
 			set { this._id = value; }
@@ -43,7 +42,7 @@ namespace Cuyahoga.Core.Domain
 		/// <summary>
 		/// Property UpdateTimestamp (DateTime)
 		/// </summary>
-		public DateTime UpdateTimestamp
+		public virtual DateTime UpdateTimestamp
 		{
 			get { return this._updateTimestamp; }
 			set { this._updateTimestamp = value; }
@@ -52,7 +51,7 @@ namespace Cuyahoga.Core.Domain
 		/// <summary>
 		/// Property ParentId (int)
 		/// </summary>
-		public int ParentId
+		public virtual int ParentId
 		{
 			get { return this._parentId; }
 			set { this._parentId = value; }
@@ -61,7 +60,7 @@ namespace Cuyahoga.Core.Domain
 		/// <summary>
 		/// Property Title (string)
 		/// </summary>
-		public string Title
+		public virtual string Title
 		{
 			get { return this._title; }
 			set { this._title = value; }
@@ -70,7 +69,7 @@ namespace Cuyahoga.Core.Domain
 		/// <summary>
 		/// Property ShortDescription (string)
 		/// </summary>
-		public string ShortDescription
+		public virtual string ShortDescription
 		{
 			get { return this._shortDescription; }
 			set 
@@ -85,7 +84,7 @@ namespace Cuyahoga.Core.Domain
 		/// <summary>
 		/// Property Order (int)
 		/// </summary>
-		public int Position
+		public virtual int Position
 		{
 			get { return this._position; }
 			set { this._position = value; }
@@ -94,7 +93,7 @@ namespace Cuyahoga.Core.Domain
 		/// <summary>
 		/// Property Level (int)
 		/// </summary>
-		public int Level
+		public virtual int Level
 		{
 			get 
 			{ 
@@ -112,7 +111,7 @@ namespace Cuyahoga.Core.Domain
 		/// <summary>
 		/// Property ParentNode (Node). Lazy loaded.
 		/// </summary>
-		public Node ParentNode
+		public virtual Node ParentNode
 		{
 			get { return this._parentNode; }
 			set { this._parentNode = value; }
@@ -121,7 +120,7 @@ namespace Cuyahoga.Core.Domain
 		/// <summary>
 		/// Property ChildNodes (NodeCollection). Lazy loaded.
 		/// </summary>
-		public IList ChildNodes
+		public virtual IList ChildNodes
 		{
 			get 
 			{ 
@@ -141,7 +140,7 @@ namespace Cuyahoga.Core.Domain
 		/// <summary>
 		/// Property Sections (SectionCollection). Lazy loaded.
 		/// </summary>
-		public IList Sections
+		public virtual IList Sections
 		{
 			get { return this._sections; }
 			set { this._sections = value; }
@@ -150,7 +149,7 @@ namespace Cuyahoga.Core.Domain
 		/// <summary>
 		/// Property Template (Template)
 		/// </summary>
-		public Template Template
+		public virtual Template Template
 		{
 			get { return this._template; }
 			set { this._template = value; }
@@ -159,7 +158,7 @@ namespace Cuyahoga.Core.Domain
 		/// <summary>
 		/// Array with all NodeId's from the current node to the root node.
 		/// </summary>
-		public int[] Trail
+		public virtual int[] Trail
 		{
 			get
 			{
@@ -179,33 +178,9 @@ namespace Cuyahoga.Core.Domain
 		}
 
 		/// <summary>
-		/// 
-		/// </summary>
-		public Node PreviousSibling
-		{
-			get
-			{
-				if (this.Position > 0)
-				{
-					if (this.ParentNode != null)
-						return (Node)this.ParentNode.ChildNodes[this.Position - 1];
-					else
-					{
-						ICmsDataProvider dp = CmsDataFactory.GetInstance();
-						Node node = new Node();
-						dp.GetNodeByParentIdAndPosition(-1, this.Position - 1, node);
-						return node;
-					}
-				}
-				else
-					return null;
-			}
-		}
-
-		/// <summary>
 		/// Property ViewRoles (RoleCollection), semi-lazy loaded.
 		/// </summary>
-		public RoleCollection ViewRoles
+		public virtual RoleCollection ViewRoles
 		{
 			get 
 			{ 
@@ -223,7 +198,7 @@ namespace Cuyahoga.Core.Domain
 		/// <summary>
 		/// Property EditRoles (RoleCollection), semi-lazy loaded.
 		/// </summary>
-		public RoleCollection EditRoles
+		public virtual RoleCollection EditRoles
 		{
 			get 
 			{ 
@@ -240,7 +215,7 @@ namespace Cuyahoga.Core.Domain
 		/// <summary>
 		/// Can the node be viewed by anonymous users?
 		/// </summary>
-		public bool AnonymousViewAllowed
+		public virtual bool AnonymousViewAllowed
 		{
 			get
 			{
@@ -313,58 +288,115 @@ namespace Cuyahoga.Core.Domain
 
 		#region methods
 
-		public void MoveUp()
+		/// <summary>
+		/// Move the node one position upwards and move the node above this one one position downwards.
+		/// </summary>
+		/// <param name="rootNodes">We need these when the node has no ParentNode.</param>
+		public virtual void MoveUp(IList rootNodes)
 		{
 			if (this._position > 0)
 			{
+				// HACK: Assume that the node indexes are the same as the value of the positions.
 				this._position--;
-				ICmsDataProvider dp = CmsDataFactory.GetInstance();
-				dp.UpdateVerticalNodePosition(this, NodePositionMovement.Up);
+				if (this.ParentNode == null)
+				{
+					((Node)rootNodes[this._position]).Position++;
+				}
+				else
+				{
+					((Node)this.ParentNode.ChildNodes[this._position]).Position++;
+				}
 			}
 		}
 
-		public void MoveDown()
+		/// <summary>
+		/// Move the node one position downwards and move the node above this one one position upwards.
+		/// </summary>
+		/// <param name="rootNodes">We need these when the node has no ParentNode.</param>
+		public virtual void MoveDown(IList rootNodes)
 		{
-            this._position++;
-			ICmsDataProvider dp = CmsDataFactory.GetInstance();
-			dp.UpdateVerticalNodePosition(this, NodePositionMovement.Down);
+			if (this._position < this.ParentNode.ChildNodes.Count - 1)
+			{
+				// HACK: Assume that the node indexes are the same as the value of the positions.
+				this._position++;
+				if (this.ParentNode == null)
+				{
+					((Node)rootNodes[this._position]).Position--;
+				}
+				else
+				{
+					((Node)this.ParentNode.ChildNodes[this._position]).Position--;
+				}
+			}
 		}
 
 		/// <summary>
 		/// Move node to the same level as the parentnode at the position just beneath the parent node.
 		/// </summary>
-		public void MoveLeft()
+		/// <param name="rootNodes">The root nodes. We need these when a node is moved to the
+		/// root level because the nodes that come after this one ahve to be moved and can't be reached
+		/// anymore by traversing related nodes.</param>
+		public virtual void MoveLeft(IList rootNodes)
 		{
-			ICmsDataProvider dp = CmsDataFactory.GetInstance();
 			int newPosition = this.ParentNode.Position + 1;
-            dp.UpdateNodePositions(this.ParentNode.ParentNode, newPosition, 1);
+			if (this.ParentNode.Level == 0)
+			{
+				for (int i = newPosition; i < rootNodes.Count; i++)
+				{
+					Node nodeAlsoToBeMoved = (Node)rootNodes[i];
+					nodeAlsoToBeMoved.Position++;
+				}
+			}
+			else
+			{
+				for (int i = newPosition; i < this.ParentNode.ParentNode.ChildNodes.Count; i++)
+				{
+					Node nodeAlsoToBeMoved = (Node)this.ParentNode.ParentNode.ChildNodes[i];
+					nodeAlsoToBeMoved.Position++;
+				}
+			}
 			this.ParentNode.ChildNodes.Remove(this);
-			ReOrderNodePositions(this.ParentNode, this.Position);
+			ReOrderNodePositions(this.ParentNode.ChildNodes, this.Position);
 			this.ParentNode = this.ParentNode.ParentNode;
-			this._parentSetToNull = (this._parentNode == null);
+			if (this.ParentNode != null)
+			{
+				this.ParentNode.ChildNodes.Add(this);
+			}
 			this.Position = newPosition;
-			dp.UpdateNode(this);
 		}
 
 		/// <summary>
 		/// Add node to the children of the previous node in the list.
 		/// </summary>
-		public void MoveRight()
+		/// <param name="rootNodes"></param>
+		public virtual void MoveRight(IList rootNodes)
 		{
-			int newPosition = this.PreviousSibling.ChildNodes.Count;
-			if (this.ParentNode != null)
-				this.ParentNode.ChildNodes.Remove(this);
-            ReOrderNodePositions(this.ParentNode, this.Position);
-            this.ParentNode = this.PreviousSibling;
-			this._position = newPosition;
-			ICmsDataProvider dp = CmsDataFactory.GetInstance();
-			dp.UpdateNode(this);
+			if (this._position > 0)
+			{
+				Node previousSibling;
+				if (this.ParentNode != null)
+				{
+					previousSibling = (Node)this.ParentNode.ChildNodes[this._position - 1];
+					this.ParentNode.ChildNodes.Remove(this);
+					ReOrderNodePositions(this.ParentNode.ChildNodes, this.Position);
+				}
+				else
+				{
+					previousSibling = (Node)rootNodes[this._position - 1];
+					ReOrderNodePositions(rootNodes, this.Position);
+				}
+
+				this.Position = previousSibling.ChildNodes.Count;
+				previousSibling.ChildNodes.Add(this);
+				this.ParentNode = previousSibling;
+			}
 		}
 
 		/// <summary>
 		/// Calculate the position of a new node.
 		/// </summary>
-		public void CalculateNewPosition()
+		/// <param name="rootNodes">The root nodes for the case an item as added at root level.</param>
+		public virtual void CalculateNewPosition(IList rootNodes)
 		{
 			if (this.ParentNode != null)
 			{
@@ -372,9 +404,7 @@ namespace Cuyahoga.Core.Domain
 			}
 			else
 			{
-                // Root level, we have to visit the database for this one
-                ICmsDataProvider dp = CmsDataFactory.GetInstance();
-				this._position = dp.GetMaxNodePositionAtRootLevel() + 1;
+				this._position = rootNodes.Count;
 			}
 		}
 
@@ -383,10 +413,15 @@ namespace Cuyahoga.Core.Domain
 		/// </summary>
 		/// <param name="parentNode"></param>
 		/// <param name="gapPosition"></param>
-		public void ReOrderNodePositions(Node parentNode, int gapPosition)
+		public void ReOrderNodePositions(IList nodeListWithGap, int gapPosition)
 		{
-			ICmsDataProvider dp = CmsDataFactory.GetInstance();
-			dp.UpdateNodePositions(parentNode, gapPosition, -1);
+			foreach (Node node in nodeListWithGap)
+			{
+				if (node.Position > gapPosition)
+				{
+					node.Position--;
+				}
+			}
 		}
 
 		/// <summary>

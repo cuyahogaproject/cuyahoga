@@ -16,7 +16,7 @@ namespace Cuyahoga.Core.Domain
 		/// <summary>
 		/// Property Id (int)
 		/// </summary>
-		public int Id
+		public virtual int Id
 		{
 			get { return this._id; }
 			set { this._id = value; }
@@ -25,7 +25,7 @@ namespace Cuyahoga.Core.Domain
 		/// <summary>
 		/// Property UpdateTimestamp (DateTime)
 		/// </summary>
-		public DateTime UpdateTimestamp
+		public virtual DateTime UpdateTimestamp
 		{
 			get { return this._updateTimestamp; }
 			set { this._updateTimestamp = value; }
@@ -34,7 +34,7 @@ namespace Cuyahoga.Core.Domain
 		/// <summary>
 		/// Property Name (string)
 		/// </summary>
-		public string Name
+		public virtual string Name
 		{
 			get { return this._name; }
 			set { this._name = value; }
@@ -43,7 +43,7 @@ namespace Cuyahoga.Core.Domain
 		/// <summary>
 		/// Property Path (string)
 		/// </summary>
-		public string Path
+		public virtual string Path
 		{
 			get { return this._path; }
 			set { this._path = value; }

@@ -290,11 +290,6 @@ namespace Cuyahoga.Core.Domain
 						// switch positions
 						this.Position++;
 						section.Position--;
-						ICmsDataProvider dp = CmsDataFactory.GetInstance();
-						dp.UpdateSection(this);
-						dp.UpdateSection(section);
-						// reset sections, so they will be refreshed from the database when required.
-						this.Node.ResetSections();
 						break;
 					}
 				}
@@ -315,11 +310,6 @@ namespace Cuyahoga.Core.Domain
 						// switch positions
 						this.Position--;
 						section.Position++;
-						ICmsDataProvider dp = CmsDataFactory.GetInstance();
-						dp.UpdateSection(this);
-						dp.UpdateSection(section);
-						// reset sections, so they will be refreshed from the database when required.
-						this.Node.ResetSections();
 						break;
 					}
 				}
