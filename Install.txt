@@ -2,7 +2,10 @@ Installing Cuyahoga from source.
 
 1. Unzip the files to a local directory.
 
-2. Create a database (currently you can choose SQL Server/MSDE or PostgreSQL as database backend).
+2. Create a database. Supported databases are:
+    - SQL Server 2000 / MSDE 2000
+    - PostgreSQL 7.4 and higher
+    - MySQL 4.1 and higher
 
 3. Run the following scripts from the Database folder:
 
@@ -20,6 +23,12 @@ Installing Cuyahoga from source.
         - Create an IIS application (virtual directory) that points to the Web folder.
         - Change the connection string in the Web.config (hibernate.connection.connection_string)
           to the database that is created in step 2.
+          
+          Example (SQL Server):
+          <add key="hibernate.connection.connection_string" value="server=(local);database=Cuyahoga;uid=***;pwd=***;" />  	
+          
+          Example (PostgreSQL):
+          <add key="hibernate.connection.connection_string" value="server=192.168.0.1;port=5432;database=Cuyahoga;uid=***;pwd=***;" />  	
         - If you want to run/debug the application from VS.NET you have to change the 
           default Start Action: 
           Go to Project -> Properties -> Configuration Properties -> Debugging. Change debug mode
@@ -35,7 +44,7 @@ Installing Cuyahoga from source.
         - Create an IIS application that points to the build directory or copy the files in the
           build directory to the root directory of an existing IIS application.
         - Change the connection string in the Web.config (hibernate.connection.connection_string)
-          to the database that is created in step 2.
+          to the database that is created in step 2. See 4a for example connection strings.
           
     You are now ready to run the application. Before the fun starts you have to create a site
     first. Open a web browser and go to the web site administration. The url is
@@ -44,6 +53,12 @@ Installing Cuyahoga from source.
     web site up and running :). Don't forget to change the admin password!
     
 Hints and tips:
+- Check the setting in the Web.config for the location where the uploaded files are placed:
+  
+  <appSettings>
+    <add key="FCKeditor:UserFilesPath" value="/Cuyahoga/UserFiles" />
+  </appSettings>
+  
 - You can enable logging to uncomment the <log4net> section in the Web.config. Make sure your
   ASP.NET user has write access to the path of the logfile.
 - Give the ASP.NET user write access for the Web/UserFiles directory to enable uploading images or

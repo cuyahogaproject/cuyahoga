@@ -161,7 +161,7 @@ namespace Cuyahoga.Web.UI
 					 LoadContent(cm);				
 				}
 			}
-			// TODO: we could handle some exceptions here, but for now rethrow it, so it will be handled
+			// TODO: we could handle some exceptions here, but for now rethrow them, so it will be handled
 			// by the general error page (and logged!).
 			catch (Exception ex)
 			{
@@ -248,7 +248,7 @@ namespace Cuyahoga.Web.UI
 						if (Context.Request.PathInfo.Length > 0 && section == this._activeSection)
 						{
 							// Parse the PathInfo of the request because they are the parameters 
-							// of the module that is connected to the active section.
+							// for the module that is connected to the active section.
 							module.ModulePathInfo = Context.Request.PathInfo;
 						}
 					}
