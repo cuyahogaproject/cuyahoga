@@ -24,7 +24,6 @@ namespace Cuyahoga.Web.Admin
 	public class SectionEdit : Cuyahoga.Web.Admin.UI.AdminBasePage
 	{
 		private Section _activeSection = null;
-		private CoreRepository _cr = null;
 
 		protected System.Web.UI.WebControls.TextBox txtTitle;
 		protected System.Web.UI.WebControls.CheckBox chkShowTitle;
@@ -59,7 +58,7 @@ namespace Cuyahoga.Web.Admin
 				else
 				{
 					// Get section data
-					this._activeSection = (Section)this._cr.GetObjectById(typeof(Section), 
+					this._activeSection = (Section)base.CoreRepository.GetObjectById(typeof(Section), 
 						Int32.Parse(Context.Request.QueryString["SectionId"]));
 				}
 

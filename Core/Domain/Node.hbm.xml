@@ -12,10 +12,10 @@
 		<property name="ShortDescription" column="shortdescription" type="String" length="255" />
 		<property name="Position" column="position" type="Int32" />
 		
-		<many-to-one name="ParentNode" class="Cuyahoga.Core.Domain.Node, Cuyahoga.Core" column="parentnodeid" not-null="false" />
-		<many-to-one name="Template" class="Cuyahoga.Core.Domain.Template, Cuyahoga.Core" column="templateid" not-null="false" />
+		<many-to-one name="ParentNode" class="Cuyahoga.Core.Domain.Node, Cuyahoga.Core" column="parentnodeid" not-null="false" cascade="none" />
+		<many-to-one name="Template" class="Cuyahoga.Core.Domain.Template, Cuyahoga.Core" column="templateid" not-null="false" cascade="none" />
 		
-		<bag name="ChildNodes" cascade="all" inverse="true" order-by="position asc" lazy="true">
+		<bag name="ChildNodes" cascade="delete" inverse="true" order-by="position asc" lazy="true">
 			<key column="parentnodeid" />
 			<one-to-many class="Cuyahoga.Core.Domain.Node, Cuyahoga.Core" /> 
 		</bag>

@@ -97,6 +97,21 @@ namespace Cuyahoga.Core.Service
 			return crit.List();
 		}
 
+		public void DeleteObject(object obj)
+		{
+			ITransaction trn = this._activeSession.BeginTransaction();
+			try
+			{
+				this._activeSession.Delete(obj);
+				trn.Commit();
+			}
+			catch (Exception ex)
+			{
+				trn.Rollback();
+				throw ex;
+			}
+		}
+
 		#region Node specific
 
 		public IList GetRootNodes()
@@ -123,6 +138,37 @@ namespace Cuyahoga.Core.Service
 			else
 			{
 				return null;
+			}
+		}
+
+		public void SaveNode(Node node)
+		{
+			ITransaction trn = this._activeSession.BeginTransaction();
+			try
+			{
+				this._activeSession.Save(node);
+				trn.Commit();
+			}
+			catch (Exception ex)
+			{
+				trn.Rollback();
+				throw ex;
+			}
+		}
+
+		public void UpdateNode(Node node)
+		{
+			ITransaction trn = this._activeSession.BeginTransaction();
+			try
+			{
+				// No need to do an update since we've always load nodes, just flush.
+				this._activeSession.Update(node);
+				trn.Commit();
+			}
+			catch (Exception ex)
+			{
+				trn.Rollback();
+				throw ex;
 			}
 		}
 

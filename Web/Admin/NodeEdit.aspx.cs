@@ -109,22 +109,22 @@ namespace Cuyahoga.Web.Admin
 			// Only show a dropdownlist for templates if no sections are attached.
 			if (this.ActiveNode.Sections == null || this.ActiveNode.Sections.Count == 0)
 			{
-				TemplateCollection templates = new TemplateCollection();
-				// First add option for no template
+				IList templates = base.CoreRepository.GetAll(typeof(Template), "Name");
+				// Insert option for no template
 				Template emptyTemplate = new Template();
 				emptyTemplate.Id = -1;
 				emptyTemplate.Name = "No template";
-				templates.Add(emptyTemplate);
-				// Load the rest
-				ICmsDataProvider dp = CmsDataFactory.GetInstance();
-				dp.GetAllTemplates(templates);
+				templates.Insert(0, emptyTemplate);
+
 				// Bind
 				this.ddlTemplates.DataSource = templates;
 				this.ddlTemplates.DataValueField = "Id";
 				this.ddlTemplates.DataTextField = "Name";
 				this.ddlTemplates.DataBind();
 				if (this.ActiveNode != null && this.ActiveNode.Id > 0 && this.ActiveNode.Template != null)
+				{
 					ddlTemplates.Items.FindByValue(this.ActiveNode.Template.Id.ToString()).Selected = true;
+				}
 				this.ddlTemplates.Visible = true;
 			}
 			else
@@ -190,15 +190,14 @@ namespace Cuyahoga.Web.Admin
 
 		private void SaveNode()
 		{
-			ICmsDataProvider dp = CmsDataFactory.GetInstance();
 			if (this.ActiveNode.Id > 0)
 			{
-				dp.UpdateNode(this.ActiveNode);
+				base.CoreRepository.UpdateNode(this.ActiveNode);
 			}
 			else
 			{
 				this.ActiveNode.CalculateNewPosition();
-				dp.InsertNode(this.ActiveNode);
+				base.CoreRepository.SaveNode(this.ActiveNode);
 				Context.Response.Redirect(String.Format("NodeEdit.aspx?NodeId={0}", this.ActiveNode.Id));
 			}
 		}
@@ -401,14 +400,17 @@ namespace Cuyahoga.Web.Admin
 			{
 				try
 				{
-					ICmsDataProvider dp = CmsDataFactory.GetInstance();
-					dp.DeleteNode(this.ActiveNode);
+					base.CoreRepository.DeleteObject(this.ActiveNode);
 					// Reset the position of the 'neighbour' nodes.
 					this.ActiveNode.ReOrderNodePositions(this.ActiveNode.ParentNode, this.ActiveNode.Position);
 					if (this.ActiveNode.ParentNode != null)
-						Context.Response.Redirect(String.Format("NodeEdit.aspx?NodeId={0}", this.ActiveNode.ParentId));
+					{
+						Context.Response.Redirect(String.Format("NodeEdit.aspx?NodeId={0}", this.ActiveNode.ParentNode.Id));
+					}
 					else
+					{
 						Context.Response.Redirect("Default.aspx");
+					}
 				}
 				catch (Exception ex)
 				{

@@ -64,7 +64,9 @@ namespace Cuyahoga.Web.Admin.UI
 			}
 			// Now, we're here we could check authorization as well.
 			if (! ((User)this.User.Identity).HasPermission(AccessLevel.Administrator))
+			{
 				throw new ActionForbiddenException("The logged-in user has insufficient rights to access the site administration");
+			}
 
 			base.OnInit (e);
 		}

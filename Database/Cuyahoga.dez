@@ -1,6 +1,6 @@
 ***VERSION***
 2.4
-2004-10-02
+2004-10-04
 Cuyahoga
 
 Martijn Boland
@@ -199,7 +199,7 @@ No
 No
 Yes
 
-current_timestamp
+current_timestamp(3)
 
 ***ENTITY***
 Cuyahoga_Role
@@ -297,7 +297,7 @@ No
 No
 Yes
 
-current_timestamp
+current_timestamp(3)
 
 ***ENTITY***
 Cuyahoga_UserRole
@@ -394,7 +394,7 @@ No
 No
 Yes
 
-current_timestamp
+current_timestamp(3)
 
 ***RELATION***
 User_UserRole
@@ -596,7 +596,7 @@ No
 No
 Yes
 
-current_timestamp
+current_timestamp(3)
 
 ***ENTITY***
 Cuyahoga_Template
@@ -688,7 +688,7 @@ No
 No
 Yes
 
-current_timestamp
+current_timestamp(3)
 
 ***ENTITY***
 Cuyahoga_ModuleType
@@ -828,7 +828,7 @@ No
 No
 Yes
 
-current_timestamp
+current_timestamp(3)
 
 ***ENTITY***
 Cuyahoga_Section
@@ -1014,7 +1014,7 @@ No
 No
 Yes
 
-current_timestamp
+current_timestamp(3)
 
 ***RELATION***
 Node_Template
@@ -1247,7 +1247,7 @@ No
 No
 Yes
 
-current_timestamp
+current_timestamp(3)
 
 ***RELATION***
 Cuyahoga_Role_Cuyahoga_SectionRole
@@ -1424,7 +1424,7 @@ No
 No
 Yes
 
-current_timestamp
+current_timestamp(3)
 
 ***RELATION***
 Cuyahoga_Role_Cuyahoga_NodeRole
@@ -1645,7 +1645,7 @@ No
 No
 Yes
 
-current_timestamp
+current_timestamp(3)
 
 ***RELATION***
 Cuyahoga_Section_CM_StaticHtml
@@ -1953,7 +1953,7 @@ No
 No
 Yes
 
-current_timestamp
+current_timestamp(3)
 
 ***ENTITY***
 CM_ArticleCategory
@@ -2061,7 +2061,7 @@ No
 No
 Yes
 
-current_timestamp
+current_timestamp(3)
 
 ***ENTITY***
 CM_ArticleComment
@@ -2174,7 +2174,7 @@ No
 No
 Yes
 
-current_timestamp
+current_timestamp(3)
 
 ***RELATION***
 Cuyahoga_Section_CM_Article
