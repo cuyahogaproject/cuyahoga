@@ -6,6 +6,8 @@ using System.Configuration;
 using System.Text;
 using System.IO;
 
+using Cuyahoga.Core.Service;
+
 namespace Cuyahoga.Web.UI
 {
 	/// <summary>
@@ -18,6 +20,77 @@ namespace Cuyahoga.Web.UI
 		private string _title;
 		private string _css;
 		private string _templateDir;
+		private CoreRepository _coreRepository;
+
+		#region properties
+		/// <summary>
+		/// Template property (filename of the User Control). This property can be used to change 
+		/// page templates run-time.
+		/// </summary>
+		public string TemplateFilename
+		{
+			set { this._templateFilename = value; }
+		}
+
+		/// <summary>
+		/// The page title as shown in the title bar of the browser.
+		/// </summary>
+		public string Title
+		{
+			get { return _title; } 
+			set { _title = value; }
+		}
+
+		/// <summary>
+		/// Path to external stylesheet file, relative from the application root.
+		/// </summary>
+		public string Css
+		{
+			get { return _css; }
+			set { _css = value;	}
+		}
+
+		/// <summary>
+		/// Property for the template control. This property can be used for finding other controls.
+		/// </summary>
+		public UserControl TemplateControl
+		{
+			get
+			{
+				if (this.Controls.Count > 0)
+				{
+					if (this.Controls[0] is UserControl)
+					{
+						return (UserControl)this.Controls[0];
+					}
+					else
+					{
+						return null;
+					}
+				}
+				else
+				{
+					return null;
+				}
+			}
+		}
+
+		/// <summary>
+		/// The core repository for persisting Cuyahoga objects.
+		/// </summary>
+		protected CoreRepository CoreRepository
+		{
+			get 
+			{ 
+				if (this._coreRepository == null)
+				{
+					this._coreRepository = new CoreRepository(true);
+				}
+				return this._coreRepository; 
+			}
+		}
+
+		#endregion
 
 		/// <summary>
 		/// Default constructor
@@ -122,70 +195,17 @@ namespace Cuyahoga.Web.UI
 		}
 
 		/// <summary>
-		/// Template property (filename of the User Control). This property can be used to change 
-		/// page templates run-time.
+		/// Clean up
 		/// </summary>
-		public string TemplateFilename
+		/// <param name="e"></param>
+		protected override void OnUnload(EventArgs e)
 		{
-			set
+			if (this._coreRepository != null)
 			{
-				this._templateFilename = value;
+				this._coreRepository.CloseSession();
 			}
+			base.OnUnload (e);
 		}
 
-		/// <summary>
-		/// The page title as shown in the title bar of the browser.
-		/// </summary>
-		public string Title
-		{
-			get
-			{
-				return _title;
-			}
-			set
-			{
-				_title = value;
-			}
-		}
-
-		/// <summary>
-		/// Path to external stylesheet file, relative from the application root.
-		/// </summary>
-		public string Css
-		{
-			get
-			{
-				return _css;
-			}
-			set
-			{
-				_css = value;
-			}
-		}
-
-		/// <summary>
-		/// Property for the template control. This property can be used for finding other controls.
-		/// </summary>
-		public UserControl TemplateControl
-		{
-			get
-			{
-				if (this.Controls.Count > 0)
-				{
-					if (this.Controls[0] is UserControl)
-					{
-						return (UserControl)this.Controls[0];
-					}
-					else
-					{
-						return null;
-					}
-				}
-				else
-				{
-					return null;
-				}
-			}
-		}
 	}
 }

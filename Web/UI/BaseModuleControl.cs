@@ -12,13 +12,13 @@ namespace Cuyahoga.Web.UI
 	/// </summary>
 	public class BaseModuleControl : System.Web.UI.UserControl
 	{
-		private Module _module;
+		private ModuleBase _module;
 
 		/// <summary>
 		/// The accompanying Module business object. Use this property  to access
 		/// module properties, sections and nodes from the code-behind of the module user controls.
 		/// </summary>
-		public Module Module
+		public ModuleBase Module
 		{
 			get { return this._module; }
 			set { this._module = value; }
@@ -39,11 +39,11 @@ namespace Cuyahoga.Web.UI
 		{
 			writer.Write("<div class=\"module\">");
 			User cuyahogaUser = this.Page.User.Identity as User;
-			if (this._module.EditPath.Length > 0 
+			if (this._module.ModuleType.EditPath.Length > 0 
 				&& cuyahogaUser != null
 				&& cuyahogaUser.CanEdit(this._module.Section))
 			{
-				writer.Write(String.Format("<a href=\"{0}?NodeId={1}&SectionId={2}\">Edit</a>", UrlHelper.GetApplicationPath() + Module.EditPath, Module.Section.Node.Id, Module.Section.Id));
+				writer.Write(String.Format("<a href=\"{0}?NodeId={1}&SectionId={2}\">Edit</a>", UrlHelper.GetApplicationPath() + this._module.ModuleType.EditPath, this._module.Section.Node.Id, this._module.Section.Id));
 			}
 			if (this._module.Section != null && this._module.Section.ShowTitle)
 			{

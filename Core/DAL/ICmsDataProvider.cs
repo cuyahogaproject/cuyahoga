@@ -68,9 +68,6 @@ namespace Cuyahoga.Core.DAL
 
 		#region Module related
 
-		void ReadAndCacheAllModules();
-
-		Hashtable GetAllModules();
 
 		#endregion
 

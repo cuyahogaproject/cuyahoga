@@ -12,13 +12,12 @@ namespace Cuyahoga.Modules.Articles
 	/// <summary>
 	/// The ArticleModule provides a news system (articles, comments, content expiration, rss feed).
 	/// </summary>
-	public class ArticleModule : Module
+	public class ArticleModule : ModuleBase
 	{
-		ISessionFactory _factory;
+		private ISessionFactory _factory;
 
 		public ArticleModule()
 		{
-			base.Section = null;
 			SessionFactory sf = SessionFactory.GetInstance();
 			// Register classes that are used by the ArticleModule
 			sf.RegisterPersistentClass(typeof(Cuyahoga.Modules.Articles.Category));
@@ -150,14 +149,6 @@ namespace Cuyahoga.Modules.Articles
 			{
 				session.Close();
 			}
-		}
-
-		public override void LoadContent()
-		{
-		}
-
-		public override void DeleteContent()
-		{
 		}
 	}
 }

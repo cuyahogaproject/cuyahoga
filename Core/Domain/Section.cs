@@ -18,7 +18,8 @@ namespace Cuyahoga.Core.Domain
 		private int _position;
 		private int _cacheDuration;
 		private bool _showTitle;
-		private Module _module;
+		private ModuleType _moduleType;
+		private ModuleBase _module;
 		private Node _node;
 		private RoleCollection _viewRoles;
 		private RoleCollection _editRoles;
@@ -94,10 +95,18 @@ namespace Cuyahoga.Core.Domain
 		}
 
 		/// <summary>
-		/// Property Module (abstract Module)
-		/// Note: Modules are not lazy loaded.
+		/// Property Module
 		/// </summary>
-		public Module Module
+		public ModuleType ModuleType
+		{
+			get { return this._moduleType; }
+			set { this._moduleType = value; }
+		}
+
+		/// <summary>
+		/// Property Module (ModuleBase)
+		/// </summary>
+		public ModuleBase Module
 		{
 			get { return this._module; }
 			set { this._module = value; }
@@ -179,27 +188,11 @@ namespace Cuyahoga.Core.Domain
 			InitSection();
 		}
 
-		/// <summary>
-		/// Constructor that loads the section from the database, including the Module and the Node (if available).
-		/// </summary>
-		/// <param name="Id"></param>
-		public Section(int id)
-		{
-			this._id = id;
-			InitSection();
-			ICmsDataProvider dp = CmsDataFactory.GetInstance();
-			dp.GetSectionById(id, this);
-		}
-
 		private void InitSection()
 		{
 			this._nodeId = -1;
-			this._module = null;
-			this._node = null;
-			this._title = null;
 			this._showTitle = false;
 			this._position = -1;
-			this._placeholderId = null;
 			this._cacheDuration = 0;
 		}
 
@@ -317,9 +310,6 @@ namespace Cuyahoga.Core.Domain
 		/// </summary>
 		public void Remove()
 		{
-            // First delete the module content
-			this.Module.DeleteContent();
-			// Then delete section
 			ICmsDataProvider dp = CmsDataFactory.GetInstance();
 			dp.DeleteSection(this);
 			// Then rearrange positions of neighbour sections (kind of abusing an already existing method :-))

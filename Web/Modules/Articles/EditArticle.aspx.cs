@@ -21,6 +21,7 @@ namespace Cuyahoga.Web.Modules.Articles
 	public class EditArticle : ModuleAdminBasePage
 	{
 		private Article _article;
+		private ArticleModule _module;
 
 		protected System.Web.UI.WebControls.Button btnSave;
 		protected System.Web.UI.WebControls.Button btnDelete;
@@ -34,7 +35,6 @@ namespace Cuyahoga.Web.Modules.Articles
 		protected System.Web.UI.WebControls.DropDownList ddlCategory;
 		protected Cuyahoga.ServerControls.Calendar calDateOnline;
 		protected Cuyahoga.ServerControls.Calendar calDateOffline;
-		private ArticleModule _module;
 
 		private void Page_Load(object sender, System.EventArgs e)
 		{

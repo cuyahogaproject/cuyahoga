@@ -491,57 +491,6 @@ namespace Cuyahoga.Core.DAL
 
 		#region modules
 
-		/// <summary>
-		/// Reads modules from database and stores them in the cache.
-		/// </summary>
-		public void ReadAndCacheAllModules()
-		{
-			// Modules are not in the cache, get from database.
-			Hashtable modules = new Hashtable();
-			string sql = @"	SELECT moduleid, name, assemblyname, classname, path, editpath 
-							FROM cuyahoga_module
-							ORDER BY name";
-			NpgsqlConnection con = new NpgsqlConnection(Config.GetConfiguration()["ConnectionString"]);
-			NpgsqlCommand cmd = new NpgsqlCommand(sql, con);
-			con.Open();
-			try
-			{
-				NpgsqlDataReader dr = cmd.ExecuteReader();
-				while (dr.Read())
-				{
-					// Get module instance from factory and add to cache
-					Module module = ModuleFactory.GetInstance((string)dr["assemblyname"], (string)dr["classname"]);
-					module.ModuleId = Convert.ToInt32(dr["moduleid"]);
-					module.Name = Convert.ToString(dr["name"]);
-					module.Path = Convert.ToString(dr["path"]);
-					module.EditPath = Convert.ToString(dr["editpath"]);
-					modules.Add((string)dr["classname"], module);
-				}
-				dr.Close();
-				HttpContext.Current.Cache.Insert("Modules", modules);
-			}
-			catch (NpgsqlException ex)
-			{
-				throw new CmsDataException("Error reading modules", ex);
-			}
-			catch (Exception ex)
-			{
-				throw new Exception("Error retrieving modules for cache", ex);
-			}
-			finally
-			{
-				con.Close();
-			}
-		}
-
-		public Hashtable GetAllModules()
-		{
-			if (HttpContext.Current.Cache["Modules"] == null)
-			{
-				ReadAndCacheAllModules();
-			}
-			return (Hashtable)HttpContext.Current.Cache["Modules"];
-		}
 
 		#endregion
 
@@ -617,7 +566,7 @@ namespace Cuyahoga.Core.DAL
 							VALUES (:moduleid, :nodeid, :title, :showtitle, :placeholder, :cacheduration, :position)";
 			NpgsqlConnection con = new NpgsqlConnection(Config.GetConfiguration()["ConnectionString"]);
 			NpgsqlCommand cmd = new NpgsqlCommand(sql, con);
-			cmd.Parameters.Add(PgSqlDataHelper.MakeInParam(":moduleid", DbType.Int32, 4, section.Module.ModuleId));
+			cmd.Parameters.Add(PgSqlDataHelper.MakeInParam(":moduletypeid", DbType.Int32, 4, section.ModuleType.ModuleTypeId));
 			cmd.Parameters.Add(PgSqlDataHelper.MakeInParam(":nodeid", DbType.Int32, 4, section.Node.Id));
 			cmd.Parameters.Add(PgSqlDataHelper.MakeInParam(":title", DbType.String, 255, section.Title));
 			cmd.Parameters.Add(PgSqlDataHelper.MakeInParam(":showtitle", DbType.Boolean, 1, section.ShowTitle));
@@ -671,7 +620,7 @@ namespace Cuyahoga.Core.DAL
 							WHERE sectionid = :sectionid";
 			NpgsqlConnection con = new NpgsqlConnection(Config.GetConfiguration()["ConnectionString"]);
 			NpgsqlCommand cmd = new NpgsqlCommand(sql, con);
-			cmd.Parameters.Add(PgSqlDataHelper.MakeInParam(":moduleid", DbType.Int32, 4, section.Module.ModuleId));
+			cmd.Parameters.Add(PgSqlDataHelper.MakeInParam(":moduletypeid", DbType.Int32, 4, section.ModuleType.ModuleTypeId));
 			if (section.Node != null)
 				cmd.Parameters.Add(PgSqlDataHelper.MakeInParam(":nodeid", DbType.Int32, 4, section.Node.Id));
 			else
@@ -757,16 +706,13 @@ namespace Cuyahoga.Core.DAL
 			if (dr["cacheduration"] != DBNull.Value)
 				section.CacheDuration = Convert.ToInt32(dr["cacheduration"]);
 			// Add module (create a new instance with the same type as a cached one)
-			Module module = ModuleFactory.GetNewInstanceFromCache(Convert.ToString(dr["classname"]));
-			if (module != null)
-			{
-				module.ModuleId = Convert.ToInt32(dr["moduleid"]);
-				module.Name = Convert.ToString(dr["name"]);
-				module.Path = Convert.ToString(dr["path"]);
-				module.EditPath = Convert.ToString(dr["editpath"]);
-				module.Section = section;
-				section.Module = module;
-			}
+			ModuleType moduleType = new ModuleType();
+			
+			moduleType.ModuleTypeId = Convert.ToInt32(dr["moduleid"]);
+			moduleType.Name = Convert.ToString(dr["name"]);
+			moduleType.Path = Convert.ToString(dr["path"]);
+			moduleType.EditPath = Convert.ToString(dr["editpath"]);
+			section.ModuleType = moduleType;
 		}
 
 		private void InsertRoles(IPersonalizable personalizableObject, NpgsqlTransaction trn)

@@ -12,20 +12,7 @@ namespace Cuyahoga.Modules.User
 	/// a corresponding class. Perhaps functionality like 'forgot password?' will be added here in the future.
 	/// </remark>
 	/// </summary>
-	public class UserModule : Module
+	public class UserModule : ModuleBase
 	{
-		public UserModule()
-		{
-		}
-
-		public override void LoadContent()
-		{
-			// Nothing
-		}
-
-		public override void DeleteContent()
-		{
-			// Nothing
-		}
 	}
 }

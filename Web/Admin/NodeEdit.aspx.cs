@@ -9,6 +9,7 @@ using System.Web.UI.WebControls;
 using System.Web.UI.HtmlControls;
 
 using Cuyahoga.Core.Domain;
+using Cuyahoga.Core.Service;
 using Cuyahoga.Core.DAL;
 using Cuyahoga.Core.Collections;
 
@@ -206,7 +207,8 @@ namespace Cuyahoga.Web.Admin
 		private void MoveSections()
 		{
 			int sectionId = Int32.Parse(Context.Request.QueryString["SectionId"]);
-			Section section = new Section(sectionId);
+			CoreRepository cr = new CoreRepository();
+			Section section = (Section)cr.GetObjectById(typeof(Section), sectionId);
 			section.Node = this.ActiveNode;
 			if (Context.Request.QueryString["Action"] == "MoveUp")
 				section.MoveUp();

@@ -140,7 +140,7 @@ namespace Cuyahoga.Web.UI
 						}
 						if (section.Module != null)
 						{
-							BaseModuleControl ctrl = (BaseModuleControl)this.LoadControl(appRoot + section.Module.Path);
+							BaseModuleControl ctrl = (BaseModuleControl)this.LoadControl(appRoot + section.Module.ModuleType.Path);
 							ctrl.Module = section.Module;
 							((PlaceHolder)this._templateControl.Containers[section.PlaceholderId]).Controls.Add(ctrl);
 
@@ -148,7 +148,8 @@ namespace Cuyahoga.Web.UI
 							{
 								// Parse the PathInfo of the request because they are the parameters 
 								// of the module that is connected to the active section.
-								section.Module.ModuleParams = UrlHelper.GetModuleParamsFromPathInfo(Context.Request.PathInfo);
+								// TODO: fix it
+								//section.Module.ModuleParams = UrlHelper.GetModuleParamsFromPathInfo(Context.Request.PathInfo);
 							}
 						}
 					}

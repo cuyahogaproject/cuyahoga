@@ -114,11 +114,6 @@
                     BuildAction = "Compile"
                 />
                 <File
-                    RelPath = "ModuleFactory.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
                     RelPath = "Collections\NodeCollection.cs"
                     SubType = "Code"
                     BuildAction = "Compile"
@@ -184,6 +179,11 @@
                     BuildAction = "Compile"
                 />
                 <File
+                    RelPath = "Domain\ModuleBase.cs"
+                    SubType = "Code"
+                    BuildAction = "Compile"
+                />
+                <File
                     RelPath = "Domain\ModuleType.cs"
                     SubType = "Code"
                     BuildAction = "Compile"
@@ -239,6 +239,11 @@
                 />
                 <File
                     RelPath = "Security\CuyahogaPrincipal.cs"
+                    SubType = "Code"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "Service\CoreRepository.cs"
                     SubType = "Code"
                     BuildAction = "Compile"
                 />

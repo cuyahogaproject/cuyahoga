@@ -9,7 +9,7 @@ namespace Cuyahoga.Modules.StaticHtml
 	/// The StaticHtmlModule provides the content of simple static page. It needs at least its 
 	/// Section to be set to do something with the content (load, update, delete).
 	/// </summary>
-	public class StaticHtmlModule : Module
+	public class StaticHtmlModule : ModuleBase
 	{
 		private StaticHtmlContent _staticHtmlContent;
 
@@ -33,20 +33,7 @@ namespace Cuyahoga.Modules.StaticHtml
 
 		public StaticHtmlModule()
 		{
-			base.Section = null;
 			this._staticHtmlContent = null;
-		}
-
-		/// <summary>
-		/// 
-		/// </summary>
-		public override void LoadContent()
-		{
-		}
-
-		public override void DeleteContent()
-		{
-
 		}
 	}
 }

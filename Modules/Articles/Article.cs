@@ -117,22 +117,8 @@ namespace Cuyahoga.Modules.Articles
 		/// </summary>
 		public Section Section
 		{
-			get 
-			{ 
-				if (this._section == null && this._sectionId > 0)
-				{
-					this._section = new Section(this._sectionId);
-				}
-				return this._section; 
-			}
-			set 
-			{ 
-				this._section = value;
-				if (value != null)
-				{
-					this._sectionId = this._section.Id;
-				}
-			}
+			get { return this._section; }
+			set { this._section = value; }
 		}
 
 		/// <summary>

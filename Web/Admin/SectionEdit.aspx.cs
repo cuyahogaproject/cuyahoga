@@ -11,6 +11,7 @@ using System.Web.UI.HtmlControls;
 
 using Cuyahoga.Core;
 using Cuyahoga.Core.Domain;
+using Cuyahoga.Core.Service;
 using Cuyahoga.Core.DAL;
 using Cuyahoga.Core.Collections;
 using Cuyahoga.Web.UI;
@@ -23,6 +24,7 @@ namespace Cuyahoga.Web.Admin
 	public class SectionEdit : Cuyahoga.Web.Admin.UI.AdminBasePage
 	{
 		private Section _activeSection = null;
+		private CoreRepository _cr = null;
 
 		protected System.Web.UI.WebControls.TextBox txtTitle;
 		protected System.Web.UI.WebControls.CheckBox chkShowTitle;
@@ -57,7 +59,8 @@ namespace Cuyahoga.Web.Admin
 				else
 				{
 					// Get section data
-					this._activeSection = new Section(Int32.Parse(Context.Request.QueryString["SectionId"]));
+					this._activeSection = (Section)this._cr.GetObjectById(typeof(Section), 
+						Int32.Parse(Context.Request.QueryString["SectionId"]));
 				}
 
 				if (! this.IsPostBack)
@@ -82,17 +85,21 @@ namespace Cuyahoga.Web.Admin
 			if (this._activeSection.Module != null)
 			{
 				// A module is attached, there could be data already in it, so we don't give the option to change it
-				this.lblModule.Text = this._activeSection.Module.Name;
+				this.lblModule.Text = this._activeSection.ModuleType.Name;
 				this.ddlModule.Visible = false;
 				this.lblModule.Visible = true;
 			}
 			else
 			{
-				Hashtable availableModules = (Hashtable)Context.Cache["Modules"];
-				foreach (Module module in availableModules.Values)
-					this.ddlModule.Items.Add(new ListItem(module.Name, module.ModuleId.ToString()));
+				IList availableModules = base.CoreRepository.GetAll(typeof(ModuleType), "Name");
+				foreach (ModuleType moduleType in availableModules)
+				{
+					this.ddlModule.Items.Add(new ListItem(moduleType.Name, moduleType.ModuleTypeId.ToString()));
+				}
 				if (this._activeSection.Module != null)
-					this.ddlModule.Items.FindByValue(this._activeSection.Module.ModuleId.ToString()).Selected = true;
+				{
+					this.ddlModule.Items.FindByValue(this._activeSection.ModuleType.ModuleTypeId.ToString()).Selected = true;
+				}
 				this.ddlModule.Visible = true;
 				this.lblModule.Visible = false;
 			}
@@ -207,7 +214,10 @@ namespace Cuyahoga.Web.Admin
 					this._activeSection.ShowTitle = this.chkShowTitle.Checked;
 					this._activeSection.Node = this.ActiveNode;
 					if (this.ddlModule.Visible)
-						this._activeSection.Module = ModuleFactory.GetNewInstanceFromCache(Int32.Parse(this.ddlModule.SelectedValue));
+					{
+						this._activeSection.ModuleType = (ModuleType)CoreRepository.GetObjectById(
+							typeof(ModuleType), Int32.Parse(this.ddlModule.SelectedValue));
+					}
 					this._activeSection.PlaceholderId = this.ddlPlaceholder.SelectedValue;
 					this._activeSection.CacheDuration = Int32.Parse(this.txtCacheDuration.Text);
 

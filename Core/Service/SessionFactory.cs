@@ -48,6 +48,15 @@ namespace Cuyahoga.Core.Service
 		}
 
 		/// <summary>
+		/// Get a new NHibernate session.
+		/// </summary>
+		/// <returns></returns>
+		public ISession GetSession()
+		{
+			return this._nhibernateFactory.OpenSession();
+		}
+
+		/// <summary>
 		/// Add a class to the NHibernate mappings and rebuild the NHibernate SessionFactory. 
 		/// If the class already is mapped, nothing will happen. Call RefreshFactory() after
 		/// adding classes. They are not automatically added because of possible dependencies
