@@ -68,6 +68,10 @@
         <Files>
             <Include>
                 <File
+                    RelPath = "FreeTextBox.dll"
+                    BuildAction = "Content"
+                />
+                <File
                     RelPath = "Mono.Security.Protocol.Tls.dll"
                     BuildAction = "Content"
                 />
