@@ -104,6 +104,11 @@
                     BuildAction = "Compile"
                 />
                 <File
+                    RelPath = "Calendar.cs"
+                    SubType = "Code"
+                    BuildAction = "Compile"
+                />
+                <File
                     RelPath = "CuyahogaEditor.cs"
                     SubType = "Code"
                     BuildAction = "Compile"
