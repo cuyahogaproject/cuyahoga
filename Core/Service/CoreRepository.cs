@@ -208,7 +208,7 @@ namespace Cuyahoga.Core.Service
 			{
 				if (this._activeSession.IsOpen)
 				{
-					this._activeSession.Update(obj);
+					this._activeSession.Lock(obj, LockMode.None);
 				}
 				else
 				{
@@ -306,22 +306,24 @@ namespace Cuyahoga.Core.Service
 				{
 					if (! this._activeSession.Contains(node))
 					{
-						this._activeSession.Update(node);
+						this._activeSession.Lock(node, LockMode.None);
 						// Also Update the Site, otherwise the proxied properties of Site don't work.
 						if (node.Level == 0 && ! this._activeSession.Contains(node.Site))
 						{
-							this._activeSession.Update(node.Site);
+							this._activeSession.Lock(node.Site, LockMode.None);
 						}
 						// Recursively attach Childnodes because we might need them for building a navigation tree.
 						foreach (Node childNode in node.ChildNodes)
 						{
 							AttachNodeToCurrentSession(childNode);
 						}
-						// Also re-attach the sections. Updating the node doesn't automatically re-attach the sections.
-						foreach (Section section in node.Sections)
-						{
-							this._activeSession.Update(section);
-						}						
+// 20050227, MBO: 
+// using Session.Lock cascades into the Sections (save-update) so we don't need this anymore.
+//						// Also re-attach the sections. Updating the node doesn't automatically re-attach the sections.
+//						foreach (Section section in node.Sections)
+//						{
+//							//this._activeSession.Lock(section, LockMode.None);
+//						}						
 					}
 				}
 				else
@@ -343,7 +345,7 @@ namespace Cuyahoga.Core.Service
 		public IList GetNodesByTemplate(Template template)
 		{
 			string hql = "from Node n where n.Template.Id = ? ";
-			return this._activeSession.Find(hql, template.Id, NHibernate.NHibernate.Int32);
+			return this._activeSession.Find(hql, template.Id, NHibernateUtil.Int32);
 		}
 
 		#endregion
@@ -358,7 +360,7 @@ namespace Cuyahoga.Core.Service
 		public IList GetSortedSectionsByNode(Node node)
 		{
 			string hql = "from Section s where s.Node.Id = ? order by s.PlaceholderId, s.Position ";
-			return this._activeSession.Find(hql, node.Id, NHibernate.NHibernate.Int32);
+			return this._activeSession.Find(hql, node.Id, NHibernateUtil.Int32);
 		}
 
 		#endregion
@@ -425,7 +427,7 @@ namespace Cuyahoga.Core.Service
 			if (searchString.Length > 0)
 			{
 				hql = "from User u where u.UserName like ? order by u.UserName ";
-				return this._activeSession.Find(hql, searchString + "%", NHibernate.Type.TypeFactory.GetStringType());
+				return this._activeSession.Find(hql, searchString + "%", NHibernateUtil.String);
 			}
 			else
 			{

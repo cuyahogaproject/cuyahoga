@@ -84,7 +84,7 @@ namespace Cuyahoga.Web.UI
 			// Section title
 			if (this._module.Section != null && this._module.Section.ShowTitle)
 			{
-				writer.Write("<h3>" + this._module.Section.Title + "</h3>");
+				writer.Write("<h3>" + this._module.DisplayTitle + "</h3>");
 			}
 			// Rss feed
 			writer.Write("<div id=\"moduletools\" align=\"right\">");

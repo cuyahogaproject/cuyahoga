@@ -53,7 +53,8 @@ Installing Cuyahoga from source.
     web site up and running :). Don't forget to change the admin password!
     
 Hints and tips:
-- The search index has to be in a writable folder. You can specify the folder in the web.config:
+- The search index has to be in a folder that is writable for the ASP.NET user. You can specify the
+  folder in the web.config:
 
   <CuyahogaSettings>
     ...

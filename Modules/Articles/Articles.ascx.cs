@@ -97,7 +97,7 @@ namespace Cuyahoga.Modules.Articles
 					{
 						// HACK: Get the name of the category from the first article in the list.
 						Article firstArticle = ((IList)this.rptArticles.DataSource)[0] as Article;
-						base.Module.Section.Title = base.GetText("CATEGORY") + " " + firstArticle.Category.Title;
+						base.Module.DisplayTitle = base.GetText("CATEGORY") + " " + firstArticle.Category.Title;
 					}
 				}
 				else

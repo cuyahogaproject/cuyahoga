@@ -15,6 +15,7 @@ namespace Cuyahoga.Core.Domain
 		private string _modulePathInfo;
 		private string[] _moduleParams;
 		private string _sectionUrl;
+		private string _displayTitle;
 
 		/// <summary>
 		/// The NHibernate session from the current ASP.NET context.
@@ -101,6 +102,32 @@ namespace Cuyahoga.Core.Domain
 		{
 			get { return this._sectionUrl; }
 			set { this._sectionUrl = value; }
+		}
+
+		/// <summary>
+		/// Property DisplayTitle (string)
+		/// </summary>
+		public string DisplayTitle
+		{
+			get 
+			{ 
+				if (this._displayTitle != null)
+				{
+					return this._displayTitle; 
+				}
+				else if (this.Section != null)
+				{
+					return this.Section.Title;
+				}
+				else
+				{
+					return String.Empty;
+				}
+			}
+			set 
+			{ 
+				this._displayTitle = value; 
+			}
 		}
 
 		/// <summary>
