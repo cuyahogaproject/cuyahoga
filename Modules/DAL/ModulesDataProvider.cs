@@ -10,7 +10,7 @@ using Cuyahoga.Core.Util;
 namespace Cuyahoga.Modules.DAL
 {
 	/// <summary>
-	/// Summary description for ModuleDataFactory.
+	/// Summary description for ModulesDataProvider.
 	/// </summary>
 	public class ModulesDataProvider
 	{

@@ -75,7 +75,7 @@ namespace Cuyahoga.Test
 		public void TestCRUD()
 		{
 			// New Article without category
-			Article article1 = CreateArticle();
+			Article article1 = CreateArticle("Test article");
 			Assert.IsTrue(article1.Id == 0, "Invalid id for newly created Article" );
 			Broker.Persist(article1);
 			Assert.IsTrue(article1.Id != 0, "No id generated for the Article just inserted!" );
@@ -103,10 +103,11 @@ namespace Cuyahoga.Test
 
 		public void TestRelations()
 		{
-			Article article1 = CreateArticle();
+			Article article1 = CreateArticle("article 1");
 			article1.Persist();
 			Comment comment1 = new Comment(article1.Id, this._admin.Id, "Testcomment 1");
 			Comment comment2 = new Comment(article1.Id, this._author.Id, "Reply to Testcomment 1");
+			Category cat = new Category("Test", "", true);
 			try 
 			{
 				// Comments in article
@@ -117,20 +118,27 @@ namespace Cuyahoga.Test
 				// Article propery of comment
 				Assert.AreEqual(comment1.Article.Id, article1.Id);
 				// Category
-
+				article1.Category = cat;
+				Assert.IsTrue(article1.Category.Id > 0, "Category not persisted during assignment");
+				article1.Persist();
+				Article article2 = new Article(article1.Id);
+				Assert.AreEqual(article1.Category.Title, article2.Category.Title);
+				article2.Category = new Category("Test", "", true);
+				Assert.AreEqual(article1.Category.Id, article2.Category.Id, "Created a new category with an already existing title");
 			}
 			finally
 			{
 				article1.Comments.Remove(comment1);
-				article1.Comments.Remove(comment2);			
+				article1.Comments.Remove(comment2);		
 				Broker.Remove(article1);
+				Broker.Remove(cat);
 			}
 		}
 
-		private Article CreateArticle()
+		private Article CreateArticle(string title)
 		{
 			Article article = new Article();
-			article.Title = "testarticle";
+			article.Title = title;
 			article.Content = "testcontent";
 			article.Syndicate = false;
 			article.DateOnline = DateTime.Now.AddDays(1);

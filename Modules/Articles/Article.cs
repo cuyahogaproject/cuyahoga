@@ -317,8 +317,8 @@ namespace Cuyahoga.Modules.Articles
 					// verify existence
 					SqlBuilder sb = new SqlBuilder(StatementType.Select, typeof(Category));
 					sb.AddConstraint(Operator.Equals, "title", category.Title);
-					SqlResult res = Broker.Execute(sb.GetStatement(true));
-					if (res.Count > 0)
+					SqlResult res = Broker.Execute(sb.GetStatement());
+					if (res.Rows.Count > 0)
 					{
 						// yep, already exists, set the category to the existing one
 						this._category = ObjectFactory.GetInstance(typeof(Category), res) as Category;
