@@ -16,12 +16,6 @@
 				{
 					return confirm("Are you sure you want to delete this node?");
 				}
-
-				function confirmDeleteSection(sectionId, nodeId)
-				{
-					if (confirm("Are you sure you want to delete this section?"))
-						document.location.href = "NodeEdit.aspx?NodeId=" + nodeId + "&SectionId=" + sectionId + "&Action=Delete";
-				}
 				// -->
 			</script>
 			<div class="group">
@@ -62,7 +56,7 @@
 				<table>
 					<tr>
 						<td style="WIDTH: 100px">&nbsp;</td>
-						<td><asp:dropdownlist id="ddlTemplates" runat="server" autopostback="True" visible="false"></asp:dropdownlist><asp:label id="lblTemplates" runat="server" visible="false"></asp:label></td>
+						<td><asp:dropdownlist id="ddlTemplates" runat="server" autopostback="True"></asp:dropdownlist></td>
 					</tr>
 				</table>
 			</div>
@@ -117,7 +111,7 @@
 							<tr>
 								<td><%# DataBinder.Eval(Container.DataItem, "Title") %></td>
 								<td><%# DataBinder.Eval(Container.DataItem, "ModuleType.Name") %></td>
-								<td><%# DataBinder.Eval(Container.DataItem, "PlaceholderId") %></td>
+								<td><%# DataBinder.Eval(Container.DataItem, "PlaceholderId") %> <asp:label id="lblNotFound" cssclass="validator" visible="False" runat="server">(not found in template!)</asp:label></td>
 								<td style="text-align:right"><%# DataBinder.Eval(Container.DataItem, "CacheDuration") %></td>
 								<td>
 									<asp:hyperlink id="hplSectionUp" imageurl="../Images/upred.gif" visible="False" enableviewstate="False"
@@ -128,7 +122,7 @@
 								<td>
 									<asp:hyperlink id="hplEdit" runat="server">Edit</asp:hyperlink>
 									<asp:hyperlink id="hplDetach" runat="server">Detach</asp:hyperlink>
-									<asp:hyperlink id="hplDelete" runat="server">Delete</asp:hyperlink>
+									<asp:linkbutton id="lbtDelete" runat="server" causesvalidation="False" commandname="Delete" commandargument='<%# DataBinder.Eval(Container.DataItem, "Id") %>'>Delete</asp:linkbutton>
 								</td>
 							</tr>
 						</itemtemplate>

@@ -287,6 +287,7 @@ namespace Cuyahoga.Core.Domain
 			this._sections = null;
 			this._position = -1;
 			this._trail = null;
+			this._showInNavigation = true;
 			this._nodePermissions = new ArrayList();
 		}
 

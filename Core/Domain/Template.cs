@@ -68,7 +68,7 @@ namespace Cuyahoga.Core.Domain
 		/// </remarks>
 		public virtual string Path
 		{
-			get { return this._basePath + "/" + this._templateControl; }
+			get { return this.BasePath + "/" + this.TemplateControl; }
 		}
 
 

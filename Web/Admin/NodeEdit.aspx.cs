@@ -13,6 +13,7 @@ using log4net;
 
 using Cuyahoga.Core.Domain;
 using Cuyahoga.Web.Util;
+using Cuyahoga.Web.UI;
 
 namespace Cuyahoga.Web.Admin
 {
@@ -30,7 +31,6 @@ namespace Cuyahoga.Web.Admin
 		protected System.Web.UI.WebControls.Button btnDelete;
 		protected System.Web.UI.WebControls.Button btnCancel;
 		protected System.Web.UI.WebControls.Repeater rptSections;
-		protected System.Web.UI.WebControls.Label lblTemplates;
 		protected System.Web.UI.WebControls.HyperLink hplNewSection;
 		protected System.Web.UI.WebControls.RequiredFieldValidator rfvTitle;
 		protected System.Web.UI.WebControls.ImageButton btnUp;
@@ -158,31 +158,20 @@ namespace Cuyahoga.Web.Admin
 
 		private void BindTemplates()
 		{
-			// Only show a dropdownlist for templates if no sections are attached.
-			if (this.ActiveNode.Sections == null || this.ActiveNode.Sections.Count == 0)
+			IList templates = base.CoreRepository.GetAll(typeof(Template), "Name");
+	
+			// Bind
+			this.ddlTemplates.DataSource = templates;
+			this.ddlTemplates.DataValueField = "Id";
+			this.ddlTemplates.DataTextField = "Name";
+			this.ddlTemplates.DataBind();
+			if (this.ActiveNode != null && this.ActiveNode.Template != null)
 			{
-				IList templates = base.CoreRepository.GetAll(typeof(Template), "Name");
-				// Insert option for no template
-				Template emptyTemplate = new Template();
-				emptyTemplate.Id = -1;
-				emptyTemplate.Name = "No template";
-				templates.Insert(0, emptyTemplate);
-
-				// Bind
-				this.ddlTemplates.DataSource = templates;
-				this.ddlTemplates.DataValueField = "Id";
-				this.ddlTemplates.DataTextField = "Name";
-				this.ddlTemplates.DataBind();
-				if (this.ActiveNode != null && this.ActiveNode.Template != null)
+				ListItem li = ddlTemplates.Items.FindByValue(this.ActiveNode.Template.Id.ToString());
+				if (li != null)
 				{
-					ddlTemplates.Items.FindByValue(this.ActiveNode.Template.Id.ToString()).Selected = true;
+					li.Selected = true;
 				}
-				this.ddlTemplates.Visible = true;
-			}
-			else
-			{
-				this.lblTemplates.Text = this.ActiveNode.Template.Name;
-				this.lblTemplates.Visible = true;
 			}
 		}
 
@@ -218,14 +207,8 @@ namespace Cuyahoga.Web.Admin
 		{
 			if (this.ddlTemplates.Visible && this.ddlTemplates.SelectedValue != "-1")
 			{
-				Template template = new Template();
-				template.Id = Int32.Parse(this.ddlTemplates.SelectedValue);
-				template.Name = this.ddlTemplates.SelectedItem.Text;
-				this.ActiveNode.Template = template;
-			}
-			else if (this.ddlTemplates.SelectedValue == "-1")
-			{
-				this.ActiveNode.Template = null;
+				int templateId = Int32.Parse(this.ddlTemplates.SelectedValue);
+				this.ActiveNode.Template = (Template)base.CoreRepository.GetObjectById(typeof(Template), templateId);
 			}
 		}
 
@@ -282,25 +265,6 @@ namespace Cuyahoga.Web.Admin
 				base.CoreRepository.FlushSession();
 				// reset sections, so they will be refreshed from the database when required.
 				this.ActiveNode.ResetSections();
-			}
-			else if (Context.Request.QueryString["Action"] == "Delete")
-			{
-				// MBO, 20050217: TODO: this must be handled better and safer.
-				// We consider deleting a section also a 'Movement' :-)
-				try
-				{
-					// First tell the module to remove its content.
-					ModuleBase module = section.CreateModule(UrlHelper.GetUrlFromSection(section));
-					module.NHSessionRequired += new Cuyahoga.Core.Domain.ModuleBase.NHSessionEventHandler(module_NHSessionRequired);
-					module.DeleteModuleContent();
-					// Now delete the Section.
-					base.CoreRepository.DeleteObject(section);
-				}
-				catch (Exception ex)
-				{
-					ShowError(ex.Message);
-					log.Error(String.Format("Error deleting section : {0}.", section.Id.ToString()), ex);
-				}
 			}
 			// Redirect to the same page without the section movement parameters
 			Context.Response.Redirect(Context.Request.Path + String.Format("?NodeId={0}", this.ActiveNode.Id));
@@ -375,6 +339,7 @@ namespace Cuyahoga.Web.Admin
 			this.ddlTemplates.SelectedIndexChanged += new System.EventHandler(this.ddlTemplates_SelectedIndexChanged);
 			this.rptMenus.ItemDataBound += new System.Web.UI.WebControls.RepeaterItemEventHandler(this.rptMenus_ItemDataBound);
 			this.rptSections.ItemDataBound += new System.Web.UI.WebControls.RepeaterItemEventHandler(this.rptSections_ItemDataBound);
+			this.rptSections.ItemCommand += new System.Web.UI.WebControls.RepeaterCommandEventHandler(this.rptSections_ItemCommand);
 			this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
 			this.btnCancel.Click += new System.EventHandler(this.btnCancel_Click);
 			this.btnNew.Click += new System.EventHandler(this.btnNew_Click);
@@ -447,6 +412,7 @@ namespace Cuyahoga.Web.Admin
 					SetRoles();
 					this.SaveNode();
 					this.ShowMessage("Node saved while setting the template.");
+					BindSections();
 				}
 			}
 			catch (Exception ex)
@@ -482,7 +448,6 @@ namespace Cuyahoga.Web.Admin
 			if (section != null)
 			{
 				HyperLink hplEdit = (HyperLink)e.Item.FindControl("hplEdit");
-				HyperLink hplDelete = (HyperLink)e.Item.FindControl("hplDelete");
 
 				// HACK: as long as ~/ doesn't work properly in mono we have to use a relative path from the Controls
 				// directory due to the template construction.
@@ -499,8 +464,13 @@ namespace Cuyahoga.Web.Admin
 					hplSectionDown.NavigateUrl = Context.Request.RawUrl + String.Format("&SectionId={0}&Action=MoveDown", section.Id.ToString());
 					hplSectionDown.Visible = true;
 				}
+				LinkButton lbtDelete = (LinkButton)e.Item.FindControl("lbtDelete");
+				lbtDelete.Attributes.Add("onClick", "return confirm('Are you sure?')");
 
-				hplDelete.NavigateUrl = String.Format("javascript:confirmDeleteSection({0}, {1});", section.Id.ToString(), this.ActiveNode.Id.ToString());
+				// Check if the placeholder exists in the currently attached template
+				BaseTemplate templateControl = (BaseTemplate)this.LoadControl(UrlHelper.GetApplicationPath() + this.ActiveNode.Template.Path);
+				Label lblNotFound = (Label)e.Item.FindControl("lblNotFound");
+				lblNotFound.Visible = (templateControl.Containers[section.PlaceholderId] == null);
 			}
 		}
 
@@ -578,6 +548,31 @@ namespace Cuyahoga.Web.Admin
 			{
 				HyperLink hplEdit = e.Item.FindControl("hplEditMenu") as HyperLink;
 				hplEdit.NavigateUrl = String.Format("~/Admin/MenuEdit.aspx?MenuId={0}&NodeId={1}", menu.Id, this.ActiveNode.Id);
+			}
+		}
+
+		private void rptSections_ItemCommand(object source, System.Web.UI.WebControls.RepeaterCommandEventArgs e)
+		{
+			if (e.CommandName == "Delete")
+			{
+				int sectionId = Int32.Parse(e.CommandArgument.ToString());
+				Section section = (Section)base.CoreRepository.GetObjectById(typeof(Section), sectionId);
+				section.Node = this.ActiveNode;
+				try
+				{
+					// First tell the module to remove its content.
+					ModuleBase module = section.CreateModule(UrlHelper.GetUrlFromSection(section));
+					module.NHSessionRequired += new Cuyahoga.Core.Domain.ModuleBase.NHSessionEventHandler(module_NHSessionRequired);
+					module.DeleteModuleContent();
+					// Now delete the Section.
+					base.CoreRepository.DeleteObject(section);
+				}
+				catch (Exception ex)
+				{
+					ShowError(ex.Message);
+					log.Error(String.Format("Error deleting section : {0}.", section.Id.ToString()), ex);
+				}
+				BindSections();
 			}
 		}
 	}

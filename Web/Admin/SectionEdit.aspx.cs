@@ -171,8 +171,13 @@ namespace Cuyahoga.Web.Admin
 					this.ddlPlaceholder.DataValueField = "Key";
 					this.ddlPlaceholder.DataTextField = "Key";
 					this.ddlPlaceholder.DataBind();
-					if (this._activeSection.PlaceholderId != null && this._activeSection.PlaceholderId != "")
-						this.ddlPlaceholder.Items.FindByValue(this._activeSection.PlaceholderId).Selected = true;
+					ListItem li = this.ddlPlaceholder.Items.FindByValue(this._activeSection.PlaceholderId);
+					if (this._activeSection.PlaceholderId != null 
+						&& this._activeSection.PlaceholderId != ""
+						&& li != null)
+					{
+						li.Selected = true;
+					}
 					// Create url for lookup
 					this.hplLookup.NavigateUrl = "javascript:;";
 					this.hplLookup.Attributes.Add("onClick"

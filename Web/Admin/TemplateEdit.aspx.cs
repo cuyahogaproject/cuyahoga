@@ -74,6 +74,8 @@ namespace Cuyahoga.Web.Admin
 
 		private void BindTemplateUserControls()
 		{
+			this.ddlTemplateControls.Items.Clear();
+
 			string physicalTemplateDir = Context.Server.MapPath(
 				UrlHelper.GetApplicationPath() + this._activeTemplate.BasePath);
 			DirectoryInfo dir = new DirectoryInfo(physicalTemplateDir);
@@ -102,6 +104,8 @@ namespace Cuyahoga.Web.Admin
 
 		private void BindCss()
 		{
+			this.ddlCss.Items.Clear();
+
 			string physicalCssDir = Context.Server.MapPath(
 				UrlHelper.GetApplicationPath() + this._activeTemplate.BasePath + "/Css");
 			DirectoryInfo dir = new DirectoryInfo(physicalCssDir);
