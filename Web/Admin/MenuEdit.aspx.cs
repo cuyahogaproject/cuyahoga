@@ -28,6 +28,12 @@ namespace Cuyahoga.Web.Admin
 		protected System.Web.UI.WebControls.DropDownList ddlPlaceholder;
 		protected System.Web.UI.WebControls.RequiredFieldValidator rfvName;
 		protected System.Web.UI.WebControls.Button btnBack;
+		protected System.Web.UI.WebControls.ListBox lbxAvailableNodes;
+		protected System.Web.UI.WebControls.ListBox lbxSelectedNodes;
+		protected System.Web.UI.WebControls.Button btnAdd;
+		protected System.Web.UI.WebControls.Button btnRemove;
+		protected System.Web.UI.WebControls.Button btnUp;
+		protected System.Web.UI.WebControls.Button btnDown;
 		protected System.Web.UI.WebControls.Button btnDelete;
 	
 		private void Page_Load(object sender, System.EventArgs e)
@@ -55,6 +61,8 @@ namespace Cuyahoga.Web.Admin
 			{
 				this.txtName.Text = this._activeMenu.Name;
 				BindPlaceholders();
+				BindAvailableNodes();
+				BindSelectedNodes();
 			}
 		}
 
@@ -78,6 +86,55 @@ namespace Cuyahoga.Web.Admin
 			}
 		}
 
+		private void BindAvailableNodes()
+		{
+			IList rootNodes = base.CoreRepository.GetRootNodes(this.ActiveNode.Site);
+			AddAvailableNodes(rootNodes);
+		}
+
+		private void BindSelectedNodes()
+		{
+			foreach (Node node in this._activeMenu.Nodes)
+			{
+				this.lbxSelectedNodes.Items.Add(new ListItem(node.Title, node.Id.ToString()));
+				// also remove from available nodes
+				ListItem item = this.lbxAvailableNodes.Items.FindByValue(node.Id.ToString());
+				if (item != null)
+				{
+					this.lbxAvailableNodes.Items.Remove(item);
+				}
+			}
+		}
+
+		private void AddAvailableNodes(IList nodes)
+		{
+			foreach (Node node in nodes)
+			{
+				int indentSpaces = node.Level * 5;
+				string itemIndentSpaces = String.Empty;
+				for (int i = 0; i < indentSpaces; i++)
+				{
+					itemIndentSpaces += "&nbsp;";
+				}
+				ListItem li = new ListItem(Context.Server.HtmlDecode(itemIndentSpaces) + node.Title, node.Id.ToString());
+				this.lbxAvailableNodes.Items.Add(li);
+				if (node.ChildNodes.Count > 0)
+				{
+					AddAvailableNodes(node.ChildNodes);
+				}
+			}
+		}
+
+		private void AttachSelectedNodes()
+		{
+			this._activeMenu.Nodes.Clear();
+			foreach (ListItem item in this.lbxSelectedNodes.Items)
+			{
+				Node node = (Node)base.CoreRepository.GetObjectById(typeof(Node), Int32.Parse(item.Value));
+				this._activeMenu.Nodes.Add(node);
+			}
+		}
+
 		private void SaveMenu()
 		{
 			if (this._activeMenu.Id > 0)
@@ -88,6 +145,24 @@ namespace Cuyahoga.Web.Admin
 			{
 				base.CoreRepository.SaveObject(this._activeMenu);
 				Context.Response.Redirect(String.Format("NodeEdit.aspx?NodeId={0}", this.ActiveNode.Id));
+			}
+		}
+
+		private void SynchronizeNodeListBoxes()
+		{
+			// First fetch a fresh list of available nodes because everything has to be
+			// nice in place.
+			this.lbxAvailableNodes.Items.Clear();
+			BindAvailableNodes();
+			// make sure the selected nodes are not in the available nodes list.
+			int itemCount = this.lbxAvailableNodes.Items.Count;
+			for (int i = itemCount - 1; i >= 0; i--)
+			{
+				ListItem item = this.lbxAvailableNodes.Items[i];
+				if (this.lbxSelectedNodes.Items.FindByValue(item.Value) != null)
+				{
+					this.lbxAvailableNodes.Items.RemoveAt(i);
+				}
 			}
 		}
 
@@ -107,6 +182,10 @@ namespace Cuyahoga.Web.Admin
 		/// </summary>
 		private void InitializeComponent()
 		{    
+			this.btnAdd.Click += new System.EventHandler(this.btnAdd_Click);
+			this.btnRemove.Click += new System.EventHandler(this.btnRemove_Click);
+			this.btnUp.Click += new System.EventHandler(this.btnUp_Click);
+			this.btnDown.Click += new System.EventHandler(this.btnDown_Click);
 			this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
 			this.btnBack.Click += new System.EventHandler(this.btnBack_Click);
 			this.btnDelete.Click += new System.EventHandler(this.btnDelete_Click);
@@ -128,6 +207,7 @@ namespace Cuyahoga.Web.Admin
 				this._activeMenu.Placeholder = this.ddlPlaceholder.SelectedValue;
 				try
 				{
+					AttachSelectedNodes();
 					SaveMenu();
 					ShowMessage("Menu saved");
 				}
@@ -150,6 +230,56 @@ namespace Cuyahoga.Web.Admin
 				catch (Exception ex)
 				{
 					ShowError(ex.Message);
+				}
+			}
+		}
+
+		private void btnAdd_Click(object sender, System.EventArgs e)
+		{
+			ListItem item = this.lbxAvailableNodes.SelectedItem;
+			if (item != null)
+			{
+				this.lbxSelectedNodes.Items.Add(item);
+				item.Selected = false;
+			}
+			SynchronizeNodeListBoxes();
+		}
+
+		private void btnRemove_Click(object sender, System.EventArgs e)
+		{
+			ListItem item = this.lbxSelectedNodes.SelectedItem;
+			if (item != null)
+			{
+				this.lbxSelectedNodes.Items.Remove(this.lbxSelectedNodes.SelectedItem);
+				item.Selected = false;
+			}
+			SynchronizeNodeListBoxes();
+		}
+
+		private void btnUp_Click(object sender, System.EventArgs e)
+		{
+			ListItem item = this.lbxSelectedNodes.SelectedItem;
+			if (item != null)
+			{
+				int origPosition = this.lbxSelectedNodes.SelectedIndex;
+				if (origPosition > 0)
+				{
+					this.lbxSelectedNodes.Items.Remove(item);
+					this.lbxSelectedNodes.Items.Insert(origPosition - 1, item);
+				}
+			}
+		}
+
+		private void btnDown_Click(object sender, System.EventArgs e)
+		{
+			ListItem item = this.lbxSelectedNodes.SelectedItem;
+			if (item != null)
+			{
+				int origPosition = this.lbxSelectedNodes.SelectedIndex;
+				if (origPosition < this.lbxSelectedNodes.Items.Count -1)
+				{
+					this.lbxSelectedNodes.Items.Remove(item);
+					this.lbxSelectedNodes.Items.Insert(origPosition + 1, item);
 				}
 			}
 		}

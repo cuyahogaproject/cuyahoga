@@ -57,7 +57,14 @@ namespace Cuyahoga.Core.Domain
 		/// </summary>
 		public IList Nodes
 		{
-			get { return this._nodes; }
+			get 
+			{
+				if (this._nodes == null)
+				{
+					this._nodes = new ArrayList();
+				}
+				return this._nodes; 
+			}
 			set { this._nodes = value; }
 		}
 
