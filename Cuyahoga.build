@@ -60,6 +60,9 @@
                 <include name="ExternalStuff/Npgsql.*" />    
                 <include name="ExternalStuff/Mono.Security.Protocol.Tls.*" />
             </references>
+            <resources>
+				 <include name="Core/Domain/**/*.hbm.xml" />
+            </resources>
         </csc>
 	</target>
 	<target name="build.modules" depends="build.core">
