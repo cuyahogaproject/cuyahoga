@@ -90,9 +90,9 @@
                     HintPath = "..\ExternalStuff\Npgsql.dll"
                 />
                 <Reference
-                    Name = "Mono.Security.Protocol.Tls"
-                    AssemblyName = "Mono.Security.Protocol.Tls"
-                    HintPath = "..\ExternalStuff\Mono.Security.Protocol.Tls.dll"
+                    Name = "Mono.Security"
+                    AssemblyName = "Mono.Security"
+                    HintPath = "..\ExternalStuff\Mono.Security.dll"
                 />
             </References>
         </Build>

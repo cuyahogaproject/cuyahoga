@@ -3,13 +3,13 @@
         ProjectType = "Local"
         ProductVersion = "7.10.3077"
         SchemaVersion = "2.0"
-        ProjectGuid = "{7069F87A-95E1-4E61-B5FD-E0892E6F821F}"
+        ProjectGuid = "{D12953C2-3266-45A8-811B-3B38730B8259}"
     >
         <Build>
             <Settings
                 ApplicationIcon = ""
                 AssemblyKeyContainerName = ""
-                AssemblyName = "Cuyahoga.Modules"
+                AssemblyName = "Cuyahoga.Test"
                 AssemblyOriginatorKeyFile = ""
                 DefaultClientScript = "JScript"
                 DefaultHTMLPageLayout = "Grid"
@@ -17,8 +17,8 @@
                 DelaySign = "false"
                 OutputType = "Library"
                 PreBuildEvent = ""
-                PostBuildEvent = ""
-                RootNamespace = "Cuyahoga.Modules"
+                PostBuildEvent = "copy $(ProjectDir)App.config $(TargetPath).config"
+                RootNamespace = "Cuyahoga.Test"
                 RunPostBuildEvent = "OnBuildSuccess"
                 StartupObject = ""
             >
@@ -76,12 +76,22 @@
                 />
                 <Reference
                     Name = "System.XML"
-                    AssemblyName = "System.Xml"
+                    AssemblyName = "System.XML"
                     HintPath = "..\..\..\WINDOWS\Microsoft.NET\Framework\v1.1.4322\System.XML.dll"
+                />
+                <Reference
+                    Name = "nunit.framework"
+                    AssemblyName = "nunit.framework"
+                    HintPath = "..\ExternalStuff\nunit.framework.dll"
                 />
                 <Reference
                     Name = "Core"
                     Project = "{723B7D30-6472-4B96-8D09-4F094C96650E}"
+                    Package = "{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}"
+                />
+                <Reference
+                    Name = "Modules"
+                    Project = "{7069F87A-95E1-4E61-B5FD-E0892E6F821F}"
                     Package = "{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}"
                 />
                 <Reference
@@ -90,93 +100,31 @@
                     HintPath = "..\..\..\WINDOWS\Microsoft.NET\Framework\v1.1.4322\System.Web.dll"
                 />
                 <Reference
-                    Name = "Npgsql"
-                    AssemblyName = "Npgsql"
-                    HintPath = "..\ExternalStuff\Npgsql.dll"
-                />
-                <Reference
-                    Name = "Mailframe.Configuration"
-                    AssemblyName = "Mailframe.Configuration"
-                    HintPath = "..\ExternalStuff\Mailframe.Configuration.dll"
-                />
-                <Reference
                     Name = "Gentle.Framework"
                     AssemblyName = "Gentle.Framework"
-                    HintPath = "..\ExternalStuff\Gentle.Framework.dll"
-                />
-                <Reference
-                    Name = "Gentle.Provider.PostgreSQL"
-                    AssemblyName = "Gentle.Provider.PostgreSQL"
-                    HintPath = "..\ExternalStuff\Gentle.Provider.PostgreSQL.dll"
-                />
-                <Reference
-                    Name = "Gentle.Provider.SQLServer"
-                    AssemblyName = "Gentle.Provider.SQLServer"
-                    HintPath = "..\ExternalStuff\Gentle.Provider.SQLServer.dll"
-                />
-                <Reference
-                    Name = "Mono.Security"
-                    AssemblyName = "Mono.Security"
-                    HintPath = "..\ExternalStuff\Mono.Security.dll"
+                    HintPath = "..\..\Gentle-1.1.1\Output\Debug\Gentle.Framework.dll"
                 />
             </References>
         </Build>
         <Files>
             <Include>
                 <File
+                    RelPath = "App.config"
+                    BuildAction = "None"
+                />
+                <File
+                    RelPath = "ArticleTest.cs"
+                    SubType = "Code"
+                    BuildAction = "Compile"
+                />
+                <File
                     RelPath = "AssemblyInfo.cs"
                     SubType = "Code"
                     BuildAction = "Compile"
                 />
                 <File
-                    RelPath = "Articles\Article.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "Articles\ArticleModule.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "Articles\Category.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "Articles\Comment.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "DAL\IModulesDataProvider.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "DAL\ModulesDataProvider.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "DAL\PgSqlModulesDataProvider.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "StaticHtml\StaticHtmlContent.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "StaticHtml\StaticHtmlModule.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "User\UserModule.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
+                    RelPath = "Gentle.config"
+                    BuildAction = "None"
                 />
             </Include>
         </Files>

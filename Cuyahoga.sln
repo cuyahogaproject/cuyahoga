@@ -19,6 +19,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ServerControls", "ServerCon
 	ProjectSection(ProjectDependencies) = postProject
 	EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Test", "Test\Test.csproj", "{D12953C2-3266-45A8-811B-3B38730B8259}"
+	ProjectSection(ProjectDependencies) = postProject
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfiguration) = preSolution
 		Debug = Debug
@@ -43,6 +47,10 @@ Global
 		{C64DAA00-AAB1-4AC7-ADE2-119B53B9666A}.Debug.Build.0 = Debug|.NET
 		{C64DAA00-AAB1-4AC7-ADE2-119B53B9666A}.Release.ActiveCfg = Release|.NET
 		{C64DAA00-AAB1-4AC7-ADE2-119B53B9666A}.Release.Build.0 = Release|.NET
+		{D12953C2-3266-45A8-811B-3B38730B8259}.Debug.ActiveCfg = Debug|.NET
+		{D12953C2-3266-45A8-811B-3B38730B8259}.Debug.Build.0 = Debug|.NET
+		{D12953C2-3266-45A8-811B-3B38730B8259}.Release.ActiveCfg = Release|.NET
+		{D12953C2-3266-45A8-811B-3B38730B8259}.Release.Build.0 = Release|.NET
 	EndGlobalSection
 	GlobalSection(SolutionItems) = postSolution
 		Cuyahoga.build = Cuyahoga.build

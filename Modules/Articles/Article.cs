@@ -20,9 +20,9 @@ namespace Cuyahoga.Modules.Articles
 		private int _sectionId;
 		[TableColumn("createdby")]
 		private int _createdById;
-		[TableColumn("modifiedby")]
+		[TableColumn("modifiedby", NotNull=true, MagicValue=0)]
 		private int _modifiedById;
-		[TableColumn("articlecategoryid")]
+		[TableColumn("articlecategoryid", NotNull=true, MagicValue=0), ForeignKey("articlecategory", "articlecategoryid")]
 		private int _categoryId;
 		private string _title;
 		private string _summary;
@@ -142,8 +142,11 @@ namespace Cuyahoga.Modules.Articles
 			}
 			set 
 			{ 
-				this._section = value; 
-				this._sectionId = this._section.Id;
+				this._section = value;
+				if (value != null)
+				{
+					this._sectionId = this._section.Id;
+				}
 			}
 		}
 
@@ -163,7 +166,10 @@ namespace Cuyahoga.Modules.Articles
 			set 
 			{ 
 				this._createdBy = value; 
-				this._createdById = this._createdBy.Id;
+				if (value != null)
+				{
+					this._createdById = this._createdBy.Id;
+				}
 			}
 		}
 
@@ -183,7 +189,14 @@ namespace Cuyahoga.Modules.Articles
 			set 
 			{ 
 				this._modifiedBy = value; 
-				this._modifiedById = this._modifiedBy.Id;
+				if (value != null)
+				{
+					this._modifiedById = this._modifiedBy.Id;
+				}
+				else
+				{
+					this._modifiedById = 0;
+				}
 			}
 		}
 
@@ -196,15 +209,21 @@ namespace Cuyahoga.Modules.Articles
 			{ 
 				if (this._category == null && this._categoryId > 0)
 				{
-					Key key = new Key(typeof(Category), true, "Id", this._categoryId);
-					this._category = Category.Retrieve(typeof(Category), key) as Category;
+					this._category = new Category(this._categoryId);
 				}
 				return this._category; 
 			}
 			set 
 			{ 
 				this._category = value; 
-				this._categoryId = this._category.Id;
+				if (value != null)
+				{
+					this._categoryId = this._category.Id;
+				}
+				else
+				{
+					this._categoryId = 0;
+				}
 			}
 		}
 
@@ -225,21 +244,72 @@ namespace Cuyahoga.Modules.Articles
 
 		#endregion
 
+		#region constructors
+
 		/// <summary>
 		/// Default constructor.
 		/// </summary>
 		public Article()
 		{
-			this._id = -1;
-			this._sectionId = -1;
-			this._createdById = -1;
-			this._modifiedById = -1;
-			this._categoryId = -1;
+			this._id = 0;
+			this._sectionId = 0;
+			this._createdById = 0;
+			this._modifiedById = 0;
+			this._categoryId = 0;
 			this._syndicate = true;
 			this._dateOnline = DateTime.MinValue;
 			this._dateOffline = DateTime.MinValue;
-			this._dateCreated = DateTime.MinValue;
-			this._dateModified = DateTime.MinValue;
+			this._dateCreated = DateTime.Now;
+			this._dateModified = DateTime.Now;
 		}
+
+		/// <summary>
+		/// Constructor with all persistant fields.
+		/// </summary>
+		/// <param name="id"></param>
+		/// <param name="sectionId"></param>
+		/// <param name="createdById"></param>
+		/// <param name="modifiedById"></param>
+		/// <param name="categoryId"></param>
+		/// <param name="title"></param>
+		/// <param name="summary"></param>
+		/// <param name="content"></param>
+		/// <param name="syndicate"></param>
+		/// <param name="dateOnline"></param>
+		/// <param name="dateOffline"></param>
+		/// <param name="dateCreated"></param>
+		/// <param name="dateModified"></param>
+		public Article(int id, int sectionId, int createdById, int modifiedById, int categoryId, string title, string summary, string content
+			, bool syndicate, DateTime dateOnline, DateTime dateOffline, DateTime dateCreated, DateTime dateModified)
+		{
+			this._id = id;
+			this._sectionId = sectionId;
+			this._createdById = createdById;
+			this._modifiedById = modifiedById;
+			this._categoryId = categoryId;
+			this._title = title;
+			this._summary = summary;
+			this._content = content;
+			this._syndicate = syndicate;
+			this._dateOnline = dateOnline;
+			this._dateOffline = dateOffline;
+			this._dateCreated = dateCreated;
+			this._dateModified = dateModified;
+		}
+
+		/// <summary>
+		/// Constructor to create a populated Article.
+		/// </summary>
+		/// <param name="id"></param>
+		public Article(int id)
+		{
+			if (id > 0)
+			{
+				this._id = id;
+				Broker.Refresh(this);
+			}
+		}
+
+		#endregion
 	}
 }

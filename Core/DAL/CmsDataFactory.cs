@@ -17,7 +17,7 @@ namespace Cuyahoga.Core.DAL
 
 		public static ICmsDataProvider GetInstance() 
 		{
-			Cache cache = System.Web.HttpContext.Current.Cache;
+			Cache cache = System.Web.HttpRuntime.Cache;
 
 			if ( cache["ICmsDataProvider"] == null ) 
 			{
@@ -30,6 +30,10 @@ namespace Cuyahoga.Core.DAL
 				{
 					// assemblyPath presented in virtual form, must convert to physical path
 					assemblyPath = HttpContext.Current.Server.MapPath(assemblyPath);					
+				}
+				else
+				{
+					assemblyPath = Assembly.GetExecutingAssembly().Location;
 				}
 
 				// Use reflection to store the constructor of the class that implements ICmsDataProvider
