@@ -197,6 +197,21 @@ namespace Cuyahoga.Modules.Articles
 			}
 		}
 
+		public void DeleteComment(Comment comment)
+		{
+			ITransaction tx = base.NHSession.BeginTransaction();
+			try
+			{
+				base.NHSession.Delete(comment);
+				tx.Commit();
+			}
+			catch (Exception ex)
+			{
+				tx.Rollback();
+				throw new Exception("Unable to delete Comment", ex);
+			}
+		}
+
 		/// <summary>
 		/// Parse the pathinfo. Translate pathinfo parameters into member variables.
 		/// </summary>

@@ -66,4 +66,16 @@
 	<data name="INVALIDINPUT">
 		<value>Ongeldige tekst ingevoerd</value>
 	</data>
+	<data name="NAME">
+		<value>Naam</value>
+	</data>
+	<data name="WEBSITE">
+		<value>Website</value>
+	</data>
+	<data name="NAMEREQUIRED">
+		<value>Naam is verplicht</value>
+	</data>
+	<data name="COMMENTREQUIRED">
+		<value>Reactie is verplicht</value>
+	</data>
 </root>

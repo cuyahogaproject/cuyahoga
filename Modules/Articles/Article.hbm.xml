@@ -15,12 +15,12 @@
 		<property name="DateCreated" column="inserttimestamp" type="DateTime" />
 		<property name="Syndicate" column="syndicate" type="Boolean" />
 
-		<many-to-one name="Section" class="Cuyahoga.Core.Domain.Section, Cuyahoga.Core" column="sectionid" />
-		<many-to-one name="CreatedBy" class="Cuyahoga.Core.Domain.User, Cuyahoga.Core" column="createdby" />
-		<many-to-one name="ModifiedBy" class="Cuyahoga.Core.Domain.User, Cuyahoga.Core" column="modifiedby" />
-		<many-to-one name="Category" class="Cuyahoga.Modules.Articles.Category, Cuyahoga.Modules" column="articlecategoryid" outer-join="true" />
+		<many-to-one name="Section" class="Cuyahoga.Core.Domain.Section, Cuyahoga.Core" column="sectionid" cascade="none" />
+		<many-to-one name="CreatedBy" class="Cuyahoga.Core.Domain.User, Cuyahoga.Core" column="createdby" cascade="none" />
+		<many-to-one name="ModifiedBy" class="Cuyahoga.Core.Domain.User, Cuyahoga.Core" column="modifiedby" cascade="none" />
+		<many-to-one name="Category" class="Cuyahoga.Modules.Articles.Category, Cuyahoga.Modules" column="articlecategoryid" outer-join="true" cascade="none" />
 
-		<bag name="Comments" cascade="all" inverse="true" lazy="true" order-by="updatetimestamp">
+		<bag name="Comments" cascade="all-delete-orphan" lazy="true" order-by="updatetimestamp" inverse="true">
 			<key column="articleid" />
 			<one-to-many class="Cuyahoga.Modules.Articles.Comment, Cuyahoga.Modules" /> 
 		</bag>

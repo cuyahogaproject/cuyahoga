@@ -33,6 +33,11 @@ namespace Cuyahoga.Modules.Articles
 		protected System.Web.UI.WebControls.Button btnSaveComment;
 		protected System.Web.UI.WebControls.Panel pnlComment;
 		protected System.Web.UI.WebControls.Repeater rptComments;
+		protected System.Web.UI.WebControls.TextBox txtName;
+		protected System.Web.UI.WebControls.TextBox txtWebsite;
+		protected System.Web.UI.WebControls.Panel pnlAnonymous;
+		protected System.Web.UI.WebControls.RequiredFieldValidator rfvName;
+		protected System.Web.UI.WebControls.RequiredFieldValidator rfvComment;
 		protected System.Web.UI.WebControls.Panel pnlArticleList;
 
 		private void Page_Load(object sender, System.EventArgs e)
@@ -57,11 +62,14 @@ namespace Cuyahoga.Modules.Articles
 					this.hplBack.NavigateUrl = UrlHelper.GetUrlFromSection(this._module.Section);
 					this.hplBack.Text = base.GetText("BACK");
 					this.btnSaveComment.Text = base.GetText("BTNSAVECOMMENT");
+					this.rfvName.ErrorMessage = base.GetText("NAMEREQUIRED");
+					this.rfvComment.ErrorMessage = base.GetText("COMMENTREQUIRED");
 
 					this.pnlArticleDetails.Visible = true;
-					if (this.Page.User.Identity.IsAuthenticated)
+					if (this._allowAnonymousComments || (this.Page.User.Identity.IsAuthenticated && this._allowComments))
 					{
 						this.pnlComment.Visible = true;
+						this.pnlAnonymous.Visible = (! this.Page.User.Identity.IsAuthenticated);
 					}
 					else
 					{
@@ -69,6 +77,7 @@ namespace Cuyahoga.Modules.Articles
 					}
 					// Comments
 					this.rptComments.DataSource = this._activeArticle.Comments;
+					this.rptComments.ItemDataBound += new RepeaterItemEventHandler(rptComments_ItemDataBound);
 					this.rptComments.DataBind();
 				}
 				else if (this._module.CurrentCategory != null)
@@ -130,24 +139,70 @@ namespace Cuyahoga.Modules.Articles
 
 		private void btnSaveComment_Click(object sender, System.EventArgs e)
 		{
-			// Strip any html tags.
-			string commentText = Regex.Replace(this.txtComment.Text, @"<(.|\n)*?>", string.Empty);
-			// Replace carriage returns with <br>.
-			commentText = commentText.Replace("\r", "<br>");
-			// Save comment.
-			Comment comment = new Comment();
-			comment.Article = this._activeArticle;
-			comment.CommentText = commentText;
-			comment.User = this.Page.User.Identity as Cuyahoga.Core.Domain.User;
-			try
+			if (this.Page.IsValid)
 			{
-				this._module.SaveComment(comment);
-				Context.Response.Redirect(UrlHelper.GetUrlFromSection(this._module.Section) + "/" + this._activeArticle.Id.ToString());
+				// Strip any html tags.
+				string commentText = Regex.Replace(this.txtComment.Text, @"<(.|\n)*?>", string.Empty);
+				// Replace carriage returns with <br>.
+				commentText = commentText.Replace("\r", "<br>");
+				// Save comment.
+				Comment comment = new Comment();
+				comment.Article = this._activeArticle;
+				comment.CommentText = commentText;
+				comment.UserIp = HttpContext.Current.Request.UserHostAddress;
+				if (this.Page.User.Identity.IsAuthenticated)
+				{
+					comment.User = this.Page.User.Identity as Cuyahoga.Core.Domain.User;
+				}
+				else
+				{
+					comment.Name = this.txtName.Text;
+					comment.Website = this.txtWebsite.Text;
+				}
+				try
+				{
+					this._module.SaveComment(comment);
+					Context.Response.Redirect(UrlHelper.GetUrlFromSection(this._module.Section) + "/" + this._activeArticle.Id.ToString());
+				}
+				catch (Exception ex)
+				{
+					this.lblError.Text = ex.Message;
+					this.lblError.Visible = true;
+				}
 			}
-			catch (Exception ex)
+		}
+
+		private void rptComments_ItemDataBound(object sender, RepeaterItemEventArgs e)
+		{
+			PlaceHolder plhCommentBy = e.Item.FindControl("plhCommentBy") as PlaceHolder;
+			if (plhCommentBy != null)
 			{
-				this.lblError.Text = ex.Message;
-				this.lblError.Visible = true;
+				Comment comment = (Comment)e.Item.DataItem;
+				if (comment.User != null)
+				{
+					// Comment by registered user.
+					Literal lit = new Literal();
+					lit.Text = comment.User.UserName;
+					plhCommentBy.Controls.Add(lit);
+				}
+				else
+				{
+					// Comment by unregistered user.
+					if (comment.Website != null && comment.Website != String.Empty)
+					{
+						HyperLink hpl = new HyperLink();
+						hpl.NavigateUrl = comment.Website;
+						hpl.Target = "_blank";
+						hpl.Text = comment.Name;
+						plhCommentBy.Controls.Add(hpl);
+					}
+					else
+					{
+						Literal lit = new Literal();
+						lit.Text = comment.Name;
+						plhCommentBy.Controls.Add(lit);
+					}
+				}
 			}
 		}
 	}

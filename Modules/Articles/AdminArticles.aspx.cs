@@ -68,6 +68,12 @@ namespace Cuyahoga.Modules.Articles
 				Article article = e.Item.DataItem as Article;
 				hplEdit.NavigateUrl = String.Format("~/Modules/Articles/EditArticle.aspx{0}&ArticleId={1}", base.GetBaseQueryString(), article.Id);
 			}
+			HyperLink hplComments = e.Item.FindControl("hplComments") as HyperLink;
+			if (hplComments != null)
+			{
+				Article article = e.Item.DataItem as Article;
+				hplComments.NavigateUrl = String.Format("~/Modules/Articles/AdminComments.aspx{0}&ArticleId={1}", base.GetBaseQueryString(), article.Id);
+			}
 		}
 	}
 }

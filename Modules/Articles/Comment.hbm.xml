@@ -7,7 +7,10 @@
 			</generator>
 		</id>
 		<timestamp name="UpdateTimestamp" column="updatetimestamp" />
+		<property name="Name" column="name" type="String" length="100" not-null="false" />
+		<property name="Website" column="website" type="String" length="100" not-null="false" />
 		<property name="CommentText" column="commenttext" type="String" length="2000" />
+		<property name="UserIp" column="userip" type="String" length="15" not-null="false" />
 		<many-to-one name="Article" class="Cuyahoga.Modules.Articles.Article, Cuyahoga.Modules" column="articleid" cascade="none" />
 		<many-to-one name="User" class="Cuyahoga.Core.Domain.User, Cuyahoga.Core" column="userid" cascade="none" />
 	</class>

@@ -11,6 +11,9 @@ namespace Cuyahoga.Modules.Articles
 		private string _commentText;
 		private Article _article;
 		private Cuyahoga.Core.Domain.User _user;
+		private string _name;
+		private string _website;
+		private string _userIp;
 		private DateTime _updateTimestamp;
 
 		#region properties
@@ -43,12 +46,39 @@ namespace Cuyahoga.Modules.Articles
 		}
 
 		/// <summary>
+		/// Property Name (string)
+		/// </summary>
+		public string Name
+		{
+			get { return this._name; }
+			set { this._name = value; }
+		}
+
+		/// <summary>
+		/// Property Website (string)
+		/// </summary>
+		public string Website
+		{
+			get { return this._website; }
+			set { this._website = value; }
+		}
+
+		/// <summary>
 		/// Property CommentText (string)
 		/// </summary>
 		public string CommentText
 		{
 			get { return this._commentText; }
 			set { this._commentText = value; }
+		}
+
+		/// <summary>
+		/// Property UserIp (string)
+		/// </summary>
+		public string UserIp
+		{
+			get { return this._userIp; }
+			set { this._userIp = value; }
 		}
 
 		/// <summary>

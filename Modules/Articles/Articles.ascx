@@ -1,7 +1,7 @@
 <%@ Control Language="c#" AutoEventWireup="false" Codebehind="Articles.ascx.cs" Inherits="Cuyahoga.Modules.Articles.Articles" TargetSchema="http://schemas.microsoft.com/intellisense/ie5" %>
 
 
-<asp:panel id="pnlArticleList" visible="False" runat="server">
+<asp:panel id="pnlArticleList" runat="server" visible="False">
 	<ul class="articlelist"><asp:repeater id="rptArticles" runat="server" enableviewstate="False">
 			<itemtemplate>
 				<li>
@@ -20,7 +20,7 @@
 					</div>
 				</li>
 			</itemtemplate>
-		</asp:repeater></ul></asp:panel><asp:panel id="pnlArticleDetails" visible="False" runat="server">
+		</asp:repeater></ul></asp:panel><asp:panel id="pnlArticleDetails" runat="server" visible="False">
 	<div class="articlecontent">
 		<h4><asp:literal id="litTitle" runat="server"></asp:literal></h4>
 		<p><asp:literal id="litContent" runat="server"></asp:literal></p>
@@ -30,10 +30,32 @@
 					<li>
 						<p><%# DataBinder.Eval(Container.DataItem, "CommentText") %></p>
 						<div class="articlesub">
-							<%= base.GetText("BY") %>&nbsp;<%# DataBinder.Eval(Container.DataItem, "User.UserName") %>
+							<%= base.GetText("BY") %>&nbsp;<asp:placeholder id="plhCommentBy" runat="server"></asp:placeholder>
 							- <%# DataBinder.Eval(Container.DataItem, "UpdateTimestamp", "{0:g}") %>
 						</div>
 					</li>
 				</itemtemplate>
-			</asp:repeater></ul><asp:panel id="pnlComment" visible="False" runat="server"><%= base.GetText("COMMENT") %><br><asp:textbox id="txtComment" runat="server" height="150px" textmode="MultiLine" width="500px"></asp:textbox><asp:label id="lblError" visible="False" runat="server" enableviewstate="False" cssclass="articleerror"></asp:label><br><asp:button id="btnSaveComment" runat="server"></asp:button></asp:panel><br><asp:hyperlink id="hplBack" runat="server"></asp:hyperlink></div>
+			</asp:repeater>
+		</ul>
+		<asp:panel id="pnlComment" runat="server" visible="False">
+			<asp:panel id="pnlAnonymous" runat="server" visible="False"><%= base.GetText("NAME") %>
+				<br>
+				<asp:textbox id="txtName" runat="server" width="500px" maxlength="100"></asp:textbox>
+				<asp:requiredfieldvalidator id="rfvName" cssclass="articleerror" enableclientscript="False" controltovalidate="txtName" display="Dynamic" runat="server"></asp:requiredfieldvalidator>
+				<br>
+				<%= base.GetText("WEBSITE") %>
+				<br>
+				<asp:textbox id="txtWebsite" runat="server" width="500px" maxlength="100"></asp:textbox>
+			</asp:panel>
+			<%= base.GetText("COMMENT") %>
+			<br>
+			<asp:textbox id="txtComment" runat="server" width="500px" textmode="MultiLine" height="150px"></asp:textbox>
+			<asp:requiredfieldvalidator id="rfvComment" cssclass="articleerror" enableclientscript="False" controltovalidate="txtComment" display="Dynamic" runat="server"></asp:requiredfieldvalidator>
+			<asp:label id="lblError" runat="server" visible="False" cssclass="articleerror"></asp:label>
+			<br>
+			<asp:button id="btnSaveComment" runat="server"></asp:button>
+		</asp:panel>
+		<br>
+		<asp:hyperlink id="hplBack" runat="server"></asp:hyperlink>
+	</div>
 </asp:panel>

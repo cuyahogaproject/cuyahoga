@@ -145,6 +145,22 @@
                     BuildAction = "EmbeddedResource"
                 />
                 <File
+                    RelPath = "Articles\AdminComments.aspx"
+                    SubType = "Form"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Articles\AdminComments.aspx.cs"
+                    DependentUpon = "AdminComments.aspx"
+                    SubType = "ASPXCodeBehind"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "Articles\AdminComments.aspx.resx"
+                    DependentUpon = "AdminComments.aspx.cs"
+                    BuildAction = "EmbeddedResource"
+                />
+                <File
                     RelPath = "Articles\Article.cs"
                     SubType = "Code"
                     BuildAction = "Compile"

@@ -66,4 +66,16 @@
 	<data name="INVALIDINPUT">
 		<value>Invalid text entered</value>
 	</data>
+	<data name="NAME">
+		<value>Name</value>
+	</data>
+	<data name="WEBSITE">
+		<value>Web site</value>
+	</data>
+	<data name="NAMEREQUIRED">
+		<value>Name is required</value>
+	</data>
+	<data name="COMMENTREQUIRED">
+		<value>Comment is required</value>
+	</data>
 </root>

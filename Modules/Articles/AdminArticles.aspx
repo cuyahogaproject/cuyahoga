@@ -37,6 +37,7 @@
 									<td><%# DataBinder.Eval(Container.DataItem, "ModifiedBy.Username") %></td>
 									<td>
 										<asp:hyperlink id="hplEdit" runat="server">Edit</asp:hyperlink>
+										<asp:hyperlink id="hplComments" runat="server">Comments</asp:hyperlink>
 									</td>
 								</tr>
 							</itemtemplate>
