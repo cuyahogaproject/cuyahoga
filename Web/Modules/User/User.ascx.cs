@@ -28,8 +28,10 @@ namespace Cuyahoga.Web.Modules.User
 		private void Page_Load(object sender, System.EventArgs e)
 		{
 			bool isAuthenticated = false;
-            if (Context.User != null)
+			if (Context.User != null)
+			{
 				isAuthenticated = Context.User.Identity.IsAuthenticated;
+			}
 			if (! this.IsPostBack)
 			{
 				if (isAuthenticated)

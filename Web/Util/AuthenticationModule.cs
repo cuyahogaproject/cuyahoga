@@ -52,6 +52,7 @@ namespace Cuyahoga.Web.Util
 
 			if (user.Login())
 			{
+				HttpContext.Current.Response.Write(user.Password);
 				// We also need the roles, so get them
 				CmsDataFactory.GetInstance().GetRolesByUser(user);
 				// Create the authentication ticket
