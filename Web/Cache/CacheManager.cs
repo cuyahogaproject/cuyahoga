@@ -11,7 +11,7 @@ namespace Cuyahoga.Web.Cache
 {
 	/// <summary>
 	/// The CacheManager stores the site structure objects (Site, Node, Section) in the ASP.NET cache and 
-	/// provides methods for retrieval of these objects.
+	/// provides methods for retrieval of these objects. 
 	/// </summary>
 	public class CacheManager
 	{
