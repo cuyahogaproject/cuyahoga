@@ -175,7 +175,7 @@ namespace Cuyahoga.Web.Admin
 		{
 			this.rptSections.DataSource = base.CoreRepository.GetSortedSectionsByNode(this.ActiveNode);
 			this.rptSections.DataBind();
-			if (this.ActiveNode.Template != null)
+			if (this.ActiveNode.Id > 0 && this.ActiveNode.Template != null)
 			{
 				// Also enable add section link
 				this.hplNewSection.NavigateUrl = String.Format("~/Admin/SectionEdit.aspx?SectionId=-1&NodeId={0}", this.ActiveNode.Id.ToString());

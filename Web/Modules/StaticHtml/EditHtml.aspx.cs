@@ -94,7 +94,7 @@ namespace Cuyahoga.Web.Modules.StaticHtml
 			}
 			catch (Exception ex)
 			{
-				ShowMessage(ex.Message);
+				ShowError(ex.Message);
 			}
 		}	
 	}

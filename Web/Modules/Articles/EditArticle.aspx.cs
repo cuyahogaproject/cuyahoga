@@ -34,6 +34,9 @@ namespace Cuyahoga.Web.Modules.Articles
 		protected System.Web.UI.WebControls.TextBox txtCategory;
 		protected System.Web.UI.WebControls.DropDownList ddlCategory;
 		protected Cuyahoga.ServerControls.Calendar calDateOnline;
+		protected System.Web.UI.WebControls.RequiredFieldValidator rfvDateOnline;
+		protected System.Web.UI.WebControls.RequiredFieldValidator rfvDateOffline;
+		protected System.Web.UI.WebControls.RequiredFieldValidator rfvContent;
 		protected Cuyahoga.ServerControls.Calendar calDateOffline;
 
 		private void Page_Load(object sender, System.EventArgs e)

@@ -80,7 +80,7 @@ namespace Cuyahoga.Modules.StaticHtml
 			catch (Exception ex)
 			{
 				tx.Rollback();
-				throw new Exception("Unable to save content", ex);
+				throw new Exception("Unable to save content: " + ex.Message, ex);
 			}
 		}
 
@@ -99,7 +99,7 @@ namespace Cuyahoga.Modules.StaticHtml
 			catch (Exception ex)
 			{
 				tx.Rollback();
-				throw new Exception("Unable to delete content", ex);
+				throw new Exception("Unable to delete content: " + ex.Message, ex);
 			}
 		}
 	}

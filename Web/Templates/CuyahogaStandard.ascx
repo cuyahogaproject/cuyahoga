@@ -14,7 +14,7 @@
 				<div id="header">
 					<div id="logoarea">
 						<div id="title">Cuyahoga</div>
-						<div id="subtitle"></div>
+						<div id="subtitle">A .NET Website Framework</div>
 					</div>
 					<uc1:navigation id="Nav1" runat="server"></uc1:navigation>
 				</div>

@@ -87,10 +87,17 @@ namespace Cuyahoga.Web.UI
 				throw new Exception("Unable to initialize the Module Admin page because a Node or a Section could not be created.", ex);
 			}
 			// Check permissions
-			// TODO: extend permission stuff
 			if (! Context.User.Identity.IsAuthenticated)
 			{
-				throw new ActionForbiddenException("You are not logged in");
+				throw new ActionForbiddenException("You are not logged in.");
+			}
+			else
+			{
+				User user = Context.User.Identity as User;
+				if (! user.CanEdit(this._section))
+				{
+					throw new ActionForbiddenException("You are not allowed to edit the section.");
+				}
 			}
 
 			base.OnInit (e);

@@ -1,4 +1,5 @@
 using System;
+using System.Web.UI;
 using FreeTextBoxControls;
 using FreeTextBoxControls.Support;
 
@@ -9,6 +10,7 @@ namespace Cuyahoga.ServerControls
 	/// an ImageBrowser and a Hyperlink browser.
 	/// See also http://www.freetextbox.com.
 	/// </summary>
+	[ValidationProperty("Text")]
 	public class CuyahogaEditor : FreeTextBox
 	{
 		private string _imageDir;

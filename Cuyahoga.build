@@ -60,6 +60,7 @@
                 <include name="System.Xml.dll" />
                 <include name="System.Web.dll" />
                 <include name="ExternalStuff/NHibernate.*" />
+                
                 <include name="ExternalStuff/Npgsql.*" />    
                 <include name="ExternalStuff/Mono.Security.Protocol.Tls.*" />
             </references>

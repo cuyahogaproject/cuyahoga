@@ -72,6 +72,10 @@
                     BuildAction = "Content"
                 />
                 <File
+                    RelPath = "FreeTextBoxLicenseAgreement.html"
+                    BuildAction = "Content"
+                />
+                <File
                     RelPath = "HashCodeProvider.dll"
                     BuildAction = "Content"
                 />

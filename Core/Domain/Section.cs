@@ -12,7 +12,6 @@ namespace Cuyahoga.Core.Domain
 	{
 		private int _id;
 		private DateTime _updateTimestamp;
-		private int _nodeId; // TODO: get rid of this one
 		private string _title;
 		private string _placeholderId;
 		private int _position;
@@ -53,16 +52,12 @@ namespace Cuyahoga.Core.Domain
 		}
 
 		/// <summary>
-		/// Property PlaceholderId (string). Setting this property also changes the position of this section
-		/// and sections that have the same Node and PlaceholderId.
+		/// Property PlaceholderId (string). 
 		/// </summary>
 		public virtual string PlaceholderId
 		{
 			get { return this._placeholderId; }
-			set 
-			{
-				this._placeholderId = value;
-			}
+			set {this._placeholderId = value; }
 		}
 
 		/// <summary>
@@ -107,11 +102,7 @@ namespace Cuyahoga.Core.Domain
 		public virtual Node Node
 		{
 			get { return this._node; }
-			set 
-			{ 
-				this._nodeId = value.Id;
-				this._node = value; 
-			}
+			set { this._node = value; }
 		}
 
 		/// <summary>
@@ -176,7 +167,6 @@ namespace Cuyahoga.Core.Domain
 
 		private void InitSection()
 		{
-			this._nodeId = -1;
 			this._showTitle = false;
 			this._position = -1;
 			this._cacheDuration = 0;

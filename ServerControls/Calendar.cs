@@ -13,6 +13,7 @@ namespace Cuyahoga.ServerControls
 	/// Summary description for Calendar.
 	/// </summary>
 	[DefaultProperty("Text"), ToolboxData("<{0}:Calendar runat=server></{0}:Calendar>")]
+	[ValidationProperty("Text")]
 	public class Calendar : WebControl, INamingContainer
 	{
 		private TextBox _dateTextBox;

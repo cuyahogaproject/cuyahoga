@@ -18,7 +18,7 @@
 						<td><asp:textbox id="txtName" runat="server" width="300px" maxlength="100"></asp:textbox><asp:requiredfieldvalidator id="rfvName" runat="server" enableclientscript="False" controltovalidate="txtName" cssclass="validator" display="Dynamic">Name is required</asp:requiredfieldvalidator></td></tr>
 					<tr>
 					<tr>
-						<td>Site url (without http://)</td>
+						<td>Site url (incl. http://)</td>
 						<td><asp:textbox id="txtSiteUrl" runat="server" width="300px" maxlength="100"></asp:textbox><asp:requiredfieldvalidator id="rfvSiteUrl" runat="server" enableclientscript="False" controltovalidate="txtSiteUrl" cssclass="validator" display="Dynamic">Site url is required</asp:requiredfieldvalidator></td></tr></table></div>
 			<div class="group">
 				<h4>Defaults</h4>

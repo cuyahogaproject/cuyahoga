@@ -24,7 +24,7 @@
 							<td><asp:textbox id="txtSummary" runat="server" width="650px" height="60px" textmode="MultiLine"></asp:textbox></td></tr>
 						<tr>
 							<td style="WIDTH: 100px">Content</td>
-							<td><cc1:cuyahogaeditor id="cedContent" runat="server" width="650px" stripallscripting="True" allowhtmlmode="False" downlevelrows="20" downlevelcols="80" imagedir="~/UserFiles/Images" supportfolder="~/Support/FreeTextBox/"></cc1:cuyahogaeditor></td></tr>
+							<td><cc1:cuyahogaeditor id="cedContent" runat="server" width="650px" stripallscripting="True" allowhtmlmode="False" downlevelrows="20" downlevelcols="80" imagedir="~/UserFiles/Images" supportfolder="~/Support/FreeTextBox/"></cc1:cuyahogaeditor><asp:requiredfieldvalidator id="rfvContent" runat="server" errormessage="The content is required" cssclass="validator" display="Dynamic" controltovalidate="cedContent" enableclientscript="False"></asp:requiredfieldvalidator></td></tr>
 						<tr>
 							<td style="WIDTH: 100px">Category</td>
 							<td><asp:dropdownlist id="ddlCategory" runat="server" width="200px"></asp:dropdownlist>&nbsp;or
@@ -41,10 +41,10 @@
 							<td><asp:checkbox id="chkSyndicate" runat="server" checked="True"></asp:checkbox></td></tr>
 						<tr>
 							<td style="WIDTH: 100px">Date online</td>
-							<td><cc1:calendar id="calDateOnline" runat="server" displaytime="True"></cc1:calendar></td></tr>
+							<td><cc1:calendar id="calDateOnline" runat="server" displaytime="True"></cc1:calendar><asp:requiredfieldvalidator id="rfvDateOnline" runat="server" errormessage="Date online is required" cssclass="validator" display="Dynamic" enableclientscript="False" controltovalidate="calDateOnline"></asp:requiredfieldvalidator></td></tr>
 						<tr>
 							<td style="WIDTH: 100px">Date offline</td>
-							<td><cc1:calendar id="calDateOffline" runat="server" displaytime="True"></cc1:calendar></td></tr></table>
+							<td><cc1:calendar id="calDateOffline" runat="server" displaytime="True"></cc1:calendar><asp:requiredfieldvalidator id="rfvDateOffline" runat="server" errormessage="Date offline is required" cssclass="validator" display="Dynamic" enableclientscript="False" controltovalidate="calDateOffline"></asp:requiredfieldvalidator></td></tr></table>
 				</div>
 				<p><asp:button id="btnSave" runat="server" text="Save"></asp:button><asp:button id="btnDelete" runat="server" text="Delete" visible="False"></asp:button><input id="btnCancel" type="button" value="Cancel" runat="server"></p></div></form>
 	</body>

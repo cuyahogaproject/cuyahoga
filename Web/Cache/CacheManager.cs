@@ -47,7 +47,7 @@ namespace Cuyahoga.Web.Cache
 				}
 				else
 				{
-					throw new Cuyahoga.Core.SiteNullException("No site found for at following base url: " + siteUrl);
+					throw new Cuyahoga.Core.SiteNullException("No site found at following base url: " + siteUrl);
 				}
 			}
 			else
