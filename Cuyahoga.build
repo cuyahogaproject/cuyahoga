@@ -217,6 +217,7 @@
 				<include name="**/*.html" />
 				<exclude name="UserFiles/Image/*.*" />
 				<exclude name="UserFiles/File/*.*" />
+				<exclude name="**/log.txt" />
 			</fileset>
 		</copy>
 	    <!-- Copy Modules to the Web dir -->
