@@ -244,7 +244,13 @@ namespace Cuyahoga.Modules.Articles
 			if (category != null && category.Id == -1)
 			{
 				// Unknown category, this could be a new one or maybe still an existing one.
+				// HACK: checking if a category exists should occur before attaching it to an article.
+				// Now we have to temporarily disable autoflush to prevent flushing while searching
+				// for a category.
+				session.FlushMode = FlushMode.Commit;
 				IList categories = session.CreateCriteria(typeof(Category)).Add(Expression.Eq("Title", category.Title)).List();
+				session.FlushMode = FlushMode.Auto;
+
 				if (categories.Count > 0)
 				{
 					// Use the existing one.
@@ -287,7 +293,14 @@ namespace Cuyahoga.Modules.Articles
 					item.Description = article.Summary;
 				}
 				item.Author = article.ModifiedBy.Email;
-				item.Category = article.Category.Title;
+				if (article.Category != null)
+				{
+					item.Category = article.Category.Title;
+				}
+				else
+				{
+					item.Category = String.Empty;
+				}
 				item.PubDate = article.DateOnline;
 				channel.RssItems.Add(item);
 			}
