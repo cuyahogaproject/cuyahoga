@@ -14,6 +14,7 @@ namespace Cuyahoga.Core.Domain
 		private bool _sessionFactoryRebuilt = false;
 		private string _modulePathInfo;
 		private string[] _moduleParams;
+		private string _sectionUrl;
 
 		/// <summary>
 		/// The NHibernate session from the current ASP.NET context.
@@ -84,18 +85,6 @@ namespace Cuyahoga.Core.Domain
 			get { return this._moduleParams; }
 		}
 
-		public delegate void NHSessionEventHandler(object sender, NHSessionEventArgs e);
-
-		public event NHSessionEventHandler NHSessionRequired;
-
-		protected void OnNHSessionRequired(NHSessionEventArgs e)
-		{
-			if (NHSessionRequired != null)
-			{
-				NHSessionRequired(this, e);
-			}
-		}
-
 		/// <summary>
 		/// Property Section (Section)
 		/// </summary>
@@ -103,6 +92,15 @@ namespace Cuyahoga.Core.Domain
 		{
 			get { return this._section; }
 			set { this._section = value; }
+		}
+
+		/// <summary>
+		/// The base url for this module. 
+		/// </summary>
+		public string SectionUrl
+		{
+			get { return this._sectionUrl; }
+			set { this._sectionUrl = value; }
 		}
 
 		/// <summary>
@@ -142,6 +140,18 @@ namespace Cuyahoga.Core.Domain
 			/// </summary>
 			public NHSessionEventArgs()
 			{
+			}
+		}
+
+		public delegate void NHSessionEventHandler(object sender, NHSessionEventArgs e);
+
+		public event NHSessionEventHandler NHSessionRequired;
+
+		protected void OnNHSessionRequired(NHSessionEventArgs e)
+		{
+			if (NHSessionRequired != null)
+			{
+				NHSessionRequired(this, e);
 			}
 		}
 	}

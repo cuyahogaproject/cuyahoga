@@ -104,7 +104,7 @@ namespace Cuyahoga.Web.UI
 
 		/// <summary>
 		/// Load the content and the template as early as possible, so everything is in place before 
-		/// modules handle their own events.
+		/// modules handle their own ASP.NET lifecycle events.
 		/// </summary>
 		/// <param name="obj"></param>
 		protected override void OnInit(EventArgs e)
@@ -146,7 +146,7 @@ namespace Cuyahoga.Web.UI
 				}
 
 				// Set culture
-				// TODO: fix this because ASP.NET pages are not guaranteed to run in 1 thread.
+				// TODO: fix this because ASP.NET pages are not guaranteed to run in 1 thread (how?).
 				Thread.CurrentThread.CurrentCulture = CultureInfo.CreateSpecificCulture(this._activeNode.Culture);	
 				Thread.CurrentThread.CurrentUICulture = CultureInfo.CreateSpecificCulture(this._activeNode.Culture);
 				
@@ -236,7 +236,7 @@ namespace Cuyahoga.Web.UI
 					// Create the module that is connected to the section.
 					// Create event handlers for NHibernate-related events that can occur in the module.
 					section.SessionFactoryRebuilt += new EventHandler(Section_SessionFactoryRebuilt);
-					ModuleBase module = section.CreateModule();
+					ModuleBase module = section.CreateModule(UrlHelper.GetUrlFromSection(section));
 					module.NHSessionRequired += new ModuleBase.NHSessionEventHandler(Module_NHSessionRequired);
 
 					if (module != null)

@@ -323,6 +323,7 @@ namespace Cuyahoga.Modules.Articles
 			sc.Contents = article.Content;
 			sc.Author = article.ModifiedBy.FullName;
 			sc.ModuleType = this.Section.ModuleType.Name;
+			sc.Path = this.SectionUrl + "/" + article.Id; // article ID has to be added as pathinfo parameter.
 			if (article.Category != null)
 			{
 				sc.Category = article.Category.Title;
@@ -335,10 +336,6 @@ namespace Cuyahoga.Modules.Articles
 			sc.DateCreated = article.DateCreated;
 			sc.DateModified = article.DateModified;
 			sc.SectionId = this.Section.Id;
-
-			// temporarily set the ModulePathInfo. We really need to have the Section URL in here 
-			// to enable path construction.
-			base.ModulePathInfo = "/" + article.Id.ToString();
 
 			return sc;
 		}

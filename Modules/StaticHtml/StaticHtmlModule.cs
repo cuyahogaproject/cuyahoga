@@ -116,12 +116,13 @@ namespace Cuyahoga.Modules.StaticHtml
 			sc.Contents = shc.Content;
 			sc.Author = shc.ModifiedBy.FullName;
 			sc.ModuleType = shc.Section.ModuleType.Name;
+			sc.Path = this.SectionUrl;
 			sc.Category = String.Empty;
 			sc.Site = shc.Section.Node.Site.Name;
 			sc.DateCreated = shc.UpdateTimestamp;
 			sc.DateModified = shc.UpdateTimestamp;
 			sc.SectionId = shc.Section.Id;
-			// We can't set the Path property here because we don't have the HttpContext available.
+
 			return sc;
 		}
 

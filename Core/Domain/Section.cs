@@ -181,8 +181,10 @@ namespace Cuyahoga.Core.Domain
 		/// <summary>
 		/// Factory for the concrete module connected to this Section.
 		/// </summary>
+		/// <param name="sectionUrl">The url that indentifies the section. We need this because the section
+		/// can't determine the url itself because it doesn't know a http context.</param>
 		/// <returns></returns>
-		public virtual ModuleBase CreateModule()
+		public virtual ModuleBase CreateModule(string sectionUrl)
 		{
 			if (this._moduleType != null)
 			{
@@ -200,6 +202,7 @@ namespace Cuyahoga.Core.Domain
 						OnSessionFactoryRebuilt(EventArgs.Empty);
 					}
 					concreteModule.Section = this;
+					concreteModule.SectionUrl = sectionUrl;
 					return concreteModule;
 				}
 			}

@@ -79,7 +79,7 @@ namespace Cuyahoga.Web.UI
 				{
 					this._section.Node = this._node;
 				}
-				this._module = this._section.CreateModule();
+				this._module = this._section.CreateModule(UrlHelper.GetUrlFromSection(this._section));
 				this._module.NHSessionRequired += new ModuleBase.NHSessionEventHandler(Module_NHSessionRequired);
 			}
 			catch (Exception ex)
@@ -101,7 +101,8 @@ namespace Cuyahoga.Web.UI
 			}
 
 			// Optional indexing event handlers
-			if (this._module is ISearchable)
+			if (this._module is ISearchable 
+				&& Boolean.Parse(Config.GetConfiguration()["InstantIndexing"]))
 			{
 				ISearchable searchableModule = (ISearchable)this._module;
 				searchableModule.ContentCreated += new IndexEventHandler(searchableModule_ContentCreated);
@@ -127,7 +128,7 @@ namespace Cuyahoga.Web.UI
 			}
 			else
 			{
-				// Throw an Exception and hope it will be handled by the global application exception handler.
+				// Throw an Exception that will be handled by the global exception handler.
 				throw new Exception(errorText);
 			}
 		}
@@ -153,17 +154,8 @@ namespace Cuyahoga.Web.UI
 			return String.Format("?NodeId={0}&SectionId={1}", this.Node.Id, this.Section.Id);
 		}
 
-		private string GetPathFromCurrentModule()
-		{
-			// Also include the PathInfo
-			return UrlHelper.GetUrlFromSection(this._section) + this._module.ModulePathInfo;
-		}
-
 		private void IndexContent(SearchContent searchContent, IndexAction action)
 		{
-			// First set the path
-			searchContent.Path = GetPathFromCurrentModule();
-
 			// Index
 			string indexDir = Context.Server.MapPath(Config.GetConfiguration()["SearchIndexDir"]);
 			IndexBuilder ib = new IndexBuilder(indexDir, false);

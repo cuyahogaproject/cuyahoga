@@ -36,7 +36,7 @@ namespace Cuyahoga.Web
 					// Use the same cache duration for the RSS feed as the Section.
 					this._coreRepository = (CoreRepository)HttpContext.Current.Items["CoreRepository"];
 					Section section = (Section)this._coreRepository.GetObjectById(typeof(Section), sectionId);
-					ModuleBase module = section.CreateModule();
+					ModuleBase module = section.CreateModule(UrlHelper.GetUrlFromSection(section));
 					// Create event handlers for NHibernate-related events that can occur in the module.
 					module.NHSessionRequired += new ModuleBase.NHSessionEventHandler(Module_NHSessionRequired);
 
