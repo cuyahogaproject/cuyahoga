@@ -19,6 +19,9 @@ namespace Cuyahoga.Modules.Articles
 	{
 		private ArticleModule _module;
 		private Article _activeArticle;
+		private bool _allowComments;
+		private bool _allowAnonymousComments;
+		private int _numberOfArticlesInList;
 
 		protected System.Web.UI.WebControls.Panel pnlArticleDetails;
 		protected System.Web.UI.WebControls.Repeater rptArticles;
@@ -37,9 +40,16 @@ namespace Cuyahoga.Modules.Articles
 			this._module = this.Module as ArticleModule;
 			if (this._module != null && (! base.HasCachedOutput || this.Page.IsPostBack))
 			{
+				// Custom settings
+				this._allowComments = Boolean.Parse(this.Module.Section.Settings["ALLOW_COMMENTS"].ToString());
+				this._allowAnonymousComments = Boolean.Parse(this.Module.Section.Settings["ALLOW_ANONYMOUS_COMMENTS"].ToString());
+				this._numberOfArticlesInList = Int32.Parse(this.Module.Section.Settings["NUMBER_OF_ARTICLES_IN_LIST"].ToString());
+
 				if (this._module.CurrentArticleId > 0)
 				{
 					// Article view
+					base.DisplaySyndicationIcon = false;
+
 					this._activeArticle = this._module.GetArticleById(this._module.CurrentArticleId);
 					this.litTitle.Text = this._activeArticle.Title;
 					this.litContent.Text = this._activeArticle.Content;
@@ -68,7 +78,9 @@ namespace Cuyahoga.Modules.Articles
 				else
 				{
 					// Article list view
-					int numberOfArticles = 10;
+					base.DisplaySyndicationIcon = true;
+
+					int numberOfArticles = 10; // default 
 					if (this._module.Section.Settings["NUMBER_OF_ARTICLES_IN_LIST"] != null)
 					{
 						numberOfArticles = Int32.Parse(this._module.Section.Settings["NUMBER_OF_ARTICLES_IN_LIST"].ToString());

@@ -19,6 +19,7 @@
 				<property name="FriendlyName" column="friendlyname" type="String" length="50" />
 				<property name="SettingDataType" column="settingdatatype" type="String" length="100" />
 				<property name="IsCustomType" column="iscustomtype" type="Boolean" />
+				<property name="IsRequired" column="isrequired" type="Boolean" />
 			</composite-element>
 		</bag>
 	</class>

@@ -22,6 +22,7 @@ namespace Cuyahoga.Web.UI
 		private string _cachedOutput;
 		private ResourceManager _resMan;
 		private CultureInfo _currentUICulture;
+		private bool _displaySyndicationIcon;
 
 		/// <summary>
 		/// Indicator if there is cached content. The derived ModuleControls should determine whether to
@@ -30,6 +31,15 @@ namespace Cuyahoga.Web.UI
 		protected bool HasCachedOutput
 		{
 			get { return this._cachedOutput != null; }
+		}
+
+		/// <summary>
+		/// Indicate if the module should display the syndication icon at its current state.
+		/// </summary>
+		protected bool DisplaySyndicationIcon
+		{
+			get { return this._displaySyndicationIcon; }
+			set { this._displaySyndicationIcon = value; }
 		}
 
 		/// <summary>
@@ -51,6 +61,8 @@ namespace Cuyahoga.Web.UI
 			string baseName = this.GetType().BaseType.Namespace + ".Resources.Strings";
 			this._resMan = new ResourceManager(baseName, this.GetType().BaseType.Assembly);
 			this._currentUICulture = Thread.CurrentThread.CurrentUICulture;
+			// Show the syndication icon by default. It can be set by subclasses.
+			this._displaySyndicationIcon = (this is ISyndicatable);
 		}
 
 		protected override void OnInit(EventArgs e)
@@ -82,7 +94,7 @@ namespace Cuyahoga.Web.UI
 			}
 			// Rss feed
 			writer.Write("<div id=\"moduletools\" align=\"right\">");
-			if (this._module is ISyndicatable)
+			if (this._displaySyndicationIcon)
 			{
 				writer.Write(String.Format("<a href=\"{0}\"><img src=\"{1}\" border=\"0\"></a>", 
 					UrlHelper.GetRssUrlFromSection(this._module.Section), UrlHelper.GetApplicationPath() + "Images/feed-rss.gif"));

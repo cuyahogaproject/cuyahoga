@@ -12,6 +12,7 @@ namespace Cuyahoga.Core.Domain
 		private string _friendlyName;
 		private string _settingDataType;
 		private bool _isCustomType;
+		private bool _isRequired;
 		private ModuleType _moduleType;
 
 		/// <summary>
@@ -48,6 +49,15 @@ namespace Cuyahoga.Core.Domain
 		{
 			get { return this._isCustomType; }
 			set { this._isCustomType = value; }
+		}
+
+		/// <summary>
+		/// Property IsRequired (bool)
+		/// </summary>
+		public bool IsRequired
+		{
+			get { return this._isRequired; }
+			set { this._isRequired = value; }
 		}
 
 		/// <summary>

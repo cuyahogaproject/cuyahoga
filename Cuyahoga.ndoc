@@ -1,0 +1,39 @@
+<project SchemaVersion="1.3">
+    <assemblies>
+        <assembly location=".\Core\bin\Debug\Cuyahoga.Core.dll" documentation=".\Core\bin\Debug\Cuyahoga.Core.xml" />
+        <assembly location=".\ServerControls\bin\Debug\Cuyahoga.ServerControls.dll" documentation=".\ServerControls\bin\Debug\Cuyahoga.ServerControls.xml" />
+        <assembly location=".\Modules\bin\Debug\Cuyahoga.Modules.dll" documentation=".\Modules\bin\Debug\Cuyahoga.Modules.xml" />
+        <assembly location=".\Web\bin\Cuyahoga.Web.dll" documentation=".\Web\bin\Cuyahoga.Web.xml" />
+    </assemblies>
+    <documenters>
+        <documenter name="JavaDoc">
+            <property name="OutputDirectory" value=".\doc\" />
+        </documenter>
+        <documenter name="LaTeX">
+            <property name="OutputDirectory" value=".\doc\" />
+            <property name="TextFileFullName" value="Documentation.tex" />
+            <property name="TexFileBaseName" value="Documentation" />
+            <property name="LatexCompiler" value="latex" />
+            <property name="TexFileFullPath" value=".\doc\Documentation.tex" />
+        </documenter>
+        <documenter name="LinearHtml">
+            <property name="OutputDirectory" value=".\doc\" />
+            <property name="Title" value="An NDoc Documented Class Library" />
+        </documenter>
+        <documenter name="MSDN">
+            <property name="OutputDirectory" value=".\doc\" />
+            <property name="HtmlHelpName" value="Cuyahoga" />
+            <property name="Title" value="Cuyahoga Class Reference" />
+            <property name="AssemblyVersionInfo" value="AssemblyVersion" />
+            <property name="Preliminary" value="True" />
+        </documenter>
+        <documenter name="VS.NET 2003">
+            <property name="OutputDirectory" value=".\doc\" />
+            <property name="HtmlHelpName" value="Documentation" />
+            <property name="Title" value="An NDoc documented library" />
+        </documenter>
+        <documenter name="XML">
+            <property name="OutputFile" value=".\doc\doc.xml" />
+        </documenter>
+    </documenters>
+</project>

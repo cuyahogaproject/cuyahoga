@@ -171,22 +171,25 @@ namespace Cuyahoga.Web.Admin
 				foreach (ModuleSetting ms in this._activeSection.ModuleType.ModuleSettings)
 				{
 					Control ctrl = this.TemplateControl.FindControl(ms.Name);
-					string settingValue = this._activeSection.Settings[ms.Name].ToString();
-					if (ctrl is TextBox)
+					if (this._activeSection.Settings[ms.Name] != null)
 					{
-						((TextBox)ctrl).Text = settingValue;
-					}
-					else if (ctrl is CheckBox)
-					{
-						((CheckBox)ctrl).Checked = Boolean.Parse(settingValue);
-					}
-					else if (ctrl is DropDownList)
-					{
-						DropDownList ddl = (DropDownList)ctrl;
-						ListItem li = ddl.Items.FindByValue(settingValue);
-						if (li != null)
+						string settingValue = this._activeSection.Settings[ms.Name].ToString();
+						if (ctrl is TextBox)
 						{
-							li.Selected = true;
+							((TextBox)ctrl).Text = settingValue;
+						}
+						else if (ctrl is CheckBox)
+						{
+							((CheckBox)ctrl).Checked = Boolean.Parse(settingValue);
+						}
+						else if (ctrl is DropDownList)
+						{
+							DropDownList ddl = (DropDownList)ctrl;
+							ListItem li = ddl.Items.FindByValue(settingValue);
+							if (li != null)
+							{
+								li.Selected = true;
+							}
 						}
 					}
 				}
@@ -216,14 +219,18 @@ namespace Cuyahoga.Web.Admin
 
 		private void SetCustomSettings()
 		{
-			//this._activeSection.Settings.Clear();
 			foreach(ModuleSetting ms in this._activeSection.ModuleType.ModuleSettings)
 			{
 				Control ctrl = this.TemplateControl.FindControl(ms.Name);
 				object val = null;
 				if (ctrl is TextBox)
 				{
-					val = ((TextBox)ctrl).Text;
+					string text = ((TextBox)ctrl).Text;
+					if (ms.IsRequired && text == String.Empty)
+					{
+						throw new Exception(String.Format("The value for {0} is required.", ms.FriendlyName));
+					}
+					val = text;
 				}
 				else if (ctrl is CheckBox)
 				{
@@ -254,7 +261,6 @@ namespace Cuyahoga.Web.Admin
 					throw new Exception(String.Format("Invalid value entered for {0}: {1}", ms.FriendlyName, val.ToString()), ex);
 				}
 				this._activeSection.Settings[ms.Name] = val.ToString();
-				//this._activeSection.Settings.Add(ms.Name, val.ToString());
 			}
 		}
 

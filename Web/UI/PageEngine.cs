@@ -182,19 +182,8 @@ namespace Cuyahoga.Web.UI
 				for (int i = this.Controls.Count -1; i < 0; i --)
 					this.Controls.RemoveAt(i);
 			}
-			// TODO: proper logging and error displaying.
-			catch (SiteNullException ex)
-			{
-				Response.Write(ex.Message);
-			}
-			catch (NodeNullException ex)
-			{
-				Response.Write(ex.Message);
-			}
-			catch (SectionNullException ex)
-			{
-				Response.Write(ex.Message);
-			}
+				// TODO: we could handle some exceptions here, but for now rethrow it, so it will be handled
+				// by the general error page (and logged!).
 			catch (Exception ex)
 			{
 				throw ex;

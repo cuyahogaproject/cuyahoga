@@ -1,6 +1,6 @@
 ***VERSION***
 2.4
-2004-12-07
+2004-12-14
 Cuyahoga
 
 Martijn Boland
@@ -2397,7 +2397,7 @@ Cuyahoga_ModuleSetting
 653
 14
 192
-130
+146
 ***ATTRIBUTE***
 Cuyahoga_ModuleSetting
 ModuleSettingId
@@ -2504,6 +2504,22 @@ Yes
 
 
 
+***ATTRIBUTE***
+Cuyahoga_ModuleSetting
+IsRequired
+
+
+8
+boolean
+0
+0
+
+No
+No
+Yes
+
+
+
 ***INDEX***
 Cuyahoga_ModuleSetting
 IDX_Cuyahoga_ModuleSetting_1
@@ -2543,7 +2559,7 @@ Cuyahoga_SectionSetting
 
 ***SCREEN***
 652
-155
+173
 193
 98
 ***ATTRIBUTE***

@@ -119,9 +119,45 @@
         <Files>
             <Include>
                 <File
+                    RelPath = "AssemblyInfo.cs"
+                    SubType = "Code"
+                    BuildAction = "Compile"
+                />
+                <File
                     RelPath = "Default.aspx"
                     SubType = "Form"
                     BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Error.aspx"
+                    SubType = "Form"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Error.aspx.cs"
+                    DependentUpon = "Error.aspx"
+                    SubType = "ASPXCodeBehind"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "Error.aspx.resx"
+                    DependentUpon = "Error.aspx.cs"
+                    BuildAction = "EmbeddedResource"
+                />
+                <File
+                    RelPath = "Global.asax"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Global.asax.cs"
+                    DependentUpon = "Global.asax"
+                    SubType = "Code"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "Global.asax.resx"
+                    DependentUpon = "Global.asax.cs"
+                    BuildAction = "EmbeddedResource"
                 />
                 <File
                     RelPath = "Login.aspx"
@@ -551,6 +587,7 @@
                     RelPath = "Images\mono-powered-big.gif"
                     BuildAction = "Content"
                 />
+                <Folder RelPath = "log\" />
                 <Folder RelPath = "Modules\" />
                 <File
                     RelPath = "Support\FreeTextBox\FreeTextBox-MainScript.js"
