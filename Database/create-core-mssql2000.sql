@@ -1,3 +1,4 @@
+
 CREATE TABLE Cuyahoga_User(
 UserId int identity(1,1) NOT NULL CONSTRAINT PK_Cuyahoga_User1 PRIMARY KEY,
 Username varchar(50) NOT NULL,
@@ -5,6 +6,8 @@ Password varchar(100) NOT NULL,
 Firstname varchar(100) NULL,
 Lastname varchar(100) NULL,
 Email varchar(100) NOT NULL,
+Website varchar(100) NULL,
+IsActive bit NULL,
 LastLogin datetime NULL,
 LastIp varchar(40) NULL,
 InsertTimestamp datetime DEFAULT current_timestamp NOT NULL,
@@ -62,9 +65,12 @@ go
 CREATE TABLE Cuyahoga_Site(
 SiteId int identity(1,1) NOT NULL CONSTRAINT PK_Cuyahoga_Site1 PRIMARY KEY,
 TemplateId int NULL,
+RoleId int NOT NULL,
 Name varchar(100) NOT NULL,
 HomeUrl varchar(100) NOT NULL,
 DefaultCulture varchar(8) NOT NULL,
+DefaultPlaceholder varchar(100) NULL,
+WebmasterEmail varchar(100) NOT NULL,
 InsertTimestamp datetime DEFAULT current_timestamp NOT NULL,
 UpdateTimestamp datetime DEFAULT current_timestamp NOT NULL,
 CONSTRAINT UC_Cuyahoga_Site1 UNIQUE(Name))
@@ -166,6 +172,11 @@ go
 
 ALTER TABLE Cuyahoga_Site
 ADD CONSTRAINT FK_Cuyahoga_Site_1 
+FOREIGN KEY (RoleId) REFERENCES Cuyahoga_Role (RoleId)
+go
+
+ALTER TABLE Cuyahoga_Site
+ADD CONSTRAINT FK_Cuyahoga_Site_2 
 FOREIGN KEY (TemplateId) REFERENCES Cuyahoga_Template (TemplateId)
 go
 

@@ -44,7 +44,7 @@ INSERT INTO cuyahoga_template (templateid, name, path, css, inserttimestamp, upd
 -- Data for Name: cuyahoga_user; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-INSERT INTO cuyahoga_user (userid, username, "password", firstname, lastname, email, inserttimestamp, updatetimestamp, lastlogin, lastip) VALUES (1, 'admin', 'ba213b8c28962d5b00140bdc076796c6', '', '', 'admin@cuyahoga.org', '2004-01-04 16:32:35.099', '2004-11-09 22:48:47.359', '2004-11-09 22:48:47', '127.0.0.1');
+INSERT INTO cuyahoga_user (userid, username, "password", firstname, lastname, email, isactive, inserttimestamp, updatetimestamp, lastlogin, lastip) VALUES (1, 'admin', 'ba213b8c28962d5b00140bdc076796c6', '', '', 'admin@cuyahoga.org', true, '2004-01-04 16:32:35.099', '2004-11-09 22:48:47.359', '2004-11-09 22:48:47', '127.0.0.1');
 
 
 --

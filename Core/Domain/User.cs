@@ -231,6 +231,8 @@ namespace Cuyahoga.Core.Domain
 			this._isAuthenticated = false;
 			this._permissions = new AccessLevel[0];
 			this._roles = new ArrayList();
+			// Default to now, otherwise NHibernate tries to insert a NULL.
+			this._insertTimestamp = DateTime.Now;
 		}
 
 		/// <summary>

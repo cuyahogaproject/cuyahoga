@@ -21,6 +21,7 @@ namespace Cuyahoga.Web.Admin
 	public class SectionEdit : Cuyahoga.Web.Admin.UI.AdminBasePage
 	{
 		private Section _activeSection = null;
+		private IList _availableModuleTypes;
 
 		protected System.Web.UI.WebControls.TextBox txtTitle;
 		protected System.Web.UI.WebControls.CheckBox chkShowTitle;
@@ -57,7 +58,7 @@ namespace Cuyahoga.Web.Admin
 		/// </summary>
 		private void LoadSection()
 		{
-			// Note: Called from OnInit
+			// Note: Called from OnInit!
 			if (Context.Request.QueryString["SectionId"] != null)
 			{
 				if (Int32.Parse(Context.Request.QueryString["SectionId"]) == -1)
@@ -77,18 +78,41 @@ namespace Cuyahoga.Web.Admin
 						Int32.Parse(Context.Request.QueryString["SectionId"]));
 				}
 			}
+			// Preload available ModuleTypes because we might need them to display the CustomSettings
+			// of the first ModuleType if none is selected (when adding a brand new Section).
+			this._availableModuleTypes = base.CoreRepository.GetAll(typeof(ModuleType), "Name");
 			// Create the controls for the ModuleType-specific settings.
-			if (this._activeSection.ModuleType != null)
-			{
-				CreateCustomSettings();
-			}
+			CreateCustomSettings();
 		}
 
 		private void CreateCustomSettings()
 		{
-			if (this._activeSection.ModuleType.ModuleSettings.Count > 0)
+			// Find out the ModuleType. Existing Sections have ModuleType property but for new ones
+			// we have to determine which ModuleType is selected.
+			ModuleType mt = null;
+			if (this._activeSection.ModuleType != null)
 			{
-				foreach (ModuleSetting ms in this._activeSection.ModuleType.ModuleSettings)
+				mt = this._activeSection.ModuleType;
+			}
+			else if (Context.Request.Form[this.ddlModule.UniqueID] != null)
+			{
+				// The user has selected a ModuleType. Fetch that one from the database and
+				// create the settings.
+				int moduleTypeId = Int32.Parse(Context.Request.Form[this.ddlModule.UniqueID]);
+				mt = (ModuleType)base.CoreRepository.GetObjectById(typeof(ModuleType), moduleTypeId);
+			}
+			else
+			{
+				// Get the Settings of the first ModuleType in the list.
+				if (this._availableModuleTypes.Count > 0)
+				{
+					mt = (ModuleType)this._availableModuleTypes[0];
+				}
+			}
+
+			if (mt != null)
+			{
+				foreach (ModuleSetting ms in mt.ModuleSettings)
 				{
 					HtmlTableRow settingRow = new HtmlTableRow();
 					HtmlTableCell labelCell = new HtmlTableCell();
@@ -120,8 +144,8 @@ namespace Cuyahoga.Web.Admin
 			}
 			else
 			{
-				IList availableModules = base.CoreRepository.GetAll(typeof(ModuleType), "Name");
-				foreach (ModuleType moduleType in availableModules)
+				// Note: this._availableModuleTypes are preloaded in LoadSection.
+				foreach (ModuleType moduleType in this._availableModuleTypes)
 				{
 					this.ddlModule.Items.Add(new ListItem(moduleType.Name, moduleType.ModuleTypeId.ToString()));
 				}
@@ -342,10 +366,7 @@ namespace Cuyahoga.Web.Admin
 						this._activeSection.CalculateNewPosition();
 
 					// Custom settings
-					if (this._activeSection.Id > -1)
-					{
-						SetCustomSettings();
-					}
+					SetCustomSettings();
 
 					// Roles
 					SetRoles();

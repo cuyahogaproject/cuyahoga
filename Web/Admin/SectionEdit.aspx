@@ -22,9 +22,9 @@
 						<td>Show section title</td>
 						<td><asp:checkbox id="chkShowTitle" runat="server"></asp:checkbox></td></tr>
 					<tr>
-						<td>Module</td>
-						<td>
-							<asp:dropdownlist id="ddlModule" runat="server" visible="False"></asp:dropdownlist>
+						<td style="HEIGHT: 16px">Module</td>
+						<td style="HEIGHT: 16px">
+							<asp:dropdownlist id="ddlModule" runat="server" autopostback="True" visible="False"></asp:dropdownlist>
 							<asp:label id="lblModule" runat="server" visible="False"></asp:label>
 						</td>
 					</tr>

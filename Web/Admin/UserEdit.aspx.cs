@@ -36,6 +36,7 @@ namespace Cuyahoga.Web.Admin
 		protected System.Web.UI.WebControls.Label lblUsername;
 		protected System.Web.UI.WebControls.RequiredFieldValidator rfvUsername;
 		protected System.Web.UI.WebControls.RequiredFieldValidator rfvEmail;
+		protected System.Web.UI.WebControls.CheckBox chkActive;
 		protected System.Web.UI.WebControls.TextBox txtFirstname;
 	
 		private void Page_Load(object sender, System.EventArgs e)
@@ -83,6 +84,7 @@ namespace Cuyahoga.Web.Admin
 			this.txtFirstname.Text = this._activeUser.FirstName;
 			this.txtLastname.Text = this._activeUser.LastName;
 			this.txtEmail.Text = this._activeUser.Email;
+			this.chkActive.Checked = this._activeUser.IsActive;
 			this.btnDelete.Visible = (this._activeUser.Id > 0);
 			this.btnDelete.Attributes.Add("onClick", "return confirmDeleteUser();");
 		}
@@ -223,6 +225,7 @@ namespace Cuyahoga.Web.Admin
 					this._activeUser.LastName = this.txtLastname.Text;
 				}
 				this._activeUser.Email = this.txtEmail.Text;
+				this._activeUser.IsActive = this.chkActive.Checked;
 				
 				if (this.txtPassword1.Text.Length > 0 && this.txtPassword2.Text.Length > 0)
 				{

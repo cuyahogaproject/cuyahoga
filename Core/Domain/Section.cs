@@ -188,13 +188,20 @@ namespace Cuyahoga.Core.Domain
 			{
 				string assemblyQualifiedName = this._moduleType.ClassName + ", " + this._moduleType.AssemblyName;
 				Type moduleType = Type.GetType(assemblyQualifiedName);
-				ModuleBase concreteModule = (ModuleBase)Activator.CreateInstance(moduleType);
-				if (concreteModule.SessionFactoryRebuilt)
+				if (moduleType == null)
 				{
-					OnSessionFactoryRebuilt(EventArgs.Empty);
+					throw new Exception("Could not find module: " + assemblyQualifiedName);
 				}
-				concreteModule.Section = this;
-				return concreteModule;
+				else
+				{
+					ModuleBase concreteModule = (ModuleBase)Activator.CreateInstance(moduleType);
+					if (concreteModule.SessionFactoryRebuilt)
+					{
+						OnSessionFactoryRebuilt(EventArgs.Empty);
+					}
+					concreteModule.Section = this;
+					return concreteModule;
+				}
 			}
 			else
 			{
