@@ -1,6 +1,6 @@
 ***VERSION***
 2.4
-2004-12-18
+2004-12-26
 Cuyahoga
 
 Martijn Boland
@@ -22,7 +22,7 @@ Cuyahoga_User
 991
 759
 126
-194
+226
 ***ATTRIBUTE***
 Cuyahoga_User
 UserId
@@ -140,6 +140,38 @@ VARCHAR
 No
 No
 Yes
+
+
+
+***ATTRIBUTE***
+Cuyahoga_User
+Website
+
+
+13
+VARCHAR
+100
+0
+
+No
+No
+No
+
+
+
+***ATTRIBUTE***
+Cuyahoga_User
+IsActive
+
+
+8
+BOOLEAN
+0
+0
+
+No
+No
+No
 
 
 
@@ -2725,7 +2757,7 @@ Cuyahoga_Site
 21
 277
 120
-146
+162
 ***ATTRIBUTE***
 Cuyahoga_Site
 SiteId
@@ -2816,6 +2848,22 @@ VARCHAR
 No
 No
 Yes
+
+
+
+***ATTRIBUTE***
+Cuyahoga_Site
+DefaultPlaceholder
+
+
+13
+VARCHAR
+100
+0
+
+No
+No
+No
 
 
 
