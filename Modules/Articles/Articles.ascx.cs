@@ -147,9 +147,16 @@ namespace Cuyahoga.Modules.Articles
 			hplAuthor.NavigateUrl = this.Page.ResolveUrl(String.Format("~/Profile.aspx/view/{0}", article.CreatedBy.Id));
 			hplAuthor.Text = article.CreatedBy.FullName;
 			HyperLink hplCategory = e.Item.FindControl("hplCategory") as HyperLink;
-			hplCategory.NavigateUrl = UrlHelper.GetUrlFromSection(this.Module.Section) + 
-				String.Format("/category/{0}", article.Category.Id);
-			hplCategory.Text = article.Category.Title;
+			if (article.Category != null)
+			{
+				hplCategory.NavigateUrl = UrlHelper.GetUrlFromSection(this.Module.Section) + 
+					String.Format("/category/{0}", article.Category.Id);
+				hplCategory.Text = article.Category.Title;
+			}
+			else
+			{
+				hpl.Text = "-";
+			}
 			HyperLink hplComments = e.Item.FindControl("hplComments") as HyperLink;
 			hplComments.NavigateUrl = UrlHelper.GetUrlFromSection(this._module.Section) 
 				+ String.Format("/{0}#comments", article.Id);

@@ -5,7 +5,6 @@ using System.Web.UI.WebControls;
 using System.Web.UI.HtmlControls;
 
 using Cuyahoga.Web.UI;
-using Cuyahoga.Modules.StaticHtml;
 
 namespace Cuyahoga.Modules.StaticHtml
 {

@@ -220,6 +220,7 @@
 				<include name="**/*.jpg" />
 				<include name="**/*.js" />
 				<include name="**/*.css" />
+				<include name="**/*.xslt" />
 			</fileset>
 		</copy>
 

@@ -11,7 +11,6 @@ namespace Cuyahoga.Modules.Articles
 	public class Article
 	{
 		private int _id;
-		private int _sectionId;
 		private int _createdById;
 		private int _modifiedById;
 		private string _title;
@@ -120,15 +119,6 @@ namespace Cuyahoga.Modules.Articles
 		}
 
 		/// <summary>
-		/// Property SectionId (int)
-		/// </summary>
-		public int SectionId
-		{
-			get { return this._sectionId; }
-			set { this._sectionId = value; }
-		}
-
-		/// <summary>
 		/// Property CreatedBy (User)
 		/// </summary>
 		public Cuyahoga.Core.Domain.User CreatedBy
@@ -192,7 +182,6 @@ namespace Cuyahoga.Modules.Articles
 		public Article()
 		{
 			this._id = -1;
-			this._sectionId = -1;
 			this._createdById = -1;
 			this._modifiedById = -1;
 			this._syndicate = true;

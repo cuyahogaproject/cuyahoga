@@ -17,7 +17,7 @@
                 DelaySign = "false"
                 OutputType = "Library"
                 PreBuildEvent = ""
-                PostBuildEvent = 'xcopy /s /y "$(ProjectDir)"*.as?x "$(SolutionDir)"Web\Modules&#xd;&#xa;xcopy /s /y "$(TargetDir)"Cuyahoga.Modules*.dll "$(SolutionDir)"Web\bin'
+                PostBuildEvent = 'xcopy /s /y "$(ProjectDir)"*.as?x "$(SolutionDir)"Web\Modules&#xd;&#xa;xcopy /s /y "$(ProjectDir)"*.xslt "$(SolutionDir)"Web\Modules&#xd;&#xa;xcopy /s /y "$(TargetDir)"Cuyahoga.Modules*.dll "$(SolutionDir)"Web\bin'
                 RootNamespace = "Cuyahoga.Modules"
                 RunPostBuildEvent = "OnBuildSuccess"
                 StartupObject = ""
@@ -226,6 +226,36 @@
                 <File
                     RelPath = "Articles\Resources\Strings.resx"
                     BuildAction = "EmbeddedResource"
+                />
+                <File
+                    RelPath = "RemoteContent\Feed.cs"
+                    SubType = "Code"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "RemoteContent\FeedDisplay.ascx"
+                    SubType = "UserControl"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "RemoteContent\FeedDisplay.ascx.cs"
+                    DependentUpon = "FeedDisplay.ascx"
+                    SubType = "ASPXCodeBehind"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "RemoteContent\FeedDisplay.ascx.resx"
+                    DependentUpon = "FeedDisplay.ascx.cs"
+                    BuildAction = "EmbeddedResource"
+                />
+                <File
+                    RelPath = "RemoteContent\RemoteContentModule.cs"
+                    SubType = "Code"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "RemoteContent\xslt\RSS20.xslt"
+                    BuildAction = "Content"
                 />
                 <File
                     RelPath = "StaticHtml\EditHtml.aspx"

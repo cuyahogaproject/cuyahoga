@@ -24,9 +24,10 @@ namespace Cuyahoga.Web.Admin.UI
 			switch (settingType.FullName)
 			{
 				case "System.String":
+					return CreateSettingTextBox(name, value, 300);
 				case "System.Int16":
 				case "System.Int32":
-					return CreateSettingTextBox(name, value);
+					return CreateSettingTextBox(name, value, 50);
 				case "System.Boolean":
 					return CreateSettingCheckBox(name, value);
 				default:
@@ -34,12 +35,12 @@ namespace Cuyahoga.Web.Admin.UI
 			}
 		}
 
-		private static TextBox CreateSettingTextBox(string name, string value)
+		private static TextBox CreateSettingTextBox(string name, string value, int width)
 		{
 			TextBox tbx = new TextBox();
 			tbx.ID = name;
 			tbx.Text = value;
-			tbx.Width = Unit.Pixel(50);
+			tbx.Width = Unit.Pixel(width);
 			return tbx;
 		}
 
