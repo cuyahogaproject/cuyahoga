@@ -363,6 +363,7 @@ namespace Cuyahoga.Web.Admin
 					this.ActiveNode.Title = this.txtTitle.Text;
 					// TODO: ensure a unique culture when the node is a root node
 					this.ActiveNode.Culture = this.ddlCultures.SelectedValue;
+					this.ActiveNode.Validate();
 					SetShortDescription();
 					SetRoles();
 					SaveNode();

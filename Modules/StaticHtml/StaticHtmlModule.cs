@@ -22,7 +22,7 @@ namespace Cuyahoga.Modules.StaticHtml
 			sf.RegisterPersistentClass(typeof(StaticHtmlContent));
 
 			// Set a flag to indicate that the SessionFactory is rebuilt. It would be more elegant
-			// to do this with an event but since this happens in the constructor it's there can't
+			// to do this with an event but since this happens in the constructor, there can't
 			// be any event handlers attached already. We leave it up to the Section to raise the 
 			// event (see Section.CreateModule()).
 			base.SessionFactoryRebuilt = sf.Rebuild();
@@ -68,6 +68,7 @@ namespace Cuyahoga.Modules.StaticHtml
 			{
 				if (content.Id == -1)
 				{
+					content.UpdateTimestamp = DateTime.Now;
 					base.NHSession.Save(content);
 				}
 				else

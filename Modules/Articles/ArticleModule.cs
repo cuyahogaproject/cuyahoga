@@ -108,6 +108,7 @@ namespace Cuyahoga.Modules.Articles
 				HandleCategory(article.Category, base.NHSession);
 				if (article.Id == -1)
 				{
+					article.DateModified = DateTime.Now;
 					base.NHSession.Save(article);
 				}
 				else
@@ -177,6 +178,7 @@ namespace Cuyahoga.Modules.Articles
 				else
 				{
 					// Insert the new one, so the Id will be generated and retrieved.
+					category.UpdateTimestamp = DateTime.Now;
 					session.Save(category);
 				}
 			}

@@ -5,8 +5,6 @@ using System.Web.UI.WebControls;
 using System.Web.UI.HtmlControls;
 using System.Diagnostics;
 
-// using NHibernate;
-
 using Cuyahoga.Core.Domain;
 using Cuyahoga.Core.Service;
 using Cuyahoga.Core.Util;

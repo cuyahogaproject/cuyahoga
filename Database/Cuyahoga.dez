@@ -1,6 +1,6 @@
 ***VERSION***
 2.4
-2004-11-14
+2004-11-17
 Cuyahoga
 
 Martijn Boland
@@ -61,6 +61,8 @@ UserId
 increment_by=1
 ***VARIABLEVALUE***
 seed=1
+***VARIABLEVALUE***
+unsigned=0
 ***ATTRIBUTE***
 Cuyahoga_User
 Username
@@ -203,7 +205,7 @@ No
 No
 Yes
 
-current_timestamp(3)
+current_timestamp
 
 ***ENTITY***
 Cuyahoga_Role
@@ -243,6 +245,8 @@ RoleId
 increment_by=1
 ***VARIABLEVALUE***
 seed=1
+***VARIABLEVALUE***
+unsigned=0
 ***ATTRIBUTE***
 Cuyahoga_Role
 Name
@@ -275,6 +279,8 @@ Yes
 
 1
 
+***VARIABLEVALUE***
+unsigned=0
 ***ATTRIBUTE***
 Cuyahoga_Role
 InsertTimestamp
@@ -305,7 +311,7 @@ No
 No
 Yes
 
-current_timestamp(3)
+current_timestamp
 
 ***ENTITY***
 Cuyahoga_UserRole
@@ -336,6 +342,8 @@ Yes
 increment_by=1
 ***VARIABLEVALUE***
 seed=1
+***VARIABLEVALUE***
+unsigned=0
 ***ATTRIBUTE***
 Cuyahoga_UserRole
 UserId
@@ -406,7 +414,7 @@ No
 No
 Yes
 
-current_timestamp(3)
+current_timestamp
 
 ***RELATION***
 User_UserRole
@@ -494,6 +502,8 @@ NodeId
 increment_by=1
 ***VARIABLEVALUE***
 seed=1
+***VARIABLEVALUE***
+unsigned=0
 ***ATTRIBUTE***
 Cuyahoga_Node
 ParentNodeId
@@ -602,6 +612,8 @@ Yes
 
 0
 
+***VARIABLEVALUE***
+unsigned=0
 ***ATTRIBUTE***
 Cuyahoga_Node
 Culture
@@ -648,7 +660,7 @@ No
 No
 Yes
 
-current_timestamp(3)
+current_timestamp
 
 ***ENTITY***
 Cuyahoga_Template
@@ -685,6 +697,8 @@ TemplateId
 increment_by=1
 ***VARIABLEVALUE***
 seed=1
+***VARIABLEVALUE***
+unsigned=0
 ***ATTRIBUTE***
 Cuyahoga_Template
 Name
@@ -747,7 +761,7 @@ No
 No
 Yes
 
-current_timestamp(3)
+current_timestamp
 
 ***ENTITY***
 Cuyahoga_ModuleType
@@ -784,6 +798,8 @@ ModuleTypeId
 increment_by=1
 ***VARIABLEVALUE***
 seed=1
+***VARIABLEVALUE***
+unsigned=0
 ***ATTRIBUTE***
 Cuyahoga_ModuleType
 Name
@@ -894,7 +910,7 @@ No
 No
 Yes
 
-current_timestamp(3)
+current_timestamp
 
 ***ENTITY***
 Cuyahoga_Section
@@ -937,6 +953,8 @@ SectionId
 increment_by=1
 ***VARIABLEVALUE***
 seed=1
+***VARIABLEVALUE***
+unsigned=0
 ***ATTRIBUTE***
 Cuyahoga_Section
 NodeId
@@ -1041,6 +1059,8 @@ Yes
 
 0
 
+***VARIABLEVALUE***
+unsigned=0
 ***ATTRIBUTE***
 Cuyahoga_Section
 CacheDuration
@@ -1057,6 +1077,8 @@ No
 
 
 
+***VARIABLEVALUE***
+unsigned=0
 ***ATTRIBUTE***
 Cuyahoga_Section
 InsertTimestamp
@@ -1087,7 +1109,7 @@ No
 No
 Yes
 
-current_timestamp(3)
+current_timestamp
 
 ***RELATION***
 Node_Template
@@ -1214,6 +1236,8 @@ Yes
 increment_by=1
 ***VARIABLEVALUE***
 seed=1
+***VARIABLEVALUE***
+unsigned=0
 ***ATTRIBUTE***
 CM_StaticHtml
 SectionId
@@ -1336,7 +1360,7 @@ No
 No
 Yes
 
-current_timestamp(3)
+current_timestamp
 
 ***RELATION***
 Cuyahoga_Section_CM_StaticHtml
@@ -1442,6 +1466,8 @@ ArticleId
 increment_by=1
 ***VARIABLEVALUE***
 seed=1
+***VARIABLEVALUE***
+unsigned=0
 ***ATTRIBUTE***
 CM_Article
 SectionId
@@ -1648,7 +1674,7 @@ No
 No
 Yes
 
-current_timestamp(3)
+current_timestamp
 
 ***ENTITY***
 CM_ArticleCategory
@@ -1682,6 +1708,8 @@ ArticleCategoryId
 increment_by=1
 ***VARIABLEVALUE***
 seed=1
+***VARIABLEVALUE***
+unsigned=0
 ***ATTRIBUTE***
 CM_ArticleCategory
 Title
@@ -1760,7 +1788,7 @@ No
 No
 Yes
 
-current_timestamp(3)
+current_timestamp
 
 ***ENTITY***
 CM_ArticleComment
@@ -1791,6 +1819,8 @@ Yes
 increment_by=1
 ***VARIABLEVALUE***
 seed=1
+***VARIABLEVALUE***
+unsigned=0
 ***ATTRIBUTE***
 CM_ArticleComment
 ArticleId
@@ -1877,7 +1907,7 @@ No
 No
 Yes
 
-current_timestamp(3)
+current_timestamp
 
 ***RELATION***
 Cuyahoga_Section_CM_Article
@@ -2052,6 +2082,8 @@ Yes
 increment_by=1
 ***VARIABLEVALUE***
 seed=1
+***VARIABLEVALUE***
+unsigned=0
 ***ATTRIBUTE***
 Cuyahoga_NodeRole
 NodeId
@@ -2210,6 +2242,8 @@ Yes
 increment_by=1
 ***VARIABLEVALUE***
 seed=1
+***VARIABLEVALUE***
+unsigned=0
 ***ATTRIBUTE***
 Cuyahoga_SectionRole
 SectionId
@@ -2368,6 +2402,8 @@ Yes
 increment_by=1
 ***VARIABLEVALUE***
 seed=1
+***VARIABLEVALUE***
+unsigned=0
 ***ATTRIBUTE***
 Cuyahoga_ModuleSetting
 ModuleTypeId
@@ -2514,6 +2550,8 @@ Yes
 increment_by=1
 ***VARIABLEVALUE***
 seed=1
+***VARIABLEVALUE***
+unsigned=0
 ***ATTRIBUTE***
 Cuyahoga_SectionSetting
 SectionId
@@ -2627,6 +2665,8 @@ Yes
 ***LINKEDATTRIBUTE***
 Cuyahoga_Node
 SiteId
+***VARIABLEVALUE***
+unsigned=0
 ***ATTRIBUTE***
 Cuyahoga_Site
 TemplateId

@@ -89,6 +89,11 @@ namespace Cuyahoga.Web.Cache
 			if (this._nodeCache.RootNodes.Count > 0)
 			{
 				Node node = (Node)this._nodeCache.RootNodes[this._site.DefaultCulture];
+				if (node == null)
+				{
+					// No node found for the default culture of the site, return the first node in the list.
+					node = (Node)this._nodeCache.RootNodes.GetByIndex(0);
+				}
 				this._coreRepository.AttachNodeToCurrentSession(node);
 				return node;
 			}

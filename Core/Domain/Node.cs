@@ -434,6 +434,24 @@ namespace Cuyahoga.Core.Domain
 		}
 
 		/// <summary>
+		/// Validate the node.
+		/// </summary>
+		public virtual void Validate()
+		{
+			// check if the the node is a root node and if so, check the uniqueness of the culture
+			if (this.ParentNode == null) // indicates a root node
+			{
+				foreach (Node node in this.Site.RootNodes)
+				{
+					if (node.Id != this._id && node.Culture == this.Culture)
+					{
+						throw new Exception("Found a root node with the same culture. The culture of a root node has to be unique within a site.");
+					}
+				}
+			}
+		}
+
+		/// <summary>
 		/// Move the node one position upwards and move the node above this one one position downwards.
 		/// </summary>
 		/// <param name="rootNodes">We need these when the node has no ParentNode.</param>
