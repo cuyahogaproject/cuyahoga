@@ -178,7 +178,7 @@ namespace Cuyahoga.Core.Domain
 		/// <summary>
 		/// Property NodePermissions (IList)
 		/// </summary>
-		public IList NodePermissions
+		public virtual IList NodePermissions
 		{
 			get { return this._nodePermissions; }
 			set { this._nodePermissions = value; }
@@ -191,15 +191,14 @@ namespace Cuyahoga.Core.Domain
 		{
 			get
 			{
-//				foreach (Role role in this.ViewRoles)
-//				{
-//					if (Array.IndexOf(role.Permissions, AccessLevel.Anonymous) > -1)
-//					{
-//						return true;
-//					}
-//				}
-//				return false;
-				return true;
+				foreach (NodePermission np in this._nodePermissions)
+				{
+					if (Array.IndexOf(np.Role.Permissions, AccessLevel.Anonymous) > -1)
+					{
+						return true;
+					}
+				}
+				return false;
 			}
 		}
 
@@ -386,7 +385,7 @@ namespace Cuyahoga.Core.Domain
 		/// </summary>
 		/// <param name="parentNode"></param>
 		/// <param name="gapPosition"></param>
-		public void ReOrderNodePositions(IList nodeListWithGap, int gapPosition)
+		public virtual void ReOrderNodePositions(IList nodeListWithGap, int gapPosition)
 		{
 			foreach (Node node in nodeListWithGap)
 			{
@@ -400,7 +399,7 @@ namespace Cuyahoga.Core.Domain
 		/// <summary>
 		/// Set the sections to null, so they will be loaded from the database next time.
 		/// </summary>
-		public void ResetSections()
+		public virtual void ResetSections()
 		{
 			this._sections = null;
 			// Notify
@@ -413,7 +412,7 @@ namespace Cuyahoga.Core.Domain
 		/// </summary>
 		/// <param name="user"></param>
 		/// <returns></returns>
-		public bool ViewAllowed(IIdentity user)
+		public virtual bool ViewAllowed(IIdentity user)
 		{
 			User cuyahogaUser = user as User;
 			if (this.AnonymousViewAllowed)
@@ -424,10 +423,46 @@ namespace Cuyahoga.Core.Domain
 				return false;
 		}
 
+		public virtual bool ViewAllowed(Role role)
+		{
+			foreach (NodePermission np in this.NodePermissions)
+			{
+				if (np.Role == role && np.ViewAllowed)
+				{
+					return true;
+				}
+			}
+			return false;
+		}
+
+		public virtual bool EditAllowed(Role role)
+		{
+			foreach (NodePermission np in this.NodePermissions)
+			{
+				if (np.Role == role && np.EditAllowed)
+				{
+					return true;
+				}
+			}
+			return false;
+		}
+
+		public virtual bool ActionAllowed(Role role)
+		{
+			foreach (NodePermission np in this.NodePermissions)
+			{
+				if (np.Role == role && (np.ViewAllowed || np.EditAllowed))
+				{
+					return true;
+				}
+			}
+			return false;
+		}
+
 		/// <summary>
 		/// 
 		/// </summary>
-		public void CopyRolesFromParent()
+		public virtual void CopyRolesFromParent()
 		{
 //			InitRoles();
 //			if (this._parentNode != null)
@@ -447,7 +482,7 @@ namespace Cuyahoga.Core.Domain
 		/// Generate a short description based on the parent short description and the title.
 		/// If the short description already exists, a number is added until it is unique.
 		/// </summary>
-		public void CreateShortDescription()
+		public virtual void CreateShortDescription()
 		{
 			string prefix = "";
 			if (this._parentNode != null)

@@ -24,9 +24,9 @@
 			<key column="nodeid" />
 			<one-to-many class="Cuyahoga.Core.Domain.Section, Cuyahoga.Core" />
 		</bag>
-		<bag name="NodePermissions" cascade="all" inverse="true" lazy="true">
-			<key column="nodeid" />
-			<one-to-many class="Cuyahoga.Core.Domain.NodePermission" />
+		<bag name="NodePermissions" cascade="all-delete-orphan" inverse="true" lazy="true">
+			<key column="objectid" />
+			<one-to-many class="Cuyahoga.Core.Domain.NodePermission, Cuyahoga.Core"  />
 		</bag>
 		
 	</class>

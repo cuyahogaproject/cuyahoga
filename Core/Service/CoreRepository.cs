@@ -181,6 +181,15 @@ namespace Cuyahoga.Core.Service
 			}
 		}
 
+		/// <summary>
+		/// Mark an object for deletion. Commit the deletion with Session.Flush.
+		/// </summary>
+		/// <param name="obj"></param>
+		public void MarkForDeletion(object obj)
+		{
+			this._activeSession.Delete(obj);
+		}
+
 		#endregion
 
 		#region Node specific
@@ -214,9 +223,32 @@ namespace Cuyahoga.Core.Service
 
 		#endregion
 
-		#region section specific
+		#region Section specific
 
 
+		#endregion
+
+		#region User specific
+
+		public User GetUserByUsernameAndPassword(string username, string password)
+		{
+			ICriteria crit = this._activeSession.CreateCriteria(typeof(User));
+			crit.Add(Expression.Eq("UserName", username));
+			crit.Add(Expression.Eq("Password", password));
+			IList results = crit.List();
+			if (results.Count == 1)
+			{
+				return (User)results[0];
+			}
+			else if (results.Count > 1)
+			{
+				throw new Exception(String.Format("Multiple users found with the give username and password. Something is pretty wrong here"));
+			}
+			else
+			{
+				return null;
+			}
+		}
 		#endregion
 	}
 }

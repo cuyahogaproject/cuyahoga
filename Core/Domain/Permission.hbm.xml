@@ -1,24 +1,24 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?> 
 <hibernate-mapping xmlns="urn:nhibernate-mapping-2.0">
 	<class name="Cuyahoga.Core.Domain.Permission, Cuyahoga.Core" table="cuyahoga_permission">
-		<discriminator column="objecttype" />
 		<id name="Id" column="permissionid" type="Int32" unsaved-value="-1">
 			<generator class="native">
-				<param name="sequence">cm_permission_permissionid_seq</param>
+				<param name="sequence">cuyahoga_permission_permissionid_seq</param>
 			</generator>
 		</id>
-		<version name="UpdateTimestamp" column="updatetimestamp" />
+		<discriminator column="objecttype" />
+		<timestamp name="UpdateTimestamp" column="updatetimestamp" />
 		
 		<property name="ViewAllowed" column="viewallowed" type="Boolean" />
 		<property name="EditAllowed" column="editallowed" type="Boolean" />
 		
-		<many-to-one class="Cuyahoga.Core.Domain.Role, Cuyahoga.Core" column="roleid" />
+		<many-to-one name="Role" class="Cuyahoga.Core.Domain.Role, Cuyahoga.Core" column="roleid" />
 		
 		<subclass name="Cuyahoga.Core.Domain.NodePermission, Cuyahoga.Core" discriminator-value="NP">
-			<many-to-one class="Cuyahoga.Core.Domain.Node, Cuyahoga.Core" column="objectid" />
+			<many-to-one name="Node" class="Cuyahoga.Core.Domain.Node, Cuyahoga.Core" column="objectid" />
 		</subclass>
 		<subclass name="Cuyahoga.Core.Domain.SectionPermission, Cuyahoga.Core" discriminator-value="SP">
-			<many-to-one class="Cuyahoga.Core.Domain.Node, Cuyahoga.Core" column="objectid" />
+			<many-to-one name="Section" class="Cuyahoga.Core.Domain.Section, Cuyahoga.Core" column="objectid" />
 		</subclass>
 	</class>
 </hibernate-mapping>

@@ -50,10 +50,7 @@ namespace Cuyahoga.Core.Domain
 		public string Password
 		{
 			get { return this._password; }
-			set 
-			{
-				SetPassword(value);
-			}
+			set { this._password = value; }
 		}
 
 		/// <summary>
@@ -116,6 +113,7 @@ namespace Cuyahoga.Core.Domain
 		public bool IsAuthenticated
 		{
 			get { return this._isAuthenticated; }
+			set { this._isAuthenticated = value; }
 		}
 
 		/// <summary>
@@ -259,13 +257,17 @@ namespace Cuyahoga.Core.Domain
 			return false;
 		}
 
-		private void SetPassword(string password)
+		/// <summary>
+		/// Create a MD5 hash of the password.
+		/// </summary>
+		/// <param name="password">The password in clear text</param>
+		/// <returns>The MD5 hash of the password</returns>
+		public static string HashPassword(string password)
 		{
 			// Very simple password rule. Extend here when required.
 			if (password.Length >= 5)
 			{
-				this._password = Util.Encryption.StringToMD5Hash(password);
-				System.Diagnostics.Trace.WriteLine("MD5 result = " + this._password);
+				return Util.Encryption.StringToMD5Hash(password);
 			}
 			else
 			{

@@ -1,1 +1,16 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?> 
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.0">
+	<class name="Cuyahoga.Core.Domain.Role, Cuyahoga.Core" table="cuyahoga_role"
+		proxy="Cuyahoga.Core.Domain.Role, Cuyahoga.Core">
+		<id name="Id" column="roleid" type="Int32" unsaved-value="-1">
+			<generator class="native">
+				<param name="sequence">cuyahoga_role_roleid_seq</param>
+			</generator>
+		</id>
+		<timestamp name="UpdateTimestamp" column="updatetimestamp" />
+
+		<property name="Name" column="name" type="String" length="50" />
+		<property name="PermissionLevel" column="permissionlevel" type="Int32" />		
+		
+	</class>
+</hibernate-mapping>

@@ -208,7 +208,7 @@
                 />
                 <File
                     RelPath = "Domain\Permission.hbm.xml"
-                    BuildAction = "Content"
+                    BuildAction = "EmbeddedResource"
                 />
                 <File
                     RelPath = "Domain\Role.cs"
@@ -217,7 +217,7 @@
                 />
                 <File
                     RelPath = "Domain\Role.hbm.xml"
-                    BuildAction = "Content"
+                    BuildAction = "EmbeddedResource"
                 />
                 <File
                     RelPath = "Domain\Section.cs"
@@ -249,7 +249,7 @@
                 />
                 <File
                     RelPath = "Domain\User.hbm.xml"
-                    BuildAction = "Content"
+                    BuildAction = "EmbeddedResource"
                 />
                 <File
                     RelPath = "Security\CuyahogaPrincipal.cs"

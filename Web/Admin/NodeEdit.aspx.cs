@@ -149,8 +149,7 @@ namespace Cuyahoga.Web.Admin
 
 		private void BindRoles()
 		{
-			RoleCollection roles = new RoleCollection();
-			CmsDataFactory.GetInstance().GetAllRoles(roles);
+			IList roles = base.CoreRepository.GetAll(typeof(Role), "PermissionLevel");
 			this.rptRoles.ItemDataBound += new RepeaterItemEventHandler(rptRoles_ItemDataBound);
 			this.rptRoles.DataSource = roles;
 			this.rptRoles.DataBind();
@@ -171,22 +170,13 @@ namespace Cuyahoga.Web.Admin
 
 		private void SetRoles()
 		{
-//			this.ActiveNode.ViewRoles.Clear();
-//			this.ActiveNode.EditRoles.Clear();
-//
-//			foreach (RepeaterItem ri in rptRoles.Items)
-//			{	
-//				// HACK: RoleId is stored in the ViewState because the repeater doesn't have a DataKeys property.
-//				// Another HACK: we're only using the role id's to save database roundtrips.
-//				Role role = new Role();
-//				role.Id = (int)this.ViewState[ri.ClientID];
-//				CheckBox chkView = (CheckBox)ri.FindControl("chkViewAllowed");
-//				if (chkView.Checked)
-//					this.ActiveNode.ViewRoles.Add(role);
-//				CheckBox chkEdit = (CheckBox)ri.FindControl("chkEditAllowed");
-//				if (chkEdit.Checked)
-//					this.ActiveNode.EditRoles.Add(role);
-//			}
+			foreach (RepeaterItem ri in rptRoles.Items)
+			{	
+				// HACK: RoleId is stored in the ViewState because the repeater doesn't have a DataKeys property.
+				CheckBox chkView = (CheckBox)ri.FindControl("chkViewAllowed");
+				CheckBox chkEdit = (CheckBox)ri.FindControl("chkEditAllowed");
+				
+			}
 		}
 
 		private void SaveNode()
@@ -454,19 +444,19 @@ namespace Cuyahoga.Web.Admin
 			Role role = e.Item.DataItem as Role;
 			if (role != null)
 			{
-//				CheckBox chkView = (CheckBox)e.Item.FindControl("chkViewAllowed");
-//				chkView.Checked = this.ActiveNode.ViewRoles.Contains(role);
-//				CheckBox chkEdit = (CheckBox)e.Item.FindControl("chkEditAllowed");
-//				if (role.HasPermission(AccessLevel.Editor) || role.HasPermission(AccessLevel.Administrator))
-//				{
-//					chkEdit.Checked = this.ActiveNode.EditRoles.Contains(role);
-//				}
-//				else
-//				{
-//					chkEdit.Visible = false;
-//				}
-//				// Add RoleId to the ViewState with the ClientID of the repeateritem as key.
-//				this.ViewState[e.Item.ClientID] = role.Id;
+				CheckBox chkView = (CheckBox)e.Item.FindControl("chkViewAllowed");
+				chkView.Checked = this.ActiveNode.ViewAllowed(role);
+				CheckBox chkEdit = (CheckBox)e.Item.FindControl("chkEditAllowed");
+				if (role.HasPermission(AccessLevel.Editor) || role.HasPermission(AccessLevel.Administrator))
+				{
+					chkEdit.Checked = this.ActiveNode.EditAllowed(role);
+				}
+				else
+				{
+					chkEdit.Visible = false;
+				}
+				// Add RoleId to the ViewState with the ClientID of the repeateritem as key.
+				this.ViewState[e.Item.ClientID] = role.Id;
 			}
 		}
 	}

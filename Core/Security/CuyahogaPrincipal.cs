@@ -43,9 +43,13 @@ namespace Cuyahoga.Core.Security
 		public CuyahogaPrincipal(User user)
 		{
 			if (user != null && user.IsAuthenticated)
+			{
 				this._user = user;
+			}
 			else
+			{
 				throw new SecurityException("Cannot create a principal without u valid user");
+			}
 		}
 	}
 }

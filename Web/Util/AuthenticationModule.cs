@@ -3,9 +3,9 @@ using System.Web;
 using System.Web.Security;
 using System.Web.Caching;
 
-using Cuyahoga.Core;
+using Cuyahoga.Core.Service;
 using Cuyahoga.Core.Domain;
-using Cuyahoga.Core.DAL;
+using Cuyahoga.Core.Util;
 using Cuyahoga.Core.Security;
 
 namespace Cuyahoga.Web.Util
@@ -43,31 +43,41 @@ namespace Cuyahoga.Web.Util
 		/// <returns></returns>
 		public bool AuthenticateUser(string username, string password)
 		{
-			string currentIp = HttpContext.Current.Request.UserHostAddress;
-			User user = new User();
-			// Set the user properties we already know.
-			user.UserName = username;
-			user.Password = password;
-			user.LastLogin = DateTime.Now;
-			user.LastIp = currentIp;
-
-			if (user.Login())
+			CoreRepository cr = new CoreRepository(true);
+			string hashedPassword = Encryption.StringToMD5Hash(password);
+			try
 			{
-				// We also need the roles, so get them
-				CmsDataFactory.GetInstance().GetRolesByUser(user);
-				// Create the authentication ticket
-				HttpContext.Current.User = new CuyahogaPrincipal(user);
-				FormsAuthenticationTicket ticket = 
-					new FormsAuthenticationTicket(1, user.Name, DateTime.Now, DateTime.Now.AddMinutes(AUTHENTICATION_TIMEOUT), false, "");
-				string cookiestr = FormsAuthentication.Encrypt(ticket);
-				HttpCookie cookie = new HttpCookie(FormsAuthentication.FormsCookieName, cookiestr);                
-				HttpContext.Current.Response.Cookies.Add(cookie);
-				// Finally cache the user
-				CacheUser(HttpContext.Current, user);
-				return true;
+				User user = cr.GetUserByUsernameAndPassword(username, hashedPassword);
+				if (user != null)
+				{
+					user.IsAuthenticated = true;
+					string currentIp = HttpContext.Current.Request.UserHostAddress;
+					user.LastLogin = DateTime.Now;
+					user.LastIp = currentIp;
+					// Save login date and IP
+					cr.UpdateObject(user);
+					// Create the authentication ticket
+					HttpContext.Current.User = new CuyahogaPrincipal(user);
+					FormsAuthenticationTicket ticket = 
+						new FormsAuthenticationTicket(1, user.Name, DateTime.Now, DateTime.Now.AddMinutes(AUTHENTICATION_TIMEOUT), false, "");
+					string cookiestr = FormsAuthentication.Encrypt(ticket);
+					HttpCookie cookie = new HttpCookie(FormsAuthentication.FormsCookieName, cookiestr);                
+					HttpContext.Current.Response.Cookies.Add(cookie);
+					// Finally cache the user
+					CacheUser(HttpContext.Current, user);
+					return true;
+				}
+				else
+					return false;
 			}
-			else
-				return false;
+			catch (Exception ex)
+			{
+				throw new Exception(String.Format("Unable to log in user {0}", username), ex);
+			}
+			finally
+			{
+				cr.CloseSession();
+			}
 		}
 
 		/// <summary>
