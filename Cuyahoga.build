@@ -32,21 +32,80 @@
 	</target>
 	<target name="build" depends="init" description="Builds current configuration">
 		<echo message="Build Directory is ${build.dir}" />
-		<!-- prepare build directory -->
-		<solution solutionfile="Cuyahoga.sln" configuration="${project.config}" outputdir="${build.dir}/bin" verbose="true">
-			<excludeprojects>
-				<includes name="ExternalStuff/ExternalStuff.csproj" />
-			</excludeprojects>
-		</solution>
+		<mkdir dir="${build.dir}/bin" />
+		
+		<call target="build.core" />
+		<call target="build.modules" />
+		<call target="build.servercontrols" />
+		<call target="build.web" />
 
 		<!-- copy libraries -->
 		<copy todir="${build.dir}/bin">
 			<fileset basedir="ExternalStuff">
-				<includes name="FreeTextBox.dll" />
-				<includes name="Npgsql.dll" />
-				<includes name="Mono.Security.Protocol.Tls.dll" />
+				<includes name="**/*.dll" />
 			</fileset>
 		</copy>		
+	</target>
+	<target name="build.core">
+		<csc target="library" output="${build.dir}/bin/Cuyahoga.Core.dll" debug="${build.debug}">
+            <sources>
+                <includes name="Core/**/*.cs" />
+            </sources>
+            <references>
+                <includes name="System.dll" />
+                <includes name="System.Data.dll" />
+                <includes name="System.Xml.dll" />
+                <includes name="System.Web.dll" />
+                <includes name="ExternalStuff/**/*.dll" />    
+            </references>
+        </csc>
+	</target>
+	<target name="build.modules" depends="build.core">
+		<csc target="library" output="${build.dir}/bin/Cuyahoga.Modules.dll" debug="${build.debug}">
+            <sources>
+                <includes name="Modules/**/*.cs" />
+            </sources>
+            <references>
+                <includes name="System.dll" />
+                <includes name="System.Data.dll" />
+                <includes name="System.Xml.dll" />
+                <includes name="System.Web.dll" />
+                <includes name="ExternalStuff/**/*.dll" />  
+                <includes name="${build.dir}/bin/Cuyahoga.Core.dll" />
+            </references>
+        </csc>
+	</target>
+	<target name="build.servercontrols">
+		<csc target="library" output="${build.dir}/bin/Cuyahoga.ServerControls.dll" debug="${build.debug}">
+            <sources>
+                <includes name="ServerControls/**/*.cs" />
+            </sources>
+            <references>
+                <includes name="System.dll" />
+                <includes name="System.Data.dll" />
+                <includes name="System.Drawing.dll" />
+                <includes name="System.Xml.dll" />
+                <includes name="System.Web.dll" />
+            </references>
+        </csc>
+	</target>
+	<target name="build.web">
+		<csc target="library" output="${build.dir}/bin/Cuyahoga.Web.dll" debug="${build.debug}">
+            <sources>
+                <includes name="Web/**/*.cs" />
+            </sources>
+            <references>
+                <includes name="System.dll" />
+                <includes name="System.Data.dll" />
+                <includes name="System.Drawing.dll" />
+                <includes name="System.Xml.dll" />
+                <includes name="System.Web.dll" />
+                <includes name="ExternalStuff/**/*.dll" />  
+                <includes name="${build.dir}/bin/Cuyahoga.Core.dll" />
+                <includes name="${build.dir}/bin/Cuyahoga.Modules.dll" />
+                <includes name="${build.dir}/bin/Cuyahoga.ServerControls.dll" />
+            </references>
+        </csc>
 	</target>
 	<target name="deploy" depends="build" description="Deploys website items to the current build dir">
 		<copy todir="${build.dir}">

@@ -44,6 +44,9 @@ Global
 		{C64DAA00-AAB1-4AC7-ADE2-119B53B9666A}.Release.ActiveCfg = Release|.NET
 		{C64DAA00-AAB1-4AC7-ADE2-119B53B9666A}.Release.Build.0 = Release|.NET
 	EndGlobalSection
+	GlobalSection(SolutionItems) = postSolution
+		Cuyahoga.build = Cuyahoga.build
+	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 	EndGlobalSection
 	GlobalSection(ExtensibilityAddIns) = postSolution
