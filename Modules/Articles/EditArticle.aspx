@@ -29,8 +29,7 @@
 						<tr>
 							<td style="WIDTH: 100px">Content</td>
 							<td>
-								<fckeditorv2:fckeditor id="fckContent" runat="server" height="350px" width="650px"></fckeditorv2:fckeditor><asp:requiredfieldvalidator id="rfvContent" runat="server" errormessage="The content is required" cssclass="validator"
-									display="Dynamic" controltovalidate="fckContent" enableclientscript="False"></asp:requiredfieldvalidator></td>
+								<fckeditorv2:fckeditor id="fckContent" runat="server" height="350px" width="650px"></fckeditorv2:fckeditor></td>
 						</tr>
 						<tr>
 							<td style="WIDTH: 100px">Category</td>

@@ -35,7 +35,6 @@ namespace Cuyahoga.Modules.Articles
 		protected Cuyahoga.ServerControls.Calendar calDateOnline;
 		protected System.Web.UI.WebControls.RequiredFieldValidator rfvDateOnline;
 		protected System.Web.UI.WebControls.RequiredFieldValidator rfvDateOffline;
-		protected System.Web.UI.WebControls.RequiredFieldValidator rfvContent;
 		protected FredCK.FCKeditorV2.FCKeditor fckContent;
 		protected Cuyahoga.ServerControls.Calendar calDateOffline;
 
