@@ -18,7 +18,7 @@ namespace Cuyahoga.Web.Modules.Articles
 	/// <summary>
 	/// Summary description for EditArticles.
 	/// </summary>
-	public class EditArticles : ModuleAdminBasePage
+	public class AdminArticles : ModuleAdminBasePage
 	{
 		protected System.Web.UI.WebControls.Repeater rptArticles;
 		protected Cuyahoga.ServerControls.Pager pgrArticles;
@@ -28,7 +28,7 @@ namespace Cuyahoga.Web.Modules.Articles
 		private void Page_Load(object sender, System.EventArgs e)
 		{
 			this._module = base.Section.Module as ArticleModule;
-			this.btnNew.Attributes.Add("onClick", String.Format("document.location.href=\"EditArticle.aspx?NodeId={0}&SectionId={1}&ArticleId=-1\"", base.Node.Id, base.Section.Id));
+			this.btnNew.Attributes.Add("onClick", String.Format("document.location.href=\"EditArticle.aspx{0}&ArticleId=-1\"", base.GetBaseQueryString()));
 
 			if (! this.IsPostBack)
 			{
@@ -53,9 +53,20 @@ namespace Cuyahoga.Web.Modules.Articles
 		/// </summary>
 		private void InitializeComponent()
 		{    
+			this.rptArticles.ItemDataBound += new System.Web.UI.WebControls.RepeaterItemEventHandler(this.rptArticles_ItemDataBound);
 			this.Load += new System.EventHandler(this.Page_Load);
 
 		}
 		#endregion
+
+		private void rptArticles_ItemDataBound(object sender, System.Web.UI.WebControls.RepeaterItemEventArgs e)
+		{
+			HyperLink hplEdit = e.Item.FindControl("hpledit") as HyperLink;
+			if (hplEdit != null)
+			{
+				Article article = e.Item.DataItem as Article;
+				hplEdit.NavigateUrl = String.Format("~/Modules/Articles/EditArticle.aspx{0}&ArticleId={1}", base.GetBaseQueryString(), article.Id);
+			}
+		}
 	}
 }

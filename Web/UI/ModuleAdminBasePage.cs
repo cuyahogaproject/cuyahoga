@@ -114,5 +114,10 @@ namespace Cuyahoga.Web.UI
 			}
 			// TODO: change the class attribute to make a difference with the error (nice background image?)
 		}
+
+		public string GetBaseQueryString()
+		{
+			return String.Format("?NodeId={0}&SectionId={1}", this.Node.Id, this.Section.Id);
+		}
 	}
 }

@@ -38,6 +38,11 @@ namespace Cuyahoga.Modules.Articles
 			this._articles = null;
 		}
 
+		public IList GetAvailableCategories()
+		{
+			return Broker.RetrieveList(typeof(Category));
+		}
+
 		public override void LoadContent()
 		{
 		}

@@ -109,6 +109,16 @@
                     Project = "{C64DAA00-AAB1-4AC7-ADE2-119B53B9666A}"
                     Package = "{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}"
                 />
+                <Reference
+                    Name = "eWorld.UI"
+                    AssemblyName = "eWorld.UI"
+                    HintPath = "..\ExternalStuff\eWorld.UI.dll"
+                />
+                <Reference
+                    Name = "Gentle.Framework"
+                    AssemblyName = "Gentle.Framework"
+                    HintPath = "..\ExternalStuff\Gentle.Framework.dll"
+                />
             </References>
         </Build>
         <Files>
@@ -458,6 +468,22 @@
                     BuildAction = "Content"
                 />
                 <File
+                    RelPath = "Modules\Articles\AdminArticles.aspx"
+                    SubType = "Form"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Modules\Articles\AdminArticles.aspx.cs"
+                    DependentUpon = "AdminArticles.aspx"
+                    SubType = "ASPXCodeBehind"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "Modules\Articles\AdminArticles.aspx.resx"
+                    DependentUpon = "AdminArticles.aspx.cs"
+                    BuildAction = "EmbeddedResource"
+                />
+                <File
                     RelPath = "Modules\Articles\Articles.ascx"
                     SubType = "UserControl"
                     BuildAction = "Content"
@@ -474,19 +500,19 @@
                     BuildAction = "EmbeddedResource"
                 />
                 <File
-                    RelPath = "Modules\Articles\EditArticles.aspx"
+                    RelPath = "Modules\Articles\EditArticle.aspx"
                     SubType = "Form"
                     BuildAction = "Content"
                 />
                 <File
-                    RelPath = "Modules\Articles\EditArticles.aspx.cs"
-                    DependentUpon = "EditArticles.aspx"
+                    RelPath = "Modules\Articles\EditArticle.aspx.cs"
+                    DependentUpon = "EditArticle.aspx"
                     SubType = "ASPXCodeBehind"
                     BuildAction = "Compile"
                 />
                 <File
-                    RelPath = "Modules\Articles\EditArticles.aspx.resx"
-                    DependentUpon = "EditArticles.aspx.cs"
+                    RelPath = "Modules\Articles\EditArticle.aspx.resx"
+                    DependentUpon = "EditArticle.aspx.cs"
                     BuildAction = "EmbeddedResource"
                 />
                 <File
@@ -536,6 +562,10 @@
                     RelPath = "Modules\User\User.ascx.resx"
                     DependentUpon = "User.ascx.cs"
                     BuildAction = "EmbeddedResource"
+                />
+                <File
+                    RelPath = "Support\eWorld\eWorld_UI_CalendarPopup.js"
+                    BuildAction = "Content"
                 />
                 <File
                     RelPath = "Support\FreeTextBox\FreeTextBox-MainScript.js"

@@ -68,6 +68,10 @@
         <Files>
             <Include>
                 <File
+                    RelPath = "eWorld.UI.dll"
+                    BuildAction = "Content"
+                />
+                <File
                     RelPath = "FreeTextBox.dll"
                     BuildAction = "Content"
                 />
