@@ -51,6 +51,9 @@
             <sources>
                 <include name="Core/**/*.cs" />
             </sources>
+            <resources dynamicprefix="true" prefix="Cuyahoga">
+				 <include name="Core/Domain/**/*.hbm.xml" />
+            </resources>
             <references>
                 <include name="System.dll" />
                 <include name="System.Data.dll" />
@@ -60,9 +63,6 @@
                 <include name="ExternalStuff/Npgsql.*" />    
                 <include name="ExternalStuff/Mono.Security.Protocol.Tls.*" />
             </references>
-            <resources dynamicprefix="true" prefix="Cuyahoga">
-				 <include name="Core/Domain/**/*.hbm.xml" />
-            </resources>
         </csc>
 	</target>
 	<target name="build.modules" depends="build.core">
