@@ -75,6 +75,7 @@
                 <include name="System.Xml.dll" />
                 <include name="System.Web.dll" />
                 <include name="${lib.dir}/NHibernate.*" />
+                <include name="${lib.dir}/Lucene.Net.*" />
             </references>
         </csc>
 	</target>
