@@ -9,8 +9,6 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Web.UI.HtmlControls;
 
-using FreeTextBoxControls;
-
 using Cuyahoga.Web.Util;
 using Cuyahoga.Web.UI;
 using Cuyahoga.Modules.DAL;
@@ -24,8 +22,8 @@ namespace Cuyahoga.Web.Modules.StaticHtml
 	public class EditHtml : ModuleAdminBasePage
 	{
 		private StaticHtmlModule _module;
-		protected Cuyahoga.ServerControls.CuyahogaEditor cedStaticHtml;
 
+		protected Cuyahoga.ServerControls.CuyahogaEditor cedStaticHtml;
 		protected System.Web.UI.WebControls.Button btnSave;
 	
 		private void Page_Load(object sender, System.EventArgs e)
@@ -44,14 +42,19 @@ namespace Cuyahoga.Web.Modules.StaticHtml
 		private void SaveStaticHtml()
 		{
 			if (this._module.StaticHtmlContent == null)
+			{
 				this._module.StaticHtmlContent = new StaticHtmlContent();
-			// this._module.StaticHtmlContent.Title = ""
+			}
 			this._module.StaticHtmlContent.Content = this.cedStaticHtml.Text;
 			IModulesDataProvider dp = ModulesDataFactory.GetInstance();
 			if (this._module.StaticHtmlContent.Id == -1)
+			{
 				dp.InsertStaticHtmlContent(this._module.Section.Id, Int32.Parse(Context.User.Identity.Name), this._module.StaticHtmlContent);
+			}
 			else
+			{
 				dp.UpdateStaticHtmlContent(this._module.Section.Id, Int32.Parse(Context.User.Identity.Name), this._module.StaticHtmlContent);
+			}
 		}
 
 		#region Web Form Designer generated code

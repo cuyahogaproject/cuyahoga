@@ -33,8 +33,10 @@ namespace Cuyahoga.Modules.Articles
 
 		public override void DeleteContent()
 		{
-            if (this._articles != null && this._articles.Count > 0)
+			if (this._articles != null && this._articles.Count > 0)
+			{
 				throw new DeleteForbiddenException("You can't delete an article section when there is still content in it.");
+			}
 		}
 	}
 }
