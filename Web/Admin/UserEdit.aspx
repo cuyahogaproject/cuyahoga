@@ -1,19 +1,61 @@
 <%@ Page language="c#" Codebehind="UserEdit.aspx.cs" AutoEventWireup="false" Inherits="Cuyahoga.Web.Admin.UserEdit" %>
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN" > 
-
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN" >
 <html>
   <head>
-    <title>UserEdit</title>
-    <meta name="GENERATOR" Content="Microsoft Visual Studio .NET 7.1">
-    <meta name="CODE_LANGUAGE" Content="C#">
-    <meta name=vs_defaultClientScript content="JavaScript">
-    <meta name=vs_targetSchema content="http://schemas.microsoft.com/intellisense/ie5">
+		<title>UserEdit</title>
+<meta content="Microsoft Visual Studio .NET 7.1" name=GENERATOR>
+<meta content=C# name=CODE_LANGUAGE>
+<meta content=JavaScript name=vs_defaultClientScript>
+<meta content=http://schemas.microsoft.com/intellisense/ie5 name=vs_targetSchema>
   </head>
-  <body MS_POSITIONING="FlowLayout">
-	
-    <form id="Form1" method="post" runat="server">
+<body ms_positioning="FlowLayout">
+<form id=Form1 method=post runat="server">
+<script language=javascript> <!--
+				function confirmDeleteUser(userId)
+				{
+					if (confirm("Are you sure you want to delete this user?"))
+						document.location.href = "UserEdit.aspx?UserId=" + userId + "&Action=Delete";
+				}
+				// -->
+			</script>
 
-     </form>
-	
-  </body>
+<div class=group>
+<h4>General</H4>
+<table>
+  <tr>
+    <td style="WIDTH: 200px">Username</TD>
+    <td><asp:textbox id=txtUsername runat="server" width="200px"></asp:textbox><asp:requiredfieldvalidator id=rfvUsername runat="server" controltovalidate="txtUsername" forecolor=" " enableclientscript="False" display="Dynamic" cssclass="validator" errormessage="Username is required"></asp:requiredfieldvalidator></TD></TR>
+  <tr>
+    <td>Firstname</TD>
+    <td><asp:textbox id=txtFirstname runat="server" width="200px"></asp:textbox></TD></TR>
+  <tr>
+    <td>Lastname</TD>
+    <td><asp:textbox id=txtLastname runat="server" width="200px"></asp:textbox></TD></TR>
+  <tr>
+    <td>Email</TD>
+    <td><asp:textbox id=txtEmail runat="server" width="200px"></asp:textbox><asp:requiredfieldvalidator id=RequiredFieldValidator1 runat="server" controltovalidate="txtEmail" forecolor=" " enableclientscript="False" display="Dynamic" cssclass="validator" errormessage="Email is required"></asp:requiredfieldvalidator><asp:regularexpressionvalidator id=revEmail runat="server" controltovalidate="txtEmail" forecolor=" " enableclientscript="False" display="Dynamic" cssclass="validator" errormessage="Invalid email" validationexpression="\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*"></asp:regularexpressionvalidator></TD></TR>
+  <tr>
+    <td>Password</TD>
+    <td><asp:textbox id=txtPassword1 runat="server" width="200px" textmode="Password"></asp:textbox></TD></TR>
+  <tr>
+    <td>Confirm password</TD>
+    <td><asp:textbox id=txtPassword2 runat="server" width="200px" textmode="Password"></asp:textbox><asp:comparevalidator id=covPassword runat="server" controltovalidate="txtPassword1" forecolor=" " enableclientscript="False" display="Dynamic" cssclass="validator" errormessage="Both passwords must be the same" controltocompare="txtPassword2"></asp:comparevalidator></TD></TR></TABLE></DIV>
+<div class=group>
+<h4>Roles</H4>
+<table class=tbl><asp:repeater id=rptRoles runat="server">
+						<headertemplate>
+							<tr>
+								<th>Role</th>
+								<th></th>
+							</tr>
+						</headertemplate>
+						<itemtemplate>
+							<tr>
+								<td><%# DataBinder.Eval(Container.DataItem, "Name") %></td>
+								<td style="text-align:center"><asp:checkbox id="chkRole" runat="server"></asp:checkbox></td>
+							</tr>
+						</itemtemplate>
+					</asp:repeater></TABLE></DIV>
+<div><asp:button id=btnSave runat="server" text="Save"></asp:button><asp:Button id=btnCancel runat="server" Text="Cancel" CausesValidation="False"></asp:Button><asp:Button id=btnDelete runat="server" Text="Delete"></asp:Button></DIV></FORM>
+	</body>
 </html>

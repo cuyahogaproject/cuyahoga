@@ -1,5 +1,5 @@
-<%@ Page language="c#" Codebehind="Users.aspx.cs" AutoEventWireup="false" Inherits="Cuyahoga.Web.Admin.Users" %>
 <%@ Register TagPrefix="csc" Namespace="Cuyahoga.ServerControls" Assembly="Cuyahoga.ServerControls" %>
+<%@ Page language="c#" Codebehind="Users.aspx.cs" AutoEventWireup="false" Inherits="Cuyahoga.Web.Admin.Users" %>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN" >
 <html>
   <head>
@@ -11,23 +11,14 @@
   </head>
 	<body>
 		<form id="Form1" method="post" runat="server">
-			<script language="javascript"> <!--
-				function confirmDeleteUser(userId)
-				{
-					if (confirm("Are you sure you want to delete this user?"))
-						document.location.href = "UserEdit.aspx?UserId=" + userId + "&Action=Delete";
-				}
-				// -->
-			</script>
 			<div class="group">
 				<h4>Find users</h4>
 				Username <asp:textbox id="txtUsername" runat="server"></asp:textbox><asp:button id="btnFind" runat="server" text="Find"></asp:button>
 			</div>
 			<asp:panel id="pnlResults" runat="server" cssclass="group">
-				<h4>Search results</h4>
-				<p>
-					<table class=tbl>
-						<asp:repeater id=rptUsers runat="server">
+<h4>Search results</h4>
+<p>
+<table class=tbl><asp:repeater id=rptUsers runat="server">
 							<headertemplate>
 								<tr>
 									<th>Username</th>
@@ -36,7 +27,7 @@
 									<th>Email</th>
 									<th>Last login date</th>
 									<th>Last login from</th>
-									<th>Actions</th>
+									<th></th>
 								</tr>
 							</headertemplate>
 							<itemtemplate>
@@ -49,16 +40,12 @@
 									<td style="text-align:right"><%# DataBinder.Eval(Container.DataItem, "LastIp") %></td>
 									<td>
 										<asp:hyperlink id="hplEdit" runat="server">Edit</asp:hyperlink>
-										<asp:hyperlink id="hplDelete" runat="server">Delete</asp:hyperlink>
 									</td>
 								</tr>
 							</itemtemplate>
-						</asp:repeater>
-					</table>
-				</p>
-				<div class=pager>
-					<csc:pager id=pgrUsers runat="server" CacheDuration="10" pagesize="1" cachedatasource="True" controltopage="rptUsers"></csc:pager>
-				</div>
+						</asp:repeater></table></p>
+<div class=pager><csc:pager id=pgrUsers runat="server" controltopage="rptUsers" cachedatasource="True" pagesize="10" CacheDuration="10"></csc:pager></div>
+<div><asp:button id=btnNew runat="server" text="Add new user"></asp:button></div>
 			</asp:panel>
 		</form>
 	</body>

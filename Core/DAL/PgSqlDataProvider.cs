@@ -955,7 +955,7 @@ namespace Cuyahoga.Core.DAL
 
 		public void UpdateUser(User user)
 		{
-			string sql = @"	UPDATE cuyahoga_users
+			string sql = @"	UPDATE cuyahoga_user
 							SET	username = :username,
 								firstname = :firstname,
 								lastname = :lastname,
@@ -1004,19 +1004,24 @@ namespace Cuyahoga.Core.DAL
 
 		public void DeleteUser(User user)
 		{
-			string sql = @"	DELETE cuyahoga_users
+			string sql = @"	DELETE FROM cuyahoga_user
 							WHERE userid = :userid ";
 			NpgsqlConnection con = new NpgsqlConnection(Config.GetConfiguration()["ConnectionString"]);
 			NpgsqlCommand cmd = new NpgsqlCommand(sql, con);
 			cmd.Parameters.Add(PgSqlDataHelper.MakeInParam(":userid", DbType.Int32, 4, user.Id));
 		
 			con.Open();
+			NpgsqlTransaction trn = con.BeginTransaction();
 			try
 			{
+				cmd.Transaction = trn;
+				DeleteRoles(user, trn);
 				cmd.ExecuteNonQuery();
+				trn.Commit();
 			}
 			catch (NpgsqlException ex)
 			{
+				trn.Rollback();
 				throw new CmsDataException("Error deleting user", ex);
 			}
 			finally 
@@ -1189,7 +1194,7 @@ namespace Cuyahoga.Core.DAL
 
 		private void DeleteRoles(User user, NpgsqlTransaction trn)
 		{
-			string sql = @"	DELETE cuyahoga_userrole
+			string sql = @"	DELETE FROM cuyahoga_userrole
 							WHERE userid = :userid";
 			NpgsqlCommand cmd = new NpgsqlCommand(sql, trn.Connection, trn);
 			

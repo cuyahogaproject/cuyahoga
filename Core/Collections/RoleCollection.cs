@@ -17,7 +17,7 @@ namespace Cuyahoga.Core.Collections
 
 		public Role this[int index]
 		{
-			get { return (Role)this[index]; }
+			get { return (Role)this.List[index]; }
 
 		}
 

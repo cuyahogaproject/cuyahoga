@@ -102,7 +102,15 @@ namespace Cuyahoga.Core
 		/// </summary>
 		public RoleCollection Roles
 		{
-			get { return this._roles; }
+			get 
+			{
+				if (this._roles == null)
+				{
+					this._roles = new RoleCollection();
+					CmsDataFactory.GetInstance().GetRolesByUser(this);
+				}
+				return this._roles; 
+			}
 		}
 
 		/// <summary>
@@ -166,7 +174,6 @@ namespace Cuyahoga.Core
 		{
 			this._id = -1;
 			this._isAuthenticated = false;
-			this._roles = new RoleCollection();
 			this._permissions = new AccessLevel[0];
 		}
 

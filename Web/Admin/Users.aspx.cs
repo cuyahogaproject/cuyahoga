@@ -26,6 +26,7 @@ namespace Cuyahoga.Web.Admin
 		protected System.Web.UI.WebControls.Panel pnlResults;
 		protected System.Web.UI.WebControls.Repeater rptUsers;
 		protected Cuyahoga.ServerControls.Pager pgrUsers;
+		protected System.Web.UI.WebControls.Button btnNew;
 		protected System.Web.UI.WebControls.Button btnFind;
 	
 		private void Page_Load(object sender, System.EventArgs e)
@@ -68,6 +69,7 @@ namespace Cuyahoga.Web.Admin
 			this.rptUsers.ItemDataBound += new System.Web.UI.WebControls.RepeaterItemEventHandler(this.rptUsers_ItemDataBound);
 			this.pgrUsers.PageChanged += new Cuyahoga.ServerControls.PageChangedEventHandler(this.pgrUsers_PageChanged);
 			this.pgrUsers.CacheEmpty += new System.EventHandler(this.pgrUsers_CacheEmpty);
+			this.btnNew.Click += new System.EventHandler(this.btnNew_Click);
 			this.Load += new System.EventHandler(this.Page_Load);
 
 		}
@@ -99,13 +101,16 @@ namespace Cuyahoga.Web.Admin
 			if (user != null)
 			{
 				HyperLink hplEdit = (HyperLink)e.Item.FindControl("hplEdit");
-				HyperLink hplDelete = (HyperLink)e.Item.FindControl("hplDelete");
 
 				// HACK: as long as ~/ doesn't work properly in mono we have to use a relative path from the Controls
 				// directory due to the template construction.
 				hplEdit.NavigateUrl = String.Format("../UserEdit.aspx?UserId={0}", user.Id);
-				hplDelete.NavigateUrl = String.Format("javascript:confirmDeleteUser({0});", user.Id);
 			}
+		}
+
+		private void btnNew_Click(object sender, System.EventArgs e)
+		{
+			Context.Response.Redirect("UserEdit.aspx?UserId=-1");
 		}
 	}
 }
