@@ -174,7 +174,7 @@ namespace Cuyahoga.ServerControls
 			if (this.Site != null && this.Site.DesignMode)
 			{
 				this._dateTextBox.RenderControl(output);
-				output.Write(this.ID);
+				output.Write("[" + this.ID + "]");
 			}
 			else
 			{
@@ -187,10 +187,13 @@ namespace Cuyahoga.ServerControls
 			base.OnPreRender (e);
 			string themeCss = GetClientCssImport(String.Format("calendar-{0}.css", this.Theme.ToString().Replace("_", "-")));
 			Page.RegisterClientScriptBlock("calendarcss", themeCss);
-			Page.RegisterClientScriptBlock("calendarscript", GetClientScriptInclude("calendar.js"));
-			Page.RegisterClientScriptBlock("calendarsetupscript", GetClientScriptInclude("calendar-setup.js"));
+
+			string calendarScripts = "";
+			calendarScripts += GetClientScriptInclude("calendar.js");
+			calendarScripts += GetClientScriptInclude("calendar-setup.js");
 			string languageFile = String.Format("lang/calendar-{0}.js", this.Language.ToString());
-			Page.RegisterClientScriptBlock("calendarlanguagescript", GetClientScriptInclude(languageFile));
+			calendarScripts += GetClientScriptInclude(languageFile);
+			Page.RegisterClientScriptBlock("calendarscripts", calendarScripts);
 			string setupScript = GetCalendarSetupScript(this._dateTextBox.ClientID, GetFormatString(), this.ClientID);
 			Page.RegisterStartupScript(this.ClientID + "script", setupScript);
 		}
@@ -218,12 +221,12 @@ namespace Cuyahoga.ServerControls
 		private string GetClientScriptInclude(string scriptFile) 
 		{
 			return "<script language=\"JavaScript\" src=\"" +
-				GetClientFileUrl(scriptFile) + "\"></script>";
+				GetClientFileUrl(scriptFile) + "\"></script>\n";
 		}
 
 		private string GetClientCssImport(string fileName)
 		{
-			return "<style type=\"text/css\">@import url(" + GetClientFileUrl(fileName) + ");</style>";
+			return "<style type=\"text/css\">@import url(" + GetClientFileUrl(fileName) + ");</style>\n";
 		}
 
 		private string GetCalendarSetupScript(string inputField, string format, string trigger)
@@ -270,6 +273,8 @@ namespace Cuyahoga.ServerControls
 		{
 			string tempFormat = shortTimeFormat.Replace("H", "%H");
 			tempFormat = tempFormat.Replace("mm", "%M");
+			tempFormat = tempFormat.Replace("h", "%I");
+			tempFormat = tempFormat.Replace("tt", "%p");
 			return tempFormat;
 		}
 	}
