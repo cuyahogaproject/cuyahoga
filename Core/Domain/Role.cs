@@ -2,8 +2,6 @@ using System;
 using System.Text;
 using System.Collections;
 
-using Cuyahoga.Core.DAL;
-
 namespace Cuyahoga.Core.Domain
 {
 	/// <summary>
@@ -16,6 +14,7 @@ namespace Cuyahoga.Core.Domain
 		private string _name;
 		private int _permissionLevel;
 		private AccessLevel[] _permissions;
+		private DateTime _updateTimestamp;
 
 		/// <summary>
 		/// Property Id (int)
@@ -63,6 +62,15 @@ namespace Cuyahoga.Core.Domain
 		}
 
 		/// <summary>
+		/// Property UpdateTimestamp (DateTime)
+		/// </summary>
+		public DateTime UpdateTimestamp
+		{
+			get { return this._updateTimestamp; }
+			set { this._updateTimestamp = value; }
+		}
+
+		/// <summary>
 		/// Default constructor.
 		/// </summary>
 		public Role()
@@ -70,15 +78,6 @@ namespace Cuyahoga.Core.Domain
 			this._id = -1;
 			this._name = null;
 			this._permissionLevel = -1;
-		}
-
-		/// <summary>
-		/// Constructor that accepts the roleId as parameter and retrieves the role from the database.
-		/// </summary>
-		/// <param name="roleId"></param>
-		public Role(int roleId)
-		{
-			CmsDataFactory.GetInstance().GetRoleById(roleId, this);
 		}
 
 		/// <summary>

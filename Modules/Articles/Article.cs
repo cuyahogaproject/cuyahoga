@@ -135,22 +135,8 @@ namespace Cuyahoga.Modules.Articles
 		/// </summary>
 		public Cuyahoga.Core.Domain.User CreatedBy
 		{
-			get 
-			{ 
-				if (this._createdBy == null && this._createdById > 0)
-				{
-					this._createdBy = new Cuyahoga.Core.Domain.User(this._createdById);
-				}
-				return this._createdBy; 
-			}
-			set 
-			{ 
-				this._createdBy = value; 
-				if (value != null)
-				{
-					this._createdById = this._createdBy.Id;
-				}
-			}
+			get { return this._createdBy; }
+			set { this._createdBy = value; }
 		}
 
 		/// <summary>
@@ -167,26 +153,8 @@ namespace Cuyahoga.Modules.Articles
 		/// </summary>
 		public Cuyahoga.Core.Domain.User ModifiedBy
 		{
-			get 
-			{ 
-				if (this._modifiedBy == null && this._modifiedById > 0)
-				{
-					this._modifiedBy = new Cuyahoga.Core.Domain.User(this._modifiedById);
-				}
-				return this._modifiedBy; 
-			}
-			set 
-			{ 
-				this._modifiedBy = value; 
-				if (value != null)
-				{
-					this._modifiedById = this._modifiedBy.Id;
-				}
-				else
-				{
-					this._modifiedById = 0;
-				}
-			}
+			get { return this._modifiedBy; }
+			set { this._modifiedBy = value; }
 		}
 
 		/// <summary>

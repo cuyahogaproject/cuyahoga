@@ -1,3 +1,3 @@
-DROP TABLE Cuyahoga_ModuleType
+DROP TABLE Cuyahoga_Permission
 ;
 

@@ -53,7 +53,8 @@ namespace Cuyahoga.Web.Admin
 				else
 				{
 					// Get user data
-					this._activeUser = new User(Int32.Parse(Context.Request.QueryString["UserId"]));
+					this._activeUser = (Cuyahoga.Core.Domain.User)base.CoreRepository.GetObjectById(typeof(Cuyahoga.Core.Domain.User)
+						, Int32.Parse(Context.Request.QueryString["UserId"]));
 				}
 
 				if (! this.IsPostBack)

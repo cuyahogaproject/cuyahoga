@@ -24,6 +24,10 @@
 			<key column="nodeid" />
 			<one-to-many class="Cuyahoga.Core.Domain.Section, Cuyahoga.Core" />
 		</bag>
+		<bag name="NodePermissions" cascade="all" inverse="true" lazy="true">
+			<key column="nodeid" />
+			<one-to-many class="Cuyahoga.Core.Domain.NodePermission" />
+		</bag>
 		
 	</class>
 </hibernate-mapping>

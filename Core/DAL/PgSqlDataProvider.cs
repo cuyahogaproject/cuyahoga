@@ -306,7 +306,7 @@ namespace Cuyahoga.Core.DAL
 				cmd.ExecuteNonQuery();
 				node.Id = Convert.ToInt32(cmdId.ExecuteScalar());
 				// Insert roles
-				InsertRoles(node, trn);
+				//InsertRoles(node, trn);
 				trn.Commit();
 			}
 			catch (NpgsqlException ex)
@@ -355,11 +355,11 @@ namespace Cuyahoga.Core.DAL
 			try
 			{
 				// first delete old roles
-				DeleteRoles(node, trn);
+				//DeleteRoles(node, trn);
 				// update node
 				cmd.ExecuteNonQuery();
 				// insert new roles
-				InsertRoles(node, trn);
+				//InsertRoles(node, trn);
 				trn.Commit();
 			}
 			catch (NpgsqlException ex)
@@ -388,7 +388,7 @@ namespace Cuyahoga.Core.DAL
 			try
 			{
 				// First delete roles
-				DeleteRoles(node, trn);
+				//DeleteRoles(node, trn);
 				// Delete node
 				cmd.ExecuteNonQuery();
 				trn.Commit();
@@ -592,7 +592,7 @@ namespace Cuyahoga.Core.DAL
 				cmd.ExecuteNonQuery();
 				section.Id = Convert.ToInt32(cmdId.ExecuteScalar());
 				// Insert roles
-				InsertRoles(section, trn);
+				//InsertRoles(section, trn);
 				trn.Commit();
 			}
 			catch (NpgsqlException ex)
@@ -644,11 +644,11 @@ namespace Cuyahoga.Core.DAL
 			{
 				cmd.Transaction = trn;
 				// first delete old roles
-				DeleteRoles(section, trn);
+				//DeleteRoles(section, trn);
 				// update section
 				cmd.ExecuteNonQuery();
 				// insert refreshed roles
-				InsertRoles(section, trn);
+				//InsertRoles(section, trn);
 				trn.Commit();
 			}
 			catch (Exception ex)
@@ -676,7 +676,7 @@ namespace Cuyahoga.Core.DAL
 			{
 				cmd.Transaction = trn;
 				// first delete attached roles
-				DeleteRoles(section, trn);
+				//DeleteRoles(section, trn);
 				// delete section
 				cmd.ExecuteNonQuery();
 				trn.Commit();
@@ -715,67 +715,67 @@ namespace Cuyahoga.Core.DAL
 			section.ModuleType = moduleType;
 		}
 
-		private void InsertRoles(IPersonalizable personalizableObject, NpgsqlTransaction trn)
-		{
-			string sql = null;
-			if (personalizableObject is Node)
-			{
-				sql = @"INSERT INTO cuyahoga_noderole(roleid, nodeid, viewallowed, editallowed)
-						VALUES(:roleid, :objectid, :viewallowed, :editallowed)";
-			}
-			if (personalizableObject is Section)
-			{
-				sql = @"INSERT INTO cuyahoga_sectionrole(roleid, sectionid, viewallowed, editallowed)
-						VALUES(:roleid, :objectid, :viewallowed, :editallowed)";
-			}
-			NpgsqlCommand cmd = new NpgsqlCommand(sql, trn.Connection, trn);
-			
-			foreach (Role role in personalizableObject.ViewRoles)
-			{
-				cmd.Parameters.Clear();
-				cmd.Parameters.Add(PgSqlDataHelper.MakeInParam(":objectid", DbType.Int32, 4, personalizableObject.Id));
-				cmd.Parameters.Add(PgSqlDataHelper.MakeInParam(":roleid", DbType.Int32, 4, role.Id));
-				cmd.Parameters.Add(PgSqlDataHelper.MakeInParam(":viewallowed", DbType.Boolean, 1, true));
-				// Check if the role is also in the EditRoles. If so create a parameter with the value true.
-				if (personalizableObject.EditRoles.Contains(role))
-					cmd.Parameters.Add(PgSqlDataHelper.MakeInParam(":editallowed", DbType.Boolean, 1, true));
-				else
-					cmd.Parameters.Add(PgSqlDataHelper.MakeInParam(":editallowed", DbType.Boolean, 1, false));
-				cmd.ExecuteNonQuery();
-			}
-			foreach (Role role in personalizableObject.EditRoles)
-			{
-				cmd.Parameters.Clear();
-				cmd.Parameters.Add(PgSqlDataHelper.MakeInParam(":objectid", DbType.Int32, 4, personalizableObject.Id));
-				// Check if the role is not in the ViewRoles. If so, the role is already stored and we don't
-				// want to store it twice.
-				if (! personalizableObject.ViewRoles.Contains(role))
-				{
-					cmd.Parameters.Add(PgSqlDataHelper.MakeInParam(":roleid", DbType.Int32, 4, role.Id));
-					cmd.Parameters.Add(PgSqlDataHelper.MakeInParam(":editallowed", DbType.Boolean, 1, true));
-					cmd.Parameters.Add(PgSqlDataHelper.MakeInParam(":viewallowed", DbType.Boolean, 1, false));
-					cmd.ExecuteNonQuery();
-				}
-			}				
-		}
+//		private void InsertRoles(IPersonalizable personalizableObject, NpgsqlTransaction trn)
+//		{
+//			string sql = null;
+//			if (personalizableObject is Node)
+//			{
+//				sql = @"INSERT INTO cuyahoga_noderole(roleid, nodeid, viewallowed, editallowed)
+//						VALUES(:roleid, :objectid, :viewallowed, :editallowed)";
+//			}
+//			if (personalizableObject is Section)
+//			{
+//				sql = @"INSERT INTO cuyahoga_sectionrole(roleid, sectionid, viewallowed, editallowed)
+//						VALUES(:roleid, :objectid, :viewallowed, :editallowed)";
+//			}
+//			NpgsqlCommand cmd = new NpgsqlCommand(sql, trn.Connection, trn);
+//			
+//			foreach (Role role in personalizableObject.ViewRoles)
+//			{
+//				cmd.Parameters.Clear();
+//				cmd.Parameters.Add(PgSqlDataHelper.MakeInParam(":objectid", DbType.Int32, 4, personalizableObject.Id));
+//				cmd.Parameters.Add(PgSqlDataHelper.MakeInParam(":roleid", DbType.Int32, 4, role.Id));
+//				cmd.Parameters.Add(PgSqlDataHelper.MakeInParam(":viewallowed", DbType.Boolean, 1, true));
+//				// Check if the role is also in the EditRoles. If so create a parameter with the value true.
+//				if (personalizableObject.EditRoles.Contains(role))
+//					cmd.Parameters.Add(PgSqlDataHelper.MakeInParam(":editallowed", DbType.Boolean, 1, true));
+//				else
+//					cmd.Parameters.Add(PgSqlDataHelper.MakeInParam(":editallowed", DbType.Boolean, 1, false));
+//				cmd.ExecuteNonQuery();
+//			}
+//			foreach (Role role in personalizableObject.EditRoles)
+//			{
+//				cmd.Parameters.Clear();
+//				cmd.Parameters.Add(PgSqlDataHelper.MakeInParam(":objectid", DbType.Int32, 4, personalizableObject.Id));
+//				// Check if the role is not in the ViewRoles. If so, the role is already stored and we don't
+//				// want to store it twice.
+//				if (! personalizableObject.ViewRoles.Contains(role))
+//				{
+//					cmd.Parameters.Add(PgSqlDataHelper.MakeInParam(":roleid", DbType.Int32, 4, role.Id));
+//					cmd.Parameters.Add(PgSqlDataHelper.MakeInParam(":editallowed", DbType.Boolean, 1, true));
+//					cmd.Parameters.Add(PgSqlDataHelper.MakeInParam(":viewallowed", DbType.Boolean, 1, false));
+//					cmd.ExecuteNonQuery();
+//				}
+//			}				
+//		}
 
-		private void DeleteRoles(IPersonalizable personalizableObject, NpgsqlTransaction trn)
-		{
-			string sql = null;
-			if (personalizableObject is Node)
-			{
-				sql = @"DELETE FROM cuyahoga_noderole
-						WHERE nodeid = :objectid";
-			}
-			if (personalizableObject is Section)
-			{
-				sql = @"DELETE FROM cuyahoga_sectionrole
-						WHERE sectionid = :objectid";
-			}
-			NpgsqlCommand cmd = new NpgsqlCommand(sql, trn.Connection, trn);
-			cmd.Parameters.Add(PgSqlDataHelper.MakeInParam(":objectid", DbType.Int32, 4, personalizableObject.Id));
-			cmd.ExecuteNonQuery();
-		}
+//		private void DeleteRoles(IPersonalizable personalizableObject, NpgsqlTransaction trn)
+//		{
+//			string sql = null;
+//			if (personalizableObject is Node)
+//			{
+//				sql = @"DELETE FROM cuyahoga_noderole
+//						WHERE nodeid = :objectid";
+//			}
+//			if (personalizableObject is Section)
+//			{
+//				sql = @"DELETE FROM cuyahoga_sectionrole
+//						WHERE sectionid = :objectid";
+//			}
+//			NpgsqlCommand cmd = new NpgsqlCommand(sql, trn.Connection, trn);
+//			cmd.Parameters.Add(PgSqlDataHelper.MakeInParam(":objectid", DbType.Int32, 4, personalizableObject.Id));
+//			cmd.ExecuteNonQuery();
+//		}
 
 		#endregion
 
@@ -1091,10 +1091,10 @@ namespace Cuyahoga.Core.DAL
 					role.Id = Convert.ToInt32(dr["roleid"]);
 					role.Name = Convert.ToString(dr["name"]);
 					role.PermissionLevel = Convert.ToInt32(dr["permissionlevel"]);
-					if (Convert.ToBoolean(dr["viewallowed"]))
-						node.ViewRoles.Add(role);
-					if (Convert.ToBoolean(dr["editallowed"]))
-						node.EditRoles.Add(role);
+//					if (Convert.ToBoolean(dr["viewallowed"]))
+//						//node.ViewRoles.Add(role);
+//					if (Convert.ToBoolean(dr["editallowed"]))
+//						//node.EditRoles.Add(role);
 				}
 			}
 			catch (NpgsqlException ex)
@@ -1127,10 +1127,10 @@ namespace Cuyahoga.Core.DAL
 					role.Id = Convert.ToInt32(dr["roleid"]);
 					role.Name = Convert.ToString(dr["name"]);
 					role.PermissionLevel = Convert.ToInt32(dr["permissionlevel"]);
-					if (Convert.ToBoolean(dr["viewallowed"]))
-						section.ViewRoles.Add(role);
-					if (Convert.ToBoolean(dr["editallowed"]))
-						section.EditRoles.Add(role);
+//					if (Convert.ToBoolean(dr["viewallowed"]))
+//						section.ViewRoles.Add(role);
+//					if (Convert.ToBoolean(dr["editallowed"]))
+//						section.EditRoles.Add(role);
 				}
 			}
 			catch (NpgsqlException ex)

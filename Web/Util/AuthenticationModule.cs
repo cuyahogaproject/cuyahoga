@@ -102,8 +102,8 @@ namespace Cuyahoga.Web.Util
 					// For some reason the user is still logged-in but the cuyahoga User instance was removed 
 					// from the cache. Fetch a new instance and cache it.
 					int userId = Int32.Parse(app.Context.User.Identity.Name);
-					User user = new User(userId);
-					CacheUser(app.Context, user);
+//					User user = new User(userId);
+//					CacheUser(app.Context, user);
 				}
 				User cuyahogaUser = (User)app.Context.Cache[cacheIdentifier];
 				app.Context.User = new CuyahogaPrincipal(cuyahogaUser);

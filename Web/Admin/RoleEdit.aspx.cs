@@ -43,7 +43,8 @@ namespace Cuyahoga.Web.Admin
 				else
 				{
 					// Get user data
-					this._activeRole = new Role(Int32.Parse(Context.Request.QueryString["RoleId"]));			
+					this._activeRole = (Role)base.CoreRepository.GetObjectById(typeof(Role)
+						, Int32.Parse(Context.Request.QueryString["RoleId"]));			
 				}
 
 				if (! this.IsPostBack)

@@ -1,7 +1,7 @@
 using System;
 using System.Security.Principal;
+using System.Collections;
 
-using Cuyahoga.Core.Collections;
 using Cuyahoga.Core.DAL;
 
 namespace Cuyahoga.Core.Domain
@@ -10,7 +10,7 @@ namespace Cuyahoga.Core.Domain
 	/// Summary description for Section.
 	/// </summary>
 	[Serializable]
-	public class Section : IPersonalizable
+	public class Section
 	{
 		private int _id;
 		private DateTime _updateTimestamp;
@@ -23,8 +23,7 @@ namespace Cuyahoga.Core.Domain
 		private ModuleType _moduleType;
 		private ModuleBase _module;
 		private Node _node;
-		private RoleCollection _viewRoles;
-		private RoleCollection _editRoles;
+		private IList _sectionPermissions;
 
 		#region properties
 
@@ -128,47 +127,21 @@ namespace Cuyahoga.Core.Domain
 		}
 
 		/// <summary>
-		/// Property ViewRoles (RoleCollection), semi-lazy loaded.
+		/// Property SectionPermissions (IList)
 		/// </summary>
-		public RoleCollection ViewRoles
+		public IList SectionPermissions
 		{
-			get 
-			{ 
-				if (this._viewRoles == null)
-				{
-					// Load the roles from the database. All roles will be loaded at once (view, edit, add, remove).
-					InitRoles();
-					CmsDataFactory.GetInstance().GetRolesBySection(this);
-				}
-				return this._viewRoles; 
-			}
-			set { this._viewRoles = value; }
-		}
-
-		/// <summary>
-		/// Property EditRoles (RoleCollection), semi-lazy loaded.
-		/// </summary>
-		public RoleCollection EditRoles
-		{
-			get 
-			{ 
-				if (this._editRoles == null)
-				{
-					InitRoles();
-					CmsDataFactory.GetInstance().GetRolesBySection(this);
-				}
-				return this._editRoles; 
-			}
-			set { this._editRoles = value; }
+			get { return this._sectionPermissions; }
+			set { this._sectionPermissions = value; }
 		}
 
 		public bool AnonymousViewAllowed
 		{
 			get
 			{
-				foreach (Role role in this.ViewRoles)
+				foreach (Permission p in this._sectionPermissions)
 				{
-					if (Array.IndexOf(role.Permissions, AccessLevel.Anonymous) > -1)
+					if (p.ViewAllowed && Array.IndexOf(p.Role.Permissions, AccessLevel.Anonymous) > -1)
 					{
 						return true;
 					}
@@ -338,13 +311,11 @@ namespace Cuyahoga.Core.Domain
 		{
 			if (this.Node != null)
 			{
-				ICmsDataProvider dp = CmsDataFactory.GetInstance();
 				foreach (Section section in this.Node.Sections)
 				{
 					if (section.PlaceholderId == oldPlaceholderId && oldPosition < section.Position)
 					{
 						section.Position--;
-						dp.UpdateSection(section);
 					}
 				}
 				// reset sections, so they will be refreshed from the database when required.
@@ -371,29 +342,24 @@ namespace Cuyahoga.Core.Domain
 
 		public void CopyRolesFromNode()
 		{
-			InitRoles();
-			if (this._node != null)
-			{
-				foreach (Role role in this._node.ViewRoles)
-				{
-					this._viewRoles.Add(role);
-				}
-				foreach (Role role in this._node.EditRoles)
-				{
-					this._editRoles.Add(role);
-				}
-			}
+//			InitRoles();
+//			if (this._node != null)
+//			{
+//				foreach (Role role in this._node.ViewRoles)
+//				{
+//					this._viewRoles.Add(role);
+//				}
+//				foreach (Role role in this._node.EditRoles)
+//				{
+//					this._editRoles.Add(role);
+//				}
+//			}
 		}
 
 		#endregion
 
 		#region private methods
 
-		private void InitRoles()
-		{
-			this._viewRoles = new RoleCollection();
-			this._editRoles = new RoleCollection();
-		}
 
 		#endregion
 	}

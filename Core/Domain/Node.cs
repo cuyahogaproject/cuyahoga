@@ -11,7 +11,7 @@ namespace Cuyahoga.Core.Domain
 	/// Summary description for Node.
 	/// </summary>
 	[Serializable]
-	public class Node : IPersonalizable
+	public class Node
 	{
 		private int _id;
 		private DateTime _updateTimestamp;
@@ -24,9 +24,7 @@ namespace Cuyahoga.Core.Domain
 		private IList _sections;
 		private Template _template;
 		private int[] _trail;
-		// flag to prevent lazy loading of the parent node when set to null
-		private RoleCollection _viewRoles;
-		private RoleCollection _editRoles;
+		private IList _nodePermissions;
 
 		#region properties
 
@@ -118,7 +116,7 @@ namespace Cuyahoga.Core.Domain
 		}
 
 		/// <summary>
-		/// Property ChildNodes (NodeCollection). Lazy loaded.
+		/// Property ChildNodes (IList). Lazy loaded.
 		/// </summary>
 		public virtual IList ChildNodes
 		{
@@ -138,7 +136,7 @@ namespace Cuyahoga.Core.Domain
 		}
 
 		/// <summary>
-		/// Property Sections (SectionCollection). Lazy loaded.
+		/// Property Sections (IList). Lazy loaded.
 		/// </summary>
 		public virtual IList Sections
 		{
@@ -178,38 +176,12 @@ namespace Cuyahoga.Core.Domain
 		}
 
 		/// <summary>
-		/// Property ViewRoles (RoleCollection), semi-lazy loaded.
+		/// Property NodePermissions (IList)
 		/// </summary>
-		public virtual RoleCollection ViewRoles
+		public IList NodePermissions
 		{
-			get 
-			{ 
-				if (this._viewRoles == null)
-				{
-					// Load the roles from the database. All roles will be loaded at once (view, edit).
-					InitRoles();
-					CmsDataFactory.GetInstance().GetRolesByNode(this);
-				}
-				return this._viewRoles; 
-			}
-			set { this._viewRoles = value; }
-		}
-
-		/// <summary>
-		/// Property EditRoles (RoleCollection), semi-lazy loaded.
-		/// </summary>
-		public virtual RoleCollection EditRoles
-		{
-			get 
-			{ 
-				if (this._editRoles == null)
-				{
-					InitRoles();
-					CmsDataFactory.GetInstance().GetRolesByNode(this);
-				}
-				return this._editRoles; 
-			}
-			set { this._editRoles = value; }
+			get { return this._nodePermissions; }
+			set { this._nodePermissions = value; }
 		}
 
 		/// <summary>
@@ -219,14 +191,15 @@ namespace Cuyahoga.Core.Domain
 		{
 			get
 			{
-				foreach (Role role in this.ViewRoles)
-				{
-					if (Array.IndexOf(role.Permissions, AccessLevel.Anonymous) > -1)
-					{
-						return true;
-					}
-				}
-				return false;
+//				foreach (Role role in this.ViewRoles)
+//				{
+//					if (Array.IndexOf(role.Permissions, AccessLevel.Anonymous) > -1)
+//					{
+//						return true;
+//					}
+//				}
+//				return false;
+				return true;
 			}
 		}
 
@@ -456,18 +429,18 @@ namespace Cuyahoga.Core.Domain
 		/// </summary>
 		public void CopyRolesFromParent()
 		{
-			InitRoles();
-			if (this._parentNode != null)
-			{
-				foreach (Role role in this._parentNode.ViewRoles)
-				{
-					this._viewRoles.Add(role);
-				}
-				foreach (Role role in this._parentNode.EditRoles)
-				{
-					this._editRoles.Add(role);
-				}
-			}
+//			InitRoles();
+//			if (this._parentNode != null)
+//			{
+//				foreach (Role role in this._parentNode.ViewRoles)
+//				{
+//					this._viewRoles.Add(role);
+//				}
+//				foreach (Role role in this._parentNode.EditRoles)
+//				{
+//					this._editRoles.Add(role);
+//				}
+//			}
 		}
 
 		/// <summary>
@@ -482,34 +455,14 @@ namespace Cuyahoga.Core.Domain
 				prefix += this._parentNode.ShortDescription + "/";
 			}
 			this._shortDescription = prefix + this._title.Replace(" ", "").ToLower();
-			int suffix = 1;
-			while (! CheckUniqueShortDescription())
-			{
-				string tmpShortDescription = this._shortDescription.Substring(0, this._shortDescription.Length - 2);
-				this._shortDescription = tmpShortDescription + "_" + suffix.ToString();
-				suffix++;
-			}
-		}
-
-		public bool CheckUniqueShortDescription()
-		{
-			if (this._shortDescription != null)
-			{
-				// ABUSE: use GetNodeByShortDescription to check if the short description is unique.
-				Node dummyNode = new Node();
-				CmsDataFactory.GetInstance().GetNodeByShortDescription(this._shortDescription, dummyNode);
-				return (dummyNode.Id == this.Id);
-			}
-			else
-			{
-				throw new NullReferenceException("The Short Description may not be null");
-			}
-		}
-
-		private void InitRoles()
-		{
-			this._viewRoles = new RoleCollection();
-			this._editRoles = new RoleCollection();
+// TODO: fix
+//			int suffix = 1;
+//			while (! CheckUniqueShortDescription())
+//			{
+//				string tmpShortDescription = this._shortDescription.Substring(0, this._shortDescription.Length - 2);
+//				this._shortDescription = tmpShortDescription + "_" + suffix.ToString();
+//				suffix++;
+//			}
 		}
 
 		#endregion

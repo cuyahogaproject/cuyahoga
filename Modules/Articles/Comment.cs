@@ -38,22 +38,8 @@ namespace Cuyahoga.Modules.Articles
 		/// </summary>
 		public Cuyahoga.Core.Domain.User User
 		{
-			get 
-			{ 
-				if (this._user == null && this._userId > 0)
-				{
-					this._user = new Cuyahoga.Core.Domain.User(this._userId);
-				}
-				return this._user; 
-			}
-			set 
-			{ 
-				this._user = value; 
-				if (value != null)
-				{
-					this._userId = this._user.Id;
-				}
-			}
+			get { return this._user; }
+			set { this._user = value; }
 		}
 
 		/// <summary>

@@ -3,7 +3,6 @@ using System.Collections;
 using System.Security.Principal;
 
 using Cuyahoga.Core.DAL;
-using Cuyahoga.Core.Collections;
 
 namespace Cuyahoga.Core.Domain
 {
@@ -22,8 +21,9 @@ namespace Cuyahoga.Core.Domain
 		private DateTime _lastLogin;
 		private string _lastIp;
 		private bool _isAuthenticated;
-		private RoleCollection _roles;
+		private IList _roles;
 		private AccessLevel[] _permissions;
+		private DateTime _updateTimestamp;
 
 		#region properties
 		/// <summary>
@@ -102,19 +102,12 @@ namespace Cuyahoga.Core.Domain
 		}
 
 		/// <summary>
-		/// Property Roles (RoleCollection)
+		/// Property Roles (IList)
 		/// </summary>
-		public RoleCollection Roles
+		public IList Roles
 		{
-			get 
-			{
-				if (this._roles == null)
-				{
-					this._roles = new RoleCollection();
-					CmsDataFactory.GetInstance().GetRolesByUser(this);
-				}
-				return this._roles; 
-			}
+			get { return this._roles; }
+			set { this._roles = value; }
 		}
 
 		/// <summary>
@@ -148,6 +141,18 @@ namespace Cuyahoga.Core.Domain
 			get	{ return "CuyahogaAuthentication"; }
 		}
 
+		/// <summary>
+		/// Property UpdateTimestamp (DateTime)
+		/// </summary>
+		public DateTime UpdateTimestamp
+		{
+			get { return this._updateTimestamp; }
+			set { this._updateTimestamp = value; }
+		}
+
+		/// <summary>
+		/// 
+		/// </summary>
 		public AccessLevel[] Permissions
 		{
 			get 
@@ -182,15 +187,6 @@ namespace Cuyahoga.Core.Domain
 		}
 
 		/// <summary>
-		/// Constructor that accepts a userId as parameter and tries to load the user from the database.
-		/// </summary>
-		/// <param name="userId"></param>
-		public User(int userId)
-		{
-			CmsDataFactory.GetInstance().GetUserById(userId, this);
-		}
-
-		/// <summary>
 		/// Try to log-in the user with the username and password. 
 		/// </summary>
 		/// <returns></returns>
@@ -219,9 +215,9 @@ namespace Cuyahoga.Core.Domain
 		/// <returns></returns>
 		public bool CanView(Node node)
 		{
-			foreach (Role nodeViewRole in node.ViewRoles)
+			foreach (Permission p in node.NodePermissions)
 			{
-				if (this.Roles.Contains(nodeViewRole))
+				if (p.ViewAllowed && this.Roles.Contains(p.Role))
 				{
 					return true;
 				}
@@ -236,9 +232,9 @@ namespace Cuyahoga.Core.Domain
 		/// <returns></returns>
 		public bool CanView(Section section)
 		{
-			foreach (Role sectionViewRole in section.ViewRoles)
+			foreach (Permission p in section.SectionPermissions)
 			{
-				if (this.Roles.Contains(sectionViewRole))
+				if (p.ViewAllowed && this.Roles.Contains(p.Role))
 				{
 					return true;
 				}
@@ -253,9 +249,9 @@ namespace Cuyahoga.Core.Domain
 		/// <returns></returns>
 		public bool CanEdit(Section section)
 		{
-			foreach (Role sectionEditRole in section.EditRoles)
+			foreach (Permission p in section.SectionPermissions)
 			{
-				if (this.Roles.Contains(sectionEditRole))
+				if (this.Roles.Contains(p.Role))
 				{
 					return true;
 				}

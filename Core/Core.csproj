@@ -109,11 +109,6 @@
                     BuildAction = "Compile"
                 />
                 <File
-                    RelPath = "IPersonalizable.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
                     RelPath = "Collections\NodeCollection.cs"
                     SubType = "Code"
                     BuildAction = "Compile"
@@ -202,6 +197,20 @@
                     BuildAction = "EmbeddedResource"
                 />
                 <File
+                    RelPath = "Domain\NodePermission.cs"
+                    SubType = "Code"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "Domain\Permission.cs"
+                    SubType = "Code"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "Domain\Permission.hbm.xml"
+                    BuildAction = "Content"
+                />
+                <File
                     RelPath = "Domain\Role.cs"
                     SubType = "Code"
                     BuildAction = "Compile"
@@ -218,6 +227,11 @@
                 <File
                     RelPath = "Domain\Section.hbm.xml"
                     BuildAction = "EmbeddedResource"
+                />
+                <File
+                    RelPath = "Domain\SectionPermission.cs"
+                    SubType = "Code"
+                    BuildAction = "Compile"
                 />
                 <File
                     RelPath = "Domain\Template.cs"

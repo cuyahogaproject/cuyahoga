@@ -17,5 +17,9 @@
 		<many-to-one name="Node" class="Cuyahoga.Core.Domain.Node, Cuyahoga.Core" column="nodeid" not-null="false" />
 		<many-to-one name="ModuleType" class="Cuyahoga.Core.Domain.ModuleType, Cuyahoga.Core" column="moduletypeid" />
 		
+		<bag name="SectionPermissions" cascade="all" inverse="true" lazy="true">
+			<key column="objectid" />
+			<one-to-many class="Cuyahoga.Core.Domain.SectionPermission, Cuyahoga.Core" />
+		</bag>
 	</class>
 </hibernate-mapping>
