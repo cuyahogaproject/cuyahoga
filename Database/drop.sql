@@ -1,3 +1,6 @@
-DROP TABLE Cuyahoga_Permission
+DROP TABLE Cuyahoga_SectionRole
+;
+
+DROP TABLE Cuyahoga_NodeRole
 ;
 

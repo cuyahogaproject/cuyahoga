@@ -207,10 +207,6 @@
                     BuildAction = "Compile"
                 />
                 <File
-                    RelPath = "Domain\Permission.hbm.xml"
-                    BuildAction = "EmbeddedResource"
-                />
-                <File
                     RelPath = "Domain\Role.cs"
                     SubType = "Code"
                     BuildAction = "Compile"

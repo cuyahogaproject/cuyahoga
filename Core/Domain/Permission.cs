@@ -23,15 +23,6 @@ namespace Cuyahoga.Core.Domain
 		}
 
 		/// <summary>
-		/// Property UpdateTimestamp (DateTime)
-		/// </summary>
-		public DateTime UpdateTimestamp
-		{
-			get { return this._updateTimestamp; }
-			set { this._updateTimestamp = value; }
-		}
-
-		/// <summary>
 		/// Property ViewAllowed (bool)
 		/// </summary>
 		public bool ViewAllowed

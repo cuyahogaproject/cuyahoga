@@ -45,7 +45,7 @@ namespace Cuyahoga.Web.Admin
 		{
 			this.Title = "Edit node";
 
-			// Note: ActiveNode is handled primarily by the AdminBasePage because other controls als use it.
+			// Note: ActiveNode is handled primarily by the AdminBasePage because other pages use it.
 			// ActiveNode is always freshly retrieved (also after postbacks), so it will be tracked by NHibernate.
 			if (Context.Request.QueryString["NodeId"] != null && Int32.Parse(Context.Request.QueryString["NodeId"]) == -1)
 			{
@@ -170,12 +170,21 @@ namespace Cuyahoga.Web.Admin
 
 		private void SetRoles()
 		{
+			this.ActiveNode.NodePermissions.Clear();
 			foreach (RepeaterItem ri in rptRoles.Items)
 			{	
 				// HACK: RoleId is stored in the ViewState because the repeater doesn't have a DataKeys property.
 				CheckBox chkView = (CheckBox)ri.FindControl("chkViewAllowed");
 				CheckBox chkEdit = (CheckBox)ri.FindControl("chkEditAllowed");
-				
+				if (chkView.Checked || chkEdit.Checked)
+				{
+					NodePermission np = new NodePermission();
+					np.Node = this.ActiveNode;
+					np.Role = (Role)base.CoreRepository.GetObjectById(typeof(Role), (int)ViewState[ri.ClientID]);
+					np.ViewAllowed = chkView.Checked;
+					np.EditAllowed = chkEdit.Checked;
+					this.ActiveNode.NodePermissions.Add(np);
+				}
 			}
 		}
 
@@ -234,15 +243,36 @@ namespace Cuyahoga.Web.Admin
 			if (this.ActiveNode.Id > 0)
 			{
 				this.ActiveNode.ShortDescription = this.txtShortDescription.Text;
-//				if (! this.ActiveNode.CheckUniqueShortDescription())
+// TODO:	how to check the uniqueness? Searching for a node will implicitly flush the session and throw an 
+//			exception when the shortdescription already exists.
+
+//				Node node = base.CoreRepository.GetNodeByShortDescription(this.ActiveNode.ShortDescription);
+//				if (node != null && node.Id != this.ActiveNode.Id)
 //				{
-//					throw new Exception("The short description is not unique");
+//					throw new Exception("The friendly url of the node already exists");
 //				}
 			}
 			else
 			{
 				// Generate the short description for new nodes.
 				this.ActiveNode.CreateShortDescription();
+				// Check the uniqueness of the shortdescription and regenerate it when it already exists.
+//				bool isUnique = false;
+//				int suffix = 1;
+//				while (! isUnique)
+//				{				
+//					Node node = base.CoreRepository.GetNodeByShortDescription(this.ActiveNode.ShortDescription);
+//					if (node != null)
+//					{
+//						// Not unique, regenerate
+//						this.ActiveNode.RecreateShortDescription(suffix);
+//						suffix++;
+//					}
+//					else
+//					{
+//						isUnique = true;
+//					}
+//				}
 			}
 		}
 
@@ -293,7 +323,12 @@ namespace Cuyahoga.Web.Admin
 			}
 			catch (Exception ex)
 			{
-				ShowError(ex.Message);
+				string msg = ex.Message;
+				if (ex.InnerException != null)
+				{
+					msg += ", " + ex.InnerException.Message;
+				}
+				ShowError(msg);
 			}
 		}
 

@@ -17,9 +17,15 @@
 		<many-to-one name="Node" class="Cuyahoga.Core.Domain.Node, Cuyahoga.Core" column="nodeid" not-null="false" />
 		<many-to-one name="ModuleType" class="Cuyahoga.Core.Domain.ModuleType, Cuyahoga.Core" column="moduletypeid" />
 		
-		<bag name="SectionPermissions" cascade="all-delete-orphan" inverse="true" lazy="true">
-			<key column="objectid" />
-			<one-to-many class="Cuyahoga.Core.Domain.SectionPermission, Cuyahoga.Core" />
+		<bag name="SectionPermissions" cascade="all" lazy="true" table="cuyahoga_sectionrole">
+			<key column="sectionid" />
+			<composite-element class="Cuyahoga.Core.Domain.SectionPermission, Cuyahoga.Core">
+				<parent name="Section" />
+				<property name="ViewAllowed" column="viewallowed" type="Boolean" />
+				<property name="EditAllowed" column="editallowed" type="Boolean" />
+				<many-to-one name="Role" class="Cuyahoga.Core.Domain.Role, Cuyahoga.Core" column="roleid" />
+			</composite-element>
 		</bag>
+		
 	</class>
 </hibernate-mapping>

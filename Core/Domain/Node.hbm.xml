@@ -10,7 +10,7 @@
 		<timestamp name="UpdateTimestamp" column="updatetimestamp" />
 		
 		<property name="Title" column="title" type="String" length="255" />
-		<property name="ShortDescription" column="shortdescription" type="String" length="255" />
+		<property name="ShortDescription" column="shortdescription" type="String" length="255" unique="true" />
 		<property name="Position" column="position" type="Int32" />
 		
 		<many-to-one name="ParentNode" class="Cuyahoga.Core.Domain.Node, Cuyahoga.Core" column="parentnodeid" not-null="false" />
@@ -24,9 +24,14 @@
 			<key column="nodeid" />
 			<one-to-many class="Cuyahoga.Core.Domain.Section, Cuyahoga.Core" />
 		</bag>
-		<bag name="NodePermissions" cascade="all-delete-orphan" inverse="true" lazy="true">
-			<key column="objectid" />
-			<one-to-many class="Cuyahoga.Core.Domain.NodePermission, Cuyahoga.Core"  />
+		<bag name="NodePermissions" cascade="all" lazy="true" table="cuyahoga_noderole">
+			<key column="nodeid" />
+			<composite-element class="Cuyahoga.Core.Domain.NodePermission, Cuyahoga.Core">
+				<parent name="Node" />
+				<property name="ViewAllowed" column="viewallowed" type="Boolean" />
+				<property name="EditAllowed" column="editallowed" type="Boolean" />
+				<many-to-one name="Role" class="Cuyahoga.Core.Domain.Role, Cuyahoga.Core" column="roleid" />
+			</composite-element>
 		</bag>
 		
 	</class>
