@@ -6,8 +6,7 @@ html, body
 
 body 
 {
-	background-color: #fff;
-	background-image: url(../images/bg-left2.gif);
+	background-color: #f3f3f3;
 	background-repeat: repeat-x;
 	font: 0.8em Arial, Helvetica, sans-serif;
 	color: #333;
@@ -28,8 +27,8 @@ h3
 
 h4 
 {
-	font-size: 1.0em;
-	margin-top: 2px;
+	font-size: 110%;
+	margin-top: 5px;
 	margin-bottom: 2px;
 	color: #333;
 }
@@ -57,11 +56,15 @@ td
 
 #container
 {
+	background-color: #fff;
 	margin-left: 50px;
 	margin-right: 50px;
 	margin-bottom: 0;
 	margin-top: 0;
 	padding: 0;
+	border-left: 1px solid #ccc;
+	border-bottom: 1px solid #ccc;
+	border-right: 1px solid #ccc;
 }
 
 #side
@@ -90,9 +93,9 @@ td
 #nav
 {
 	background-color: #fff;
-	border-left: solid 1px #333;
+	border-left: none;
 	border-top: solid 15px #333;
-	border-bottom: solid 1px #333;
+	border-bottom: none;
 	border-right: 0;
 	width: 200px;
 }
@@ -113,16 +116,17 @@ td
 {
 	display: block;
 	font-size: 90%;
-	color: #000;
+	color: #333;
 	padding: 4px;
-	border-left: solid 10px #eee;
-	border-bottom: 1px dashed #eee;
-	border-right: 1px dashed #eee;
+	border-left: solid 10px #ddd;
+	border-bottom: 1px dashed #ddd;
+	border-right: 1px solid #ddd;
 	width: 182px;
 }
 
 #nav a:hover
 {
+	color: #333;
 	background-color: #f9f9f9;
 	text-decoration: none;
 	border-left: solid 10px #900;
@@ -151,6 +155,18 @@ td
 	margin-left: 200px;
 }
 
+* html #side
+{
+	width: 200px;
+	margin-right: -4px;
+}
+
+* html #main
+{
+	height: 1%;
+	margin-left: 0;
+}
+
 #headermain
 {
 	padding: 10px;
@@ -172,12 +188,17 @@ td
 
 #content
 {
+	padding: 0;
 	border-top: 15px solid #333;
-	border-left: 1px solid #333;
-	border-bottom: 1px solid #333;
-	border-right: 1px solid #333;
-	padding: 5px;
+	border-bottom: none;
+	border-right: none;
 	width: auto;
+}
+
+#footer
+{
+	clear: both;
+	height: 5px;
 }
 
 .error
@@ -219,16 +240,15 @@ td
 
 .section
 {
-	margin: 0px;
+	margin: 9px;
 	padding: 5px;
 }
 .section h3
 {
-	color: #333;
+	color: #900;
 	padding: 2px;
 	margin-top: 3px;
-	margin-bottom: 6px;
-	border-bottom: solid 1px #ddd;
+	margin-bottom: 7px;
 }
 
 .tbl

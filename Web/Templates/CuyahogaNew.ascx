@@ -29,6 +29,7 @@
 					<asp:placeholder id="maincontent" runat="server"></asp:placeholder>
 				</div>
 			</div>
+			<div id="footer"></div>
 		</div>
 	</form>
 </body>

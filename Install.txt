@@ -53,6 +53,18 @@ Installing Cuyahoga from source.
     web site up and running :). Don't forget to change the admin password!
     
 Hints and tips:
+- The search index has to be in a writable folder. You can specify the folder in the web.config:
+
+  <CuyahogaSettings>
+    ...
+    <add setting="SearchIndexDir" value="~/index" />
+    <add setting="InstantIndexing" value="true" /> <!-- true/false -->
+  </CuyahogaSettings>
+
+  InstantIndexing indicates that when you edit the content of a module that is searchable, the
+  search index will be updated immediately. If you turn this off, you have to manually index the
+  content from the Administration part.
+
 - Check the setting in the Web.config for the location where the uploaded files are placed:
   
   <appSettings>
