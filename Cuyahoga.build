@@ -1,0 +1,65 @@
+﻿<?xml version="1.0" encoding="utf-8" ?> 
+<project default="build" basedir="." xmlns="http://nant.sf.net/schemas/nant-0.84.win32.net-1.0.xsd">
+	<!-- global project settings -->
+	<property name="project.name" value="Cuyahoga" />
+	<property name="project.version" value="0.1" />
+
+	<!-- default configuration -->
+	<property name="project.config" value="debug" /> <!-- debug|release -->
+	
+	<target name="debug" description="Perform a 'debug' build">
+		<property name="project.config" value="debug" />
+		<property name="build.debug" value="true" />
+		<property name="build.dir" value="${nant.project.basedir}/build/${nant.settings.currentframework}.${nant.platform.name}/${project.name}-${project.version}-${project.config}" />
+	</target>
+
+	<target name="release" description="Perform a 'release' build">
+		<property name="project.config" value="release" />
+		<property name="build.debug" value="false" />
+		<property name="build.dir" value="${nant.project.basedir}/build/${project.name}-${project.version}" />
+	</target>
+
+	<!-- build tasks -->
+	<target name="init" description="Initializes build properties">
+		<call target="${project.config}" />
+	</target>
+	<target name="clean" depends="init" description="Deletes current build configuration">
+		<delete dir="${build.dir}" failonerror="false" />
+	</target>
+	<target name="cleanall" description="Deletes every build configuration">
+		<echo message="Deleting all builds from all configurations" />
+		<delete dir="build" failonerror="false" />
+	</target>
+	<target name="build" depends="init" description="Builds current configuration">
+		<echo message="Build Directory is ${build.dir}" />
+		<!-- prepare build directory -->
+		<solution solutionfile="Cuyahoga.sln" configuration="${project.config}" outputdir="${build.dir}/bin" verbose="true">
+			<excludeprojects>
+				<includes name="ExternalStuff/ExternalStuff.csproj" />
+			</excludeprojects>
+		</solution>
+
+		<!-- copy libraries -->
+		<copy todir="${build.dir}/bin">
+			<fileset basedir="ExternalStuff">
+				<includes name="FreeTextBox.dll" />
+				<includes name="Npgsql.dll" />
+				<includes name="Mono.Security.Protocol.Tls.dll" />
+			</fileset>
+		</copy>		
+	</target>
+	<target name="deploy" depends="build" description="Deploys website items to the current build dir">
+		<copy todir="${build.dir}">
+			<fileset basedir="Web">
+				<includes name="**/*.as?x" />
+				<includes name="**/*.config" />
+				<includes name="**/*.gif" />
+				<includes name="**/*.png" />
+				<includes name="**/*.jpg" />
+				<includes name="**/*.js" />
+				<includes name="**/*.xml" />
+			</fileset>
+		</copy>
+	</target>
+</project>
+
