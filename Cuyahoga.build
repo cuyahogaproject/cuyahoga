@@ -56,7 +56,8 @@
                 <includes name="System.Data.dll" />
                 <includes name="System.Xml.dll" />
                 <includes name="System.Web.dll" />
-                <includes name="ExternalStuff/**/*.dll" />    
+                <includes name="ExternalStuff/Npgsql.dll" />    
+                <includes name="ExternalStuff/Mono.Security.dll" />
             </references>
         </csc>
 	</target>
@@ -70,7 +71,10 @@
                 <includes name="System.Data.dll" />
                 <includes name="System.Xml.dll" />
                 <includes name="System.Web.dll" />
-                <includes name="ExternalStuff/**/*.dll" />  
+                <includes name="ExternalStuff/Gentle.*.dll" />  
+                <includes name="ExternalStuff/Npgsql.dll" />    
+                <includes name="ExternalStuff/Mono.Security.dll" />
+                <includes name="ExternalStuff/Mailframe.Configuration.dll" />
                 <includes name="${build.dir}/bin/Cuyahoga.Core.dll" />
             </references>
         </csc>
@@ -86,7 +90,7 @@
                 <includes name="System.Drawing.dll" />
                 <includes name="System.Xml.dll" />
                 <includes name="System.Web.dll" />
-                <includes name="ExternalStuff/**/*.dll" />
+                <includes name="ExternalStuff/FreeTextBox.dll" />
             </references>
         </csc>
 	</target>
