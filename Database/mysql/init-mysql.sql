@@ -39,6 +39,8 @@ INSERT INTO cuyahoga_role (roleid, name, inserttimestamp, updatetimestamp, permi
 
 INSERT INTO cuyahoga_template (templateid, name, path, css, inserttimestamp, updatetimestamp) VALUES (1, 'Cuyahoga Home', 'Templates/CuyahogaHome.ascx', 'red.css', '2004-01-26 21:52:52.365', '2004-01-26 21:52:52.365');
 INSERT INTO cuyahoga_template (templateid, name, path, css, inserttimestamp, updatetimestamp) VALUES (2, 'Cuyahoga Standard', 'Templates/CuyahogaStandard.ascx', 'red.css', '2004-01-26 21:52:52.365', '2004-01-26 21:52:52.365');
+INSERT INTO cuyahoga_template (templateid, name, path, css, inserttimestamp, updatetimestamp) VALUES (3, 'Cuyahoga New', 'Templates/CuyahogaNew.ascx', 'red-new.css', '2004-01-26 21:52:52.365', '2004-01-26 21:52:52.365');
+
 --
 -- TOC entry 1524 (class 0 OID 17149)
 -- Dependencies: 1150

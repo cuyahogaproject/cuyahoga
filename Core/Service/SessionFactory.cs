@@ -12,7 +12,7 @@ namespace Cuyahoga.Core.Service
 	/// </summary>
 	public class SessionFactory
 	{
-		private static SessionFactory _sessionFactory;
+		private static SessionFactory _sessionFactory = new SessionFactory();
 		private Configuration _nhibernateConfiguration;
 		private ISessionFactory _nhibernateFactory;
 		private bool _classesAdded = false;
@@ -32,10 +32,6 @@ namespace Cuyahoga.Core.Service
 		/// <returns></returns>
 		public static SessionFactory GetInstance()
 		{
-			if (_sessionFactory == null)
-			{
-				_sessionFactory = new SessionFactory();
-			}
 			return _sessionFactory;
 		}
 

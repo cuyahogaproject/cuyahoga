@@ -643,6 +643,10 @@
                     BuildAction = "Content"
                 />
                 <File
+                    RelPath = "Css\red-new.css"
+                    BuildAction = "Content"
+                />
+                <File
                     RelPath = "Images\bg.gif"
                     BuildAction = "Content"
                 />
@@ -651,7 +655,15 @@
                     BuildAction = "Content"
                 />
                 <File
+                    RelPath = "Images\bg-header-new.gif"
+                    BuildAction = "Content"
+                />
+                <File
                     RelPath = "Images\bgitem.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Images\bg-left2.gif"
                     BuildAction = "Content"
                 />
                 <File
@@ -2435,9 +2447,28 @@
                     BuildAction = "Content"
                 />
                 <File
+                    RelPath = "Templates\CuyahogaNew.ascx"
+                    BuildAction = "Content"
+                />
+                <File
                     RelPath = "Templates\CuyahogaStandard.ascx"
                     SubType = "UserControl"
                     BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Templates\Controls\Nav.ascx"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Templates\Controls\Nav.ascx.cs"
+                    DependentUpon = "Nav.ascx"
+                    SubType = "ASPXCodeBehind"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "Templates\Controls\Nav.ascx.resx"
+                    DependentUpon = "Nav.ascx.cs"
+                    BuildAction = "EmbeddedResource"
                 />
                 <File
                     RelPath = "Templates\Controls\Nav1.ascx"

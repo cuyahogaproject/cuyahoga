@@ -205,14 +205,7 @@ namespace Cuyahoga.Web.Cache
 		/// <param name="node"></param>
 		private void AttachNodeToCurrentSession(Node node)
 		{
-			// HACK: also register the parent nodes since they are not lazy loaded (yet)
-			// TODO: some AOP-ish solution would provide a much more elegant solution.
 			this._coreRepository.AttachNodeToCurrentSession(node);
-			while (node.ParentNode != null)
-			{
-				node = node.ParentNode;
-				this._coreRepository.AttachNodeToCurrentSession(node);
-			}
 		}
 
 		/// <summary>

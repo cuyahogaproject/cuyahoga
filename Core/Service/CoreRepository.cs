@@ -307,16 +307,21 @@ namespace Cuyahoga.Core.Service
 					if (! this._activeSession.Contains(node))
 					{
 						this._activeSession.Update(node);
+						// Also Update the Site, otherwise the proxied properties of Site don't work.
+						if (node.Level == 0 && ! this._activeSession.Contains(node.Site))
+						{
+							this._activeSession.Update(node.Site);
+						}
+						// Recursively attach Childnodes because we might need them for building a navigation tree.
+						foreach (Node childNode in node.ChildNodes)
+						{
+							AttachNodeToCurrentSession(childNode);
+						}
 						// Also re-attach the sections. Updating the node doesn't automatically re-attach the sections.
 						foreach (Section section in node.Sections)
 						{
 							this._activeSession.Update(section);
-						}
-						// The same for the Site, otherwise the proxied properties of Site don't work.
-						if (! this._activeSession.Contains(node.Site))
-						{
-							this._activeSession.Update(node.Site);
-						}
+						}						
 					}
 				}
 				else
