@@ -28,7 +28,6 @@ namespace Cuyahoga.Web.Admin
 		protected System.Web.UI.WebControls.TextBox txtPassword1;
 		protected System.Web.UI.WebControls.TextBox txtPassword2;
 		protected System.Web.UI.WebControls.Repeater rptRoles;
-		protected System.Web.UI.WebControls.RequiredFieldValidator RequiredFieldValidator1;
 		protected System.Web.UI.WebControls.RegularExpressionValidator revEmail;
 		protected System.Web.UI.WebControls.CompareValidator covPassword;
 		protected System.Web.UI.WebControls.Button btnSave;
@@ -36,6 +35,7 @@ namespace Cuyahoga.Web.Admin
 		protected System.Web.UI.WebControls.Button btnDelete;
 		protected System.Web.UI.WebControls.Label lblUsername;
 		protected System.Web.UI.WebControls.RequiredFieldValidator rfvUsername;
+		protected System.Web.UI.WebControls.RequiredFieldValidator rfvEmail;
 		protected System.Web.UI.WebControls.TextBox txtFirstname;
 	
 		private void Page_Load(object sender, System.EventArgs e)
