@@ -320,8 +320,12 @@ namespace Cuyahoga.Core
 		/// <param name="id"></param>
 		public Node(int id) : this()
 		{
-			ICmsDataProvider dp = CmsDataFactory.GetInstance();
-			dp.GetNodeById(id, this);
+			CmsDataFactory.GetInstance().GetNodeById(id, this);
+		}
+
+		public Node (string shortDescription) : this()
+		{
+			CmsDataFactory.GetInstance().GetNodeByShortDescription(shortDescription, this);
 		}
 
 		private void InitNode()

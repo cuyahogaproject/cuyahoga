@@ -29,7 +29,7 @@ namespace Cuyahoga.Web.Controls
 				{
 					this._page = (PageEngine)this.Page;	
 					// Bind home hyperlink
-					this.hplHome.NavigateUrl = UrlHelper.GetUrlFromNodeId(this._page.RootNode.Id);
+					this.hplHome.NavigateUrl = UrlHelper.GetUrlFromNode(this._page.RootNode);
 					this.hplHome.Text = this._page.RootNode.Title;
 					// Bind level 1 nodes
 					this.rptNav1.ItemDataBound += new RepeaterItemEventHandler(rptNav1_ItemDataBound);
@@ -37,7 +37,9 @@ namespace Cuyahoga.Web.Controls
 					this.rptNav1.DataBind();
 					
 					if (this._page.CuyahogaUser != null)
+					{
 						this.hplAdmin.Visible = this._page.CuyahogaUser.HasPermission(AccessLevel.Administrator);
+					}
 				}
 			}
 			catch (InvalidCastException ex)
@@ -73,10 +75,12 @@ namespace Cuyahoga.Web.Controls
 			if (node.ViewAllowed(this._page.CuyahogaUser))
 			{
 				HyperLink hpl = (HyperLink)e.Item.FindControl("hplNav1");
-				hpl.NavigateUrl = UrlHelper.GetUrlFromNodeId(node.Id);
+				hpl.NavigateUrl = UrlHelper.GetUrlFromNode(node);
 				hpl.Text = node.Title;
 				if (node.Level <= this._page.ActiveNode.Level && node.Id == this._page.ActiveNode.Trail[node.Level])
+				{
 					hpl.CssClass = "selected";
+				}
 			}
 		}
 	}

@@ -37,7 +37,9 @@ namespace Cuyahoga.Web.Cache
 				InitNodeCache();
 			}
 			else
+			{
 				this._nodeCache = (NodeCache)HttpContext.Current.Cache["NodeCache"];				
+			}
 		}
 
 		/// <summary>
@@ -49,9 +51,18 @@ namespace Cuyahoga.Web.Cache
 		{
 			if (this._nodeCache.NodeIndex[nodeId] == null)
 			{
-				LoadNodeIntoCache(nodeId);
+				LoadNodeIntoCacheFromNodeId(nodeId);
 			}
 			return (Node)this._nodeCache.NodeIndex[nodeId];
+		}
+
+		public Node GetNodeByShortDescription(string shortDescription)
+		{
+			if (this._nodeCache.NodeShortDescriptionIndex[shortDescription] == null)
+			{
+				LoadNodeIntoCacheFromShortDescription(shortDescription);
+			}
+			return (Node)this._nodeCache.NodeShortDescriptionIndex[shortDescription];
 		}
 
 		public Node GetRootNode()
@@ -98,25 +109,46 @@ namespace Cuyahoga.Web.Cache
 			// Add node to NodeCache. It is not yet put in the ASP.NET cache though.
 			if (isRootNode)
 			{
-				// Temporarely store the ID as key. This should be replaced with the language identifier.
+				// Temporarely store the ID as key. This should be replaced with the language identifier?
 				this._nodeCache.RootNodes[node.Id] = node;
 			}
 			// Add an index to the NodeCache for easy retrieval.
 			this._nodeCache.NodeIndex[node.Id] = node;
+			// Add another index to the NodeCache to enable retrieval by ShortDescription
+			this._nodeCache.NodeShortDescriptionIndex[node.ShortDescription] = node;
 			// Set hasChanges to true, so the changes will be in the ASP.NET cache later.
 			this._hasChanges = true;
 		}
 
+		/// <summary>
+		/// See LoadNodeIntoCache().
+		/// </summary>
+		/// <param name="nodeId"></param>
+		private void LoadNodeIntoCacheFromNodeId(int nodeId)
+		{
+			Node node = new Node(nodeId);
+			LoadNodeIntoCache(node);			
+		}
+
+		/// <summary>
+		/// See LoadNodeIntoCache().
+		/// </summary>
+		/// <param name="shortDescription"></param>
+		private void LoadNodeIntoCacheFromShortDescription(string shortDescription)
+		{
+			Node node = new Node(shortDescription);
+			LoadNodeIntoCache(node);
+		}
+		
 		/// <summary>
 		/// Try to find a node. If the node is found, build the Node tree up to the position
 		/// where that particular node is located. A slightly redundant database call is made to
 		/// determine if the node at least exists, but that prevents unnessecary node traversals
 		/// when a node is requested that doesn't exist at all.
 		/// </summary>
-		/// <param name="nodeId"></param>
-		private void LoadNodeIntoCache(int nodeId)
+		/// <param name="node"></param>
+		private void LoadNodeIntoCache(Node node)
 		{
-			Node node = new Node(nodeId);
 			if (node.Id == -1)
 			{
 				throw new ArgumentException("No node found with the given Id", "nodeId");
@@ -128,7 +160,7 @@ namespace Cuyahoga.Web.Cache
 					// Recursively search the node tree. All nodes that are loaded from the 
 					// database while searching will be automatically stored in the NodeCache
 					// due to the ChildrenLoaded event.
-					FindAndCacheNode(rootNode.ChildNodes, nodeId);
+					FindAndCacheNode(rootNode.ChildNodes, node.Id);
 				}
 			}
 		}

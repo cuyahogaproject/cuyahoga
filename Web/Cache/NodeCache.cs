@@ -13,6 +13,7 @@ namespace Cuyahoga.Web.Cache
 	{
 		private SortedList _rootNodes;
 		private Hashtable _nodeIndex;
+		private Hashtable _nodeShortDescriptionIndex;
 
 		/// <summary>
 		/// Property RootNodes (Hashtable)
@@ -33,12 +34,22 @@ namespace Cuyahoga.Web.Cache
 		}
 
 		/// <summary>
+		/// Property NodeShortDescriptionIndex (Hashtable)
+		/// </summary>
+		public Hashtable NodeShortDescriptionIndex
+		{
+			get { return this._nodeShortDescriptionIndex; }
+			set { this._nodeShortDescriptionIndex = value; }
+		}
+
+		/// <summary>
 		/// Default constructor.
 		/// </summary>
 		public NodeCache()
 		{
 			this._rootNodes = new SortedList();
 			this._nodeIndex = new Hashtable();
+			this._nodeShortDescriptionIndex = new Hashtable();
 		}
 
 	}

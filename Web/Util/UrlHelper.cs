@@ -1,6 +1,8 @@
 using System;
 using System.Web;
 
+using Cuyahoga.Core;
+
 namespace Cuyahoga.Web.Util
 {
 	/// <summary>
@@ -22,13 +24,13 @@ namespace Cuyahoga.Web.Util
 		}
 
 		/// <summary>
-		/// Returns a formatted url for a given nodeId (/{ApplicationPath}/{NodeId}/Show.aspx.
+		/// Returns a formatted url for a given node (/{ApplicationPath}/{Node.ShortDescription}.aspx.
 		/// </summary>
 		/// <param name="nodeId"></param>
 		/// <returns></returns>
-		public static string GetUrlFromNodeId(int nodeId)
+		public static string GetUrlFromNode(Node node)
 		{
-			return GetApplicationPath() + nodeId.ToString() + "/Show.aspx";
+			return GetApplicationPath() + node.ShortDescription + ".aspx";
 		}
 	}
 }

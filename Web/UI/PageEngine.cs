@@ -96,9 +96,9 @@ namespace Cuyahoga.Web.UI
 				this._rootNode = cm.GetRootNode();
 
 				// Load the active node
-				if (Context.Request.QueryString["NodeName"] != null)
+				if (Context.Request.QueryString["ShortDescription"] != null)
 				{
-					// TODO: do something
+					this._activeNode = cm.GetNodeByShortDescription(Context.Request.QueryString["ShortDescription"]);
 				}
 				else if (Context.Request.QueryString["NodeId"] != null)
 				{

@@ -27,7 +27,7 @@ namespace Cuyahoga.Web.Controls
 				ModuleAdminBasePage adminPage = (ModuleAdminBasePage)this.Page;
 				this.lblNode.Text = adminPage.Node.Title;
 				this.lblSection.Text = adminPage.Section.Title;
-				this.hplBack.NavigateUrl = UrlHelper.GetUrlFromNodeId(adminPage.Node.Id);
+				this.hplBack.NavigateUrl = UrlHelper.GetUrlFromNode(adminPage.Node);
 			}
 		}
 

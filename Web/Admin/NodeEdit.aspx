@@ -1,16 +1,16 @@
 <%@ Page language="c#" Codebehind="NodeEdit.aspx.cs" AutoEventWireup="false" Inherits="Cuyahoga.Web.Admin.NodeEdit" %>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 TRANSITIONAL//EN" >
 <html>
-	<head>
+  <head>
 		<title>Cuyahoga Site Administration</title>
-		<meta content="Microsoft Visual Studio .NET 7.1" name="GENERATOR">
-		<meta content="C#" name="CODE_LANGUAGE">
-		<meta content="JavaScript" name="vs_defaultClientScript">
-		<meta content="http://schemas.microsoft.com/intellisense/ie5" name="vs_targetSchema"><link href="../Css/Admin.css" type="text/css" rel="stylesheet">
-	</head>
-	<body>
-		<form id="Form1" method="post" runat="server">
-			<script language="javascript"> <!--
+<meta content="Microsoft Visual Studio .NET 7.1" name=GENERATOR>
+<meta content=C# name=CODE_LANGUAGE>
+<meta content=JavaScript name=vs_defaultClientScript>
+<meta content=http://schemas.microsoft.com/intellisense/ie5 name=vs_targetSchema><LINK href="../Css/Admin.css" type=text/css rel=stylesheet >
+  </head>
+<body>
+<form id=Form1 method=post runat="server">
+<script language=javascript> <!--
 				function confirmDeleteNode()
 				{
 					return confirm("Are you sure you want to delete this node?");
@@ -24,31 +24,34 @@
 				// -->
 			</script>
 
-			<div class="group">
-				<h4>General</h4>
-				<table>
-					<tr>
-						<td style="WIDTH: 100px">Node title</td>
-						<td><asp:textbox id="txtTitle" runat="server" width="300px"></asp:textbox><asp:requiredfieldvalidator id="rfvTitle" runat="server" errormessage="Title is required" display="Dynamic" cssclass="validator" controltovalidate="txtTitle" enableclientscript="False"></asp:requiredfieldvalidator></td></tr>
-					<tr>
-						<td style="HEIGHT: 35px">Node short description</td>
-						<td style="HEIGHT: 35px"><asp:textbox id="txtShortDescription" runat="server" width="300px" tooltip="You can use this for 'nice' links ([short description].aspx). Make sure it's unique."></asp:textbox><asp:regularexpressionvalidator id="revShortDescription" runat="server" errormessage="RegularExpressionValidator" display="Dynamic" cssclass="validator" controltovalidate="txtShortDescription" enableclientscript="False" validationexpression="\S+">No spaces are allowed</asp:regularexpressionvalidator></td></tr>
-					<tr>
-						<td>Parent node</td>
-						<td><asp:label id="lblParentNode" runat="server"></asp:label></td></tr>
-					<tr>
-						<td>Position</td>
-						<td><asp:imagebutton id="btnUp" runat="server" imageurl="../Images/upred.gif" causesvalidation="False" alternatetext="Move up"></asp:imagebutton><asp:imagebutton id="btnDown" runat="server" imageurl="../Images/downred.gif" causesvalidation="False" alternatetext="Move down"></asp:imagebutton><asp:imagebutton id="btnLeft" runat="server" imageurl="../Images/leftred.gif" causesvalidation="False" alternatetext="Move left"></asp:imagebutton><asp:imagebutton id="btnRight" runat="server" imageurl="../Images/rightred.gif" causesvalidation="False" alternatetext="Move right"></asp:imagebutton></td></tr></table></div>
-			<div class="group">
-				<h4>Template</h4>
-				<table>
-					<tr>
-						<td style="WIDTH: 100px">&nbsp;</td>
-						<td><asp:dropdownlist id="ddlTemplates" runat="server" visible="false" autopostback="True">
-							</asp:dropdownlist><asp:label id="lblTemplates" runat="server" visible="false"></asp:label></td></tr></table></div>
-			<div class="group">
-				<h4>Sections</h4>
-				<table class="tbl"><asp:repeater id="rptSections" runat="server">
+<div class=group>
+<h4>General</H4>
+<table>
+  <tr>
+    <td style="WIDTH: 100px">Node title</TD>
+    <td><asp:textbox id=txtTitle runat="server" width="300px"></asp:textbox><asp:requiredfieldvalidator id=rfvTitle runat="server" enableclientscript="False" controltovalidate="txtTitle" cssclass="validator" display="Dynamic" errormessage="Title is required"></asp:requiredfieldvalidator></TD></TR>
+  <tr>
+    <td>Navigation path prefix</TD>
+    <td><asp:textbox id=txtShortDescriptionPrefix runat="server" Width="150px"></asp:TextBox><asp:regularexpressionvalidator id=revShortDescriptionPrefix runat="server" enableclientscript="False" controltovalidate="txtShortDescriptionPrefix" cssclass="validator" display="Dynamic" errormessage="No spaces are allowed" validationexpression="\S+"></asp:regularexpressionvalidator></TD></TR>
+  <tr>
+    <td>Short description</TD>
+    <td><asp:textbox id=txtShortDescription runat="server" width="150px" tooltip="You can use this for 'nice' links ([shortdescription].aspx). Make sure it's unique."></asp:textbox><asp:regularexpressionvalidator id=revShortDescription runat="server" enableclientscript="False" controltovalidate="txtShortDescription" cssclass="validator" display="Dynamic" errormessage="No spaces are allowed" validationexpression="\S+"></asp:regularexpressionvalidator><asp:requiredfieldvalidator id=rfvShortDescription runat="server" ErrorMessage="Short description is required" ControlToValidate="txtShortDescription" Display="Dynamic" EnableClientScript="False"></asp:RequiredFieldValidator></TD></TR>
+  <tr>
+    <td>Parent node</TD>
+    <td><asp:label id=lblParentNode runat="server"></asp:label></TD></TR>
+  <tr>
+    <td>Position</TD>
+    <td><asp:imagebutton id=btnUp runat="server" alternatetext="Move up" causesvalidation="False" imageurl="../Images/upred.gif"></asp:imagebutton><asp:imagebutton id=btnDown runat="server" alternatetext="Move down" causesvalidation="False" imageurl="../Images/downred.gif"></asp:imagebutton><asp:imagebutton id=btnLeft runat="server" alternatetext="Move left" causesvalidation="False" imageurl="../Images/leftred.gif"></asp:imagebutton><asp:imagebutton id=btnRight runat="server" alternatetext="Move right" causesvalidation="False" imageurl="../Images/rightred.gif"></asp:imagebutton></TD></TR></TABLE></DIV>
+<div class=group>
+<h4>Template</H4>
+<table>
+  <tr>
+    <td style="WIDTH: 100px">&nbsp;</TD>
+    <td><asp:dropdownlist id=ddlTemplates runat="server" autopostback="True" visible="false">
+							</asp:dropdownlist><asp:label id=lblTemplates runat="server" visible="false"></asp:label></TD></TR></TABLE></DIV>
+<div class=group>
+<h4>Sections</H4>
+<table class=tbl><asp:repeater id=rptSections runat="server">
 						<headertemplate>
 							<tr>
 								<th>Section title</th>
@@ -76,10 +79,10 @@
 								</td>
 							</tr>
 						</itemtemplate>
-					</asp:repeater></table><asp:hyperlink id="hplNewSection" runat="server" visible="False">Add section</asp:hyperlink></div>
-			<div class="group">
-				<h4>Authorization</h4>
-				<table class="tbl">
+					</asp:repeater></TABLE><asp:hyperlink id=hplNewSection runat="server" visible="False">Add section</asp:hyperlink></DIV>
+<div class=group>
+<h4>Authorization</H4>
+<table class=tbl>
 					<asp:repeater id="rptRoles" runat="server">
 						<headertemplate>
 							<tr>
@@ -95,9 +98,8 @@
 								<td style="text-align:center"><asp:checkbox id="chkEditAllowed" runat="server"></asp:checkbox></td>
 							</tr>
 						</itemtemplate>
-					</asp:repeater></table>
-			</div>
+					</asp:repeater></TABLE></DIV>
 			<div><asp:button id="btnSave" runat="server" text="Save"></asp:button><asp:button id="btnCancel" runat="server" causesvalidation="False" text="Cancel"></asp:button><asp:button id="btnNew" runat="server" text="Add new child"></asp:button>
-				<asp:button id="btnDelete" runat="server" text="Delete" causesvalidation="False"></asp:button></div></form>
+				<asp:button id="btnDelete" runat="server" text="Delete" causesvalidation="False"></asp:button></div></FORM>
 	</body>
 </html>

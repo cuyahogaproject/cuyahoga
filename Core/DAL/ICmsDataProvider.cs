@@ -19,6 +19,8 @@ namespace Cuyahoga.Core.DAL
 		/// <param name="id"></param>
 		/// <param name="node"></param>
 		void GetNodeById(int id, Node node);
+
+		void GetNodeByShortDescription(string shortDescription, Node node);
 		
 		/// <summary>
 		/// Gets the nodes belonging to a given parentnode. 

@@ -43,11 +43,15 @@ namespace Cuyahoga.Web.Util
 				Regex regEx = new Regex(matchExpression, RegexOptions.IgnoreCase|RegexOptions.Singleline|RegexOptions.CultureInvariant|RegexOptions.Compiled);
 				if (regEx.IsMatch(urlToRewrite))
 				{
-					// Store the original url in the Context.Items collection. We need to save this for setting
-					// the action of the form.
-					context.Items["VirtualUrl"] = urlToRewrite;
-					string rewritePath = regEx.Replace(urlToRewrite, UrlHelper.GetApplicationPath() + mappings[i]);
-					context.RewritePath(rewritePath);
+					// Don't rewrite when the mapping is an empty string (used for Default, Admin etc.)
+					if (mappings[i] != String.Empty)
+					{
+						// Store the original url in the Context.Items collection. We need to save this for setting
+						// the action of the form.
+						context.Items["VirtualUrl"] = urlToRewrite;
+						string rewritePath = regEx.Replace(urlToRewrite, UrlHelper.GetApplicationPath() + mappings[i]);
+						context.RewritePath(rewritePath);
+					}
 					break;
 				}
 			}

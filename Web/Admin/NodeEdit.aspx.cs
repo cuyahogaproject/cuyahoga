@@ -37,6 +37,9 @@ namespace Cuyahoga.Web.Admin
 		protected System.Web.UI.WebControls.RegularExpressionValidator revShortDescription;
 		protected System.Web.UI.WebControls.Repeater rptDeleteRoles;
 		protected System.Web.UI.WebControls.Repeater rptRoles;
+		protected System.Web.UI.WebControls.TextBox txtShortDescriptionPrefix;
+		protected System.Web.UI.WebControls.RequiredFieldValidator rfvShortDescription;
+		protected System.Web.UI.WebControls.RegularExpressionValidator revShortDescriptionPrefix;
 		protected System.Web.UI.WebControls.TextBox txtTitle;
 	
 		private void Page_Load(object sender, System.EventArgs e)
@@ -83,9 +86,11 @@ namespace Cuyahoga.Web.Admin
 		private void BindNodeControls()
 		{
 			this.txtTitle.Text = this.ActiveNode.Title;
-			this.txtShortDescription.Text = this.ActiveNode.ShortDescription;
+			PrepareAndBindShortDescription();
 			if (this.ActiveNode.ParentNode != null)
+			{
 				this.lblParentNode.Text = this.ActiveNode.ParentNode.Title;
+			}
 			// node location buttons visibility
 			btnUp.Visible = (this.ActiveNode.Position > 0);
 			btnDown.Visible = ((this.ActiveNode.ParentNode != null) && (this.ActiveNode.Position != this.ActiveNode.ParentNode.ChildNodes.Count -1) && this.ActiveNode.Id != -1);
@@ -219,6 +224,31 @@ namespace Cuyahoga.Web.Admin
 			Context.Response.Redirect(Context.Request.Path + String.Format("?NodeId={0}", this.ActiveNode.Id));
 		}
 
+		private void PrepareAndBindShortDescription()
+		{
+			if (this.ActiveNode.Id == -1 && this.ActiveNode.ParentNode != null)
+			{
+				this.txtShortDescriptionPrefix.Text = this.ActiveNode.ParentNode.ShortDescription + "/";
+			}
+			else if (this.ActiveNode.Id > 0)
+			{
+				if (this.ActiveNode.ShortDescription != null)
+				{
+					int lastSlash = this.ActiveNode.ShortDescription.LastIndexOf("/");
+					if (lastSlash > 0)
+					{
+						this.txtShortDescriptionPrefix.Text = this.ActiveNode.ShortDescription.Substring(0, lastSlash + 1);
+						this.txtShortDescription.Text = this.ActiveNode.ShortDescription.Substring(lastSlash + 1, this.ActiveNode.ShortDescription.Length - (lastSlash + 1));
+					}
+					else
+					{
+						this.txtShortDescriptionPrefix.Text = String.Empty;
+						this.txtShortDescription.Text = this.ActiveNode.ShortDescription;
+					}
+				}
+			}
+		}
+
 		#region Web Form Designer generated code
 		override protected void OnInit(EventArgs e)
 		{
@@ -258,7 +288,7 @@ namespace Cuyahoga.Web.Admin
 				if (this.IsValid)
 				{
 					this.ActiveNode.Title = this.txtTitle.Text;
-					this.ActiveNode.ShortDescription = this.txtShortDescription.Text;
+					this.ActiveNode.ShortDescription = this.txtShortDescriptionPrefix.Text + this.txtShortDescription.Text;
 					SetRoles();
 					SaveNode();
 					ShowMessage("Node saved.");

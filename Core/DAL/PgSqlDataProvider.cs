@@ -58,6 +58,35 @@ namespace Cuyahoga.Core.DAL
 			}
 		}
 
+		public void GetNodeByShortDescription(string shortDescription, Node node)
+		{
+			string sql = @"	SELECT n.nodeid, n.parentnodeid, n.title, n.shortdescription, n.position, t.templateid, t.name, t.path
+							FROM cuyahoga_node n
+								LEFT OUTER JOIN cuyahoga_template t ON t.templateid = n.templateid
+							WHERE n.shortdescription = :shortdescription";
+			Debug.WriteLine("GetNodeByShortDescription(" + shortDescription + ")\n");
+			NpgsqlConnection con = new NpgsqlConnection(Config.GetConfiguration()["ConnectionString"]);
+			NpgsqlCommand cmd = new NpgsqlCommand(sql, con);
+			NpgsqlParameter prmShortDescription = PgSqlDataHelper.MakeInParam(":shortdescription", DbType.String, 255, shortDescription);
+			cmd.Parameters.Add(prmShortDescription);
+			con.Open();
+			try
+			{
+				NpgsqlDataReader dr = cmd.ExecuteReader();
+				if (dr.Read())
+					FillNodeFromDataReader(dr, node);
+				dr.Close();
+			}
+			catch (NpgsqlException ex)
+			{
+				throw new CmsDataException("Error reading node data", ex);
+			}
+			finally
+			{
+				con.Close();
+			}
+		}
+
 		public void GetNodesByParent(Node parentNode, NodeCollection nodes)
 		{
 			NpgsqlConnection con = new NpgsqlConnection(Config.GetConfiguration()["ConnectionString"]);
@@ -257,9 +286,9 @@ namespace Cuyahoga.Core.DAL
 				cmd.Parameters.Add(PgSqlDataHelper.MakeInParam(":templateid", DbType.Int32, 4, DBNull.Value));
 			cmd.Parameters.Add(PgSqlDataHelper.MakeInParam(":title", DbType.String, 255, node.Title));
 			if (node.ShortDescription != null)
-				cmd.Parameters.Add(PgSqlDataHelper.MakeInParam(":shortdescription", DbType.String, 100, node.ShortDescription));
+				cmd.Parameters.Add(PgSqlDataHelper.MakeInParam(":shortdescription", DbType.String, 255, node.ShortDescription));
 			else
-				cmd.Parameters.Add(PgSqlDataHelper.MakeInParam(":shortdescription", DbType.String, 100, DBNull.Value));
+				cmd.Parameters.Add(PgSqlDataHelper.MakeInParam(":shortdescription", DbType.String, 255, DBNull.Value));
 			cmd.Parameters.Add(PgSqlDataHelper.MakeInParam(":position", DbType.Int32, 4, node.Position));
 			cmd.CommandText = sql;
 
@@ -313,9 +342,9 @@ namespace Cuyahoga.Core.DAL
 				cmd.Parameters.Add(PgSqlDataHelper.MakeInParam(":templateid", DbType.Int32, 4, DBNull.Value));
 			cmd.Parameters.Add(PgSqlDataHelper.MakeInParam(":title", DbType.String, 255, node.Title));
 			if (node.ShortDescription != null)
-				cmd.Parameters.Add(PgSqlDataHelper.MakeInParam(":shortdescription", DbType.String, 100, node.ShortDescription));
+				cmd.Parameters.Add(PgSqlDataHelper.MakeInParam(":shortdescription", DbType.String, 255, node.ShortDescription));
 			else
-				cmd.Parameters.Add(PgSqlDataHelper.MakeInParam(":shortdescription", DbType.String, 100, DBNull.Value));
+				cmd.Parameters.Add(PgSqlDataHelper.MakeInParam(":shortdescription", DbType.String, 255, DBNull.Value));
 			cmd.Parameters.Add(PgSqlDataHelper.MakeInParam(":position", DbType.Int32, 4, node.Position));
 			cmd.Parameters.Add(PgSqlDataHelper.MakeInParam(":nodeid", DbType.Int32, 4, node.Id));
 			cmd.CommandText = sql;
@@ -408,7 +437,9 @@ namespace Cuyahoga.Core.DAL
 		private void FillNodeFromDataReader(NpgsqlDataReader dr, Node node)
 		{
 			if (dr["parentnodeid"] != DBNull.Value)
+			{
 				node.ParentId = Convert.ToInt32(dr["parentnodeid"]);
+			}
 			node.Id = Convert.ToInt32(dr["nodeid"]);
 			node.Title = Convert.ToString(dr["title"]);
 			node.ShortDescription = Convert.ToString(dr["shortdescription"]);
