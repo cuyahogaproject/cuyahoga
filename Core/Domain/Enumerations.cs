@@ -2,6 +2,9 @@ using System;
 
 namespace Cuyahoga.Core.Domain
 {
+	/// <summary>
+	/// 
+	/// </summary>
 	public enum NodePositionMovement
 	{
 		Up,
@@ -10,6 +13,9 @@ namespace Cuyahoga.Core.Domain
 		Right
 	}
 
+	/// <summary>
+	/// 
+	/// </summary>
 	[Flags]
 	public enum AccessLevel
 	{
@@ -19,6 +25,9 @@ namespace Cuyahoga.Core.Domain
 		Administrator = 8
 	}
 
+	/// <summary>
+	/// 
+	/// </summary>
 	public enum Action
 	{
 		View,

@@ -253,6 +253,77 @@
                     BuildAction = "Content"
                 />
                 <File
+                    RelPath = "RemoteContent\AdminRemoteContent.ascx"
+                    SubType = "Form"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "RemoteContent\AdminRemoteContent.ascx.cs"
+                    DependentUpon = "AdminRemoteContent.ascx"
+                    SubType = "ASPXCodeBehind"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "RemoteContent\AdminRemoteContent.ascx.resx"
+                    DependentUpon = "AdminRemoteContent.ascx.cs"
+                    BuildAction = "EmbeddedResource"
+                />
+                <File
+                    RelPath = "RemoteContent\EditFeed.aspx"
+                    SubType = "Form"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "RemoteContent\EditFeed.aspx.cs"
+                    DependentUpon = "EditFeed.aspx"
+                    SubType = "ASPXCodeBehind"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "RemoteContent\EditFeed.aspx.resx"
+                    DependentUpon = "EditFeed.aspx.cs"
+                    BuildAction = "EmbeddedResource"
+                />
+                <File
+                    RelPath = "RemoteContent\Feed.cs"
+                    SubType = "Code"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "RemoteContent\Feed.hbm.xml"
+                    BuildAction = "EmbeddedResource"
+                />
+                <File
+                    RelPath = "RemoteContent\FeedItem.cs"
+                    SubType = "Code"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "RemoteContent\FeedItem.hbm.xml"
+                    BuildAction = "EmbeddedResource"
+                />
+                <File
+                    RelPath = "RemoteContent\RemoteContent.ascx"
+                    SubType = "UserControl"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "RemoteContent\RemoteContent.ascx.cs"
+                    DependentUpon = "RemoteContent.ascx"
+                    SubType = "ASPXCodeBehind"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "RemoteContent\RemoteContent.ascx.resx"
+                    DependentUpon = "RemoteContent.ascx.cs"
+                    BuildAction = "EmbeddedResource"
+                />
+                <File
+                    RelPath = "RemoteContent\RemoteContentModule.cs"
+                    SubType = "Code"
+                    BuildAction = "Compile"
+                />
+                <File
                     RelPath = "Search\Search.ascx"
                     SubType = "UserControl"
                     BuildAction = "Content"

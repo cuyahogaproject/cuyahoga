@@ -4,7 +4,7 @@ using System.Collections;
 namespace Cuyahoga.Core.Util
 {
 	/// <summary>
-	/// A container class for a RSS feed.
+	/// A container class for a RSS feed (for generation purposes).
 	/// </summary>
 	public class RssChannel
 	{

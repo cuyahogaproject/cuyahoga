@@ -1,0 +1,1 @@
+<%@ Control Language="c#" AutoEventWireup="false" Codebehind="RemoteContent.ascx.cs" Inherits="Cuyahoga.Modules.RemoteContent.RemoteContent" TargetSchema="http://schemas.microsoft.com/intellisense/ie5"%>
