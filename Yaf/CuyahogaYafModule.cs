@@ -9,7 +9,7 @@ namespace Cuyahoga.Modules.YetAnotherForum
 	/// </summary>
 	public class CuyahogaYafModule : ModuleBase
 	{
-		public CuyahogaYafModule()
+		public CuyahogaYafModule(Section section) : base(section)
 		{
 			//
 			// TODO: Add constructor logic here

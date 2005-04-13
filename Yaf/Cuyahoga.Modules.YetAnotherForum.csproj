@@ -76,7 +76,7 @@
                 />
                 <Reference
                     Name = "System.XML"
-                    AssemblyName = "System.XML"
+                    AssemblyName = "System.Xml"
                     HintPath = "..\..\..\WINDOWS\Microsoft.NET\Framework\v1.1.4322\System.XML.dll"
                 />
                 <Reference
@@ -102,7 +102,7 @@
                 <Reference
                     Name = "yaf"
                     AssemblyName = "yaf"
-                    HintPath = "..\..\yafsrc\bin\yaf.dll"
+                    HintPath = "..\..\yafcuyahoga\bin\yaf.dll"
                 />
             </References>
         </Build>
