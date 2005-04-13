@@ -5,7 +5,7 @@ namespace Cuyahoga.Modules.RemoteContent
 	/// <summary>
 	/// Feed item.
 	/// </summary>
-	public class FeedItem
+	public class FeedItem : IComparable
 	{
 		private int _id;
 		private string _url;
@@ -85,5 +85,31 @@ namespace Cuyahoga.Modules.RemoteContent
 		{
 			this._id = -1;
 		}
+
+		#region IComparable Members
+
+		/// <summary>
+		/// The default sort order of a FeedItem is by PubDate descending.
+		/// </summary>
+		/// <param name="obj"></param>
+		/// <returns></returns>
+		public int CompareTo(object obj)
+		{
+			FeedItem feedItemToCompare = obj as FeedItem;
+			if (feedItemToCompare == null || this._pubDate > feedItemToCompare.PubDate)
+			{
+				return -1;
+			}
+			else if (this._pubDate < feedItemToCompare.PubDate)
+			{
+				return 1;
+			}
+			else
+			{
+				return 0;
+			}
+		}
+
+		#endregion
 	}
 }

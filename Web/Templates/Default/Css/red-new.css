@@ -347,3 +347,25 @@ td
 {
 	color: #c00;
 }
+
+.feeditem
+{
+	margin-top: 5px;
+	margin-bottom: 5px;
+	padding: 3px;
+}
+
+.feeditem h4
+{
+	margin-top: 2px;
+	margin-bottom: 3px;
+	font-size: 100%;
+}
+
+.feeddetails
+{
+	padding-top: 2px;
+	padding-bottom: 2px;
+	color: #666;
+	font-size: 0.85em;
+}

@@ -2,7 +2,7 @@
 <project default="build" basedir="." xmlns="http://nant.sf.net/release/0.85-rc1/nant.xsd">
 	<!-- global project settings -->
 	<property name="project.name" value="Cuyahoga" />
-	<property name="project.version" value="0.7.0.1" />
+	<property name="project.version" value="0.7.1" />
 
 	<!-- default configuration -->
 	<property name="project.config" value="debug" /> <!-- debug|release -->
@@ -142,6 +142,7 @@
                 <include name="System.Web.dll" />
                 <include name="${lib.dir}/NHibernate.dll" />
                 <include name="${lib.dir}/Nullables.dll" />
+                <include name="${lib.dir}/log4net.dll" />
                 <include name="${lib.dir}/Lucene.Net.*" />
                 <include name="${lib.dir}/FredCK.FCKeditorV2.dll" />  
                 <include name="${build.dir}/bin/Cuyahoga.Core.dll" />

@@ -1,8 +1,3 @@
---
--- TOC entry 1534 (class 0 OID 821791)
--- Dependencies: 1170
--- Data for Name: cuyahoga_moduletype; Type: TABLE DATA; Schema: public; Owner: tijn
---
 
 SET IDENTITY_INSERT cuyahoga_moduletype ON
 
@@ -13,17 +8,13 @@ INSERT INTO cuyahoga_moduletype (moduletypeid, name, assemblyname, classname, pa
 INSERT INTO cuyahoga_moduletype (moduletypeid, name, assemblyname, classname, path, editpath, inserttimestamp, updatetimestamp) VALUES (3, 'User', 'Cuyahoga.Modules', 'Cuyahoga.Modules.User.UserModule', 'Modules/User/User.ascx', NULL, '2004-10-02 14:36:28.324', '2004-10-02 14:36:28.324')
 INSERT INTO cuyahoga_moduletype (moduletypeid, name, assemblyname, classname, path, editpath, inserttimestamp, updatetimestamp) VALUES (4, 'Search', 'Cuyahoga.Modules', 'Cuyahoga.Modules.Search.SearchModule', 'Modules/Search/Search.ascx', NULL, '2004-10-02 14:36:28.324', '2004-10-02 14:36:28.324')
 INSERT INTO cuyahoga_moduletype (moduletypeid, name, assemblyname, classname, path, editpath, inserttimestamp, updatetimestamp) VALUES (5, 'LanguageSwitcher', 'Cuyahoga.Modules', 'Cuyahoga.Modules.LanguageSwitcher.LanguageSwitcherModule', 'Modules/LanguageSwitcher/LanguageSwitcher.ascx', NULL, '2004-10-02 14:36:28.324', '2004-10-02 14:36:28.324')
+INSERT INTO cuyahoga_moduletype (moduletypeid, name, assemblyname, classname, path, editpath, inserttimestamp, updatetimestamp) VALUES (6, 'RemoteContent', 'Cuyahoga.Modules', 'Cuyahoga.Modules.RemoteContent.RemoteContentModule', 'Modules/RemoteContent/RemoteContent.ascx', 'Modules/RemoteContent/AdminRemoteContent.aspx', '2005-04-08 14:36:28.324', '2004-04-08 14:36:28.324')
 
 GO
 
 SET IDENTITY_INSERT cuyahoga_moduletype OFF
 
 GO
---
--- TOC entry 1538 (class 0 OID 822807)
--- Dependencies: 1178
--- Data for Name: cuyahoga_modulesetting; Type: TABLE DATA; Schema: public; Owner: tijn
---
 
 SET IDENTITY_INSERT cuyahoga_modulesetting ON
 
@@ -34,17 +25,18 @@ INSERT INTO cuyahoga_modulesetting (modulesettingid, moduletypeid, name, friendl
 INSERT INTO cuyahoga_modulesetting (modulesettingid, moduletypeid, name, friendlyname, settingdatatype, iscustomtype, isrequired) VALUES (3, 2, 'DISPLAY_TYPE', 'Display type', 'Cuyahoga.Modules.Articles.DisplayType', 1, 1)
 INSERT INTO cuyahoga_modulesetting (modulesettingid, moduletypeid, name, friendlyname, settingdatatype, iscustomtype, isrequired) VALUES (4, 2, 'ALLOW_ANONYMOUS_COMMENTS', 'Allow anonymous comments', 'System.Boolean', 0, 1)
 INSERT INTO cuyahoga_modulesetting (modulesettingid, moduletypeid, name, friendlyname, settingdatatype, iscustomtype, isrequired) VALUES (5, 2, 'ALLOW_SYNDICATION', 'Allow syndication', 'System.Boolean', 0, 1)
+INSERT INTO cuyahoga_modulesetting (modulesettingid, moduletypeid, name, friendlyname, settingdatatype, iscustomtype, isrequired) VALUES (6, 6, 'CACHE_DURATION', 'Local database cache duration (min)', 'System.Int32', 0, 1)
+INSERT INTO cuyahoga_modulesetting (modulesettingid, moduletypeid, name, friendlyname, settingdatatype, iscustomtype, isrequired) VALUES (7, 6, 'SHOW_CONTENTS', 'Show feed contents', 'System.Boolean', 0, 1)
+INSERT INTO cuyahoga_modulesetting (modulesettingid, moduletypeid, name, friendlyname, settingdatatype, iscustomtype, isrequired) VALUES (8, 6, 'SHOW_DATES', 'Show dates', 'System.Boolean', 0, 1)
+INSERT INTO cuyahoga_modulesetting (modulesettingid, moduletypeid, name, friendlyname, settingdatatype, iscustomtype, isrequired) VALUES (9, 6, 'BACKGROUND_REFRESH', 'Use background refreshing', 'System.Boolean', 0, 1)
+INSERT INTO cuyahoga_modulesetting (modulesettingid, moduletypeid, name, friendlyname, settingdatatype, iscustomtype, isrequired) VALUES (10, 6, 'SHOW_SOURCES', 'Show feed sources', 'System.Boolean', 0, 1)
+INSERT INTO cuyahoga_modulesetting (modulesettingid, moduletypeid, name, friendlyname, settingdatatype, iscustomtype, isrequired) VALUES (11, 6, 'SHOW_AUTHORS', 'Show authors', 'System.Boolean', 0, 1)
 
 GO
 
 SET IDENTITY_INSERT cuyahoga_modulesetting OFF
 
 GO
---
--- TOC entry 1525 (class 0 OID 17156)
--- Dependencies: 1152
--- Data for Name: cuyahoga_role; Type: TABLE DATA; Schema: public; Owner: postgres
---
 
 SET IDENTITY_INSERT cuyahoga_role ON
 
@@ -61,12 +53,6 @@ SET IDENTITY_INSERT cuyahoga_role OFF
 
 GO
 
---
--- TOC entry 1527 (class 0 OID 17170)
--- Dependencies: 1156
--- Data for Name: cuyahoga_template; Type: TABLE DATA; Schema: public; Owner: postgres
---
-
 SET IDENTITY_INSERT cuyahoga_template ON
 
 GO
@@ -81,12 +67,6 @@ SET IDENTITY_INSERT cuyahoga_template OFF
 
 GO
 
---
--- TOC entry 1524 (class 0 OID 17149)
--- Dependencies: 1150
--- Data for Name: cuyahoga_user; Type: TABLE DATA; Schema: public; Owner: postgres
---
-
 SET IDENTITY_INSERT cuyahoga_user ON
 
 GO
@@ -98,12 +78,6 @@ GO
 SET IDENTITY_INSERT cuyahoga_user OFF
 
 GO
-
---
--- TOC entry 1526 (class 0 OID 17163)
--- Dependencies: 1154
--- Data for Name: cuyahoga_userrole; Type: TABLE DATA; Schema: public; Owner: postgres
---
 
 SET IDENTITY_INSERT cuyahoga_userrole ON
 

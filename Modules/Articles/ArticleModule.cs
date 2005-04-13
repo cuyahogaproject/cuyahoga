@@ -42,7 +42,7 @@ namespace Cuyahoga.Modules.Articles
 		/// Default constructor. The ArticleModule registers its own Domain classes in the NHibernate
 		/// SessionFactory.
 		/// </summary>
-		public ArticleModule()
+		public ArticleModule(Section section) : base(section)
 		{
 			this._currentArticleId = -1;
 			this._currentCategoryId = -1;

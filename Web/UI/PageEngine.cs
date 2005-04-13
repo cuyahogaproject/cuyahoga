@@ -234,7 +234,7 @@ namespace Cuyahoga.Web.UI
 				throw new Exception("No template associated with the current Node.");
 			}
 
-			// Load sections and modules
+			// ===== Load sections and modules =====
 			int sectionId = -1;
 			if (Context.Request.QueryString["SectionId"] != null)
 			{

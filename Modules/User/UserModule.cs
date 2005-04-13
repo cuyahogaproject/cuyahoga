@@ -16,5 +16,12 @@ namespace Cuyahoga.Modules.User
 	/// </summary>
 	public class UserModule : ModuleBase
 	{
+		/// <summary>
+		/// Default constructor.
+		/// </summary>
+		/// <param name="section"></param>
+		public UserModule(Section section) : base(section)
+		{
+		}
 	}
 }

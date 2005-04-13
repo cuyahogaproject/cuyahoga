@@ -185,7 +185,7 @@ namespace Cuyahoga.Core.Domain
 		/// Factory for the concrete module connected to this Section.
 		/// </summary>
 		/// <param name="sectionUrl">The url that indentifies the section. We need this because the section
-		/// can't determine the url itself because it doesn't know a http context.</param>
+		/// can't determine the url itself because it doesn't have a http context.</param>
 		/// <returns></returns>
 		public virtual ModuleBase CreateModule(string sectionUrl)
 		{
@@ -199,12 +199,11 @@ namespace Cuyahoga.Core.Domain
 				}
 				else
 				{
-					ModuleBase concreteModule = (ModuleBase)Activator.CreateInstance(moduleType);
+					ModuleBase concreteModule = (ModuleBase)Activator.CreateInstance(moduleType, new object[] {this});
 					if (concreteModule.SessionFactoryRebuilt)
 					{
 						OnSessionFactoryRebuilt(EventArgs.Empty);
 					}
-					concreteModule.Section = this;
 					concreteModule.SectionUrl = sectionUrl;
 					return concreteModule;
 				}
@@ -356,6 +355,11 @@ namespace Cuyahoga.Core.Domain
 			}
 		}
 
+		/// <summary>
+		/// Does the specified role have view rights to this Section?
+		/// </summary>
+		/// <param name="role"></param>
+		/// <returns></returns>
 		public virtual bool ViewAllowed(Role role)
 		{
 			foreach (SectionPermission sp in this.SectionPermissions)
@@ -368,6 +372,11 @@ namespace Cuyahoga.Core.Domain
 			return false;
 		}
 
+		/// <summary>
+		/// Does the specified role have edit rights to this Section?
+		/// </summary>
+		/// <param name="role"></param>
+		/// <returns></returns>
 		public virtual bool EditAllowed(Role role)
 		{
 			foreach (SectionPermission sp in this.SectionPermissions)
@@ -381,7 +390,7 @@ namespace Cuyahoga.Core.Domain
 		}
 
 		/// <summary>
-		/// 
+		/// Copy permissions from the parent Node
 		/// </summary>
 		public virtual void CopyRolesFromNode()
 		{

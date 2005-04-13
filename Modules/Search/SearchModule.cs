@@ -15,7 +15,7 @@ namespace Cuyahoga.Modules.Search
 		/// <summary>
 		/// Default constructor.
 		/// </summary>
-		public SearchModule()
+		public SearchModule(Section section) : base (section)
 		{
 		}
 

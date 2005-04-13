@@ -17,7 +17,7 @@
 
 		<many-to-one name="Section" class="Cuyahoga.Core.Domain.Section, Cuyahoga.Core" column="sectionid" cascade="none" />
 
-		<bag name="FeedItems" cascade="all" lazy="true" inverse="true">
+		<bag name="FeedItems" cascade="all-delete-orphan" lazy="true" inverse="true">
 			<key column="feedid" />
 			<one-to-many class="Cuyahoga.Modules.RemoteContent.FeedItem, Cuyahoga.Modules" />
 		</bag>

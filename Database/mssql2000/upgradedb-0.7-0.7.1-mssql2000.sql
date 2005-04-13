@@ -1,3 +1,7 @@
+/************************
+New tables
+************************/
+
 CREATE TABLE cm_feed(
 feedid int identity(1,1) NOT NULL CONSTRAINT PK_cm_feed1 PRIMARY KEY,
 sectionid int NOT NULL,
@@ -30,3 +34,33 @@ ALTER TABLE cm_feeditem
 ADD CONSTRAINT FK_cm_feeditem_1 
 FOREIGN KEY (feedid) REFERENCES cm_feed (feedid)
 go
+
+/************************
+Modules parameters
+************************/
+
+DECLARE @moduletypeid int
+
+INSERT INTO cuyahoga_moduletype (name, assemblyname, classname, path, editpath, inserttimestamp, updatetimestamp) VALUES ('RemoteContent', 'Cuyahoga.Modules', 'Cuyahoga.Modules.RemoteContent.RemoteContentModule', 'Modules/RemoteContent/RemoteContent.ascx', 'Modules/RemoteContent/AdminRemoteContent.aspx', '2005-04-08 14:36:28.324', '2004-04-08 14:36:28.324')
+
+SELECT @moduletypeid = Scope_Identity()
+
+INSERT INTO cuyahoga_modulesetting (moduletypeid, name, friendlyname, settingdatatype, iscustomtype, isrequired) 
+VALUES (@moduletypeid, 'CACHE_DURATION', 'Local database cache duration (min)', 'System.Int32', 0, 1)
+
+INSERT INTO cuyahoga_modulesetting (moduletypeid, name, friendlyname, settingdatatype, iscustomtype, isrequired) 
+VALUES (@moduletypeid, 'BACKGROUND_REFRESH', 'Use background refreshing', 'System.Boolean', 0, 1)
+
+INSERT INTO cuyahoga_modulesetting (moduletypeid, name, friendlyname, settingdatatype, iscustomtype, isrequired) 
+VALUES (@moduletypeid, 'SHOW_CONTENTS', 'Show feed contents', 'System.Boolean', 0, 1)
+
+INSERT INTO cuyahoga_modulesetting (moduletypeid, name, friendlyname, settingdatatype, iscustomtype, isrequired) 
+VALUES (@moduletypeid, 'SHOW_DATES', 'Show dates', 'System.Boolean', 0, 1)
+
+INSERT INTO cuyahoga_modulesetting (moduletypeid, name, friendlyname, settingdatatype, iscustomtype, isrequired) 
+VALUES (@moduletypeid, 'SHOW_SOURCES', 'Show feed sources', 'System.Boolean', 0, 1)
+
+INSERT INTO cuyahoga_modulesetting (moduletypeid, name, friendlyname, settingdatatype, iscustomtype, isrequired) 
+VALUES (@moduletypeid, 'SHOW_AUTHORS', 'Show authors', 'System.Boolean', 0, 1)
+
+GO

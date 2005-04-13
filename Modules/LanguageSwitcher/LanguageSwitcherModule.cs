@@ -15,7 +15,7 @@ namespace Cuyahoga.Modules.LanguageSwitcher
 		/// <summary>
 		/// Default constructor.
 		/// </summary>
-		public LanguageSwitcherModule()
+		public LanguageSwitcherModule(Section section) : base(section)
 		{
 		}
 	}

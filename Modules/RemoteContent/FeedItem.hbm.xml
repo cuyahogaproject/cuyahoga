@@ -14,7 +14,7 @@
 		<property name="PubDate" column="pubdate" type="DateTime" />
 		<property name="Author" column="author" type="String" length="100" />
 
-		<many-to-one name="Feed" class="Cuyahoga.Modules.RemoteContent, Cuyahoga.Modules" column="feedid" cascade="none" />
+		<many-to-one name="Feed" class="Cuyahoga.Modules.RemoteContent.Feed, Cuyahoga.Modules" column="feedid" cascade="none" />
 		
 	</class>
 </hibernate-mapping>

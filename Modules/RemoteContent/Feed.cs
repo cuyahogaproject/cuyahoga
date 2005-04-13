@@ -1,6 +1,8 @@
 using System;
 using System.Collections;
 
+using Cuyahoga.Core.Domain;
+
 namespace Cuyahoga.Modules.RemoteContent
 {
 	/// <summary>
@@ -14,6 +16,7 @@ namespace Cuyahoga.Modules.RemoteContent
 		private DateTime _pubDate;
 		private int _numberOfItems;
 		private DateTime _updateTimestamp;
+		private Section _section;
 		private IList _feedItems;
 
 		/// <summary>
@@ -71,6 +74,15 @@ namespace Cuyahoga.Modules.RemoteContent
 		}
 
 		/// <summary>
+		/// Property Section (Section)
+		/// </summary>
+		public Section Section
+		{
+			get { return this._section; }
+			set { this._section = value; }
+		}
+
+		/// <summary>
 		/// Property Items (IList)
 		/// </summary>
 		public IList FeedItems
@@ -86,6 +98,25 @@ namespace Cuyahoga.Modules.RemoteContent
 		{
 			this._id = -1;
 			this._numberOfItems = 5;
+		}
+
+		/// <summary>
+		/// Sort the items by date and truncate the number of feed items if it exceeds the 
+		/// NumberOfItems property.
+		/// </summary>
+		public void SortAndFilter()
+		{
+			FeedItem[] feedItemArray = new FeedItem[this._feedItems.Count];
+			this._feedItems.CopyTo(feedItemArray, 0);
+			Array.Sort(feedItemArray);
+			// Little dirty: clear FeedItems and add the first NumberOfItems from the sorted array.
+			this._feedItems.Clear();
+			int i = 0;
+			while (i < feedItemArray.Length && i < this._numberOfItems)
+			{
+				this._feedItems.Add(feedItemArray[i]);
+				i++;
+			}
 		}
 	}
 }

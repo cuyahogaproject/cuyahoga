@@ -114,6 +114,11 @@
                     AssemblyName = "FredCK.FCKeditorV2"
                     HintPath = "..\lib\FredCK.FCKeditorV2.dll"
                 />
+                <Reference
+                    Name = "log4net"
+                    AssemblyName = "log4net"
+                    HintPath = "..\lib\log4net.dll"
+                />
             </References>
         </Build>
         <Files>
@@ -253,19 +258,19 @@
                     BuildAction = "Content"
                 />
                 <File
-                    RelPath = "RemoteContent\AdminRemoteContent.ascx"
+                    RelPath = "RemoteContent\AdminRemoteContent.aspx"
                     SubType = "Form"
                     BuildAction = "Content"
                 />
                 <File
-                    RelPath = "RemoteContent\AdminRemoteContent.ascx.cs"
-                    DependentUpon = "AdminRemoteContent.ascx"
+                    RelPath = "RemoteContent\AdminRemoteContent.aspx.cs"
+                    DependentUpon = "AdminRemoteContent.aspx"
                     SubType = "ASPXCodeBehind"
                     BuildAction = "Compile"
                 />
                 <File
-                    RelPath = "RemoteContent\AdminRemoteContent.ascx.resx"
-                    DependentUpon = "AdminRemoteContent.ascx.cs"
+                    RelPath = "RemoteContent\AdminRemoteContent.aspx.resx"
+                    DependentUpon = "AdminRemoteContent.aspx.cs"
                     BuildAction = "EmbeddedResource"
                 />
                 <File

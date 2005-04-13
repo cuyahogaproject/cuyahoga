@@ -36,6 +36,9 @@ namespace Cuyahoga.Core.Domain
 			}
 		}
 
+		/// <summary>
+		/// 
+		/// </summary>
 		public virtual string CacheKey
 		{
 			get
@@ -133,8 +136,9 @@ namespace Cuyahoga.Core.Domain
 		/// <summary>
 		/// Default constructor.
 		/// </summary>
-		public ModuleBase()
+		public ModuleBase(Section section)
 		{
+			this._section = section;
 		}
 
 		/// <summary>

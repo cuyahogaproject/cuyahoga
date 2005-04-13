@@ -17,7 +17,7 @@ namespace Cuyahoga.Modules.StaticHtml
 	/// </summary>
 	public class StaticHtmlModule : ModuleBase, ISearchable
 	{
-		public StaticHtmlModule()
+		public StaticHtmlModule(Section section) : base(section)
 		{	
 			SessionFactory sf = SessionFactory.GetInstance();
 			// Register classes that are used by the StaticHtmlModule.
