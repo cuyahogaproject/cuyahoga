@@ -54,7 +54,8 @@ namespace Cuyahoga.Web.Templates.Controls
 				HyperLink hpl = new HyperLink();
 				hpl.NavigateUrl = this._page.ResolveUrl("~/Admin");
 				hpl.Text = "Admin";
-				mainList.Controls.Add(hpl);
+				listItem.Controls.Add(hpl);
+				mainList.Controls.Add(listItem);
 			}
 			this.plhNodes.Controls.Add(mainList);
 		}

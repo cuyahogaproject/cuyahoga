@@ -79,15 +79,8 @@ namespace Cuyahoga.Web.UI
 		/// <param name="writer"></param>
 		protected override void Render(System.Web.UI.HtmlTextWriter writer)
 		{
-			// TODO: get rid of this html hacking. Need a more declarative approach.
-			writer.Write("<div class=\"section\">");
-			// Section title
-			if (this._module.Section != null && this._module.Section.ShowTitle)
-			{
-				writer.Write("<h3>" + this._module.DisplayTitle + "</h3>");
-			}
 			// Rss feed
-			writer.Write("<div id=\"moduletools\" align=\"right\">");
+			writer.Write("<div class=\"moduletools\">");
 			if (this._displaySyndicationIcon)
 			{
 				writer.Write(String.Format("<a href=\"{0}\"><img src=\"{1}\" border=\"0\"></a>", 
@@ -99,9 +92,17 @@ namespace Cuyahoga.Web.UI
 				&& cuyahogaUser != null
 				&& cuyahogaUser.CanEdit(this._module.Section))
 			{
-				writer.Write(String.Format("<a href=\"{0}?NodeId={1}&SectionId={2}\">Edit</a>", UrlHelper.GetApplicationPath() + this._module.Section.ModuleType.EditPath, this._module.Section.Node.Id, this._module.Section.Id));
+				writer.Write(String.Format("&nbsp;<a href=\"{0}?NodeId={1}&SectionId={2}\">Edit</a>", UrlHelper.GetApplicationPath() + this._module.Section.ModuleType.EditPath, this._module.Section.Node.Id, this._module.Section.Id));
 			}
 			writer.Write("</div>");
+			// TODO: get rid of this html hacking. Need a more declarative approach.
+			writer.Write("<div class=\"section\">");
+			// Section title
+			if (this._module.Section != null && this._module.Section.ShowTitle)
+			{
+				writer.Write("<h3>" + this._module.DisplayTitle + "</h3>");
+			}
+			
 			// Write module content and handle caching when neccesary.
 			// Don't cache when the user is logged in or after a postback.
 			if (this._module.Section.CacheDuration > 0 

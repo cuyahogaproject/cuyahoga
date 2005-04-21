@@ -2511,6 +2511,38 @@
                     BuildAction = "Content"
                 />
                 <File
+                    RelPath = "Templates\AnotherRed\Cuyahoga.ascx"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Templates\AnotherRed\Css\red.css"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Templates\AnotherRed\Images\bg-body.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Templates\AnotherRed\Images\shadow-bottom.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Templates\AnotherRed\Images\shadow-left.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Templates\AnotherRed\Images\shadow-right.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Templates\AnotherRed\Images\shadow-top-left.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Templates\AnotherRed\Images\shadow-top-right.gif"
+                    BuildAction = "Content"
+                />
+                <File
                     RelPath = "Templates\Classic\CuyahogaHome.ascx"
                     SubType = "UserControl"
                     BuildAction = "Content"
