@@ -177,6 +177,11 @@ a:hover
 	text-decoration: none;
 }
 
+#nav a.selected
+{
+	font-weight: bold;
+}
+
 #nav ul ul
 {
 	margin: 0;

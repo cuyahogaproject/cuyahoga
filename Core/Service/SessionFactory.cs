@@ -54,9 +54,7 @@ namespace Cuyahoga.Core.Service
 
 		/// <summary>
 		/// Add a class to the NHibernate mappings and rebuild the NHibernate SessionFactory. 
-		/// If the class already is mapped, nothing will happen. Call RefreshFactory() after
-		/// adding classes. They are not automatically added because of possible dependencies
-		/// between the classes.
+		/// If the class already is mapped, nothing will happen. 
 		/// </summary>
 		/// <param name="type"></param>
 		public void RegisterPersistentClass(Type type)

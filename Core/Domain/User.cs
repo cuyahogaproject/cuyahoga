@@ -290,7 +290,7 @@ namespace Cuyahoga.Core.Domain
 		{
 			foreach (Permission p in section.SectionPermissions)
 			{
-				if (IsInRole(p.Role))
+				if (p.EditAllowed && IsInRole(p.Role))
 				{
 					return true;
 				}
