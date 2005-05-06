@@ -7,7 +7,7 @@
 	
 	<!-- Yet Another Forum.net configuration -->
 	<yafnet>
-		<connstr>data source=(local);initial catalog=Yaf;user id=sa;password=joyjoy;</connstr>
+		<connstr>data source=(local);initial catalog=Yaf;Integrated Security=SSPI;</connstr>
 		<root>/Cuyahoga/Modules/Yaf/</root>
 		<language>english.xml</language>
 		<theme>standard.xml</theme>
