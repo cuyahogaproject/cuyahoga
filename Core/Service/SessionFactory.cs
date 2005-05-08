@@ -53,7 +53,7 @@ namespace Cuyahoga.Core.Service
 		}
 
 		/// <summary>
-		/// Add a class to the NHibernate mappings and rebuild the NHibernate SessionFactory. 
+		/// Add a class to the NHibernate mappings.
 		/// If the class already is mapped, nothing will happen. 
 		/// </summary>
 		/// <param name="type"></param>

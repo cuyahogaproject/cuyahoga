@@ -19,6 +19,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cuyahoga.Tests", "Tests\Cuy
 	ProjectSection(ProjectDependencies) = postProject
 	EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cuyahoga.Modules.Downloads", "Downloads\Cuyahoga.Modules.Downloads.csproj", "{A613CF88-E66F-492B-9FD3-259BA3BD7310}"
+	ProjectSection(ProjectDependencies) = postProject
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfiguration) = preSolution
 		Debug = Debug
@@ -45,6 +49,10 @@ Global
 		{E737CCAD-734D-4E61-8576-A42E4E803FA2}.Debug.Build.0 = Debug|.NET
 		{E737CCAD-734D-4E61-8576-A42E4E803FA2}.Release.ActiveCfg = Release|.NET
 		{E737CCAD-734D-4E61-8576-A42E4E803FA2}.Release.Build.0 = Release|.NET
+		{A613CF88-E66F-492B-9FD3-259BA3BD7310}.Debug.ActiveCfg = Debug|.NET
+		{A613CF88-E66F-492B-9FD3-259BA3BD7310}.Debug.Build.0 = Debug|.NET
+		{A613CF88-E66F-492B-9FD3-259BA3BD7310}.Release.ActiveCfg = Release|.NET
+		{A613CF88-E66F-492B-9FD3-259BA3BD7310}.Release.Build.0 = Release|.NET
 	EndGlobalSection
 	GlobalSection(SolutionItems) = postSolution
 		Cuyahoga.build = Cuyahoga.build
