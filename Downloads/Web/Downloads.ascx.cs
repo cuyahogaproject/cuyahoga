@@ -7,10 +7,13 @@ namespace Cuyahoga.Modules.Downloads.Web
 	using System.Web.UI.WebControls;
 	using System.Web.UI.HtmlControls;
 
+	using Cuyahoga.Core.Domain;
+	using Cuyahoga.Web.UI;
+
 	/// <summary>
 	///		Summary description for Downloads.
 	/// </summary>
-	public class Downloads : System.Web.UI.UserControl
+	public class Downloads : BaseModuleControl
 	{
 
 		private void Page_Load(object sender, System.EventArgs e)

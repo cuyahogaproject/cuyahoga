@@ -44,7 +44,6 @@ namespace Cuyahoga.Modules.RemoteContent
 			base.SessionFactoryRebuilt = sf.Rebuild();
 
 			// Set dynamic module settings
-			base.Section = section;
 			this._cacheDuration = Convert.ToInt32(section.Settings["CACHE_DURATION"]);
 			this._backgroundRefresh = Convert.ToBoolean(section.Settings["BACKGROUND_REFRESH"]);
 			this._showContents = Convert.ToBoolean(section.Settings["SHOW_CONTENTS"]);
@@ -229,6 +228,10 @@ namespace Cuyahoga.Modules.RemoteContent
 			try
 			{
 				XmlDocument doc = GetFeedXml(feed.Url);
+				// Create an XmlNamespaceManager for resolving namespaces.
+				XmlNamespaceManager nsmgr = new XmlNamespaceManager(doc.NameTable);
+				nsmgr.AddNamespace("dc", "http://purl.org/dc/elements/1.1/");
+
 				XmlNodeList xmlItems = doc.SelectNodes("//channel/item");
 				foreach (XmlNode xmlItem in xmlItems)
 				{
@@ -246,9 +249,13 @@ namespace Cuyahoga.Modules.RemoteContent
 					{
 						feedItem.Content = xmlItem.SelectSingleNode("description").InnerText;
 					}
-					if (xmlItem.SelectSingleNode("author") != null)
+					if (xmlItem.SelectSingleNode("author", nsmgr) != null)
 					{
-						feedItem.Author = xmlItem.SelectSingleNode("author").InnerText;
+						feedItem.Author = xmlItem.SelectSingleNode("author", nsmgr).InnerText;
+					}
+					else if (xmlItem.SelectSingleNode("dc:creator", nsmgr) != null)
+					{
+						feedItem.Author = xmlItem.SelectSingleNode("dc:creator", nsmgr).InnerText;
 					}
 					feedItem.Feed = feed;
 					feed.FeedItems.Add(feedItem);

@@ -9,16 +9,39 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Web.UI.HtmlControls;
 
+using Cuyahoga.Core.Domain;
+using Cuyahoga.Web.UI;
+
 namespace Cuyahoga.Modules.Downloads.Web
 {
 	/// <summary>
 	/// Summary description for EditFile.
 	/// </summary>
-	public class EditFile : System.Web.UI.Page
+	public class EditFile : ModuleAdminBasePage
 	{
+		private DownloadsModule _downloadsModule;
+
+		protected System.Web.UI.WebControls.Button btnSave;
+		protected System.Web.UI.WebControls.Button btnDelete;
+		protected System.Web.UI.HtmlControls.HtmlInputButton btnCancel;
+	
 		private void Page_Load(object sender, System.EventArgs e)
 		{
-			// Put user code to initialize the page here
+			// The base page has already created the module, we only have to cast it here to the right type.
+			this._downloadsModule = base.Module as DownloadsModule;
+
+			if (! this.IsPostBack)
+			{
+				// Check existence of physical dir.
+				try
+				{
+					string test = this._downloadsModule.FileDir;
+				}
+				catch (Exception ex)
+				{
+					ShowError(ex.Message);
+				}
+			}
 		}
 
 		#region Web Form Designer generated code
@@ -38,6 +61,7 @@ namespace Cuyahoga.Modules.Downloads.Web
 		private void InitializeComponent()
 		{    
 			this.Load += new System.EventHandler(this.Page_Load);
+
 		}
 		#endregion
 	}

@@ -1,1 +1,28 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?> 
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.0">
+	<class name="Cuyahoga.Modules.Downloads.Domain.File, Cuyahoga.Modules.Downloads" table="cm_file">
+
+		<id name="Id" column="fileid" type="Int32" unsaved-value="-1">
+			<generator class="native">
+				<param name="sequence">cm_file_fileid_seq</param>
+			</generator>
+		</id>
+
+		<timestamp name="DateModified" column="updatetimestamp" />
+
+		<property name="FilePath" column="filepath" type="String" length="255" />
+		<property name="Title" column="title" type="String" length="100" not-null="false" />
+		<property name="Size" column="size" type="Int32" />
+		<property name="NrOfDownloads" column="nrofdownloads" type="Int32" />
+		<property name="ContentType" column="contenttype" type="String" length="50" />
+
+		<many-to-one name="Section" class="Cuyahoga.Core.Domain.Section, Cuyahoga.Core" column="sectionid" cascade="none" />
+		<many-to-one name="Publisher" class="Cuyahoga.Core.Domain.User, Cuyahoga.Core" column="publisherid" cascade="none" />
+
+		<bag name="AllowedRoles" cascade="none" lazy="true" table="cm_filerole">
+			<key column="fileid" />
+			<one-to-many class="Cuyahoga.Core.Domain.Role, Cuyahoga.Core" /> 
+		</bag>
+		
+	</class>
+</hibernate-mapping>
