@@ -6,6 +6,7 @@ using NHibernate;
 
 using Cuyahoga.Core.Domain;
 using Cuyahoga.Core.Service;
+using Cuyahoga.Modules.Downloads.Domain;
 
 namespace Cuyahoga.Modules.Downloads
 {
@@ -67,7 +68,7 @@ namespace Cuyahoga.Modules.Downloads
 		}
 
 		/// <summary>
-		/// Retrieve all files that belong to this module.
+		/// Retrieve the meta-information of all files that belong to this module.
 		/// </summary>
 		/// <returns></returns>
 		public IList GetAllFiles()
@@ -83,6 +84,63 @@ namespace Cuyahoga.Modules.Downloads
 			catch (Exception ex)
 			{
 				throw new Exception("Unable to get Files for section: " + base.Section.Title, ex);
+			}
+		}
+
+		/// <summary>
+		/// Get the meta-information of a single file.
+		/// </summary>
+		/// <param name="fileId"></param>
+		/// <returns></returns>
+		public File GetFileById(int fileId)
+		{
+			try
+			{
+				return (File)base.NHSession.Load(typeof(File), fileId);
+			}
+			catch (Exception ex)
+			{
+				throw new Exception("Unable to get File with identifier: " + fileId.ToString(), ex);
+			}
+		}
+
+		/// <summary>
+		/// Insert or update the meta-information of a file.
+		/// </summary>
+		public void SaveFile(File file)
+		{
+			if (file.Id == -1)
+			{
+				file.DateModified = DateTime.Now;
+			}
+			ITransaction tx = base.NHSession.BeginTransaction();
+			try
+			{
+				base.NHSession.SaveOrUpdate(file);
+				tx.Commit();
+			}
+			catch (Exception ex)
+			{
+				tx.Rollback();
+				throw new Exception("Unable to save File", ex);
+			}
+		}
+
+		/// <summary>
+		/// Delete the meta-information of a file
+		/// </summary>
+		public void DeleteFile(File file)
+		{
+			ITransaction tx = base.NHSession.BeginTransaction();
+			try
+			{
+				base.NHSession.Delete(file);
+				tx.Commit();
+			}
+			catch (Exception ex)
+			{
+				tx.Rollback();
+				throw new Exception("Unable to delete File", ex);
 			}
 		}
 

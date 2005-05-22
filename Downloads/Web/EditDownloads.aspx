@@ -22,7 +22,7 @@
 									<th>
 										Filename</th>
 									<th>
-										Size (KB)</th>
+										Size (bytes)</th>
 									<th>
 										Published by</th>
 									<th>

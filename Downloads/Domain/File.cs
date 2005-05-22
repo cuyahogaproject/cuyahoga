@@ -122,6 +122,24 @@ namespace Cuyahoga.Modules.Downloads.Domain
 		{
 			this._id = -1;
 			this._nrOfDownloads = 0;
+			this._allowedRoles = new ArrayList();
+		}
+
+		/// <summary>
+		/// Check if download of the file is allowed for the given role.
+		/// </summary>
+		/// <param name="roleToCheck"></param>
+		/// <returns></returns>
+		public bool IsDownloadAllowed(Role roleToCheck)
+		{
+			foreach (Role role in this._allowedRoles)
+			{
+				if (role.Id == roleToCheck.Id && role.Name == roleToCheck.Name)
+				{
+					return true;
+				}
+			}
+			return false;
 		}
 	}
 }

@@ -7,7 +7,7 @@
 		<link id="CssStyleSheet" rel="stylesheet" type="text/css" runat="server" />
 	</head>
 	<body>
-		<form id="Frm" method="post" runat="server">
+		<form id="Frm" method="post" enctype="multipart/form-data" runat="server">
 			<uc1:header id="header" runat="server"></uc1:header>
 			<div id="MessageBox" class="messagebox" runat="server" visible="false" enableviewstate="false"></div>
 			<asp:placeholder id="PageContent" runat="server"></asp:placeholder>

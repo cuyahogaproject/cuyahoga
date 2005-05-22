@@ -4,6 +4,7 @@ using System.Web.UI.HtmlControls;
 
 using Cuyahoga.Core;
 using Cuyahoga.Core.Domain;
+using Cuyahoga.Core.Service;
 using Cuyahoga.Core.Search;
 using Cuyahoga.Core.Util;
 using Cuyahoga.Web.Util;
@@ -43,6 +44,9 @@ namespace Cuyahoga.Web.UI
 			get { return this._module; }
 		}
 
+		/// <summary>
+		/// Messagebox control.
+		/// </summary>
 		public HtmlGenericControl MessageBox
 		{
 			get

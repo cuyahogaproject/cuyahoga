@@ -21,7 +21,7 @@
 
 		<bag name="AllowedRoles" cascade="none" lazy="true" table="cm_filerole">
 			<key column="fileid" />
-			<one-to-many class="Cuyahoga.Core.Domain.Role, Cuyahoga.Core" /> 
+			<many-to-many class="Cuyahoga.Core.Domain.Role, Cuyahoga.Core" column="roleid" /> 
 		</bag>
 		
 	</class>
