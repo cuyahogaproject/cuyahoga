@@ -149,7 +149,17 @@ namespace Cuyahoga.Core.Domain
 			// Don't do anything special, just split the PathInfo params.
 			if (this._modulePathInfo != null)
 			{
-				this._moduleParams = this._modulePathInfo.Split(new char[] {'/'});
+				string pathInfoParamsAsString;
+				if (this._modulePathInfo.StartsWith("/"))
+				{
+					pathInfoParamsAsString = this._modulePathInfo.Substring(1);
+				}
+				else
+				{
+					pathInfoParamsAsString = this._modulePathInfo;
+				}
+
+				this._moduleParams = pathInfoParamsAsString.Split(new char[] {'/'});
 			}
 		}
 

@@ -1,12 +1,12 @@
 <%@ Control Language="c#" AutoEventWireup="false" Codebehind="RemoteContent.ascx.cs" Inherits="Cuyahoga.Modules.RemoteContent.RemoteContent" TargetSchema="http://schemas.microsoft.com/intellisense/ie5"%>
 <asp:repeater id="rptFeedItems" runat="server" enableviewstate="False">
 	<itemtemplate>
-		<div class="feeditem">
+		<div class="genericitem">
 			<h4><asp:hyperlink id="hplLink" runat="server" navigateurl='<%# DataBinder.Eval(Container.DataItem, "Url") %>'><%# DataBinder.Eval(Container.DataItem, "Title") %></asp:hyperlink></h4>
 			<asp:panel id="pnlContents" runat="server" visible="False">
 				<%# DataBinder.Eval(Container.DataItem, "Content") %>				
 			</asp:panel>
-			<div class="feeddetails">
+			<div class="genericdetails">
 				<asp:label id="lblPubdate" runat="server" visible="False"><%# DataBinder.Eval(Container.DataItem, "Pubdate", "{0:g}") %></asp:label>
 				<asp:label id="lblAuthor" runat="server" visible="False"><%# DataBinder.Eval(Container.DataItem, "Author") %></asp:label>
 				<asp:label id="lblSource" runat="server" visible="False"><%# DataBinder.Eval(Container.DataItem, "Feed.Title") %></asp:label>

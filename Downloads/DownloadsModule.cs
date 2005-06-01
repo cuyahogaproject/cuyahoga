@@ -18,6 +18,8 @@ namespace Cuyahoga.Modules.Downloads
 		private string _physicalDir;
 		private bool _showPublisher;
 		private bool _showDateModified;
+		private int _currentFileId;
+		private DownloadsModuleActions _currentAction;
 
 		/// <summary>
 		/// The physical directory where the files are located.
@@ -42,6 +44,38 @@ namespace Cuyahoga.Modules.Downloads
 				this._physicalDir = value;
 				CheckPhysicalDirectory();
 			}
+		}
+
+		/// <summary>
+		/// The Id of the file that is to be downloaded.
+		/// </summary>
+		public int CurrentFileId
+		{
+			get { return this._currentFileId; }
+		}
+
+		/// <summary>
+		/// A specific action that has to be done by the module.
+		/// </summary>
+		public DownloadsModuleActions CurrentAction
+		{
+			get { return this._currentAction; }
+		}
+
+		/// <summary>
+		/// Show the name of the user who published the file?
+		/// </summary>
+		public bool ShowPublisher
+		{
+			get { return this._showPublisher; }
+		}
+
+		/// <summary>
+		/// Show the date and time when the file was last updated?
+		/// </summary>
+		public bool ShowDateModified
+		{
+			get { return this._showDateModified; }
 		}
 
 		/// <summary>
@@ -73,7 +107,7 @@ namespace Cuyahoga.Modules.Downloads
 		/// <returns></returns>
 		public IList GetAllFiles()
 		{
-			string hql = "from File f where f.Section.Id = :sectionId";
+			string hql = "from File f where f.Section.Id = :sectionId order by f.DateModified desc";
 			IQuery q = base.NHSession.CreateQuery(hql);
 			q.SetInt32("sectionId", base.Section.Id);
 
@@ -144,6 +178,35 @@ namespace Cuyahoga.Modules.Downloads
 			}
 		}
 
+		/// <summary>
+		/// Parse the pathinfo.
+		/// </summary>
+		protected override void ParsePathInfo()
+		{
+			base.ParsePathInfo();
+			if (base.ModuleParams != null)
+			{
+				if (base.ModuleParams.Length == 2)
+				{
+					// First argument is the module action and the second is the Id of the file.
+					try
+					{
+						this._currentAction = (DownloadsModuleActions)Enum.Parse(typeof(DownloadsModuleActions)
+							, base.ModuleParams[0], true);
+						this._currentFileId = Int32.Parse(base.ModuleParams[1]);
+					}
+					catch (ArgumentException ex)
+					{
+						throw new Exception("Error when parsing module action: " + base.ModuleParams[0], ex);
+					}
+					catch (Exception ex)
+					{
+						throw new Exception("Error when parsing module parameters: " + base.ModulePathInfo, ex);
+					}
+				}
+			}
+		}
+
 		private void CheckPhysicalDirectory()
 		{
 			// Check existence
@@ -152,5 +215,10 @@ namespace Cuyahoga.Modules.Downloads
 				throw new Exception(String.Format("The Downloads module didn't find the physical directory {0} on the server.", this._physicalDir));
 			}
 		}
+	}
+
+	public enum DownloadsModuleActions
+	{
+		Download
 	}
 }

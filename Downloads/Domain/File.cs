@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using System.Security.Principal;
 
 using Cuyahoga.Core.Domain;
 
@@ -48,6 +49,24 @@ namespace Cuyahoga.Modules.Downloads.Domain
 		{
 			get { return this._title; }
 			set { this._title = value; }
+		}
+
+		/// <summary>
+		/// The title that is shown.
+		/// </summary>
+		public string DisplayTitle
+		{
+			get 
+			{
+				if (this._title != null && this._title != String.Empty)
+				{
+					return this._title;
+				}
+				else
+				{
+					return this._filePath;
+				}
+			}
 		}
 
 		/// <summary>
@@ -137,6 +156,50 @@ namespace Cuyahoga.Modules.Downloads.Domain
 				if (role.Id == roleToCheck.Id && role.Name == roleToCheck.Name)
 				{
 					return true;
+				}
+			}
+			return false;
+		}
+
+		/// <summary>
+		/// Check if download of the file is allowed for the given user.
+		/// </summary>
+		/// <param name="userToCheck"></param>
+		/// <returns></returns>
+		public bool IsDownloadAllowed(IIdentity userToCheck)
+		{
+			User cuyahogaUser = userToCheck as User;
+			if (cuyahogaUser == null)
+			{
+				return this.IsAnonymousDownloadAllowed();
+			}
+			else
+			{
+				foreach (Role role in cuyahogaUser.Roles)
+				{
+					if (IsDownloadAllowed(role))
+					{
+						return true;
+					}
+				}
+				return false;
+			}
+		}
+
+		/// <summary>
+		/// Check if download of the file is allowed for anonymous users.
+		/// </summary>
+		/// <returns></returns>
+		public bool IsAnonymousDownloadAllowed()
+		{
+			foreach (Role role in this._allowedRoles)
+			{
+				foreach (AccessLevel accessLevel in role.Permissions)
+				{
+					if (accessLevel == AccessLevel.Anonymous)
+					{
+						return true;
+					}
 				}
 			}
 			return false;

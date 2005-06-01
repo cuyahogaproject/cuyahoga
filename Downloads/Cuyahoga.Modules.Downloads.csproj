@@ -133,6 +133,11 @@
                     BuildAction = "EmbeddedResource"
                 />
                 <File
+                    RelPath = "Util\FileTypesMap.cs"
+                    SubType = "Code"
+                    BuildAction = "Compile"
+                />
+                <File
                     RelPath = "Web\Downloads.ascx"
                     SubType = "UserControl"
                     BuildAction = "Content"
@@ -180,7 +185,86 @@
                     DependentUpon = "EditFile.aspx.cs"
                     BuildAction = "EmbeddedResource"
                 />
-                <Folder RelPath = "Web\Resources\" />
+                <File
+                    RelPath = "Web\Images\bmp.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Web\Images\chm.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Web\Images\cs.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Web\Images\doc.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Web\Images\exe.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Web\Images\file.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Web\Images\gif.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Web\Images\htm.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Web\Images\jpg.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Web\Images\mdb.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Web\Images\mpg.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Web\Images\pdf.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Web\Images\ppt.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Web\Images\txt.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Web\Images\wav.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Web\Images\xls.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Web\Images\xml.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Web\Images\zip.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Web\Resources\Strings.nl.resx"
+                    BuildAction = "EmbeddedResource"
+                />
+                <File
+                    RelPath = "Web\Resources\Strings.resx"
+                    BuildAction = "EmbeddedResource"
+                />
             </Include>
         </Files>
     </CSHARP>

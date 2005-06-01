@@ -16,6 +16,10 @@
 					<h4>File properties</h4>
 					<table>
 						<tr>
+							<td>Title (optional)</td>
+							<td><asp:textbox id="txtTitle" runat="server" width="300px"></asp:textbox></td>
+						</tr>
+						<tr>
 							<td style="WIDTH: 100px">File</td>
 							<td><asp:panel id="pnlFileName" runat="server" visible="True">
 									<asp:textbox id="txtFile" runat="server" width="300px" readonly="True"></asp:textbox>
@@ -23,10 +27,6 @@
 										controltovalidate="txtFile" enableclientscript="False"></asp:requiredfieldvalidator>
 								</asp:panel><input id="filUpload" style="WIDTH: 300px" type="file" runat="server">
 								<asp:button id="btnUpload" runat="server" causesvalidation="False" text="Upload"></asp:button></td>
-						</tr>
-						<tr>
-							<td>Title (optional)</td>
-							<td><asp:textbox id="txtTitle" runat="server" width="300px"></asp:textbox></td>
 						</tr>
 					</table>
 				</div>
