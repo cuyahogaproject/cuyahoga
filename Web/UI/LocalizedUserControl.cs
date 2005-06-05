@@ -5,7 +5,8 @@ using System.Globalization;
 using System.Resources;
 using System.Reflection;
 using System.Threading;
-
+using System.Web.UI;
+using System.Web.UI.WebControls;
 
 namespace Cuyahoga.Web.UI
 {
@@ -33,6 +34,26 @@ namespace Cuyahoga.Web.UI
 		protected string GetText(string key)
 		{
 			return this._resMan.GetString(key, this._currentUICulture);
+		}
+
+		/// <summary>
+		/// Recursively databind controls that might have localized texts.
+		/// </summary>
+		protected void BindResources()
+		{
+			BindResources(this);
+		}
+
+		private void BindResources(Control control)
+		{
+			foreach (Control childControl in control.Controls)
+			{
+				if (childControl is Label || childControl is Button || childControl is BaseValidator)
+				{
+					childControl.DataBind();
+				}
+				BindResources(childControl);
+			}
 		}
 	}
 }

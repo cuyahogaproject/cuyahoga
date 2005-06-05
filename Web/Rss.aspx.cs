@@ -63,8 +63,8 @@ namespace Cuyahoga.Web
 						writer.WriteElementString("link", Util.UrlHelper.GetFullUrlFromSection(section) + pathInfo);
 						writer.WriteElementString("description", channel.Description);
 						writer.WriteElementString("language", channel.Language);
-						writer.WriteElementString("pubDate", channel.PubDate.ToString("r"));
-						writer.WriteElementString("lastBuildDate", channel.LastBuildDate.ToString("r"));
+						writer.WriteElementString("pubDate", channel.PubDate.ToUniversalTime().ToString("r"));
+						writer.WriteElementString("lastBuildDate", channel.LastBuildDate.ToUniversalTime().ToString("r"));
 						writer.WriteElementString("generator", channel.Generator);
 						writer.WriteElementString("ttl", channel.Ttl.ToString());
 						
@@ -89,7 +89,7 @@ namespace Cuyahoga.Web
 							writer.WriteElementString("link", Util.UrlHelper.GetFullUrlFromSection(section) + "/" + item.ItemId);
 							writer.WriteElementString("description", item.Description);
 							writer.WriteElementString("author", item.Author);
-							writer.WriteElementString("pubDate", item.PubDate.ToString("r"));
+							writer.WriteElementString("pubDate", item.PubDate.ToUniversalTime().ToString("r"));
 							writer.WriteElementString("category", item.Category);
 
 							// write out 

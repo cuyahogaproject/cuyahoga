@@ -10,6 +10,7 @@ using System.Web.UI.WebControls;
 using System.Web.UI.HtmlControls;
 
 using Cuyahoga.Core.Domain;
+using Cuyahoga.Core.Util;
 using Cuyahoga.Modules.Articles;
 using Cuyahoga.Web.UI;
 
@@ -81,8 +82,8 @@ namespace Cuyahoga.Modules.Articles
 			this.txtSummary.Text = this._article.Summary;
 			this.fckContent.Value = this._article.Content;
 			this.chkSyndicate.Checked = this._article.Syndicate;
-			this.calDateOnline.SelectedDate = this._article.DateOnline;
-			this.calDateOffline.SelectedDate	= this._article.DateOffline;
+			this.calDateOnline.SelectedDate = TimeZoneUtil.AdjustDateToUserTimeZone(this._article.DateOnline, this.User.Identity);
+			this.calDateOffline.SelectedDate = TimeZoneUtil.AdjustDateToUserTimeZone(this._article.DateOffline, this.User.Identity);
 			if (this._article.Category != null)
 			{
 				ListItem li = this.ddlCategory.Items.FindByValue(this._article.Category.Id.ToString());
@@ -122,8 +123,8 @@ namespace Cuyahoga.Modules.Articles
 					this._article.Category = null;
 				}
 				this._article.Syndicate = this.chkSyndicate.Checked;
-				this._article.DateOnline = this.calDateOnline.SelectedDate;
-				this._article.DateOffline = this.calDateOffline.SelectedDate;
+				this._article.DateOnline = TimeZoneUtil.AdjustDateToServerTimeZone(this.calDateOnline.SelectedDate, this.User.Identity);
+				this._article.DateOffline = TimeZoneUtil.AdjustDateToServerTimeZone(this.calDateOffline.SelectedDate, this.User.Identity);
 				this._article.ModifiedBy = (Cuyahoga.Core.Domain.User)this.User.Identity;
 				this._article.DateModified = DateTime.Now;
 				this._articleModule.SaveArticle(this._article);

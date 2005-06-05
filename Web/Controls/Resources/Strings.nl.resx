@@ -42,4 +42,7 @@
 	<data name="USERNOTFOUND">
 		<value>De gebruiker met ID {0} bestaat niet.</value>
 	</data>
+	<data name="TIMEZONE">
+		<value>Tijdzone</value>
+	</data>
 </root>

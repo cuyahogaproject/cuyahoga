@@ -603,7 +603,7 @@
                 <File
                     RelPath = "Controls\EditProfile.ascx.cs"
                     DependentUpon = "EditProfile.ascx"
-                    SubType = "ASPXCodeBehind"
+                    SubType = "Code"
                     BuildAction = "Compile"
                 />
                 <File
@@ -2616,7 +2616,7 @@
                 />
                 <File
                     RelPath = "UI\LocalizedUserControl.cs"
-                    SubType = "ASPXCodeBehind"
+                    SubType = "Code"
                     BuildAction = "Compile"
                 />
                 <File

@@ -133,6 +133,7 @@ namespace Cuyahoga.Modules.Search
 		private void InitializeComponent()
 		{
 			this.btnSearch.Click += new System.EventHandler(this.btnSearch_Click);
+			this.rptResults.ItemDataBound += new System.Web.UI.WebControls.RepeaterItemEventHandler(this.rptResults_ItemDataBound);
 			this.pgrResults.PageChanged += new Cuyahoga.ServerControls.PageChangedEventHandler(this.pgrResults_PageChanged);
 			this.Load += new System.EventHandler(this.Page_Load);
 
@@ -151,6 +152,13 @@ namespace Cuyahoga.Modules.Search
 		{
 			this.pgrResults.CurrentPageIndex = e.CurrentPage;
 			BindSearchResults(this.pgrResults.CurrentPageIndex);
+		}
+
+		private void rptResults_ItemDataBound(object sender, System.Web.UI.WebControls.RepeaterItemEventArgs e)
+		{
+			SearchResult sr = e.Item.DataItem as SearchResult;
+			Literal litDateCreated = e.Item.FindControl("litDateCreated") as Literal;
+			litDateCreated.Text = TimeZoneUtil.AdjustDateToUserTimeZone(sr.DateCreated, this.Page.User.Identity).ToString();
 		}
 	}
 }

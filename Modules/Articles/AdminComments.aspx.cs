@@ -9,7 +9,7 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Web.UI.HtmlControls;
 
-using Cuyahoga.Core;
+using Cuyahoga.Core.Util;
 using Cuyahoga.Modules.Articles;
 using Cuyahoga.Web.UI;
 
@@ -89,6 +89,11 @@ namespace Cuyahoga.Modules.Articles
 				{
 					litFrom.Text = comment.Name;
 				}
+			}
+			Literal litUpdateTimestamp = e.Item.FindControl("litUpdateTimestamp") as Literal;
+			if (litUpdateTimestamp != null)
+			{
+				litUpdateTimestamp.Text = TimeZoneUtil.AdjustDateToUserTimeZone(comment.UpdateTimestamp, this.User.Identity).ToString();
 			}
 			LinkButton lbtDelete = e.Item.FindControl("lbtDelete") as LinkButton;
 			if (lbtDelete != null)

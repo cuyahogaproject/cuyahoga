@@ -12,7 +12,7 @@
 
 		<property name="FilePath" column="filepath" type="String" length="255" />
 		<property name="Title" column="title" type="String" length="100" not-null="false" />
-		<property name="Size" column="size" type="Int32" />
+		<property name="Size" column="filesize" type="Int32" />
 		<property name="NrOfDownloads" column="nrofdownloads" type="Int32" />
 		<property name="ContentType" column="contenttype" type="String" length="50" />
 

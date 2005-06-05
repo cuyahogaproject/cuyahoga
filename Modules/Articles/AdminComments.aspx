@@ -30,7 +30,7 @@
 									<td><%# DataBinder.Eval(Container.DataItem, "CommentText") %></td>
 									<td><asp:literal id="litFrom" runat="server"></asp:literal></td>
 									<td><%# DataBinder.Eval(Container.DataItem, "UserIp") %></td>
-									<td><%# DataBinder.Eval(Container.DataItem, "UpdateTimestamp") %></td>
+									<td><asp:literal id="litUpdateTimestamp" runat="server"></asp:literal></td>
 									<td><asp:linkbutton id="lbtDelete" runat="server">Delete</asp:linkbutton></td>
 								</tr>
 							</itemtemplate>

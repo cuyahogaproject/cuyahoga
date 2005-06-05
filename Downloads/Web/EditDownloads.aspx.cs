@@ -10,6 +10,7 @@ using System.Web.UI.WebControls;
 using System.Web.UI.HtmlControls;
 
 using Cuyahoga.Core.Domain;
+using Cuyahoga.Core.Util;
 using Cuyahoga.Web.UI;
 using Cuyahoga.Modules.Downloads.Domain;
 
@@ -67,10 +68,17 @@ namespace Cuyahoga.Modules.Downloads.Web
 
 		private void rptFiles_ItemDataBound(object sender, System.Web.UI.WebControls.RepeaterItemEventArgs e)
 		{
+			File file = e.Item.DataItem as File;
+			
+			Literal litDateModified = e.Item.FindControl("litDateModified") as Literal;
+			if (litDateModified != null)
+			{
+				litDateModified.Text = TimeZoneUtil.AdjustDateToUserTimeZone(file.DateModified, this.User.Identity).ToString();
+			}
+
 			HyperLink hplEdit = e.Item.FindControl("hpledit") as HyperLink;
 			if (hplEdit != null)
 			{
-				File file = e.Item.DataItem as File;
 				hplEdit.NavigateUrl = String.Format("~/Modules/Downloads/EditFile.aspx{0}&FileId={1}", base.GetBaseQueryString(), file.Id);
 			}
 		}

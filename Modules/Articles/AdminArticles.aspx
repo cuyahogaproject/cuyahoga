@@ -31,8 +31,8 @@
 								<tr>
 									<td><%# DataBinder.Eval(Container.DataItem, "Title") %></td>
 									<td><%# DataBinder.Eval(Container.DataItem, "Category.Title") %></td>
-									<td><%# DataBinder.Eval(Container.DataItem, "DateOnline") %></td>
-									<td><%# DataBinder.Eval(Container.DataItem, "DateOffline") %></td>
+									<td><asp:literal id="litDateOnline" runat="server"></asp:literal></td>
+									<td><asp:literal id="litDateOffline" runat="server"></asp:literal></td>
 									<td><%# DataBinder.Eval(Container.DataItem, "CreatedBy.Username") %></td>
 									<td><%# DataBinder.Eval(Container.DataItem, "ModifiedBy.Username") %></td>
 									<td>

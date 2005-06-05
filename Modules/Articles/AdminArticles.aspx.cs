@@ -9,7 +9,7 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Web.UI.HtmlControls;
 
-using Cuyahoga.Core;
+using Cuyahoga.Core.Util;
 using Cuyahoga.Modules.Articles;
 using Cuyahoga.Web.UI;
 
@@ -62,16 +62,27 @@ namespace Cuyahoga.Modules.Articles
 
 		private void rptArticles_ItemDataBound(object sender, System.Web.UI.WebControls.RepeaterItemEventArgs e)
 		{
+			Article article = e.Item.DataItem as Article;
+
+			Literal litDateOnline = e.Item.FindControl("litDateOnline") as Literal;
+			if (litDateOnline != null)
+			{
+				litDateOnline.Text = TimeZoneUtil.AdjustDateToUserTimeZone(article.DateOnline, this.User.Identity).ToString();
+			}
+			Literal litDateOffline = e.Item.FindControl("litDateOffline") as Literal;
+			if (litDateOffline != null)
+			{
+				litDateOffline.Text = TimeZoneUtil.AdjustDateToUserTimeZone(article.DateOffline, this.User.Identity).ToString();
+			}
+
 			HyperLink hplEdit = e.Item.FindControl("hpledit") as HyperLink;
 			if (hplEdit != null)
 			{
-				Article article = e.Item.DataItem as Article;
 				hplEdit.NavigateUrl = String.Format("~/Modules/Articles/EditArticle.aspx{0}&ArticleId={1}", base.GetBaseQueryString(), article.Id);
 			}
 			HyperLink hplComments = e.Item.FindControl("hplComments") as HyperLink;
 			if (hplComments != null)
 			{
-				Article article = e.Item.DataItem as Article;
 				hplComments.NavigateUrl = String.Format("~/Modules/Articles/AdminComments.aspx{0}&ArticleId={1}", base.GetBaseQueryString(), article.Id);
 			}
 		}

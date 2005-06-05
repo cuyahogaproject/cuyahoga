@@ -7,7 +7,7 @@
 				<%# DataBinder.Eval(Container.DataItem, "Content") %>				
 			</asp:panel>
 			<div class="genericdetails">
-				<asp:label id="lblPubdate" runat="server" visible="False"><%# DataBinder.Eval(Container.DataItem, "Pubdate", "{0:g}") %></asp:label>
+				<asp:label id="lblPubdate" runat="server" visible="False"></asp:label>
 				<asp:label id="lblAuthor" runat="server" visible="False"><%# DataBinder.Eval(Container.DataItem, "Author") %></asp:label>
 				<asp:label id="lblSource" runat="server" visible="False"><%# DataBinder.Eval(Container.DataItem, "Feed.Title") %></asp:label>
 			</div>

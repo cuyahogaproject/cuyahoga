@@ -16,7 +16,7 @@
 					</asp:panel>
 					<div class="articlesub">
 						<%= base.GetText("PUBLISHED") %>
-						<%# DataBinder.Eval(Container.DataItem, "DateOnline", "{0:D}") %>
+						<asp:literal id="litDateOnline" runat="server"></asp:literal>
 						<%= base.GetText("BY") %>
 						<asp:hyperlink id="hplAuthor" runat="server"></asp:hyperlink> -
 						<%= base.GetText("CATEGORY") %>
@@ -40,7 +40,7 @@
 						<div class="articlesub">
 							<%= base.GetText("BY") %>
 							<asp:placeholder id="plhCommentBy" runat="server"></asp:placeholder>
-							- <%# DataBinder.Eval(Container.DataItem, "UpdateTimestamp", "{0:g}") %>
+							- <asp:literal id="litUpdateTimestamp" runat="server"></asp:literal>
 						</div>
 					</li>
 				</itemtemplate>

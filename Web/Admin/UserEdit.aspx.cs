@@ -37,6 +37,8 @@ namespace Cuyahoga.Web.Admin
 		protected System.Web.UI.WebControls.RequiredFieldValidator rfvUsername;
 		protected System.Web.UI.WebControls.RequiredFieldValidator rfvEmail;
 		protected System.Web.UI.WebControls.CheckBox chkActive;
+		protected System.Web.UI.WebControls.DropDownList ddlTimeZone;
+		protected System.Web.UI.WebControls.TextBox txtWebsite;
 		protected System.Web.UI.WebControls.TextBox txtFirstname;
 	
 		private void Page_Load(object sender, System.EventArgs e)
@@ -59,10 +61,19 @@ namespace Cuyahoga.Web.Admin
 
 				if (! this.IsPostBack)
 				{
+					BindTimeZones();
 					BindUserControls();
 					BindRoles();
 				}
 			}	
+		}
+
+		private void BindTimeZones()
+		{
+			this.ddlTimeZone.DataSource = TimeZoneUtil.GetTimeZones();
+			this.ddlTimeZone.DataValueField = "Key";
+			this.ddlTimeZone.DataTextField = "Value";
+			this.ddlTimeZone.DataBind();
 		}
 
 		private void BindUserControls()
@@ -84,6 +95,8 @@ namespace Cuyahoga.Web.Admin
 			this.txtFirstname.Text = this._activeUser.FirstName;
 			this.txtLastname.Text = this._activeUser.LastName;
 			this.txtEmail.Text = this._activeUser.Email;
+			this.txtWebsite.Text = this._activeUser.Website;
+			this.ddlTimeZone.Items.FindByValue(this._activeUser.TimeZone.ToString()).Selected = true;
 			this.chkActive.Checked = this._activeUser.IsActive;
 			this.btnDelete.Visible = (this._activeUser.Id > 0);
 			this.btnDelete.Attributes.Add("onClick", "return confirmDeleteUser();");
@@ -225,7 +238,9 @@ namespace Cuyahoga.Web.Admin
 					this._activeUser.LastName = this.txtLastname.Text;
 				}
 				this._activeUser.Email = this.txtEmail.Text;
+				this._activeUser.Website = this.txtWebsite.Text;
 				this._activeUser.IsActive = this.chkActive.Checked;
+				this._activeUser.TimeZone = Int32.Parse(this.ddlTimeZone.SelectedValue);
 				
 				if (this.txtPassword1.Text.Length > 0 && this.txtPassword2.Text.Length > 0)
 				{

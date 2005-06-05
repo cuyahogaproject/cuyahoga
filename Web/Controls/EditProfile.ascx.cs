@@ -4,11 +4,13 @@ namespace Cuyahoga.Web.Controls
 	using System.Data;
 	using System.Drawing;
 	using System.Web;
+	using System.Web.UI;
 	using System.Web.UI.WebControls;
 	using System.Web.UI.HtmlControls;
 
 	using Cuyahoga.Core.Domain;
 	using Cuyahoga.Core.Service;
+	using Cuyahoga.Core.Util;
 	using Cuyahoga.Web.UI;
 
 	/// <summary>
@@ -36,6 +38,7 @@ namespace Cuyahoga.Web.Controls
 		protected System.Web.UI.WebControls.Panel pnlInfo;
 		protected System.Web.UI.WebControls.RequiredFieldValidator rfvEmail;
 		protected System.Web.UI.WebControls.RegularExpressionValidator revEmail;
+		protected System.Web.UI.WebControls.DropDownList ddlTimeZone;
 		protected System.Web.UI.WebControls.Panel pnlConfirmation;
 
 		private void Page_Load(object sender, System.EventArgs e)
@@ -48,9 +51,10 @@ namespace Cuyahoga.Web.Controls
 			{
 				if (! this.IsPostBack)
 				{
+					BindTimeZones();
 					BindUser();
 					// Databind is required to bind the localized resources.
-					this.DataBind();
+					base.BindResources();
 				}
 				if (this.Page is GeneralPage)
 				{
@@ -59,6 +63,13 @@ namespace Cuyahoga.Web.Controls
 			}
 		}
 
+		private void BindTimeZones()
+		{
+			this.ddlTimeZone.DataSource = TimeZoneUtil.GetTimeZones();
+			this.ddlTimeZone.DataValueField = "Key";
+			this.ddlTimeZone.DataTextField = "Value";
+			this.ddlTimeZone.DataBind();
+		}
 		private void BindUser()
 		{
 			User currentUser = Context.User.Identity as User;
@@ -67,6 +78,7 @@ namespace Cuyahoga.Web.Controls
 			this.txtLastname.Text = currentUser.LastName;
 			this.txtEmail.Text = currentUser.Email;
 			this.txtWebsite.Text = currentUser.Website;
+			this.ddlTimeZone.Items.FindByValue(currentUser.TimeZone.ToString()).Selected = true;
 		}
 
 		private void ShowError(string msg)
@@ -114,6 +126,7 @@ namespace Cuyahoga.Web.Controls
 				currentUser.LastName = this.txtLastname.Text;
 				currentUser.Email = this.txtEmail.Text;
 				currentUser.Website = this.txtWebsite.Text;
+				currentUser.TimeZone = Int32.Parse(this.ddlTimeZone.SelectedValue);
 
 				try
 				{

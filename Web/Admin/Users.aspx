@@ -26,6 +26,7 @@
 									<th>Firstname</th>
 									<th>Lastname</th>
 									<th>Email</th>
+									<th>Website</th>
 									<th>Last login date</th>
 									<th>Last login from</th>
 									<th></th>
@@ -37,7 +38,8 @@
 									<td><%# DataBinder.Eval(Container.DataItem, "FirstName") %></td>
 									<td><%# DataBinder.Eval(Container.DataItem, "LastName") %></td>
 									<td><%# DataBinder.Eval(Container.DataItem, "Email") %></td>
-									<td><%# DataBinder.Eval(Container.DataItem, "LastLogin") %></td>
+									<td><%# DataBinder.Eval(Container.DataItem, "Website") %></td>
+									<td><asp:label id="lblLastLogin" runat="server"></asp:label></td>
 									<td style="text-align:right"><%# DataBinder.Eval(Container.DataItem, "LastIp") %></td>
 									<td>
 										<asp:hyperlink id="hplEdit" runat="server">Edit</asp:hyperlink>

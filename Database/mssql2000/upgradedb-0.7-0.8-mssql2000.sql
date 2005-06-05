@@ -30,7 +30,7 @@ sectionid int NOT NULL,
 publisherid int NOT NULL,
 filepath varchar(255) NOT NULL,
 title varchar(100) NULL,
-size int NOT NULL,
+filesize int NOT NULL,
 nrofdownloads int NOT NULL,
 contenttype varchar(255) NOT NULL,
 inserttimestamp datetime DEFAULT current_timestamp NOT NULL,
@@ -73,6 +73,13 @@ ALTER TABLE cm_filerole
 ADD CONSTRAINT FK_cm_filerole_2 
 FOREIGN KEY (roleid) REFERENCES cuyahoga_role (roleid)
 go
+
+/************************
+Misc. DDL changes
+************************/
+ALTER TABLE cuyahoga_user
+	ADD timezone int NOT NULL DEFAULT 0
+
 
 /************************
 Modules parameters

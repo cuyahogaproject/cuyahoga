@@ -7,6 +7,7 @@ firstname varchar(100) NULL,
 lastname varchar(100) NULL,
 email varchar(100) NOT NULL,
 website varchar(100) NULL,
+timezone int DEFAULT 0 NOT NULL,
 isactive bit NULL,
 lastlogin datetime NULL,
 lastip varchar(40) NULL,
@@ -108,6 +109,37 @@ CONSTRAINT UC_cuyahoga_node2 UNIQUE(shortdescription))
 go
 
 
+CREATE TABLE cuyahoga_menu(
+menuid int identity(1,1) NOT NULL CONSTRAINT PK_cuyahoga_menu1 PRIMARY KEY,
+rootnodeid int NOT NULL,
+name varchar(50) NOT NULL,
+placeholder varchar(50) NOT NULL,
+inserttimestamp datetime DEFAULT current_timestamp NOT NULL,
+updatetimestamp datetime DEFAULT current_timestamp NOT NULL,
+CONSTRAINT UC_cuyahoga_menu1 UNIQUE(menuid))
+go
+
+
+CREATE TABLE cuyahoga_menunode(
+menunodeid int identity(1,1) NOT NULL CONSTRAINT PK_cuyahoga_menunode1 PRIMARY KEY,
+menuid int NOT NULL,
+nodeid int NOT NULL,
+position int NOT NULL,
+CONSTRAINT UC_cuyahoga_menunode1 UNIQUE(menunodeid))
+go
+
+
+CREATE TABLE cuyahoga_sitealias(
+sitealiasid int identity(1,1) NOT NULL CONSTRAINT PK_cuyahoga_sitealias1 PRIMARY KEY,
+siteid int NOT NULL,
+nodeid int NULL,
+url varchar(100) NOT NULL,
+inserttimestamp datetime DEFAULT current_timestamp NOT NULL,
+updatetimestamp datetime DEFAULT current_timestamp NOT NULL,
+CONSTRAINT UC_cuyahoga_sitealias1 UNIQUE(sitealiasid))
+go
+
+
 CREATE TABLE cuyahoga_section(
 sectionid int identity(1,1) NOT NULL CONSTRAINT PK_cuyahoga_section1 PRIMARY KEY,
 nodeid int NULL,
@@ -144,26 +176,6 @@ go
 CREATE UNIQUE INDEX IDX_cuyahoga_noderole_1 ON cuyahoga_noderole (nodeid,roleid)
 go
 
-CREATE TABLE cuyahoga_menu(
-menuid int identity(1,1) NOT NULL CONSTRAINT PK_cuyahoga_menu1 PRIMARY KEY,
-rootnodeid int NOT NULL,
-name varchar(50) NOT NULL,
-placeholder varchar(50) NOT NULL,
-inserttimestamp datetime DEFAULT current_timestamp NOT NULL,
-updatetimestamp datetime DEFAULT current_timestamp NOT NULL,
-CONSTRAINT UC_cuyahoga_menu1 UNIQUE(menuid))
-go
-
-
-CREATE TABLE cuyahoga_menunode(
-menunodeid int identity(1,1) NOT NULL CONSTRAINT PK_cuyahoga_menunode1 PRIMARY KEY,
-menuid int NOT NULL,
-nodeid int NOT NULL,
-position int NOT NULL,
-CONSTRAINT UC_cuyahoga_menunode1 UNIQUE(menunodeid))
-go
-
-
 CREATE TABLE cuyahoga_sectionrole(
 sectionroleid int identity(1,1) NOT NULL CONSTRAINT PK_cuyahoga_sectionrole1 PRIMARY KEY,
 sectionid int NOT NULL,
@@ -174,17 +186,6 @@ go
 
 CREATE UNIQUE INDEX IDX_cuyahoga_sectionrole_1 ON cuyahoga_sectionrole (roleid,sectionid)
 go
-
-CREATE TABLE cuyahoga_sitealias(
-sitealiasid int identity(1,1) NOT NULL CONSTRAINT PK_cuyahoga_sitealias1 PRIMARY KEY,
-siteid int NOT NULL,
-nodeid int NULL,
-url varchar(100) NOT NULL,
-inserttimestamp datetime DEFAULT current_timestamp NOT NULL,
-updatetimestamp datetime DEFAULT current_timestamp NOT NULL,
-CONSTRAINT UC_cuyahoga_sitealias1 UNIQUE(sitealiasid))
-go
-
 
 
 
@@ -236,6 +237,34 @@ FOREIGN KEY (templateid) REFERENCES cuyahoga_template (templateid)
 go
 
 
+ALTER TABLE cuyahoga_menu
+ADD CONSTRAINT FK_cuyahoga_menu_1 
+FOREIGN KEY (rootnodeid) REFERENCES cuyahoga_node (nodeid)
+go
+
+
+ALTER TABLE cuyahoga_menunode
+ADD CONSTRAINT FK_cuyahoga_menunode_1 
+FOREIGN KEY (menuid) REFERENCES cuyahoga_menu (menuid)
+go
+
+ALTER TABLE cuyahoga_menunode
+ADD CONSTRAINT FK_cuyahoga_menunode_2 
+FOREIGN KEY (nodeid) REFERENCES cuyahoga_node (nodeid)
+go
+
+
+ALTER TABLE cuyahoga_sitealias
+ADD CONSTRAINT FK_cuyahoga_sitealias_1 
+FOREIGN KEY (nodeid) REFERENCES cuyahoga_node (nodeid)
+go
+
+ALTER TABLE cuyahoga_sitealias
+ADD CONSTRAINT FK_cuyahoga_sitealias_2 
+FOREIGN KEY (siteid) REFERENCES cuyahoga_site (siteid)
+go
+
+
 ALTER TABLE cuyahoga_section
 ADD CONSTRAINT FK_cuyahoga_section_1 
 FOREIGN KEY (moduletypeid) REFERENCES cuyahoga_moduletype (moduletypeid)
@@ -264,23 +293,6 @@ FOREIGN KEY (roleid) REFERENCES cuyahoga_role (roleid)
 go
 
 
-ALTER TABLE cuyahoga_menu
-ADD CONSTRAINT FK_cuyahoga_menu_1 
-FOREIGN KEY (rootnodeid) REFERENCES cuyahoga_node (nodeid)
-go
-
-
-ALTER TABLE cuyahoga_menunode
-ADD CONSTRAINT FK_cuyahoga_menunode_1 
-FOREIGN KEY (menuid) REFERENCES cuyahoga_menu (menuid)
-go
-
-ALTER TABLE cuyahoga_menunode
-ADD CONSTRAINT FK_cuyahoga_menunode_2 
-FOREIGN KEY (nodeid) REFERENCES cuyahoga_node (nodeid)
-go
-
-
 ALTER TABLE cuyahoga_sectionrole
 ADD CONSTRAINT FK_cuyahoga_sectionrole_1 
 FOREIGN KEY (roleid) REFERENCES cuyahoga_role (roleid)
@@ -289,16 +301,5 @@ go
 ALTER TABLE cuyahoga_sectionrole
 ADD CONSTRAINT FK_cuyahoga_sectionrole_2 
 FOREIGN KEY (sectionid) REFERENCES cuyahoga_section (sectionid)
-go
-
-
-ALTER TABLE cuyahoga_sitealias
-ADD CONSTRAINT FK_cuyahoga_sitealias_1 
-FOREIGN KEY (nodeid) REFERENCES cuyahoga_node (nodeid)
-go
-
-ALTER TABLE cuyahoga_sitealias
-ADD CONSTRAINT FK_cuyahoga_sitealias_2 
-FOREIGN KEY (siteid) REFERENCES cuyahoga_site (siteid)
 go
 

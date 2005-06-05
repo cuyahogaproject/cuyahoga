@@ -25,7 +25,7 @@
 					</div>
 					<div class="sub">
 						<%# DataBinder.Eval(Container.DataItem, "Path") %>
-						- <%# DataBinder.Eval(Container.DataItem, "DateCreated", "{0:g}") %>
+						- <asp:literal id="litDateCreated" runat="server"></asp:literal>
 					</div>
 				</li>
 			</itemtemplate>

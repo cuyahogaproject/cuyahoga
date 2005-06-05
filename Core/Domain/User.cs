@@ -19,6 +19,7 @@ namespace Cuyahoga.Core.Domain
 		private string _lastName;
 		private string _email;
 		private string _website;
+		private int _timeZone;
 		private bool _isActive;
 		private NullableDateTime _lastLogin;
 		private string _lastIp;
@@ -110,6 +111,15 @@ namespace Cuyahoga.Core.Domain
 		{
 			get { return this._website; }
 			set { this._website = value; }
+		}
+
+		/// <summary>
+		/// The timezone offset of the user in minutes.
+		/// </summary>
+		public virtual int TimeZone
+		{
+			get { return this._timeZone; }
+			set { this._timeZone = value; }
 		}
 
 		/// <summary>

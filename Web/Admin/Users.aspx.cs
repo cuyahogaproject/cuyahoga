@@ -13,6 +13,7 @@ using System.Text;
 using Cuyahoga.Web.UI;
 using Cuyahoga.Core.Domain;
 using Cuyahoga.Core.Service;
+using Cuyahoga.Core.Util;
 
 namespace Cuyahoga.Web.Admin
 {
@@ -94,8 +95,15 @@ namespace Cuyahoga.Web.Admin
 		private void rptUsers_ItemDataBound(object sender, System.Web.UI.WebControls.RepeaterItemEventArgs e)
 		{
 			User user = e.Item.DataItem as User;
+
 			if (user != null)
 			{
+				Label lblLastLogin = e.Item.FindControl("lblLastLogin") as Label;
+				if (user.LastLogin != null)
+				{
+					lblLastLogin.Text = TimeZoneUtil.AdjustDateToUserTimeZone(user.LastLogin.Value, this.Page.User.Identity).ToString();
+				}
+
 				HyperLink hplEdit = (HyperLink)e.Item.FindControl("hplEdit");
 
 				// HACK: as long as ~/ doesn't work properly in mono we have to use a relative path from the Controls

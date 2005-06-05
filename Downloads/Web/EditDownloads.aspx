@@ -40,7 +40,7 @@
 									<td><%# DataBinder.Eval(Container.DataItem, "Size") %></td>
 									<td><%# DataBinder.Eval(Container.DataItem, "Publisher.FullName") %></td>
 									<td><%# DataBinder.Eval(Container.DataItem, "NrOfDownloads") %></td>
-									<td><%# DataBinder.Eval(Container.DataItem, "DateModified") %></td>
+									<td><asp:literal id="litDateModified" runat="server"></asp:literal></td>
 									<td>
 										<asp:hyperlink id="hplEdit" runat="server">Edit</asp:hyperlink>
 									</td>

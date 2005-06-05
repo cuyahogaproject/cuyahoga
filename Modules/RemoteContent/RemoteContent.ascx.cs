@@ -7,6 +7,7 @@ namespace Cuyahoga.Modules.RemoteContent
 	using System.Web.UI.WebControls;
 	using System.Web.UI.HtmlControls;
 
+	using Cuyahoga.Core.Util;
 	using Cuyahoga.Web.UI;
 
 	/// <summary>
@@ -62,6 +63,7 @@ namespace Cuyahoga.Modules.RemoteContent
 				}
 				
 				Label lblPubdate = e.Item.FindControl("lblPubdate") as Label;
+				lblPubdate.Text = TimeZoneUtil.AdjustDateToUserTimeZone(fi.PubDate, this.Page.User.Identity).ToString();
 				lblPubdate.Visible = this._module.ShowDates;
 				Label lblAuthor = e.Item.FindControl("lblAuthor") as Label;
 				lblAuthor.Visible = this._module.ShowAuthors;

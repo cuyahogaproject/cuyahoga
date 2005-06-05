@@ -8,6 +8,7 @@ namespace Cuyahoga.Modules.Downloads.Web
 	using System.IO;
 
 	using Cuyahoga.Core.Domain;
+	using Cuyahoga.Core.Util;
 	using Cuyahoga.Web.UI;
 	using Cuyahoga.Web.Util;
 	using Cuyahoga.Modules.Downloads.Domain;
@@ -52,11 +53,21 @@ namespace Cuyahoga.Modules.Downloads.Web
 			if (file.IsDownloadAllowed(this.Page.User.Identity))
 			{
 				string physicalFilePath = Path.Combine(this._downloadsModule.FileDir, file.FilePath);
-				Response.ContentType = file.ContentType;
-				Response.AppendHeader("Content-Disposition", "attachment; filename=" + file.FilePath);
-				Response.AppendHeader("Content-Length", file.Size.ToString());
-				Response.WriteFile(physicalFilePath);
-				Response.End();
+				if (System.IO.File.Exists(physicalFilePath))
+				{
+					file.NrOfDownloads++;
+					this._downloadsModule.SaveFile(file);
+
+					Response.ContentType = file.ContentType;
+					Response.AppendHeader("Content-Disposition", "attachment; filename=" + file.FilePath);
+					Response.AppendHeader("Content-Length", file.Size.ToString());
+					Response.WriteFile(physicalFilePath);
+					Response.End();
+				}
+				else
+				{
+					throw new Exception("The physical file was not found on the server.");
+				}
 			}
 			else
 			{
@@ -110,7 +121,8 @@ namespace Cuyahoga.Modules.Downloads.Web
 				{
 					Label lblDateModified = e.Item.FindControl("lblDateModified") as Label;
 					lblDateModified.Visible = true;
-					lblDateModified.Text = file.DateModified.ToString();
+					lblDateModified.Text = TimeZoneUtil.AdjustDateToUserTimeZone(
+						file.DateModified, this.Page.User.Identity).ToString();
 				}
 				if (this._downloadsModule.ShowPublisher)
 				{
