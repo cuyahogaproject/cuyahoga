@@ -79,6 +79,13 @@ Misc. DDL changes
 ************************/
 ALTER TABLE cuyahoga_user
 	ADD timezone int NOT NULL DEFAULT 0
+go
+
+ALTER TABLE cuyahoga_site
+	ADD usefriendlyurls bit NULL
+	
+CREATE UNIQUE INDEX IDX_cuyahoga_node_shortdescription_siteid ON cuyahoga_node (shortdescription,siteid)
+go
 
 
 /************************

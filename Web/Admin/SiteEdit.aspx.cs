@@ -38,6 +38,7 @@ namespace Cuyahoga.Web.Admin
 		protected System.Web.UI.WebControls.HyperLink hplNewAlias;
 		protected System.Web.UI.WebControls.Panel pnlAliases;
 		protected System.Web.UI.WebControls.Repeater rptAliases;
+		protected System.Web.UI.WebControls.CheckBox chkUseFriendlyUrls;
 		protected System.Web.UI.WebControls.RequiredFieldValidator rfvSiteUrl;
 	
 		private void Page_Load(object sender, System.EventArgs e)
@@ -80,6 +81,7 @@ namespace Cuyahoga.Web.Admin
 			this.txtName.Text = this._activeSite.Name;
 			this.txtSiteUrl.Text = this._activeSite.SiteUrl;
 			this.txtWebmasterEmail.Text = this._activeSite.WebmasterEmail;
+			this.chkUseFriendlyUrls.Checked = this._activeSite.UseFriendlyUrls;
 		}
 
 		private void BindTemplates()
@@ -220,6 +222,7 @@ namespace Cuyahoga.Web.Admin
 				this._activeSite.Name = txtName.Text;
 				this._activeSite.SiteUrl = txtSiteUrl.Text;
 				this._activeSite.WebmasterEmail = txtWebmasterEmail.Text;
+				this._activeSite.UseFriendlyUrls = this.chkUseFriendlyUrls.Checked;
 				if (this.ddlTemplates.SelectedValue != "-1")
 				{
 					int templateId = Int32.Parse(this.ddlTemplates.SelectedValue);

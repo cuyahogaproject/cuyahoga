@@ -2616,7 +2616,7 @@
                 />
                 <File
                     RelPath = "UI\LocalizedUserControl.cs"
-                    SubType = "Code"
+                    SubType = "ASPXCodeBehind"
                     BuildAction = "Compile"
                 />
                 <File

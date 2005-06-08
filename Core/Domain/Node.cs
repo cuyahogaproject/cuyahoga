@@ -447,7 +447,7 @@ namespace Cuyahoga.Core.Domain
 			{
 				prefix += this._parentNode.ShortDescription + "/";
 			}
-			this._shortDescription = prefix + this._title.Replace(" ", "").ToLower();
+			this._shortDescription = prefix + this._title.Replace(" ", "-").ToLower();
 		}
 
 		/// <summary>

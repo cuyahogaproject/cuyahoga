@@ -124,7 +124,7 @@ namespace Cuyahoga.Web.UI
 				// Query the cache by ShortDescription, then NodeId and last, SectionId.
 				if (Context.Request.QueryString["ShortDescription"] != null)
 				{
-					this._activeNode = cm.GetNodeByShortDescription(Context.Request.QueryString["ShortDescription"]);
+					this._activeNode = cm.GetNodeByShortDescription(Context.Request.QueryString["ShortDescription"], cm.CurrentSite.Id);
 				}
 				else if (Context.Request.QueryString["NodeId"] != null)
 				{

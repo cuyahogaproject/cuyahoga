@@ -16,6 +16,7 @@ namespace Cuyahoga.Core.Domain
 		private Template _defaultTemplate;
 		private string _defaultPlaceholder;
 		private string _webmasterEmail;
+		private bool _useFriendlyUrls;
 		private Role _defaultRole;
 		private IList _rootNodes;
 		private DateTime _updateTimestamp;
@@ -92,6 +93,15 @@ namespace Cuyahoga.Core.Domain
 		{
 			get { return this._webmasterEmail; }
 			set { this._webmasterEmail = value; }
+		}
+
+		/// <summary>
+		/// Indicates if the site uses friendly 'readable' urls by default.
+		/// </summary>
+		public virtual bool UseFriendlyUrls
+		{
+			get { return this._useFriendlyUrls; }
+			set { this._useFriendlyUrls = value; }
 		}
 
 		/// <summary>

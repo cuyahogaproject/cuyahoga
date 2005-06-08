@@ -39,6 +39,17 @@ namespace Cuyahoga.Web.Cache
 		}
 
 		/// <summary>
+		/// The current site based on the siteUrl that was passed in the constructor.
+		/// </summary>
+		public Site CurrentSite
+		{
+			get 
+			{
+				return (this._nodeCache != null ? this._nodeCache.Site : null);
+			}
+		}
+
+		/// <summary>
 		/// Default constructor. If the cache is empty, it will be initialized based on the 
 		/// given siteUrl.
 		/// </summary>
@@ -152,18 +163,27 @@ namespace Cuyahoga.Web.Cache
 			return this._nodeCache.SectionIndex[sectionId] as Section;
 		}
 
-		public Node GetNodeByShortDescription(string shortDescription)
+		/// <summary>
+		/// Get a single Node. If it's not cached, it's loaded from the database and put in the cache.
+		/// The node is retrieved by shortDescription and siteId, so this combination has to be unique.
+		/// </summary>
+		/// <param name="shortDescription"></param>
+		/// <param name="siteId"></param>
+		/// <returns></returns>
+		public Node GetNodeByShortDescription(string shortDescription, int siteId)
 		{
-			if (this._nodeCache.NodeShortDescriptionIndex[shortDescription] == null)
+			string shortDescriptionCacheKey = 
+				ConstructCacheKeyFromShortDescriptionAndSiteId(shortDescription, siteId);
+			if (this._nodeCache.NodeShortDescriptionIndex[shortDescriptionCacheKey] == null)
 			{
-				LoadNodeIntoCacheFromShortDescription(shortDescription);
+				LoadNodeIntoCacheFromShortDescription(shortDescription, siteId);
 			}
 			else
 			{
 				// We need to attach the node to the current session to enable lazy-load.
-				AttachNodeToCurrentSession((Node)this._nodeCache.NodeShortDescriptionIndex[shortDescription]);
+				AttachNodeToCurrentSession((Node)this._nodeCache.NodeShortDescriptionIndex[shortDescriptionCacheKey]);
 			}
-			return (Node)this._nodeCache.NodeShortDescriptionIndex[shortDescription];
+			return (Node)this._nodeCache.NodeShortDescriptionIndex[shortDescriptionCacheKey];
 		}
 
 		/// <summary>
@@ -248,7 +268,9 @@ namespace Cuyahoga.Web.Cache
 			// Add an index to the NodeCache for easy retrieval.
 			this._nodeCache.NodeIndex[node.Id] = node;
 			// Add another index to the NodeCache to enable retrieval by ShortDescription
-			this._nodeCache.NodeShortDescriptionIndex[node.ShortDescription] = node;
+			string shortDescriptionCacheKey = 
+				ConstructCacheKeyFromShortDescriptionAndSiteId(node.ShortDescription, node.Site.Id);
+			this._nodeCache.NodeShortDescriptionIndex[shortDescriptionCacheKey] = node;
 			// Register Sections
 			foreach (Section section in node.Sections)
 			{
@@ -281,9 +303,9 @@ namespace Cuyahoga.Web.Cache
 		/// See LoadNodeIntoCache().
 		/// </summary>
 		/// <param name="shortDescription"></param>
-		private void LoadNodeIntoCacheFromShortDescription(string shortDescription)
+		private void LoadNodeIntoCacheFromShortDescription(string shortDescription, int siteId)
 		{
-			Node node = this._coreRepository.GetNodeByShortDescription(shortDescription);
+			Node node = this._coreRepository.GetNodeByShortDescription(shortDescription, siteId);
 			LoadNodeIntoCache(node);
 		}
 		
@@ -326,7 +348,9 @@ namespace Cuyahoga.Web.Cache
 			// Add an index to the NodeCache for easy retrieval.
 			this._nodeCache.NodeIndex[node.Id] = node;
 			// Add another index to the NodeCache to enable retrieval by ShortDescription
-			this._nodeCache.NodeShortDescriptionIndex[node.ShortDescription] = node;
+			string shortDescriptionCacheKey = 
+				ConstructCacheKeyFromShortDescriptionAndSiteId(node.ShortDescription, node.Site.Id);
+			this._nodeCache.NodeShortDescriptionIndex[shortDescriptionCacheKey] = node;
 			// Register Sections
 			foreach (Section section in node.Sections)
 			{
@@ -337,6 +361,11 @@ namespace Cuyahoga.Web.Cache
 			{
 				AddNodeToCacheIndex(childNode);
 			}
+		}
+
+		private string ConstructCacheKeyFromShortDescriptionAndSiteId(string shortDescription, int siteId)
+		{
+			return siteId.ToString() + "_" + shortDescription;
 		}
 
 		/// <summary>

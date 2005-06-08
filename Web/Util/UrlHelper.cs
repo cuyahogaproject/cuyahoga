@@ -58,13 +58,22 @@ namespace Cuyahoga.Web.Util
 		}
 
 		/// <summary>
-		/// Returns a formatted url for a given node (/{ApplicationPath}/{Node.Id}/view.aspx.
+		/// Returns a formatted url for a given node (/{ApplicationPath}/{Node.Id}/view.aspx
+		/// or /{ApplicationPath}/{Node.ShortDescription}.aspx if the site has friendly urls
+		/// turned on).
 		/// </summary>
 		/// <param name="node"></param>
 		/// <returns></returns>
 		public static string GetUrlFromNode(Node node)
 		{
-			return GetApplicationPath() + node.Id.ToString() + "/view.aspx";
+			if (node.Site.UseFriendlyUrls)
+			{
+				return GetFriendlyUrlFromNode(node);
+			}
+			else
+			{
+				return GetApplicationPath() + node.Id.ToString() + "/view.aspx";
+			}
 		}
 
 		/// <summary>

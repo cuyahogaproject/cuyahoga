@@ -317,11 +317,13 @@ namespace Cuyahoga.Core.Service
 		/// Retrieve a node by short description (friendly url).
 		/// </summary>
 		/// <param name="shortDescription"></param>
+		/// <param name="siteId"></param>
 		/// <returns></returns>
-		public Node GetNodeByShortDescription(string shortDescription)
+		public Node GetNodeByShortDescription(string shortDescription, int siteId)
 		{
 			ICriteria crit = this._activeSession.CreateCriteria(typeof(Node));
 			crit.Add(Expression.Eq("ShortDescription", shortDescription));
+			crit.Add(Expression.Eq("Site.Id", siteId));
 			IList results = crit.List();
 			if (results.Count == 1)
 			{
@@ -389,6 +391,66 @@ namespace Cuyahoga.Core.Service
 		{
 			string hql = "from Node n where n.Template.Id = ? ";
 			return this._activeSession.Find(hql, template.Id, NHibernateUtil.Int32);
+		}
+
+		/// <summary>
+		/// Update a node.
+		/// </summary>
+		/// <param name="node"></param>
+		/// <param name="propagatePermissionsToChildNodes"></param>
+		/// <param name="propagatePermissionsToChildNodes"></param>
+		public void UpdateNode(Node node, bool propagatePermissionsToChildNodes, bool propagatePermissionsToSections)
+		{
+			UpdateObject(node);
+			if (propagatePermissionsToChildNodes)
+			{
+				PropagatePermissionsToChildNodes(node, propagatePermissionsToSections);
+			}
+			if (propagatePermissionsToSections)
+			{
+				PropagatePermissionsToSections(node);
+			}
+		}
+
+		private void PropagatePermissionsToChildNodes(Node parentNode, bool propagateToSections)
+		{
+			foreach (Node childNode in parentNode.ChildNodes)
+			{
+				childNode.NodePermissions.Clear();
+				foreach (NodePermission pnp in parentNode.NodePermissions)
+				{
+					NodePermission childNodePermission = new NodePermission();
+					childNodePermission.Node = childNode;
+					childNodePermission.Role = pnp.Role;
+					childNodePermission.ViewAllowed = pnp.ViewAllowed;
+					childNodePermission.EditAllowed = pnp.EditAllowed;
+					childNode.NodePermissions.Add(childNodePermission);
+				}
+				if (propagateToSections)
+				{
+					PropagatePermissionsToSections(childNode);
+				}
+				PropagatePermissionsToChildNodes(childNode, propagateToSections);
+				UpdateObject(childNode);
+			}
+		}
+
+		private void PropagatePermissionsToSections(Node node)
+		{
+			foreach (Section section in node.Sections)
+			{
+				section.SectionPermissions.Clear();
+				foreach (NodePermission np in node.NodePermissions)
+				{
+					SectionPermission sp = new SectionPermission();
+					sp.Section = section;
+					sp.Role = np.Role;
+					sp.ViewAllowed = np.ViewAllowed;
+					sp.EditAllowed = np.EditAllowed;
+					section.SectionPermissions.Add(sp);
+				}
+			}
+			UpdateObject(node);
 		}
 
 		#endregion

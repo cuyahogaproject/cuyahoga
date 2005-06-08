@@ -47,6 +47,8 @@ namespace Cuyahoga.Web.Admin
 		protected System.Web.UI.WebControls.Repeater rptMenus;
 		protected System.Web.UI.WebControls.HyperLink hplNewMenu;
 		protected System.Web.UI.WebControls.Panel pnlMenus;
+		protected System.Web.UI.WebControls.CheckBox chkPropagateToSections;
+		protected System.Web.UI.WebControls.CheckBox chkPropagateToChildNodes;
 		protected System.Web.UI.WebControls.TextBox txtTitle;
 	
 		private void Page_Load(object sender, System.EventArgs e)
@@ -236,13 +238,15 @@ namespace Cuyahoga.Web.Admin
 		{
 			if (this.ActiveNode.Id > 0)
 			{
-				base.CoreRepository.UpdateObject(this.ActiveNode);
+				base.CoreRepository.UpdateNode(this.ActiveNode
+					, this.chkPropagateToChildNodes.Checked
+					, this.chkPropagateToSections.Checked);
 			}
 			else
 			{
 				IList rootNodes = base.CoreRepository.GetRootNodes(this.ActiveNode.Site);
 				this.ActiveNode.CalculateNewPosition(rootNodes);
-				base.CoreRepository.SaveObject(this.ActiveNode);
+				base.CoreRepository.SaveObject(this.ActiveNode);				
 				Context.Response.Redirect(String.Format("NodeEdit.aspx?NodeId={0}", this.ActiveNode.Id));
 			}
 		}
@@ -272,39 +276,16 @@ namespace Cuyahoga.Web.Admin
 
 		private void SetShortDescription()
 		{
+			// TODO: check uniqueness. It's now handled by the database constraint but that is not
+			// too descriptive.
 			if (this.ActiveNode.Id > 0)
 			{
 				this.ActiveNode.ShortDescription = this.txtShortDescription.Text;
-// TODO:	how to check the uniqueness? Searching for a node will implicitly flush the session and throw an 
-//			exception when the shortdescription already exists.
-
-//				Node node = base.CoreRepository.GetNodeByShortDescription(this.ActiveNode.ShortDescription);
-//				if (node != null && node.Id != this.ActiveNode.Id)
-//				{
-//					throw new Exception("The friendly url of the node already exists");
-//				}
 			}
 			else
 			{
 				// Generate the short description for new nodes.
 				this.ActiveNode.CreateShortDescription();
-				// Check the uniqueness of the shortdescription and regenerate it when it already exists.
-//				bool isUnique = false;
-//				int suffix = 1;
-//				while (! isUnique)
-//				{				
-//					Node node = base.CoreRepository.GetNodeByShortDescription(this.ActiveNode.ShortDescription);
-//					if (node != null)
-//					{
-//						// Not unique, regenerate
-//						this.ActiveNode.RecreateShortDescription(suffix);
-//						suffix++;
-//					}
-//					else
-//					{
-//						isUnique = true;
-//					}
-//				}
 			}
 		}
 

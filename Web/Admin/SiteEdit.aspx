@@ -28,6 +28,10 @@
 						<td><asp:textbox id="txtWebmasterEmail" runat="server" maxlength="100" width="300px"></asp:textbox><asp:requiredfieldvalidator id="rfvWebmasterEmail" runat="server" errormessage="Webmaster email is required"
 								cssclass="validator" display="Dynamic" controltovalidate="txtWebmasterEmail" enableclientscript="False"></asp:requiredfieldvalidator></td>
 					</tr>
+					<tr>
+						<td>Use friendly url's</td>
+						<td><asp:checkbox id="chkUseFriendlyUrls" runat="server"></asp:checkbox></td>
+					</tr>
 				</table>
 			</div>
 			<div class="group">
@@ -69,7 +73,8 @@
 						<itemtemplate>
 							<tr>
 								<td><%# DataBinder.Eval(Container.DataItem, "Url") %></td>
-								<td><asp:label id="lblEntryNode" runat="server"></asp:label></td>
+								<td>
+									<asp:label id="lblEntryNode" runat="server"></asp:label></td>
 								<td>
 									<asp:hyperlink id="hplEdit" runat="server">Edit</asp:hyperlink></td>
 							</tr>

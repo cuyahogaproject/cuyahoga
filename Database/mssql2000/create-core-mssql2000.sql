@@ -86,6 +86,7 @@ homeurl varchar(100) NOT NULL,
 defaultculture varchar(8) NOT NULL,
 defaultplaceholder varchar(100) NULL,
 webmasteremail varchar(100) NOT NULL,
+usefriendlyurls bit NULL,
 inserttimestamp datetime DEFAULT current_timestamp NOT NULL,
 updatetimestamp datetime DEFAULT current_timestamp NOT NULL,
 CONSTRAINT UC_cuyahoga_site1 UNIQUE(name))
@@ -108,6 +109,8 @@ CONSTRAINT UC_cuyahoga_node1 UNIQUE(nodeid),
 CONSTRAINT UC_cuyahoga_node2 UNIQUE(shortdescription))
 go
 
+CREATE UNIQUE INDEX IDX_cuyahoga_node_shortdescription_siteid ON cuyahoga_node (shortdescription,siteid)
+go
 
 CREATE TABLE cuyahoga_menu(
 menuid int identity(1,1) NOT NULL CONSTRAINT PK_cuyahoga_menu1 PRIMARY KEY,

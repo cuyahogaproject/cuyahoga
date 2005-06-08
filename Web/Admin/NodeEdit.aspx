@@ -28,7 +28,7 @@
 					</tr>
 					<tr>
 						<td>Friendly url</td>
-						<td><asp:textbox id="txtShortDescription" runat="server" width="300px" tooltip="You can use this for 'nice' links ([shortdescription].aspx). Make sure it's unique."></asp:textbox>.aspx&nbsp;<asp:regularexpressionvalidator id="revShortDescription" runat="server" enableclientscript="False" controltovalidate="txtShortDescription"
+						<td><asp:textbox id="txtShortDescription" runat="server" width="300px" tooltip="You can use this for 'nice' links ([shortdescription].aspx). Make sure it's unique!"></asp:textbox>.aspx&nbsp;<asp:regularexpressionvalidator id="revShortDescription" runat="server" enableclientscript="False" controltovalidate="txtShortDescription"
 								cssclass="validator" display="Dynamic" errormessage="No spaces are allowed" validationexpression="\S+"></asp:regularexpressionvalidator><asp:requiredfieldvalidator id="rfvShortDescription" runat="server" errormessage="Short description is required"
 								controltovalidate="txtShortDescription" display="Dynamic" enableclientscript="False"></asp:requiredfieldvalidator></td>
 					</tr>
@@ -111,7 +111,8 @@
 							<tr>
 								<td><%# DataBinder.Eval(Container.DataItem, "Title") %></td>
 								<td><%# DataBinder.Eval(Container.DataItem, "ModuleType.Name") %></td>
-								<td><%# DataBinder.Eval(Container.DataItem, "PlaceholderId") %> <asp:label id="lblNotFound" cssclass="validator" visible="False" runat="server">(not found in template!)</asp:label></td>
+								<td><%# DataBinder.Eval(Container.DataItem, "PlaceholderId") %>
+									<asp:label id="lblNotFound" cssclass="validator" visible="False" runat="server">(not found in template!)</asp:label></td>
 								<td style="text-align:right"><%# DataBinder.Eval(Container.DataItem, "CacheDuration") %></td>
 								<td>
 									<asp:hyperlink id="hplSectionUp" imageurl="../Images/upred.gif" visible="False" enableviewstate="False"
@@ -151,7 +152,11 @@
 									<asp:checkbox id="chkEditAllowed" runat="server"></asp:checkbox></td>
 							</tr>
 						</itemtemplate>
-					</asp:repeater></table>
+					</asp:repeater>
+				</table>
+				<asp:checkbox id="chkPropagateToSections" runat="server" text="Propagate security settings to sections"></asp:checkbox>
+				<br>
+				<asp:checkbox id="chkPropagateToChildNodes" runat="server" text="Propagate security settings to child nodes"></asp:checkbox>
 			</div>
 			<div><asp:button id="btnSave" runat="server" text="Save"></asp:button><asp:button id="btnCancel" runat="server" causesvalidation="False" text="Cancel"></asp:button><asp:button id="btnNew" runat="server" text="Add new child"></asp:button>
 				<asp:button id="btnDelete" runat="server" text="Delete" causesvalidation="False"></asp:button></div>
