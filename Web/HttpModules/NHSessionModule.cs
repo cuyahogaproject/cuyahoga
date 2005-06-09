@@ -3,7 +3,7 @@ using System.Web;
 
 using Cuyahoga.Core.Service;
 
-namespace Cuyahoga.Web.Util
+namespace Cuyahoga.Web.HttpModules
 {
 	/// <summary>
 	/// Http module that manages the NHibernate sessions during an HTTP Request.

@@ -747,6 +747,21 @@
                     BuildAction = "EmbeddedResource"
                 />
                 <File
+                    RelPath = "HttpModules\AuthenticationModule.cs"
+                    SubType = "Code"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "HttpModules\NHSessionModule.cs"
+                    SubType = "Code"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "HttpModules\UrlHandlerModule.cs"
+                    SubType = "Code"
+                    BuildAction = "Compile"
+                />
+                <File
                     RelPath = "Images\feed-rss.gif"
                     BuildAction = "Content"
                 />
@@ -2632,27 +2647,12 @@
                 <Folder RelPath = "UserFiles\File\" />
                 <Folder RelPath = "UserFiles\Image\" />
                 <File
-                    RelPath = "Util\AuthenticationModule.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
                     RelPath = "Util\Email.cs"
                     SubType = "Code"
                     BuildAction = "Compile"
                 />
                 <File
                     RelPath = "Util\FormFixerHtmlTextWriter.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "Util\NHSessionModule.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "Util\UrlHandlerModule.cs"
                     SubType = "Code"
                     BuildAction = "Compile"
                 />

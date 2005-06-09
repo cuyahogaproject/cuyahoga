@@ -10,7 +10,7 @@ using System.Web.UI.WebControls;
 using System.Web.UI.HtmlControls;
 using System.Web.Security;
 
-using Cuyahoga.Web.Util;
+using Cuyahoga.Web.HttpModules;
 
 namespace Cuyahoga.Web.Admin
 {
@@ -54,7 +54,7 @@ namespace Cuyahoga.Web.Admin
 		private void btnLogin_Click(object sender, System.EventArgs e)
 		{
 			AuthenticationModule am = (AuthenticationModule)this.Context.ApplicationInstance.Modules["AuthenticationModule"];
-			if (am.AuthenticateUser(txtUsername.Text, txtPassword.Text))
+			if (am.AuthenticateUser(txtUsername.Text, txtPassword.Text, false))
 			{
 				Context.Response.Redirect(FormsAuthentication.GetRedirectUrl(this.User.Identity.Name, false));
 			}

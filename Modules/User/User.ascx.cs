@@ -10,7 +10,7 @@ namespace Cuyahoga.Modules.User
 	using System.Globalization;
 
 	using Cuyahoga.Web.UI;
-	using Cuyahoga.Web.Util;
+	using Cuyahoga.Web.HttpModules;
 	using Cuyahoga.Core;
 
 	/// <summary>
@@ -31,6 +31,7 @@ namespace Cuyahoga.Modules.User
 		protected System.Web.UI.WebControls.HyperLink hplRegister;
 		protected System.Web.UI.WebControls.HyperLink hplResetPassword;
 		protected System.Web.UI.WebControls.HyperLink hplEdit;
+		protected System.Web.UI.WebControls.CheckBox chkPersistLogin;
 		protected System.Web.UI.WebControls.Panel pnlUserInfo;
 
 		private void Page_Load(object sender, System.EventArgs e)
@@ -89,6 +90,7 @@ namespace Cuyahoga.Modules.User
 			this.hplRegister.Text = base.GetText("REGISTER");
 			this.hplResetPassword.Text = base.GetText("RESET");
 			this.hplEdit.Text = base.GetText("EDITACCOUNT");
+			this.chkPersistLogin.Text = base.GetText("PERSISTLOGIN");
 		}
 
 		private void btnLogin_Click(object sender, System.EventArgs e)
@@ -98,7 +100,7 @@ namespace Cuyahoga.Modules.User
 			{
 				try
 				{
-					if (am.AuthenticateUser(this.txtUsername.Text, this.txtPassword.Text))
+					if (am.AuthenticateUser(this.txtUsername.Text, this.txtPassword.Text, this.chkPersistLogin.Checked))
 					{
 						this.lblLoggedInUser.Text = this.txtUsername.Text;
 						this.pnlUserInfo.Visible = true;

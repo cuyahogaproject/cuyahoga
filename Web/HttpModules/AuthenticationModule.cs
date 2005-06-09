@@ -3,13 +3,15 @@ using System.Web;
 using System.Web.Security;
 using System.Web.Caching;
 
+using log4net;
+
 using Cuyahoga.Core;
 using Cuyahoga.Core.Service;
 using Cuyahoga.Core.Domain;
 using Cuyahoga.Core.Util;
 using Cuyahoga.Core.Security;
 
-namespace Cuyahoga.Web.Util
+namespace Cuyahoga.Web.HttpModules
 {
 	/// <summary>
 	/// HttpModule to extend Forms Authentication. When a user logs in, the profile is loaded and put 
@@ -20,6 +22,7 @@ namespace Cuyahoga.Web.Util
 	{
 		private const string USER_CACHE_PREFIX = "User_";
 		private const int AUTHENTICATION_TIMEOUT = 20;
+		private static readonly ILog log = LogManager.GetLogger(typeof(AuthenticationModule));
 
 		public AuthenticationModule()
 		{
@@ -42,7 +45,7 @@ namespace Cuyahoga.Web.Util
 		/// <param name="username"></param>
 		/// <param name="password"></param>
 		/// <returns></returns>
-		public bool AuthenticateUser(string username, string password)
+		public bool AuthenticateUser(string username, string password, bool persistLogin)
 		{
 			CoreRepository cr = (CoreRepository)HttpContext.Current.Items["CoreRepository"];
 			string hashedPassword = Encryption.StringToMD5Hash(password);
@@ -53,6 +56,7 @@ namespace Cuyahoga.Web.Util
 				{
 					if (! user.IsActive)
 					{
+						log.Warn(String.Format("Inactive user {0} tried to login.", user.UserName));
 						throw new AccessForbiddenException("The account is disabled.");
 					}
 					user.IsAuthenticated = true;
@@ -64,19 +68,27 @@ namespace Cuyahoga.Web.Util
 					// Create the authentication ticket
 					HttpContext.Current.User = new CuyahogaPrincipal(user);
 					FormsAuthenticationTicket ticket = 
-						new FormsAuthenticationTicket(1, user.Name, DateTime.Now, DateTime.Now.AddMinutes(AUTHENTICATION_TIMEOUT), false, "");
+						new FormsAuthenticationTicket(1, user.Name, DateTime.Now, DateTime.Now.AddMinutes(AUTHENTICATION_TIMEOUT), persistLogin, "");
 					string cookiestr = FormsAuthentication.Encrypt(ticket);
 					HttpCookie cookie = new HttpCookie(FormsAuthentication.FormsCookieName, cookiestr);                
+					if (persistLogin)
+					{
+						cookie.Expires = DateTime.Now.AddYears(1);
+					}
 					HttpContext.Current.Response.Cookies.Add(cookie);
 					// Finally cache the user
 					CacheUser(HttpContext.Current, user);
 					return true;
 				}
 				else
+				{
+					log.Warn(String.Format("Invalid username-password combination: {0}:{1}.", user.UserName, password));
 					return false;
+				}
 			}
 			catch (Exception ex)
 			{
+				log.Error(String.Format("An error occured while logging in user {0}.", username));
 				throw new Exception(String.Format("Unable to log in user '{0}': " + ex.Message, username), ex);
 			}
 		}

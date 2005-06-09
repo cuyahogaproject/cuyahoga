@@ -6,7 +6,9 @@ using System.Collections.Specialized;
 
 using log4net;
 
-namespace Cuyahoga.Web.Util
+using Cuyahoga.Web.Util;
+
+namespace Cuyahoga.Web.HttpModules
 {
 	/// <summary>
 	/// The default url handler.
