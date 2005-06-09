@@ -412,6 +412,39 @@ namespace Cuyahoga.Core.Service
 			}
 		}
 
+		/// <summary>
+		/// Delete a node. Also clean up any references in custom menu's first.
+		/// </summary>
+		/// <param name="node"></param>
+		public void DeleteNode(Node node)
+		{
+			string hql = "select m from Menu m join m.Nodes n where n.Id = :nodeId";
+			IQuery q = this._activeSession.CreateQuery(hql);
+			q.SetInt32("nodeId", node.Id);
+			IList menus = q.List();
+			foreach (Menu menu in menus)
+			{
+				// HACK: due to a bug with proxies IList.Remove(object) always removes the first object in
+				// the list. Also IList.IndexOf always returns 0. Therefore, we'll loop through the collection
+				// and find the right index. Btw, when turning off proxies everything works fine.
+				int positionFound = -1;
+				for (int i = 0; i < menu.Nodes.Count; i++)
+				{
+					if (((Node)menu.Nodes[i]).Id == node.Id)
+					{
+						positionFound = i;
+						break;
+					}
+				}
+				if (positionFound > -1)
+				{
+					menu.Nodes.RemoveAt(positionFound);
+				}
+				UpdateObject(menu);
+			}
+			DeleteObject(node);
+		}
+
 		private void PropagatePermissionsToChildNodes(Node parentNode, bool propagateToSections)
 		{
 			foreach (Node childNode in parentNode.ChildNodes)

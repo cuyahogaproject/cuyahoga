@@ -469,7 +469,7 @@ namespace Cuyahoga.Web.Admin
 			{
 				try
 				{
-					base.CoreRepository.DeleteObject(this.ActiveNode);
+					base.CoreRepository.DeleteNode(this.ActiveNode);
 					// Reset the position of the 'neighbour' nodes.
 					if (this.ActiveNode.Level == 0)
 					{						
