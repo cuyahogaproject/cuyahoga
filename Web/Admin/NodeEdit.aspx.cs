@@ -479,6 +479,7 @@ namespace Cuyahoga.Web.Admin
 					{
 						this.ActiveNode.ReOrderNodePositions(this.ActiveNode.ParentNode.ChildNodes, this.ActiveNode.Position);
 					}
+					base.CoreRepository.FlushSession();
 					if (this.ActiveNode.ParentNode != null)
 					{
 						Context.Response.Redirect(String.Format("NodeEdit.aspx?NodeId={0}", this.ActiveNode.ParentNode.Id));

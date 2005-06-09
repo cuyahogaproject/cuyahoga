@@ -154,6 +154,7 @@
 						</itemtemplate>
 					</asp:repeater>
 				</table>
+				<br>
 				<asp:checkbox id="chkPropagateToSections" runat="server" text="Propagate security settings to sections"></asp:checkbox>
 				<br>
 				<asp:checkbox id="chkPropagateToChildNodes" runat="server" text="Propagate security settings to child nodes"></asp:checkbox>
