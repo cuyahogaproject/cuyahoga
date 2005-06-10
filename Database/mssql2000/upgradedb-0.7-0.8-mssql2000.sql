@@ -83,6 +83,12 @@ go
 
 ALTER TABLE cuyahoga_site
 	ADD usefriendlyurls bit NULL
+
+IF EXISTS (SELECT 1 FROM sysobjects WHERE xtype = 'UQ' AND name = 'UC_cuyahoga_node2')
+	ALTER TABLE cuyahoga_node
+		DROP CONSTRAINT UC_cuyahoga_node2
+		
+go
 	
 CREATE UNIQUE INDEX IDX_cuyahoga_node_shortdescription_siteid ON cuyahoga_node (shortdescription,siteid)
 go
@@ -132,4 +138,25 @@ INSERT INTO cuyahoga_modulesetting (moduletypeid, name, friendlyname, settingdat
 VALUES (@moduletypeid, 'PHYSICAL_DIR', 'Physical directory (empty for App_Root/files)', 'System.String', 0, 0)
 
 
-GO
+go
+
+/*********************
+Version updates
+*********************/
+
+IF EXISTS (SELECT 1 FROM cuyahoga_version WHERE assembly = 'Cuyahoga.Core')
+	UPDATE cuyahoga_version SET major = 0, minor = 8, patch = 0 WHERE assembly = 'Cuyahoga.Core'
+ELSE
+	INSERT INTO cuyahoga_version (assembly, major, minor, patch) VALUES ('Cuyahoga.Core', 0, 8, 0)
+	
+IF EXISTS (SELECT 1 FROM cuyahoga_version WHERE assembly = 'Cuyahoga.Modules')
+	UPDATE cuyahoga_version SET major = 0, minor = 8, patch = 0 WHERE assembly = 'Cuyahoga.Modules'
+ELSE
+	INSERT INTO cuyahoga_version (assembly, major, minor, patch) VALUES ('Cuyahoga.Modules', 0, 8, 0)
+	
+IF EXISTS (SELECT 1 FROM cuyahoga_version WHERE assembly = 'Cuyahoga.Modules.Downloads')
+	UPDATE cuyahoga_version SET major = 0, minor = 8, patch = 0 WHERE assembly = 'Cuyahoga.Modules.Downloads'
+ELSE
+	INSERT INTO cuyahoga_version (assembly, major, minor, patch) VALUES ('Cuyahoga.Modules.Downloads', 0, 8, 0)
+	
+go

@@ -13,8 +13,7 @@ lastlogin datetime NULL,
 lastip varchar(40) NULL,
 inserttimestamp datetime DEFAULT current_timestamp NOT NULL,
 updatetimestamp datetime DEFAULT current_timestamp NOT NULL,
-CONSTRAINT UC_cuyahoga_user1 UNIQUE(userid),
-CONSTRAINT UC_cuyahoga_user2 UNIQUE(username))
+CONSTRAINT UC_cuyahoga_user1 UNIQUE(username))
 go
 
 
@@ -24,8 +23,7 @@ name varchar(50) NOT NULL,
 permissionlevel int DEFAULT 1 NOT NULL,
 inserttimestamp datetime DEFAULT current_timestamp NOT NULL,
 updatetimestamp datetime DEFAULT current_timestamp NOT NULL,
-CONSTRAINT UC_cuyahoga_role1 UNIQUE(roleid),
-CONSTRAINT UC_cuyahoga_role2 UNIQUE(name))
+CONSTRAINT UC_cuyahoga_role1 UNIQUE(name))
 go
 
 
@@ -34,8 +32,7 @@ userroleid int identity(1,1) NOT NULL CONSTRAINT PK_cuyahoga_userrole1 PRIMARY K
 userid int NOT NULL,
 roleid int NOT NULL,
 inserttimestamp datetime DEFAULT current_timestamp NOT NULL,
-updatetimestamp datetime DEFAULT current_timestamp NOT NULL,
-CONSTRAINT UC_cuyahoga_userrole1 UNIQUE(userroleid))
+updatetimestamp datetime DEFAULT current_timestamp NOT NULL)
 go
 
 
@@ -46,8 +43,7 @@ basepath varchar(100) NOT NULL,
 templatecontrol varchar(50) NOT NULL,
 css varchar(100) NOT NULL,
 inserttimestamp datetime DEFAULT current_timestamp NOT NULL,
-updatetimestamp datetime DEFAULT current_timestamp NOT NULL,
-CONSTRAINT UC_cuyahoga_template1 UNIQUE(templateid))
+updatetimestamp datetime DEFAULT current_timestamp NOT NULL)
 go
 
 
@@ -104,9 +100,7 @@ position int DEFAULT 0 NOT NULL,
 culture varchar(8) NOT NULL,
 showinnavigation bit NOT NULL,
 inserttimestamp datetime DEFAULT current_timestamp NOT NULL,
-updatetimestamp datetime DEFAULT current_timestamp NOT NULL,
-CONSTRAINT UC_cuyahoga_node1 UNIQUE(nodeid),
-CONSTRAINT UC_cuyahoga_node2 UNIQUE(shortdescription))
+updatetimestamp datetime DEFAULT current_timestamp NOT NULL)
 go
 
 CREATE UNIQUE INDEX IDX_cuyahoga_node_shortdescription_siteid ON cuyahoga_node (shortdescription,siteid)
@@ -118,8 +112,7 @@ rootnodeid int NOT NULL,
 name varchar(50) NOT NULL,
 placeholder varchar(50) NOT NULL,
 inserttimestamp datetime DEFAULT current_timestamp NOT NULL,
-updatetimestamp datetime DEFAULT current_timestamp NOT NULL,
-CONSTRAINT UC_cuyahoga_menu1 UNIQUE(menuid))
+updatetimestamp datetime DEFAULT current_timestamp NOT NULL)
 go
 
 
@@ -127,8 +120,7 @@ CREATE TABLE cuyahoga_menunode(
 menunodeid int identity(1,1) NOT NULL CONSTRAINT PK_cuyahoga_menunode1 PRIMARY KEY,
 menuid int NOT NULL,
 nodeid int NOT NULL,
-position int NOT NULL,
-CONSTRAINT UC_cuyahoga_menunode1 UNIQUE(menunodeid))
+position int NOT NULL)
 go
 
 
@@ -138,8 +130,7 @@ siteid int NOT NULL,
 nodeid int NULL,
 url varchar(100) NOT NULL,
 inserttimestamp datetime DEFAULT current_timestamp NOT NULL,
-updatetimestamp datetime DEFAULT current_timestamp NOT NULL,
-CONSTRAINT UC_cuyahoga_sitealias1 UNIQUE(sitealiasid))
+updatetimestamp datetime DEFAULT current_timestamp NOT NULL)
 go
 
 
@@ -153,8 +144,7 @@ placeholder varchar(100) NULL,
 position int DEFAULT 0 NOT NULL,
 cacheduration int NULL,
 inserttimestamp datetime DEFAULT current_timestamp NOT NULL,
-updatetimestamp datetime DEFAULT current_timestamp NOT NULL,
-CONSTRAINT UC_cuyahoga_section1 UNIQUE(sectionid))
+updatetimestamp datetime DEFAULT current_timestamp NOT NULL)
 go
 
 
@@ -190,7 +180,14 @@ go
 CREATE UNIQUE INDEX IDX_cuyahoga_sectionrole_1 ON cuyahoga_sectionrole (roleid,sectionid)
 go
 
+CREATE TABLE cuyahoga_version(
+versionid int identity(1,1) NOT NULL CONSTRAINT PK_cuyahoga_version PRIMARY KEY,
+assembly varchar(255) NOT NULL,
+major int NOT NULL,
+minor int NOT NULL,
+patch int NOT NULL)
 
+go
 
 
 

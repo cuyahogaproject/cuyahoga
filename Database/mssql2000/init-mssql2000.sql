@@ -64,6 +64,7 @@ GO
 INSERT INTO cuyahoga_template (templateid, [name], basepath, templatecontrol, css, inserttimestamp, updatetimestamp) VALUES (1, 'Cuyahoga Home', 'Templates/Classic', 'CuyahogaHome.ascx', 'red.css', '2004-01-26 21:52:52.365', '2004-01-26 21:52:52.365')
 INSERT INTO cuyahoga_template (templateid, [name], basepath, templatecontrol, css, inserttimestamp, updatetimestamp) VALUES (2, 'Cuyahoga Standard', 'Templates/Classic', 'CuyahogaStandard.ascx', 'red.css', '2004-01-26 21:52:52.365', '2004-01-26 21:52:52.365')
 INSERT INTO cuyahoga_template (templateid, [name], basepath, templatecontrol, css, inserttimestamp, updatetimestamp) VALUES (3, 'Cuyahoga New', 'Templates/Default', 'CuyahogaNew.ascx', 'red-new.css', '2004-01-26 21:52:52.365', '2004-01-26 21:52:52.365')
+INSERT INTO cuyahoga_template (templateid, [name], basepath, templatecontrol, css, inserttimestamp, updatetimestamp) VALUES (4, 'Another Red', 'Templates/AnotherRed', 'Cuyahoga.ascx', 'red.css', '2004-01-26 21:52:52.365', '2004-01-26 21:52:52.365')
 
 GO
 
@@ -92,5 +93,18 @@ INSERT INTO cuyahoga_userrole (userroleid, userid, roleid, inserttimestamp, upda
 GO
 
 SET IDENTITY_INSERT cuyahoga_userrole OFF
+
+GO
+
+SET IDENTITY_INSERT cuyahoga_version ON
+
+GO
+
+INSERT INTO cuyahoga_version (versionid, assembly, major, minor, pathch) VALUES (1, 'Cuyahoga.Core', 0, 8, 0)
+INSERT INTO cuyahoga_version (versionid, assembly, major, minor, pathch) VALUES (2, 'Cuyahoga.Modules', 0, 8, 0)
+INSERT INTO cuyahoga_version (versionid, assembly, major, minor, pathch) VALUES (3, 'Cuyahoga.Modules.Downloads', 0, 8, 0)
+
+
+SET IDENTITY_INSERT cuyahoga_version OFF
 
 GO
