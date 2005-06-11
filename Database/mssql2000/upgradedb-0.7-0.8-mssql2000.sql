@@ -43,6 +43,15 @@ fileid int NOT NULL,
 roleid int NOT NULL)
 go
 
+CREATE TABLE cuyahoga_version(
+versionid int identity(1,1) NOT NULL CONSTRAINT PK_cuyahoga_version PRIMARY KEY,
+assembly varchar(255) NOT NULL,
+major int NOT NULL,
+minor int NOT NULL,
+patch int NOT NULL)
+
+go
+
 ALTER TABLE cm_feed
 ADD CONSTRAINT FK_cm_feed_1 
 FOREIGN KEY (sectionid) REFERENCES cuyahoga_section (sectionid)
