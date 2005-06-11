@@ -1,11 +1,35 @@
 Cuyahoga release notes
 
 ===========================================================================
+0.8.0 - 2005-06-11
+===========================================================================
+New features:
+- RemoteContent module. This module consumes external RSS feeds and 
+  displays the content. Currently only RSS 2.0 is supported.
+- Downloads module. Publish files on the web site that are available as
+  download for site visitors. The permissions (allowed roles) can be set
+  per file.
+- Timezone support for logged-in users. All display dates are adjusted to
+  the timezone of the user.
+  
+Improvements:
+- Friendly readable urls (configurable per site).
+- Security settings of nodes can be propagated to child nodes and sections.
+- Allow persisten logins.
+
+Bugfixes:
+- Edit hyperlinks show up when the user only has view access.
+- Deleting nodes fails when they are in a custom menu.
+- Removing nodes leaves the order of the nodes in an inconsistent state. 
+
+
+===========================================================================
 0.7.0.1 - 2005-04-04
+===========================================================================
 - Fixed bug when registering a new user (LastLogin should be NULL, but was 
   DateTime.MinValue).
 - Fixed bug in PostgreSQL create script (showtitle in section).
-===========================================================================
+
 
 ===========================================================================
 0.7.0 - 2005-03-29

@@ -260,6 +260,7 @@
 				<include name="**/*.html" />
 				<exclude name="UserFiles/Image/*.*" />
 				<exclude name="UserFiles/File/*.*" />
+				<exclude name="files/*.*" />
 				<exclude name="**/log.txt" />
 			</fileset>
 		</copy>
@@ -310,6 +311,7 @@
 				<exclude name="Web/Modules/**/*" />
 				<exclude name="Web/UserFiles/File/**/*" />
 				<exclude name="Web/UserFiles/Image/**/*" />
+				<exclude name="Web/files/**/*" />
 				<exclude name="Web/log/**/*" />
 				<exclude name="Web/index/**/*" />
 				
