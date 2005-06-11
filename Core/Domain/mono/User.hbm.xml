@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8" ?> 
+<?xml version="1.0" encoding="utf-8" ?> 
 <hibernate-mapping xmlns="urn:nhibernate-mapping-2.0">
 	<class name="Cuyahoga.Core.Domain.User, Cuyahoga.Core" table="cuyahoga_user">
 		<id name="Id" column="userid" type="Int32" unsaved-value="-1">
@@ -14,6 +14,7 @@
 		<property name="LastName" column="lastname" type="String" length="100" not-null="false" />
 		<property name="Email" column="email" type="String" length="100" />
 		<property name="Website" column="website" type="String" length="100" />
+		<property name="TimeZone" column="timezone" type="Int32" />
 		<property name="IsActive" column="isactive" type="Boolean" length="100" />
 		<property name="LastLogin" column="lastlogin" type="Nullables.NHibernate.NullableDateTimeType, Nullables.NHibernate" />
 		<property name="LastIp" column="lastip" type="String" length="40" />
