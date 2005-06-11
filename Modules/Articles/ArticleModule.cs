@@ -159,9 +159,10 @@ namespace Cuyahoga.Modules.Articles
 		{
 			try
 			{
-				string hql = "from Article a where a.Category.Id = :categoryId and a.DateOnline < :now and a.DateOffline > :now order by a.DateOnline desc ";
+				string hql = "from Article a where a.Category.Id = :categoryId and a.Syndicate = :syndicate and a.DateOnline < :now and a.DateOffline > :now order by a.DateOnline desc ";
 				IQuery q = base.NHSession.CreateQuery(hql);
 				q.SetInt32("categoryId", this._currentCategoryId);
+				q.SetBoolean("syndicate", true);
 				q.SetDateTime("now", DateTime.Now);
 				return q.List();
 			}
@@ -185,7 +186,6 @@ namespace Cuyahoga.Modules.Articles
 				q.SetInt32("sectionId", base.Section.Id);
 				q.SetBoolean("syndicate", true);
 				q.SetDateTime("now", DateTime.Now);
-				q.SetFirstResult(0);
 				q.SetMaxResults(number);
 				return q.List();
 			}

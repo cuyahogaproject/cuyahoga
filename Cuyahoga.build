@@ -277,7 +277,8 @@
 			</fileset>
 		</copy>
 		<!-- Copy Modules.Downloads to the Web dir -->
-		<copy todir="${build.dir}/Modules">
+		<mkdir dir="${build.dir}/Modules/Downloads" />
+		<copy todir="${build.dir}/Modules/Downloads">
 			<fileset basedir="Downloads/Web">
 				<include name="**/*.as?x" />
 				<include name="**/*.gif" />

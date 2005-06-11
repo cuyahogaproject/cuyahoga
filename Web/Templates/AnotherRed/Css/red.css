@@ -7,7 +7,7 @@ html, body
 body 
 {
 	background-color: #eee;
-	background-image: url(../images/bg-body.gif);
+	background-image: url(../Images/bg-body.gif);
 	background-repeat: repeat-x;
 	font: 0.7em "Trebuchet MS", Arial, Helvetica, sans-serif;
 	color: #333;
@@ -85,26 +85,26 @@ a:hover
 
 #containerleft
 {
-	background-image: url(../images/shadow-left.gif);
+	background-image: url(../Images/shadow-left.gif);
 	background-repeat: repeat-y;
 }
 
 #containertopleft
 {
-	background-image: url(../images/shadow-top-left.gif);
+	background-image: url(../Images/shadow-top-left.gif);
 	background-repeat: no-repeat;
 }
 
 #containerright
 {
-	background-image: url(../images/shadow-right.gif);
+	background-image: url(../Images/shadow-right.gif);
 	background-repeat: repeat-y;
 	background-position: right;
 }
 
 #containertopright
 {
-	background-image: url(../images/shadow-top-right.gif);
+	background-image: url(../Images/shadow-top-right.gif);
 	background-repeat: no-repeat;
 	background-position: top right;
 }
@@ -115,7 +115,7 @@ a:hover
 	margin-right: 7px;
 	background-color: #fff;
 	margin-bottom: 10px;
-	background-image: url(../images/shadow-bottom.gif);
+	background-image: url(../Images/shadow-bottom.gif);
 	background-position: bottom;
 	background-repeat: repeat-x;
 	min-height: 500px;
