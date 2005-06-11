@@ -2,7 +2,7 @@
 <project default="build" basedir="." xmlns="http://nant.sf.net/release/0.85-rc1/nant.xsd">
 	<!-- global project settings -->
 	<property name="project.name" value="Cuyahoga" />
-	<property name="project.version" value="0.7.1" />
+	<property name="project.version" value="0.8.0" />
 
 	<!-- default configuration -->
 	<property name="project.config" value="debug" /> <!-- debug|release -->
@@ -45,6 +45,7 @@
 		<call target="build.servercontrols" />
 		<call target="build.web" />
 		<call target="build.modules" />
+		<call target="build.modules.downloads" />
 
 		<!-- copy libraries -->
 		<copy todir="${build.dir}/bin">
@@ -152,6 +153,34 @@
         </csc>
 	</target>
 	
+	<target name="build.modules.downloads" depends="build.core">
+		<csc target="library" output="${build.dir}/bin/Cuyahoga.Modules.Downloads.dll" debug="${build.debug}" doc="${build.dir}/bin/Cuyahoga.Modules.Downloads.xml">
+            <sources>
+                <include name="Downloads/**/*.cs" />
+            </sources>
+            <resources dynamicprefix="true" prefix="Cuyahoga.Modules">
+				<include name="Downloads/**/*.hbm.xml" />
+				<include name="Downloads/**/Strings*.resx" 
+					if="${framework::get-family(framework::get-target-framework()) == 'net'}" />
+				<include name="Downloads/**/Strings.resx" 
+					if="${framework::get-family(framework::get-target-framework()) == 'mono'}" />
+			</resources>
+            <references>
+                <include name="System.dll" />
+                <include name="System.Data.dll" />
+                <include name="System.Xml.dll" />
+                <include name="System.Drawing.dll" />
+                <include name="System.Web.dll" />
+                <include name="${lib.dir}/NHibernate.dll" />
+                <include name="${lib.dir}/Nullables.dll" />
+                <include name="${lib.dir}/log4net.dll" />
+                <include name="${build.dir}/bin/Cuyahoga.Core.dll" />
+                <include name="${build.dir}/bin/Cuyahoga.Web.dll" />
+                <include name="${build.dir}/bin/Cuyahoga.ServerControls.dll" />
+            </references>
+        </csc>
+	</target>
+	
 	<target name="sdkdoc" depends="init" description="Generates MSDN style documentation">
 		<mkdir dir="${build.dir}/doc/sdk" />
 		<ndoc>
@@ -216,6 +245,7 @@
 		<mkdir dir="${build.dir}/UserFiles/Image" />
 		<mkdir dir="${build.dir}/UserFiles/File" />
 		<mkdir dir="${build.dir}/index" />
+		<mkdir dir="${build.dir}/files" />
 		<copy todir="${build.dir}">
 			<fileset basedir="Web">
 				<include name="**/*.as?x" />
@@ -246,7 +276,18 @@
 				<include name="**/*.xslt" />
 			</fileset>
 		</copy>
-
+		<!-- Copy Modules.Downloads to the Web dir -->
+		<copy todir="${build.dir}/Modules">
+			<fileset basedir="Downloads/Web">
+				<include name="**/*.as?x" />
+				<include name="**/*.gif" />
+				<include name="**/*.png" />
+				<include name="**/*.jpg" />
+				<include name="**/*.js" />
+				<include name="**/*.css" />
+				<include name="**/*.xslt" />
+			</fileset>
+		</copy>
 	</target>
 	
 	<target name="package-source" depends="init" description="Create a Zip file for Source Releases">
@@ -260,6 +301,7 @@
 				<include name="ServerControls/**" />
 				<include name="Web/**" />
 				<include name="Modules/**" />
+				<include name="Downloads/**" />
 				<include name="Tests/**" />
 				<include name="Database/**/*.sql" />
 							

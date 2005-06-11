@@ -40,6 +40,7 @@ namespace Cuyahoga.Modules.Articles
 		protected System.Web.UI.WebControls.Panel pnlAnonymous;
 		protected System.Web.UI.WebControls.RequiredFieldValidator rfvName;
 		protected System.Web.UI.WebControls.RequiredFieldValidator rfvComment;
+		protected System.Web.UI.HtmlControls.HtmlAnchor ancComments;
 		protected System.Web.UI.WebControls.Panel pnlArticleList;
 
 		private void Page_Load(object sender, System.EventArgs e)
@@ -73,6 +74,7 @@ namespace Cuyahoga.Modules.Articles
 					this.rfvComment.ErrorMessage = base.GetText("COMMENTREQUIRED");
 
 					this.pnlArticleDetails.Visible = true;
+					this.ancComments.Visible = this._allowComments;
 					if (this._allowAnonymousComments || (this.Page.User.Identity.IsAuthenticated && this._allowComments))
 					{
 						this.pnlComment.Visible = true;
@@ -168,10 +170,16 @@ namespace Cuyahoga.Modules.Articles
 				}
 
 				HyperLink hplComments = e.Item.FindControl("hplComments") as HyperLink;
-				hplComments.NavigateUrl = UrlHelper.GetUrlFromSection(this._module.Section) 
-					+ String.Format("/{0}#comments", article.Id);
-				hplComments.Text = base.GetText("COMMENTS") + " " + article.Comments.Count.ToString();
-
+				if (this._allowComments)
+				{
+					hplComments.NavigateUrl = UrlHelper.GetUrlFromSection(this._module.Section) 
+						+ String.Format("/{0}#comments", article.Id);
+					hplComments.Text = base.GetText("COMMENTS") + " " + article.Comments.Count.ToString();
+				}
+				else
+				{
+					hplComments.Visible = false;
+				}
 				Panel pnlSummary = e.Item.FindControl("pnlSummary") as Panel;
 				Panel pnlContent = e.Item.FindControl("pnlContent") as Panel;
 				DisplayType displayType = (DisplayType)Enum.Parse(typeof(DisplayType), this._module.Section.Settings["DISPLAY_TYPE"].ToString());

@@ -5,12 +5,13 @@ Installing Cuyahoga from source.
 2. Create a database. Supported databases are:
     - SQL Server 2000 / MSDE 2000
     - PostgreSQL 7.4 and higher
-    - MySQL 4.1 and higher
+    - MySQL 4.0 and higher
 
 3. Run the following scripts from the Database folder:
 
     create-core-***.sql (where *** is mssql2000 or postgresql, depending on the platform)
     create-modules-***.sql
+    create-modules.downloads-***.sql
     init-***.sql
 
 4. Build and run.
@@ -39,14 +40,14 @@ Installing Cuyahoga from source.
         - Make sure you have a 0.85 version of NAnt (http://nant.sourceforge.net).
         - Open a command prompt, go to the directory where you extracted the .zip file.
         - Enter 'nant'. This will create a build directory with the compiled binaries and the 
-          libraries (for example 'build/net-1.1.win32/Cuyahoga-0.5-debug').
+          libraries (for example 'build/net-1.1.win32/Cuyahoga-0.8.0-debug').
         - Enter 'nant deploy' to add the other files needed to run Cuyahoga to the build.
         - Create an IIS application that points to the build directory or copy the files in the
           build directory to the root directory of an existing IIS application.
         - Change the connection string in the Web.config (hibernate.connection.connection_string)
           to the database that is created in step 2. See 4a for example connection strings.
           
-    You are now ready to run the application. Before the fun starts you have to create a site
+    You are now ready to run the application. Before you can view the site, you have to create a site
     first. Open a web browser and go to the web site administration. The url is
     http://HOST_NAME/APPLICATION_NAME/Admin (for example http://localhost/cuyahoga/Admin). Log in
     with user 'admin' and password 'hyena'. Start playing around and see if you manage to get a 
@@ -75,4 +76,8 @@ Hints and tips:
 - You can enable logging to uncomment the <log4net> section in the Web.config. Make sure your
   ASP.NET user has write access to the path of the logfile.
 - Give the ASP.NET user write access for the Web/UserFiles directory to enable uploading images or
-  other files.
+  other files with the FCKEditor from the StaticHtml and Articles modules.
+- Give the ASP.NET user write access for the Web/files directory to enable uploading files with
+  the Downloads module. You can optionally enter a physical path for the location where the files
+  should be uploaded. With this, it is possible to keep the files out of the web site to prevent 
+  direct downloading.

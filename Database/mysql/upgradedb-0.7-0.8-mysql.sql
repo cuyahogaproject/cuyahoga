@@ -123,5 +123,6 @@ VALUES (@moduletypeid, 'PHYSICAL_DIR', 'Physical directory (empty for App_Root/f
 Version updates
 *********************/
 
-INSERT INTO cuyahoga_version (assembly, major, minor, patch) 
-VALUES('Cuyahoga.Core', 0, 8, 0);	
+INSERT INTO cuyahoga_version (assembly, major, minor, patch) VALUES ('Cuyahoga.Core', 0, 8, 0);
+INSERT INTO cuyahoga_version (assembly, major, minor, patch) VALUES ('Cuyahoga.Modules', 0, 8, 0);
+INSERT INTO cuyahoga_version (assembly, major, minor, patch) VALUES ('Cuyahoga.Modules.Downloads', 0, 8, 0);

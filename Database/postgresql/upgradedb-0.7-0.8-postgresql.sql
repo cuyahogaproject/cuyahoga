@@ -118,5 +118,6 @@ VALUES (currval('cuyahoga_moduletype_moduletypeid_seq'), 'PHYSICAL_DIR', 'Physic
 Version updates
 *********************/
 
-INSERT INTO cuyahoga_version (assembly, major, minor, patch) 
-VALUES('Cuyahoga.Core', 0, 8, 0);	
+INSERT INTO cuyahoga_version (assembly, major, minor, patch) VALUES ('Cuyahoga.Core', 0, 8, 0);
+INSERT INTO cuyahoga_version (assembly, major, minor, patch) VALUES ('Cuyahoga.Modules', 0, 8, 0);
+INSERT INTO cuyahoga_version (assembly, major, minor, patch) VALUES ('Cuyahoga.Modules.Downloads', 0, 8, 0);

@@ -208,22 +208,6 @@
                     BuildAction = "EmbeddedResource"
                 />
                 <File
-                    RelPath = "Test.aspx"
-                    SubType = "Form"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "Test.aspx.cs"
-                    DependentUpon = "Test.aspx"
-                    SubType = "ASPXCodeBehind"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "Test.aspx.resx"
-                    DependentUpon = "Test.aspx.cs"
-                    BuildAction = "EmbeddedResource"
-                />
-                <File
                     RelPath = "Web.config"
                     BuildAction = "Content"
                 />
