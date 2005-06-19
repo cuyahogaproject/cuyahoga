@@ -25,10 +25,10 @@ namespace Cuyahoga.Modules.Downloads.Util
 			{
 				InitMap();
 			}
-			string iconFilename = fileTypesMap[extension].ToString();
-			if (iconFilename == null)
+			string iconFilename = "file.gif"; // default
+			if (fileTypesMap[extension] != null)
 			{
-				iconFilename = "file.gif";
+				iconFilename = fileTypesMap[extension].ToString();
 			}
 			return iconFilename;
 		}
