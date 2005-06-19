@@ -122,7 +122,7 @@ namespace Cuyahoga.Modules.Downloads.Web
 					Label lblDateModified = e.Item.FindControl("lblDateModified") as Label;
 					lblDateModified.Visible = true;
 					lblDateModified.Text = TimeZoneUtil.AdjustDateToUserTimeZone(
-						file.DateModified, this.Page.User.Identity).ToString();
+						file.DatePublished, this.Page.User.Identity).ToString();
 				}
 				if (this._downloadsModule.ShowPublisher)
 				{

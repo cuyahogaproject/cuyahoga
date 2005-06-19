@@ -100,9 +100,9 @@ SET IDENTITY_INSERT cuyahoga_version ON
 
 GO
 
-INSERT INTO cuyahoga_version (versionid, assembly, major, minor, patch) VALUES (1, 'Cuyahoga.Core', 0, 8, 0)
-INSERT INTO cuyahoga_version (versionid, assembly, major, minor, patch) VALUES (2, 'Cuyahoga.Modules', 0, 8, 0)
-INSERT INTO cuyahoga_version (versionid, assembly, major, minor, patch) VALUES (3, 'Cuyahoga.Modules.Downloads', 0, 8, 0)
+INSERT INTO cuyahoga_version (versionid, assembly, major, minor, patch) VALUES (1, 'Cuyahoga.Core', 0, 8, 1)
+INSERT INTO cuyahoga_version (versionid, assembly, major, minor, patch) VALUES (2, 'Cuyahoga.Modules', 0, 8, 1)
+INSERT INTO cuyahoga_version (versionid, assembly, major, minor, patch) VALUES (3, 'Cuyahoga.Modules.Downloads', 0, 8, 1)
 
 
 SET IDENTITY_INSERT cuyahoga_version OFF

@@ -73,7 +73,7 @@ namespace Cuyahoga.Modules.Downloads.Web
 			Literal litDateModified = e.Item.FindControl("litDateModified") as Literal;
 			if (litDateModified != null)
 			{
-				litDateModified.Text = TimeZoneUtil.AdjustDateToUserTimeZone(file.DateModified, this.User.Identity).ToString();
+				litDateModified.Text = TimeZoneUtil.AdjustDateToUserTimeZone(file.DatePublished, this.User.Identity).ToString();
 			}
 
 			HyperLink hplEdit = e.Item.FindControl("hpledit") as HyperLink;

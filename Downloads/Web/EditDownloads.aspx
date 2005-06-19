@@ -28,7 +28,7 @@
 									<th>
 										Number of downloads</th>
 									<th>
-										Last modified</th>
+										Date published</th>
 									<th>
 									</th>
 								</tr>

@@ -107,7 +107,7 @@ namespace Cuyahoga.Modules.Downloads
 		/// <returns></returns>
 		public IList GetAllFiles()
 		{
-			string hql = "from File f where f.Section.Id = :sectionId order by f.DateModified desc";
+			string hql = "from File f where f.Section.Id = :sectionId order by f.DatePublished desc";
 			IQuery q = base.NHSession.CreateQuery(hql);
 			q.SetInt32("sectionId", base.Section.Id);
 
@@ -143,10 +143,6 @@ namespace Cuyahoga.Modules.Downloads
 		/// </summary>
 		public void SaveFile(File file)
 		{
-			if (file.Id == -1)
-			{
-				file.DateModified = DateTime.Now;
-			}
 			ITransaction tx = base.NHSession.BeginTransaction();
 			try
 			{

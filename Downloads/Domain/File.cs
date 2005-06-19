@@ -17,7 +17,7 @@ namespace Cuyahoga.Modules.Downloads.Domain
 		private int _size;
 		private int _nrOfDownloads;
 		private string _contentType;
-		private DateTime _dateModified;
+		private DateTime _datePublished;
 		private Section _section;
 		private User _publisher;
 		private IList _allowedRoles;
@@ -97,12 +97,12 @@ namespace Cuyahoga.Modules.Downloads.Domain
 		}
 
 		/// <summary>
-		/// Property DateModified (DateTime)
+		/// Property DatePublished (DateTime)
 		/// </summary>
-		public DateTime DateModified
+		public DateTime DatePublished
 		{
-			get { return this._dateModified; }
-			set { this._dateModified = value; }
+			get { return this._datePublished; }
+			set { this._datePublished = value; }
 		}
 
 		/// <summary>

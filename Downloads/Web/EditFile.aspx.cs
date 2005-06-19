@@ -203,6 +203,7 @@ namespace Cuyahoga.Modules.Downloads.Web
 			{
 				this._file.Publisher = this.User.Identity as User;
 				this._file.Title = this.txtTitle.Text;
+				this._file.DatePublished = DateTime.Now; // Default Now, TODO make editable by user?
 				SetRoles();
 
 				try

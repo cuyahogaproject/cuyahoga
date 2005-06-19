@@ -8,6 +8,7 @@ title varchar(100) NULL,
 filesize int NOT NULL,
 nrofdownloads int NOT NULL,
 contenttype varchar(50) NOT NULL,
+datepublished datetime NOT NULL,
 inserttimestamp datetime DEFAULT current_timestamp NOT NULL,
 updatetimestamp datetime NOT NULL)
 go
