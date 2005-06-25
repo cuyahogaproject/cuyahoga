@@ -30,12 +30,15 @@ namespace Cuyahoga.Web
 				int sectionId = Int32.Parse(Context.Request.QueryString["SectionId"]);
 				string pathInfo = Context.Request.PathInfo;
 				string cacheKey = String.Format("RSS_{0}_{1}", sectionId, pathInfo);
+				string content = null;
+
 				if (Context.Cache[cacheKey] == null)
 				{
 					// Get the data for the RSS feed because it's not in the cache yet.
 					// Use the same cache duration for the RSS feed as the Section.
 					this._coreRepository = (CoreRepository)HttpContext.Current.Items["CoreRepository"];
 					Section section = (Section)this._coreRepository.GetObjectById(typeof(Section), sectionId);
+					section.SessionFactoryRebuilt += new EventHandler(Section_SessionFactoryRebuilt);
 					ModuleBase module = section.CreateModule(UrlHelper.GetUrlFromSection(section));
 					// Create event handlers for NHibernate-related events that can occur in the module.
 					module.NHSessionRequired += new ModuleBase.NHSessionEventHandler(Module_NHSessionRequired);
@@ -102,8 +105,9 @@ namespace Cuyahoga.Web
 						// write out 
 						writer.WriteEndElement();
 
+						content = sw.ToString();
 						// save the string in the cache
-						Cache.Insert(cacheKey, sw.ToString(), null, DateTime.Now.AddSeconds(section.CacheDuration), TimeSpan.Zero);
+						Cache.Insert(cacheKey, content, null, DateTime.Now.AddSeconds(section.CacheDuration), TimeSpan.Zero);
 
 						writer.Close();
 					}
@@ -112,7 +116,11 @@ namespace Cuyahoga.Web
 						throw new Exception(String.Format("The module {0} doesn't implement ISyndicatable", module.GetType().FullName));
 					}
 				}
-				Context.Response.Write(Context.Cache[cacheKey].ToString());
+				else
+				{
+					content = Context.Cache[cacheKey].ToString();
+				}
+				Context.Response.Write(content);
 			}
 
 			Context.Response.End();
@@ -141,6 +149,21 @@ namespace Cuyahoga.Web
 		private void Module_NHSessionRequired(object sender, ModuleBase.NHSessionEventArgs e)
 		{
 			e.Session = this._coreRepository.ActiveSession;
+		}
+
+		private void Section_SessionFactoryRebuilt(object sender, EventArgs e)
+		{
+			// The SessionFactory was rebuilt, so the current NHibernate Session has become invalid.
+			// This is handled by a simple reload of the page. 
+			// TODO: handle more elegantly?
+			if (Context.Items["VirtualUrl"] != null)
+			{
+				Context.Response.Redirect(Context.Items["VirtualUrl"].ToString());
+			}
+			else
+			{
+				Context.Response.Redirect(Context.Request.RawUrl);
+			}
 		}
 	}
 }
