@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="utf-8" ?> 
 <hibernate-mapping xmlns="urn:nhibernate-mapping-2.0">
 	<class name="Cuyahoga.Core.Domain.Node, Cuyahoga.Core" table="cuyahoga_node">
+		
+		<jcs-cache usage="nonstrict-read-write" />
+
 		<id name="Id" column="nodeid" type="Int32" unsaved-value="-1">
 			<generator class="native">
 				<param name="sequence">cuyahoga_node_nodeid_seq</param>
@@ -19,14 +22,17 @@
 		<many-to-one name="Template" class="Cuyahoga.Core.Domain.Template, Cuyahoga.Core" column="templateid" not-null="false" />
 		
 		<bag name="ChildNodes" cascade="delete" inverse="true" order-by="position asc" lazy="true">
+			<jcs-cache usage="nonstrict-read-write" />
 			<key column="parentnodeid" />
 			<one-to-many class="Cuyahoga.Core.Domain.Node, Cuyahoga.Core" /> 
 		</bag>
 		<bag name="Sections" cascade="save-update" inverse="true" lazy="true" order-by="position">
+			<jcs-cache usage="nonstrict-read-write" />
 			<key column="nodeid" />
 			<one-to-many class="Cuyahoga.Core.Domain.Section, Cuyahoga.Core" />
 		</bag>
 		<bag name="NodePermissions" cascade="all" lazy="true" table="cuyahoga_noderole">
+			<jcs-cache usage="read-write" />
 			<key column="nodeid" />
 			<composite-element class="Cuyahoga.Core.Domain.NodePermission, Cuyahoga.Core">
 				<parent name="Node" />
