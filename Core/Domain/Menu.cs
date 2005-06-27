@@ -7,6 +7,7 @@ namespace Cuyahoga.Core.Domain
 	/// The Menu class serves as a container for links to Nodes that need to be displayed outside 
 	/// the regular Node hierarchy.
 	/// </summary>
+	[Serializable]
 	public class Menu
 	{
 		private int _id;

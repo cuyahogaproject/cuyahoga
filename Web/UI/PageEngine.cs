@@ -14,7 +14,6 @@ using Cuyahoga.Core.Service;
 using Cuyahoga.Core.Util;
 using Cuyahoga.Web.UI;
 using Cuyahoga.Web.Util;
-using Cuyahoga.Web.Cache;
 
 namespace Cuyahoga.Web.UI
 {
@@ -24,6 +23,7 @@ namespace Cuyahoga.Web.UI
 	/// </summary>
 	public class PageEngine : System.Web.UI.Page
 	{
+		private Site _currentSite;
 		private Node _rootNode;
 		private Node _activeNode;
 		private Section _activeSection;
@@ -90,6 +90,14 @@ namespace Cuyahoga.Web.UI
 			get { return this._coreRepository; }
 		}
 
+		/// <summary>
+		/// 
+		/// </summary>
+		public Site CurrentSite
+		{
+			get { return this._currentSite; }
+		}
+
 		#endregion
 
 		/// <summary>
@@ -113,52 +121,55 @@ namespace Cuyahoga.Web.UI
 			try
 			{
 				this._coreRepository = (CoreRepository)HttpContext.Current.Items["CoreRepository"];
-				// Get the cachemanager for the current site.
-				CacheManager cm = new CacheManager(this._coreRepository, Util.UrlHelper.GetSiteUrl());
-				// Add the CacheManager to the current context, so it can track all objects during the page lifecycle.
-				Context.Items.Add("CacheManager", cm);
-				// Get initial root node from the CacheManager.
-				this._rootNode = cm.GetRootNode();
+
+				// Load the current site
+				Node entryNode = null;
+				string siteUrl = UrlHelper.GetSiteUrl();
+				SiteAlias currentSiteAlias = this._coreRepository.GetSiteAliasByUrl(siteUrl);
+				if (currentSiteAlias != null)
+				{
+					this._currentSite = currentSiteAlias.Site;
+					entryNode = currentSiteAlias.EntryNode;
+				}
+				else
+				{
+					this._currentSite = this._coreRepository.GetSiteBySiteUrl(siteUrl);
+				}
 
 				// Load the active node
 				// Query the cache by ShortDescription, then NodeId and last, SectionId.
 				if (Context.Request.QueryString["ShortDescription"] != null)
 				{
-					this._activeNode = cm.GetNodeByShortDescription(Context.Request.QueryString["ShortDescription"], cm.CurrentSite.Id);
+					this._activeNode = this._coreRepository.GetNodeByShortDescriptionAndSite(Context.Request.QueryString["ShortDescription"], this._currentSite);
 				}
 				else if (Context.Request.QueryString["NodeId"] != null)
 				{
-					this._activeNode = cm.GetNodeById(Int32.Parse(Context.Request.QueryString["NodeId"]));
+					this._activeNode = (Node)this._coreRepository.GetObjectById(typeof(Node)
+						, Int32.Parse(Context.Request.QueryString["NodeId"]));
 				}
 				else if (Context.Request.QueryString["SectionId"] != null)
 				{
-					this._activeSection = cm.GetSectionById(Int32.Parse(Context.Request.QueryString["SectionId"]));
+					this._activeSection = (Section)this._coreRepository.GetObjectById(typeof(Section)
+						, Int32.Parse(Context.Request.QueryString["SectionId"]));
 					this._activeNode = this._activeSection.Node;
 				}
-				else if (cm.EntryNode != null)
+				else if (entryNode != null)
 				{
-					this._activeNode = cm.EntryNode;
+					this._activeNode = entryNode;
 				}
 				else
 				{
 					// Can't load a particular node, so the root node has to be the active node
 					// Maybe we have culture information stored in a cookie, so we might need a different 
 					// root Node.
+					string currentCulture = this._currentSite.DefaultCulture;
 					if (Context.Request.Cookies["CuyahogaCulture"] != null)
 					{
-						string currentCulture = Context.Request.Cookies["CuyahogaCulture"].Value;
-						this._activeNode = cm.GetRootNodeByCulture(currentCulture);
+						currentCulture = Context.Request.Cookies["CuyahogaCulture"].Value;
 					}
-					else
-					{
-						this._activeNode = this._rootNode;
-					}
+					this._activeNode = this._coreRepository.GetRootNodeByCultureAndSite(currentCulture, this._currentSite);
 				}
-				// Set the root node again, but now based on the active node.
-				if (this._activeNode.NodePath != null)
-				{
-					this._rootNode = this._activeNode.NodePath[0];
-				}
+				this._rootNode = this._activeNode.NodePath[0];
 
 				// Set culture
 				// TODO: fix this because ASP.NET pages are not guaranteed to run in 1 thread (how?).
@@ -197,21 +208,6 @@ namespace Cuyahoga.Web.UI
 				writer = new FormFixerHtmlTextWriter(writer.InnerWriter, "", Context.Items["VirtualUrl"].ToString());
 			}
 			base.Render (writer);
-		}
-
-		protected override void OnUnload(EventArgs e)
-		{
-			// If the CacheManager contains any changes it should be stored again.
-			CacheManager cm = Context.Items["CacheManager"] as CacheManager;
-			if (cm != null && cm.HasChanges)
-			{
-				cm.SaveCache();
-			}
-
-			// Ready, write the execution time to the debug output.
-			TimeSpan ts = DateTime.Now - (DateTime)Context.Items["starttime"];
-			Debug.WriteLine("Total execution time : " + ts.Milliseconds.ToString() + " milliseconds. \n");
-			base.OnUnload (e);
 		}
 
 		private void LoadContent()
@@ -253,6 +249,7 @@ namespace Cuyahoga.Web.UI
 					// Create event handlers for NHibernate-related events that can occur in the module.
 					section.SessionFactoryRebuilt += new EventHandler(Section_SessionFactoryRebuilt);
 					ModuleBase module = section.CreateModule(UrlHelper.GetUrlFromSection(section));
+					section.SessionFactoryRebuilt -= new EventHandler(Section_SessionFactoryRebuilt);
 					module.NHSessionRequired += new ModuleBase.NHSessionEventHandler(Module_NHSessionRequired);
 
 					if (module != null)
@@ -279,7 +276,6 @@ namespace Cuyahoga.Web.UI
 
 		private void LoadMenus()
 		{
-			// TODO: cache menus
 			IList menus = this._coreRepository.GetMenusByRootNode(this._rootNode);
 			foreach (Menu menu in menus)
 			{
@@ -317,7 +313,7 @@ namespace Cuyahoga.Web.UI
 			}
 		}
 
-		private void Section_SessionFactoryRebuilt(object sender, EventArgs e)
+		public void Section_SessionFactoryRebuilt(object sender, EventArgs e)
 		{
 			// The SessionFactory was rebuilt, so the current NHibernate Session has become invalid.
 			// This is handled by a simple reload of the page. 

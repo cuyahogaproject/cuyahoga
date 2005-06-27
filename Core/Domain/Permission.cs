@@ -5,6 +5,7 @@ namespace Cuyahoga.Core.Domain
 	/// <summary>
 	/// Base class for permission related association objects.
 	/// </summary>
+	[Serializable]
 	public abstract class Permission
 	{
 		private int _id;

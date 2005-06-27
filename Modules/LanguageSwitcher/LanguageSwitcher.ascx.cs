@@ -12,7 +12,6 @@ namespace Cuyahoga.Modules.LanguageSwitcher
 	using Cuyahoga.Core.Domain;
 	using Cuyahoga.Web.UI;
 	using Cuyahoga.Web.Util;
-	using Cuyahoga.Web.Cache;
 
 	/// <summary>
 	///		Summary description for LanguageSwitcher.
@@ -26,6 +25,7 @@ namespace Cuyahoga.Modules.LanguageSwitcher
 
 		private void Page_Load(object sender, System.EventArgs e)
 		{
+			this._page = this.Page as PageEngine;
 			this.imbGo.ImageUrl = this.TemplateSourceDirectory + "/Images/go.gif";
 			if (! this.IsPostBack)
 			{
@@ -35,7 +35,6 @@ namespace Cuyahoga.Modules.LanguageSwitcher
 
 		private void BindLanguageOptions()
 		{
-			this._page = this.Page as PageEngine;
 			if (this._page != null)
 			{
 				IList rootNodes = this._page.CoreRepository.GetRootNodes(this._page.ActiveNode.Site);
@@ -80,17 +79,13 @@ namespace Cuyahoga.Modules.LanguageSwitcher
 			string selectedCulture = this.ddlLanguage.SelectedValue;
 			// Get the root node for the selected culture from the cache and build an url from
 			// it where the user will be redirected to.
-			CacheManager cm = (CacheManager)HttpContext.Current.Items["CacheManager"];
-			if (cm != null)
+			Node rootNodeForSelectedCulture = this._page.CoreRepository.GetRootNodeByCultureAndSite(selectedCulture, this._page.CurrentSite);
+			if (rootNodeForSelectedCulture != null)
 			{
-				Node rootNodeForSelectedCulture = cm.GetRootNodeByCulture(selectedCulture);
-				if (rootNodeForSelectedCulture != null)
-				{
-					// Set cookie for the selected culture. In the future we might enable persisting
-					// this cookie to remember the prefered language of the user.
-					HttpContext.Current.Response.Cookies.Add(new HttpCookie("CuyahogaCulture", selectedCulture));
-					HttpContext.Current.Response.Redirect(UrlHelper.GetUrlFromNode(rootNodeForSelectedCulture));
-				}
+				// Set cookie for the selected culture. In the future we might enable persisting
+				// this cookie to remember the prefered language of the user.
+				HttpContext.Current.Response.Cookies.Add(new HttpCookie("CuyahogaCulture", selectedCulture));
+				HttpContext.Current.Response.Redirect(UrlHelper.GetUrlFromNode(rootNodeForSelectedCulture));
 			}
 		}
 	}

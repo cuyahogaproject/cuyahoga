@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="utf-8" ?> 
 <hibernate-mapping xmlns="urn:nhibernate-mapping-2.0">
 	<class name="Cuyahoga.Core.Domain.Section, Cuyahoga.Core" table="cuyahoga_section"
-		proxy="Cuyahoga.Core.Domain.Section, Cuyahoga.Core">
+		proxy="Cuyahoga.Core.Domain.Section, Cuyahoga.Core"> 
+		
+		<jcs-cache usage="nonstrict-read-write" />
 		
 		<id name="Id" column="sectionid" type="Int32" unsaved-value="-1">
 			<generator class="native">
@@ -17,9 +19,10 @@
 		<property name="ShowTitle" column="showtitle" type="Boolean" not-null="false" />
 		
 		<many-to-one name="Node" class="Cuyahoga.Core.Domain.Node, Cuyahoga.Core" column="nodeid" not-null="false" />
-		<many-to-one name="ModuleType" class="Cuyahoga.Core.Domain.ModuleType, Cuyahoga.Core" column="moduletypeid" />
+		<many-to-one name="ModuleType" class="Cuyahoga.Core.Domain.ModuleType, Cuyahoga.Core" column="moduletypeid" outer-join="true" />
 		
 		<bag name="SectionPermissions" cascade="all" lazy="true" table="cuyahoga_sectionrole">
+			<jcs-cache usage="read-write" />
 			<key column="sectionid" />
 			<composite-element class="Cuyahoga.Core.Domain.SectionPermission, Cuyahoga.Core">
 				<parent name="Section" />
@@ -30,6 +33,7 @@
 		</bag>
 		
 		<map name="Settings" table="cuyahoga_sectionsetting" lazy="true" cascade="all">
+			<jcs-cache usage="nonstrict-read-write" />
 		    <key column="sectionid" />
 		    <index column="Name" type="String" length="50" />
 			<element column="Value" type="String" length="100" />

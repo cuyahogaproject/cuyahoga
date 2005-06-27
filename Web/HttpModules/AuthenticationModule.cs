@@ -1,7 +1,6 @@
 using System;
 using System.Web;
 using System.Web.Security;
-using System.Web.Caching;
 
 using log4net;
 
@@ -14,13 +13,10 @@ using Cuyahoga.Core.Security;
 namespace Cuyahoga.Web.HttpModules
 {
 	/// <summary>
-	/// HttpModule to extend Forms Authentication. When a user logs in, the profile is loaded and put 
-	/// in the cache with a simple key containing 'USER_' + userId.
-	/// TODO: move non-httpmodule methods to another class?
+	/// HttpModule to extend Forms Authentication.
 	/// </summary>
 	public class AuthenticationModule : IHttpModule
 	{
-		private const string USER_CACHE_PREFIX = "User_";
 		private const int AUTHENTICATION_TIMEOUT = 20;
 		private static readonly ILog log = LogManager.GetLogger(typeof(AuthenticationModule));
 
@@ -39,8 +35,7 @@ namespace Cuyahoga.Web.HttpModules
 		}
 
 		/// <summary>
-		/// Try to authenticate the user. If authentication succeeds, an instance of the Cuyahoga user is 
-		/// cached for future usage.
+		/// Try to authenticate the user.
 		/// </summary>
 		/// <param name="username"></param>
 		/// <param name="password"></param>
@@ -76,8 +71,7 @@ namespace Cuyahoga.Web.HttpModules
 						cookie.Expires = DateTime.Now.AddYears(1);
 					}
 					HttpContext.Current.Response.Cookies.Add(cookie);
-					// Finally cache the user
-					CacheUser(HttpContext.Current, user);
+
 					return true;
 				}
 				else
@@ -94,22 +88,14 @@ namespace Cuyahoga.Web.HttpModules
 		}
 
 		/// <summary>
-		/// Log out the current user and remove the instance from the cache.
+		/// Log out the current user.
 		/// </summary>
 		public void Logout()
 		{
 			if (HttpContext.Current.User != null && HttpContext.Current.User.Identity.IsAuthenticated)
 			{
-				string cacheIdentifier = USER_CACHE_PREFIX + HttpContext.Current.User.Identity.Name;
-				HttpContext.Current.Cache.Remove(cacheIdentifier);
 				FormsAuthentication.SignOut();
 			}
-		}
-
-		private void CacheUser(HttpContext context, User user)
-		{
-			string cacheIdentifier = USER_CACHE_PREFIX + user.Id.ToString();
-			context.Cache.Insert(cacheIdentifier, user, null, DateTime.MaxValue, new TimeSpan(0, AUTHENTICATION_TIMEOUT, 0));
 		}
 
 		private void Context_AuthenticateRequest(object sender, EventArgs e)
@@ -119,24 +105,10 @@ namespace Cuyahoga.Web.HttpModules
 			{
 				CoreRepository cr = (CoreRepository)HttpContext.Current.Items["CoreRepository"];
 				// There is a logged-in user with a standard Forms Identity. Replace it with
-				// the cached Cuyahoga identity (the User class implements IIdentity). 
-				string cacheIdentifier = USER_CACHE_PREFIX + app.Context.User.Identity.Name;
-				if (app.Context.Cache[cacheIdentifier] == null)
-				{
-					// For some reason the user is still logged-in but the cuyahoga User instance was removed 
-					// from the cache (for instance when the process is recycled). Fetch a new instance and cache it.
-					int userId = Int32.Parse(app.Context.User.Identity.Name);
-					if (HttpContext.Current.Items["CoreRepository"] != null)
-					{
-						User user = (User)cr.GetObjectById(typeof(User), userId);
-						user.IsAuthenticated = true;
-						CacheUser(app.Context, user);
-					}
-				}
-				User cuyahogaUser = (User)app.Context.Cache[cacheIdentifier];
-				// Attach the user to the current session.
-				cr.AttachObjectToCurrentSession(cuyahogaUser);
-				// Set the user context for the application.
+				// the cached Cuyahoga identity (the User class implements IIdentity). 				
+				int userId = Int32.Parse(app.Context.User.Identity.Name);
+				User cuyahogaUser = (User)cr.GetObjectById(typeof(User), userId);
+				cuyahogaUser.IsAuthenticated = true;
 				app.Context.User = new CuyahogaPrincipal(cuyahogaUser);
 			}
 		}

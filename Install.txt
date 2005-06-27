@@ -7,9 +7,10 @@ Installing Cuyahoga from source.
     - PostgreSQL 7.4 and higher
     - MySQL 4.0 and higher
 
-3. Run the following scripts from the Database folder:
+3. Run the following scripts from the Database/***/ folder (where *** is mssql2000, postgresql 
+   or mysql, depending on the platform):
 
-    create-core-***.sql (where *** is mssql2000 or postgresql, depending on the platform)
+    create-core-***.sql
     create-modules-***.sql
     create-modules.downloads-***.sql
     init-***.sql

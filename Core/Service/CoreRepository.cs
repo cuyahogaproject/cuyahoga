@@ -1,6 +1,8 @@
 using System;
 using System.Collections;
 using System.Reflection;
+
+using log4net;
 using NHibernate;
 using NHibernate.Expression;
 
@@ -15,6 +17,8 @@ namespace Cuyahoga.Core.Service
 	/// </summary>
 	public class CoreRepository
 	{
+		private static readonly ILog log = LogManager.GetLogger(typeof(CoreRepository));
+
 		private ISessionFactory _factory;
 		private ISession _activeSession;
 
@@ -76,9 +80,13 @@ namespace Cuyahoga.Core.Service
 		/// </summary>
 		public void CloseSession()
 		{
-			if (this._activeSession != null && this._activeSession.IsOpen)
+			if (this._activeSession != null)
 			{
-				this._activeSession.Close();
+				if (this._activeSession.IsOpen)
+				{
+					this._activeSession.Close();
+				}
+				this._activeSession.Dispose();
 			}
 		}
 
@@ -198,30 +206,6 @@ namespace Cuyahoga.Core.Service
 		}
 
 		/// <summary>
-		/// Attach potentially stale objects to the current NHibernate session. This is required
-		/// when objects are cached in the ASP.NET cache and they contain lazy loaded members.
-		/// </summary>
-		/// <param name="obj"></param>
-		public void AttachObjectToCurrentSession(object obj)
-		{
-			if (this._activeSession != null)
-			{
-				if (this._activeSession.IsOpen)
-				{
-					this._activeSession.Lock(obj, LockMode.None);
-				}
-				else
-				{
-					throw new InvalidOperationException("The current NHibernate session is not open, so no objects can be attached.");
-				}
-			}
-			else
-			{
-				throw new NullReferenceException("No active NHibernate session available to attach the object to.");
-			}
-		}
-
-		/// <summary>
 		/// Mark an object for deletion. Commit the deletion with Session.Flush.
 		/// </summary>
 		/// <param name="obj"></param>
@@ -313,17 +297,38 @@ namespace Cuyahoga.Core.Service
 			return crit.List();
 		}
 
+		public Node GetRootNodeByCultureAndSite(string culture, Site site)
+		{
+			string hql = "from Node n where n.ParentNode is null and n.Culture = :culture and n.Site.Id = :siteId";
+			IQuery q = this._activeSession.CreateQuery(hql);
+			q.SetString("culture", culture);
+			q.SetInt32("siteId", site.Id);
+			IList results = q.List();
+			if (results.Count == 1)
+			{
+				return results[0] as Node;
+			}
+			else if (results.Count == 0)
+			{
+				throw new NodeNullException(String.Format("No root node found for culture {0} and site {1}.", culture, site.Id));
+			}
+			else
+			{
+				throw new Exception(String.Format("Multiple root nodes found for culture {0} and site {1}.", culture, site.Id));
+			}
+		}
+
 		/// <summary>
 		/// Retrieve a node by short description (friendly url).
 		/// </summary>
 		/// <param name="shortDescription"></param>
 		/// <param name="siteId"></param>
 		/// <returns></returns>
-		public Node GetNodeByShortDescription(string shortDescription, int siteId)
+		public Node GetNodeByShortDescriptionAndSite(string shortDescription, Site site)
 		{
 			ICriteria crit = this._activeSession.CreateCriteria(typeof(Node));
 			crit.Add(Expression.Eq("ShortDescription", shortDescription));
-			crit.Add(Expression.Eq("Site.Id", siteId));
+			crit.Add(Expression.Eq("Site.Id", site.Id));
 			IList results = crit.List();
 			if (results.Count == 1)
 			{
@@ -336,49 +341,6 @@ namespace Cuyahoga.Core.Service
 			else
 			{
 				return null;
-			}
-		}
-
-		/// <summary>
-		/// Attach a node to the current session (we need this for cached nodes that lose their sessions).
-		/// </summary>
-		/// <param name="node"></param>
-		public void AttachNodeToCurrentSession(Node node)
-		{
-			if (this._activeSession != null)
-			{
-				if (this._activeSession.IsOpen)
-				{
-					if (! this._activeSession.Contains(node))
-					{
-						this._activeSession.Lock(node, LockMode.None);
-						// Also Update the Site, otherwise the proxied properties of Site don't work.
-						if (node.Level == 0 && ! this._activeSession.Contains(node.Site))
-						{
-							this._activeSession.Lock(node.Site, LockMode.None);
-						}
-						// Recursively attach Childnodes because we might need them for building a navigation tree.
-						foreach (Node childNode in node.ChildNodes)
-						{
-							AttachNodeToCurrentSession(childNode);
-						}
-						// 20050227, MBO: 
-						// using Session.Lock cascades into the Sections (save-update) so we don't need this anymore.
-						//						// Also re-attach the sections. Updating the node doesn't automatically re-attach the sections.
-						//						foreach (Section section in node.Sections)
-						//						{
-						//							//this._activeSession.Lock(section, LockMode.None);
-						//						}
-					}
-				}
-				else
-				{
-					throw new InvalidOperationException("The current NHibernate session is not open, so no nodes can be attached.");
-				}
-			}
-			else
-			{
-				throw new NullReferenceException("No active NHibernate session available to attach the node to.");
 			}
 		}
 

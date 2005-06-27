@@ -26,6 +26,7 @@ namespace Cuyahoga.Web.HttpModules
 		public void Init(HttpApplication context)
 		{
 			context.BeginRequest += new EventHandler(context_BeginRequest);
+			context.EndRequest += new EventHandler(context_EndRequest);
 		}
 
 		public void Dispose()
@@ -77,10 +78,10 @@ namespace Cuyahoga.Web.HttpModules
 						}
 						// 3. path
 						path = rewritePath;
-						log.Info("urlToRewrite = " + urlToRewrite);
-						log.Info("path = " + path);
-						log.Info("pathInfo = " + pathInfo);
-						log.Info("querystring = " + querystring);
+						log.Debug("urlToRewrite = " + urlToRewrite);
+						log.Debug("path = " + path);
+						log.Debug("pathInfo = " + pathInfo);
+						log.Debug("querystring = " + querystring);
 						
 						context.RewritePath(path, pathInfo, querystring);
 					}
@@ -95,8 +96,18 @@ namespace Cuyahoga.Web.HttpModules
 			HttpApplication app = (HttpApplication)sender;
 			// register start time for performance measurements.
 			app.Context.Items["starttime"] = DateTime.Now;
+			log.Info("Starting request: " + app.Request.RawUrl);
 			string url = HttpContext.Current.Request.RawUrl;
 			RewriteUrl(url, app.Context);
+		}
+
+		private void context_EndRequest(object sender, EventArgs e)
+		{
+			HttpApplication app = (HttpApplication)sender;
+			// Ready, write the execution time to the debug output.
+			TimeSpan ts = DateTime.Now - (DateTime)HttpContext.Current.Items["starttime"];
+			log.Info("Total execution time : " + ts.Milliseconds.ToString() + " ms.");
+			log.Info("Ending request: " + app.Request.RawUrl);
 		}
 	}
 

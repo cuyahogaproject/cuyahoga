@@ -221,7 +221,7 @@ namespace Cuyahoga.Modules.Articles
 			ITransaction tx = base.NHSession.BeginTransaction();
 			try
 			{
-				HandleCategory(article.Category, base.NHSession);
+				article.Category = HandleCategory(article.Category, base.NHSession);
 				if (article.Id == -1)
 				{
 					article.DateModified = DateTime.Now;
@@ -342,7 +342,7 @@ namespace Cuyahoga.Modules.Articles
 		}
 
 
-		private void HandleCategory(Category category, ISession session)
+		private Category HandleCategory(Category category, ISession session)
 		{
 			if (category != null && category.Id == -1)
 			{
@@ -366,6 +366,7 @@ namespace Cuyahoga.Modules.Articles
 					session.Save(category);
 				}
 			}
+			return category;
 		}
 
 		private SearchContent ArticleToSearchContent(Article article)

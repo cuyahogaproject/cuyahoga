@@ -5,6 +5,7 @@ namespace Cuyahoga.Core.Domain
 	/// <summary>
 	/// Association class between Node and Role.
 	/// </summary>
+	[Serializable]
 	public class NodePermission : Permission
 	{
 		private Node _node;

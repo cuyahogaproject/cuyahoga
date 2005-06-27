@@ -9,10 +9,10 @@ namespace Cuyahoga.Modules.Search
 
 	using Cuyahoga.Core.Domain;
 	using Cuyahoga.Core.Search;
+	using Cuyahoga.Core.Service;
 	using Cuyahoga.Core.Util;
 	using Cuyahoga.Web.UI;
 	using Cuyahoga.ServerControls;
-	using Cuyahoga.Web.Cache;
 
 	/// <summary>
 	///		Summary description for Search.
@@ -81,39 +81,28 @@ namespace Cuyahoga.Modules.Search
 		/// <summary>
 		/// A searchresult contains a SectionId propery that indicates to which section the 
 		/// result belongs. We need to get a real Section to determine if the current user 
-		/// has view access to that Section. The fastest way is to retrieve the Sections from 
-		/// the Cache.
+		/// has view access to that Section.
 		/// </summary>
 		/// <param name="nonFilteredResults"></param>
 		/// <returns></returns>
 		private SearchResultCollection FilterResults(SearchResultCollection nonFilteredResults)
 		{
 			SearchResultCollection filteredResults = new SearchResultCollection();
-			//
-			if (this.Page is PageEngine)
+
+			CoreRepository cr = HttpContext.Current.Items["CoreRepository"] as CoreRepository;
+			if (cr != null)
 			{
-				PageEngine pe = (PageEngine)this.Page;
-				CacheManager cm = new CacheManager(pe.CoreRepository, this.Module.Section.Node.Site.SiteUrl);
-				
 				foreach (SearchResult result in nonFilteredResults)
 				{
-					Section section = cm.GetSectionById(result.SectionId);
+					Section section = (Section)cr.GetObjectById(typeof(Section), result.SectionId);
 					if (section.ViewAllowed(this.Page.User.Identity))
 					{
 						filteredResults.Add(result);
 					}
 				}
-				if (cm.HasChanges)
-				{
-					cm.SaveCache();
-				}
+			}
 
-				return filteredResults;
-			}
-			else
-			{
-				throw new InvalidOperationException("The Page property of the control has to be of the type PageEngine.");
-			}
+			return filteredResults;
 		}
 
 		#region Web Form Designer generated code

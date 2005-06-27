@@ -1,12 +1,16 @@
-﻿<?xml version="1.0" encoding="utf-8" ?> 
+<?xml version="1.0" encoding="utf-8" ?> 
 <hibernate-mapping xmlns="urn:nhibernate-mapping-2.0">
 	<class name="Cuyahoga.Core.Domain.User, Cuyahoga.Core" table="cuyahoga_user"
 		proxy="Cuyahoga.Core.Domain.User, Cuyahoga.Core">
+
+		<jcs-cache usage="read-write" />
+		
 		<id name="Id" column="userid" type="Int32" unsaved-value="-1">
 			<generator class="native">
 				<param name="sequence">cuyahoga_user_userid_seq</param>
 			</generator>
 		</id>
+		
 		<timestamp name="UpdateTimestamp" column="updatetimestamp" />
 
 		<property name="UserName" column="username" type="String" length="50" />
@@ -22,6 +26,7 @@
 		<property name="InsertTimestamp" column="inserttimestamp" type="DateTime" />
 		
 		<bag name="Roles" table="cuyahoga_userrole" cascade="none" lazy="true">
+			<jcs-cache usage="read-write" />
 			<key column="userid" />
 			<many-to-many class="Cuyahoga.Core.Domain.Role, Cuyahoga.Core" column="roleid" outer-join="true" />
 		</bag>
