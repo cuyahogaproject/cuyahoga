@@ -21,6 +21,7 @@ namespace Cuyahoga.Modules.Downloads.Domain
 		private Section _section;
 		private User _publisher;
 		private IList _allowedRoles;
+		private DateTime _updateTimestamp;
 
 		#region properties
 
@@ -130,6 +131,15 @@ namespace Cuyahoga.Modules.Downloads.Domain
 		{
 			get { return this._allowedRoles; }
 			set { this._allowedRoles = value; }
+		}
+
+		/// <summary>
+		/// 
+		/// </summary>
+		public DateTime UpdateTimestamp
+		{
+			get { return this._updateTimestamp; }
+			set { this._updateTimestamp = value; }
 		}
 
 		#endregion

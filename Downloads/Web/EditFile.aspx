@@ -1,4 +1,5 @@
 <%@ Page language="c#" Codebehind="EditFile.aspx.cs" AutoEventWireup="false" Inherits="Cuyahoga.Modules.Downloads.Web.EditFile" %>
+<%@ Register TagPrefix="cc1" Namespace="Cuyahoga.ServerControls" Assembly="Cuyahoga.ServerControls" %>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN" >
 <html>
 	<head>
@@ -16,17 +17,25 @@
 					<h4>File properties</h4>
 					<table>
 						<tr>
-							<td>Title (optional)</td>
-							<td><asp:textbox id="txtTitle" runat="server" width="300px"></asp:textbox></td>
-						</tr>
-						<tr>
 							<td style="WIDTH: 100px">File</td>
 							<td><asp:panel id="pnlFileName" runat="server" visible="True">
 									<asp:textbox id="txtFile" runat="server" width="300px" readonly="True"></asp:textbox>
-									<asp:requiredfieldvalidator id="rfvFile" runat="server" errormessage="File is required" display="Dynamic" cssclass="validator"
-										controltovalidate="txtFile" enableclientscript="False"></asp:requiredfieldvalidator>
+									<asp:requiredfieldvalidator id="rfvFile" runat="server" enableclientscript="False" controltovalidate="txtFile"
+										cssclass="validator" display="Dynamic" errormessage="File is required"></asp:requiredfieldvalidator>
 								</asp:panel><input id="filUpload" style="WIDTH: 300px" type="file" runat="server">
 								<asp:button id="btnUpload" runat="server" causesvalidation="False" text="Upload"></asp:button></td>
+						</tr>
+						<tr>
+							<td style="WIDTH: 100px">Title (optional)</td>
+							<td>
+								<asp:textbox id="txtTitle" runat="server" width="300px"></asp:textbox></td>
+						</tr>
+						<tr>
+							<td style="WIDTH: 100px">Date published</td>
+							<td>
+								<cc1:calendar id="calDatePublished" runat="server" displaytime="True"></cc1:calendar>
+								<asp:requiredfieldvalidator id="rfvDatePublished" runat="server" errormessage="Date published is required" display="Dynamic"
+									cssclass="validator" controltovalidate="calDatePublished" enableclientscript="False"></asp:requiredfieldvalidator></td>
 						</tr>
 					</table>
 				</div>

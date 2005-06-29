@@ -146,6 +146,10 @@ namespace Cuyahoga.Modules.Downloads
 			ITransaction tx = base.NHSession.BeginTransaction();
 			try
 			{
+				if (file.Id == -1)
+				{
+					file.UpdateTimestamp = DateTime.Now;
+				}
 				base.NHSession.SaveOrUpdate(file);
 				tx.Commit();
 			}

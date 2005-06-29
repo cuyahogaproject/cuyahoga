@@ -29,10 +29,12 @@ namespace Cuyahoga.Modules.Downloads.Web
 		protected System.Web.UI.WebControls.Panel pnlFileName;
 		protected System.Web.UI.HtmlControls.HtmlInputFile filUpload;
 		protected System.Web.UI.WebControls.Button btnUpload;
-		protected System.Web.UI.WebControls.TextBox txtTitle;
 		protected System.Web.UI.WebControls.RequiredFieldValidator rfvFile;
 		protected System.Web.UI.WebControls.Button btnCancel;
 		protected System.Web.UI.WebControls.Repeater rptRoles;
+		protected Cuyahoga.ServerControls.Calendar calDatePublished;
+		protected System.Web.UI.WebControls.TextBox txtTitle;
+		protected System.Web.UI.WebControls.RequiredFieldValidator rfvDatePublished;
 		protected System.Web.UI.WebControls.TextBox txtFile;
 	
 		private void Page_Load(object sender, System.EventArgs e)
@@ -69,6 +71,7 @@ namespace Cuyahoga.Modules.Downloads.Web
 					{
 						this._file.AllowedRoles.Add(permission.Role);
 					}
+					this.calDatePublished.SelectedDate = DateTime.Now;
 				}
 				this.btnDelete.Visible = false;
 			}
@@ -82,6 +85,7 @@ namespace Cuyahoga.Modules.Downloads.Web
 		{
 			this.txtFile.Text = this._file.FilePath;
 			this.txtTitle.Text = this._file.Title;
+			this.calDatePublished.SelectedDate = this._file.DatePublished;
 		}
 
 		private void BindRoles()
@@ -159,6 +163,8 @@ namespace Cuyahoga.Modules.Downloads.Web
 			HttpPostedFile postedFile = this.filUpload.PostedFile;
 			if (postedFile.ContentLength > 0)
 			{
+				this._file.Title = this.txtTitle.Text;
+				this._file.DatePublished = this.calDatePublished.SelectedDate;
 				this._file.FilePath = CreateServerFilename(postedFile.FileName);
 				this._file.ContentType = postedFile.ContentType;
 				this._file.Size = postedFile.ContentLength;
@@ -203,7 +209,7 @@ namespace Cuyahoga.Modules.Downloads.Web
 			{
 				this._file.Publisher = this.User.Identity as User;
 				this._file.Title = this.txtTitle.Text;
-				this._file.DatePublished = DateTime.Now; // Default Now, TODO make editable by user?
+				this._file.DatePublished = calDatePublished.SelectedDate;
 				SetRoles();
 
 				try
