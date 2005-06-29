@@ -58,7 +58,7 @@ Global
 		Cuyahoga.build = Cuyahoga.build
 		Install.txt = Install.txt
 		LICENSE.txt = LICENSE.txt
-		Releasenotes.txt = Releasenotes.txt
+		..\..\Documents and Settings\tijn.TIJNATHLON\Desktop\Releasenotes-0.8.1.txt = ..\..\Documents and Settings\tijn.TIJNATHLON\Desktop\Releasenotes-0.8.1.txt
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 	EndGlobalSection

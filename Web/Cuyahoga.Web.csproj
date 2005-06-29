@@ -17,7 +17,7 @@
                 DelaySign = "false"
                 OutputType = "Library"
                 PreBuildEvent = ""
-                PostBuildEvent = 'xcopy /s /y "$(SolutionDir)"lib\Nullables.NHibernate.dll "$(TargetDir)"'
+                PostBuildEvent = 'xcopy /s /y "$(SolutionDir)"lib\Nullables.NHibernate.dll "$(TargetDir)"&#xd;&#xa;xcopy /s /y "$(SolutionDir)"lib\NHibernate.Caches.SysCache.dll "$(TargetDir)"'
                 RootNamespace = "Cuyahoga.Web"
                 RunPostBuildEvent = "OnBuildSuccess"
                 StartupObject = ""
