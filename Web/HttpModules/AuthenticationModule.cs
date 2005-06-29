@@ -62,15 +62,7 @@ namespace Cuyahoga.Web.HttpModules
 					cr.UpdateObject(user);
 					// Create the authentication ticket
 					HttpContext.Current.User = new CuyahogaPrincipal(user);
-					FormsAuthenticationTicket ticket = 
-						new FormsAuthenticationTicket(1, user.Name, DateTime.Now, DateTime.Now.AddMinutes(AUTHENTICATION_TIMEOUT), persistLogin, "");
-					string cookiestr = FormsAuthentication.Encrypt(ticket);
-					HttpCookie cookie = new HttpCookie(FormsAuthentication.FormsCookieName, cookiestr);                
-					if (persistLogin)
-					{
-						cookie.Expires = DateTime.Now.AddYears(1);
-					}
-					HttpContext.Current.Response.Cookies.Add(cookie);
+					FormsAuthentication.SetAuthCookie(user.Name, persistLogin);
 
 					return true;
 				}
