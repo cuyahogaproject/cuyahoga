@@ -7,6 +7,6 @@ using System.Runtime.CompilerServices;
 [assembly: AssemblyProduct("Cuyahoga")]
 [assembly: AssemblyCopyright("Licensed under the BSD license.")]
 
-[assembly: AssemblyVersion("0.8.0.*")]
+[assembly: AssemblyVersion("0.8.1.*")]
 
 [assembly: log4net.Config.DOMConfigurator()]
