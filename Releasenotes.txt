@@ -1,6 +1,23 @@
 Cuyahoga release notes
 
 ===========================================================================
+0.8.1 - 2005-06-29
+===========================================================================
+Improvements:
+- The downloads module is a little more user-friendly.
+- Overall stability is increased due to testing under heavy load.
+
+Bugfixes:
+- Attaching multiple NHibernate sessions to the same object or collection
+  causes an exception.
+- If the first request after a server restart is an RSS feed, an exception
+  is thrown at this first request.
+- Displaying unknown filetypes in the Downloads module fails.
+- The order of the files in the Downloads module changes after downloading
+  a file.
+- RSS feed failure on Mono.
+
+===========================================================================
 0.8.0 - 2005-06-11
 ===========================================================================
 New features:
