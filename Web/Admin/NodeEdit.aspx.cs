@@ -244,6 +244,11 @@ namespace Cuyahoga.Web.Admin
 			}
 			else
 			{
+				// Add node to the parent node's ChildNodes first
+				if (this.ActiveNode.ParentNode != null)
+				{
+					this.ActiveNode.ParentNode.ChildNodes.Add(this.ActiveNode);
+				}
 				IList rootNodes = base.CoreRepository.GetRootNodes(this.ActiveNode.Site);
 				this.ActiveNode.CalculateNewPosition(rootNodes);
 				base.CoreRepository.SaveObject(this.ActiveNode);				
@@ -468,7 +473,17 @@ namespace Cuyahoga.Web.Admin
 			else
 			{
 				try
-				{
+				{	
+					bool hasParentNode = (this.ActiveNode.ParentNode != null);
+					if (hasParentNode)
+					{
+						this.ActiveNode.ParentNode.ChildNodes.Remove(this.ActiveNode);
+					}
+					else
+					{
+						IList rootNodes = base.CoreRepository.GetRootNodes(this.ActiveNode.Site);
+						rootNodes.Remove(this.ActiveNode);
+					}
 					base.CoreRepository.DeleteNode(this.ActiveNode);
 					// Reset the position of the 'neighbour' nodes.
 					if (this.ActiveNode.Level == 0)
@@ -480,7 +495,7 @@ namespace Cuyahoga.Web.Admin
 						this.ActiveNode.ReOrderNodePositions(this.ActiveNode.ParentNode.ChildNodes, this.ActiveNode.Position);
 					}
 					base.CoreRepository.FlushSession();
-					if (this.ActiveNode.ParentNode != null)
+					if (hasParentNode)
 					{
 						Context.Response.Redirect(String.Format("NodeEdit.aspx?NodeId={0}", this.ActiveNode.ParentNode.Id));
 					}
@@ -547,6 +562,7 @@ namespace Cuyahoga.Web.Admin
 					module.NHSessionRequired += new Cuyahoga.Core.Domain.ModuleBase.NHSessionEventHandler(module_NHSessionRequired);
 					module.DeleteModuleContent();
 					// Now delete the Section.
+					this.ActiveNode.Sections.Remove(section);
 					base.CoreRepository.DeleteObject(section);
 				}
 				catch (Exception ex)

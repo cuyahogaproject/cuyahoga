@@ -358,6 +358,7 @@ namespace Cuyahoga.Web.Admin
 					this._activeSection.Title = this.txtTitle.Text;
 					this._activeSection.ShowTitle = this.chkShowTitle.Checked;
 					this._activeSection.Node = this.ActiveNode;
+					this._activeSection.Node.Sections.Add(this._activeSection);
 					if (this.ddlModule.Visible)
 					{
 						this._activeSection.ModuleType = (ModuleType)CoreRepository.GetObjectById(
