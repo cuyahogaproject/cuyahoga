@@ -66,8 +66,6 @@ namespace Cuyahoga.Web.Admin
 			}
 		}
 
-
-
 		private void BindPlaceholders()
 		{
 			string templatePath = this.ApplicationRoot + this.ActiveNode.Template.Path;

@@ -287,6 +287,8 @@ namespace Cuyahoga.Core.Domain
 						break;
 					}
 				}
+				this.Node.Sections.Remove(this);
+				this.Node.Sections.Insert(this.Position, this);
 			}
 		}
 
@@ -307,6 +309,8 @@ namespace Cuyahoga.Core.Domain
 						break;
 					}
 				}
+				this.Node.Sections.Remove(this);
+				this.Node.Sections.Insert(this.Position, this);
 			}
 		}
 

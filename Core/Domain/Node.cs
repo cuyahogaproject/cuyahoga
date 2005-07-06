@@ -488,14 +488,10 @@ namespace Cuyahoga.Core.Domain
 			{
 				// HACK: Assume that the node indexes are the same as the value of the positions.
 				this._position--;
-				if (this.ParentNode == null)
-				{
-					((Node)rootNodes[this._position]).Position++;
-				}
-				else
-				{
-					((Node)this.ParentNode.ChildNodes[this._position]).Position++;
-				}
+				IList parentChildNodes = (this.ParentNode == null ? rootNodes : this.ParentNode.ChildNodes);
+				((Node)parentChildNodes[this._position]).Position++;
+				parentChildNodes.Remove(this);
+				parentChildNodes.Insert(this._position, this);
 			}
 		}
 
@@ -509,14 +505,10 @@ namespace Cuyahoga.Core.Domain
 			{
 				// HACK: Assume that the node indexes are the same as the value of the positions.
 				this._position++;
-				if (this.ParentNode == null)
-				{
-					((Node)rootNodes[this._position]).Position--;
-				}
-				else
-				{
-					((Node)this.ParentNode.ChildNodes[this._position]).Position--;
-				}
+				IList parentChildNodes = (this.ParentNode == null ? rootNodes : this.ParentNode.ChildNodes);
+				((Node)parentChildNodes[this._position]).Position--;
+				parentChildNodes.Remove(this);
+				parentChildNodes.Insert(this._position, this);
 			}
 		}
 
