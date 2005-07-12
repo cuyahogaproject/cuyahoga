@@ -136,7 +136,12 @@ namespace Cuyahoga.Web.Util
 		
 		private static string GetHostUrl()
 		{
-			return "http://" + HttpContext.Current.Request.ServerVariables["SERVER_NAME"];
+			string https = HttpContext.Current.Request.ServerVariables["HTTPS"];
+			string protocol = https == "off" ? "http" : "https";
+			string serverPort = HttpContext.Current.Request.ServerVariables["SERVER_PORT"];
+			string port = serverPort == "80" ? string.Empty : ":" + serverPort;
+			string serverName = HttpContext.Current.Request.ServerVariables["SERVER_NAME"];
+			return string.Format("{0}://{1}{2}" , protocol, serverName, port ); 
 		}
 	}
 }
