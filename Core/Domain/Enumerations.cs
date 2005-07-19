@@ -35,4 +35,19 @@ namespace Cuyahoga.Core.Domain
 		Add,
 		Delete
 	}
+
+	/// <summary>
+	/// The target window of a link.
+	/// </summary>
+	public enum LinkTarget
+	{
+		/// <summary>
+		/// Link opens in the same window.
+		/// </summary>
+		Self,
+		/// <summary>
+		/// Link opens in new window.
+		/// </summary>
+		New
+	}
 }

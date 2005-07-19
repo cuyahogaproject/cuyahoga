@@ -99,6 +99,8 @@ shortdescription varchar(255) NOT NULL,
 position int DEFAULT 0 NOT NULL,
 culture varchar(8) NOT NULL,
 showinnavigation bit NOT NULL,
+linkurl varchar(255) NULL,
+linktarget int NULL,
 inserttimestamp datetime DEFAULT current_timestamp NOT NULL,
 updatetimestamp datetime DEFAULT current_timestamp NOT NULL)
 go

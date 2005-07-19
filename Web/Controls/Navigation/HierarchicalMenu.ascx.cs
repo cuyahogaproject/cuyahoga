@@ -65,6 +65,7 @@ namespace Cuyahoga.Web.Templates.Controls
 			HtmlGenericControl listItem = new HtmlGenericControl("li");
 			HyperLink hpl = new HyperLink();
 			hpl.NavigateUrl = UrlHelper.GetUrlFromNode(node);
+			UrlHelper.SetHyperLinkTarget(hpl, node);
 			hpl.Text = node.Title;
 			// Little dirty trick to highlight the active item :)
 			if (node.Id == this._page.ActiveNode.Id)

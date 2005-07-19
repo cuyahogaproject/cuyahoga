@@ -24,6 +24,8 @@ namespace Cuyahoga.Core.Domain
 		private IList _nodePermissions;
 		private string _culture;
 		private bool _showInNavigation;
+		private string _linkUrl;
+		private LinkTarget _linkTarget;
 		private DateTime _updateTimestamp;
 
 		#region properties
@@ -86,6 +88,32 @@ namespace Cuyahoga.Core.Domain
 		{
 			get { return this._showInNavigation; }
 			set { this._showInNavigation = value; }
+		}
+
+		/// <summary>
+		/// Link to external url.
+		/// </summary>
+		public virtual string LinkUrl
+		{
+			get { return this._linkUrl; }
+			set { this._linkUrl = value; }
+		}
+
+		/// <summary>
+		/// Target window for an external url.
+		/// </summary>
+		public virtual LinkTarget LinkTarget
+		{
+			get { return this._linkTarget; }
+			set { this._linkTarget = value; }
+		}
+
+		/// <summary>
+		/// Indicates if the node represents an external link.
+		/// </summary>
+		public virtual bool IsExternalLink
+		{
+			get { return this._linkUrl != null && this._linkUrl != String.Empty; }
 		}
 
 		/// <summary>
@@ -288,6 +316,7 @@ namespace Cuyahoga.Core.Domain
 			this._position = -1;
 			this._trail = null;
 			this._showInNavigation = true;
+			this._sections = new ArrayList();
 			this._nodePermissions = new ArrayList();
 		}
 

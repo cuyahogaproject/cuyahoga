@@ -77,6 +77,7 @@ namespace Cuyahoga.Web.Templates.Controls
 				HyperLink hpl = (HyperLink)e.Item.FindControl("hplNav1");
 				hpl.NavigateUrl = UrlHelper.GetUrlFromNode(node);
 				hpl.Text = node.Title;
+				UrlHelper.SetHyperLinkTarget(hpl, node);
 				if (node.Level <= this._page.ActiveNode.Level && node.Id == this._page.ActiveNode.Trail[node.Level])
 				{
 					hpl.CssClass = "selected";

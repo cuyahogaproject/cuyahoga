@@ -1,5 +1,6 @@
 using System;
 using System.Web;
+using System.Web.UI.WebControls;
 
 using Cuyahoga.Core.Domain;
 
@@ -66,13 +67,20 @@ namespace Cuyahoga.Web.Util
 		/// <returns></returns>
 		public static string GetUrlFromNode(Node node)
 		{
-			if (node.Site.UseFriendlyUrls)
+			if (node.IsExternalLink)
 			{
-				return GetFriendlyUrlFromNode(node);
+				return node.LinkUrl;
 			}
 			else
 			{
-				return GetApplicationPath() + node.Id.ToString() + "/view.aspx";
+				if (node.Site.UseFriendlyUrls)
+				{
+					return GetFriendlyUrlFromNode(node);
+				}
+				else
+				{
+					return GetApplicationPath() + node.Id.ToString() + "/view.aspx";
+				}
 			}
 		}
 
@@ -117,6 +125,11 @@ namespace Cuyahoga.Web.Util
 			return GetHostUrl() + GetApplicationPath() + section.Id.ToString() + "/feed.aspx";
 		}
 
+		/// <summary>
+		/// 
+		/// </summary>
+		/// <param name="pathInfo"></param>
+		/// <returns></returns>
 		public static string[] GetParamsFromPathInfo(string pathInfo)
 		{
 			if (pathInfo.Length > 0)
@@ -131,6 +144,27 @@ namespace Cuyahoga.Web.Util
 			else
 			{
 				return null;
+			}
+		}
+
+		/// <summary>
+		/// Set the target window for the node.
+		/// </summary>
+		/// <param name="hpl"></param>
+		/// <param name="node"></param>
+		public static void SetHyperLinkTarget(HyperLink hpl, Node node)
+		{
+			if (node.IsExternalLink)
+			{
+				switch (node.LinkTarget)
+				{
+					case LinkTarget.Self:
+						hpl.Target = "_self";
+						break;
+					case LinkTarget.New:
+						hpl.Target = "_blank";
+						break;
+				}
 			}
 		}
 		

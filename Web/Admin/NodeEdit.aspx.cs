@@ -49,6 +49,12 @@ namespace Cuyahoga.Web.Admin
 		protected System.Web.UI.WebControls.Panel pnlMenus;
 		protected System.Web.UI.WebControls.CheckBox chkPropagateToSections;
 		protected System.Web.UI.WebControls.CheckBox chkPropagateToChildNodes;
+		protected System.Web.UI.WebControls.TextBox txtLinkUrl;
+		protected System.Web.UI.WebControls.DropDownList ddlLinkTarget;
+		protected System.Web.UI.WebControls.Panel pnlLink;
+		protected System.Web.UI.WebControls.Panel pnlTemplate;
+		protected System.Web.UI.WebControls.Panel pnlSections;
+		protected System.Web.UI.WebControls.CheckBox chkLink;
 		protected System.Web.UI.WebControls.TextBox txtTitle;
 	
 		private void Page_Load(object sender, System.EventArgs e)
@@ -131,6 +137,17 @@ namespace Cuyahoga.Web.Admin
 			}
 			this.chkShowInNavigation.Checked = this.ActiveNode.ShowInNavigation;
 
+			this.chkLink.Enabled = this.ActiveNode.Sections.Count == 0;
+			if (this.ActiveNode.IsExternalLink)
+			{
+				this.chkLink.Checked = true;
+				this.pnlLink.Visible = true;
+				this.pnlMenus.Visible = false;
+				this.pnlTemplate.Visible = false;
+				this.pnlSections.Visible = false;
+				this.txtLinkUrl.Text = this.ActiveNode.LinkUrl;
+				this.ddlLinkTarget.Items.FindByValue(this.ActiveNode.LinkTarget.ToString()).Selected = true;
+			}
 			// main buttons visibility
 			btnNew.Visible = (this.ActiveNode.Id > 0);
 			btnDelete.Visible = (this.ActiveNode.Id > 0);
@@ -322,6 +339,7 @@ namespace Cuyahoga.Web.Admin
 			this.btnDown.Click += new System.Web.UI.ImageClickEventHandler(this.btnDown_Click);
 			this.btnLeft.Click += new System.Web.UI.ImageClickEventHandler(this.btnLeft_Click);
 			this.btnRight.Click += new System.Web.UI.ImageClickEventHandler(this.btnRight_Click);
+			this.chkLink.CheckedChanged += new System.EventHandler(this.chkLink_CheckedChanged);
 			this.ddlTemplates.SelectedIndexChanged += new System.EventHandler(this.ddlTemplates_SelectedIndexChanged);
 			this.rptMenus.ItemDataBound += new System.Web.UI.WebControls.RepeaterItemEventHandler(this.rptMenus_ItemDataBound);
 			this.rptSections.ItemDataBound += new System.Web.UI.WebControls.RepeaterItemEventHandler(this.rptSections_ItemDataBound);
@@ -345,6 +363,11 @@ namespace Cuyahoga.Web.Admin
 					this.ActiveNode.Title = this.txtTitle.Text;
 					this.ActiveNode.Culture = this.ddlCultures.SelectedValue;
 					this.ActiveNode.ShowInNavigation = this.chkShowInNavigation.Checked;
+					if (this.chkLink.Checked)
+					{
+						this.ActiveNode.LinkUrl = this.txtLinkUrl.Text;
+						this.ActiveNode.LinkTarget = (LinkTarget)Enum.Parse(typeof(LinkTarget), this.ddlLinkTarget.SelectedValue);
+					}
 					this.ActiveNode.Validate();
 					SetShortDescription();
 					SetRoles();
@@ -572,6 +595,14 @@ namespace Cuyahoga.Web.Admin
 				}
 				BindSections();
 			}
+		}
+
+		private void chkLink_CheckedChanged(object sender, System.EventArgs e)
+		{
+			this.pnlLink.Visible = this.chkLink.Checked;
+			this.pnlMenus.Visible = ! this.chkLink.Checked;
+			this.pnlTemplate.Visible = ! this.chkLink.Checked;
+			this.pnlSections.Visible = ! this.chkLink.Checked;
 		}
 	}
 }

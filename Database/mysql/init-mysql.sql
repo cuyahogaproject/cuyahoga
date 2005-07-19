@@ -71,6 +71,6 @@ INSERT INTO cuyahoga_user (userid, username, `password`, firstname, lastname, em
 
 INSERT INTO cuyahoga_userrole (userroleid, userid, roleid, inserttimestamp, updatetimestamp) VALUES (1, 1, 1, '2004-09-09 23:30:34.465', '2004-09-09 23:30:34.465');
 
-INSERT INTO cuyahoga_version (assembly, major, minor, patch) VALUES ('Cuyahoga.Core', 0, 8, 1);
-INSERT INTO cuyahoga_version (assembly, major, minor, patch) VALUES ('Cuyahoga.Modules', 0, 8, 1);
-INSERT INTO cuyahoga_version (assembly, major, minor, patch) VALUES ('Cuyahoga.Modules.Downloads', 0, 8, 1);
+INSERT INTO cuyahoga_version (assembly, major, minor, patch) VALUES ('Cuyahoga.Core', 0, 8, 2);
+INSERT INTO cuyahoga_version (assembly, major, minor, patch) VALUES ('Cuyahoga.Modules', 0, 8, 2);
+INSERT INTO cuyahoga_version (assembly, major, minor, patch) VALUES ('Cuyahoga.Modules.Downloads', 0, 8, 2);

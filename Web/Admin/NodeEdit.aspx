@@ -23,14 +23,14 @@
 				<table>
 					<tr>
 						<td style="WIDTH: 100px">Node title</td>
-						<td><asp:textbox id="txtTitle" runat="server" width="300px"></asp:textbox><asp:requiredfieldvalidator id="rfvTitle" runat="server" enableclientscript="False" controltovalidate="txtTitle"
-								cssclass="validator" display="Dynamic" errormessage="Title is required"></asp:requiredfieldvalidator></td>
+						<td><asp:textbox id="txtTitle" runat="server" width="300px"></asp:textbox><asp:requiredfieldvalidator id="rfvTitle" runat="server" errormessage="Title is required" display="Dynamic"
+								cssclass="validator" controltovalidate="txtTitle" enableclientscript="False"></asp:requiredfieldvalidator></td>
 					</tr>
 					<tr>
 						<td>Friendly url</td>
-						<td><asp:textbox id="txtShortDescription" runat="server" width="300px" tooltip="You can use this for 'nice' links ([shortdescription].aspx). Make sure it's unique!"></asp:textbox>.aspx&nbsp;<asp:regularexpressionvalidator id="revShortDescription" runat="server" enableclientscript="False" controltovalidate="txtShortDescription"
-								cssclass="validator" display="Dynamic" errormessage="No spaces are allowed" validationexpression="\S+"></asp:regularexpressionvalidator><asp:requiredfieldvalidator id="rfvShortDescription" runat="server" errormessage="Short description is required"
-								controltovalidate="txtShortDescription" display="Dynamic" enableclientscript="False"></asp:requiredfieldvalidator></td>
+						<td><asp:textbox id="txtShortDescription" runat="server" width="300px" tooltip="You can use this for 'nice' links ([shortdescription].aspx). Make sure it's unique!"></asp:textbox>.aspx&nbsp;<asp:regularexpressionvalidator id="revShortDescription" runat="server" errormessage="No spaces are allowed" display="Dynamic"
+								cssclass="validator" controltovalidate="txtShortDescription" enableclientscript="False" validationexpression="\S+"></asp:regularexpressionvalidator><asp:requiredfieldvalidator id="rfvShortDescription" runat="server" errormessage="Short description is required"
+								display="Dynamic" controltovalidate="txtShortDescription" enableclientscript="False"></asp:requiredfieldvalidator></td>
 					</tr>
 					<tr>
 						<td>Parent node</td>
@@ -38,8 +38,11 @@
 					</tr>
 					<tr>
 						<td>Position</td>
-						<td><asp:imagebutton id="btnUp" runat="server" alternatetext="Move up" causesvalidation="False" imageurl="../Images/upred.gif"></asp:imagebutton><asp:imagebutton id="btnDown" runat="server" alternatetext="Move down" causesvalidation="False" imageurl="../Images/downred.gif"></asp:imagebutton><asp:imagebutton id="btnLeft" runat="server" alternatetext="Move left" causesvalidation="False" imageurl="../Images/leftred.gif"></asp:imagebutton><asp:imagebutton id="btnRight" runat="server" alternatetext="Move right" causesvalidation="False"
-								imageurl="../Images/rightred.gif"></asp:imagebutton></td>
+						<td><asp:imagebutton id="btnUp" runat="server" imageurl="../Images/upred.gif" causesvalidation="False"
+								alternatetext="Move up"></asp:imagebutton><asp:imagebutton id="btnDown" runat="server" imageurl="../Images/downred.gif" causesvalidation="False"
+								alternatetext="Move down"></asp:imagebutton><asp:imagebutton id="btnLeft" runat="server" imageurl="../Images/leftred.gif" causesvalidation="False"
+								alternatetext="Move left"></asp:imagebutton><asp:imagebutton id="btnRight" runat="server" imageurl="../Images/rightred.gif" causesvalidation="False"
+								alternatetext="Move right"></asp:imagebutton></td>
 					</tr>
 					<tr>
 						<td>Culture</td>
@@ -47,20 +50,40 @@
 					</tr>
 					<tr>
 						<td>Show in navigation</td>
-						<td><asp:checkbox id="chkShowInNavigation" runat="server" checked="True"></asp:checkbox></td>
+						<td><asp:checkbox id="chkShowInNavigation" runat="server"></asp:checkbox></td>
+					</tr>
+					<tr>
+						<td></td>
+						<td><asp:checkbox id="chkLink" runat="server" autopostback="True" text="The node is a link to an external url"></asp:checkbox><asp:panel id="pnlLink" runat="server" visible="False">
+								<table>
+									<tr>
+										<td width="60">Url</td>
+										<td>
+											<asp:textbox id="txtLinkUrl" runat="server" width="400px"></asp:textbox></td>
+									</tr>
+									<tr>
+										<td>Target</td>
+										<td>
+											<asp:dropdownlist id="ddlLinkTarget" runat="server">
+												<asp:listitem value="Self">Same window</asp:listitem>
+												<asp:listitem value="New">New window</asp:listitem>
+											</asp:dropdownlist></td>
+									</tr>
+								</table>
+							</asp:panel></td>
 					</tr>
 				</table>
 			</div>
-			<div class="group">
+			<asp:panel id="pnlTemplate" runat="server" cssclass="group">
 				<h4>Template</h4>
 				<table>
 					<tr>
 						<td style="WIDTH: 100px">&nbsp;</td>
-						<td><asp:dropdownlist id="ddlTemplates" runat="server" autopostback="True"></asp:dropdownlist></td>
+						<td>
+							<asp:dropdownlist id="ddlTemplates" runat="server" autopostback="True"></asp:dropdownlist></td>
 					</tr>
 				</table>
-			</div>
-			<asp:panel id="pnlMenus" cssclass="group" runat="server" visible="False">
+			</asp:panel><asp:panel id="pnlMenus" runat="server" cssclass="group" visible="False">
 				<h4>Menus</h4>
 				<em>You're editing a root node, so you can also attach on or more custom menu's.</em>
 				<table class="tbl">
@@ -86,8 +109,7 @@
 						</itemtemplate>
 					</asp:repeater></table>
 				<asp:hyperlink id="hplNewMenu" runat="server">Add menu</asp:hyperlink>
-			</asp:panel>
-			<div class="group">
+			</asp:panel><asp:panel id="pnlSections" runat="server" cssclass="group">
 				<h4>Sections</h4>
 				<table class="tbl">
 					<asp:repeater id="rptSections" runat="server">
@@ -128,7 +150,8 @@
 							</tr>
 						</itemtemplate>
 					</asp:repeater></table>
-				<asp:hyperlink id="hplNewSection" runat="server" visible="False">Add section</asp:hyperlink></div>
+				<asp:hyperlink id="hplNewSection" runat="server" visible="False">Add section</asp:hyperlink>
+			</asp:panel>
 			<div class="group">
 				<h4>Authorization</h4>
 				<table class="tbl">
@@ -152,15 +175,11 @@
 									<asp:checkbox id="chkEditAllowed" runat="server"></asp:checkbox></td>
 							</tr>
 						</itemtemplate>
-					</asp:repeater>
-				</table>
+					</asp:repeater></table>
 				<br>
-				<asp:checkbox id="chkPropagateToSections" runat="server" text="Propagate security settings to sections"></asp:checkbox>
-				<br>
-				<asp:checkbox id="chkPropagateToChildNodes" runat="server" text="Propagate security settings to child nodes"></asp:checkbox>
-			</div>
-			<div><asp:button id="btnSave" runat="server" text="Save"></asp:button><asp:button id="btnCancel" runat="server" causesvalidation="False" text="Cancel"></asp:button><asp:button id="btnNew" runat="server" text="Add new child"></asp:button>
-				<asp:button id="btnDelete" runat="server" text="Delete" causesvalidation="False"></asp:button></div>
+				<asp:checkbox id="chkPropagateToSections" runat="server" text="Propagate security settings to sections"></asp:checkbox><br>
+				<asp:checkbox id="chkPropagateToChildNodes" runat="server" text="Propagate security settings to child nodes"></asp:checkbox></div>
+			<div><asp:button id="btnSave" runat="server" text="Save"></asp:button><asp:button id="btnCancel" runat="server" causesvalidation="False" text="Cancel"></asp:button><asp:button id="btnNew" runat="server" text="Add new child"></asp:button><asp:button id="btnDelete" runat="server" causesvalidation="False" text="Delete"></asp:button></div>
 		</form>
 	</body>
 </html>
