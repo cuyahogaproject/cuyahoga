@@ -68,7 +68,7 @@ namespace Cuyahoga.Web.HttpModules
 				}
 				else
 				{
-					log.Warn(String.Format("Invalid username-password combination: {0}:{1}.", user.UserName, password));
+					log.Warn(String.Format("Invalid username-password combination: {0}:{1}.", username, password));
 					return false;
 				}
 			}

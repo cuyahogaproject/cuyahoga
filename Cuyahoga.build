@@ -2,7 +2,7 @@
 <project default="build" basedir="." xmlns="http://nant.sf.net/release/0.85-rc1/nant.xsd">
 	<!-- global project settings -->
 	<property name="project.name" value="Cuyahoga" />
-	<property name="project.version" value="0.8.1" />
+	<property name="project.version" value="0.8.2" />
 
 	<!-- default configuration -->
 	<property name="project.config" value="debug" /> <!-- debug|release -->

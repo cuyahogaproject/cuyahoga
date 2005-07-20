@@ -1,6 +1,18 @@
 Cuyahoga release notes
 
 ===========================================================================
+0.8.2 - 2005-07-20
+===========================================================================
+Improvements:
+- Added support for alternative urls (https, different ports). Thanks to
+  Tomislav Tustonic for the heads up.
+- A node can now serve as a link to an external page or site.
+
+Bugfixes:
+- Fixed issues with NHibernate second level cache that caused a nasty delay
+  when adding or removing nodes and sections.
+
+===========================================================================
 0.8.1 - 2005-06-29
 ===========================================================================
 Improvements:
