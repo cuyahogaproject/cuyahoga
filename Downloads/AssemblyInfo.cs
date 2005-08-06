@@ -9,4 +9,4 @@ using System.Runtime.CompilerServices;
 
 [assembly: AssemblyVersion("0.8.2.*")]
 
-[assembly: log4net.Config.DOMConfiguratorAttribute]
+[assembly: log4net.Config.XmlConfigurator(Watch=true)]
