@@ -4,7 +4,7 @@ using System.Collections;
 namespace Cuyahoga.Core.Domain
 {
 	/// <summary>
-	/// Base class for all modules. 
+	/// The ModuleType class describes a module.
 	/// </summary>
 	[Serializable]
 	public class ModuleType

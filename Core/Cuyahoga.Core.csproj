@@ -300,12 +300,22 @@
                     BuildAction = "Compile"
                 />
                 <File
+                    RelPath = "Service\DatabaseInstaller.cs"
+                    SubType = "Code"
+                    BuildAction = "Compile"
+                />
+                <File
                     RelPath = "Service\SessionFactory.cs"
                     SubType = "Code"
                     BuildAction = "Compile"
                 />
                 <File
                     RelPath = "Util\Config.cs"
+                    SubType = "Code"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "Util\DatabaseUtil.cs"
                     SubType = "Code"
                     BuildAction = "Compile"
                 />

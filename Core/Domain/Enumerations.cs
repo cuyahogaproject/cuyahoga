@@ -7,9 +7,21 @@ namespace Cuyahoga.Core.Domain
 	/// </summary>
 	public enum NodePositionMovement
 	{
+		/// <summary>
+		/// 
+		/// </summary>
 		Up,
+		/// <summary>
+		/// 
+		/// </summary>
 		Down,
+		/// <summary>
+		/// 
+		/// </summary>
 		Left,
+		/// <summary>
+		/// 
+		/// </summary>
 		Right
 	}
 
@@ -19,9 +31,21 @@ namespace Cuyahoga.Core.Domain
 	[Flags]
 	public enum AccessLevel
 	{
+		/// <summary>
+		/// 
+		/// </summary>
 		Anonymous = 1,
+		/// <summary>
+		/// 
+		/// </summary>
 		Authenticated = 2,
+		/// <summary>
+		/// 
+		/// </summary>
 		Editor = 4,
+		/// <summary>
+		/// 
+		/// </summary>
 		Administrator = 8
 	}
 
@@ -30,9 +54,21 @@ namespace Cuyahoga.Core.Domain
 	/// </summary>
 	public enum Action
 	{
+		/// <summary>
+		/// 
+		/// </summary>
 		View,
+		/// <summary>
+		/// 
+		/// </summary>
 		Edit,
+		/// <summary>
+		/// 
+		/// </summary>
 		Add,
+		/// <summary>
+		/// 
+		/// </summary>
 		Delete
 	}
 
@@ -49,5 +85,24 @@ namespace Cuyahoga.Core.Domain
 		/// Link opens in new window.
 		/// </summary>
 		New
+	}
+
+	/// <summary>
+	/// The type of the current database.
+	/// </summary>
+	public enum DatabaseType
+	{
+		/// <summary>
+		/// Microsoft SQL Server 2000 and up.
+		/// </summary>
+		MsSql2000,
+		/// <summary>
+		/// PostgreSQL 7.4 and up.
+		/// </summary>
+		PostgreSQL,
+		/// <summary>
+		/// MySQL 4.0 and up.
+		/// </summary>
+		MySQL
 	}
 }

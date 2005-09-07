@@ -244,6 +244,22 @@
                     BuildAction = "EmbeddedResource"
                 />
                 <File
+                    RelPath = "Admin\Modules.aspx"
+                    SubType = "Form"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Admin\Modules.aspx.cs"
+                    DependentUpon = "Modules.aspx"
+                    SubType = "ASPXCodeBehind"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "Admin\Modules.aspx.resx"
+                    DependentUpon = "Modules.aspx.cs"
+                    BuildAction = "EmbeddedResource"
+                />
+                <File
                     RelPath = "Admin\NodeEdit.aspx"
                     SubType = "Form"
                     BuildAction = "Content"
