@@ -321,6 +321,7 @@ namespace Cuyahoga.Modules.RemoteContent
 		{
 			WebRequest wr = System.Net.WebRequest.Create(feedUrl);
 			WebResponse response = wr.GetResponse();
+			// TODO: use encoding from the feed source instead of the default UTF8.
 			Stream receiveStream = response.GetResponseStream();
 			StreamReader sr = new StreamReader(receiveStream, Encoding.UTF8);
 			string responseText = sr.ReadToEnd();
