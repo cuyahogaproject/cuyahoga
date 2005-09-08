@@ -179,7 +179,7 @@ namespace Cuyahoga.Modules.Downloads.Web
 				hplFile.ToolTip = fileDetails;
 
 				Panel pnlFileDetails = e.Item.FindControl("pnlFileDetails") as Panel;
-				pnlFileDetails.Visible = (this._downloadsModule.ShowDateModified || this._downloadsModule.ShowPublisher);
+				pnlFileDetails.Visible = (this._downloadsModule.ShowDateModified || this._downloadsModule.ShowPublisher || this._downloadsModule.ShowNumberOfDownloads);
 				if (this._downloadsModule.ShowDateModified)
 				{
 					Label lblDateModified = e.Item.FindControl("lblDateModified") as Label;
@@ -191,11 +191,13 @@ namespace Cuyahoga.Modules.Downloads.Web
 				{
 					Label lblPublisher = e.Item.FindControl("lblPublisher") as Label;
 					lblPublisher.Visible = true;
-					if (this._downloadsModule.ShowDateModified)
-					{
-						lblPublisher.Text = " - ";
-					}
 					lblPublisher.Text += base.GetText("PUBLISHEDBY") + " " + file.Publisher.FullName;
+				}
+				if (this._downloadsModule.ShowNumberOfDownloads)
+				{
+					Label lblNumberOfDownloads = e.Item.FindControl("lblNumberOfDownloads") as Label;
+					lblNumberOfDownloads.Visible = true;
+					lblNumberOfDownloads.Text += base.GetText("NUMBEROFDOWNLOADS") + ": " + file.NrOfDownloads.ToString();
 				}
 			}
 			else

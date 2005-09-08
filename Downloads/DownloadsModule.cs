@@ -18,6 +18,7 @@ namespace Cuyahoga.Modules.Downloads
 		private string _physicalDir;
 		private bool _showPublisher;
 		private bool _showDateModified;
+		private bool _showNumberOfDownloads;
 		private int _currentFileId;
 		private DownloadsModuleActions _currentAction;
 
@@ -79,6 +80,14 @@ namespace Cuyahoga.Modules.Downloads
 		}
 
 		/// <summary>
+		/// Show the number of downloads?
+		/// </summary>
+		public bool ShowNumberOfDownloads
+		{
+			get { return this._showNumberOfDownloads; }
+		}
+
+		/// <summary>
 		/// Default constructor.
 		/// </summary>
 		/// <param name="section"></param>
@@ -99,6 +108,7 @@ namespace Cuyahoga.Modules.Downloads
 			}
 			this._showPublisher = Convert.ToBoolean(section.Settings["SHOW_PUBLISHER"]);
 			this._showDateModified = Convert.ToBoolean(section.Settings["SHOW_DATE"]);
+			this._showNumberOfDownloads = Convert.ToBoolean(section.Settings["SHOW_NUMBER_OF_DOWNLOADS"]);
 		}
 
 		/// <summary>

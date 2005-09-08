@@ -14,6 +14,8 @@
 					</asp:label>
 					<asp:label id="lblPublisher" runat="server" visible="False">
 					</asp:label>
+					<asp:label id="lblNumberOfDownloads" runat="server" visible="False">
+					</asp:label>
 				</asp:panel>
 			</li>
 		</itemtemplate>

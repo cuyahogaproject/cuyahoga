@@ -320,6 +320,11 @@ a:hover
 	background-color: #f9f9f9;
 }
 
+.articlesub span
+{
+	margin-right: 6px;
+}
+
 .articlecontent
 {
 	margin-left: 0;
