@@ -24,7 +24,7 @@ namespace Cuyahoga.Core.Service
 		private DatabaseType _databaseType;
 		private string _installScriptFile;
 		private string _uninstallScriptFile;
-		private ArrayList _scriptVersions;
+		private ArrayList _upgradeScriptVersions;
 		private Version _currentVersionInDatabase;
 
 		/// <summary>
@@ -62,9 +62,9 @@ namespace Cuyahoga.Core.Service
 		/// <summary>
 		/// Indicates if a module or assembly can be uninstalled from the given location.
 		/// </summary>
-		public bool CanUnInstall
+		public bool CanUninstall
 		{
-			get { return CheckCanUnInstall(); }
+			get { return CheckCanUninstall(); }
 		}
 
 		/// <summary>
@@ -78,11 +78,15 @@ namespace Cuyahoga.Core.Service
 			this._installRootDirectory = installRootDirectory;
 			this._assembly = assembly;
 			this._databaseType = DatabaseUtil.GetCurrentDatabaseType();
-			string databaseSubDirectory = Path.Combine("Database", this._databaseType.ToString());
+			string databaseSubDirectory = Path.Combine("Database", this._databaseType.ToString().ToLower());
 			this._databaseScriptsDirectory = Path.Combine(installRootDirectory, databaseSubDirectory);
 
-			this._scriptVersions = new ArrayList();
+			this._upgradeScriptVersions = new ArrayList();
 			CheckDatabaseScripts();
+			// Sort the versions in ascending order. This way it's easy to iterate through the scripts
+			// when upgrading.
+			this._upgradeScriptVersions.Sort();
+
 			if (this._assembly != null)
 			{
 				CheckCurrentVersionInDatabase();
@@ -90,12 +94,14 @@ namespace Cuyahoga.Core.Service
 		}
 
 		/// <summary>
-		/// 
+		/// Install the database part of a Cuyaghoga component.
 		/// </summary>
 		public void Install()
 		{
 			if (CanInstall)
 			{
+				log.Info("Installing module with " + this._installScriptFile);
+				DatabaseUtil.ExecuteSqlScript(this._installScriptFile);
 			}
 			else
 			{
@@ -104,12 +110,25 @@ namespace Cuyahoga.Core.Service
 		}
 
 		/// <summary>
-		/// 
+		/// Upgrade the database part of a Cuyahoga component to higher version.
 		/// </summary>
 		public void Upgrade()
 		{
 			if (CanUpgrade)
 			{
+				log.Info("Upgrading " + this._assembly.GetName().Name);
+				// Iterate through the sorted versions that are extracted from the upgrade script names.
+				foreach (Version version in this._upgradeScriptVersions)
+				{
+					// Only run the script if the version is higher than the current database version
+					if (version > this._currentVersionInDatabase)
+					{
+						string upgradeScriptPath = Path.Combine(this._databaseScriptsDirectory, version.ToString(3) + ".sql");
+						log.Info("Running upgrade script " + upgradeScriptPath);
+						DatabaseUtil.ExecuteSqlScript(upgradeScriptPath);
+						this._currentVersionInDatabase = version;
+					}
+				}
 			}
 			else
 			{
@@ -118,12 +137,14 @@ namespace Cuyahoga.Core.Service
 		}
 
 		/// <summary>
-		/// 
+		/// Uninstall the database part of a Cuyaghoga component.
 		/// </summary>
-		public void UnInstall()
+		public void Uninstall()
 		{
-			if (CanUnInstall)
+			if (CanUninstall)
 			{
+				log.Info("Uninstalling module with " + this._installScriptFile);
+				DatabaseUtil.ExecuteSqlScript(this._uninstallScriptFile);
 			}
 			else
 			{
@@ -157,7 +178,7 @@ namespace Cuyahoga.Core.Service
 								Int32.Parse(extractedVersion[0]),
 								Int32.Parse(extractedVersion[1]),
 								Int32.Parse(extractedVersion[2]));
-							this._scriptVersions.Add(version);
+							this._upgradeScriptVersions.Add(version);
 						}
 						else
 						{
@@ -165,9 +186,6 @@ namespace Cuyahoga.Core.Service
 						}
 					}
 				}
-				// Sort the versions in ascending order. This way it's easy to iterate through the scripts
-				// when upgrading.
-				this._scriptVersions.Sort();
 			}
 		}
 
@@ -195,13 +213,13 @@ namespace Cuyahoga.Core.Service
 		{
 			if (this._assembly != null)
 			{
-				if (this._scriptVersions.Count > 0)
+				if (this._upgradeScriptVersions.Count > 0)
 				{
 					// Upgrade is possible if the script with the highest version number
 					// has a number higher than the current database version AND when the
 					// assembly version number is equal or higher than the script with
 					// the highest version number.
-					Version highestScriptVersion = (Version)this._scriptVersions[this._scriptVersions.Count - 1];
+					Version highestScriptVersion = (Version)this._upgradeScriptVersions[this._upgradeScriptVersions.Count - 1];
 
 					if (this._currentVersionInDatabase < highestScriptVersion
 						&& this._assembly.GetName().Version >= highestScriptVersion)
@@ -213,7 +231,7 @@ namespace Cuyahoga.Core.Service
 			return false;
 		}
 
-		private bool CheckCanUnInstall()
+		private bool CheckCanUninstall()
 		{
 			return (this._assembly != null && this._uninstallScriptFile != null);
 		}

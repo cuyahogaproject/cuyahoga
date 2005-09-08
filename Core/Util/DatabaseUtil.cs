@@ -58,17 +58,20 @@ namespace Cuyahoga.Core.Util
 
 			ISessionFactory nhSessionFactory = GetNHibernateSessionFactory();
 			IDbConnection connection = nhSessionFactory.ConnectionProvider.GetConnection();
-			connection.Open();
 			IDbTransaction transaction = connection.BeginTransaction();
 			try
 			{
 				IDbCommand cmd = connection.CreateCommand();
+				cmd.Transaction = transaction;
 				string[] sqlCommands = Regex.Split(completeScript, delimiter, RegexOptions.IgnoreCase);
 				foreach (string sqlCommand in sqlCommands)
 				{
-					log.Info("Executing the follwing command: " + sqlCommand);
-					cmd.CommandText = sqlCommand;
-					cmd.ExecuteNonQuery();
+					if (sqlCommand.Trim().Length > 0)
+					{
+						log.Info("Executing the follwing command: " + sqlCommand);
+						cmd.CommandText = sqlCommand;
+						cmd.ExecuteNonQuery();
+					}
 				}
 
 				log.Info("Committing transaction for script: " + scriptFilePath);
@@ -77,8 +80,9 @@ namespace Cuyahoga.Core.Util
 			catch (Exception ex)
 			{
 				log.Warn("Rolling back transaction for script: " + scriptFilePath);
-				log.Error("An error occured while the following script: " + scriptFilePath, ex);
+				log.Error("An error occured while executing the following script: " + scriptFilePath, ex);
 				transaction.Rollback();
+				throw new Exception("An error occured while executing the following script: " + scriptFilePath, ex);
 			}
 			finally
 			{
@@ -104,7 +108,6 @@ namespace Cuyahoga.Core.Util
 			IDbCommand cmd = connection.CreateCommand();
 			cmd.CommandText = sql;
 
-			//connection.Open();
 			try
 			{
 				IDataReader dr = cmd.ExecuteReader();
