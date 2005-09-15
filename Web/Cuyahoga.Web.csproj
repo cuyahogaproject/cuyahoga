@@ -756,6 +756,130 @@
                     BuildAction = "Content"
                 />
                 <Folder RelPath = "index\" />
+                <File
+                    RelPath = "Install\Install.aspx"
+                    SubType = "Form"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Install\Install.aspx.cs"
+                    DependentUpon = "Install.aspx"
+                    SubType = "ASPXCodeBehind"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "Install\Install.aspx.resx"
+                    DependentUpon = "Install.aspx.cs"
+                    BuildAction = "EmbeddedResource"
+                />
+                <File
+                    RelPath = "Install\Sorry.aspx"
+                    SubType = "Form"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Install\Sorry.aspx.cs"
+                    DependentUpon = "Sorry.aspx"
+                    SubType = "ASPXCodeBehind"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "Install\Sorry.aspx.resx"
+                    DependentUpon = "Sorry.aspx.cs"
+                    BuildAction = "EmbeddedResource"
+                />
+                <File
+                    RelPath = "Install\Upgrade.aspx"
+                    SubType = "Form"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Install\Upgrade.aspx.cs"
+                    DependentUpon = "Upgrade.aspx"
+                    SubType = "ASPXCodeBehind"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "Install\Upgrade.aspx.resx"
+                    DependentUpon = "Upgrade.aspx.cs"
+                    BuildAction = "EmbeddedResource"
+                />
+                <File
+                    RelPath = "Install\Web.config"
+                    BuildAction = "None"
+                />
+                <File
+                    RelPath = "Install\Core\Database\mssql2000\0.8.2.sql"
+                    BuildAction = "None"
+                />
+                <File
+                    RelPath = "Install\Core\Database\mssql2000\0.9.0.sql"
+                    BuildAction = "None"
+                />
+                <File
+                    RelPath = "Install\Core\Database\mssql2000\install.sql"
+                    BuildAction = "None"
+                />
+                <File
+                    RelPath = "Install\Core\Database\mysql\0.8.2.sql"
+                    BuildAction = "None"
+                />
+                <File
+                    RelPath = "Install\Core\Database\mysql\0.9.0.sql"
+                    BuildAction = "None"
+                />
+                <File
+                    RelPath = "Install\Core\Database\mysql\install.sql"
+                    BuildAction = "None"
+                />
+                <File
+                    RelPath = "Install\Core\Database\postgresql\0.8.2.sql"
+                    BuildAction = "None"
+                />
+                <File
+                    RelPath = "Install\Core\Database\postgresql\0.9.0.sql"
+                    BuildAction = "None"
+                />
+                <File
+                    RelPath = "Install\Core\Database\postgresql\install.sql"
+                    BuildAction = "None"
+                />
+                <File
+                    RelPath = "Install\Modules\Database\mssql2000\0.8.2.sql"
+                    BuildAction = "None"
+                />
+                <File
+                    RelPath = "Install\Modules\Database\mssql2000\0.9.0.sql"
+                    BuildAction = "None"
+                />
+                <File
+                    RelPath = "Install\Modules\Database\mssql2000\install.sql"
+                    BuildAction = "None"
+                />
+                <File
+                    RelPath = "Install\Modules\Database\mysql\0.8.2.sql"
+                    BuildAction = "None"
+                />
+                <File
+                    RelPath = "Install\Modules\Database\mysql\0.9.0.sql"
+                    BuildAction = "None"
+                />
+                <File
+                    RelPath = "Install\Modules\Database\mysql\install.sql"
+                    BuildAction = "None"
+                />
+                <File
+                    RelPath = "Install\Modules\Database\postgresql\0.8.2.sql"
+                    BuildAction = "None"
+                />
+                <File
+                    RelPath = "Install\Modules\Database\postgresql\0.9.0.sql"
+                    BuildAction = "None"
+                />
+                <File
+                    RelPath = "Install\Modules\Database\postgresql\install.sql"
+                    BuildAction = "None"
+                />
                 <Folder RelPath = "log\" />
                 <Folder RelPath = "Modules\" />
                 <File

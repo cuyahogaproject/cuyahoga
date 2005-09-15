@@ -53,6 +53,14 @@ namespace Cuyahoga.Web.HttpModules
 					// Don't rewrite when the mapping is an empty string (used for Default, Admin etc.)
 					if (mappings[i] != String.Empty)
 					{
+						// First check if the Application is upgrading. If so, redirect everything to the
+						// maintenance page.
+						if (Convert.ToBoolean(HttpContext.Current.Application["IsUpgrading"]))
+						{
+							HttpContext.Current.Response.Redirect("~/Install/Sorry.aspx", true);
+							return;
+						}
+
 						// Store the original url in the Context.Items collection. We need to save this for setting
 						// the action of the form.
 						string rewritePath = regEx.Replace(urlToRewrite, UrlHelper.GetApplicationPath() + mappings[i]);

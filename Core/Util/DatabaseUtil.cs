@@ -46,6 +46,26 @@ namespace Cuyahoga.Core.Util
 		}
 
 		/// <summary>
+		/// Check if the database connection string in the web.config (NHibernate configuration) is valid.
+		/// </summary>
+		/// <returns></returns>
+		public static bool TestDatabaseConnection()
+		{
+			ISessionFactory sf = GetNHibernateSessionFactory();
+			try
+			{
+				IDbConnection con = sf.ConnectionProvider.GetConnection();
+				con.Close();
+				return true;
+			}
+			catch (Exception ex)
+			{
+				log.Error("Unable to connect to database.", ex);
+				return false;
+			}
+		}
+
+		/// <summary>
 		/// Execute a given SQL script file.
 		/// </summary>
 		/// <param name="scriptFilePath"></param>
@@ -63,7 +83,7 @@ namespace Cuyahoga.Core.Util
 			{
 				IDbCommand cmd = connection.CreateCommand();
 				cmd.Transaction = transaction;
-				string[] sqlCommands = Regex.Split(completeScript, delimiter, RegexOptions.IgnoreCase);
+				string[] sqlCommands = Regex.Split(completeScript, delimiter, RegexOptions.IgnoreCase|RegexOptions.Multiline);
 				foreach (string sqlCommand in sqlCommands)
 				{
 					if (sqlCommand.Trim().Length > 0)
@@ -139,7 +159,7 @@ namespace Cuyahoga.Core.Util
 			switch (GetCurrentDatabaseType())
 			{
 				case DatabaseType.MsSql2000:
-					return "go";
+					return "^go";
 				case DatabaseType.PostgreSQL:
 				case DatabaseType.MySQL:
 					return ";";

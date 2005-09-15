@@ -2,7 +2,7 @@
 <project default="build" basedir="." xmlns="http://nant.sf.net/release/0.85-rc1/nant.xsd">
 	<!-- global project settings -->
 	<property name="project.name" value="Cuyahoga" />
-	<property name="project.version" value="0.8.2" />
+	<property name="project.version" value="0.9.0" />
 
 	<!-- default configuration -->
 	<property name="project.config" value="debug" /> <!-- debug|release -->
@@ -258,6 +258,7 @@
 				<include name="**/*.css" />
 				<include name="**/*.txt" />
 				<include name="**/*.html" />
+				<include name="**/*.sql" />
 				<exclude name="UserFiles/Image/*.*" />
 				<exclude name="UserFiles/File/*.*" />
 				<exclude name="files/*.*" />
@@ -290,6 +291,11 @@
 				<include name="**/*.xslt" />
 			</fileset>
 		</copy>
+		<copy todir="${build.dir}/Modules/Downloads">
+			<fileset basedir="Downloads">
+				<include name="**/*.sql" />
+			</fileset>
+		</copy>
 	</target>
 	
 	<target name="package-source" depends="init" description="Create a Zip file for Source Releases">
@@ -304,9 +310,7 @@
 				<include name="Web/**" />
 				<include name="Modules/**" />
 				<include name="Downloads/**" />
-				<include name="Tests/**" />
-				<include name="Database/**/*.sql" />
-							
+				<include name="Tests/**" />							
 
 				<exclude name="Web/Modules/**/*" />
 				<exclude name="Web/UserFiles/File/**/*" />

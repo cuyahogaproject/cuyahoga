@@ -44,6 +44,14 @@ namespace Cuyahoga.Core.Service
 		}
 
 		/// <summary>
+		/// The version of the assembly that is to be installed or upgraded.
+		/// </summary>
+		public Version NewAssemblyVersion
+		{
+			get { return this._assembly.GetName().Version; }
+		}
+
+		/// <summary>
 		/// Indicates if a module or assembly can be installed from the given location.
 		/// </summary>
 		public bool CanInstall
@@ -91,6 +99,15 @@ namespace Cuyahoga.Core.Service
 			{
 				CheckCurrentVersionInDatabase();
 			}
+		}
+
+		/// <summary>
+		/// Check if the database connection is valid.
+		/// </summary>
+		/// <returns></returns>
+		public bool TestDatabaseConnection()
+		{
+			return DatabaseUtil.TestDatabaseConnection();
 		}
 
 		/// <summary>
@@ -199,21 +216,14 @@ namespace Cuyahoga.Core.Service
 
 		private bool CheckCanInstall()
 		{
-			if (this._assembly != null)
-			{
-				return false;
-			}
-			else
-			{
-				return this._installScriptFile != null;
-			}
+			return this._currentVersionInDatabase == null && this._installScriptFile != null;
 		}
 
 		private bool CheckCanUpgrade()
 		{
 			if (this._assembly != null)
 			{
-				if (this._upgradeScriptVersions.Count > 0)
+				if (this._currentVersionInDatabase != null && this._upgradeScriptVersions.Count > 0)
 				{
 					// Upgrade is possible if the script with the highest version number
 					// has a number higher than the current database version AND when the

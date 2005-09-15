@@ -4,6 +4,9 @@ using System.ComponentModel;
 using System.Web;
 using System.Web.SessionState;
 using System.Text.RegularExpressions;
+using System.Reflection;
+
+using Cuyahoga.Core.Service;
 
 namespace Cuyahoga.Web
 {
@@ -18,7 +21,29 @@ namespace Cuyahoga.Web
 		
 		protected void Application_Start(Object sender, EventArgs e)
 		{
+			// Check version and redirect to install pages if neccessary.
+			DatabaseInstaller dbInstaller = new DatabaseInstaller(HttpContext.Current.Server.MapPath("~/Install/Core"), Assembly.Load("Cuyahoga.Core"));
+			if (dbInstaller.TestDatabaseConnection())
+			{
+				if (dbInstaller.CanUpgrade)
+				{
+					// Set a flag that the application is upgrading. This will redirect visitors to a
+					// maintenance page.
+					HttpContext.Current.Application.Lock();
+					HttpContext.Current.Application["IsUpgrading"] = true;
+					HttpContext.Current.Application.UnLock();
 
+					HttpContext.Current.Response.Redirect("~/Install/Upgrade.aspx");
+				}
+				else if (dbInstaller.CanInstall)
+				{
+					HttpContext.Current.Response.Redirect("~/Install/Install.aspx");
+				}
+			}
+			else
+			{
+				throw new Exception("Cuyahoga can't connect to the database. Please check your application settings.");
+			}
 		}
  
 		protected void Session_Start(Object sender, EventArgs e)
