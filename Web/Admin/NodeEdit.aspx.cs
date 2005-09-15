@@ -204,7 +204,10 @@ namespace Cuyahoga.Web.Admin
 
 		private void BindSections()
 		{
-			this.rptSections.DataSource = base.CoreRepository.GetSortedSectionsByNode(this.ActiveNode);
+			IList sortedSections = base.CoreRepository.GetSortedSectionsByNode(this.ActiveNode);
+			// Synchronize sections, otherwise we'll have two collections with the same Sections
+			this.ActiveNode.Sections = sortedSections;
+			this.rptSections.DataSource = sortedSections;
 			this.rptSections.DataBind();
 			if (this.ActiveNode.Id > 0 && this.ActiveNode.Template != null)
 			{
@@ -261,13 +264,13 @@ namespace Cuyahoga.Web.Admin
 			}
 			else
 			{
+				IList rootNodes = base.CoreRepository.GetRootNodes(this.ActiveNode.Site);
+				this.ActiveNode.CalculateNewPosition(rootNodes);
 				// Add node to the parent node's ChildNodes first
 				if (this.ActiveNode.ParentNode != null)
 				{
 					this.ActiveNode.ParentNode.ChildNodes.Add(this.ActiveNode);
 				}
-				IList rootNodes = base.CoreRepository.GetRootNodes(this.ActiveNode.Site);
-				this.ActiveNode.CalculateNewPosition(rootNodes);
 				base.CoreRepository.SaveObject(this.ActiveNode);				
 				Context.Response.Redirect(String.Format("NodeEdit.aspx?NodeId={0}", this.ActiveNode.Id));
 			}
@@ -584,6 +587,9 @@ namespace Cuyahoga.Web.Admin
 					ModuleBase module = section.CreateModule(UrlHelper.GetUrlFromSection(section));
 					module.NHSessionRequired += new Cuyahoga.Core.Domain.ModuleBase.NHSessionEventHandler(module_NHSessionRequired);
 					module.DeleteModuleContent();
+					// Make sure there is no gap in the section indexes. 
+					// ABUSE: this method was not designed for this, but works fine.
+					section.ChangeAndUpdatePositionsAfterPlaceholderChange(section.PlaceholderId, section.Position, false);
 					// Now delete the Section.
 					this.ActiveNode.Sections.Remove(section);
 					base.CoreRepository.DeleteObject(section);

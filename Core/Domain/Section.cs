@@ -225,13 +225,19 @@ namespace Cuyahoga.Core.Domain
 				int maxPosition = -1;
 				foreach (Section section in this.Node.Sections)
 				{
-					if (section.PlaceholderId == this.PlaceholderId && section.Position > maxPosition)
+					if (section.PlaceholderId == this.PlaceholderId 
+						&& section.Position > maxPosition
+						&& section.Id != this._id)
+					{
 						maxPosition = section.Position;
+					}
 				}
-				this.Position = maxPosition + 1;
+				this._position = maxPosition + 1;
 			}
 			else
+			{
 				this._position = 0;
+			}
 		}
 
 		/// <summary>
@@ -320,7 +326,7 @@ namespace Cuyahoga.Core.Domain
 		/// </summary>
 		/// <param name="oldPlaceholderId"></param>
 		/// <param name="oldPosition"></param>
-		public virtual void ChangeAndUpdatePositionsAfterPlaceholderChange(string oldPlaceholderId, int oldPosition)
+		public virtual void ChangeAndUpdatePositionsAfterPlaceholderChange(string oldPlaceholderId, int oldPosition, bool resetSections)
 		{
 			if (this.Node != null)
 			{
@@ -331,8 +337,11 @@ namespace Cuyahoga.Core.Domain
 						section.Position--;
 					}
 				}
-				// reset sections, so they will be refreshed from the database when required.
-				this.Node.ResetSections();
+				if (resetSections)
+				{
+					// reset sections, so they will be refreshed from the database when required.
+					this.Node.ResetSections();
+				}
 			}       
 		}
 

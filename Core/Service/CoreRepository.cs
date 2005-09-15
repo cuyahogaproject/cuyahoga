@@ -240,6 +240,25 @@ namespace Cuyahoga.Core.Service
 			this._activeSession.Delete(obj);
 		}
 
+		/// <summary>
+		/// Clear the cache for a given type.
+		/// </summary>
+		/// <param name="type"></param>
+		public void ClearCache(Type type)
+		{
+			this._factory.Evict(type);
+		}
+
+		/// <summary>
+		/// Clear the cache for a given collection.
+		/// </summary>
+		/// <param name="roleName">The full path to a collection property,
+		/// for example Cuyahoga.Core.Domain.Node.Sections.</param>
+		public void ClearCollectionCache(string roleName)
+		{
+			this._factory.EvictCollection(roleName);
+		}
+
 		#endregion
 
 		#region Site / SiteAlias specific

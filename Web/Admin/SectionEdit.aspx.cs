@@ -377,12 +377,15 @@ namespace Cuyahoga.Web.Admin
 					// Roles
 					SetRoles();
 
+					// Detect a placeholderId change and change positions of adjacent sections if necessary.					
+					if (oldPosition != -1 && oldPlaceholderId != this._activeSection.PlaceholderId)
+						this._activeSection.ChangeAndUpdatePositionsAfterPlaceholderChange(oldPlaceholderId, oldPosition, true);
+
 					// Save the active section
 					SaveSection();
 
-					// Detect a placeholderId change and change positions of adjacent sections if necessary.					
-					if (oldPosition != -1 && oldPlaceholderId != this._activeSection.PlaceholderId)
-						this._activeSection.ChangeAndUpdatePositionsAfterPlaceholderChange(oldPlaceholderId, oldPosition);
+					// Clear cached sections.
+					base.CoreRepository.ClearCollectionCache("Cuyahoga.Core.Domain.Node.Sections");
 
 					ShowMessage("Section saved.");
 				}

@@ -17,7 +17,7 @@
                 DelaySign = "false"
                 OutputType = "Library"
                 PreBuildEvent = ""
-                PostBuildEvent = 'xcopy /s /y "$(ProjectDir)"Web\*.as?x "$(SolutionDir)"Web\Modules\Downloads\&#xd;&#xa;xcopy /s /y "$(ProjectDir)"Web\*.gif "$(SolutionDir)"Web\Modules\Downloads\&#xd;&#xa;xcopy /s /y "$(ProjectDir)"Database\*.sql "$(SolutionDir)"Web\Modules\Downloads\Install\Database\&#xd;&#xa;xcopy /s /y "$(TargetDir)"Cuyahoga.Modules.Downloads*.dll "$(SolutionDir)"Web\bin\'
+                PostBuildEvent = 'xcopy /s /y "$(ProjectDir)"Web\*.as?x "$(SolutionDir)"Web\Modules\Downloads\&#xd;&#xa;xcopy /s /y "$(ProjectDir)"Web\*.gif "$(SolutionDir)"Web\Modules\Downloads\&#xd;&#xa;xcopy /s /y "$(ProjectDir)"Install\Database\*.sql "$(SolutionDir)"Web\Modules\Downloads\Install\Database\&#xd;&#xa;xcopy /s /y "$(TargetDir)"Cuyahoga.Modules.Downloads*.dll "$(SolutionDir)"Web\bin\'
                 RootNamespace = "Cuyahoga.Modules.Downloads"
                 RunPostBuildEvent = "OnBuildSuccess"
                 StartupObject = ""
@@ -129,54 +129,6 @@
                     BuildAction = "Compile"
                 />
                 <File
-                    RelPath = "Database\mssql2000\0.8.2.sql"
-                    BuildAction = "None"
-                />
-                <File
-                    RelPath = "Database\mssql2000\0.9.0.sql"
-                    BuildAction = "None"
-                />
-                <File
-                    RelPath = "Database\mssql2000\install.sql"
-                    BuildAction = "None"
-                />
-                <File
-                    RelPath = "Database\mssql2000\uninstall.sql"
-                    BuildAction = "None"
-                />
-                <File
-                    RelPath = "Database\mysql\0.8.2.sql"
-                    BuildAction = "None"
-                />
-                <File
-                    RelPath = "Database\mysql\0.9.0.sql"
-                    BuildAction = "None"
-                />
-                <File
-                    RelPath = "Database\mysql\install.sql"
-                    BuildAction = "None"
-                />
-                <File
-                    RelPath = "Database\mysql\uninstall.sql"
-                    BuildAction = "None"
-                />
-                <File
-                    RelPath = "Database\postgresql\0.8.2.sql"
-                    BuildAction = "None"
-                />
-                <File
-                    RelPath = "Database\postgresql\0.9.0.sql"
-                    BuildAction = "None"
-                />
-                <File
-                    RelPath = "Database\postgresql\install.sql"
-                    BuildAction = "None"
-                />
-                <File
-                    RelPath = "Database\postgresql\uninstall.sql"
-                    BuildAction = "None"
-                />
-                <File
                     RelPath = "Domain\File.cs"
                     SubType = "Code"
                     BuildAction = "Compile"
@@ -184,6 +136,54 @@
                 <File
                     RelPath = "Domain\File.hbm.xml"
                     BuildAction = "EmbeddedResource"
+                />
+                <File
+                    RelPath = "Install\Database\mssql2000\0.8.2.sql"
+                    BuildAction = "None"
+                />
+                <File
+                    RelPath = "Install\Database\mssql2000\0.9.0.sql"
+                    BuildAction = "None"
+                />
+                <File
+                    RelPath = "Install\Database\mssql2000\install.sql"
+                    BuildAction = "None"
+                />
+                <File
+                    RelPath = "Install\Database\mssql2000\uninstall.sql"
+                    BuildAction = "None"
+                />
+                <File
+                    RelPath = "Install\Database\mysql\0.8.2.sql"
+                    BuildAction = "None"
+                />
+                <File
+                    RelPath = "Install\Database\mysql\0.9.0.sql"
+                    BuildAction = "None"
+                />
+                <File
+                    RelPath = "Install\Database\mysql\install.sql"
+                    BuildAction = "None"
+                />
+                <File
+                    RelPath = "Install\Database\mysql\uninstall.sql"
+                    BuildAction = "None"
+                />
+                <File
+                    RelPath = "Install\Database\postgresql\0.8.2.sql"
+                    BuildAction = "None"
+                />
+                <File
+                    RelPath = "Install\Database\postgresql\0.9.0.sql"
+                    BuildAction = "None"
+                />
+                <File
+                    RelPath = "Install\Database\postgresql\install.sql"
+                    BuildAction = "None"
+                />
+                <File
+                    RelPath = "Install\Database\postgresql\uninstall.sql"
+                    BuildAction = "None"
                 />
                 <File
                     RelPath = "Util\FileTypesMap.cs"
