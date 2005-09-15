@@ -170,8 +170,8 @@ namespace Cuyahoga.Web.Util
 		
 		private static string GetHostUrl()
 		{
-			string https = HttpContext.Current.Request.ServerVariables["HTTPS"];
-			string protocol = https == "off" ? "http" : "https";
+			string securePort = HttpContext.Current.Request.ServerVariables["SERVER_PORT_SECURE"];
+			string protocol = securePort == null || securePort == "0" ? "http" : "https";
 			string serverPort = HttpContext.Current.Request.ServerVariables["SERVER_PORT"];
 			string port = serverPort == "80" ? string.Empty : ":" + serverPort;
 			string serverName = HttpContext.Current.Request.ServerVariables["SERVER_NAME"];
