@@ -117,82 +117,97 @@ namespace Cuyahoga.Web.UI
 		/// </summary>
 		/// <param name="obj"></param>
 		protected override void OnInit(EventArgs e)
-		{
-			try
+		{		
+			this._coreRepository = (CoreRepository)HttpContext.Current.Items["CoreRepository"];
+
+			// Load the current site
+			Node entryNode = null;
+			string siteUrl = UrlHelper.GetSiteUrl();
+			SiteAlias currentSiteAlias = this._coreRepository.GetSiteAliasByUrl(siteUrl);
+			if (currentSiteAlias != null)
 			{
-				this._coreRepository = (CoreRepository)HttpContext.Current.Items["CoreRepository"];
+				this._currentSite = currentSiteAlias.Site;
+				entryNode = currentSiteAlias.EntryNode;
+			}
+			else
+			{
+				this._currentSite = this._coreRepository.GetSiteBySiteUrl(siteUrl);
+			}
+			if (this._currentSite == null)
+			{
+				throw new SiteNullException("No site found at " + siteUrl);
+			}
 
-				// Load the current site
-				Node entryNode = null;
-				string siteUrl = UrlHelper.GetSiteUrl();
-				SiteAlias currentSiteAlias = this._coreRepository.GetSiteAliasByUrl(siteUrl);
-				if (currentSiteAlias != null)
-				{
-					this._currentSite = currentSiteAlias.Site;
-					entryNode = currentSiteAlias.EntryNode;
-				}
-				else
-				{
-					this._currentSite = this._coreRepository.GetSiteBySiteUrl(siteUrl);
-				}
-
-				// Load the active node
-				// Query the cache by ShortDescription, then NodeId and last, SectionId.
-				if (Context.Request.QueryString["ShortDescription"] != null)
-				{
-					this._activeNode = this._coreRepository.GetNodeByShortDescriptionAndSite(Context.Request.QueryString["ShortDescription"], this._currentSite);
-				}
-				else if (Context.Request.QueryString["NodeId"] != null)
-				{
-					this._activeNode = (Node)this._coreRepository.GetObjectById(typeof(Node)
-						, Int32.Parse(Context.Request.QueryString["NodeId"]));
-				}
-				else if (Context.Request.QueryString["SectionId"] != null)
+			// Load the active node
+			// Query the cache by ShortDescription, then NodeId and last, SectionId.
+			if (Context.Request.QueryString["ShortDescription"] != null)
+			{
+				this._activeNode = this._coreRepository.GetNodeByShortDescriptionAndSite(Context.Request.QueryString["ShortDescription"], this._currentSite);
+			}
+			else if (Context.Request.QueryString["NodeId"] != null)
+			{
+				this._activeNode = (Node)this._coreRepository.GetObjectById(typeof(Node)
+					, Int32.Parse(Context.Request.QueryString["NodeId"])
+					, true);
+			}
+			else if (Context.Request.QueryString["SectionId"] != null)
+			{
+				try
 				{
 					this._activeSection = (Section)this._coreRepository.GetObjectById(typeof(Section)
 						, Int32.Parse(Context.Request.QueryString["SectionId"]));
 					this._activeNode = this._activeSection.Node;
 				}
-				else if (entryNode != null)
+				catch
 				{
-					this._activeNode = entryNode;
-				}
-				else
-				{
-					// Can't load a particular node, so the root node has to be the active node
-					// Maybe we have culture information stored in a cookie, so we might need a different 
-					// root Node.
-					string currentCulture = this._currentSite.DefaultCulture;
-					if (Context.Request.Cookies["CuyahogaCulture"] != null)
-					{
-						currentCulture = Context.Request.Cookies["CuyahogaCulture"].Value;
-					}
-					this._activeNode = this._coreRepository.GetRootNodeByCultureAndSite(currentCulture, this._currentSite);
-				}
-				this._rootNode = this._activeNode.NodePath[0];
-
-				// Set culture
-				// TODO: fix this because ASP.NET pages are not guaranteed to run in 1 thread (how?).
-				Thread.CurrentThread.CurrentCulture = CultureInfo.CreateSpecificCulture(this._activeNode.Culture);	
-				Thread.CurrentThread.CurrentUICulture = CultureInfo.CreateSpecificCulture(this._activeNode.Culture);
-				
-				// Check node-level security
-				if (! this._activeNode.ViewAllowed(this.User.Identity))
-				{
-					throw new AccessForbiddenException("You are not allowed to view this page.");
-				}
-
-				if (this._shouldLoadContent)
-				{
-					LoadContent();			
-					LoadMenus();
+					throw new SectionNullException("Section not found: " + Context.Request.QueryString["SectionId"]);
 				}
 			}
-			// TODO: we could handle some exceptions here, but for now rethrow them, so it will be handled
-			// by the general error page (and logged!).
-			catch (Exception ex)
+			else if (entryNode != null)
 			{
-				throw ex;
+				this._activeNode = entryNode;
+			}
+			else
+			{
+				// Can't load a particular node, so the root node has to be the active node
+				// Maybe we have culture information stored in a cookie, so we might need a different 
+				// root Node.
+				string currentCulture = this._currentSite.DefaultCulture;
+				if (Context.Request.Cookies["CuyahogaCulture"] != null)
+				{
+					currentCulture = Context.Request.Cookies["CuyahogaCulture"].Value;
+				}
+				this._activeNode = this._coreRepository.GetRootNodeByCultureAndSite(currentCulture, this._currentSite);
+			}
+			// Raise an exception when there is no Node found. It will be handled by the global error handler
+			// and translated into a proper 404.
+			if (this._activeNode == null)
+			{
+				throw new NodeNullException(String.Format(@"No node found with the following parameters: 
+					NodeId: {0},
+					ShortDescription: {1},
+					SectionId: {2}"
+					, Context.Request.QueryString["NodeId"]
+					, Context.Request.QueryString["ShortDescription"]
+					, Context.Request.QueryString["SectionId"]));
+			}
+			this._rootNode = this._activeNode.NodePath[0];
+
+			// Set culture
+			// TODO: fix this because ASP.NET pages are not guaranteed to run in 1 thread (how?).
+			Thread.CurrentThread.CurrentCulture = CultureInfo.CreateSpecificCulture(this._activeNode.Culture);	
+			Thread.CurrentThread.CurrentUICulture = CultureInfo.CreateSpecificCulture(this._activeNode.Culture);
+			
+			// Check node-level security
+			if (! this._activeNode.ViewAllowed(this.User.Identity))
+			{
+				throw new AccessForbiddenException("You are not allowed to view this page.");
+			}
+
+			if (this._shouldLoadContent)
+			{
+				LoadContent();			
+				LoadMenus();
 			}
 			base.OnInit(e);
 		}

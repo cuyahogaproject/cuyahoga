@@ -36,18 +36,33 @@ namespace Cuyahoga.Web
 				{
 					if (innerException is SiteNullException)
 					{
+						HttpContext.Current.Response.StatusCode = 503;
 						this.lblTitle.Text = innerException.Message;
 						this.lblError.Text = "The url you entered is invalid or the site is down for maintenance.";
 					}
+					else if (innerException is NodeNullException || innerException is SectionNullException)
+					{
+						HttpContext.Current.Response.StatusCode = 404;
+						this.lblTitle.Text = "404 Page not found";
+						this.lblError.Text = "The requested page could not be found.";
+					}
+					else if (innerException is AccessForbiddenException)
+					{
+						HttpContext.Current.Response.StatusCode = 403;
+						this.lblTitle.Text = "403 Access forbidden";
+						this.lblError.Text = "Access to the requested resource is forbidden.";
+					}
 					else
 					{
-						this.lblTitle.Text = "An error occured:";
+						HttpContext.Current.Response.StatusCode = 500;
+						this.lblTitle.Text = "500 An error occured:";
 						this.lblError.Text = innerException.Message;
 					}
 				}
 				else
 				{
-					this.lblTitle.Text = "An error occured:";
+					HttpContext.Current.Response.StatusCode = 500;
+					this.lblTitle.Text = "500 An error occured:";
 					this.lblError.Text = ex.Message;
 				}
 			}

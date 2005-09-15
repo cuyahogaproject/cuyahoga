@@ -95,8 +95,8 @@ namespace Cuyahoga.Core.Service
 		/// <summary>
 		/// Generic method for retrieving single objects by primary key.
 		/// </summary>
-		/// <param name="type"></param>
-		/// <param name="id"></param>
+		/// <param name="type">The type of the object to fetch.</param>
+		/// <param name="id">The identifier of the object.</param>
 		/// <returns></returns>
 		public object GetObjectById(Type type, int id)
 		{
@@ -107,6 +107,32 @@ namespace Cuyahoga.Core.Service
 			else
 			{
 				throw new NullReferenceException("The repository doesn't have an active session");
+			}
+		}
+
+		/// <summary>
+		/// Generic method for retrieving single objects by primary key.
+		/// </summary>
+		/// <param name="type">The type of the object to fetch.</param>
+		/// <param name="id">The identifier of the object.</param>
+		/// <param name="allowNull">Allow null as return value.</param>
+		/// <returns></returns>
+		public object GetObjectById(Type type, int id, bool allowNull)
+		{
+			if (allowNull)
+			{
+				if (this._activeSession != null)
+				{
+					return this._activeSession.Get(type, id);
+				}
+				else
+				{
+					throw new NullReferenceException("The repository doesn't have an active session");
+				}
+			}
+			else
+			{
+				return GetObjectById(type, id);
 			}
 		}
 
