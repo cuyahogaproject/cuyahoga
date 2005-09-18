@@ -32,9 +32,17 @@ namespace Cuyahoga.Web.Admin.Controls
 			{
 				throw new Exception("This control requires a Page of the type AdminBasePage.", ex);
 			}
-			if (this._page.ActiveNode != null)
+			if (this._page.ActiveSection != null)
 			{
-				this.hplSite.NavigateUrl = this._page.ActiveNode.Site.SiteUrl;
+				this.hplSite.NavigateUrl = Util.UrlHelper.GetUrlFromSection(this._page.ActiveSection);
+			}
+			else if (this._page.ActiveNode != null)
+			{
+				this.hplSite.NavigateUrl = Util.UrlHelper.GetUrlFromNode(this._page.ActiveNode);
+			}
+			else if (this._page.ActiveSite != null)
+			{
+				this.hplSite.NavigateUrl = this._page.ActiveSite.SiteUrl;
 			}
 			else
 			{

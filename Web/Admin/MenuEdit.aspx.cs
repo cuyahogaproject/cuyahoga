@@ -68,7 +68,7 @@ namespace Cuyahoga.Web.Admin
 
 		private void BindPlaceholders()
 		{
-			string templatePath = this.ApplicationRoot + this.ActiveNode.Template.Path;
+			string templatePath = Util.UrlHelper.GetApplicationPath() + this.ActiveNode.Template.Path;
 			BaseTemplate template = (BaseTemplate)this.LoadControl(templatePath);
 			this.ddlPlaceholder.DataSource = template.Containers;
 			this.ddlPlaceholder.DataValueField = "Key";

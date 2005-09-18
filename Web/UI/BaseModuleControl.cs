@@ -88,11 +88,23 @@ namespace Cuyahoga.Web.UI
 			}
 			// Edit button
 			User cuyahogaUser = this.Page.User.Identity as User;
-			if (this._module.Section.ModuleType.EditPath != null
-				&& cuyahogaUser != null
-				&& cuyahogaUser.CanEdit(this._module.Section))
+			if (cuyahogaUser != null)
 			{
-				writer.Write(String.Format("&nbsp;<a href=\"{0}?NodeId={1}&SectionId={2}\">Edit</a>", UrlHelper.GetApplicationPath() + this._module.Section.ModuleType.EditPath, this._module.Section.Node.Id, this._module.Section.Id));
+				if (this._module.Section.ModuleType.EditPath != null
+					&& cuyahogaUser.CanEdit(this._module.Section))
+				{
+					writer.Write(String.Format("&nbsp;[<a href=\"{0}?NodeId={1}&SectionId={2}\">Edit</a>]"
+						, UrlHelper.GetApplicationPath() + this._module.Section.ModuleType.EditPath
+						, this._module.Section.Node.Id
+						, this._module.Section.Id));
+				}
+				if (cuyahogaUser.HasPermission(AccessLevel.Administrator))
+				{
+					writer.Write(String.Format("&nbsp;[<a href=\"{0}Admin/SectionEdit.aspx?NodeId={1}&SectionId={2}\">Section Properties</a>]"
+						, UrlHelper.GetApplicationPath()
+						, this._module.Section.Node.Id
+						, this._module.Section.Id));
+				}
 			}
 			writer.Write("</div>");
 			// TODO: get rid of this html hacking. Need a more declarative approach.

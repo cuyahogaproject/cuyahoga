@@ -165,7 +165,7 @@ namespace Cuyahoga.Web.Admin
 				try
 				{
 					// Read template control and get the containers (placeholders)
-					string templatePath = this.ApplicationRoot + this.ActiveNode.Template.Path;
+					string templatePath = Util.UrlHelper.GetApplicationPath() + this.ActiveNode.Template.Path;
 					BaseTemplate template = (BaseTemplate)this.LoadControl(templatePath);
 					this.ddlPlaceholder.DataSource = template.Containers;
 					this.ddlPlaceholder.DataValueField = "Key";

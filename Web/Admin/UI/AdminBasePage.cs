@@ -14,34 +14,43 @@ namespace Cuyahoga.Web.Admin.UI
 	/// </summary>
 	public class AdminBasePage : GenericBasePage
 	{
+		private Site _activeSite;
 		private Node _activeNode;
+		private Section _activeSection;
 
+		/// <summary>
+		/// The Site context of the admin page.
+		/// </summary>
+		public Site ActiveSite
+		{
+			get { return this._activeSite; }
+		}
+
+		/// <summary>
+		/// The Node context of the admin page.
+		/// </summary>
 		public Node ActiveNode
 		{
 			get { return this._activeNode; }
 			set { this._activeNode = value; }
 		}
 
+		/// <summary>
+		/// The Node context of the admin page.
+		/// </summary>
+		public Section ActiveSection
+		{
+			get { return this._activeSection; }
+		}
+
+		/// <summary>
+		/// The messagebox.
+		/// </summary>
 		public HtmlGenericControl MessageBox
 		{
 			get
 			{
 				return this.TemplateControl.FindControl("MessageBox") as HtmlGenericControl;
-			}
-		}
-
-		/// <summary>
-		/// Get the application root directory with trailing "/"
-		/// TODO: replace with Util.UrlHelper.GetApplicationPath where used
-		/// </summary>
-		public string ApplicationRoot
-		{
-			get
-			{
-				if (Context.Request.ApplicationPath.Length != 1)
-					return Context.Request.ApplicationPath + "/";
-				else
-					return Context.Request.ApplicationPath;
 			}
 		}
 
@@ -60,15 +69,35 @@ namespace Cuyahoga.Web.Admin.UI
 			base.TemplateFilename = ConfigurationSettings.AppSettings["DefaultTemplate"];
 			base.Css = ConfigurationSettings.AppSettings["DefaultCss"];
 
-			// Try to set active Node.
-			if (Context.Request.QueryString["NodeId"] != null)
+			// Try to set active Site, Node and Section.
+			if (Context.Request.QueryString["SectionId"] != null)
+			{
+				int sectionId = Int32.Parse(Context.Request.QueryString["SectionId"]);
+				if (sectionId > 0)
+				{
+					this._activeSection = (Section)base.CoreRepository.GetObjectById(typeof(Section), sectionId);
+					this._activeNode = this._activeSection.Node;
+					this._activeSite = this._activeNode.Site;
+				}
+			}
+			else if (Context.Request.QueryString["NodeId"] != null)
 			{
 				int nodeId = Int32.Parse(Context.Request.QueryString["NodeId"]);
 				if (nodeId > 0)
 				{
 					this._activeNode = (Node)base.CoreRepository.GetObjectById(typeof(Node), nodeId);
+					this._activeSite = this._activeNode.Site;
 				}
 			}
+			else if (Context.Request.QueryString["SiteId"] != null)
+			{
+				int siteId = Int32.Parse(Context.Request.QueryString["SiteId"]);
+				if (siteId > 0)
+				{
+					this._activeSite = (Site)base.CoreRepository.GetObjectById(typeof(Site), siteId);
+				}
+			}
+
 			// Now, we're here we could check authorization as well.
 			if (! ((User)this.User.Identity).HasPermission(AccessLevel.Administrator))
 			{
