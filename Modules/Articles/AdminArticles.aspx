@@ -18,21 +18,30 @@
 						<asp:repeater id="rptArticles" runat="server">
 							<headertemplate>
 								<tr>
-									<th>Title</th>
-									<th>Category</th>
-									<th>Date online</th>
-									<th>Date offline</th>
-									<th>Created by</th>
-									<th>Modified by</th>
-									<th></th>
+									<th>
+										Title</th>
+									<th>
+										Category</th>
+									<th>
+										Date online</th>
+									<th>
+										Date offline</th>
+									<th>
+										Created by</th>
+									<th>
+										Modified by</th>
+									<th>
+									</th>
 								</tr>
 							</headertemplate>
 							<itemtemplate>
 								<tr>
 									<td><%# DataBinder.Eval(Container.DataItem, "Title") %></td>
 									<td><%# DataBinder.Eval(Container.DataItem, "Category.Title") %></td>
-									<td><asp:literal id="litDateOnline" runat="server"></asp:literal></td>
-									<td><asp:literal id="litDateOffline" runat="server"></asp:literal></td>
+									<td>
+										<asp:literal id="litDateOnline" runat="server"></asp:literal></td>
+									<td>
+										<asp:literal id="litDateOffline" runat="server"></asp:literal></td>
 									<td><%# DataBinder.Eval(Container.DataItem, "CreatedBy.Username") %></td>
 									<td><%# DataBinder.Eval(Container.DataItem, "ModifiedBy.Username") %></td>
 									<td>
@@ -45,11 +54,12 @@
 					</table>
 				</p>
 				<div class="pager">
-					<cc1:pager id="pgrArticles" runat="server" controltopage="rptArticles" cachedatasource="True" cachevarybyparams="SectionId"></cc1:pager>
+					<cc1:pager id="pgrArticles" runat="server" controltopage="rptArticles" cachedatasource="True"
+						pagesize="10" cacheduration="30" cachevarybyparams="SectionId"></cc1:pager>
 				</div>
 				<br>
 				<input id="btnNew" type="button" value="New Article" runat="server">
-			</div></form>
-
+			</div>
+		</form>
 	</body>
 </html>

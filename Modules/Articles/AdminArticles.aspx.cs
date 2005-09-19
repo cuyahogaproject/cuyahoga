@@ -55,6 +55,8 @@ namespace Cuyahoga.Modules.Articles
 		private void InitializeComponent()
 		{    
 			this.rptArticles.ItemDataBound += new System.Web.UI.WebControls.RepeaterItemEventHandler(this.rptArticles_ItemDataBound);
+			this.pgrArticles.PageChanged += new Cuyahoga.ServerControls.PageChangedEventHandler(this.pgrArticles_PageChanged);
+			this.pgrArticles.CacheEmpty += new System.EventHandler(this.pgrArticles_CacheEmpty);
 			this.Load += new System.EventHandler(this.Page_Load);
 
 		}
@@ -85,6 +87,16 @@ namespace Cuyahoga.Modules.Articles
 			{
 				hplComments.NavigateUrl = String.Format("~/Modules/Articles/AdminComments.aspx{0}&ArticleId={1}", base.GetBaseQueryString(), article.Id);
 			}
+		}
+
+		private void pgrArticles_PageChanged(object sender, Cuyahoga.ServerControls.PageChangedEventArgs e)
+		{
+			this.rptArticles.DataBind();
+		}
+
+		private void pgrArticles_CacheEmpty(object sender, System.EventArgs e)
+		{
+			this.rptArticles.DataSource = this._articleModule.GetAllArticles();
 		}
 	}
 }
