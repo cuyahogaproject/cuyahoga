@@ -57,6 +57,7 @@ namespace Cuyahoga.Web
 						// write out 
 						writer.WriteStartElement("rss");
 						writer.WriteAttributeString("version", "2.0");
+						writer.WriteAttributeString("xmlns:dc","http://purl.org/dc/elements/1.1/");
 
 						// write out 
 						writer.WriteStartElement("channel");
@@ -91,7 +92,7 @@ namespace Cuyahoga.Web
 							// TODO: Only supports ID's in the pathinfo now...
 							writer.WriteElementString("link", Util.UrlHelper.GetFullUrlFromSection(section) + "/" + item.ItemId);
 							writer.WriteElementString("description", item.Description);
-							writer.WriteElementString("author", item.Author);
+							writer.WriteElementString("dc:creator", item.Author);
 							writer.WriteElementString("pubDate", item.PubDate.ToUniversalTime().ToString("r"));
 							writer.WriteElementString("category", item.Category);
 
