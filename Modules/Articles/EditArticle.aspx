@@ -49,13 +49,11 @@
 						</tr>
 						<tr>
 							<td style="WIDTH: 100px">Date online</td>
-							<td><cc1:calendar id="calDateOnline" runat="server" displaytime="True"></cc1:calendar><asp:requiredfieldvalidator id="rfvDateOnline" runat="server" errormessage="Date online is required" cssclass="validator"
-									display="Dynamic" enableclientscript="False" controltovalidate="calDateOnline"></asp:requiredfieldvalidator></td>
+							<td><cc1:calendar id="calDateOnline" runat="server" displaytime="True"></cc1:calendar></td>
 						</tr>
 						<tr>
 							<td style="WIDTH: 100px">Date offline</td>
-							<td><cc1:calendar id="calDateOffline" runat="server" displaytime="True"></cc1:calendar><asp:requiredfieldvalidator id="rfvDateOffline" runat="server" errormessage="Date offline is required" cssclass="validator"
-									display="Dynamic" enableclientscript="False" controltovalidate="calDateOffline"></asp:requiredfieldvalidator></td>
+							<td><cc1:calendar id="calDateOffline" runat="server" displaytime="True"></cc1:calendar></td>
 						</tr>
 					</table>
 				</div>

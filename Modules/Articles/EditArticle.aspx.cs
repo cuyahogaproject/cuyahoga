@@ -123,8 +123,22 @@ namespace Cuyahoga.Modules.Articles
 					this._article.Category = null;
 				}
 				this._article.Syndicate = this.chkSyndicate.Checked;
-				this._article.DateOnline = TimeZoneUtil.AdjustDateToServerTimeZone(this.calDateOnline.SelectedDate, this.User.Identity);
-				this._article.DateOffline = TimeZoneUtil.AdjustDateToServerTimeZone(this.calDateOffline.SelectedDate, this.User.Identity);
+				if (this.calDateOnline.SelectedDate != DateTime.MinValue)
+				{
+					this._article.DateOnline = TimeZoneUtil.AdjustDateToServerTimeZone(this.calDateOnline.SelectedDate, this.User.Identity);
+				}
+				else
+				{
+					this._article.DateOnline = DateTime.Now;
+				}
+				if (this.calDateOffline.SelectedDate != DateTime.MinValue)
+				{
+					this._article.DateOffline = TimeZoneUtil.AdjustDateToServerTimeZone(this.calDateOffline.SelectedDate, this.User.Identity);
+				}
+				else
+				{
+					this._article.DateOffline = new DateTime(2199, 1, 1);
+				}
 				this._article.ModifiedBy = (Cuyahoga.Core.Domain.User)this.User.Identity;
 				this._article.DateModified = DateTime.Now;
 				this._articleModule.SaveArticle(this._article);
