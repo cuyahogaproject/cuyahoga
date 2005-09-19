@@ -21,6 +21,8 @@ namespace Cuyahoga.Modules.Articles
 	{
 		private int _currentArticleId;
 		private int _currentCategoryId;
+		private SortBy _sortBy;
+		private SortDirection _sortDirection;
 
 		/// <summary>
 		/// Property CurrentArticleId (int)
@@ -54,6 +56,18 @@ namespace Cuyahoga.Modules.Articles
 			sf.RegisterPersistentClass(typeof(Cuyahoga.Modules.Articles.Comment));
 
 			base.SessionFactoryRebuilt = sf.Rebuild();
+
+			try
+			{
+				this._sortBy = (SortBy)Enum.Parse(typeof(SortBy), section.Settings["SORT_BY"].ToString());
+				this._sortDirection = (SortDirection)Enum.Parse(typeof(SortDirection), section.Settings["SORT_DIRECTION"].ToString());
+			}
+			catch
+			{
+				// Only if the module settings are not in the database yet for some reason.
+				this._sortBy = SortBy.DateOnline;
+				this._sortDirection = SortDirection.DESC;
+			}
 		}
 
 		/// <summary>
@@ -100,7 +114,7 @@ namespace Cuyahoga.Modules.Articles
 		{
 			try
 			{
-				string hql = "from Article a where a.Section.Id = ? order by a.DateOnline desc ";
+				string hql = "from Article a where a.Section.Id = ? " + GetOrderByClause("a");
 				return base.NHSession.Find(hql, this.Section.Id, TypeFactory.GetInt32Type());
 			}
 			catch (Exception ex)
@@ -118,7 +132,7 @@ namespace Cuyahoga.Modules.Articles
 		{
 			try
 			{
-				string hql = "from Article a where a.Section.Id = :sectionId and a.DateOnline < :now and a.DateOffline > :now order by a.DateOnline desc ";
+				string hql = "from Article a where a.Section.Id = :sectionId and a.DateOnline < :now and a.DateOffline > :now " + GetOrderByClause("a");
 				IQuery q = base.NHSession.CreateQuery(hql);
 				q.SetInt32("sectionId", base.Section.Id);
 				q.SetDateTime("now", DateTime.Now);
@@ -139,7 +153,7 @@ namespace Cuyahoga.Modules.Articles
 		{
 			try
 			{
-				string hql = "from Article a where a.Category.Id = :categoryId and a.DateOnline < :now and a.DateOffline > :now order by a.DateOnline desc ";
+				string hql = "from Article a where a.Category.Id = :categoryId and a.DateOnline < :now and a.DateOffline > :now " + GetOrderByClause("a");
 				IQuery q = base.NHSession.CreateQuery(hql);
 				q.SetInt32("categoryId", this._currentCategoryId);
 				q.SetDateTime("now", DateTime.Now);
@@ -159,7 +173,7 @@ namespace Cuyahoga.Modules.Articles
 		{
 			try
 			{
-				string hql = "from Article a where a.Category.Id = :categoryId and a.Syndicate = :syndicate and a.DateOnline < :now and a.DateOffline > :now order by a.DateOnline desc ";
+				string hql = "from Article a where a.Category.Id = :categoryId and a.Syndicate = :syndicate and a.DateOnline < :now and a.DateOffline > :now " + GetOrderByClause("a");
 				IQuery q = base.NHSession.CreateQuery(hql);
 				q.SetInt32("categoryId", this._currentCategoryId);
 				q.SetBoolean("syndicate", true);
@@ -181,7 +195,7 @@ namespace Cuyahoga.Modules.Articles
 		{
 			try
 			{
-				string hql = "from Article a where a.Section.Id = :sectionId and a.Syndicate = :syndicate and a.DateOnline < :now and a.DateOffline > :now order by a.DateOnline desc ";
+				string hql = "from Article a where a.Section.Id = :sectionId and a.Syndicate = :syndicate and a.DateOnline < :now and a.DateOffline > :now " + GetOrderByClause("a");
 				IQuery q = base.NHSession.CreateQuery(hql);
 				q.SetInt32("sectionId", base.Section.Id);
 				q.SetBoolean("syndicate", true);
@@ -401,6 +415,33 @@ namespace Cuyahoga.Modules.Articles
 			return sc;
 		}
 
+		private string GetOrderByClause(string articleAlias)
+		{
+			if (this._sortBy == SortBy.None)
+			{
+				return String.Empty;
+			}
+			else
+			{
+				switch (this._sortBy)
+				{
+					case SortBy.DateCreated:
+					case SortBy.DateModified:
+					case SortBy.DateOnline:
+					case SortBy.Title:
+						return String.Format("order by {0}.{1} {2}", articleAlias, this._sortBy.ToString(), this._sortDirection.ToString());
+					case SortBy.Category:
+						return String.Format("order by {0}.Category.Title {1}", articleAlias, this._sortDirection.ToString());
+					case SortBy.CreatedBy:
+						return String.Format("order by {0}.CreatedBy.UserName {1}", articleAlias, this._sortDirection.ToString());
+					case SortBy.ModifiedBy:
+						return String.Format("order by {0}.ModifiedBy.UserName {1}", articleAlias, this._sortDirection.ToString());
+					default:
+						return String.Empty;
+				}
+			}
+		}
+
 		#region ISyndicatable Members
 
 		public RssChannel GetRssFeed()
@@ -519,5 +560,59 @@ namespace Cuyahoga.Modules.Articles
 		HeadersOnly,
 		HeadersAndSummary,
 		FullContent,
+	}
+
+	/// <summary>
+	/// The property to sort the articles by.
+	/// </summary>
+	public enum SortBy
+	{
+		/// <summary>
+		/// Sort by DateOnline.
+		/// </summary>
+		DateOnline,
+		/// <summary>
+		/// Sort by DateCreated.
+		/// </summary>
+		DateCreated,
+		/// <summary>
+		/// Sort by DateModified.
+		/// </summary>
+		DateModified,
+		/// <summary>
+		/// Sort by Title.
+		/// </summary>
+		Title,
+		/// <summary>
+		/// Sort by Category.
+		/// </summary>
+		Category,
+		/// <summary>
+		/// Sort by the user who created the article.
+		/// </summary>
+		CreatedBy,
+		/// <summary>
+		/// Sort by the user who modified the article most recently.
+		/// </summary>
+		ModifiedBy,
+		/// <summary>
+		/// Don't sort the articles.
+		/// </summary>
+		None
+	}
+	
+	/// <summary>
+	/// The sort direction of the articles in the list.
+	/// </summary>
+	public enum SortDirection
+	{
+		/// <summary>
+		/// Sort descending.
+		/// </summary>
+		DESC,
+		/// <summary>
+		/// Sort ascending.
+		/// </summary>
+		ASC
 	}
 }

@@ -80,7 +80,7 @@ namespace Cuyahoga.Web.Admin.UI
 					this._activeSite = this._activeNode.Site;
 				}
 			}
-			else if (Context.Request.QueryString["NodeId"] != null)
+			if (Context.Request.QueryString["NodeId"] != null && this._activeNode == null)
 			{
 				int nodeId = Int32.Parse(Context.Request.QueryString["NodeId"]);
 				if (nodeId > 0)
@@ -89,7 +89,7 @@ namespace Cuyahoga.Web.Admin.UI
 					this._activeSite = this._activeNode.Site;
 				}
 			}
-			else if (Context.Request.QueryString["SiteId"] != null)
+			if (Context.Request.QueryString["SiteId"] != null && this._activeSite == null)
 			{
 				int siteId = Int32.Parse(Context.Request.QueryString["SiteId"]);
 				if (siteId > 0)
