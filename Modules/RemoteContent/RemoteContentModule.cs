@@ -244,7 +244,11 @@ namespace Cuyahoga.Modules.RemoteContent
 					}
 					feedItem.Title = title;
 					feedItem.Url = xmlItem.SelectSingleNode("link").InnerText;
-					feedItem.PubDate = DateTime.Parse(xmlItem.SelectSingleNode("pubDate").InnerText);
+
+					if (xmlItem.SelectSingleNode("pubDate") != null)
+					{
+						feedItem.PubDate = DateTime.Parse(xmlItem.SelectSingleNode("pubDate").InnerText);
+					}
 					if (this._showContents && xmlItem.SelectSingleNode("description") != null)
 					{
 						feedItem.Content = xmlItem.SelectSingleNode("description").InnerText;
