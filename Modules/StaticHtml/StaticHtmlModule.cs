@@ -39,7 +39,7 @@ namespace Cuyahoga.Modules.StaticHtml
 			if (base.Section != null)
 			{
 				string hql = "from StaticHtmlContent s where s.Section.Id = ? ";
-				IList results = base.NHSession.Find(hql, this.Section.Id, NHibernate.Type.TypeFactory.GetInt32Type());
+				IList results = base.NHSession.Find(hql, this.Section.Id, NHibernateUtil.Int32);
 				if (results.Count == 1)
 				{
 					return (StaticHtmlContent)results[0];

@@ -135,6 +135,8 @@ namespace Cuyahoga.Web.Admin
 
 		private void SaveMenu()
 		{
+			base.CoreRepository.ClearQueryCache("Menus");
+
 			if (this._activeMenu.Id > 0)
 			{
 				base.CoreRepository.UpdateObject(this._activeMenu);
@@ -220,6 +222,8 @@ namespace Cuyahoga.Web.Admin
 		{
 			if (this._activeMenu != null)
 			{
+				base.CoreRepository.ClearQueryCache("Menus");
+
 				try
 				{
 					base.CoreRepository.DeleteObject(this._activeMenu);

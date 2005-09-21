@@ -6,6 +6,8 @@ using System.Web.SessionState;
 using System.Text.RegularExpressions;
 using System.Reflection;
 
+using log4net;
+
 using Cuyahoga.Core.Service;
 
 namespace Cuyahoga.Web

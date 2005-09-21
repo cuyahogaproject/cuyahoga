@@ -256,6 +256,8 @@ namespace Cuyahoga.Web.Admin
 
 		private void SaveNode()
 		{
+			base.CoreRepository.ClearQueryCache("Nodes");
+
 			if (this.ActiveNode.Id > 0)
 			{
 				base.CoreRepository.UpdateNode(this.ActiveNode
@@ -316,6 +318,8 @@ namespace Cuyahoga.Web.Admin
 
 		private void MoveNode(NodePositionMovement npm)
 		{
+			base.CoreRepository.ClearQueryCache("Nodes");
+
 			IList rootNodes = base.CoreRepository.GetRootNodes(this.ActiveNode.Site);
 			this.ActiveNode.Move(rootNodes, npm);
 			this.CoreRepository.FlushSession();
@@ -500,6 +504,8 @@ namespace Cuyahoga.Web.Admin
 			{
 				try
 				{	
+					base.CoreRepository.ClearQueryCache("Nodes");
+
 					bool hasParentNode = (this.ActiveNode.ParentNode != null);
 					if (hasParentNode)
 					{

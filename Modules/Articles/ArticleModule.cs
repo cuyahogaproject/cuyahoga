@@ -115,7 +115,7 @@ namespace Cuyahoga.Modules.Articles
 			try
 			{
 				string hql = "from Article a where a.Section.Id = ? " + GetOrderByClause("a");
-				return base.NHSession.Find(hql, this.Section.Id, TypeFactory.GetInt32Type());
+				return base.NHSession.Find(hql, this.Section.Id, NHibernateUtil.Int32);
 			}
 			catch (Exception ex)
 			{

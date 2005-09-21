@@ -100,6 +100,8 @@ namespace Cuyahoga.Web.Admin
 
 		private void SaveSiteAlias()
 		{
+			base.CoreRepository.ClearQueryCache("Sites");
+
 			if (this._activeSiteAlias.Id > 0)
 			{
 				base.CoreRepository.UpdateObject(this._activeSiteAlias);
@@ -160,6 +162,8 @@ namespace Cuyahoga.Web.Admin
 
 		private void btnDelete_Click(object sender, System.EventArgs e)
 		{
+			base.CoreRepository.ClearQueryCache("Sites");
+
 			if (this._activeSiteAlias != null)
 			{
 				try

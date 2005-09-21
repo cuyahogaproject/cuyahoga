@@ -170,6 +170,8 @@ namespace Cuyahoga.Web.Admin
 
 		private void SaveSite()
 		{
+			base.CoreRepository.ClearQueryCache("Sites");
+
 			try
 			{
 				if (this._activeSite.Id == -1)
@@ -253,6 +255,8 @@ namespace Cuyahoga.Web.Admin
 
 		private void btnDelete_Click(object sender, System.EventArgs e)
 		{
+			base.CoreRepository.ClearQueryCache("Sites");
+
 			try
 			{
 				if (this._activeSite.RootNodes.Count > 0)

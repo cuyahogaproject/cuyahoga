@@ -246,6 +246,7 @@ namespace Cuyahoga.Core.Service
 		/// <param name="type"></param>
 		public void ClearCache(Type type)
 		{
+			log.Info("Clearing cache for type " + type.Name);
 			this._factory.Evict(type);
 		}
 
@@ -256,7 +257,18 @@ namespace Cuyahoga.Core.Service
 		/// for example Cuyahoga.Core.Domain.Node.Sections.</param>
 		public void ClearCollectionCache(string roleName)
 		{
+			log.Info("Clearing cache for collection property " + roleName);
 			this._factory.EvictCollection(roleName);
+		}
+
+		/// <summary>
+		/// Clear the cache for a given cacheRegion.
+		/// </summary>
+		/// <param name="cacheRegion"></param>
+		public void ClearQueryCache(string cacheRegion)
+		{
+			log.Info("Clearing query cache for cacheregion " + cacheRegion);
+			this._factory.EvictQueries(cacheRegion);
 		}
 
 		#endregion
@@ -275,6 +287,8 @@ namespace Cuyahoga.Core.Service
 			IQuery q = this._activeSession.CreateQuery(hql);
 			q.SetString("siteUrl1", siteUrl.ToLower());
 			q.SetString("siteUrl2", siteUrl.ToLower() + "/"); // Also allow trailing slashes
+			q.SetCacheable(true);
+			q.SetCacheRegion("Sites");
 			IList results = q.List();
 			if (results.Count == 1)
 			{
@@ -297,6 +311,8 @@ namespace Cuyahoga.Core.Service
 			IQuery q = this._activeSession.CreateQuery(hql);
 			q.SetString("url1", url.ToLower());
 			q.SetString("url2", url.ToLower() + "/"); // Also allow trailing slashes
+			q.SetCacheable(true);
+			q.SetCacheRegion("Sites");
 			IList results = q.List();
 			if (results.Count == 1)
 			{
@@ -335,11 +351,12 @@ namespace Cuyahoga.Core.Service
 		/// <returns></returns>
 		public IList GetRootNodes(Site site)
 		{
-			ICriteria crit = this._activeSession.CreateCriteria(typeof(Node));
-			crit.Add(Expression.IsNull("ParentNode"));
-			crit.Add(Expression.Eq("Site", site));
-			crit.AddOrder(Order.Asc("Position"));
-			return crit.List();
+			string hql = "from Node n where n.ParentNode is null and n.Site.Id = :siteId order by n.Position";
+			IQuery q = this._activeSession.CreateQuery(hql);
+			q.SetInt32("siteId", site.Id);
+			q.SetCacheable(true);
+			q.SetCacheRegion("Nodes");
+			return q.List();
 		}
 
 		public Node GetRootNodeByCultureAndSite(string culture, Site site)
@@ -348,6 +365,8 @@ namespace Cuyahoga.Core.Service
 			IQuery q = this._activeSession.CreateQuery(hql);
 			q.SetString("culture", culture);
 			q.SetInt32("siteId", site.Id);
+			q.SetCacheable(true);
+			q.SetCacheRegion("Nodes");
 			IList results = q.List();
 			if (results.Count == 1)
 			{
@@ -371,10 +390,13 @@ namespace Cuyahoga.Core.Service
 		/// <returns></returns>
 		public Node GetNodeByShortDescriptionAndSite(string shortDescription, Site site)
 		{
-			ICriteria crit = this._activeSession.CreateCriteria(typeof(Node));
-			crit.Add(Expression.Eq("ShortDescription", shortDescription));
-			crit.Add(Expression.Eq("Site.Id", site.Id));
-			IList results = crit.List();
+			string hql = "from Node n where n.ShortDescription = :shortDescription and n.Site.Id = :siteId";
+			IQuery q = this._activeSession.CreateQuery(hql);
+			q.SetString("shortDescription", shortDescription);
+			q.SetInt32("siteId", site.Id);
+			q.SetCacheable(true);
+			q.SetCacheRegion("Nodes");
+			IList results = q.List();
 			if (results.Count == 1)
 			{
 				return (Node)results[0];
@@ -396,8 +418,10 @@ namespace Cuyahoga.Core.Service
 		/// <returns></returns>
 		public IList GetNodesByTemplate(Template template)
 		{
-			string hql = "from Node n where n.Template.Id = ? ";
-			return this._activeSession.Find(hql, template.Id, NHibernateUtil.Int32);
+			string hql = "from Node n where n.Template.Id = :templateId ";
+			IQuery q = this._activeSession.CreateQuery(hql);
+			q.SetInt32("templateId", template.Id);
+			return q.List();
 		}
 
 		/// <summary>
@@ -507,6 +531,8 @@ namespace Cuyahoga.Core.Service
 			string hql = "from Menu m where m.RootNode.Id = :rootNodeId";
 			IQuery q = this._activeSession.CreateQuery(hql);
 			q.SetInt32("rootNodeId", rootNode.Id);
+			q.SetCacheable(true);
+			q.SetCacheRegion("Menus");
 			return q.List();
 		}
 
@@ -521,8 +547,10 @@ namespace Cuyahoga.Core.Service
 		/// <returns></returns>
 		public IList GetSortedSectionsByNode(Node node)
 		{
-			string hql = "from Section s where s.Node.Id = ? order by s.PlaceholderId, s.Position ";
-			return this._activeSession.Find(hql, node.Id, NHibernateUtil.Int32);
+			string hql = "from Section s where s.Node.Id = :nodeId order by s.PlaceholderId, s.Position ";
+			IQuery q = this._activeSession.CreateQuery(hql);
+			q.SetInt32("nodeId", node.Id);
+			return q.List();
 		}
 
 		#endregion
