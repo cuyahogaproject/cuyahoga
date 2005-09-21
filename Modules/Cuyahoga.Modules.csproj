@@ -329,6 +329,11 @@
                     BuildAction = "Compile"
                 />
                 <File
+                    RelPath = "RemoteContent\Util\RFC2822Date.cs"
+                    SubType = "Code"
+                    BuildAction = "Compile"
+                />
+                <File
                     RelPath = "Search\Search.ascx"
                     SubType = "UserControl"
                     BuildAction = "Content"

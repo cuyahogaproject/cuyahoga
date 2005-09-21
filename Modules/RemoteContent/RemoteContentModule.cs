@@ -247,7 +247,11 @@ namespace Cuyahoga.Modules.RemoteContent
 
 					if (xmlItem.SelectSingleNode("pubDate") != null)
 					{
-						feedItem.PubDate = DateTime.Parse(xmlItem.SelectSingleNode("pubDate").InnerText);
+						feedItem.PubDate = Util.RFC2822Date.Parse(xmlItem.SelectSingleNode("pubDate").InnerText);
+					}
+					else
+					{
+						feedItem.PubDate = DateTime.Now;
 					}
 					if (this._showContents && xmlItem.SelectSingleNode("description") != null)
 					{
