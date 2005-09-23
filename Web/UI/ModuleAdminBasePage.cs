@@ -1,4 +1,5 @@
 using System;
+using System.Web;
 using System.Web.UI;
 using System.Web.UI.HtmlControls;
 
@@ -114,6 +115,17 @@ namespace Cuyahoga.Web.UI
 				searchableModule.ContentDeleted += new IndexEventHandler(searchableModule_ContentDeleted);
 			}
 
+			// Set FCKEditor context (used by some module admin pages)
+			// It would be nicer if we could do this in the Global.asax, but there the 
+			// ultra-convenient ~/Path (ResolveUrl) isn't available :).
+			string userFilesPath = Config.GetConfiguration()["FCKeditor:UserFilesPath"];
+			if (userFilesPath != null && HttpContext.Current.Application["FCKeditor:UserFilesPath"] == null)
+			{	
+				HttpContext.Current.Application.Lock();
+				HttpContext.Current.Application["FCKeditor:UserFilesPath"] = ResolveUrl(userFilesPath);
+				HttpContext.Current.Application.UnLock();
+			}
+			
 			base.OnInit (e);
 		}
 
