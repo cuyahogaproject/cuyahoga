@@ -315,6 +315,7 @@ namespace Cuyahoga.Web.UI
 						HtmlGenericControl listItem = new HtmlGenericControl("li");
 						HyperLink hpl = new HyperLink();
 						hpl.NavigateUrl = UrlHelper.GetUrlFromNode(node);
+						UrlHelper.SetHyperLinkTarget(hpl, node);
 						hpl.Text = node.Title;
 						listItem.Controls.Add(hpl);
 						listControl.Controls.Add(listItem);
