@@ -308,6 +308,7 @@ namespace Cuyahoga.ServerControls
 
 	public enum CalendarTheme
 	{
+		aqua,
 		blue,
 		blue2,
 		brown,
