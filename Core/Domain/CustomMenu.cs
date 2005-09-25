@@ -8,7 +8,7 @@ namespace Cuyahoga.Core.Domain
 	/// the regular Node hierarchy.
 	/// </summary>
 	[Serializable]
-	public class Menu
+	public class CustomMenu
 	{
 		private int _id;
 		private string _name;
@@ -58,14 +58,7 @@ namespace Cuyahoga.Core.Domain
 		/// </summary>
 		public IList Nodes
 		{
-			get 
-			{
-				if (this._nodes == null)
-				{
-					this._nodes = new ArrayList();
-				}
-				return this._nodes; 
-			}
+			get { return this._nodes; }
 			set { this._nodes = value; }
 		}
 
@@ -81,9 +74,10 @@ namespace Cuyahoga.Core.Domain
 		/// <summary>
 		/// Default constructor.
 		/// </summary>
-		public Menu()
+		public CustomMenu()
 		{
 			this._id = -1;
+			this._nodes = new ArrayList();
 		}
 	}
 }

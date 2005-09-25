@@ -66,7 +66,7 @@ namespace Cuyahoga.Web.Admin
 			if (template != null)
 			{			
 				HyperLink hplEdit = (HyperLink)e.Item.FindControl("hplEdit");
-				hplEdit.NavigateUrl = String.Format("../TemplateEdit.aspx?TemplateId={0}", template.Id);
+				hplEdit.NavigateUrl = String.Format("~/Admin/TemplateEdit.aspx?TemplateId={0}", template.Id);
 			}
 		}
 

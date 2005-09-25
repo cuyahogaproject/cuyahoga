@@ -73,7 +73,7 @@ namespace Cuyahoga.Web.Admin
 
 				// HACK: as long as ~/ doesn't work properly in mono we have to use a relative path from the Controls
 				// directory due to the template construction.
-				hplEdit.NavigateUrl = String.Format("../RoleEdit.aspx?RoleId={0}", role.Id);
+				hplEdit.NavigateUrl = String.Format("~/Admin/RoleEdit.aspx?RoleId={0}", role.Id);
 			}
 		}
 

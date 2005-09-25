@@ -467,7 +467,7 @@ namespace Cuyahoga.Web.Admin
 
 				// HACK: as long as ~/ doesn't work properly in mono we have to use a relative path from the Controls
 				// directory due to the template construction.
-				hplEdit.NavigateUrl = String.Format("../SectionEdit.aspx?SectionId={0}&NodeId={1}", section.Id, this.ActiveNode.Id);
+				hplEdit.NavigateUrl = String.Format("~/Admin/SectionEdit.aspx?SectionId={0}&NodeId={1}", section.Id, this.ActiveNode.Id);
 				if (section.CanMoveUp())
 				{
 					HyperLink hplSectionUp = (HyperLink)e.Item.FindControl("hplSectionUp");
@@ -572,7 +572,7 @@ namespace Cuyahoga.Web.Admin
 
 		private void rptMenus_ItemDataBound(object sender, System.Web.UI.WebControls.RepeaterItemEventArgs e)
 		{
-			Menu menu = e.Item.DataItem as Menu;
+			CustomMenu menu = e.Item.DataItem as CustomMenu;
 			if (menu != null)
 			{
 				HyperLink hplEdit = e.Item.FindControl("hplEditMenu") as HyperLink;

@@ -21,7 +21,7 @@ namespace Cuyahoga.Web.Admin
 	/// </summary>
 	public class MenuEdit : AdminBasePage
 	{
-		private Menu _activeMenu;
+		private CustomMenu _activeMenu;
 
 		protected System.Web.UI.WebControls.TextBox txtName;
 		protected System.Web.UI.WebControls.Button btnSave;
@@ -43,15 +43,15 @@ namespace Cuyahoga.Web.Admin
 			{
 				if (Int32.Parse(Context.Request.QueryString["MenuId"]) == -1)
 				{
-					// Create a new Menu instance
-					this._activeMenu = new Menu();
+					// Create a new CustomMenu instance
+					this._activeMenu = new CustomMenu();
 					this._activeMenu.RootNode = base.ActiveNode;
 					this.btnDelete.Visible = false;
 				}
 				else
 				{
 					// Get Menu data
-					this._activeMenu = (Menu)base.CoreRepository.GetObjectById(typeof(Menu), 
+					this._activeMenu = (CustomMenu)base.CoreRepository.GetObjectById(typeof(CustomMenu), 
 						Int32.Parse(Context.Request.QueryString["MenuId"]));
 					this.btnDelete.Visible = true;
 					this.btnDelete.Attributes.Add("onClick", "return confirm('Are you sure?');");

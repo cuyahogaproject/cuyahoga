@@ -292,7 +292,7 @@ namespace Cuyahoga.Web.UI
 		private void LoadMenus()
 		{
 			IList menus = this._coreRepository.GetMenusByRootNode(this._rootNode);
-			foreach (Menu menu in menus)
+			foreach (CustomMenu menu in menus)
 			{
 				PlaceHolder plc = this._templateControl.Containers[menu.Placeholder] as PlaceHolder;
 				if (plc != null)
@@ -302,7 +302,7 @@ namespace Cuyahoga.Web.UI
 			}
 		}
 
-		private Control GetMenuControls(Menu menu)
+		private Control GetMenuControls(CustomMenu menu)
 		{
 			if (menu.Nodes.Count > 0)
 			{

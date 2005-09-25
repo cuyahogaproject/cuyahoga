@@ -38,10 +38,10 @@
 					</tr>
 					<tr>
 						<td>Position</td>
-						<td><asp:imagebutton id="btnUp" runat="server" imageurl="../Images/upred.gif" causesvalidation="False"
-								alternatetext="Move up"></asp:imagebutton><asp:imagebutton id="btnDown" runat="server" imageurl="../Images/downred.gif" causesvalidation="False"
-								alternatetext="Move down"></asp:imagebutton><asp:imagebutton id="btnLeft" runat="server" imageurl="../Images/leftred.gif" causesvalidation="False"
-								alternatetext="Move left"></asp:imagebutton><asp:imagebutton id="btnRight" runat="server" imageurl="../Images/rightred.gif" causesvalidation="False"
+						<td><asp:imagebutton id="btnUp" runat="server" imageurl="~/Admin/Images/upred.gif" causesvalidation="False"
+								alternatetext="Move up"></asp:imagebutton><asp:imagebutton id="btnDown" runat="server" imageurl="~/Admin/Images/downred.gif" causesvalidation="False"
+								alternatetext="Move down"></asp:imagebutton><asp:imagebutton id="btnLeft" runat="server" imageurl="~/Admin/Images/leftred.gif" causesvalidation="False"
+								alternatetext="Move left"></asp:imagebutton><asp:imagebutton id="btnRight" runat="server" imageurl="~/Admin/Images/rightred.gif" causesvalidation="False"
 								alternatetext="Move right"></asp:imagebutton></td>
 					</tr>
 					<tr>
@@ -137,9 +137,9 @@
 									<asp:label id="lblNotFound" cssclass="validator" visible="False" runat="server">(not found in template!)</asp:label></td>
 								<td style="text-align:right"><%# DataBinder.Eval(Container.DataItem, "CacheDuration") %></td>
 								<td>
-									<asp:hyperlink id="hplSectionUp" imageurl="../Images/upred.gif" visible="False" enableviewstate="False"
+									<asp:hyperlink id="hplSectionUp" imageurl="~/Admin/Images/upred.gif" visible="False" enableviewstate="False"
 										runat="server">Move up</asp:hyperlink>
-									<asp:hyperlink id="hplSectionDown" imageurl="../Images/downred.gif" visible="False" enableviewstate="False"
+									<asp:hyperlink id="hplSectionDown" imageurl="~/Admin/Images/downred.gif" visible="False" enableviewstate="False"
 										runat="server">Move down</asp:hyperlink>
 								</td>
 								<td>

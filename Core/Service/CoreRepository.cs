@@ -449,11 +449,11 @@ namespace Cuyahoga.Core.Service
 		/// <param name="node"></param>
 		public void DeleteNode(Node node)
 		{
-			string hql = "select m from Menu m join m.Nodes n where n.Id = :nodeId";
+			string hql = "select m from CustomMenu m join m.Nodes n where n.Id = :nodeId";
 			IQuery q = this._activeSession.CreateQuery(hql);
 			q.SetInt32("nodeId", node.Id);
 			IList menus = q.List();
-			foreach (Menu menu in menus)
+			foreach (CustomMenu menu in menus)
 			{
 				// HACK: due to a bug with proxies IList.Remove(object) always removes the first object in
 				// the list. Also IList.IndexOf always returns 0. Therefore, we'll loop through the collection
@@ -528,7 +528,7 @@ namespace Cuyahoga.Core.Service
 		/// <returns></returns>
 		public IList GetMenusByRootNode(Node rootNode)
 		{
-			string hql = "from Menu m where m.RootNode.Id = :rootNodeId";
+			string hql = "from CustomMenu m where m.RootNode.Id = :rootNodeId";
 			IQuery q = this._activeSession.CreateQuery(hql);
 			q.SetInt32("rootNodeId", rootNode.Id);
 			q.SetCacheable(true);
