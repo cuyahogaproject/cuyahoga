@@ -3,7 +3,7 @@
 	<class name="Cuyahoga.Core.Domain.Template, Cuyahoga.Core" table="cuyahoga_template"
 		proxy="Cuyahoga.Core.Domain.Template, Cuyahoga.Core">
 		
-		<jcs-cache usage="read-write" />
+		<cache usage="read-write" />
 		
 		<id name="Id" column="templateid" type="Int32" unsaved-value="-1">
 			<generator class="native">

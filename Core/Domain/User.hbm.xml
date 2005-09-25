@@ -3,7 +3,7 @@
 	<class name="Cuyahoga.Core.Domain.User, Cuyahoga.Core" table="cuyahoga_user"
 		proxy="Cuyahoga.Core.Domain.User, Cuyahoga.Core">
 
-		<jcs-cache usage="read-write" />
+		<cache usage="read-write" />
 		
 		<id name="Id" column="userid" type="Int32" unsaved-value="-1">
 			<generator class="native">
@@ -26,7 +26,7 @@
 		<property name="InsertTimestamp" column="inserttimestamp" type="DateTime" />
 		
 		<bag name="Roles" table="cuyahoga_userrole" cascade="none" lazy="true">
-			<jcs-cache usage="read-write" />
+			<cache usage="read-write" />
 			<key column="userid" />
 			<many-to-many class="Cuyahoga.Core.Domain.Role, Cuyahoga.Core" column="roleid" outer-join="true" />
 		</bag>

@@ -2,7 +2,7 @@
 <hibernate-mapping xmlns="urn:nhibernate-mapping-2.0">
 	<class name="Cuyahoga.Core.Domain.ModuleType, Cuyahoga.Core" table="cuyahoga_moduletype">
 	
-		<jcs-cache usage="read-only" />
+		<cache usage="read-only" />
 		
 		<id name="ModuleTypeId" column="moduletypeid" type="Int32" unsaved-value="-1">
 			<generator class="native">
