@@ -3,7 +3,7 @@
  */
  
 CREATE TABLE cm_file(
-fileid int identity(1,1) NOT NULL CONSTRAINT PK_cm_file PRIMARY KEY,
+fileid int identity(1,1) NOT NULL CONSTRAINT PK_file PRIMARY KEY,
 sectionid int NOT NULL,
 publisherid int NOT NULL,
 filepath nvarchar(255) NOT NULL,
@@ -17,30 +17,30 @@ updatetimestamp datetime NOT NULL)
 go
 
 CREATE TABLE cm_filerole(
-fileroleid int identity(1,1) NOT NULL CONSTRAINT PK_cm_filerole PRIMARY KEY,
+fileroleid int identity(1,1) NOT NULL CONSTRAINT PK_filerole PRIMARY KEY,
 fileid int NOT NULL,
 roleid int NOT NULL)
 go
 
 
 ALTER TABLE cm_file
-ADD CONSTRAINT FK_cm_section_sectionid
+ADD CONSTRAINT FK_file_section_sectionid
 FOREIGN KEY (sectionid) REFERENCES cuyahoga_section (sectionid)
 go
 
 ALTER TABLE cm_file
-ADD CONSTRAINT FK_cuyahoga_user_publisherid
+ADD CONSTRAINT FK_file_cuyahoga_user_publisherid
 FOREIGN KEY (publisherid) REFERENCES cuyahoga_user (userid)
 go
 
 
 ALTER TABLE cm_filerole
-ADD CONSTRAINT FK_cm_file_fileid
+ADD CONSTRAINT FK_filerole_file_fileid
 FOREIGN KEY (fileid) REFERENCES cm_file (fileid)
 go
 
 ALTER TABLE cm_filerole
-ADD CONSTRAINT FK_cuyahoga_role_roleid
+ADD CONSTRAINT FK_filerole_cuyahoga_role_roleid
 FOREIGN KEY (roleid) REFERENCES cuyahoga_role (roleid)
 go
 

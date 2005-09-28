@@ -3,7 +3,7 @@
  */
 
 CREATE TABLE cm_file(
-fileid serial NOT NULL CONSTRAINT PK_cm_file PRIMARY KEY,
+fileid serial NOT NULL CONSTRAINT PK_file PRIMARY KEY,
 sectionid int4 NOT NULL,
 publisherid int4 NOT NULL,
 filepath varchar(255) NOT NULL,
@@ -14,16 +14,16 @@ contenttype varchar(50) NOT NULL,
 datepublished timestamp NOT NULL,
 inserttimestamp timestamp DEFAULT current_timestamp NOT NULL,
 updatetimestamp timestamp NOT NULL,
-CONSTRAINT FK_cm_file_cuyahoga_section FOREIGN KEY (sectionid) REFERENCES cuyahoga_section (sectionid),
-CONSTRAINT FK_cm_file_cuyahoga_user FOREIGN KEY (publisherid) REFERENCES cuyahoga_user (userid));
+CONSTRAINT FK_file_section_sectionid FOREIGN KEY (sectionid) REFERENCES cuyahoga_section (sectionid),
+CONSTRAINT FK_file_user_publisherid FOREIGN KEY (publisherid) REFERENCES cuyahoga_user (userid));
 
 
 CREATE TABLE cm_filerole(
-fileroleid serial NOT NULL CONSTRAINT PK_cm_filerole PRIMARY KEY,
+fileroleid serial NOT NULL CONSTRAINT PK_filerole PRIMARY KEY,
 fileid int4 NOT NULL,
 roleid int4 NOT NULL,
-CONSTRAINT FK_cm_filerole_cm_file FOREIGN KEY (fileid) REFERENCES cm_file (fileid),
-CONSTRAINT FK_cm_filerole_cuyahoga_role FOREIGN KEY (roleid) REFERENCES cuyahoga_role (roleid));
+CONSTRAINT FK_filerole_file_fileid FOREIGN KEY (fileid) REFERENCES cm_file (fileid),
+CONSTRAINT FK_filerole_role_roleid FOREIGN KEY (roleid) REFERENCES cuyahoga_role (roleid));
 
 /*
  *  Table data

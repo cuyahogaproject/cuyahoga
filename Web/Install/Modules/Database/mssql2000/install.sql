@@ -1,6 +1,6 @@
 
 CREATE TABLE cm_articlecategory(
-articlecategoryid int identity(1,1) NOT NULL CONSTRAINT PK_cm_articlecategory PRIMARY KEY,
+articlecategoryid int identity(1,1) NOT NULL CONSTRAINT PK_articlecategory PRIMARY KEY,
 title nvarchar(100) NOT NULL,
 summary nvarchar(255) NULL,
 syndicate bit NOT NULL,
@@ -10,7 +10,7 @@ go
 
 
 CREATE TABLE cm_feed(
-feedid int identity(1,1) NOT NULL CONSTRAINT PK_cm_feed PRIMARY KEY,
+feedid int identity(1,1) NOT NULL CONSTRAINT PK_feed PRIMARY KEY,
 sectionid int NOT NULL,
 url nvarchar(255) NOT NULL,
 title nvarchar(100) NOT NULL,
@@ -22,7 +22,7 @@ go
 
 
 CREATE TABLE cm_feeditem(
-feeditemid int identity(1,1) NOT NULL CONSTRAINT PK_cm_feeditem PRIMARY KEY,
+feeditemid int identity(1,1) NOT NULL CONSTRAINT PK_feeditem PRIMARY KEY,
 feedid int NOT NULL,
 url nvarchar(255) NOT NULL,
 title nvarchar(100) NOT NULL,
@@ -33,7 +33,7 @@ go
 
 
 CREATE TABLE cm_article(
-articleid int identity(1,1) NOT NULL CONSTRAINT PK_cm_article PRIMARY KEY,
+articleid int identity(1,1) NOT NULL CONSTRAINT PK_article PRIMARY KEY,
 sectionid int NOT NULL,
 createdby int NOT NULL,
 modifiedby int NULL,
@@ -50,7 +50,7 @@ go
 
 
 CREATE TABLE cm_articlecomment(
-commentid int identity(1,1) NOT NULL CONSTRAINT PK_cm_articlecomment PRIMARY KEY,
+commentid int identity(1,1) NOT NULL CONSTRAINT PK_articlecomment PRIMARY KEY,
 articleid int NOT NULL,
 userid int NULL,
 name nvarchar(100) NULL,
@@ -63,7 +63,7 @@ go
 
 
 CREATE TABLE cm_statichtml(
-statichtmlid int identity(1,1) NOT NULL CONSTRAINT PK_cm_statichtml PRIMARY KEY,
+statichtmlid int identity(1,1) NOT NULL CONSTRAINT PK_statichtml PRIMARY KEY,
 sectionid int NOT NULL,
 createdby int NOT NULL,
 modifiedby int NULL,
@@ -77,61 +77,61 @@ go
 
 
 ALTER TABLE cm_feed
-ADD CONSTRAINT FK_cuyahoga_section_sectionid
+ADD CONSTRAINT FK_feed_section_sectionid
 FOREIGN KEY (sectionid) REFERENCES cuyahoga_section (sectionid)
 go
 
 
 ALTER TABLE cm_feeditem
-ADD CONSTRAINT FK_cm_feed_feedid
+ADD CONSTRAINT FK_feeditem_feed_feedid
 FOREIGN KEY (feedid) REFERENCES cm_feed (feedid)
 go
 
 
 ALTER TABLE cm_article
-ADD CONSTRAINT FK_cm_articlecategory_articlecategoryid
+ADD CONSTRAINT FK_article_articlecategory_articlecategoryid
 FOREIGN KEY (articlecategoryid) REFERENCES cm_articlecategory (articlecategoryid)
 go
 
 ALTER TABLE cm_article
-ADD CONSTRAINT FK_cuyahoga_section_sectionid
+ADD CONSTRAINT FK_article_section_sectionid
 FOREIGN KEY (sectionid) REFERENCES cuyahoga_section (sectionid)
 go
 
 ALTER TABLE cm_article
-ADD CONSTRAINT FK_cuyahoga_user_createdby
+ADD CONSTRAINT FK_article_user_createdby
 FOREIGN KEY (createdby) REFERENCES cuyahoga_user (userid)
 go
 
 ALTER TABLE cm_article
-ADD CONSTRAINT FK_cuyahoga_user_modifiedby
+ADD CONSTRAINT FK_article_user_modifiedby
 FOREIGN KEY (modifiedby) REFERENCES cuyahoga_user (userid)
 go
 
 
 ALTER TABLE cm_articlecomment
-ADD CONSTRAINT FK_cm_article_articleid
+ADD CONSTRAINT FK_articlecomment_article_articleid
 FOREIGN KEY (articleid) REFERENCES cm_article (articleid)
 go
 
 ALTER TABLE cm_articlecomment
-ADD CONSTRAINT FK_cuyahoga_user_userid
+ADD CONSTRAINT FK_articlecomment_user_userid
 FOREIGN KEY (userid) REFERENCES cuyahoga_user (userid)
 go
 
 
 ALTER TABLE cm_statichtml
-ADD CONSTRAINT FK_cuyahoga_section_sectionid
+ADD CONSTRAINT FK_statichtml_section_sectionid
 FOREIGN KEY (sectionid) REFERENCES cuyahoga_section (sectionid)
 go
 
 ALTER TABLE cm_statichtml
-ADD CONSTRAINT FK_cuyahoga_user_createdby
+ADD CONSTRAINT FK_statichtml_user_createdby
 FOREIGN KEY (createdby) REFERENCES cuyahoga_user (userid)
 go
 
 ALTER TABLE cm_statichtml
-ADD CONSTRAINT FK_cuyahoga_user_modifiedby
+ADD CONSTRAINT FK_statichtml_user_modifiedby
 FOREIGN KEY (modifiedby) REFERENCES cuyahoga_user (userid)
 go
 

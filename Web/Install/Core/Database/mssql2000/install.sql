@@ -1,6 +1,6 @@
 
 CREATE TABLE cuyahoga_user(
-userid int identity(1,1) NOT NULL CONSTRAINT PK_cuyahoga_user PRIMARY KEY,
+userid int identity(1,1) NOT NULL CONSTRAINT PK_user PRIMARY KEY,
 username nvarchar(50) NOT NULL,
 password nvarchar(100) NOT NULL,
 firstname nvarchar(100) NULL,
@@ -13,22 +13,22 @@ lastlogin datetime NULL,
 lastip nvarchar(40) NULL,
 inserttimestamp datetime DEFAULT current_timestamp NOT NULL,
 updatetimestamp datetime DEFAULT current_timestamp NOT NULL,
-CONSTRAINT UC_cuyahoga_user_username UNIQUE(username))
+CONSTRAINT UC_user_username UNIQUE(username))
 go
 
 
 CREATE TABLE cuyahoga_role(
-roleid int identity(1,1) NOT NULL CONSTRAINT PK_cuyahoga_role PRIMARY KEY,
+roleid int identity(1,1) NOT NULL CONSTRAINT PK_role PRIMARY KEY,
 name nvarchar(50) NOT NULL,
 permissionlevel int DEFAULT 1 NOT NULL,
 inserttimestamp datetime DEFAULT current_timestamp NOT NULL,
 updatetimestamp datetime DEFAULT current_timestamp NOT NULL,
-CONSTRAINT UC_cuyahoga_role_name UNIQUE(name))
+CONSTRAINT UC_role_name UNIQUE(name))
 go
 
 
 CREATE TABLE cuyahoga_userrole(
-userroleid int identity(1,1) NOT NULL CONSTRAINT PK_cuyahoga_userrole PRIMARY KEY,
+userroleid int identity(1,1) NOT NULL CONSTRAINT PK_userrole PRIMARY KEY,
 userid int NOT NULL,
 roleid int NOT NULL,
 inserttimestamp datetime DEFAULT current_timestamp NOT NULL,
@@ -37,7 +37,7 @@ go
 
 
 CREATE TABLE cuyahoga_template(
-templateid int identity(1,1) NOT NULL CONSTRAINT PK_cuyahoga_template PRIMARY KEY,
+templateid int identity(1,1) NOT NULL CONSTRAINT PK_template PRIMARY KEY,
 name nvarchar(100) NOT NULL,
 basepath nvarchar(100) NOT NULL,
 templatecontrol nvarchar(50) NOT NULL,
@@ -48,7 +48,7 @@ go
 
 
 CREATE TABLE cuyahoga_moduletype(
-moduletypeid int identity(1,1) NOT NULL CONSTRAINT PK_cuyahoga_moduletype PRIMARY KEY,
+moduletypeid int identity(1,1) NOT NULL CONSTRAINT PK_moduletype PRIMARY KEY,
 name nvarchar(100) NOT NULL,
 assemblyname nvarchar(100) NULL,
 classname nvarchar(255) NOT NULL,
@@ -56,12 +56,12 @@ path nvarchar(255) NOT NULL,
 editpath nvarchar(255) NULL,
 inserttimestamp datetime DEFAULT current_timestamp NOT NULL,
 updatetimestamp datetime DEFAULT current_timestamp NOT NULL,
-CONSTRAINT UC_cuyahoga_moduletype_classname UNIQUE(classname))
+CONSTRAINT UC_moduletype_classname UNIQUE(classname))
 go
 
 
 CREATE TABLE cuyahoga_modulesetting(
-modulesettingid int identity(1,1) NOT NULL CONSTRAINT PK_cuyahoga_modulesetting PRIMARY KEY,
+modulesettingid int identity(1,1) NOT NULL CONSTRAINT PK_modulesetting PRIMARY KEY,
 moduletypeid int NOT NULL,
 name nvarchar(50) NOT NULL,
 friendlyname nvarchar(50) NOT NULL,
@@ -70,11 +70,11 @@ iscustomtype bit NOT NULL,
 isrequired bit NOT NULL)
 go
 
-CREATE UNIQUE INDEX IX_cuyahoga_modulesetting_moduletypeid_name ON cuyahoga_modulesetting (moduletypeid,name)
+CREATE UNIQUE INDEX IX_modulesetting_moduletypeid_name ON cuyahoga_modulesetting (moduletypeid,name)
 go
 
 CREATE TABLE cuyahoga_site(
-siteid int identity(1,1) NOT NULL CONSTRAINT PK_cuyahoga_site PRIMARY KEY,
+siteid int identity(1,1) NOT NULL CONSTRAINT PK_site PRIMARY KEY,
 templateid int NULL,
 roleid int NOT NULL,
 name nvarchar(100) NOT NULL,
@@ -85,12 +85,12 @@ webmasteremail nvarchar(100) NOT NULL,
 usefriendlyurls bit NULL,
 inserttimestamp datetime DEFAULT current_timestamp NOT NULL,
 updatetimestamp datetime DEFAULT current_timestamp NOT NULL,
-CONSTRAINT UC_cuyahoga_site_name UNIQUE(name))
+CONSTRAINT UC_site_name UNIQUE(name))
 go
 
 
 CREATE TABLE cuyahoga_node(
-nodeid int identity(1,1) NOT NULL CONSTRAINT PK_cuyahoga_node PRIMARY KEY,
+nodeid int identity(1,1) NOT NULL CONSTRAINT PK_node PRIMARY KEY,
 parentnodeid int NULL,
 templateid int NULL,
 siteid int NOT NULL,
@@ -105,11 +105,11 @@ inserttimestamp datetime DEFAULT current_timestamp NOT NULL,
 updatetimestamp datetime DEFAULT current_timestamp NOT NULL)
 go
 
-CREATE UNIQUE INDEX IX_cuyahoga_node_shortdescription_siteid ON cuyahoga_node (shortdescription,siteid)
+CREATE UNIQUE INDEX IX_node_shortdescription_siteid ON cuyahoga_node (shortdescription,siteid)
 go
 
 CREATE TABLE cuyahoga_menu(
-menuid int identity(1,1) NOT NULL CONSTRAINT PK_cuyahoga_menu PRIMARY KEY,
+menuid int identity(1,1) NOT NULL CONSTRAINT PK_menu PRIMARY KEY,
 rootnodeid int NOT NULL,
 name nvarchar(50) NOT NULL,
 placeholder nvarchar(50) NOT NULL,
@@ -119,7 +119,7 @@ go
 
 
 CREATE TABLE cuyahoga_menunode(
-menunodeid int identity(1,1) NOT NULL CONSTRAINT PK_cuyahoga_menunode PRIMARY KEY,
+menunodeid int identity(1,1) NOT NULL CONSTRAINT PK_menunode PRIMARY KEY,
 menuid int NOT NULL,
 nodeid int NOT NULL,
 position int NOT NULL)
@@ -127,7 +127,7 @@ go
 
 
 CREATE TABLE cuyahoga_sitealias(
-sitealiasid int identity(1,1) NOT NULL CONSTRAINT PK_cuyahoga_sitealias PRIMARY KEY,
+sitealiasid int identity(1,1) NOT NULL CONSTRAINT PK_sitealias PRIMARY KEY,
 siteid int NOT NULL,
 nodeid int NULL,
 url nvarchar(100) NOT NULL,
@@ -137,7 +137,7 @@ go
 
 
 CREATE TABLE cuyahoga_section(
-sectionid int identity(1,1) NOT NULL CONSTRAINT PK_cuyahoga_section PRIMARY KEY,
+sectionid int identity(1,1) NOT NULL CONSTRAINT PK_section PRIMARY KEY,
 nodeid int NULL,
 moduletypeid int NOT NULL,
 title nvarchar(100) NOT NULL,
@@ -151,39 +151,39 @@ go
 
 
 CREATE TABLE cuyahoga_sectionsetting(
-sectionsettingid int identity(1,1) NOT NULL CONSTRAINT PK_cuyahoga_sectionsetting PRIMARY KEY,
+sectionsettingid int identity(1,1) NOT NULL CONSTRAINT PK_sectionsetting PRIMARY KEY,
 sectionid int NOT NULL,
 name nvarchar(50) NOT NULL,
 value nvarchar(100) NULL)
 go
 
-CREATE UNIQUE INDEX IX_cuyahoga_sectionsetting_sectionid_name ON cuyahoga_sectionsetting (sectionid,name)
+CREATE UNIQUE INDEX IX_sectionsetting_sectionid_name ON cuyahoga_sectionsetting (sectionid,name)
 go
 
 CREATE TABLE cuyahoga_noderole(
-noderoleid int identity(1,1) NOT NULL CONSTRAINT PK_cuyahoga_noderole PRIMARY KEY,
+noderoleid int identity(1,1) NOT NULL CONSTRAINT PK_noderole PRIMARY KEY,
 nodeid int NOT NULL,
 roleid int NOT NULL,
 viewallowed bit NOT NULL,
 editallowed bit NOT NULL)
 go
 
-CREATE UNIQUE INDEX IX_cuyahoga_noderole_nodeid_roleid ON cuyahoga_noderole (nodeid,roleid)
+CREATE UNIQUE INDEX IX_noderole_nodeid_roleid ON cuyahoga_noderole (nodeid,roleid)
 go
 
 CREATE TABLE cuyahoga_sectionrole(
-sectionroleid int identity(1,1) NOT NULL CONSTRAINT PK_cuyahoga_sectionrole PRIMARY KEY,
+sectionroleid int identity(1,1) NOT NULL CONSTRAINT PK_sectionrole PRIMARY KEY,
 sectionid int NOT NULL,
 roleid int NOT NULL,
 viewallowed bit NOT NULL,
 editallowed bit NOT NULL)
 go
 
-CREATE UNIQUE INDEX IX_cuyahoga_sectionrole_roleid_sectionid ON cuyahoga_sectionrole (roleid,sectionid)
+CREATE UNIQUE INDEX IX_sectionrole_roleid_sectionid ON cuyahoga_sectionrole (roleid,sectionid)
 go
 
 CREATE TABLE cuyahoga_version(
-versionid int identity(1,1) NOT NULL CONSTRAINT PK_cuyahoga_version PRIMARY KEY,
+versionid int identity(1,1) NOT NULL CONSTRAINT PK_version PRIMARY KEY,
 assembly nvarchar(255) NOT NULL,
 major int NOT NULL,
 minor int NOT NULL,
@@ -193,112 +193,112 @@ go
 
 
 ALTER TABLE cuyahoga_userrole
-ADD CONSTRAINT FK_cuyahoga_role_roleid
+ADD CONSTRAINT FK_userrole_role_roleid
 FOREIGN KEY (roleid) REFERENCES cuyahoga_role (roleid)
 go
 
 ALTER TABLE cuyahoga_userrole
-ADD CONSTRAINT FK_cuyahoga_user_userid
+ADD CONSTRAINT FK_user_userid
 FOREIGN KEY (userid) REFERENCES cuyahoga_user (userid)
 go
 
 
 ALTER TABLE cuyahoga_modulesetting
-ADD CONSTRAINT FK_cuyahoga_moduletype_moduletypeid
+ADD CONSTRAINT FK_modulesetting_moduletype_moduletypeid
 FOREIGN KEY (moduletypeid) REFERENCES cuyahoga_moduletype (moduletypeid)
 go
 
 
 ALTER TABLE cuyahoga_site
-ADD CONSTRAINT FK_cuyahoga_role_roleid
+ADD CONSTRAINT FK_site_role_roleid
 FOREIGN KEY (roleid) REFERENCES cuyahoga_role (roleid)
 go
 
 ALTER TABLE cuyahoga_site
-ADD CONSTRAINT FK_cuyahoga_template_templateid
+ADD CONSTRAINT FK_site_template_templateid
 FOREIGN KEY (templateid) REFERENCES cuyahoga_template (templateid)
 go
 
 
 ALTER TABLE cuyahoga_node
-ADD CONSTRAINT FK_cuyahoga_node_parentnodeid 
+ADD CONSTRAINT FK_node_node_parentnodeid 
 FOREIGN KEY (parentnodeid) REFERENCES cuyahoga_node (nodeid)
 go
 
 ALTER TABLE cuyahoga_node
-ADD CONSTRAINT FK_cuyahoga_site_siteid
+ADD CONSTRAINT FK_node_site_siteid
 FOREIGN KEY (siteid) REFERENCES cuyahoga_site (siteid)
 go
 
 ALTER TABLE cuyahoga_node
-ADD CONSTRAINT FK_cuyahoga_template_templateid
+ADD CONSTRAINT FK_node_template_templateid
 FOREIGN KEY (templateid) REFERENCES cuyahoga_template (templateid)
 go
 
 
 ALTER TABLE cuyahoga_menu
-ADD CONSTRAINT FK_cuyahoga_node_rootnodeid
+ADD CONSTRAINT FK_menu_node_rootnodeid
 FOREIGN KEY (rootnodeid) REFERENCES cuyahoga_node (nodeid)
 go
 
 
 ALTER TABLE cuyahoga_menunode
-ADD CONSTRAINT FK_cuyahoga_menu_menuid
+ADD CONSTRAINT FK_menunode_menu_menuid
 FOREIGN KEY (menuid) REFERENCES cuyahoga_menu (menuid)
 go
 
 ALTER TABLE cuyahoga_menunode
-ADD CONSTRAINT FK_cuyahoga_node_nodeid
+ADD CONSTRAINT FK_menunode_node_nodeid
 FOREIGN KEY (nodeid) REFERENCES cuyahoga_node (nodeid)
 go
 
 
 ALTER TABLE cuyahoga_sitealias
-ADD CONSTRAINT FK_cuyahoga_node_nodeid
+ADD CONSTRAINT FK_sitealias_node_nodeid
 FOREIGN KEY (nodeid) REFERENCES cuyahoga_node (nodeid)
 go
 
 ALTER TABLE cuyahoga_sitealias
-ADD CONSTRAINT FK_cuyahoga_site_siteid
+ADD CONSTRAINT FK_sitealias_site_siteid
 FOREIGN KEY (siteid) REFERENCES cuyahoga_site (siteid)
 go
 
 
 ALTER TABLE cuyahoga_section
-ADD CONSTRAINT FK_cuyahoga_moduletype_moduletypeid
+ADD CONSTRAINT FK_section_moduletype_moduletypeid
 FOREIGN KEY (moduletypeid) REFERENCES cuyahoga_moduletype (moduletypeid)
 go
 
 ALTER TABLE cuyahoga_section
-ADD CONSTRAINT FK_cuyahoga_node_nodeid
+ADD CONSTRAINT FK_section_node_nodeid
 FOREIGN KEY (nodeid) REFERENCES cuyahoga_node (nodeid)
 go
 
 
 ALTER TABLE cuyahoga_sectionsetting
-ADD CONSTRAINT FK_cuyahoga_section_sectionid
+ADD CONSTRAINT FK_sectionsetting_section_sectionid
 FOREIGN KEY (sectionid) REFERENCES cuyahoga_section (sectionid)
 go
 
 
 ALTER TABLE cuyahoga_noderole
-ADD CONSTRAINT FK_cuyahoga_node_nodeid
+ADD CONSTRAINT FK_noderole_node_nodeid
 FOREIGN KEY (nodeid) REFERENCES cuyahoga_node (nodeid)
 go
 
 ALTER TABLE cuyahoga_noderole
-ADD CONSTRAINT FK_cuyahoga_role_roleid
+ADD CONSTRAINT FK_noderole_role_roleid
 FOREIGN KEY (roleid) REFERENCES cuyahoga_role (roleid)
 go
 
 
 ALTER TABLE cuyahoga_sectionrole
-ADD CONSTRAINT FK_cuyahoga_role_roleid
+ADD CONSTRAINT FK_sectionrole_role_roleid
 FOREIGN KEY (roleid) REFERENCES cuyahoga_role (roleid)
 go
 
 ALTER TABLE cuyahoga_sectionrole
-ADD CONSTRAINT FK_cuyahoga_section_sectionid
+ADD CONSTRAINT FK_sectionrole_section_sectionid
 FOREIGN KEY (sectionid) REFERENCES cuyahoga_section (sectionid)
 go
 

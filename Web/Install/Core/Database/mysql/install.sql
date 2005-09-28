@@ -15,7 +15,7 @@ lastip VARCHAR(40),
 inserttimestamp TIMESTAMP NOT NULL,
 updatetimestamp DATETIME NOT NULL,
 PRIMARY KEY (userid),
-UNIQUE UC_username (username));
+UNIQUE UC_user_username (username));
 
 
 CREATE TABLE cuyahoga_role(
@@ -25,7 +25,7 @@ permissionlevel INT DEFAULT 1 NOT NULL,
 inserttimestamp TIMESTAMP NOT NULL,
 updatetimestamp DATETIME NOT NULL,
 PRIMARY KEY (roleid),
-UNIQUE UC_name (name));
+UNIQUE UC_role_name (name));
 
 
 CREATE TABLE cuyahoga_userrole(
@@ -60,7 +60,7 @@ editpath VARCHAR(255),
 inserttimestamp TIMESTAMP NOT NULL,
 updatetimestamp DATETIME NOT NULL,
 PRIMARY KEY (moduletypeid),
-UNIQUE UC_classname (classname));
+UNIQUE UC_moduletype_classname (classname));
 
 
 CREATE TABLE cuyahoga_modulesetting(
@@ -73,7 +73,7 @@ iscustomtype TINYINT NOT NULL,
 isrequired TINYINT NOT NULL,
 FOREIGN KEY (moduletypeid) REFERENCES cuyahoga_moduletype (moduletypeid),
 PRIMARY KEY (modulesettingid),
-UNIQUE IDX_cuyahoga_modulesetting_1 (moduletypeid,name));
+UNIQUE IX_modulesetting_moduletypeid_name (moduletypeid,name));
 
 
 CREATE TABLE cuyahoga_site(
@@ -91,7 +91,7 @@ updatetimestamp DATETIME NOT NULL,
 FOREIGN KEY (roleid) REFERENCES cuyahoga_role (roleid),
 FOREIGN KEY (templateid) REFERENCES cuyahoga_template (templateid),
 PRIMARY KEY (siteid),
-UNIQUE UC_name (name));
+UNIQUE UC_site_name (name));
 
 
 CREATE TABLE cuyahoga_node(
@@ -112,7 +112,7 @@ FOREIGN KEY (parentnodeid) REFERENCES cuyahoga_node (nodeid),
 FOREIGN KEY (siteid) REFERENCES cuyahoga_site (siteid),
 FOREIGN KEY (templateid) REFERENCES cuyahoga_template (templateid),
 PRIMARY KEY (nodeid),
-UNIQUE IDX_cuyahoga_node_shortdescription_siteid (shortdescription,siteid));
+UNIQUE IX_node_shortdescription_siteid (shortdescription,siteid));
 
 
 CREATE TABLE cuyahoga_menu(
@@ -171,7 +171,7 @@ name VARCHAR(50) NOT NULL,
 value VARCHAR(100),
 FOREIGN KEY (sectionid) REFERENCES cuyahoga_section (sectionid),
 PRIMARY KEY (sectionsettingid),
-UNIQUE IDX_cuyahoga_sectionsetting_1 (sectionid,name));
+UNIQUE IX_sectionsetting_sectionid_name(sectionid,name));
 
 
 CREATE TABLE cuyahoga_noderole(
@@ -183,7 +183,7 @@ editallowed TINYINT NOT NULL,
 FOREIGN KEY (nodeid) REFERENCES cuyahoga_node (nodeid),
 FOREIGN KEY (roleid) REFERENCES cuyahoga_role (roleid),
 PRIMARY KEY (noderoleid),
-UNIQUE IDX_cuyahoga_noderole_1 (nodeid,roleid));
+UNIQUE IX_noderole_nodeid_roleid (nodeid,roleid));
 
 
 CREATE TABLE cuyahoga_sectionrole(
@@ -195,7 +195,7 @@ editallowed TINYINT NOT NULL,
 FOREIGN KEY (roleid) REFERENCES cuyahoga_role (roleid),
 FOREIGN KEY (sectionid) REFERENCES cuyahoga_section (sectionid),
 PRIMARY KEY (sectionroleid),
-UNIQUE IDX_cuyahoga_sectionrole_1 (roleid,sectionid));
+UNIQUE IX_sectionrole_roleid_sectionid (roleid,sectionid));
 
 CREATE TABLE cuyahoga_version(
 versionid INT NOT NULL AUTO_INCREMENT,
