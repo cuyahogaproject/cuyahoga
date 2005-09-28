@@ -169,10 +169,6 @@ namespace Cuyahoga.Modules.RemoteContent
 			{
 				feed.PubDate = DateTime.Now;
 			}
-			if (feed.Id == -1)
-			{
-				feed.UpdateTimestamp = DateTime.Now;
-			}
 			ITransaction tx = session.BeginTransaction();
 			try
 			{
