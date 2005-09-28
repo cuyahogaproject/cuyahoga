@@ -18,6 +18,11 @@ namespace Cuyahoga.Modules.User
 	/// </summary>
 	public class User : BaseModuleControl
 	{
+		private bool _showRegister = true;
+		private bool _showResetPassword = true;
+		private bool _showEditProfile = true;
+		private UserModule _module;
+
 		protected System.Web.UI.WebControls.Panel pnlLogin;
 		protected System.Web.UI.WebControls.TextBox txtUsername;
 		protected System.Web.UI.WebControls.TextBox txtPassword;
@@ -36,6 +41,20 @@ namespace Cuyahoga.Modules.User
 
 		private void Page_Load(object sender, System.EventArgs e)
 		{
+			this._module = base.Module as UserModule;
+			if (this._module.Section.Settings["SHOW_REGISTER"] != null)
+			{
+				this._showRegister = Convert.ToBoolean(this._module.Section.Settings["SHOW_REGISTER"]);
+			}
+			if (this._module.Section.Settings["SHOW_RESET_PASSWORD"] != null)
+			{
+				this._showResetPassword = Convert.ToBoolean(this._module.Section.Settings["SHOW_RESET_PASSWORD"]);
+			}
+			if (this._module.Section.Settings["SHOW_EDIT_PROFILE"] != null)
+			{
+				this._showEditProfile = Convert.ToBoolean(this._module.Section.Settings["SHOW_EDIT_PROFILE"]);
+			}
+
 			bool isAuthenticated = false;
 			if (Context.User != null)
 			{
@@ -51,8 +70,11 @@ namespace Cuyahoga.Modules.User
 				this.pnlLogin.Visible = ! isAuthenticated;
 				this.pnlUserInfo.Visible = isAuthenticated;
 				this.hplRegister.NavigateUrl = this.Page.ResolveUrl("~/Profile.aspx/register");
+				this.hplRegister.Visible = this._showRegister;
 				this.hplResetPassword.NavigateUrl = this.Page.ResolveUrl("~/Profile.aspx/reset");
+				this.hplResetPassword.Visible = this._showResetPassword;
 				this.hplEdit.NavigateUrl = this.Page.ResolveUrl("~/Profile.aspx/edit");
+				this.hplEdit.Visible = this._showEditProfile;
 				Translate();
 			}
 		}

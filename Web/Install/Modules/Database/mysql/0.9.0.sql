@@ -1,6 +1,8 @@
-
 SELECT @moduletypeid := moduletypeid FROM cuyahoga_moduletype WHERE name = 'Articles';
 
+/*
+ *  Article sort order settings
+ */
 INSERT INTO cuyahoga_modulesetting (moduletypeid, name, friendlyname, settingdatatype, iscustomtype, isrequired) 
 VALUES (@moduletypeid, 'SORT_BY', 'Sort by', 'Cuyahoga.Modules.Articles.SortBy', 1, 1);
 
@@ -19,4 +21,21 @@ INSERT INTO cuyahoga_sectionsetting (sectionid, name, value)
 		INNER JOIN cuyahoga_moduletype m on m.moduletypeid = s.moduletypeid
 	WHERE m.name = 'Articles';
 
+/*
+ *  Login control (user) settings
+ */
+SELECT @moduletypeid = moduletypeid FROM cuyahoga_moduletype WHERE name = 'User';
+
+INSERT INTO cuyahoga_modulesetting (moduletypeid, name, friendlyname, settingdatatype, iscustomtype, isrequired) 
+VALUES (@moduletypeid, 'SHOW_REGISTER', 'Show register link', 'System.Boolean', 0, 0);
+
+INSERT INTO cuyahoga_modulesetting (moduletypeid, name, friendlyname, settingdatatype, iscustomtype, isrequired) 
+VALUES (@moduletypeid, 'SHOW_RESET_PASSWORD', 'Show reset password link', 'System.Boolean', 0, 0);
+
+INSERT INTO cuyahoga_modulesetting (moduletypeid, name, friendlyname, settingdatatype, iscustomtype, isrequired) 
+VALUES (@moduletypeid, 'SHOW_EDIT_PROFILE', 'Show edit profile link', 'System.Boolean', 0, 0);
+
+/*
+ *  Version
+ */
 UPDATE cuyahoga_version SET major = 0, minor = 9, patch = 0 WHERE assembly = 'Cuyahoga.Modules';

@@ -7,7 +7,7 @@
 <asp:checkbox id="chkPersistLogin" runat="server"></asp:checkbox><br>
 <asp:label id="lblLoginError" runat="server" cssclass="error" visible="False" enableviewstate="False"></asp:label><br>
 <asp:button id="btnLogin" runat="server"></asp:button><br><br>
-<asp:hyperlink id="hplRegister" runat="server"></asp:hyperlink>| 
+<asp:hyperlink id="hplRegister" runat="server"></asp:hyperlink>&nbsp;&nbsp;
 <asp:hyperlink id="hplResetPassword" runat="server"></asp:hyperlink>
 </asp:panel>
 <asp:panel id="pnlUserInfo" runat="server" visible="False">
