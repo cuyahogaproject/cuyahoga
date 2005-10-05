@@ -60,6 +60,7 @@ Global
 		Install.txt = Install.txt
 		LICENSE.txt = LICENSE.txt
 		Releasenotes.txt = Releasenotes.txt
+		Upgrade.txt = Upgrade.txt
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 	EndGlobalSection

@@ -5,7 +5,7 @@
 	<property name="project.version" value="0.9.0" />
 
 	<!-- default configuration -->
-	<property name="project.config" value="release" /> <!-- debug|release -->
+	<property name="project.config" value="debug" /> <!-- debug|release -->
 	<property name="lib.dir" value="lib" />
 	
 	<target name="debug" description="Perform a 'debug' build">
