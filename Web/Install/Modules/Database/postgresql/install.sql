@@ -1,4 +1,4 @@
-H
+
 CREATE TABLE cm_articlecategory(
 articlecategoryid serial NOT NULL CONSTRAINT PK_articlecategory PRIMARY KEY,
 title varchar(100) NOT NULL,
