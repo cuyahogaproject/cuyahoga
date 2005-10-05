@@ -1,0 +1,70 @@
+
+Installing Cuyahoga from the binary distribution
+
+1. Requirements
+    - IIS 5.0 or higher
+    - The .NET 1.1 runtime environment. Mono users have to use the source distribution.
+    - A database server. Supported databases are
+        - SQL Server/MSDE 2000 and 2005
+        - PostgreSQL 7.4 and higher
+        - MySQL 4.0 and higher
+        
+2. Extract the files to a directory on your local machine.
+
+3. Create an empty database.
+
+4. Change the connection string in the Web.config (hibernate.connection.connection_string)
+    to the database that is created in step 3.
+          
+    Example (SQL Server):
+    <add key="hibernate.connection.connection_string" value="server=(local);database=Cuyahoga;uid=***;pwd=***;" />  	
+
+    Example (PostgreSQL):
+    <add key="hibernate.connection.connection_string" value="server=192.168.0.1;port=5432;database=Cuyahoga;uid=***;pwd=***;" />  	
+
+    Make sure that the account that connects to the database has enough permissions to create
+    the database!
+    
+5. Create a website or a virtual directory in IIS and set its home directory to the physical 
+    directory where the Cuyahoga files were extracted.
+    
+6. You are now ready to run the application. Open your browser and navigate to the site or virtual
+    directory that is created in the previous step.
+
+    At the first visit, the database will be installed automatically, and you'll be asked to set 
+    a password for the administrator (min. 5 characters!). After that you will redirected to the
+    site web site administration. The url of the web site administration is 
+    http://SERVER_NAME/VIRTUAL_DIRECTORY/Admin/. If you installed Cuyahoga in the cuyahoga 
+    virtual directory on your localhost, this url will become http://localhost/cuyahoga/Admin/.
+
+    In the web site administration, the first thing to do is creating a site. Make sure that the
+    site url that you enter, corresponds with the real site url, including the virtual directory
+    (for example, http://localhost/cuyahoga).
+    When a site is created you can start adding pages (nodes) and sections. Just give it a try 
+    and when something isn't clear, check the forums at http://www.cuyahoga-project.org/home/forum.aspx.
+    
+    
+Hints and tips:
+- It's possible run the database install scripts manually if the installation fails for some
+  reason. They are located in the /Install/Database directory.
+- The search index has to be in a folder that is writable for the ASP.NET user. You can specify the
+  folder in the web.config:
+
+  <CuyahogaSettings>
+    ...
+    <add setting="SearchIndexDir" value="~/index" />
+    <add setting="InstantIndexing" value="true" /> <!-- true/false -->
+  </CuyahogaSettings>
+
+  InstantIndexing indicates that when you edit the content of a module that is searchable, the
+  search index will be updated immediately. If you turn this off, you have to manually index the
+  content from the Administration section.
+  
+- You can enable logging to uncomment the <log4net> section in the Web.config. Make sure your
+  ASP.NET user has write access to the path of the logfile.
+- Give the ASP.NET user write access for the Web/UserFiles directory to enable uploading images or
+  other files with the FCKEditor from the StaticHtml and Articles modules.
+- Give the ASP.NET user write access for the Web/files directory to enable uploading files with
+  the Downloads module. You can optionally enter a physical path for the location where the files
+  should be uploaded. With this, it is possible to keep the files out of the web site to prevent 
+  direct downloading.

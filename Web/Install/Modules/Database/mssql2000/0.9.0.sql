@@ -1,8 +1,9 @@
-DECLARE @moduletypeid int
 
 /*
  *  Sort order of articles
  */
+DECLARE @moduletypeid int
+
 SELECT @moduletypeid = moduletypeid FROM cuyahoga_moduletype WHERE [name] = 'Articles'
 
 INSERT INTO cuyahoga_modulesetting (moduletypeid, [name], friendlyname, settingdatatype, iscustomtype, isrequired) 
@@ -31,6 +32,8 @@ GO
 /*
  *  Login control (user) settings
  */
+DECLARE @moduletypeid int
+
 SELECT @moduletypeid = moduletypeid FROM cuyahoga_moduletype WHERE [name] = 'User'
 
 INSERT INTO cuyahoga_modulesetting (moduletypeid, [name], friendlyname, settingdatatype, iscustomtype, isrequired) 

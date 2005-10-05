@@ -5,7 +5,7 @@
 	<property name="project.version" value="0.9.0" />
 
 	<!-- default configuration -->
-	<property name="project.config" value="debug" /> <!-- debug|release -->
+	<property name="project.config" value="release" /> <!-- debug|release -->
 	<property name="lib.dir" value="lib" />
 	
 	<target name="debug" description="Perform a 'debug' build">
@@ -18,7 +18,7 @@
 	<target name="release" description="Perform a 'release' build">
 		<property name="project.config" value="release" />
 		<property name="build.debug" value="false" />
-		<property name="build.dir" value="${nant.project.basedir}/build/${project.name}-${project.version}" />
+		<property name="build.dir" value="${nant.project.basedir}/build/${nant.settings.currentframework}.${nant.platform.name}/${project.name}-${project.version}-${project.config}" />
 		<property name="build.name" value="${project.name}-${project.version}" />
 	</target>
 
@@ -310,7 +310,9 @@
 				<include name="Web/**" />
 				<include name="Modules/**" />
 				<include name="Downloads/**" />
-				<include name="Tests/**" />							
+				<include name="Tests/**" />
+				<include name="doc/**/*.pdf" />
+				<include name="Database/**" /> <!-- obsolete scripts, for upgrade only -->
 
 				<exclude name="Web/Modules/**/*" />
 				<exclude name="Web/UserFiles/File/**/*" />
@@ -327,17 +329,7 @@
 							
 			</fileset>
 		</copy>
-		<!-- Remove the connnection string information... -->
-		<xmlpoke
-			file="${build.dir}/package/Web/Web.config"
-			xpath="/configuration/nhibernate/add[@key='hibernate.connection.connection_string']/@value"
-			value="Put your database connection string here" 
-		/>
-		<xmlpoke
-			file="${build.dir}/package/Tests/App.config"
-			xpath="/configuration/nhibernate/add[@key='hibernate.connection.connection_string']/@value"
-			value="Put your database connection string here" 
-		/>
+		
 		<property name="project.zip-path" value="build/${project.name}-${project.version}-src.zip" />
 		
 		<zip zipfile="${project.zip-path}" includeemptydirs="true">
@@ -348,6 +340,21 @@
 		
 		<!-- delete the directory that was used to create the zip -->
 		<delete dir="${build.dir}/package" />		
+	</target>
+	<target name="package-bin" depends="deploy" description="Create a Zip file for Binary Releases">
+		<copy todir="${build.dir}" includeemptydirs="true">
+			<fileset>
+				<include name="*.txt" />
+			</fileset>
+		</copy>
+		<property name="project.binary-zip-path" value="build/${project.name}-${project.version}-bin.zip" />
+		
+		<zip zipfile="${project.binary-zip-path}" includeemptydirs="true">
+			<fileset basedir="${build.dir}">
+				<include name="**/*" />
+			</fileset>
+		</zip>
+
 	</target>
 </project>
 

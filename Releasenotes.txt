@@ -1,6 +1,48 @@
 Cuyahoga release notes
 
 ===========================================================================
+0.9.0 - 2005-10-05
+===========================================================================
+New features:
+- Added a web based installer that installs or upgrades the database at the
+  first run.
+- Added a module installer. If a module has a specific directory structure
+  with database scripts, you can now install, upgrade or uninstall modules
+  from the site administration.
+
+Improvements:
+- Support for .NET 2.0 and SQL Server 2005
+- The User module can be configured to show or hide links to registration,
+  reset password and edit profile pages.
+- The RemoteContent module is able to read feeds that have dates that 
+  differ slightly from the format that .NET accepts.
+- It is possible to show the number of downloads to end-users.
+- Better error handling with invalid urls.
+- Added sort options for Articles.
+- Navigating from the site administration to the actual site and 
+  vice-versa is much improved.
+- When omitting publishing dates for articles, default dates are issued.
+- Cleaned up database installation scripts.
+- Upgraded NHibernate to 1.0 RC3.
+- Upgraded FCKEditor to 2.0.
+
+Bug fixes:
+- Fixed issues with stalling downloads in the Downloads module. Resuming
+  downloads is also supported now.
+- Fixed issue on Mono with retrieving the server host url. Thanks to Thomas
+  Danzl.
+- Fixed bug with nodes that link to external pages where the target setting
+  was not respected.
+- Fixed bug with pager control in the Articles module administration.
+- The RSS feeds now validate in the feed validator.
+- Fixed issue in the RemoteContent module with feed items without
+  publication dates.
+- Fixed issues with node and section positioning.
+- Fixed some issues with the calendar control and non-english languages.
+  There might still be some issues left because the language scripts that
+  come with the calendar are not entirely complete for every language.
+
+===========================================================================
 0.8.2 - 2005-07-20
 ===========================================================================
 Improvements:

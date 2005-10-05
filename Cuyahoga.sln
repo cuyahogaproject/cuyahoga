@@ -56,6 +56,7 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionItems) = postSolution
 		Cuyahoga.build = Cuyahoga.build
+		Install-binary.txt = Install-binary.txt
 		Install.txt = Install.txt
 		LICENSE.txt = LICENSE.txt
 		Releasenotes.txt = Releasenotes.txt
