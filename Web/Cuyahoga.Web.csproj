@@ -853,6 +853,10 @@
                     BuildAction = "None"
                 />
                 <File
+                    RelPath = "Install\Modules\Database\mssql2000\0.9.1.sql"
+                    BuildAction = "None"
+                />
+                <File
                     RelPath = "Install\Modules\Database\mssql2000\install.sql"
                     BuildAction = "None"
                 />
@@ -865,6 +869,10 @@
                     BuildAction = "None"
                 />
                 <File
+                    RelPath = "Install\Modules\Database\mysql\0.9.1.sql"
+                    BuildAction = "None"
+                />
+                <File
                     RelPath = "Install\Modules\Database\mysql\install.sql"
                     BuildAction = "None"
                 />
@@ -874,6 +882,10 @@
                 />
                 <File
                     RelPath = "Install\Modules\Database\postgresql\0.9.0.sql"
+                    BuildAction = "None"
+                />
+                <File
+                    RelPath = "Install\Modules\Database\postgresql\0.9.1.sql"
                     BuildAction = "None"
                 />
                 <File

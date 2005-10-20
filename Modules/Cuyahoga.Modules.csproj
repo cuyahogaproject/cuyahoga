@@ -119,6 +119,11 @@
                     AssemblyName = "log4net"
                     HintPath = "..\lib\log4net.dll"
                 />
+                <Reference
+                    Name = "Nullables"
+                    AssemblyName = "Nullables"
+                    HintPath = "..\lib\Nullables.dll"
+                />
             </References>
         </Build>
         <Files>
@@ -409,6 +414,59 @@
                     BuildAction = "Compile"
                 />
                 <File
+                    RelPath = "User\EditProfile.ascx"
+                    SubType = "UserControl"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "User\EditProfile.ascx.cs"
+                    DependentUpon = "EditProfile.ascx"
+                    SubType = "ASPXCodeBehind"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "User\EditProfile.ascx.resx"
+                    DependentUpon = "EditProfile.ascx.cs"
+                    BuildAction = "EmbeddedResource"
+                />
+                <File
+                    RelPath = "User\ProfileModule.cs"
+                    SubType = "Code"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "User\Register.ascx"
+                    SubType = "UserControl"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "User\Register.ascx.cs"
+                    DependentUpon = "Register.ascx"
+                    SubType = "ASPXCodeBehind"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "User\Register.ascx.resx"
+                    DependentUpon = "Register.ascx.cs"
+                    BuildAction = "EmbeddedResource"
+                />
+                <File
+                    RelPath = "User\ResetPassword.ascx"
+                    SubType = "UserControl"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "User\ResetPassword.ascx.cs"
+                    DependentUpon = "ResetPassword.ascx"
+                    SubType = "ASPXCodeBehind"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "User\ResetPassword.ascx.resx"
+                    DependentUpon = "ResetPassword.ascx.cs"
+                    BuildAction = "EmbeddedResource"
+                />
+                <File
                     RelPath = "User\User.ascx"
                     SubType = "UserControl"
                     BuildAction = "Content"
@@ -428,6 +486,22 @@
                     RelPath = "User\UserModule.cs"
                     SubType = "Code"
                     BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "User\ViewProfile.ascx"
+                    SubType = "UserControl"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "User\ViewProfile.ascx.cs"
+                    DependentUpon = "ViewProfile.ascx"
+                    SubType = "ASPXCodeBehind"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "User\ViewProfile.ascx.resx"
+                    DependentUpon = "ViewProfile.ascx.cs"
+                    BuildAction = "EmbeddedResource"
                 />
                 <File
                     RelPath = "User\Resources\Strings.nl.resx"

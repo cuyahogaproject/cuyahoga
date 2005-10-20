@@ -50,29 +50,6 @@ namespace Cuyahoga.Core.Domain
 	}
 
 	/// <summary>
-	/// 
-	/// </summary>
-	public enum Action
-	{
-		/// <summary>
-		/// 
-		/// </summary>
-		View,
-		/// <summary>
-		/// 
-		/// </summary>
-		Edit,
-		/// <summary>
-		/// 
-		/// </summary>
-		Add,
-		/// <summary>
-		/// 
-		/// </summary>
-		Delete
-	}
-
-	/// <summary>
 	/// The target window of a link.
 	/// </summary>
 	public enum LinkTarget

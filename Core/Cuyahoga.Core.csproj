@@ -124,6 +124,26 @@
                     BuildAction = "Compile"
                 />
                 <File
+                    RelPath = "Communication\Action.cs"
+                    SubType = "Code"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "Communication\ActionCollection.cs"
+                    SubType = "Code"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "Communication\IActionConsumer.cs"
+                    SubType = "Code"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "Communication\IActionProvider.cs"
+                    SubType = "Code"
+                    BuildAction = "Compile"
+                />
+                <File
                     RelPath = "Domain\CustomMenu.cs"
                     SubType = "Code"
                     BuildAction = "Compile"

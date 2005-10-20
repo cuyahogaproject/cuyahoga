@@ -37,7 +37,7 @@ namespace Cuyahoga.Core.Domain
 		}
 
 		/// <summary>
-		/// 
+		/// The cache key used for output caching.
 		/// </summary>
 		public virtual string CacheKey
 		{
@@ -105,6 +105,22 @@ namespace Cuyahoga.Core.Domain
 		{
 			get { return this._sectionUrl; }
 			set { this._sectionUrl = value; }
+		}
+
+		/// <summary>
+		/// The default view user control.
+		/// </summary>
+		public string DefaultViewControl
+		{
+			get { return this._section.ModuleType.Path; }
+		}
+
+		/// <summary>
+		/// Override this property when a different view should be active based on some action.
+		/// </summary>
+		public virtual string CurrentViewControl
+		{
+			get { return this.DefaultViewControl; }
 		}
 
 		/// <summary>

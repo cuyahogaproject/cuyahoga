@@ -1,6 +1,7 @@
 using System;
 
 using Cuyahoga.Core.Domain;
+using Cuyahoga.Core.Communication;
 
 namespace Cuyahoga.Modules.User
 {
@@ -14,14 +15,35 @@ namespace Cuyahoga.Modules.User
 	/// MBO, 20041229: User functionality implemented in core. This module stays pretty empty.
 	/// </remark>
 	/// </summary>
-	public class UserModule : ModuleBase
+	public class UserModule : ModuleBase, IActionProvider
 	{
+		private ActionCollection _outboundActions;
+
 		/// <summary>
 		/// Default constructor.
 		/// </summary>
 		/// <param name="section"></param>
 		public UserModule(Section section) : base(section)
 		{
+			InitOutboundActions();
 		}
+
+		private void InitOutboundActions()
+		{
+			this._outboundActions = new ActionCollection();
+			this._outboundActions.Add(new Action("ViewProfile", new string[1] {"UserId"}));
+			this._outboundActions.Add(new Action("EditProfile", new string[0]));
+			this._outboundActions.Add(new Action("Register", new string[0]));
+			this._outboundActions.Add(new Action("ResetPassword", new string[0]));
+		}
+
+		#region IActionProvider Members
+
+		public ActionCollection GetOutboundActions()
+		{
+			return this._outboundActions;
+		}
+
+		#endregion
 	}
 }

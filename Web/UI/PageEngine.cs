@@ -269,16 +269,16 @@ namespace Cuyahoga.Web.UI
 
 					if (module != null)
 					{
-						BaseModuleControl ctrl = (BaseModuleControl)this.LoadControl(appRoot + section.ModuleType.Path);
-						ctrl.Module = module;
-						((PlaceHolder)this._templateControl.Containers[section.PlaceholderId]).Controls.Add(ctrl);
-
 						if (Context.Request.PathInfo.Length > 0 && section == this._activeSection)
 						{
 							// Parse the PathInfo of the request because they are the parameters 
 							// for the module that is connected to the active section.
 							module.ModulePathInfo = Context.Request.PathInfo;
 						}
+
+						BaseModuleControl ctrl = (BaseModuleControl)this.LoadControl(appRoot + module.CurrentViewControl);
+						ctrl.Module = module;
+						((PlaceHolder)this._templateControl.Containers[section.PlaceholderId]).Controls.Add(ctrl);
 					}
 				}
 			}
