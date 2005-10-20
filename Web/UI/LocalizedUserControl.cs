@@ -36,6 +36,54 @@ namespace Cuyahoga.Web.UI
 		}
 
 		/// <summary>
+		/// Try to localize the controls. 
+		/// The resource keys should consist of the name of the User Control class
+		/// with the ID of the control added. For example "Articles.lblTitle".
+		/// </summary>
+		protected void LocalizeControls()
+		{
+			LocalizeControls(this);
+		}
+
+		/// <summary>
+		/// Try to localize the controls. 
+		/// The resource keys should consist of the name of the User Control code-behind  class
+		/// with the ID of the control added, separated with a colon. 
+		/// Example: "Articles:lblTitle".
+		/// </summary>
+		/// <param name="control"></param>
+		protected void LocalizeControls(Control control)
+		{
+			foreach (Control childControl in control.Controls)
+			{
+				// Use the name of BaseType because we need the code-behind class.
+				string resourceKey = this.GetType().BaseType.Name + ":" + childControl.ID;
+				string localizedText = GetText(resourceKey);
+
+				if (localizedText != null && localizedText != String.Empty)
+				{
+					if ((childControl is Label) && ! (childControl is BaseValidator))
+					{
+						Label label = (Label)childControl;
+						label.Text = localizedText;
+					}
+					if (childControl is Button)
+					{
+						Button button = (Button)childControl;
+						button.Text = localizedText;
+					}
+					else if (childControl is BaseValidator)
+					{
+						BaseValidator validator = (BaseValidator)childControl;
+						validator.ErrorMessage = localizedText;
+					}
+				}
+				// Recursive translate childcontrols
+				LocalizeControls(childControl);
+			}
+		}
+
+		/// <summary>
 		/// Recursively databind controls that might have localized texts.
 		/// </summary>
 		protected void BindResources()
