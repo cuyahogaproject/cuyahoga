@@ -24,8 +24,8 @@
 						<td><asp:checkbox id="chkShowTitle" runat="server"></asp:checkbox></td>
 					</tr>
 					<tr>
-						<td style="HEIGHT: 16px">Module</td>
-						<td style="HEIGHT: 16px">
+						<td>Module</td>
+						<td>
 							<asp:dropdownlist id="ddlModule" runat="server" autopostback="True" visible="False"></asp:dropdownlist>
 							<asp:label id="lblModule" runat="server" visible="False"></asp:label>
 						</td>
@@ -51,6 +51,28 @@
 					<asp:placeholder id="plcCustomSettings" runat="server" />
 				</table>
 			</div>
+			<asp:panel id="pnlConnections" cssclass="group" runat="server" visible="False">
+				<h4>Connections</h4>
+				<table class="tbl">
+					<asp:repeater id="rptConnections" runat="server">
+						<headertemplate>
+							<tr>
+								<th>To section</th>
+								<th>Action</th>
+								<th></th>
+							</tr>
+						</headertemplate>
+						<itemtemplate>
+							<tr>
+								<td><%# DataBinder.Eval(Container.DataItem, "Value.FullName") %></td>
+								<td><%# DataBinder.Eval(Container.DataItem, "Key") %></td>
+								<td><asp:linkbutton id="lbtDelete" runat="server" causesvalidation="False" commandname="DeleteConnection" commandargument='<%# DataBinder.Eval(Container.DataItem, "Key") %>'>Delete</asp:linkbutton></td>
+							</tr>
+						</itemtemplate>
+					</asp:repeater>
+				</table>
+				<asp:hyperlink id="hplNewConnection" runat="server">Add connection</asp:hyperlink>
+			</asp:panel>
 			<div class="group">
 				<h4>Authorization</h4>
 				<table class="tbl">

@@ -38,5 +38,12 @@
 			<element column="Value" type="String" length="100" />
 		</map>
 		
+		<map name="Connections" table="cuyahoga_sectionconnection" lazy="true" cascade="none">
+			<cache usage="read-write" />
+			<key column ="sectionidfrom" />
+			<index column="actionname" type="String" length="50" />
+			<many-to-many class="Cuyahoga.Core.Domain.Section, Cuyahoga.Core" column="sectionidto" />
+		</map>
+		
 	</class>
 </hibernate-mapping>

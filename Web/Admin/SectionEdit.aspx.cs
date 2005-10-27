@@ -1,7 +1,6 @@
 using System;
 using System.Collections;
 using System.ComponentModel;
-// using System.Data;
 using System.Drawing;
 using System.Web;
 using System.Web.SessionState;
@@ -10,6 +9,7 @@ using System.Web.UI.WebControls;
 using System.Web.UI.HtmlControls;
 
 using Cuyahoga.Core.Domain;
+using Cuyahoga.Core.Communication;
 using Cuyahoga.Web.UI;
 using Cuyahoga.Web.Admin.UI;
 
@@ -37,6 +37,9 @@ namespace Cuyahoga.Web.Admin
 		protected System.Web.UI.WebControls.Repeater rptRoles;
 		protected System.Web.UI.WebControls.Repeater rptCustomSettings;
 		protected System.Web.UI.WebControls.Button btnBack;
+		protected System.Web.UI.WebControls.Panel pnlConnections;
+		protected System.Web.UI.WebControls.HyperLink hplNewConnection;
+		protected System.Web.UI.WebControls.Repeater rptConnections;
 		protected System.Web.UI.WebControls.PlaceHolder plcCustomSettings;
 	
 		private void Page_Load(object sender, System.EventArgs e)
@@ -49,6 +52,7 @@ namespace Cuyahoga.Web.Admin
 				BindModules();
 				BindPlaceholders();
 				BindCustomSettings();
+				BindConnections();
 				BindRoles();
 			}		
 		}
@@ -225,6 +229,32 @@ namespace Cuyahoga.Web.Admin
 			}
 		}
 
+		private void BindConnections()
+		{
+			// First test if connections are possible
+			if (this._activeSection.ModuleType != null)
+			{
+				ModuleBase moduleInstance = this._activeSection.CreateModule(null);
+				if (moduleInstance is IActionProvider)
+				{
+					IActionProvider actionProvider = (IActionProvider)moduleInstance;
+					// OK, show connections panel
+					this.pnlConnections.Visible = true;
+					this.rptConnections.DataSource = this._activeSection.Connections;
+					this.rptConnections.DataBind();
+					if (this._activeSection.Connections.Count < actionProvider.GetOutboundActions().Count)
+					{
+						this.hplNewConnection.Visible = true;
+						this.hplNewConnection.NavigateUrl = String.Format("~/Admin/ConnectionEdit.aspx?NodeId={0}&SectionId={1}", this.ActiveNode.Id, this._activeSection.Id);
+					}
+					else
+					{
+						this.hplNewConnection.Visible = false;
+					}
+				}
+			}
+		}
+
 		private void BindRoles()
 		{
 			IList roles = base.CoreRepository.GetAll(typeof(Role), "PermissionLevel");
@@ -333,6 +363,7 @@ namespace Cuyahoga.Web.Admin
 		/// </summary>
 		private void InitializeComponent()
 		{    
+			this.rptConnections.ItemCommand += new System.Web.UI.WebControls.RepeaterCommandEventHandler(this.rptConnections_ItemCommand);
 			this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
 			this.btnBack.Click += new System.EventHandler(this.btnBack_Click);
 			this.Load += new System.EventHandler(this.Page_Load);
@@ -415,6 +446,25 @@ namespace Cuyahoga.Web.Admin
 				}
 				// Add RoleId to the ViewState with the ClientID of the repeateritem as key.
 				this.ViewState[e.Item.ClientID] = role.Id;
+			}
+		}
+
+		private void rptConnections_ItemCommand(object source, System.Web.UI.WebControls.RepeaterCommandEventArgs e)
+		{
+			if (e.CommandName == "DeleteConnection")
+			{
+				string actionName = e.CommandArgument.ToString();
+
+				try
+				{
+					this._activeSection.Connections.Remove(actionName);
+					base.CoreRepository.UpdateObject(this._activeSection);
+				}
+				catch (Exception ex)
+				{
+					ShowError(ex.Message);
+				}
+				BindConnections();
 			}
 		}
 	}

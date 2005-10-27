@@ -50,5 +50,22 @@ namespace Cuyahoga.Core.Communication
 		{
 			return this.List.Contains(action);
 		}
+
+		/// <summary>
+		/// Find a specific action in the list.
+		/// </summary>
+		/// <param name="name"></param>
+		/// <returns></returns>
+		public Action FindByName(string name)
+		{
+			foreach (Action action in this.List)
+			{
+				if (action.Name == name)
+				{
+					return action;
+				}
+			}
+			return null;
+		}
 	}
 }

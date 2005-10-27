@@ -555,6 +555,36 @@ namespace Cuyahoga.Core.Service
 
 		#endregion
 
+		#region ModuleType specific
+
+		/// <summary>
+		/// Get all Sections that have modules of the given ModuleTypes.
+		/// </summary>
+		/// <param name="moduleTypes"></param>
+		/// <returns></returns>
+		public IList GetSectionsByModuleTypes(IList moduleTypes)
+		{
+			if (moduleTypes.Count > 0)
+			{
+				string[] ids = new string[moduleTypes.Count];
+				int idx = 0;
+				foreach (ModuleType mt in moduleTypes)
+				{
+					ids[idx] = mt.ModuleTypeId.ToString();
+					idx++;
+				}
+				string hql = "from Section s where s.ModuleType.ModuleTypeId in (" + String.Join(",", ids) + ")";
+				IQuery q = this._activeSession.CreateQuery(hql);
+				return q.List();
+			}
+			else
+			{
+				return null;
+			}
+		}
+
+		#endregion
+
 		#region User specific
 
 		/// <summary>

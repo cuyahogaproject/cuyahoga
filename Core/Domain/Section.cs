@@ -19,8 +19,10 @@ namespace Cuyahoga.Core.Domain
 		private bool _showTitle;
 		private ModuleType _moduleType;
 		private Node _node;
+		private Template _template;
 		private IList _sectionPermissions;
 		private IDictionary _settings;
+		private IDictionary _connections;
 
 		#region properties
 
@@ -97,12 +99,37 @@ namespace Cuyahoga.Core.Domain
 		}
 
 		/// <summary>
-		/// Property Node (Node)
+		/// The Node where this Section belongs to. A Section can belong to either a Node or a Template or is
+		/// 'left alone' (detached).
 		/// </summary>
 		public virtual Node Node
 		{
 			get { return this._node; }
-			set { this._node = value; }
+			set 
+			{
+				if (value != null)
+				{
+					this._template = null;
+				}
+				this._node = value; 
+			}
+		}
+
+		/// <summary>
+		/// The Template where this Section belongs to. A Section can belong to a Node or a Template or is
+		/// 'left alone' (detached).
+		/// </summary>
+		public virtual Template Template
+		{
+			get { return this._template; }
+			set 
+			{
+				if (value != null)
+				{
+					this._node = null;
+				}
+				this._template = value;
+			}
 		}
 
 		/// <summary>
@@ -123,6 +150,18 @@ namespace Cuyahoga.Core.Domain
 			set { this._settings = value; }
 		}
 
+		/// <summary>
+		/// Connection points to other sections. The keys are actions and the values the other sections.
+		/// </summary>
+		public virtual IDictionary Connections
+		{
+			get { return this._connections; }
+			set { this._connections = value; }
+		}
+
+		/// <summary>
+		/// Can anonymous visitors view the content of this section?
+		/// </summary>
 		public virtual bool AnonymousViewAllowed
 		{
 			get
@@ -135,6 +174,26 @@ namespace Cuyahoga.Core.Domain
 					}
 				}
 				return false;
+			}
+		}
+
+		/// <summary>
+		/// The full display name of the section.
+		/// </summary>
+		public virtual string FullName
+		{
+			get 
+			{
+				string prefix = String.Empty;
+				if (this.Node != null)
+				{
+					prefix = this.Node.Title;
+				}
+				else if (this.Template != null)
+				{
+					prefix = this.Template.Name + "(Template)";
+				}
+				return prefix + " - " + this._title + " - " + this.ModuleType.Name;
 			}
 		}
 
@@ -175,6 +234,7 @@ namespace Cuyahoga.Core.Domain
 			this._cacheDuration = 0;
 			this._sectionPermissions = new ArrayList();
 			this._settings = new Hashtable();
+			this._connections = new Hashtable();
 		}
 
 		#endregion

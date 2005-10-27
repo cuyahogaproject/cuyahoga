@@ -56,22 +56,28 @@ namespace Cuyahoga.Core.Communication
 				}
 				else
 				{
-					if (this._parameters.Length != otherAction.Parameters.Length)
+					if (this._parameters == null)
 					{
-						isEqual = false;
+						isEqual = otherAction.Parameters == null;
 					}
 					else
 					{
-						for (int i = 0; i < this._parameters.Length; i++)
+						if (this._parameters.Length == otherAction.Parameters.Length)
 						{
-							if (this._parameters[i] != otherAction.Parameters[i])
+							for (int i = 0; i < this._parameters.Length; i++)
 							{
-								isEqual = false;
+								if (this._parameters[i] != otherAction.Parameters[i])
+								{
+									isEqual = false;
+								}
 							}
+						}
+						else
+						{
+							isEqual = false;
 						}
 					}
 				}
-
 				return isEqual;
 			}
 			else

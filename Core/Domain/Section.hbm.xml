@@ -12,14 +12,17 @@
 		</id>
 		<timestamp name="UpdateTimestamp" column="updatetimestamp" />
 
-		<property name="Title" column="title" type="String" length="100" />
-		<property name="PlaceholderId" column="placeholder" type="String" length="100" not-null="false" />
-		<property name="Position" column="position" type="Int32" />
-		<property name="CacheDuration" column="cacheduration" type="Int32" not-null="false" />
-		<property name="ShowTitle" column="showtitle" type="Boolean" not-null="false" />
+		<property name="Title" column="title" type="String" length="100" not-null="true" />
+		<property name="PlaceholderId" column="placeholder" type="String" length="100" />
+		<property name="Position" column="position" type="Int32" not-null="true" />
+		<property name="CacheDuration" column="cacheduration" type="Int32" />
+		<property name="ShowTitle" column="showtitle" type="Boolean" />
 		
-		<many-to-one name="Node" class="Cuyahoga.Core.Domain.Node, Cuyahoga.Core" column="nodeid" not-null="false" />
-		<many-to-one name="ModuleType" class="Cuyahoga.Core.Domain.ModuleType, Cuyahoga.Core" column="moduletypeid" outer-join="true" />
+		<many-to-one name="Node" class="Cuyahoga.Core.Domain.Node, Cuyahoga.Core" column="nodeid" />
+		<!-- TODO
+		<many-to-one name="Template" class="Cuyahoga.Core.Domain.Template, Cuyahoga.Core" column="templatedid" />
+		-->
+		<many-to-one name="ModuleType" class="Cuyahoga.Core.Domain.ModuleType, Cuyahoga.Core" column="moduletypeid" outer-join="true" not-null="true" />
 		
 		<bag name="SectionPermissions" cascade="all" lazy="true" table="cuyahoga_sectionrole">
 			<cache usage="read-write" />
@@ -37,6 +40,13 @@
 		    <key column="sectionid" />
 		    <index column="Name" type="String" length="50" />
 			<element column="Value" type="String" length="100" />
+		</map>
+		
+		<map name="Connections" table="cuyahoga_sectionconnection" lazy="true" cascade="none">
+			<cache usage="read-write" />
+			<key column ="sectionidfrom" />
+			<index column="actionname" type="String" length="50" />
+			<many-to-many class="Cuyahoga.Core.Domain.Section, Cuyahoga.Core" column="sectionidto" />
 		</map>
 		
 	</class>

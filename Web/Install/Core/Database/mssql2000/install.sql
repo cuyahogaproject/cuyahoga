@@ -160,6 +160,16 @@ go
 CREATE UNIQUE INDEX IX_sectionsetting_sectionid_name ON cuyahoga_sectionsetting (sectionid,name)
 go
 
+CREATE TABLE cuyahoga_sectionconnection(
+sectionconnectionid int identity(1,1) NOT NULL CONSTRAINT PK_sectionconnection PRIMARY KEY,
+sectionidfrom int NOT NULL,
+sectionidto int NOT NULL,
+actionname nvarchar(50) NOT NULL)
+go
+
+CREATE UNIQUE INDEX IX_sectionconnection_sectionidfrom_actionname ON cuyahoga_sectionconnection (sectionidfrom, actionname)
+go
+
 CREATE TABLE cuyahoga_noderole(
 noderoleid int identity(1,1) NOT NULL CONSTRAINT PK_noderole PRIMARY KEY,
 nodeid int NOT NULL,
@@ -280,6 +290,15 @@ ADD CONSTRAINT FK_sectionsetting_section_sectionid
 FOREIGN KEY (sectionid) REFERENCES cuyahoga_section (sectionid)
 go
 
+ALTER TABLE cuyahoga_sectionconnection
+ADD CONSTRAINT FK_sectionconnection_section_sectionidfrom
+FOREIGN KEY (sectionidfrom) REFERENCES cuyahoga_section (sectionid)
+go
+
+ALTER TABLE cuyahoga_sectionconnection
+ADD CONSTRAINT FK_sectionconnection_section_sectionidto
+FOREIGN KEY (sectionidto) REFERENCES cuyahoga_section (sectionid)
+go
 
 ALTER TABLE cuyahoga_noderole
 ADD CONSTRAINT FK_noderole_node_nodeid
@@ -336,5 +355,5 @@ SET IDENTITY_INSERT cuyahoga_template OFF
 GO
 
 
-INSERT INTO cuyahoga_version (assembly, major, minor, patch) VALUES ('Cuyahoga.Core', 0, 9, 0)
+INSERT INTO cuyahoga_version (assembly, major, minor, patch) VALUES ('Cuyahoga.Core', 0, 9, 1)
 GO

@@ -77,9 +77,9 @@ namespace Cuyahoga.Modules.User
 		{
 			this._inboundActions = new ActionCollection();
 			this._inboundActions.Add(new Action("ViewProfile", new string[1] {"UserId"}));
-			this._inboundActions.Add(new Action("EditProfile", new string[0]));
-			this._inboundActions.Add(new Action("Register", new string[0]));
-			this._inboundActions.Add(new Action("ResetPassword", new string[0]));
+			this._inboundActions.Add(new Action("EditProfile", null));
+			this._inboundActions.Add(new Action("Register", null));
+			this._inboundActions.Add(new Action("ResetPassword", null));
 		}
 
 		#region IActionConsumer Members

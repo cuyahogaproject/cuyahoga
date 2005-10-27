@@ -32,9 +32,9 @@ namespace Cuyahoga.Modules.User
 		{
 			this._outboundActions = new ActionCollection();
 			this._outboundActions.Add(new Action("ViewProfile", new string[1] {"UserId"}));
-			this._outboundActions.Add(new Action("EditProfile", new string[0]));
-			this._outboundActions.Add(new Action("Register", new string[0]));
-			this._outboundActions.Add(new Action("ResetPassword", new string[0]));
+			this._outboundActions.Add(new Action("EditProfile", null));
+			this._outboundActions.Add(new Action("Register", null));
+			this._outboundActions.Add(new Action("ResetPassword", null));
 		}
 
 		#region IActionProvider Members

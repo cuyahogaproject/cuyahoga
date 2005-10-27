@@ -156,6 +156,18 @@ CONSTRAINT FK_sectionsetting_section_sectionid FOREIGN KEY (sectionid) REFERENCE
 
 CREATE UNIQUE INDEX IX_sectionsetting_sectionid_name ON cuyahoga_sectionsetting (sectionid,name);
 
+
+CREATE TABLE cuyahoga_sectionconnection(
+sectionconnectionid serial NOT NULL CONSTRAINT PK_sectionconnection PRIMARY KEY,
+sectionidfrom int4 NOT NULL,
+sectionidto int4 NOT NULL,
+actionname varchar(50) NOT NULL,
+CONSTRAINT FK_sectionconnection_section_sectionidfrom FOREIGN KEY (sectionidfrom) REFERENCES cuyahoga_section (sectionid),
+CONSTRAINT FK_sectionconnection_section_sectionidto FOREIGN KEY (sectionidto) REFERENCES cuyahoga_section (sectionid));
+
+CREATE UNIQUE INDEX IX_sectionconnection_sectionidfrom_actionname ON cuyahoga_sectionconnection (sectionidfrom, actionname);
+
+
 CREATE TABLE cuyahoga_noderole(
 noderoleid serial NOT NULL CONSTRAINT PK_noderole PRIMARY KEY,
 nodeid int4 NOT NULL,
@@ -197,4 +209,4 @@ INSERT INTO cuyahoga_template (templateid, name, basepath, templatecontrol, css,
 INSERT INTO cuyahoga_template (templateid, name, basepath, templatecontrol, css, inserttimestamp, updatetimestamp) VALUES (3, 'Cuyahoga New', 'Templates/Default', 'CuyahogaNew.ascx', 'red-new.css', '2004-01-26 21:52:52.365', '2004-01-26 21:52:52.365');
 INSERT INTO cuyahoga_template (templateid, name, basepath, templatecontrol, css, inserttimestamp, updatetimestamp) VALUES (4, 'Another Red', 'Templates/AnotherRed', 'Cuyahoga.ascx', 'red.css', '2004-01-26 21:52:52.365', '2004-01-26 21:52:52.365');
 
-INSERT INTO cuyahoga_version (assembly, major, minor, patch) VALUES ('Cuyahoga.Core', 0, 9, 0);
+INSERT INTO cuyahoga_version (assembly, major, minor, patch) VALUES ('Cuyahoga.Core', 0, 9, 1);
