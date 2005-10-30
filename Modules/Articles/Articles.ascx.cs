@@ -9,6 +9,7 @@ namespace Cuyahoga.Modules.Articles
 	using System.Text.RegularExpressions;
 
 	using Cuyahoga.Core.Util;
+	using Cuyahoga.Core.Domain;
 	using Cuyahoga.Web.UI;
 	using Cuyahoga.Web.Util;
 	using Cuyahoga.Modules.Articles;
@@ -119,6 +120,20 @@ namespace Cuyahoga.Modules.Articles
 			}
 		}
 
+		private string GetProfileUrl(int userId)
+		{
+			Section sectionTo = this._module.Section.Connections["ViewProfile"] as Section;
+			if (sectionTo != null)
+			{
+				return UrlHelper.GetUrlFromSection(sectionTo) + "/ViewProfile/" + userId.ToString();
+			}
+			else
+			{
+				// for backward compatibility
+				return this.Page.ResolveUrl(String.Format("~/Profile.aspx/view/{0}", userId));
+			}
+		}
+
 		#region Web Form Designer generated code
 		override protected void OnInit(EventArgs e)
 		{
@@ -154,7 +169,7 @@ namespace Cuyahoga.Modules.Articles
 				litDateOnline.Text = 
 					TimeZoneUtil.AdjustDateToUserTimeZone(article.DateOnline, this.Page.User.Identity).ToLongDateString();
 				HyperLink hplAuthor = e.Item.FindControl("hplAuthor") as HyperLink;
-				hplAuthor.NavigateUrl = this.Page.ResolveUrl(String.Format("~/Profile.aspx/view/{0}", article.CreatedBy.Id));
+				hplAuthor.NavigateUrl = GetProfileUrl(article.CreatedBy.Id);
 				hplAuthor.Text = article.CreatedBy.FullName;
 
 				HyperLink hplCategory = e.Item.FindControl("hplCategory") as HyperLink;
@@ -240,7 +255,7 @@ namespace Cuyahoga.Modules.Articles
 					if (comment.User.Website != null && comment.User.Website != String.Empty)
 					{
 						HyperLink hpl = new HyperLink();
-						hpl.NavigateUrl = this.Page.ResolveUrl(String.Format("~/Profile.aspx/view/{0}", comment.User.Id));
+						hpl.NavigateUrl = GetProfileUrl(comment.User.Id);
 						hpl.Text = comment.User.FullName;
 						plhCommentBy.Controls.Add(hpl);
 					}

@@ -16,7 +16,7 @@ namespace Cuyahoga.Modules.User
 	/// </summary>
 	public class ViewProfile : BaseModuleControl
 	{
-		private int _userId;
+		private ProfileModule _module;
 
 		protected System.Web.UI.WebControls.Literal litTitle;
 		protected System.Web.UI.WebControls.Label lblUsername;
@@ -27,22 +27,14 @@ namespace Cuyahoga.Modules.User
 		protected System.Web.UI.WebControls.Label lblError;
 		protected System.Web.UI.WebControls.Label lblLastname;
 
-		/// <summary>
-		/// Property UserId (int)
-		/// </summary>
-		public int UserId
-		{
-			set { this._userId = value; }
-		}
-
 		private void Page_Load(object sender, System.EventArgs e)
 		{
-			if (this.Page is GeneralPage && this._userId > 0)
+			this._module = base.Module as ProfileModule;
+			if (this._module.CurrentUserId > 0)
 			{
-				GeneralPage page = (GeneralPage)this.Page;
 				try
 				{
-					Cuyahoga.Core.Domain.User user = (Cuyahoga.Core.Domain.User)page.CoreRepository.GetObjectById(typeof(User), this._userId);
+					Cuyahoga.Core.Domain.User user = (Cuyahoga.Core.Domain.User)base.PageEngine.CoreRepository.GetObjectById(typeof(Cuyahoga.Core.Domain.User), this._module.CurrentUserId);
 					this.litTitle.Text = String.Format(GetText("VIEWPROFILETITLE"), user.UserName);
 					BindUser(user);
 					if (! this.IsPostBack)
@@ -53,7 +45,7 @@ namespace Cuyahoga.Modules.User
 				}
 				catch
 				{
-					this.lblError.Text = String.Format(GetText("USERNOTFOUND"), this._userId.ToString());
+					this.lblError.Text = String.Format(GetText("USERNOTFOUND"), this._module.CurrentUserId.ToString());
 					this.lblError.Visible = true;
 				}
 			}

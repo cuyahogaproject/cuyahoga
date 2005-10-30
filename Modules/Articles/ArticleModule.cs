@@ -11,13 +11,14 @@ using Cuyahoga.Core.Domain;
 using Cuyahoga.Core.Service;
 using Cuyahoga.Core.Search;
 using Cuyahoga.Core.Util;
+using Cuyahoga.Core.Communication;
 
 namespace Cuyahoga.Modules.Articles
 {
 	/// <summary>
 	/// The ArticleModule provides a news system (articles, comments, content expiration, rss feed).
 	/// </summary>
-	public class ArticleModule : ModuleBase, ISyndicatable, ISearchable
+	public class ArticleModule : ModuleBase, ISyndicatable, ISearchable, IActionProvider
 	{
 		private int _currentArticleId;
 		private int _currentCategoryId;
@@ -547,6 +548,24 @@ namespace Cuyahoga.Modules.Articles
 			{
 				ContentUpdated(this, e);
 			}
+		}
+
+		#endregion
+
+		#region IActionProvider Members
+		
+		/// <summary>
+		/// Returns a list of outbound actions.
+		/// </summary>
+		/// <returns></returns>
+		public ActionCollection GetOutboundActions()
+		{
+			ActionCollection actions = new ActionCollection();
+			// This action is for example compatible with the ViewProfile inbound action of 
+			// the ProfileModule but it's also possible to write your own Profile module that
+			// has a compatible inbound action.
+			actions.Add(new Action("ViewProfile", new string[1] {"UserId"}));
+			return actions;
 		}
 
 		#endregion

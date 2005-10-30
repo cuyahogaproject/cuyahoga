@@ -10,8 +10,9 @@ namespace Cuyahoga.Modules.User
 	using System.Globalization;
 
 	using Cuyahoga.Web.UI;
+	using Cuyahoga.Web.Util;
 	using Cuyahoga.Web.HttpModules;
-	using Cuyahoga.Core;
+	using Cuyahoga.Core.Domain;
 
 	/// <summary>
 	///	Module to enable authentication and user sign-up etc.
@@ -69,14 +70,58 @@ namespace Cuyahoga.Modules.User
 
 				this.pnlLogin.Visible = ! isAuthenticated;
 				this.pnlUserInfo.Visible = isAuthenticated;
-				this.hplRegister.NavigateUrl = this.Page.ResolveUrl("~/Profile.aspx/register");
 				this.hplRegister.Visible = this._showRegister;
-				this.hplResetPassword.NavigateUrl = this.Page.ResolveUrl("~/Profile.aspx/reset");
 				this.hplResetPassword.Visible = this._showResetPassword;
-				this.hplEdit.NavigateUrl = this.Page.ResolveUrl("~/Profile.aspx/edit");
 				this.hplEdit.Visible = this._showEditProfile;
+				BindLinks();
 				Translate();
 			}
+		}
+
+		private void BindLinks()
+		{
+			// Keep static links to Profile.aspx in case there are no connections for
+			// backward compatibility.
+			Section sectionTo = this._module.Section.Connections["Register"] as Section;
+			if (sectionTo != null)
+			{
+				this.hplRegister.NavigateUrl = UrlHelper.GetUrlFromSection(sectionTo) + "/Register";
+			}
+			else
+			{
+				this.hplRegister.NavigateUrl = this.Page.ResolveUrl("~/Profile.aspx/register");
+			}
+			sectionTo = this._module.Section.Connections["ResetPassword"] as Section;
+			if (sectionTo != null)
+			{
+				this.hplResetPassword.NavigateUrl = UrlHelper.GetUrlFromSection(sectionTo) + "/ResetPassword";
+			}
+			else
+			{
+				this.hplResetPassword.NavigateUrl = this.Page.ResolveUrl("~/Profile.aspx/reset");
+			}
+			sectionTo = this._module.Section.Connections["EditProfile"] as Section;
+			if (sectionTo != null)
+			{
+				this.hplEdit.NavigateUrl = UrlHelper.GetUrlFromSection(sectionTo) + "/EditProfile";
+			}
+			else
+			{
+				this.hplEdit.NavigateUrl = this.Page.ResolveUrl("~/Profile.aspx/edit");
+			}
+		}
+
+		private void Translate()
+		{
+			this.lblUsername.Text = base.GetText("USERNAME");
+			this.lblPassword.Text = base.GetText("PASSWORD");
+			this.lblLoggedInText.Text = base.GetText("LOGGEDINTEXT");
+			this.btnLogin.Text = base.GetText("LOGIN");
+			this.btnLogout.Text = base.GetText("LOGOUT");	
+			this.hplRegister.Text = base.GetText("REGISTER");
+			this.hplResetPassword.Text = base.GetText("RESET");
+			this.hplEdit.Text = base.GetText("EDITACCOUNT");
+			this.chkPersistLogin.Text = base.GetText("PERSISTLOGIN");
 		}
 
 		#region Web Form Designer generated code
@@ -102,18 +147,7 @@ namespace Cuyahoga.Modules.User
 		}
 		#endregion
 
-		private void Translate()
-		{
-			this.lblUsername.Text = base.GetText("USERNAME");
-			this.lblPassword.Text = base.GetText("PASSWORD");
-			this.lblLoggedInText.Text = base.GetText("LOGGEDINTEXT");
-			this.btnLogin.Text = base.GetText("LOGIN");
-			this.btnLogout.Text = base.GetText("LOGOUT");	
-			this.hplRegister.Text = base.GetText("REGISTER");
-			this.hplResetPassword.Text = base.GetText("RESET");
-			this.hplEdit.Text = base.GetText("EDITACCOUNT");
-			this.chkPersistLogin.Text = base.GetText("PERSISTLOGIN");
-		}
+		
 
 		private void btnLogin_Click(object sender, System.EventArgs e)
 		{

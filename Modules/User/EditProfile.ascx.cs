@@ -19,7 +19,6 @@ namespace Cuyahoga.Modules.User
 	public class EditProfile : BaseModuleControl
 	{
 		private const string USER_CACHE_PREFIX = "User_";
-		private GeneralPage _page;
 
 		protected System.Web.UI.WebControls.Label lblError;
 		protected System.Web.UI.WebControls.Label lblUsername;
@@ -55,10 +54,6 @@ namespace Cuyahoga.Modules.User
 					BindUser();
 					// Databind is required to bind the localized resources.
 					base.BindResources();
-				}
-				if (this.Page is GeneralPage)
-				{
-					this._page = (GeneralPage)this.Page;
 				}
 			}
 		}
@@ -131,7 +126,7 @@ namespace Cuyahoga.Modules.User
 				try
 				{
 					// Save user
-					this._page.CoreRepository.UpdateObject(currentUser);
+					base.PageEngine.CoreRepository.UpdateObject(currentUser);
 					// Remove old user from the cache
 					HttpContext.Current.Cache.Remove(USER_CACHE_PREFIX + currentUser.Id.ToString());
 					ShowMessage(GetText("EDITPROFILECONFIRMATION"));
@@ -169,7 +164,7 @@ namespace Cuyahoga.Modules.User
 				}
 				currentUser.Password = Cuyahoga.Core.Domain.User.HashPassword(this.txtNewPassword.Text);
 				// Save user
-				this._page.CoreRepository.UpdateObject(currentUser);
+				base.PageEngine.CoreRepository.UpdateObject(currentUser);
 				// Remove old user from the cache
 				HttpContext.Current.Cache.Remove(USER_CACHE_PREFIX + currentUser.Id.ToString());
 				ShowMessage(GetText("EDITPASSWORDCONFIRMATION"));

@@ -17,8 +17,6 @@ namespace Cuyahoga.Modules.User
 	/// </summary>
 	public class ResetPassword : BaseModuleControl
 	{
-		private GeneralPage _page;
-
 		protected System.Web.UI.WebControls.Label lblError;
 		protected System.Web.UI.WebControls.TextBox txtUsername;
 		protected System.Web.UI.WebControls.RequiredFieldValidator rfvUsername;
@@ -36,10 +34,6 @@ namespace Cuyahoga.Modules.User
 			{
 				// Databind is required to bind the localized resources.
 				this.DataBind();
-			}
-			if (this.Page is GeneralPage)
-			{
-				this._page = (GeneralPage)this.Page;
 			}
 		}
 
@@ -70,7 +64,7 @@ namespace Cuyahoga.Modules.User
 			if (this.Page.IsValid)
 			{
 				// Check if the username and email combination exists.
-				Cuyahoga.Core.Domain.User user = this._page.CoreRepository.GetUserByUsernameAndEmail(this.txtUsername.Text, this.txtEmail.Text);
+				Cuyahoga.Core.Domain.User user = base.PageEngine.CoreRepository.GetUserByUsernameAndEmail(this.txtUsername.Text, this.txtEmail.Text);
 				if (user == null)
 				{
 					this.lblError.Text = GetText("RESETUSERERROR");
@@ -78,11 +72,11 @@ namespace Cuyahoga.Modules.User
 				}
 				else
 				{
-					Site site = this._page.ActiveNode.Site;
+					Site site = base.PageEngine.ActiveNode.Site;
 					// OK, reset password
 					string prevPassword = user.Password;
 					string newPassword = user.GeneratePassword();
-					this._page.CoreRepository.SaveObject(user);
+					base.PageEngine.CoreRepository.SaveObject(user);
 					
 					// Send email
 					string subject = GetText("RESETEMAILSUBJECT").Replace("{site}", site.Name);

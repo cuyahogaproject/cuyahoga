@@ -12,6 +12,15 @@ namespace Cuyahoga.Modules.User
 	{
 		private ProfileModuleAction _currentAction;
 		private ActionCollection _inboundActions;
+		private int _currentUserId;
+
+		/// <summary>
+		/// The ID of the current user (when the action is ViewProfile).
+		/// </summary>
+		public int CurrentUserId
+		{
+			get { return this._currentUserId; }
+		}
 
 		/// <summary>
 		/// Default constructor.
@@ -20,7 +29,8 @@ namespace Cuyahoga.Modules.User
 		public ProfileModule(Section section) : base(section)
 		{
 			// Set default action.
-			this._currentAction = ProfileModuleAction.ViewProfile;
+			this._currentAction = ProfileModuleAction.EditProfile;
+
 			InitInboundActions();
 		}
 
@@ -37,6 +47,11 @@ namespace Cuyahoga.Modules.User
 				{
 					this._currentAction = (ProfileModuleAction)Enum.Parse(typeof(ProfileModuleAction)
 						, base.ModuleParams[0], true);
+					if (this._currentAction == ProfileModuleAction.ViewProfile)
+					{
+						// The second paramter is the UserId
+						this._currentUserId = Int32.Parse(base.ModuleParams[1]);
+					}
 				}
 				catch (ArgumentException ex)
 				{

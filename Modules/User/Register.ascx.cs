@@ -17,8 +17,6 @@ namespace Cuyahoga.Modules.User
 	/// </summary>
 	public class Register : BaseModuleControl
 	{
-		private GeneralPage _page;
-
 		protected System.Web.UI.WebControls.TextBox txtUsername;
 		protected System.Web.UI.WebControls.TextBox txtEmail;
 		protected System.Web.UI.WebControls.Panel pnlRegister;
@@ -36,10 +34,6 @@ namespace Cuyahoga.Modules.User
 			{
 				// Databind is required to bind the localized resources.
 				this.DataBind();
-			}
-			if (this.Page is GeneralPage)
-			{
-				this._page = (GeneralPage)this.Page;
 			}
 		}
 
@@ -70,14 +64,14 @@ namespace Cuyahoga.Modules.User
 			if (this.Page.IsValid)
 			{
 				// Check if username already exists.
-				if (this._page.CoreRepository.FindUsersByUsername(this.txtUsername.Text).Count > 0)
+				if (base.PageEngine.CoreRepository.FindUsersByUsername(this.txtUsername.Text).Count > 0)
 				{
 					this.lblError.Text = String.Format(GetText("USEREXISTS"), this.txtUsername.Text);
 					this.lblError.Visible = true;
 				}
 				else
 				{
-					Site site = this._page.ActiveNode.Site;
+					Site site = base.PageEngine.ActiveNode.Site;
 					// OK, create new user.
 					Cuyahoga.Core.Domain.User user = new Cuyahoga.Core.Domain.User();
 					user.UserName = txtUsername.Text;
@@ -86,7 +80,7 @@ namespace Cuyahoga.Modules.User
 					string newPassword = user.GeneratePassword();
 					// Add the default role from the current site.
 					user.Roles.Add(site.DefaultRole);
-					this._page.CoreRepository.SaveObject(user);
+					base.PageEngine.CoreRepository.SaveObject(user);
 					
 					// Send email
 					string subject = GetText("REGISTEREMAILSUBJECT").Replace("{site}", site.Name);
@@ -101,7 +95,7 @@ namespace Cuyahoga.Modules.User
 					catch
 					{
 						// delete user when sending email fails.
-						this._page.CoreRepository.DeleteObject(user);
+						base.PageEngine.CoreRepository.DeleteObject(user);
 						this.lblError.Text = GetText("REGISTEREMAILERROR");
 						this.lblError.Visible = true;
 					}

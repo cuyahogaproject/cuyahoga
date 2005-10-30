@@ -15,6 +15,7 @@ namespace Cuyahoga.Web.UI
 	public class BaseModuleControl : LocalizedUserControl
 	{
 		private ModuleBase _module;
+		private PageEngine _pageEngine;
 		private string _cachedOutput;
 		private bool _displaySyndicationIcon;
 
@@ -34,6 +35,14 @@ namespace Cuyahoga.Web.UI
 		{
 			get { return this._displaySyndicationIcon; }
 			set { this._displaySyndicationIcon = value; }
+		}
+
+		/// <summary>
+		/// The PageEngine that serves as the context for the module controls.
+		/// </summary>
+		public PageEngine PageEngine
+		{
+			get { return this._pageEngine; }
 		}
 
 		/// <summary>
@@ -68,6 +77,10 @@ namespace Cuyahoga.Web.UI
 					// Found cached content.
 					this._cachedOutput = HttpContext.Current.Cache[this.Module.CacheKey].ToString();
 				}
+			}
+			if (this.Page is PageEngine)
+			{
+				this._pageEngine = (PageEngine)this.Page;
 			}
 			base.OnInit(e);
 		}
