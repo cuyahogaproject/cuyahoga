@@ -144,7 +144,7 @@
 								</td>
 								<td>
 									<asp:hyperlink id="hplEdit" runat="server">Edit</asp:hyperlink>
-									<asp:hyperlink id="hplDetach" runat="server">Detach</asp:hyperlink>
+									<asp:linkbutton id="lbtDetach" runat="server" causesvalidation="False" commandname="Detach" commandargument='<%# DataBinder.Eval(Container.DataItem, "Id") %>'>Detach</asp:linkbutton>
 									<asp:linkbutton id="lbtDelete" runat="server" causesvalidation="False" commandname="Delete" commandargument='<%# DataBinder.Eval(Container.DataItem, "Id") %>'>Delete</asp:linkbutton>
 								</td>
 							</tr>

@@ -582,28 +582,51 @@ namespace Cuyahoga.Web.Admin
 
 		private void rptSections_ItemCommand(object source, System.Web.UI.WebControls.RepeaterCommandEventArgs e)
 		{
-			if (e.CommandName == "Delete")
+			if (e.CommandName == "Delete" || e.CommandName == "Detach")
 			{
 				int sectionId = Int32.Parse(e.CommandArgument.ToString());
 				Section section = (Section)base.CoreRepository.GetObjectById(typeof(Section), sectionId);
-				section.Node = this.ActiveNode;
-				try
+
+				if (e.CommandName == "Delete")
 				{
-					// First tell the module to remove its content.
-					ModuleBase module = section.CreateModule(UrlHelper.GetUrlFromSection(section));
-					module.NHSessionRequired += new Cuyahoga.Core.Domain.ModuleBase.NHSessionEventHandler(module_NHSessionRequired);
-					module.DeleteModuleContent();
-					// Make sure there is no gap in the section indexes. 
-					// ABUSE: this method was not designed for this, but works fine.
-					section.ChangeAndUpdatePositionsAfterPlaceholderChange(section.PlaceholderId, section.Position, false);
-					// Now delete the Section.
-					this.ActiveNode.Sections.Remove(section);
-					base.CoreRepository.DeleteObject(section);
+					section.Node = this.ActiveNode;
+					try
+					{
+						// First tell the module to remove its content.
+						ModuleBase module = section.CreateModule(UrlHelper.GetUrlFromSection(section));
+						module.NHSessionRequired += new Cuyahoga.Core.Domain.ModuleBase.NHSessionEventHandler(module_NHSessionRequired);
+						module.DeleteModuleContent();
+						// Make sure there is no gap in the section indexes. 
+						// ABUSE: this method was not designed for this, but works fine.
+						section.ChangeAndUpdatePositionsAfterPlaceholderChange(section.PlaceholderId, section.Position, false);
+						// Now delete the Section.
+						this.ActiveNode.Sections.Remove(section);
+						base.CoreRepository.DeleteObject(section);
+					}
+					catch (Exception ex)
+					{
+						ShowError(ex.Message);
+						log.Error(String.Format("Error deleting section : {0}.", section.Id.ToString()), ex);
+					}
 				}
-				catch (Exception ex)
+				if (e.CommandName == "Detach")
 				{
-					ShowError(ex.Message);
-					log.Error(String.Format("Error deleting section : {0}.", section.Id.ToString()), ex);
+					try
+					{
+						// Make sure there is no gap in the section indexes. 
+						// ABUSE: this method was not designed for this, but works fine.
+						section.ChangeAndUpdatePositionsAfterPlaceholderChange(section.PlaceholderId, section.Position, false);
+						// Now detach the Section.
+						this.ActiveNode.Sections.Remove(section);
+						section.Node = null;
+						section.PlaceholderId = null;
+						base.CoreRepository.UpdateObject(section);
+					}
+					catch (Exception ex)
+					{
+						ShowError(ex.Message);
+						log.Error(String.Format("Error detaching section : {0}.", section.Id.ToString()), ex);
+					}
 				}
 				BindSections();
 			}

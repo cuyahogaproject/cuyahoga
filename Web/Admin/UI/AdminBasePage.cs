@@ -76,8 +76,11 @@ namespace Cuyahoga.Web.Admin.UI
 				if (sectionId > 0)
 				{
 					this._activeSection = (Section)base.CoreRepository.GetObjectById(typeof(Section), sectionId);
-					this._activeNode = this._activeSection.Node;
-					this._activeSite = this._activeNode.Site;
+					if (this._activeSection.Node != null)
+					{
+						this._activeNode = this._activeSection.Node;
+						this._activeSite = this._activeNode.Site;
+					}
 				}
 			}
 			if (Context.Request.QueryString["NodeId"] != null && this._activeNode == null)

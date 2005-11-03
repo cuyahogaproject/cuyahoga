@@ -164,36 +164,43 @@ namespace Cuyahoga.Web.Admin
 
 		private void BindPlaceholders()
 		{
-			if (this.ActiveNode.Template != null)
+			if (this.ActiveNode != null)
 			{
-				try
+				if (this.ActiveNode.Template != null)
 				{
-					// Read template control and get the containers (placeholders)
-					string templatePath = Util.UrlHelper.GetApplicationPath() + this.ActiveNode.Template.Path;
-					BaseTemplate template = (BaseTemplate)this.LoadControl(templatePath);
-					this.ddlPlaceholder.DataSource = template.Containers;
-					this.ddlPlaceholder.DataValueField = "Key";
-					this.ddlPlaceholder.DataTextField = "Key";
-					this.ddlPlaceholder.DataBind();
-					ListItem li = this.ddlPlaceholder.Items.FindByValue(this._activeSection.PlaceholderId);
-					if (this._activeSection.PlaceholderId != null 
-						&& this._activeSection.PlaceholderId != ""
-						&& li != null)
+					try
 					{
-						li.Selected = true;
+						// Read template control and get the containers (placeholders)
+						string templatePath = Util.UrlHelper.GetApplicationPath() + this.ActiveNode.Template.Path;
+						BaseTemplate template = (BaseTemplate)this.LoadControl(templatePath);
+						this.ddlPlaceholder.DataSource = template.Containers;
+						this.ddlPlaceholder.DataValueField = "Key";
+						this.ddlPlaceholder.DataTextField = "Key";
+						this.ddlPlaceholder.DataBind();
+						ListItem li = this.ddlPlaceholder.Items.FindByValue(this._activeSection.PlaceholderId);
+						if (this._activeSection.PlaceholderId != null 
+							&& this._activeSection.PlaceholderId != ""
+							&& li != null)
+						{
+							li.Selected = true;
+						}
+						// Create url for lookup
+						this.hplLookup.NavigateUrl = "javascript:;";
+						this.hplLookup.Attributes.Add("onClick"
+							, String.Format("window.open(\"TemplatePreview.aspx?TemplateId={0}&Control={1}\", \"Preview\", \"width=760 height=400\")"
+							, this.ActiveNode.Template.Id
+							, this.ddlPlaceholder.ClientID)
+							);
 					}
-					// Create url for lookup
-					this.hplLookup.NavigateUrl = "javascript:;";
-					this.hplLookup.Attributes.Add("onClick"
-						, String.Format("window.open(\"TemplatePreview.aspx?TemplateId={0}&Control={1}\", \"Preview\", \"width=760 height=400\")"
-						, this.ActiveNode.Template.Id
-						, this.ddlPlaceholder.ClientID)
-					);
+					catch (Exception ex)
+					{
+						this.ShowError(ex.Message);
+					}
 				}
-				catch (Exception ex)
-				{
-					this.ShowError(ex.Message);
-				}
+			}
+			else
+			{
+				this.ddlPlaceholder.Enabled = false;
 			}
 		}
 
@@ -245,7 +252,14 @@ namespace Cuyahoga.Web.Admin
 					if (this._activeSection.Connections.Count < actionProvider.GetOutboundActions().Count)
 					{
 						this.hplNewConnection.Visible = true;
-						this.hplNewConnection.NavigateUrl = String.Format("~/Admin/ConnectionEdit.aspx?NodeId={0}&SectionId={1}", this.ActiveNode.Id, this._activeSection.Id);
+						if (this.ActiveNode != null)
+						{
+							this.hplNewConnection.NavigateUrl = String.Format("~/Admin/ConnectionEdit.aspx?NodeId={0}&SectionId={1}", this.ActiveNode.Id, this._activeSection.Id);
+						}
+						else
+						{
+							this.hplNewConnection.NavigateUrl = String.Format("~/Admin/ConnectionEdit.aspx?SectionId={0}", this._activeSection.Id);
+						}
 					}
 					else
 					{
@@ -272,7 +286,14 @@ namespace Cuyahoga.Web.Admin
 			else
 			{
 				base.CoreRepository.SaveObject(this._activeSection);
-				Context.Response.Redirect(String.Format("NodeEdit.aspx?NodeId={0}", this.ActiveNode.Id));
+				if (this.ActiveNode != null)
+				{
+					Context.Response.Redirect(String.Format("NodeEdit.aspx?NodeId={0}", this.ActiveNode.Id));
+				}
+				else
+				{
+					Context.Response.Redirect("Sections.aspx");
+				}
 			}
 		}
 
@@ -373,7 +394,14 @@ namespace Cuyahoga.Web.Admin
 
 		private void btnBack_Click(object sender, System.EventArgs e)
 		{
-			Context.Response.Redirect(String.Format("NodeEdit.aspx?NodeId={0}", this.ActiveNode.Id));
+			if (this.ActiveNode != null)
+			{
+				Context.Response.Redirect(String.Format("NodeEdit.aspx?NodeId={0}", this.ActiveNode.Id));
+			}
+			else
+			{
+				Context.Response.Redirect("Sections.aspx");
+			}
 		}
 
 		private void btnSave_Click(object sender, System.EventArgs e)
@@ -389,7 +417,10 @@ namespace Cuyahoga.Web.Admin
 					this._activeSection.Title = this.txtTitle.Text;
 					this._activeSection.ShowTitle = this.chkShowTitle.Checked;
 					this._activeSection.Node = this.ActiveNode;
-					this._activeSection.Node.Sections.Add(this._activeSection);
+					if (this.ActiveNode != null)
+					{
+						this._activeSection.Node.Sections.Add(this._activeSection);
+					}
 					if (this.ddlModule.Visible)
 					{
 						this._activeSection.ModuleType = (ModuleType)CoreRepository.GetObjectById(
@@ -400,7 +431,9 @@ namespace Cuyahoga.Web.Admin
 
 					// Calculate new position if the section is new or when the PlaceholderId has changed
 					if (this._activeSection.Id == -1 || this._activeSection.PlaceholderId != oldPlaceholderId)
+					{
 						this._activeSection.CalculateNewPosition();
+					}
 
 					// Custom settings
 					SetCustomSettings();

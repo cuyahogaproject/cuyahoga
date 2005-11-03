@@ -126,6 +126,18 @@ namespace Cuyahoga.Web.Admin
 			}
 		}
 
+		private void RedirectToSectionEdit()
+		{
+			if (this.ActiveNode != null)
+			{
+				Context.Response.Redirect(String.Format("SectionEdit.aspx?NodeId={0}&SectionId={1}", this.ActiveNode.Id, this._activeSection.Id));
+			}
+			else
+			{
+				Context.Response.Redirect(String.Format("SectionEdit.aspx?SectionId={0}", this._activeSection.Id));
+			}
+		}
+
 		#region Web Form Designer generated code
 		override protected void OnInit(EventArgs e)
 		{
@@ -152,7 +164,7 @@ namespace Cuyahoga.Web.Admin
 
 		private void btnBack_Click(object sender, System.EventArgs e)
 		{
-			Context.Response.Redirect(String.Format("SectionEdit.aspx?NodeId={0}&SectionId={1}", this.ActiveNode.Id, this._activeSection.Id));
+			RedirectToSectionEdit();
 		}
 
 		private void ddlAction_SelectedIndexChanged(object sender, System.EventArgs e)
@@ -168,7 +180,8 @@ namespace Cuyahoga.Web.Admin
 			try
 			{
 				base.CoreRepository.UpdateObject(this._activeSection);
-				Context.Response.Redirect(String.Format("SectionEdit.aspx?NodeId={0}&SectionId={1}", this.ActiveNode.Id, this._activeSection.Id));
+
+				RedirectToSectionEdit();
 			}
 			catch (Exception ex)
 			{

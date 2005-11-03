@@ -19,9 +19,6 @@
 		<property name="ShowTitle" column="showtitle" type="Boolean" />
 		
 		<many-to-one name="Node" class="Cuyahoga.Core.Domain.Node, Cuyahoga.Core" column="nodeid" />
-		<!-- TODO
-		<many-to-one name="Template" class="Cuyahoga.Core.Domain.Template, Cuyahoga.Core" column="templatedid" />
-		-->
 		<many-to-one name="ModuleType" class="Cuyahoga.Core.Domain.ModuleType, Cuyahoga.Core" column="moduletypeid" outer-join="true" not-null="true" />
 		
 		<bag name="SectionPermissions" cascade="all" lazy="true" table="cuyahoga_sectionrole">

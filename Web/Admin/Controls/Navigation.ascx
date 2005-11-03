@@ -11,20 +11,27 @@
 <div class="navsection">
 	<h3>
 		<asp:image imageurl="../Images/modules.gif" runat="server" imagealign="absmiddle" id="i2"></asp:image>
+		Sections</h3>
+	<asp:hyperlink id="hplSections" navigateurl="../Sections.aspx" runat="server">Manage unrelated sections</asp:hyperlink>
+</div>
+<br>
+<div class="navsection">
+	<h3>
+		<asp:image imageurl="../Images/modules.gif" runat="server" imagealign="absmiddle" id="i3"></asp:image>
 		Modules</h3>
 	<asp:hyperlink id="hplModules" navigateurl="../Modules.aspx" runat="server">Manage modules</asp:hyperlink>
 </div>
 <br>
 <div class="navsection">
 	<h3>
-		<asp:image imageurl="../Images/docs.gif" runat="server" imagealign="absmiddle" id="i3"></asp:image>
+		<asp:image imageurl="../Images/docs.gif" runat="server" imagealign="absmiddle" id="i4"></asp:image>
 		Templates</h3>
 	<asp:hyperlink id="hplTemplates" navigateurl="../Templates.aspx" runat="server">Manage templates</asp:hyperlink>
 </div>
 <br>
 <div class="navsection">
 	<h3>
-		<asp:image imageurl="../Images/user.gif" runat="server" imagealign="absmiddle" id="i4"></asp:image>
+		<asp:image imageurl="../Images/user.gif" runat="server" imagealign="absmiddle" id="i5"></asp:image>
 		Users
 	</h3>
 	<asp:hyperlink id="hplUsers" navigateurl="../Users.aspx" runat="server">Manage users</asp:hyperlink>
@@ -32,7 +39,7 @@
 <br>
 <div class="navsection">
 	<h3>
-		<asp:image imageurl="../Images/users.gif" runat="server" imagealign="absmiddle" id="i5"></asp:image>
+		<asp:image imageurl="../Images/users.gif" runat="server" imagealign="absmiddle" id="i6"></asp:image>
 		Roles
 	</h3>
 	<asp:hyperlink id="hplRoles" navigateurl="../Roles.aspx" runat="server">Manage roles</asp:hyperlink>
@@ -40,7 +47,7 @@
 <br>
 <div class="navsection">
 	<h3>
-		<asp:image imageurl="../Images/search.gif" runat="server" imagealign="absmiddle" id="i6"></asp:image>
+		<asp:image imageurl="../Images/search.gif" runat="server" imagealign="absmiddle" id="i7"></asp:image>
 		Search
 	</h3>
 	<asp:hyperlink id="hplRebuild" navigateurl="../RebuildIndex.aspx" runat="server">Rebuild fulltext index</asp:hyperlink>

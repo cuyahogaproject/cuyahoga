@@ -553,6 +553,17 @@ namespace Cuyahoga.Core.Service
 			return q.List();
 		}
 
+		/// <summary>
+		/// Retrieve all sections that are not connected to a node.
+		/// </summary>
+		/// <returns></returns>
+		public IList GetUnconnectedSections()
+		{
+			string hql = "from Section s where s.Node is null order by s.Title";
+			IQuery q = this._activeSession.CreateQuery(hql);
+			return q.List();
+		}
+
 		#endregion
 
 		#region ModuleType specific

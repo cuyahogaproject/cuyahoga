@@ -19,7 +19,6 @@ namespace Cuyahoga.Core.Domain
 		private bool _showTitle;
 		private ModuleType _moduleType;
 		private Node _node;
-		private Template _template;
 		private IList _sectionPermissions;
 		private IDictionary _settings;
 		private IDictionary _connections;
@@ -105,31 +104,7 @@ namespace Cuyahoga.Core.Domain
 		public virtual Node Node
 		{
 			get { return this._node; }
-			set 
-			{
-				if (value != null)
-				{
-					this._template = null;
-				}
-				this._node = value; 
-			}
-		}
-
-		/// <summary>
-		/// The Template where this Section belongs to. A Section can belong to a Node or a Template or is
-		/// 'left alone' (detached).
-		/// </summary>
-		public virtual Template Template
-		{
-			get { return this._template; }
-			set 
-			{
-				if (value != null)
-				{
-					this._node = null;
-				}
-				this._template = value;
-			}
+			set { this._node = value; }
 		}
 
 		/// <summary>
@@ -188,10 +163,6 @@ namespace Cuyahoga.Core.Domain
 				if (this.Node != null)
 				{
 					prefix = this.Node.Title;
-				}
-				else if (this.Template != null)
-				{
-					prefix = this.Template.Name + "(Template)";
 				}
 				return prefix + " - " + this._title + " - " + this.ModuleType.Name;
 			}

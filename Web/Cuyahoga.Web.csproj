@@ -340,6 +340,22 @@
                     BuildAction = "EmbeddedResource"
                 />
                 <File
+                    RelPath = "Admin\SectionAttach.aspx"
+                    SubType = "Form"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Admin\SectionAttach.aspx.cs"
+                    DependentUpon = "SectionAttach.aspx"
+                    SubType = "ASPXCodeBehind"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "Admin\SectionAttach.aspx.resx"
+                    DependentUpon = "SectionAttach.aspx.cs"
+                    BuildAction = "EmbeddedResource"
+                />
+                <File
                     RelPath = "Admin\SectionEdit.aspx"
                     SubType = "Form"
                     BuildAction = "Content"
@@ -353,6 +369,22 @@
                 <File
                     RelPath = "Admin\SectionEdit.aspx.resx"
                     DependentUpon = "SectionEdit.aspx.cs"
+                    BuildAction = "EmbeddedResource"
+                />
+                <File
+                    RelPath = "Admin\Sections.aspx"
+                    SubType = "Form"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Admin\Sections.aspx.cs"
+                    DependentUpon = "Sections.aspx"
+                    SubType = "ASPXCodeBehind"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "Admin\Sections.aspx.resx"
+                    DependentUpon = "Sections.aspx.cs"
                     BuildAction = "EmbeddedResource"
                 />
                 <File

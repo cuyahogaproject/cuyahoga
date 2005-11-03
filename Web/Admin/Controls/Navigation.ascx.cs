@@ -47,9 +47,9 @@ namespace Cuyahoga.Web.Admin.Controls
 			{
 				this.plhNodes.Controls.Add(CreateDisplaySite(site));
 				DisplayNodes(site.RootNodes);
-				this.plhNodes.Controls.Add(new LiteralControl("<br />"));
+				this.plhNodes.Controls.Add(new LiteralControl("<br>"));
 				this.plhNodes.Controls.Add(CreateNewNodeControl(site));
-				this.plhNodes.Controls.Add(new LiteralControl("<br />"));
+				this.plhNodes.Controls.Add(new LiteralControl("<br>"));
 			}
 		}
 
