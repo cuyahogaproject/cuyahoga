@@ -375,6 +375,11 @@ namespace Cuyahoga.Web.Admin
 						this.ActiveNode.LinkUrl = this.txtLinkUrl.Text;
 						this.ActiveNode.LinkTarget = (LinkTarget)Enum.Parse(typeof(LinkTarget), this.ddlLinkTarget.SelectedValue);
 					}
+					else  // rabol: [#CUY-51] - Clear the link in the database
+					{
+						this.ActiveNode.LinkUrl = null;
+						this.ActiveNode.LinkTarget = LinkTarget.Self;
+					}
 					this.ActiveNode.Validate();
 					SetShortDescription();
 					SetRoles();
