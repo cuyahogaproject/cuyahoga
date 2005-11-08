@@ -297,7 +297,12 @@ namespace Cuyahoga.Web.UI
 				PlaceHolder plc = this._templateControl.Containers[menu.Placeholder] as PlaceHolder;
 				if (plc != null)
 				{
-					plc.Controls.Add(GetMenuControls(menu));
+					// rabol: [#CUY-57] fix.
+					Control menuControlList = GetMenuControls(menu);
+					if(menuControlList != null)
+					{
+						plc.Controls.Add(menuControlList);
+					}
 				}
 			}
 		}
