@@ -84,7 +84,6 @@ namespace Cuyahoga.Web.Admin
 
 				if (module is ISearchable)
 				{
-					module.NHSessionRequired += new Cuyahoga.Core.Domain.ModuleBase.NHSessionEventHandler(module_NHSessionRequired);
 					ISearchable searchableModule = (ISearchable)module;
 					try
 					{
@@ -125,11 +124,6 @@ namespace Cuyahoga.Web.Admin
 
 		}
 		#endregion
-
-		private void module_NHSessionRequired(object sender, Cuyahoga.Core.Domain.ModuleBase.NHSessionEventArgs e)
-		{
-			e.Session = base.CoreRepository.ActiveSession;
-		}
 
 		private void section_SessionFactoryRebuilt(object sender, EventArgs e)
 		{

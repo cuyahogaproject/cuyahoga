@@ -97,7 +97,6 @@ namespace Cuyahoga.Web.Admin
 				{
 					// First tell the module to remove its content.
 					ModuleBase module = section.CreateModule(UrlHelper.GetUrlFromSection(section));
-					module.NHSessionRequired += new Cuyahoga.Core.Domain.ModuleBase.NHSessionEventHandler(module_NHSessionRequired);
 					module.DeleteModuleContent();
 					// Now delete the Section.
 					base.CoreRepository.DeleteObject(section);
@@ -109,11 +108,6 @@ namespace Cuyahoga.Web.Admin
 				}
 			}
 			BindSections();
-		}
-
-		private void module_NHSessionRequired(object sender, Cuyahoga.Core.Domain.ModuleBase.NHSessionEventArgs e)
-		{
-			e.Session = base.CoreRepository.ActiveSession;
 		}
 	}
 }

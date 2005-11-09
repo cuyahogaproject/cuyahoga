@@ -1,11 +1,14 @@
 using System;
+using System.Web;
 
 using NHibernate;
+
+using Cuyahoga.Core.Service;
 
 namespace Cuyahoga.Core.Domain
 {
 	/// <summary>
-	/// The base class for all Cuyahoga modules
+	/// The base class for all Cuyahoga modules. 
 	/// </summary>
 	public abstract class ModuleBase
 	{
@@ -26,11 +29,10 @@ namespace Cuyahoga.Core.Domain
 			{ 
 				if (this._session == null)
 				{
-					// There is no NHibernate session. Raise an event to obtain the session
+					// There is no NHibernate session. Obtain the session
 					// stored in the current ASP.NET context.
-					NHSessionEventArgs args = new NHSessionEventArgs();
-					OnNHSessionRequired(args);
-					this._session = args.Session;
+					CoreRepository cr = HttpContext.Current.Items["CoreRepository"] as CoreRepository;
+					this._session = cr.ActiveSession;
 				}
 				return this._session;
 			}
@@ -95,7 +97,6 @@ namespace Cuyahoga.Core.Domain
 		public Section Section
 		{
 			get { return this._section; }
-			set { this._section = value; }
 		}
 
 		/// <summary>
@@ -108,9 +109,9 @@ namespace Cuyahoga.Core.Domain
 		}
 
 		/// <summary>
-		/// The default view user control.
+		/// The path of default view user control from the application root.
 		/// </summary>
-		public string DefaultViewControl
+		public string DefaultViewControlPath
 		{
 			get { return this._section.ModuleType.Path; }
 		}
@@ -118,9 +119,9 @@ namespace Cuyahoga.Core.Domain
 		/// <summary>
 		/// Override this property when a different view should be active based on some action.
 		/// </summary>
-		public virtual string CurrentViewControl
+		public virtual string CurrentViewControlPath
 		{
-			get { return this.DefaultViewControl; }
+			get { return this.DefaultViewControlPath; }
 		}
 
 		/// <summary>
@@ -187,39 +188,6 @@ namespace Cuyahoga.Core.Domain
 		{
 			// Do nothing here
 			return;
-		}
-
-		public class NHSessionEventArgs : EventArgs
-		{
-			private ISession _session;
-
-			/// <summary>
-			/// Property Session (ISession)
-			/// </summary>
-			public ISession Session
-			{
-				get { return this._session; }
-				set { this._session = value; }
-			}
-
-			/// <summary>
-			/// Default constructor.
-			/// </summary>
-			public NHSessionEventArgs()
-			{
-			}
-		}
-
-		public delegate void NHSessionEventHandler(object sender, NHSessionEventArgs e);
-
-		public event NHSessionEventHandler NHSessionRequired;
-
-		protected void OnNHSessionRequired(NHSessionEventArgs e)
-		{
-			if (NHSessionRequired != null)
-			{
-				NHSessionRequired(this, e);
-			}
 		}
 	}
 }

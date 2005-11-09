@@ -85,7 +85,6 @@ namespace Cuyahoga.Web.UI
 					this._section.Node = this._node;
 				}
 				this._module = this._section.CreateModule(UrlHelper.GetUrlFromSection(this._section));
-				this._module.NHSessionRequired += new ModuleBase.NHSessionEventHandler(Module_NHSessionRequired);
 			}
 			catch (Exception ex)
 			{
@@ -188,11 +187,6 @@ namespace Cuyahoga.Web.UI
 					break;
 			}
 			ib.Close();
-		}
-
-		private void Module_NHSessionRequired(object sender, Cuyahoga.Core.Domain.ModuleBase.NHSessionEventArgs e)
-		{
-			e.Session = base.CoreRepository.ActiveSession;
 		}
 
 		private void Section_SessionFactoryRebuilt(object sender, EventArgs e)

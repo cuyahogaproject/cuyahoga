@@ -570,11 +570,6 @@ namespace Cuyahoga.Web.Admin
 			}
 		}
 
-		private void module_NHSessionRequired(object sender, Cuyahoga.Core.Domain.ModuleBase.NHSessionEventArgs e)
-		{
-			e.Session = base.CoreRepository.ActiveSession;
-		}
-
 		private void rptMenus_ItemDataBound(object sender, System.Web.UI.WebControls.RepeaterItemEventArgs e)
 		{
 			CustomMenu menu = e.Item.DataItem as CustomMenu;
@@ -599,7 +594,6 @@ namespace Cuyahoga.Web.Admin
 					{
 						// First tell the module to remove its content.
 						ModuleBase module = section.CreateModule(UrlHelper.GetUrlFromSection(section));
-						module.NHSessionRequired += new Cuyahoga.Core.Domain.ModuleBase.NHSessionEventHandler(module_NHSessionRequired);
 						module.DeleteModuleContent();
 						// Make sure there is no gap in the section indexes. 
 						// ABUSE: this method was not designed for this, but works fine.

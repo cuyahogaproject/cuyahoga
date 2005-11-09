@@ -105,11 +105,6 @@
                     HintPath = "..\lib\log4net.dll"
                 />
                 <Reference
-                    Name = "NHibernate"
-                    AssemblyName = "NHibernate"
-                    HintPath = "..\lib\NHibernate.dll"
-                />
-                <Reference
                     Name = "Nullables"
                     AssemblyName = "Nullables"
                     HintPath = "..\lib\Nullables.dll"

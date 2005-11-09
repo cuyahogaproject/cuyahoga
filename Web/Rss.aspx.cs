@@ -41,7 +41,6 @@ namespace Cuyahoga.Web
 					section.SessionFactoryRebuilt += new EventHandler(Section_SessionFactoryRebuilt);
 					ModuleBase module = section.CreateModule(UrlHelper.GetUrlFromSection(section));
 					// Create event handlers for NHibernate-related events that can occur in the module.
-					module.NHSessionRequired += new ModuleBase.NHSessionEventHandler(Module_NHSessionRequired);
 
 					module.ModulePathInfo = pathInfo;
 					ISyndicatable syndicatableModule = module as ISyndicatable;
@@ -146,11 +145,6 @@ namespace Cuyahoga.Web
 			this.Load += new System.EventHandler(this.Page_Load);
 		}
 		#endregion
-
-		private void Module_NHSessionRequired(object sender, ModuleBase.NHSessionEventArgs e)
-		{
-			e.Session = this._coreRepository.ActiveSession;
-		}
 
 		private void Section_SessionFactoryRebuilt(object sender, EventArgs e)
 		{

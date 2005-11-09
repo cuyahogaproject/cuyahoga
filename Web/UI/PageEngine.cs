@@ -265,7 +265,6 @@ namespace Cuyahoga.Web.UI
 					section.SessionFactoryRebuilt += new EventHandler(Section_SessionFactoryRebuilt);
 					ModuleBase module = section.CreateModule(UrlHelper.GetUrlFromSection(section));
 					section.SessionFactoryRebuilt -= new EventHandler(Section_SessionFactoryRebuilt);
-					module.NHSessionRequired += new ModuleBase.NHSessionEventHandler(Module_NHSessionRequired);
 
 					if (module != null)
 					{
@@ -275,8 +274,7 @@ namespace Cuyahoga.Web.UI
 							// for the module that is connected to the active section.
 							module.ModulePathInfo = Context.Request.PathInfo;
 						}
-						BaseModuleControl ctrl = (BaseModuleControl)this.LoadControl(appRoot + module.CurrentViewControl);
-						ctrl.Module = module;
+						BaseModuleControl ctrl = LoadModuleControl(module);
 						((PlaceHolder)this._templateControl.Containers[section.PlaceholderId]).Controls.Add(ctrl);
 					}
 				}
@@ -286,6 +284,13 @@ namespace Cuyahoga.Web.UI
 			// remove html that was in the original page (Default.aspx)
 			for (int i = this.Controls.Count -1; i < 0; i --)
 				this.Controls.RemoveAt(i);
+		}
+
+		private BaseModuleControl LoadModuleControl(ModuleBase module)
+		{
+			BaseModuleControl ctrl = (BaseModuleControl)this.LoadControl(UrlHelper.GetApplicationPath() + module.CurrentViewControlPath);
+			ctrl.Module = module;
+			return ctrl;
 		}
 
 		private void LoadMenus()
@@ -337,7 +342,7 @@ namespace Cuyahoga.Web.UI
 			}
 		}
 
-		public void Section_SessionFactoryRebuilt(object sender, EventArgs e)
+		private void Section_SessionFactoryRebuilt(object sender, EventArgs e)
 		{
 			// The SessionFactory was rebuilt, so the current NHibernate Session has become invalid.
 			// This is handled by a simple reload of the page. 
@@ -350,11 +355,6 @@ namespace Cuyahoga.Web.UI
 			{
 				Context.Response.Redirect(Context.Request.RawUrl);
 			}
-		}
-
-		private void Module_NHSessionRequired(object sender, ModuleBase.NHSessionEventArgs e)
-		{
-			e.Session = this._coreRepository.ActiveSession;
 		}
 	}
 }
