@@ -67,24 +67,12 @@ namespace Cuyahoga.Modules.User
 		/// <summary>
 		/// The current view user control based on the action that was set while parsing the pathinfo.
 		/// </summary>
-		public override string CurrentViewControl
+		public override string CurrentViewControlPath
 		{
 			get
 			{
 				string basePath = "Modules/User/";
-				switch (this._currentAction)
-				{
-					case ProfileModuleAction.ViewProfile:
-						return basePath + "ViewProfile.ascx";
-					case ProfileModuleAction.EditProfile:
-						return basePath + "EditProfile.ascx";
-					case ProfileModuleAction.Register:
-						return basePath + "Register.ascx";
-					case ProfileModuleAction.ResetPassword:
-						return basePath + "ResetPassword.ascx";
-					default:
-						return base.CurrentViewControl;
-				}
+				return basePath + this._currentAction.ToString() + ".ascx";
 			}
 		}
 
