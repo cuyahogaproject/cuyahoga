@@ -167,6 +167,15 @@ CONSTRAINT FK_sectionconnection_section_sectionidto FOREIGN KEY (sectionidto) RE
 
 CREATE UNIQUE INDEX IX_sectionconnection_sectionidfrom_actionname ON cuyahoga_sectionconnection (sectionidfrom, actionname);
 
+CREATE TABLE cuyahoga_templatesection(
+templatesectionid serial NOT NULL CONSTRAINT PK_templatesection PRIMARY KEY,
+templateid int4 NOT NULL,
+sectionid int4 NOT NULL,
+placeholder varchar(100) NOT NULL,
+CONSTRAINT FK_templatesection_template_templateid FOREIGN KEY (templateid) REFERENCES cuyahoga_template (templateid),
+CONSTRAINT FK_templatesection_section_sectionid FOREIGN KEY (sectionid) REFERENCES cuyahoga_section (sectionid));
+
+CREATE UNIQUE INDEX IX_templatesection_templateidid_placeholder ON cuyahoga_templatesection (templateid, placeholder);
 
 CREATE TABLE cuyahoga_noderole(
 noderoleid serial NOT NULL CONSTRAINT PK_noderole PRIMARY KEY,

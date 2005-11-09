@@ -185,6 +185,17 @@ PRIMARY KEY (sectionconnectionid),
 UNIQUE IX_sectionconnection_sectionidfrom_actionname(sectionidfrom, actionname));
 
 
+CREATE TABLE cuyahoga_templatesection(
+templatesectionid INT NOT NULL AUTO_INCREMENT,
+templateid INT NOT NULL,
+sectionid INT NOT NULL,
+placeholder VARCHAR(100) NOT NULL,
+FOREIGN KEY (templateid) REFERENCES cuyahoga_template (templateid),
+FOREIGN KEY (sectionid) REFERENCES cuyahoga_section (sectionid),
+PRIMARY KEY (templatesectionid),
+UNIQUE IX_templatesection_templateidid_placeholder(templateid, placeholder));
+
+
 CREATE TABLE cuyahoga_noderole(
 noderoleid INT NOT NULL AUTO_INCREMENT,
 nodeid INT NOT NULL,

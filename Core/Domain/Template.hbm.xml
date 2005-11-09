@@ -17,5 +17,12 @@
 		<property name="TemplateControl" column="templatecontrol" type="String" length="50" />
 		<property name="Css" column="css" type="String" length="100" />
 		
+		<map name="Sections" table="cuyahoga_templatesection" lazy="true">
+			<cache usage="read-write" />
+			<key column="templateid" />
+			<index column="placeholder" type="String" length="100" />
+			<many-to-many class="Cuyahoga.Core.Domain.Section, Cuyahoga.Core" column="sectionid" />
+		</map>
+		
 	</class>
 </hibernate-mapping>

@@ -227,7 +227,7 @@ namespace Cuyahoga.Web.UI
 
 		private void LoadContent()
 		{
-			// ===== Load template and usercontrols =====
+			// ===== Load templates  =====
 
 			string appRoot = UrlHelper.GetApplicationPath();
 			// We know the active node so the template can be loaded.
@@ -239,6 +239,8 @@ namespace Cuyahoga.Web.UI
 				this._templateControl.ID = "p";
 				this._templateControl.Title = this._activeNode.Site.Name + " - " + this._activeNode.Title;
 				this._templateControl.Css = appRoot + this._activeNode.Template.BasePath + "/Css/" + this._activeNode.Template.Css;
+				// Load sections that are related to the template
+				foreach (DictionaryEntry sectionEntry in this.ActiveNode.Template
 			}
 			else
 			{

@@ -1,9 +1,12 @@
 using System;
+using System.Collections;
 
 namespace Cuyahoga.Core.Domain
 {
 	/// <summary>
-	/// Summary description for Template.
+	/// Represents a Cuyahoga template. This is not restricted to one physical file.
+	/// It's possible to create multiple template objects based on the same template
+	/// UserControl and stylesheet.
 	/// </summary>
 	[Serializable]
 	public class Template
@@ -14,6 +17,7 @@ namespace Cuyahoga.Core.Domain
 		private string _basePath;
 		private string _templateControl;
 		private string _css;
+		private IDictionary _sections;
 
 		/// <summary>
 		/// Property Id (int)
@@ -85,11 +89,22 @@ namespace Cuyahoga.Core.Domain
 		}
 
 		/// <summary>
+		/// The sections that are directly related to the template. The key represents the placeholder
+		/// where the section belongs.
+		/// </summary>
+		public virtual IDictionary Sections
+		{
+			get { return this._sections; }
+			set { this._sections = value; }
+		}
+
+		/// <summary>
 		/// Default constructor.
 		/// </summary>
 		public Template()
 		{
 			this._id = -1;
+			this._sections = new Hashtable();
 		}
 	}
 }
