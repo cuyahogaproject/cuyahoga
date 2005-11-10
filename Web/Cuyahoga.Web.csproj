@@ -463,6 +463,22 @@
                     BuildAction = "EmbeddedResource"
                 />
                 <File
+                    RelPath = "Admin\TemplateSection.aspx"
+                    SubType = "Form"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Admin\TemplateSection.aspx.cs"
+                    DependentUpon = "TemplateSection.aspx"
+                    SubType = "ASPXCodeBehind"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "Admin\TemplateSection.aspx.resx"
+                    DependentUpon = "TemplateSection.aspx.cs"
+                    BuildAction = "EmbeddedResource"
+                />
+                <File
                     RelPath = "Admin\UserEdit.aspx"
                     SubType = "Form"
                     BuildAction = "Content"
@@ -3802,6 +3818,11 @@
                 />
                 <File
                     RelPath = "Util\FormFixerHtmlTextWriter.cs"
+                    SubType = "Code"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "Util\SearchHelper.cs"
                     SubType = "Code"
                     BuildAction = "Compile"
                 />

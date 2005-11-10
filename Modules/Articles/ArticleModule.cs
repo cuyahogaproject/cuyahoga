@@ -400,15 +400,8 @@ namespace Cuyahoga.Modules.Articles
 			sc.Author = article.ModifiedBy.FullName;
 			sc.ModuleType = this.Section.ModuleType.Name;
 			sc.Path = this.SectionUrl + "/" + article.Id; // article ID has to be added as pathinfo parameter.
-			if (article.Category != null)
-			{
-				sc.Category = article.Category.Title;
-			}
-			else
-			{
-				sc.Category = String.Empty;
-			}
-			sc.Site = this.Section.Node.Site.Name;
+			sc.Category = (article.Category != null ? article.Category.Title : sc.Category = String.Empty);
+			sc.Site = (this.Section.Node != null ? this.Section.Node.Site.Name : String.Empty);
 			sc.DateCreated = article.DateCreated;
 			sc.DateModified = article.DateModified;
 			sc.SectionId = this.Section.Id;

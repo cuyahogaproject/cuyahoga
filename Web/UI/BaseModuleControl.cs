@@ -106,17 +106,36 @@ namespace Cuyahoga.Web.UI
 				if (this._module.Section.ModuleType.EditPath != null
 					&& cuyahogaUser.CanEdit(this._module.Section))
 				{
-					writer.Write(String.Format("&nbsp;[<a href=\"{0}?NodeId={1}&SectionId={2}\">Edit</a>]"
-						, UrlHelper.GetApplicationPath() + this._module.Section.ModuleType.EditPath
-						, this._module.Section.Node.Id
-						, this._module.Section.Id));
+					if (this._module.Section.Node != null)
+					{
+						writer.Write(String.Format("&nbsp;[<a href=\"{0}?NodeId={1}&SectionId={2}\">Edit</a>]"
+							, UrlHelper.GetApplicationPath() + this._module.Section.ModuleType.EditPath
+							, this._module.Section.Node.Id
+							, this._module.Section.Id));
+					}
+					else
+					{
+						writer.Write(String.Format("&nbsp;[<a href=\"{0}?NodeId={1}&SectionId={2}\">Edit</a>]"
+							, UrlHelper.GetApplicationPath() + this._module.Section.ModuleType.EditPath
+							, this.PageEngine.ActiveNode.Id
+							, this._module.Section.Id));
+					}
 				}
 				if (cuyahogaUser.HasPermission(AccessLevel.Administrator))
 				{
-					writer.Write(String.Format("&nbsp;[<a href=\"{0}Admin/SectionEdit.aspx?NodeId={1}&SectionId={2}\">Section Properties</a>]"
-						, UrlHelper.GetApplicationPath()
-						, this._module.Section.Node.Id
-						, this._module.Section.Id));
+					if (this._module.Section.Node != null)
+					{
+						writer.Write(String.Format("&nbsp;[<a href=\"{0}Admin/SectionEdit.aspx?NodeId={1}&SectionId={2}\">Section Properties</a>]"
+							, UrlHelper.GetApplicationPath()
+							, this._module.Section.Node.Id
+							, this._module.Section.Id));
+					}
+					else
+					{
+						writer.Write(String.Format("&nbsp;[<a href=\"{0}Admin/SectionEdit.aspx?SectionId={1}\">Section Properties</a>]"
+							, UrlHelper.GetApplicationPath()
+							, this._module.Section.Id));
+					}
 				}
 			}
 			writer.Write("</div>");

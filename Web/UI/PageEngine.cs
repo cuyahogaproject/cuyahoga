@@ -139,18 +139,8 @@ namespace Cuyahoga.Web.UI
 			}
 
 			// Load the active node
-			// Query the cache by ShortDescription, then NodeId and last, SectionId.
-			if (Context.Request.QueryString["ShortDescription"] != null)
-			{
-				this._activeNode = this._coreRepository.GetNodeByShortDescriptionAndSite(Context.Request.QueryString["ShortDescription"], this._currentSite);
-			}
-			else if (Context.Request.QueryString["NodeId"] != null)
-			{
-				this._activeNode = (Node)this._coreRepository.GetObjectById(typeof(Node)
-					, Int32.Parse(Context.Request.QueryString["NodeId"])
-					, true);
-			}
-			else if (Context.Request.QueryString["SectionId"] != null)
+			// Query the cache by SectionId, ShortDescription and NodeId.
+			if (Context.Request.QueryString["SectionId"] != null)
 			{
 				try
 				{
@@ -162,6 +152,16 @@ namespace Cuyahoga.Web.UI
 				{
 					throw new SectionNullException("Section not found: " + Context.Request.QueryString["SectionId"]);
 				}
+			}
+			else if (Context.Request.QueryString["ShortDescription"] != null)
+			{
+				this._activeNode = this._coreRepository.GetNodeByShortDescriptionAndSite(Context.Request.QueryString["ShortDescription"], this._currentSite);
+			}
+			else if (Context.Request.QueryString["NodeId"] != null)
+			{
+				this._activeNode = (Node)this._coreRepository.GetObjectById(typeof(Node)
+					, Int32.Parse(Context.Request.QueryString["NodeId"])
+					, true);
 			}
 			else if (entryNode != null)
 			{
@@ -240,7 +240,19 @@ namespace Cuyahoga.Web.UI
 				this._templateControl.Title = this._activeNode.Site.Name + " - " + this._activeNode.Title;
 				this._templateControl.Css = appRoot + this._activeNode.Template.BasePath + "/Css/" + this._activeNode.Template.Css;
 				// Load sections that are related to the template
-				foreach (DictionaryEntry sectionEntry in this.ActiveNode.Template
+				foreach (DictionaryEntry sectionEntry in this.ActiveNode.Template.Sections)
+				{
+					string placeholder = sectionEntry.Key.ToString();
+					Section section = sectionEntry.Value as Section;
+					if (section != null)
+					{
+						BaseModuleControl moduleControl = CreateModuleControlForSection(section);
+						if (moduleControl != null)
+						{
+							((PlaceHolder)this._templateControl.Containers[placeholder]).Controls.Add(moduleControl);
+						}
+					}
+				}
 			}
 			else
 			{
@@ -248,37 +260,12 @@ namespace Cuyahoga.Web.UI
 			}
 
 			// ===== Load sections and modules =====
-			int sectionId = -1;
-			if (Context.Request.QueryString["SectionId"] != null)
-			{
-				sectionId = Int32.Parse(Context.Request.QueryString["SectionId"]);
-			}
 			foreach (Section section in this._activeNode.Sections)
 			{
-				// Check view permissions before adding the section to the page.
-				if (section.ViewAllowed(this.User.Identity))
+				BaseModuleControl moduleControl = CreateModuleControlForSection(section);
+				if (moduleControl != null)
 				{
-					if (section.Id == sectionId && this._activeSection == null)
-					{
-						this._activeSection = section;
-					}
-					// Create the module that is connected to the section.
-					// Create event handlers for NHibernate-related events that can occur in the module.
-					section.SessionFactoryRebuilt += new EventHandler(Section_SessionFactoryRebuilt);
-					ModuleBase module = section.CreateModule(UrlHelper.GetUrlFromSection(section));
-					section.SessionFactoryRebuilt -= new EventHandler(Section_SessionFactoryRebuilt);
-
-					if (module != null)
-					{
-						if (Context.Request.PathInfo.Length > 0 && section == this._activeSection)
-						{
-							// Parse the PathInfo of the request because they can be the parameters 
-							// for the module that is connected to the active section.
-							module.ModulePathInfo = Context.Request.PathInfo;
-						}
-						BaseModuleControl ctrl = LoadModuleControl(module);
-						((PlaceHolder)this._templateControl.Containers[section.PlaceholderId]).Controls.Add(ctrl);
-					}
+					((PlaceHolder)this._templateControl.Containers[section.PlaceholderId]).Controls.Add(moduleControl);
 				}
 			}
 
@@ -286,6 +273,31 @@ namespace Cuyahoga.Web.UI
 			// remove html that was in the original page (Default.aspx)
 			for (int i = this.Controls.Count -1; i < 0; i --)
 				this.Controls.RemoveAt(i);
+		}
+
+		private BaseModuleControl CreateModuleControlForSection(Section section)
+		{
+			// Check view permissions before adding the section to the page.
+			if (section.ViewAllowed(this.User.Identity))
+			{
+				// Create the module that is connected to the section.
+				// Create event handlers for NHibernate-related events that can occur in the module.
+				section.SessionFactoryRebuilt += new EventHandler(Section_SessionFactoryRebuilt);
+				ModuleBase module = section.CreateModule(UrlHelper.GetUrlFromSection(section));
+				section.SessionFactoryRebuilt -= new EventHandler(Section_SessionFactoryRebuilt);
+
+				if (module != null)
+				{
+					if (Context.Request.PathInfo.Length > 0 && section == this._activeSection)
+					{
+						// Parse the PathInfo of the request because they can be the parameters 
+						// for the module that is connected to the active section.
+						module.ModulePathInfo = Context.Request.PathInfo;
+					}
+					return LoadModuleControl(module);
+				}
+			}
+			return null;
 		}
 
 		private BaseModuleControl LoadModuleControl(ModuleBase module)

@@ -7,6 +7,7 @@ using Lucene.Net.Store;
 using log4net;
 
 using Cuyahoga.Core.Util;
+using Cuyahoga.Core.Domain;
 
 namespace Cuyahoga.Core.Search
 {
@@ -91,6 +92,19 @@ namespace Cuyahoga.Core.Search
 				IndexReader rdr = IndexReader.Open(this._indexDirectory);
 				rdr.Delete(term);
 				rdr.Close();
+			}
+		}
+
+		public void UpdateContentFromModule(ModuleBase module)
+		{
+			ISearchable searchableModule = module as ISearchable;
+			if (searchableModule != null)
+			{
+				SearchContent[] searchContentList = searchableModule.GetAllSearchableContent();
+				foreach (SearchContent searchContent in searchContentList)
+				{
+					UpdateContent(searchContent);
+				}
 			}
 		}
 

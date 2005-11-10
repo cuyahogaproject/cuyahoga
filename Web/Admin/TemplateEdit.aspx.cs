@@ -14,6 +14,7 @@ using Cuyahoga.Core.Domain;
 using Cuyahoga.Core.Service;
 using Cuyahoga.Core.Util;
 using Cuyahoga.Web.Util;
+using Cuyahoga.Web.UI;
 
 namespace Cuyahoga.Web.Admin
 {
@@ -37,6 +38,8 @@ namespace Cuyahoga.Web.Admin
 		protected System.Web.UI.WebControls.Button btnVerifyBasePath;
 		protected System.Web.UI.WebControls.Label lblTemplateControlWarning;
 		protected System.Web.UI.WebControls.Label lblCssWarning;
+		protected System.Web.UI.WebControls.Panel pnlPlaceholders;
+		protected System.Web.UI.WebControls.Repeater rptPlaceholders;
 		protected System.Web.UI.WebControls.Button btnDelete;
 	
 		private void Page_Load(object sender, System.EventArgs e)
@@ -53,6 +56,7 @@ namespace Cuyahoga.Web.Admin
 				{
 					this._activeTemplate = (Template)base.CoreRepository.GetObjectById(typeof(Template)
 						, Int32.Parse(Context.Request.QueryString["TemplateId"]));
+					this.pnlPlaceholders.Visible = true;
 				}
 
 				if (! this.IsPostBack)
@@ -60,6 +64,10 @@ namespace Cuyahoga.Web.Admin
 					BindTemplateControls();
 					BindTemplateUserControls();
 					BindCss();
+					if (this._activeTemplate.Id != -1)
+					{
+						BindPlaceholders();
+					}
 				}
 			}	
 		}
@@ -137,6 +145,15 @@ namespace Cuyahoga.Web.Admin
 			}
 		}
 
+		private void BindPlaceholders()
+		{
+			// Load template control first.
+			BaseTemplate templateControl = (BaseTemplate)this.Page.LoadControl(Util.UrlHelper.GetApplicationPath() 
+				+ this._activeTemplate.Path);
+			this.rptPlaceholders.DataSource = templateControl.Containers;
+			this.rptPlaceholders.DataBind();
+		}
+
 		private void CheckBasePath()
 		{
 			if (this._activeTemplate.BasePath.Trim() == String.Empty)
@@ -196,10 +213,12 @@ namespace Cuyahoga.Web.Admin
 		/// </summary>
 		private void InitializeComponent()
 		{    
+			this.btnVerifyBasePath.Click += new System.EventHandler(this.btnVerifyBasePath_Click);
+			this.rptPlaceholders.ItemDataBound += new System.Web.UI.WebControls.RepeaterItemEventHandler(this.rptPlaceholders_ItemDataBound);
+			this.rptPlaceholders.ItemCommand += new System.Web.UI.WebControls.RepeaterCommandEventHandler(this.rptPlaceholders_ItemCommand);
 			this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
 			this.btnBack.Click += new System.EventHandler(this.btnCancel_Click);
 			this.btnDelete.Click += new System.EventHandler(this.btnDelete_Click);
-			this.btnVerifyBasePath.Click += new System.EventHandler(this.btnVerifyBasePath_Click);
 			this.Load += new System.EventHandler(this.Page_Load);
 
 		}
@@ -242,6 +261,62 @@ namespace Cuyahoga.Web.Admin
 		{
 			this._activeTemplate.BasePath = this.txtBasePath.Text;
 			CheckBasePath();
+		}
+
+		private void rptPlaceholders_ItemDataBound(object sender, System.Web.UI.WebControls.RepeaterItemEventArgs e)
+		{
+			if (e.Item.ItemType == ListItemType.Item || e.Item.ItemType == ListItemType.AlternatingItem)
+			{
+				DictionaryEntry entry = (DictionaryEntry)e.Item.DataItem;
+				
+				string placeholder = entry.Key.ToString();
+				Label lblPlaceholder = e.Item.FindControl("lblPlaceholder") as Label;
+				HyperLink hplSection = e.Item.FindControl("hplSection") as HyperLink;
+				HyperLink hplAttachSection = e.Item.FindControl("hplAttachSection") as HyperLink;
+				LinkButton lbtDetachSection = e.Item.FindControl("lbtDetachSection") as LinkButton;
+				lblPlaceholder.Text = placeholder;
+
+				// Find an attached section
+				Section section = this._activeTemplate.Sections[placeholder] as Section;
+				if (section != null)
+				{
+					hplSection.Text = section.Title;
+					hplSection.NavigateUrl = "~/Admin/SectionEdit.aspx?SectionId=" + section.Id;
+					hplSection.Visible = true;
+					hplAttachSection.Visible = false;
+					lbtDetachSection.Visible = true;
+					lbtDetachSection.Attributes.Add("onClick", "return confirm(\"Are you sure?\");");
+					lbtDetachSection.CommandArgument = placeholder;
+				}
+				else
+				{
+					hplSection.Visible = false;
+					hplAttachSection.Visible = true;
+					hplAttachSection.NavigateUrl = String.Format("~/Admin/TemplateSection.aspx?TemplateId={0}&Placeholder={1}"
+						, this._activeTemplate.Id, placeholder);
+					lbtDetachSection.Visible = false;
+				}				
+			}
+		}
+
+		private void rptPlaceholders_ItemCommand(object source, System.Web.UI.WebControls.RepeaterCommandEventArgs e)
+		{
+			if (e.CommandName == "detach")
+			{
+				string placeholder = e.CommandArgument.ToString();
+				this._activeTemplate.Sections.Remove(placeholder);
+
+				try
+				{
+					base.CoreRepository.UpdateObject(this._activeTemplate);
+					ShowMessage(String.Format("Section in Placeholder {0} detached", placeholder));
+					BindPlaceholders();
+				}
+				catch (Exception ex)
+				{
+					ShowError(ex.Message);
+				}
+			}
 		}
 	}
 }

@@ -12,6 +12,7 @@ using System.Web.UI.HtmlControls;
 using Cuyahoga.Core.Domain;
 using Cuyahoga.Core.Service;
 using Cuyahoga.Web.UI;
+using Cuyahoga.Web.Util;
 using Cuyahoga.Web.Admin.UI;
 
 namespace Cuyahoga.Web.Admin
@@ -210,6 +211,9 @@ namespace Cuyahoga.Web.Admin
 			try
 			{
 				base.CoreRepository.UpdateObject(this._activeSection);
+				// Update the full text index to make sure that the content can be found.
+				SearchHelper.UpdateIndexFromSection(this._activeSection);
+
 				Context.Response.Redirect("~/Admin/NodeEdit.aspx?NodeId=" + this._selectedNode.Id.ToString());
 			}
 			catch (Exception ex)

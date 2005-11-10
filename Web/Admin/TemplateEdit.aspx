@@ -49,6 +49,33 @@
 				</table>
 			</div>
 			<br>
+			<asp:panel id="pnlPlaceholders" runat="server" visible="False" cssclass="group">
+				<h4>Placeholders</h4>
+				<table class="tbl">
+					<tr>
+						<th>
+							Placeholder</th>
+						<th>
+							Attached section</th>
+						<th>
+						</th>
+					</tr>
+					<asp:repeater id="rptPlaceholders" runat="server">
+						<itemtemplate>
+							<tr>
+								<td>
+									<asp:label id="lblPlaceholder" runat="server"></asp:label></td>
+								<td>
+									<asp:hyperlink id="hplSection" runat="server" visible="False"></asp:hyperlink></td>
+								<td>
+									<asp:hyperlink id="hplAttachSection" runat="server" visible="false">Attach section</asp:hyperlink>
+									<asp:linkbutton id="lbtDetachSection" runat="server" visible="false" commandname="detach">Detach section</asp:linkbutton>
+								</td>
+							</tr>
+						</itemtemplate>
+					</asp:repeater></table>
+			</asp:panel>
+			<br>
 			<asp:button id="btnSave" runat="server" text="Save"></asp:button>
 			<asp:button id="btnBack" runat="server" text="Back" causesvalidation="false"></asp:button>
 			<asp:button id="btnDelete" runat="server" text="Delete" causesvalidation="false"></asp:button>

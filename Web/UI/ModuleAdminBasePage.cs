@@ -80,10 +80,6 @@ namespace Cuyahoga.Web.UI
 				int sectionId = Int32.Parse(Context.Request.QueryString["SectionId"]);
 				this._section = (Section)base.CoreRepository.GetObjectById(typeof(Section), sectionId);
 				this._section.SessionFactoryRebuilt += new EventHandler(Section_SessionFactoryRebuilt);
-				if (this._section.Node.Id == this._node.Id)
-				{
-					this._section.Node = this._node;
-				}
 				this._module = this._section.CreateModule(UrlHelper.GetUrlFromSection(this._section));
 			}
 			catch (Exception ex)
@@ -164,6 +160,10 @@ namespace Cuyahoga.Web.UI
 			// TODO: change the class attribute to make a difference with the error (nice background image?)
 		}
 
+		/// <summary>
+		/// 
+		/// </summary>
+		/// <returns></returns>
 		public string GetBaseQueryString()
 		{
 			return String.Format("?NodeId={0}&SectionId={1}", this.Node.Id, this.Section.Id);

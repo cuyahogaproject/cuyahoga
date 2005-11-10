@@ -129,7 +129,7 @@ namespace Cuyahoga.Modules.StaticHtml
 			sc.ModuleType = shc.Section.ModuleType.Name;
 			sc.Path = this.SectionUrl;
 			sc.Category = String.Empty;
-			sc.Site = shc.Section.Node.Site.Name;
+			sc.Site = (shc.Section.Node != null ? shc.Section.Node.Site.Name : String.Empty);
 			sc.DateCreated = shc.UpdateTimestamp;
 			sc.DateModified = shc.UpdateTimestamp;
 			sc.SectionId = shc.Section.Id;

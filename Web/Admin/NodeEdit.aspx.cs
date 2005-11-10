@@ -620,6 +620,9 @@ namespace Cuyahoga.Web.Admin
 						section.Node = null;
 						section.PlaceholderId = null;
 						base.CoreRepository.UpdateObject(section);
+						// Update search index to make sure the content of detached sections doesn't 
+						// show up in a search.
+						SearchHelper.UpdateIndexFromSection(section);
 					}
 					catch (Exception ex)
 					{
