@@ -255,26 +255,6 @@
                     BuildAction = "EmbeddedResource"
                 />
                 <File
-                    RelPath = "Domain\mono\Node.hbm.xml"
-                    BuildAction = "None"
-                />
-                <File
-                    RelPath = "Domain\mono\Section.hbm.xml"
-                    BuildAction = "None"
-                />
-                <File
-                    RelPath = "Domain\mono\Site.hbm.xml"
-                    BuildAction = "None"
-                />
-                <File
-                    RelPath = "Domain\mono\Template.hbm.xml"
-                    BuildAction = "None"
-                />
-                <File
-                    RelPath = "Domain\mono\User.hbm.xml"
-                    BuildAction = "None"
-                />
-                <File
                     RelPath = "Search\IndexBuilder.cs"
                     SubType = "Code"
                     BuildAction = "Compile"
