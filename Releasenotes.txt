@@ -1,6 +1,30 @@
 Cuyahoga release notes
 
 ===========================================================================
+0.9.1 - 2005-11-13
+===========================================================================
+New features:
+- Module connections. A module can implement two interfaces, 
+  IActionConsumer and IActionProvider. This allows connecting of different
+  sections across pages.
+- Sections in templates. Before, a section was always related to a node 
+  (page) in the site hierarchy. From now, it's possible to define 
+  stand-alone sections or detach existing sections from a node. When
+  editing template properties, it's now possible to attach a stand-alone 
+  section to a placeholder in the template. The section appears on every 
+  page that uses the template.
+  
+Improvements:
+- Upgraded to NHibernate 1.0.0.0.
+- Removed special mapping files for Mono because dynamic proxies work on
+  Mono.
+- Removed references from the Web project to NHibernate.
+
+Bugfixes:
+- Nodes set to an external url, can be reverted back to 'normal' nodes.
+- Fixed issue with empty custom menus that caused an exception.
+
+===========================================================================
 0.9.0 - 2005-10-05
 ===========================================================================
 New features:
