@@ -8,6 +8,8 @@
  * For further information visit:
  * 		http://www.fckeditor.net/
  * 
+ * "Support Open Source software. What about a donation today?"
+ * 
  * File Name: fckscriptloader.js
  * 	Defines the FCKScriptLoader object that is used to dynamically load
  * 	scripts in the editor.

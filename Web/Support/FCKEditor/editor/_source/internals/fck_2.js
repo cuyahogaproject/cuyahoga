@@ -8,6 +8,8 @@
  * For further information visit:
  * 		http://www.fckeditor.net/
  * 
+ * "Support Open Source software. What about a donation today?"
+ * 
  * File Name: fck_2.js
  * 	This is the second part of the "FCK" object creation. This is the main
  * 	object that represents an editor instance.
@@ -32,6 +34,8 @@ FCK.ExecuteNamedCommand = function( commandName, commandParameter )
 		FCK.EditorDocument.execCommand( commandName, false, commandParameter ) ; 
 		FCK.Events.FireEvent( 'OnSelectionChange' ) ;
 	}
+	
+	FCKUndo.SaveUndoStep() ;
 }
 
 FCK.GetNamedCommandState = function( commandName )
@@ -112,9 +116,9 @@ FCK.PasteFromWord = function()
 
 FCK.Preview = function()
 {
-	var iWidth	= screen.width * 0.8 ;
-	var iHeight	= screen.height * 0.7 ;
-	var iLeft	= ( screen.width - iWidth ) / 2 ;
+	var iWidth	= FCKConfig.ScreenWidth * 0.8 ;
+	var iHeight	= FCKConfig.ScreenHeight * 0.7 ;
+	var iLeft	= ( FCKConfig.ScreenWidth - iWidth ) / 2 ;
 	var oWindow = window.open( '', null, 'toolbar=yes,location=no,status=yes,menubar=yes,scrollbars=yes,resizable=yes,width=' + iWidth + ',height=' + iHeight + ',left=' + iLeft ) ;
 	
 	var sHTML ;
@@ -122,7 +126,7 @@ FCK.Preview = function()
 	if ( FCKConfig.FullPage )
 	{
 		if ( FCK.TempBaseTag.length > 0 )
-			sHTML = FCK.GetXHTML().replace( FCKRegexLib.HeadCloser, FCK.TempBaseTag + '</head>' ) ;
+			sHTML = FCK.GetXHTML().replace( FCKRegexLib.HeadOpener, '$&' + FCK.TempBaseTag ) ;
 		else
 			sHTML = FCK.GetXHTML() ;
 	}
@@ -194,4 +198,5 @@ FCK.InsertElementAndGetIt = function( e )
 			return aEls[i] ;
 		}
 	}
+	return null ;
 }

@@ -8,6 +8,8 @@
  * For further information visit:
  * 		http://www.fckeditor.net/
  * 
+ * "Support Open Source software. What about a donation today?"
+ * 
  * File Name: fckspecialcombo.js
  * 	FCKSpecialCombo Class: represents a special combo.
  * 
@@ -21,9 +23,11 @@ var FCKSpecialCombo = function( caption )
 	this.FieldWidth		= 80 ;
 	this.PanelWidth		= 130 ;
 	this.PanelMaxHeight	= 150 ;
-	this.Label = '&nbsp;' ;
-	this.Caption = caption ;
-	
+	this.Label			= '&nbsp;' ;
+	this.Caption		= caption ;
+	this.Tooltip		= caption ;
+	this.Style			= FCK_TOOLBARITEM_ICONTEXT ;
+
 	this.Enabled = true ;
 	
 	this.Items = new Object() ;
@@ -129,7 +133,25 @@ FCKSpecialCombo.prototype.Create = function( targetElement )
 	
 	this._OuterTable.insertRow(-1) ;
 	
-	if ( this.Caption && this.Caption.length > 0 )
+	var sClass ;
+	var bShowLabel ;
+	
+	switch ( this.Style )
+	{
+		case FCK_TOOLBARITEM_ONLYICON :
+			sClass = 'TB_ButtonType_Icon' ;
+			bShowLabel = false;
+			break ;
+		case FCK_TOOLBARITEM_ONLYTEXT :
+			sClass = 'TB_ButtonType_Text' ;
+			bShowLabel = false;
+			break ;
+		case FCK_TOOLBARITEM_ICONTEXT :
+			bShowLabel = true;
+			break ;
+	}
+
+	if ( this.Caption && this.Caption.length > 0 && bShowLabel )
 	{
 		var oCaptionCell = this._OuterTable.rows[0].insertCell(-1) ;
 		oCaptionCell.unselectable = 'on' ;
@@ -139,14 +161,33 @@ FCKSpecialCombo.prototype.Create = function( targetElement )
 	
 	// Create the main DIV element.
 	var oField = this._OuterTable.rows[0].insertCell(-1).appendChild( document.createElement( 'DIV' ) ) ;
-	oField.className = 'SC_Field' ;
-	oField.style.width = this.FieldWidth + 'px' ;
-	oField.innerHTML = '<table width="100%" cellpadding="0" cellspacing="0" style="TABLE-LAYOUT: fixed;" unselectable="on"><tbody><tr><td class="SC_FieldLabel" unselectable="on"><label unselectable="on">&nbsp;</label></td><td class="SC_FieldButton" unselectable="on">&nbsp;</td></tr></tbody></table>' ;
+	if ( bShowLabel )
+	{
+		oField.className = 'SC_Field' ;
+		oField.style.width = this.FieldWidth + 'px' ;
+		oField.innerHTML = '<table width="100%" cellpadding="0" cellspacing="0" style="TABLE-LAYOUT: fixed;" unselectable="on"><tbody><tr><td class="SC_FieldLabel" unselectable="on"><label unselectable="on">&nbsp;</label></td><td class="SC_FieldButton" unselectable="on">&nbsp;</td></tr></tbody></table>' ;
 
-	this._LabelEl = oField.getElementsByTagName('label')[0] ;
-	this._LabelEl.innerHTML = this.Label ;
+		this._LabelEl = oField.getElementsByTagName('label')[0] ;
+		this._LabelEl.innerHTML = this.Label ;
+	}
+	else
+	{
+		oField.className = 'TB_Button_Off' ;
+		//oField.innerHTML = '<span className="SC_FieldCaption">' + this.Caption + '<table cellpadding="0" cellspacing="0" style="TABLE-LAYOUT: fixed;" unselectable="on"><tbody><tr><td class="SC_FieldButton" style="border-left: none;" unselectable="on">&nbsp;</td></tr></tbody></table>' ;
+		oField.innerHTML = '<table cellpadding="0" cellspacing="0" style="TABLE-LAYOUT: fixed;" unselectable="on"><tbody><tr><td class="SC_FieldButton" style="border-left: none;" unselectable="on">&nbsp;</td></tr></tbody></table>' ;
+		
+		// Gets the correct CSS class to use for the specified style (param).
+		oField.innerHTML ='<table title="' + this.Tooltip + '" class="' + sClass + '" cellspacing="0" cellpadding="0" border="0" unselectable="on">' +
+				'<tr>' +
+					//'<td class="TB_Icon" unselectable="on"><img src="' + FCKConfig.SkinPath + 'toolbar/' + this.Command.Name.toLowerCase() + '.gif" width="21" height="21" unselectable="on"></td>' +
+					'<td class="TB_Text" unselectable="on">' + this.Caption + '</td>' +
+					'<td class="TB_ButtonArrow" unselectable="on"><img src="' + FCKConfig.SkinPath + 'images/toolbar.buttonarrow.gif" width="5" height="3"></td>' +
+				'</tr>' +
+			'</table>' ;
+	}
 
-	/* Events Handlers */
+
+	// Events Handlers
 
 	oField.SpecialCombo = this ;
 	
@@ -158,12 +199,36 @@ FCKSpecialCombo.prototype.Create = function( targetElement )
 function FCKSpecialCombo_OnMouseOver()
 {
 	if ( this.SpecialCombo.Enabled )
-		this.className = 'SC_Field SC_FieldOver' ;
+	{
+		switch ( this.SpecialCombo.Style )
+		{
+		case FCK_TOOLBARITEM_ONLYICON :
+			this.className = 'TB_Button_On';
+			break ;
+		case FCK_TOOLBARITEM_ONLYTEXT :
+			this.className = 'TB_Button_On';
+			break ;
+		case FCK_TOOLBARITEM_ICONTEXT :
+			this.className = 'SC_Field SC_FieldOver' ;
+			break ;
+		}
+	}
 }
 	
 function FCKSpecialCombo_OnMouseOut()
 {
-	this.className='SC_Field' ;
+	switch ( this.SpecialCombo.Style )
+	{
+		case FCK_TOOLBARITEM_ONLYICON :
+			this.className = 'TB_Button_Off';
+			break ;
+		case FCK_TOOLBARITEM_ONLYTEXT :
+			this.className = 'TB_Button_Off';
+			break ;
+		case FCK_TOOLBARITEM_ICONTEXT :
+			this.className='SC_Field' ;
+			break ;
+	}
 }
 	
 function FCKSpecialCombo_OnClick( e )
@@ -178,20 +243,22 @@ function FCKSpecialCombo_OnClick( e )
 
 	if ( this.SpecialCombo.Enabled )
 	{
+		var oPanel = this.SpecialCombo._Panel ;
+		
 		if ( typeof( this.SpecialCombo.OnBeforeClick ) == 'function' )
 			this.SpecialCombo.OnBeforeClick( this.SpecialCombo ) ;
 
 		if ( this.SpecialCombo._ItemsHolderEl.offsetHeight > this.SpecialCombo.PanelMaxHeight )
-			this.SpecialCombo._Panel.PanelDiv.style.height = this.SpecialCombo.PanelMaxHeight + 'px' ;
+			oPanel.PanelDiv.style.height = this.SpecialCombo.PanelMaxHeight + 'px' ;
 		else
-			this.SpecialCombo._Panel.PanelDiv.style.height = this.SpecialCombo._ItemsHolderEl.offsetHeight + 'px' ;
+			oPanel.PanelDiv.style.height = this.SpecialCombo._ItemsHolderEl.offsetHeight + 'px' ;
 			
-		this.SpecialCombo._Panel.PanelDiv.style.width = this.SpecialCombo.PanelWidth + 'px' ;
+		oPanel.PanelDiv.style.width = this.SpecialCombo.PanelWidth + 'px' ;
 		
 		if ( FCKBrowserInfo.IsGecko )
-			this.SpecialCombo._Panel.PanelDiv.style.overflow = '-moz-scrollbars-vertical' ;
+			oPanel.PanelDiv.style.overflow = '-moz-scrollbars-vertical' ;
 
-		this.SpecialCombo._Panel.Show( 0, this.offsetHeight, this, null, this.SpecialCombo.PanelMaxHeight, true ) ;
+		oPanel.Show( 0, this.offsetHeight, this, null, this.SpecialCombo.PanelMaxHeight, true ) ;
 	}
 
 	return false ;

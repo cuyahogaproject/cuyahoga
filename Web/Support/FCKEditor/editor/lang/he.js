@@ -8,10 +8,13 @@
  * For further information visit:
  * 		http://www.fckeditor.net/
  * 
+ * "Support Open Source software. What about a donation today?"
+ * 
  * File Name: he.js
  * 	Hebrew language file.
  * 
  * File Authors:
+ * 		Tamir Mordo (tamir@tetitu.co.il)
  * 		Ophir Radnitz (ophir@liqweed.net)
  */
 
@@ -38,11 +41,11 @@ RemoveFormat		: "הסרת העיצוב",
 InsertLinkLbl		: "קישור",
 InsertLink			: "הוספת/עריכת קישור",
 RemoveLink			: "הסרת הקישור",
-Anchor				: "Insert/Edit Anchor",	//MISSING
+Anchor				: "הוספת/עריכת נקודת עיגון",
 InsertImageLbl		: "תמונה",
 InsertImage			: "הוספת/עריכת תמונה",
-InsertFlashLbl		: "Flash",	//MISSING
-InsertFlash			: "Insert/Edit Flash",	//MISSING
+InsertFlashLbl		: "פלאש",
+InsertFlash			: "הוסף/ערוך פלאש",
 InsertTableLbl		: "טבלה",
 InsertTable			: "הוספת/עריכת טבלה",
 InsertLineLbl		: "קו",
@@ -81,18 +84,18 @@ BGColor				: "צבע רקע",
 Source				: "מקור",
 Find				: "חיפוש",
 Replace				: "החלפה",
-SpellCheck			: "Check Spell",	//MISSING
-UniversalKeyboard	: "Universal Keyboard",	//MISSING
+SpellCheck			: "בדיקת איות",
+UniversalKeyboard	: "מקלדת אוניברסלית",
 
-Form			: "Form",	//MISSING
-Checkbox		: "Checkbox",	//MISSING
-RadioButton		: "Radio Button",	//MISSING
-TextField		: "Text Field",	//MISSING
-Textarea		: "Textarea",	//MISSING
-HiddenField		: "Hidden Field",	//MISSING
-Button			: "Button",	//MISSING
-SelectionField	: "Selection Field",	//MISSING
-ImageButton		: "Image Button",	//MISSING
+Form			: "טופס",
+Checkbox		: "תיבת סימון",
+RadioButton		: "לחצן אפשרויות",
+TextField		: "שדה טקסט",
+Textarea		: "איזור טקסט",
+HiddenField		: "שדה חבוי",
+Button			: "כפתור",
+SelectionField	: "שדה בחירה",
+ImageButton		: "כפתור תמונה",
 
 // Context Menu
 EditLink			: "עריכת קישור",
@@ -107,18 +110,18 @@ SplitCell			: "פיצול תאים",
 CellProperties		: "תכונות התא",
 TableProperties		: "תכונות הטבלה",
 ImageProperties		: "תכונות התמונה",
-FlashProperties		: "Flash Properties",	//MISSING
+FlashProperties		: "מאפייני פלאש",
 
-AnchorProp			: "Anchor Properties",	//MISSING
-ButtonProp			: "Button Properties",	//MISSING
-CheckboxProp		: "Checkbox Properties",	//MISSING
-HiddenFieldProp		: "Hidden Field Properties",	//MISSING
-RadioButtonProp		: "Radio Button Properties",	//MISSING
-ImageButtonProp		: "Image Button Properties",	//MISSING
-TextFieldProp		: "Text Field Properties",	//MISSING
-SelectionFieldProp	: "Selection Field Properties",	//MISSING
-TextareaProp		: "Textarea Properties",	//MISSING
-FormProp			: "Form Properties",	//MISSING
+AnchorProp			: "מאפייני נקודת עיגון",
+ButtonProp			: "מאפייני כפתור",
+CheckboxProp		: "מאפייני תיבת סימון",
+HiddenFieldProp		: "מאפיני שדה חבוי",
+RadioButtonProp		: "מאפייני לחצן אפשרויות",
+ImageButtonProp		: "מאפיני כפתור תמונה",
+TextFieldProp		: "מאפייני שדה טקסט",
+SelectionFieldProp	: "מאפייני שדה בחירה",
+TextareaProp		: "מאפיני איזור טקסט",
+FormProp			: "מאפיני טופס",
 
 FontFormats			: "נורמלי;קוד;כתובת;כותרת;כותרת 2;כותרת 3;כותרת 4;כותרת 5;כותרת 6",
 
@@ -131,16 +134,17 @@ UnknownToolbarItem	: "פריט לא ידוע בסרגל הכלים \"%1\"",
 UnknownCommand		: "שם פעולה לא ידוע \"%1\"",
 NotImplemented		: "הפקודה לא מיושמת",
 UnknownToolbarSet	: "ערכת סרגל הכלים \"%1\" לא קיימת",
+NoActiveX			: "You browser's security settings could limit some features of the editor. You must enable the option \"Run ActiveX controls and plug-ins\". You may experience errors and notice missing features.",	//MISSING
 
 // Dialogs
 DlgBtnOK			: "אישור",
 DlgBtnCancel		: "ביטול",
 DlgBtnClose			: "סגירה",
-DlgBtnBrowseServer	: "Browse Server",	//MISSING
+DlgBtnBrowseServer	: "סייר השרת",
 DlgAdvancedTag		: "אפשרויות מתקדמות",
-DlgOpOther			: "&lt;Other&gt;",	//MISSING
-DlgInfoTab			: "Info",	//MISSING
-DlgAlertUrl			: "Please insert the URL",	//MISSING
+DlgOpOther			: "&lt;אחר&gt;",
+DlgInfoTab			: "מידע",
+DlgAlertUrl			: "אנה הזן URL",
 
 // General Dialogs Labels
 DlgGenNotSet		: "&lt;לא נקבע&gt;",
@@ -153,7 +157,7 @@ DlgGenAccessKey		: "מקש גישה",
 DlgGenName			: "שם",
 DlgGenTabIndex		: "מספר טאב",
 DlgGenLongDescr		: "קישור לתיאור מפורט",
-DlgGenClass			: "Stylesheet Classes",
+DlgGenClass			: "גיליונות עיצוב קבוצות",
 DlgGenTitle			: "כותרת מוצעת",
 DlgGenContType		: "Content Type מוצע",
 DlgGenLinkCharset	: "קידוד המשאב המקושר",
@@ -185,17 +189,17 @@ DlgImgAlignTextTop	: "לראש הטקסט",
 DlgImgAlignTop		: "למעלה",
 DlgImgPreview		: "תצוגה מקדימה",
 DlgImgAlertUrl		: "נא להקליד את כתובת התמונה",
-DlgImgLinkTab		: "Link",	//MISSING
+DlgImgLinkTab		: "קישור",
 
 // Flash Dialog
-DlgFlashTitle		: "Flash Properties",	//MISSING
-DlgFlashChkPlay		: "Auto Play",	//MISSING
-DlgFlashChkLoop		: "Loop",	//MISSING
-DlgFlashChkMenu		: "Enable Flash Menu",	//MISSING
-DlgFlashScale		: "Scale",	//MISSING
-DlgFlashScaleAll	: "Show all",	//MISSING
-DlgFlashScaleNoBorder	: "No Border",	//MISSING
-DlgFlashScaleFit	: "Exact Fit",	//MISSING
+DlgFlashTitle		: "מאפיני פלאש",
+DlgFlashChkPlay		: "נגן אוטומטי",
+DlgFlashChkLoop		: "לולאה",
+DlgFlashChkMenu		: "אפשר תפריט פלאש",
+DlgFlashScale		: "גודל",
+DlgFlashScaleAll	: "הצג הכל",
+DlgFlashScaleNoBorder	: "ללא גבולות",
+DlgFlashScaleFit	: "התאמה מושלמת",
 
 // Link Dialog
 DlgLnkWindowTitle	: "קישור",
@@ -226,7 +230,7 @@ DlgLnkTargetBlank	: "חלון חדש (_blank)",
 DlgLnkTargetParent	: "חלון האב (_parent)",
 DlgLnkTargetSelf	: "באותו החלון (_self)",
 DlgLnkTargetTop		: "חלון ראשי (_top)",
-DlgLnkTargetFrameName	: "Target Frame Name",	//MISSING
+DlgLnkTargetFrameName	: "שם frame היעד",
 DlgLnkPopWinName	: "שם החלון הקופץ",
 DlgLnkPopWinFeat	: "תכונות החלון הקופץ",
 DlgLnkPopResize		: "בעל גודל ניתן לשינוי",
@@ -325,10 +329,10 @@ PasteErrorCopy	: "הגדרות האבטחה בדפדפן שלך לא מאפשר�
 PasteAsText		: "הדבקה כטקסט פשוט",
 PasteFromWord	: "הדבקה מ-Word",
 
-DlgPasteMsg2	: "Please paste inside the following box using the keyboard (<STRONG>Ctrl+V</STRONG>) and hit <STRONG>OK</STRONG>.",	//MISSING
-DlgPasteIgnoreFont		: "Ignore Font Face definitions",	//MISSING
-DlgPasteRemoveStyles	: "Remove Styles definitions",	//MISSING
-DlgPasteCleanBox		: "Clean Up Box",	//MISSING
+DlgPasteMsg2	: "Please paste inside the following box using the keyboard (<STRONG>Ctrl+V</STRONG>) and hit <STRONG>OK</STRONG>.",
+DlgPasteIgnoreFont		: "התעלם מהגדרות סוג פונט",
+DlgPasteRemoveStyles	: "הסר הגדרות סגנון",
+DlgPasteCleanBox		: "קופסת ניקוי",
 
 
 // Color Picker
@@ -336,136 +340,136 @@ ColorAutomatic	: "אוטומטי",
 ColorMoreColors	: "צבעים נוספים...",
 
 // Document Properties
-DocProps		: "Document Properties",	//MISSING
+DocProps		: "מאפיני מסמך",
 
 // Anchor Dialog
-DlgAnchorTitle		: "Anchor Properties",	//MISSING
-DlgAnchorName		: "Anchor Name",	//MISSING
-DlgAnchorErrorName	: "Please type the anchor name",	//MISSING
+DlgAnchorTitle		: "מאפיני נקודת עיגון",
+DlgAnchorName		: "שם לנקודת עיגון",
+DlgAnchorErrorName	: "אנא הזן שם לנקודת עיגון",
 
 // Speller Pages Dialog
-DlgSpellNotInDic		: "Not in dictionary",	//MISSING
-DlgSpellChangeTo		: "Change to",	//MISSING
-DlgSpellBtnIgnore		: "Ignore",	//MISSING
-DlgSpellBtnIgnoreAll	: "Ignore All",	//MISSING
-DlgSpellBtnReplace		: "Replace",	//MISSING
-DlgSpellBtnReplaceAll	: "Replace All",	//MISSING
-DlgSpellBtnUndo			: "Undo",	//MISSING
-DlgSpellNoSuggestions	: "- No suggestions -",	//MISSING
-DlgSpellProgress		: "Spell check in progress...",	//MISSING
-DlgSpellNoMispell		: "Spell check complete: No misspellings found",	//MISSING
-DlgSpellNoChanges		: "Spell check complete: No words changed",	//MISSING
-DlgSpellOneChange		: "Spell check complete: One word changed",	//MISSING
-DlgSpellManyChanges		: "Spell check complete: %1 words changed",	//MISSING
+DlgSpellNotInDic		: "לא נמצא במילון",
+DlgSpellChangeTo		: "שנה ל",
+DlgSpellBtnIgnore		: "התעלם",
+DlgSpellBtnIgnoreAll	: "התעלם מהכל",
+DlgSpellBtnReplace		: "החלף",
+DlgSpellBtnReplaceAll	: "החלף הכל",
+DlgSpellBtnUndo			: "Undo",
+DlgSpellNoSuggestions	: "- אין הצעות -",
+DlgSpellProgress		: "בדיקות איות בתהליך ....",
+DlgSpellNoMispell		: "בדיקות איות הסתיימה: לא נמצאו שגיעות כתיב",
+DlgSpellNoChanges		: "בדיקות איות הסתיימה: לא שונתה אף מילה",
+DlgSpellOneChange		: "בדיקות איות הסתיימה: שונתה מילה אחת",
+DlgSpellManyChanges		: "בדיקות איות הסתיימה: %1 מילים שונו",
 
-IeSpellDownload			: "Spell checker not installed. Do you want to download it now?",	//MISSING
+IeSpellDownload			: "בודק האיות לא מותקן, האם אתה מעוניין להוריד?",
 
 // Button Dialog
-DlgButtonText	: "Text (Value)",	//MISSING
-DlgButtonType	: "Type",	//MISSING
+DlgButtonText	: "טקסט (ערך)",
+DlgButtonType	: "סוג",
 
 // Checkbox and Radio Button Dialogs
-DlgCheckboxName		: "Name",	//MISSING
-DlgCheckboxValue	: "Value",	//MISSING
-DlgCheckboxSelected	: "Selected",	//MISSING
+DlgCheckboxName		: "שם",
+DlgCheckboxValue	: "ערך",
+DlgCheckboxSelected	: "בחור",
 
 // Form Dialog
-DlgFormName		: "Name",	//MISSING
-DlgFormAction	: "Action",	//MISSING
-DlgFormMethod	: "Method",	//MISSING
+DlgFormName		: "שם",
+DlgFormAction	: "שלח אל",
+DlgFormMethod	: "סוג שליחה",
 
 // Select Field Dialog
-DlgSelectName		: "Name",	//MISSING
-DlgSelectValue		: "Value",	//MISSING
-DlgSelectSize		: "Size",	//MISSING
-DlgSelectLines		: "lines",	//MISSING
-DlgSelectChkMulti	: "Allow multiple selections",	//MISSING
-DlgSelectOpAvail	: "Available Options",	//MISSING
-DlgSelectOpText		: "Text",	//MISSING
-DlgSelectOpValue	: "Value",	//MISSING
-DlgSelectBtnAdd		: "Add",	//MISSING
-DlgSelectBtnModify	: "Modify",	//MISSING
-DlgSelectBtnUp		: "Up",	//MISSING
-DlgSelectBtnDown	: "Down",	//MISSING
-DlgSelectBtnSetValue : "Set as selected value",	//MISSING
-DlgSelectBtnDelete	: "Delete",	//MISSING
+DlgSelectName		: "שם",
+DlgSelectValue		: "ערך",
+DlgSelectSize		: "גודל",
+DlgSelectLines		: "שורות",
+DlgSelectChkMulti	: "אפשר בחירות מרובות",
+DlgSelectOpAvail	: "אפשרויות זמינות",
+DlgSelectOpText		: "טקסט",
+DlgSelectOpValue	: "ערך",
+DlgSelectBtnAdd		: "הוסף",
+DlgSelectBtnModify	: "שנה",
+DlgSelectBtnUp		: "למעלה",
+DlgSelectBtnDown	: "למטה",
+DlgSelectBtnSetValue : "קבע כברירת מחדל",
+DlgSelectBtnDelete	: "מחק",
 
 // Textarea Dialog
-DlgTextareaName	: "Name",	//MISSING
-DlgTextareaCols	: "Columns",	//MISSING
-DlgTextareaRows	: "Rows",	//MISSING
+DlgTextareaName	: "שם",
+DlgTextareaCols	: "עמודות",
+DlgTextareaRows	: "שורות",
 
 // Text Field Dialog
-DlgTextName			: "Name",	//MISSING
-DlgTextValue		: "Value",	//MISSING
-DlgTextCharWidth	: "Character Width",	//MISSING
-DlgTextMaxChars		: "Maximum Characters",	//MISSING
-DlgTextType			: "Type",	//MISSING
-DlgTextTypeText		: "Text",	//MISSING
-DlgTextTypePass		: "Password",	//MISSING
+DlgTextName			: "שם",
+DlgTextValue		: "ערך",
+DlgTextCharWidth	: "רוחב באותיות",
+DlgTextMaxChars		: "מקסימות אותיות",
+DlgTextType			: "סוג",
+DlgTextTypeText		: "טקסט",
+DlgTextTypePass		: "סיסמה",
 
 // Hidden Field Dialog
-DlgHiddenName	: "Name",	//MISSING
-DlgHiddenValue	: "Value",	//MISSING
+DlgHiddenName	: "שם",
+DlgHiddenValue	: "ערך",
 
 // Bulleted List Dialog
-BulletedListProp	: "Bulleted List Properties",	//MISSING
-NumberedListProp	: "Numbered List Properties",	//MISSING
-DlgLstType			: "Type",	//MISSING
-DlgLstTypeCircle	: "Circle",	//MISSING
-DlgLstTypeDisk		: "Disk",	//MISSING
-DlgLstTypeSquare	: "Square",	//MISSING
-DlgLstTypeNumbers	: "Numbers (1, 2, 3)",	//MISSING
-DlgLstTypeLCase		: "Lowercase Letters (a, b, c)",	//MISSING
-DlgLstTypeUCase		: "Uppercase Letters (A, B, C)",	//MISSING
-DlgLstTypeSRoman	: "Small Roman Numerals (i, ii, iii)",	//MISSING
-DlgLstTypeLRoman	: "Large Roman Numerals (I, II, III)",	//MISSING
+BulletedListProp	: "מאפייני רשימה",
+NumberedListProp	: "מאפייני רשימה ממוספרת",
+DlgLstType			: "סוג",
+DlgLstTypeCircle	: "עיגול",
+DlgLstTypeDisc		: "Disc",	//MISSING
+DlgLstTypeSquare	: "מרובע",
+DlgLstTypeNumbers	: "מספרים (1, 2, 3)",
+DlgLstTypeLCase		: "אותיות קטנות (a, b, c)",
+DlgLstTypeUCase		: "אותיות גדולות (A, B, C)",
+DlgLstTypeSRoman	: "ספרות רומאיות קטנות (i, ii, iii)",
+DlgLstTypeLRoman	: "ספרות רומאיות גדולות (I, II, III)",
 
 // Document Properties Dialog
-DlgDocGeneralTab	: "General",	//MISSING
-DlgDocBackTab		: "Background",	//MISSING
-DlgDocColorsTab		: "Colors and Margins",	//MISSING
-DlgDocMetaTab		: "Meta Data",	//MISSING
+DlgDocGeneralTab	: "כללי",
+DlgDocBackTab		: "רקע",
+DlgDocColorsTab		: "צבעים וגבולות",
+DlgDocMetaTab		: "נתוני META",
 
-DlgDocPageTitle		: "Page Title",	//MISSING
-DlgDocLangDir		: "Language Direction",	//MISSING
-DlgDocLangDirLTR	: "Left to Right (LTR)",	//MISSING
-DlgDocLangDirRTL	: "Right to Left (RTL)",	//MISSING
-DlgDocLangCode		: "Language Code",	//MISSING
-DlgDocCharSet		: "Character Set Encoding",	//MISSING
-DlgDocCharSetOther	: "Other Character Set Encoding",	//MISSING
+DlgDocPageTitle		: "כותרת דף",
+DlgDocLangDir		: "כיוון שפה",
+DlgDocLangDirLTR	: "שמאל לימין (LTR)",
+DlgDocLangDirRTL	: "ימין לשמאל (RTL)",
+DlgDocLangCode		: "קוד שפה",
+DlgDocCharSet		: "קידוד אותיות",
+DlgDocCharSetOther	: "קידוד אותיות אחר",
 
-DlgDocDocType		: "Document Type Heading",	//MISSING
-DlgDocDocTypeOther	: "Other Document Type Heading",	//MISSING
-DlgDocIncXHTML		: "Include XHTML Declarations",	//MISSING
-DlgDocBgColor		: "Background Color",	//MISSING
-DlgDocBgImage		: "Background Image URL",	//MISSING
-DlgDocBgNoScroll	: "Nonscrolling Background",	//MISSING
-DlgDocCText			: "Text",	//MISSING
-DlgDocCLink			: "Link",	//MISSING
-DlgDocCVisited		: "Visited Link",	//MISSING
-DlgDocCActive		: "Active Link",	//MISSING
-DlgDocMargins		: "Page Margins",	//MISSING
-DlgDocMaTop			: "Top",	//MISSING
-DlgDocMaLeft		: "Left",	//MISSING
-DlgDocMaRight		: "Right",	//MISSING
-DlgDocMaBottom		: "Bottom",	//MISSING
-DlgDocMeIndex		: "Document Indexing Keywords (comma separated)",	//MISSING
-DlgDocMeDescr		: "Document Description",	//MISSING
-DlgDocMeAuthor		: "Author",	//MISSING
-DlgDocMeCopy		: "Copyright",	//MISSING
-DlgDocPreview		: "Preview",	//MISSING
+DlgDocDocType		: "הגדרות סוג מסמך",
+DlgDocDocTypeOther	: "הגדרות סוג מסמך אחרות",
+DlgDocIncXHTML		: "כלול הגדרות XHTML",
+DlgDocBgColor		: "צבע רקע",
+DlgDocBgImage		: "URL לתמונת רקע",
+DlgDocBgNoScroll	: "רגע ללא גלילה",
+DlgDocCText			: "טקסט",
+DlgDocCLink			: "קישור",
+DlgDocCVisited		: "קישור שבוקר",
+DlgDocCActive		: " קישור פעיל",
+DlgDocMargins		: "גבולות דף",
+DlgDocMaTop			: "למעלה",
+DlgDocMaLeft		: "שמאלה",
+DlgDocMaRight		: "ימינה",
+DlgDocMaBottom		: "למטה",
+DlgDocMeIndex		: "מפתח עניינים של המסמך )מופרד בפסיק(",
+DlgDocMeDescr		: "תאור מסמך",
+DlgDocMeAuthor		: "מחבר",
+DlgDocMeCopy		: "זכויות יוצרים",
+DlgDocPreview		: "תצוגה מקדימה",
 
 // Templates Dialog
-Templates			: "Templates",	//MISSING
-DlgTemplatesTitle	: "Content Templates",	//MISSING
-DlgTemplatesSelMsg	: "Please select the template to open in the editor<br>(the actual contents will be lost):",	//MISSING
-DlgTemplatesLoading	: "Loading templates list. Please wait...",	//MISSING
-DlgTemplatesNoTpl	: "(No templates defined)",	//MISSING
+Templates			: "תבניות",
+DlgTemplatesTitle	: "תביות תוכן",
+DlgTemplatesSelMsg	: "אנא בחר תבנית לפתיחה בעורך <BR>התוכן המקורי ימחק:",
+DlgTemplatesLoading	: "מעלה רשימת תבניות אנא המתן",
+DlgTemplatesNoTpl	: "(לא הוגדרו תבניות)",
 
 // About Dialog
-DlgAboutAboutTab	: "About",	//MISSING
-DlgAboutBrowserInfoTab	: "Browser Info",	//MISSING
+DlgAboutAboutTab	: "אודות",
+DlgAboutBrowserInfoTab	: "גירסת דפדפן",
 DlgAboutVersion		: "גירסא",
 DlgAboutLicense		: "ברשיון תחת תנאי GNU Lesser General Public License",
 DlgAboutInfo		: "מידע נוסף ניתן למצוא כאן:"

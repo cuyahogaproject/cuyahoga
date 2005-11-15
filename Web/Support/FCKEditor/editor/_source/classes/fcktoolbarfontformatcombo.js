@@ -8,6 +8,8 @@
  * For further information visit:
  * 		http://www.fckeditor.net/
  * 
+ * "Support Open Source software. What about a donation today?"
+ * 
  * File Name: fcktoolbarfontformatcombo.js
  * 	FCKToolbarPanelButton Class: Handles the Fonts combo selector.
  * 
@@ -15,9 +17,14 @@
  * 		Frederico Caldeira Knabben (fredck@fckeditor.net)
  */
 
-var FCKToolbarFontFormatCombo = function()
+var FCKToolbarFontFormatCombo = function( tooltip, style )
 {
-	this.Command =  FCKCommands.GetCommand( 'FontFormat' ) ;
+	this.Command	= FCKCommands.GetCommand( 'FontFormat' ) ;
+	this.Label		= this.GetLabel() ;
+	this.Tooltip	= tooltip ? tooltip : this.Label ;
+	this.Style		= style ? style : FCK_TOOLBARITEM_ICONTEXT ;
+	
+	this.PanelWidth = 190 ;
 }
 
 // Inherit from FCKToolbarSpecialCombo.

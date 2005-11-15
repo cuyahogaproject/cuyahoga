@@ -8,6 +8,8 @@
  * For further information visit:
  * 		http://www.fckeditor.net/
  * 
+ * "Support Open Source software. What about a donation today?"
+ * 
  * File Name: fckconfig.js
  * 	Creates and initializes the FCKConfig object.
  * 
@@ -31,6 +33,19 @@ else
 }
 
 FCKConfig.EditorPath = FCKConfig.BasePath.replace( /editor\/$/, '' ) ;
+
+// There is a bug in Gecko. If the editor is hidden on startup, an error is 
+// thrown when trying to get the screen dimentions.
+try
+{
+	FCKConfig.ScreenWidth	= screen.width ;
+	FCKConfig.ScreenHeight	= screen.height ;
+}
+catch (e) 
+{
+	FCKConfig.ScreenWidth	= 800 ;
+	FCKConfig.ScreenHeight	= 600 ;
+}
 
 // Override the actual configuration values with the values passed throw the 
 // hidden field "<InstanceName>___Config".
@@ -89,3 +104,47 @@ FCKConfig.Plugins.Add = function( name, langs, path )
 {
 	FCKConfig.Plugins.Items.addItem( [name, langs, path] ) ;
 }
+
+// FCKConfig.ProtectedSource: object that holds a collection of Regular 
+// Expressions that defined parts of the raw HTML that must remain untouched
+// like custom tags, scripts, server side code, etc...
+FCKConfig.ProtectedSource = new Object() ;
+FCKConfig.ProtectedSource.RegexEntries = new Array() ;
+
+FCKConfig.ProtectedSource.Add = function( regexPattern )
+{
+	this.RegexEntries.addItem( regexPattern ) ;
+}
+
+FCKConfig.ProtectedSource.Protect = function( html )
+{
+	function _Replace( protectedSource )
+	{
+		var index = FCKTempBin.AddElement( protectedSource ) ;
+		return '<!--{PS..' + index + '}-->' ;
+	}
+	
+	for ( var i = 0 ; i < this.RegexEntries.length ; i++ )
+	{
+		html = html.replace( this.RegexEntries[i], _Replace ) ;
+	}
+	
+	return html ;
+}
+
+
+FCKConfig.ProtectedSource.Revert = function( html, clearBin )
+{
+	function _Replace( m, opener, index )
+	{
+		var protectedValue = clearBin ? FCKTempBin.RemoveElement( index ) : FCKTempBin.Elements[ index ] ;
+		// There could be protected source inside another one.
+		return FCKConfig.ProtectedSource.Revert( protectedValue, clearBin ) ;
+	}
+
+	return html.replace( /(<|&lt;)!--\{PS..(\d+)\}--(>|&gt;)/g, _Replace ) ;
+}
+
+// First of any other protection, we must protect all comments to avoid 
+// loosing them (of course, IE related).
+FCKConfig.ProtectedSource.Add( /<!--[\s\S]*?-->/g ) ;

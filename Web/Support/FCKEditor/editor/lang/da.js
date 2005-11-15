@@ -8,6 +8,8 @@
  * For further information visit:
  * 		http://www.fckeditor.net/
  * 
+ * "Support Open Source software. What about a donation today?"
+ * 
  * File Name: da.js
  * 	Danish language file.
  * 
@@ -132,6 +134,7 @@ UnknownToolbarItem	: "Ukendt værktøjslinje objekt \"%1\"",
 UnknownCommand		: "Ukendt kommando navn \"%1\"",
 NotImplemented		: "Kommandoen er ikke implementeret",
 UnknownToolbarSet	: "Værktøjslinjen \"%1\" eksisterer ikke",
+NoActiveX			: "You browser's security settings could limit some features of the editor. You must enable the option \"Run ActiveX controls and plug-ins\". You may experience errors and notice missing features.",	//MISSING
 
 // Dialogs
 DlgBtnOK			: "OK",
@@ -414,7 +417,7 @@ BulletedListProp	: "Punkttegnopstilling egenskaber",
 NumberedListProp	: "Talopstilling egenskaber",
 DlgLstType			: "Type",
 DlgLstTypeCircle	: "Cirkel",
-DlgLstTypeDisk		: "Prik",
+DlgLstTypeDisc		: "Disc",	//MISSING
 DlgLstTypeSquare	: "Firkant",
 DlgLstTypeNumbers	: "Nummereret (1, 2, 3)",
 DlgLstTypeLCase		: "Små bogstaver (a, b, c)",

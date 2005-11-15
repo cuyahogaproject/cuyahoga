@@ -8,6 +8,8 @@
  * For further information visit:
  * 		http://www.fckeditor.net/
  * 
+ * "Support Open Source software. What about a donation today?"
+ * 
  * File Name: tr.js
  * 	Turkish language file.
  * 
@@ -38,11 +40,11 @@ RemoveFormat		: "Biçimi Kaldir",
 InsertLinkLbl		: "Köprü",
 InsertLink			: "Köprü Ekle/Düzenle",
 RemoveLink			: "Köprü Kaldir",
-Anchor				: "Insert/Edit Anchor",	//MISSING
+Anchor				: "Çapa Ekle/Düzenle",
 InsertImageLbl		: "Resim",
 InsertImage			: "Resim Ekle/Düzenle",
-InsertFlashLbl		: "Flash",	//MISSING
-InsertFlash			: "Insert/Edit Flash",	//MISSING
+InsertFlashLbl		: "Flash",
+InsertFlash			: "Flash Ekle/Düzenle",
 InsertTableLbl		: "Tablo",
 InsertTable			: "Tablo Ekle/Düzenle",
 InsertLineLbl		: "Satir",
@@ -107,7 +109,7 @@ SplitCell			: "Hücre Böl",
 CellProperties		: "Hücre Özellikleri",
 TableProperties		: "Tablo Özellikleri",
 ImageProperties		: "Resim Özellikleri",
-FlashProperties		: "Flash Properties",	//MISSING
+FlashProperties		: "Flash Özellikleri",
 
 AnchorProp			: "Çapa Özellikleri",
 ButtonProp			: "Dügme Özellikleri",
@@ -131,6 +133,7 @@ UnknownToolbarItem	: "Bilinmeyen araç çubugu ögesi \"%1\"",
 UnknownCommand		: "Bilinmeyen komut \"%1\"",
 NotImplemented		: "Komut uyarlanamadi",
 UnknownToolbarSet	: "\"%1\" araç çubugu ögesi mevcut degil",
+NoActiveX			: "You browser's security settings could limit some features of the editor. You must enable the option \"Run ActiveX controls and plug-ins\". You may experience errors and notice missing features.",	//MISSING
 
 // Dialogs
 DlgBtnOK			: "Tamam",
@@ -139,8 +142,8 @@ DlgBtnClose			: "Kapat",
 DlgBtnBrowseServer	: "Sunucuyu Gez",
 DlgAdvancedTag		: "Gelismis",
 DlgOpOther			: "&lt;Diger&gt;",
-DlgInfoTab			: "Info",	//MISSING
-DlgAlertUrl			: "Please insert the URL",	//MISSING
+DlgInfoTab			: "Bilgi",
+DlgAlertUrl			: "Lütfen URL girin",
 
 // General Dialogs Labels
 DlgGenNotSet		: "&lt;tanimlanmamis&gt;",
@@ -185,17 +188,17 @@ DlgImgAlignTextTop	: "Yazi Tepeye",
 DlgImgAlignTop		: "Tepe",
 DlgImgPreview		: "Ön Izleme",
 DlgImgAlertUrl		: "Lütfen resimin URL'sini yaziniz",
-DlgImgLinkTab		: "Link",	//MISSING
+DlgImgLinkTab		: "Köprü",
 
 // Flash Dialog
-DlgFlashTitle		: "Flash Properties",	//MISSING
-DlgFlashChkPlay		: "Auto Play",	//MISSING
-DlgFlashChkLoop		: "Loop",	//MISSING
-DlgFlashChkMenu		: "Enable Flash Menu",	//MISSING
-DlgFlashScale		: "Scale",	//MISSING
-DlgFlashScaleAll	: "Show all",	//MISSING
-DlgFlashScaleNoBorder	: "No Border",	//MISSING
-DlgFlashScaleFit	: "Exact Fit",	//MISSING
+DlgFlashTitle		: "Flash Özellikleri",
+DlgFlashChkPlay		: "Otomatik Oynat",
+DlgFlashChkLoop		: "Döngü",
+DlgFlashChkMenu		: "Flash Mönüsünü Kullan",
+DlgFlashScale		: "Boyutlandır",
+DlgFlashScaleAll	: "Hepsini Göster",
+DlgFlashScaleNoBorder	: "Kenar Yok",
+DlgFlashScaleFit	: "Tam Sığdır",
 
 // Link Dialog
 DlgLnkWindowTitle	: "Köprü",
@@ -326,9 +329,9 @@ PasteAsText		: "Düz Metin Olarak Yapistir",
 PasteFromWord	: "Word'den yapistir",
 
 DlgPasteMsg2	: "Please paste inside the following box using the keyboard (<STRONG>Ctrl+V</STRONG>) and hit <STRONG>OK</STRONG>.",	//MISSING
-DlgPasteIgnoreFont		: "Ignore Font Face definitions",	//MISSING
-DlgPasteRemoveStyles	: "Remove Styles definitions",	//MISSING
-DlgPasteCleanBox		: "Clean Up Box",	//MISSING
+DlgPasteIgnoreFont		: "Yazı Tipi tanımlarını yoksay",
+DlgPasteRemoveStyles	: "Sitil Tanımlarını çıkar",
+DlgPasteCleanBox		: "Temizlik Kutusu",
 
 
 // Color Picker
@@ -413,7 +416,7 @@ BulletedListProp	: "Simgeli Liste Özellikleri",
 NumberedListProp	: "Numarali Liste Özellikleri",
 DlgLstType			: "Tip",
 DlgLstTypeCircle	: "Çember",
-DlgLstTypeDisk		: "Daire",
+DlgLstTypeDisc		: "Disc",	//MISSING
 DlgLstTypeSquare	: "Kare",
 DlgLstTypeNumbers	: "Sayilar (1, 2, 3)",
 DlgLstTypeLCase		: "Küçük Harfler (a, b, c)",
@@ -457,11 +460,11 @@ DlgDocMeCopy		: "Telif",
 DlgDocPreview		: "Ön Izleme",
 
 // Templates Dialog
-Templates			: "Templates",	//MISSING
-DlgTemplatesTitle	: "Content Templates",	//MISSING
-DlgTemplatesSelMsg	: "Please select the template to open in the editor<br>(the actual contents will be lost):",	//MISSING
-DlgTemplatesLoading	: "Loading templates list. Please wait...",	//MISSING
-DlgTemplatesNoTpl	: "(No templates defined)",	//MISSING
+Templates			: "Düzenler",
+DlgTemplatesTitle	: "İçerik Düzenleri",
+DlgTemplatesSelMsg	: "Editörde açmak için lütfen bir düzen seçin.<br>(hali hazırdaki içerik kaybolacaktır.):",
+DlgTemplatesLoading	: "Düzenler listesi yüklenmekte. Lütfen bekleyiniz...",
+DlgTemplatesNoTpl	: "(Belirli bir düzen seçilmedi)",
 
 // About Dialog
 DlgAboutAboutTab	: "Hakkinda",

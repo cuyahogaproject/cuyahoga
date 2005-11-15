@@ -8,6 +8,8 @@
  * For further information visit:
  * 		http://www.fckeditor.net/
  * 
+ * "Support Open Source software. What about a donation today?"
+ * 
  * File Name: es.js
  * 	Spanish language file.
  * 
@@ -131,6 +133,7 @@ UnknownToolbarItem	: "Item de barra desconocido \"%1\"",
 UnknownCommand		: "Nombre de comando desconocido \"%1\"",
 NotImplemented		: "Comando no implementado",
 UnknownToolbarSet	: "Nombre de barra \"%1\" no definido",
+NoActiveX			: "You browser's security settings could limit some features of the editor. You must enable the option \"Run ActiveX controls and plug-ins\". You may experience errors and notice missing features.",	//MISSING
 
 // Dialogs
 DlgBtnOK			: "OK",
@@ -413,7 +416,7 @@ BulletedListProp	: "Propiedades de Viñetas",
 NumberedListProp	: "Propiedades de Numeraciones",
 DlgLstType			: "Tipo",
 DlgLstTypeCircle	: "Círculo",
-DlgLstTypeDisk		: "Disco",
+DlgLstTypeDisc		: "Disc",	//MISSING
 DlgLstTypeSquare	: "Cuadrado",
 DlgLstTypeNumbers	: "Números (1, 2, 3)",
 DlgLstTypeLCase		: "letras en minúsculas (a, b, c)",

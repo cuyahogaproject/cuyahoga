@@ -8,6 +8,8 @@
  * For further information visit:
  * 		http://www.fckeditor.net/
  * 
+ * "Support Open Source software. What about a donation today?"
+ * 
  * File Name: fckeditorapi.js
  * 	Create the FCKeditorAPI object that is available as a global object in
  * 	the page where the editor is placed in.
@@ -30,7 +32,7 @@ if ( !window.parent.FCKeditorAPI )
 	FCKeditorAPI.__Instances = new Object() ;
 
 	// Set the current version.
-	FCKeditorAPI.Version = '2.0' ;
+	FCKeditorAPI.Version = '2.1.1' ;
 
 	// Function used to get a instance of an existing editor present in the 
 	// page.

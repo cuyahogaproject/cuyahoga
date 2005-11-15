@@ -8,6 +8,8 @@
  * For further information visit:
  * 		http://www.fckeditor.net/
  * 
+ * "Support Open Source software. What about a donation today?"
+ * 
  * File Name: fckstylesloader.js
  * 	FCKStylesLoader Class: this class define objects that are responsible
  * 	for loading the styles defined in the XML file.

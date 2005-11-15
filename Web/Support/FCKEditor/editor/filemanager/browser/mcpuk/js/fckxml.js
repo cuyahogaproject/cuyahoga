@@ -8,6 +8,8 @@
  * For further information visit:
  * 		http://www.fckeditor.net/
  * 
+ * "Support Open Source software. What about a donation today?"
+ * 
  * File Name: fckxml.js
  * 	Defines the FCKXml object that is used for XML data calls
  * 	and XML processing.

@@ -8,6 +8,8 @@
  * For further information visit:
  * 		http://www.fckeditor.net/
  * 
+ * "Support Open Source software. What about a donation today?"
+ * 
  * File Name: ja.js
  * 	Japanese language file.
  * 
@@ -131,6 +133,7 @@ UnknownToolbarItem	: "未知のツールバー項目 \"%1\"",
 UnknownCommand		: "未知のコマンド名 \"%1\"",
 NotImplemented		: "コマンドはインプリメントされませんでした。",
 UnknownToolbarSet	: "ツールバー設定 \"%1\" 存在しません。",
+NoActiveX			: "You browser's security settings could limit some features of the editor. You must enable the option \"Run ActiveX controls and plug-ins\". You may experience errors and notice missing features.",	//MISSING
 
 // Dialogs
 DlgBtnOK			: "OK",
@@ -413,7 +416,7 @@ BulletedListProp	: "箇条書き プロパティ",
 NumberedListProp	: "段落番号 プロパティ",
 DlgLstType			: "タイプ",
 DlgLstTypeCircle	: "白丸",
-DlgLstTypeDisk		: "黒丸",
+DlgLstTypeDisc		: "Disc",	//MISSING
 DlgLstTypeSquare	: "四角",
 DlgLstTypeNumbers	: "アラビア数字 (1, 2, 3)",
 DlgLstTypeLCase		: "英字小文字 (a, b, c)",

@@ -9,6 +9,8 @@
  * For further information visit:
  * 		http://www.fckeditor.net/
  * 
+ * "Support Open Source software. What about a donation today?"
+ * 
  * File Name: Thumbnail.php
  * 	Implements the Thumbnail command, to return
  * 	a thumbnail to the browser for the sent file,

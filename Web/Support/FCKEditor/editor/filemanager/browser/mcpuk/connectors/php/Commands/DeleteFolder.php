@@ -9,6 +9,8 @@
  * For further information visit:
  * 		http://www.fckeditor.net/
  * 
+ * "Support Open Source software. What about a donation today?"
+ * 
  * File Name: DeleteFolder.php
  * 	Implements the DeleteFolder command to delete a folder
  * 	in the current directory. Output is in XML.

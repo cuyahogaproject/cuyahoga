@@ -8,6 +8,8 @@
  * For further information visit:
  * 		http://www.fckeditor.net/
  * 
+ * "Support Open Source software. What about a donation today?"
+ * 
  * File Name: fcktoolbarpanelbutton.js
  * 	FCKToolbarPanelButton Class: represents a special button in the toolbar
  * 	that shows a panel when pressed.

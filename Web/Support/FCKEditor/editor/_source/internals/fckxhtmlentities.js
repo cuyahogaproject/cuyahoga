@@ -8,6 +8,8 @@
  * For further information visit:
  * 		http://www.fckeditor.net/
  * 
+ * "Support Open Source software. What about a donation today?"
+ * 
  * File Name: fckxhtmlentities.js
  * 	This file define the HTML entities handled by the editor.
  * 
@@ -15,10 +17,10 @@
  * 		Frederico Caldeira Knabben (fredck@fckeditor.net)
  */
 
+var FCKXHtmlEntities = new Object() ;
+
 if ( FCKConfig.ProcessHTMLEntities )
 {
-	FCKXHtmlEntities = new Object();
-
 	FCKXHtmlEntities.Entities = {
 		// Latin-1 Entities
 		' ':'nbsp',
@@ -311,6 +313,10 @@ if ( FCKConfig.ProcessHTMLEntities )
 	// Create and Compile the Regex used to separate the entities from the text.
 	FCKXHtmlEntities.EntitiesRegex = new RegExp('','') ;
 	FCKXHtmlEntities.EntitiesRegex.compile( '[' + FCKXHtmlEntities.Chars + ']|[^' + FCKXHtmlEntities.Chars + ']+', 'g' ) ;
-
-	FCKXHtmlEntities.GeckoEntitiesMarkerRegex = /#\?-\:/g ;
+}
+else
+{
+	// Even if we are not processing the entities, we must respect the &nbsp;.
+	FCKXHtmlEntities.Entities = { ' ':'nbsp' } ;
+	FCKXHtmlEntities.EntitiesRegex = /[ ]|[^ ]+/g ;
 }

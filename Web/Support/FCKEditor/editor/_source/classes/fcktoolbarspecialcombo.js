@@ -8,6 +8,8 @@
  * For further information visit:
  * 		http://www.fckeditor.net/
  * 
+ * "Support Open Source software. What about a donation today?"
+ * 
  * File Name: fcktoolbarspecialcombo.js
  * 	FCKToolbarSpecialCombo Class: This is a "abstract" base class to be used
  * 	by the special combo toolbar elements like font name, font size, paragraph format, etc...
@@ -36,9 +38,14 @@ function FCKToolbarSpecialCombo_OnSelect( itemId, item )
 FCKToolbarSpecialCombo.prototype.CreateInstance = function( parentToolbar )
 {
 	this._Combo = new FCKSpecialCombo( this.GetLabel() ) ;
-	this._Combo.FieldWidth = 100 ;
-	this._Combo.PanelWidth = 150 ;
-	this._Combo.PanelMaxHeight = 150 ;
+	this._Combo.FieldWidth		= this.FieldWidth		!= null ? this.FieldWidth		: 100 ;
+	this._Combo.PanelWidth		= this.PanelWidth		!= null ? this.PanelWidth		: 150 ;
+	this._Combo.PanelMaxHeight	= this.PanelMaxHeight	!= null ? this.PanelMaxHeight	: 150 ;
+	
+	//this._Combo.Command.Name = this.Command.Name;
+//	this._Combo.Label	= this.Label ;
+	this._Combo.Tooltip	= this.Tooltip ;
+	this._Combo.Style	= this.Style ;
 	
 	this.CreateItems( this._Combo ) ;
 

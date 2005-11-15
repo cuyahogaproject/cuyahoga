@@ -9,6 +9,8 @@
  * For further information visit:
  * 		http://www.fckeditor.net/
  * 
+ * "Support Open Source software. What about a donation today?"
+ * 
  * File Name: CreateFolder.php
  * 	Implements the CreateFolder command to make a new folder
  * 	in the current directory. Output is in XML.

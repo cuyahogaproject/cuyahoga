@@ -8,6 +8,8 @@
  * For further information visit:
  * 		http://www.fckeditor.net/
  * 
+ * "Support Open Source software. What about a donation today?"
+ * 
  * File Name: fi.js
  * 	Finnish language file.
  * 
@@ -131,6 +133,7 @@ UnknownToolbarItem	: "Tuntemanton työkalu \"%1\"",
 UnknownCommand		: "Tuntematon komento \"%1\"",
 NotImplemented		: "Komentoa ei ole liitetty sovellukseen",
 UnknownToolbarSet	: "Työkalukokonaisuus \"%1\" ei ole olemassa",
+NoActiveX			: "You browser's security settings could limit some features of the editor. You must enable the option \"Run ActiveX controls and plug-ins\". You may experience errors and notice missing features.",	//MISSING
 
 // Dialogs
 DlgBtnOK			: "OK",
@@ -413,7 +416,7 @@ BulletedListProp	: "Luettelon ominaisuudet",
 NumberedListProp	: "Numeroinnin ominaisuudet",
 DlgLstType			: "Tyyppi",
 DlgLstTypeCircle	: "Kehä",
-DlgLstTypeDisk		: "Ympyrä",
+DlgLstTypeDisc		: "Disc",	//MISSING
 DlgLstTypeSquare	: "Neliö",
 DlgLstTypeNumbers	: "Numerot (1, 2, 3)",
 DlgLstTypeLCase		: "Pienet kirjaimet (a, b, c)",

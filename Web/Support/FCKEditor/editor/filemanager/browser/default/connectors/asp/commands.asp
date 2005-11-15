@@ -8,6 +8,8 @@
  * For further information visit:
  * 		http://www.fckeditor.net/
  * 
+ * "Support Open Source software. What about a donation today?"
+ * 
  * File Name: commands.asp
  * 	This file include the functions that handle the Command requests
  * 	in the ASP Connector.
@@ -81,7 +83,7 @@ Sub CreateFolder( resourceType, currentFolder )
 	Dim sNewFolderName
 	sNewFolderName = Request.QueryString( "NewFolderName" )
 
-	If ( sNewFolderName = "" ) Then
+	If ( sNewFolderName = "" OR InStr( 1, sNewFolderName, ".." ) > 0  ) Then
 		sErrorNumber = "102"
 	Else
 		' Map the virtual path to the local server path of the current folder.

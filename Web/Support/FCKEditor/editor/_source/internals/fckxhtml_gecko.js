@@ -8,6 +8,8 @@
  * For further information visit:
  * 		http://www.fckeditor.net/
  * 
+ * "Support Open Source software. What about a donation today?"
+ * 
  * File Name: fckxhtml_gecko.js
  * 	Defines the FCKXHtml object, responsible for the XHTML operations.
  * 	Gecko specific.
@@ -21,15 +23,10 @@ FCKXHtml._GetMainXmlString = function()
 	// Create the XMLSerializer.
 	var oSerializer = new XMLSerializer() ;
 
-	if ( FCKConfig.ProcessHTMLEntities )
-	{
-		// Return the serialized XML as a string.
-		// Due to a BUG on Gecko, the special chars sequence "#?-:" must be replaced with "&"
-		// for the XHTML entities.
-		return oSerializer.serializeToString( this.MainNode ).replace( FCKXHtmlEntities.GeckoEntitiesMarkerRegex, '&' ) ;
-	}
-	else
-		return oSerializer.serializeToString( this.MainNode ) ;
+	// Return the serialized XML as a string.
+	// Due to a BUG on Gecko, the special chars sequence "#?-:" must be replaced with "&"
+	// for the XHTML entities.
+	return oSerializer.serializeToString( this.MainNode ).replace( FCKRegexLib.GeckoEntitiesMarker, '&' ) ;
 }
 
 // There is a BUG on Gecko... createEntityReference returns null.
@@ -50,6 +47,7 @@ FCKXHtml._AppendAttributes = function( xmlNode, htmlNode, node )
 		if ( oAttribute.specified )
 		{
 			var sAttName = oAttribute.nodeName.toLowerCase() ;
+			var sAttValue ;
 
 			// The "_fckxhtmljob" attribute is used to mark the already processed elements.
 			if ( sAttName == '_fckxhtmljob' )
@@ -60,12 +58,12 @@ FCKXHtml._AppendAttributes = function( xmlNode, htmlNode, node )
 			// There are one cases (on Gecko) when the oAttribute.nodeValue must be used:
 			//		- for the "class" attribute
 			else if ( sAttName == 'class' )
-				var sAttValue = oAttribute.nodeValue ;
+				sAttValue = oAttribute.nodeValue ;
 			// XHTML doens't support attribute minimization like "CHECKED". It must be trasformed to cheched="checked".
 			else if ( oAttribute.nodeValue === true )
 				sAttValue = sAttName ;
 			else
-				var sAttValue = htmlNode.getAttribute( sAttName, 2 ) ;	// We must use getAttribute to get it exactly as it is defined.
+				sAttValue = htmlNode.getAttribute( sAttName, 2 ) ;	// We must use getAttribute to get it exactly as it is defined.
 
 			if ( FCKConfig.ForceSimpleAmpersand && sAttValue.replace )
 				sAttValue = sAttValue.replace( /&/g, '___FCKAmp___' ) ;

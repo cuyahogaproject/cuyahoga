@@ -8,6 +8,8 @@
  * For further information visit:
  * 		http://www.fckeditor.net/
  * 
+ * "Support Open Source software. What about a donation today?"
+ * 
  * File Name: fckevents.js
  * 	FCKEvents Class: used to handle events is a advanced way.
  * 

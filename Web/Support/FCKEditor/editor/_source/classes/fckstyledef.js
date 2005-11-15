@@ -8,6 +8,8 @@
  * For further information visit:
  * 		http://www.fckeditor.net/
  * 
+ * "Support Open Source software. What about a donation today?"
+ * 
  * File Name: fckstyledef.js
  * 	FCKStyleDef Class: represents a single stylke definition.
  * 

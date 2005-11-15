@@ -9,6 +9,8 @@
  * For further information visit:
  * 		http://www.fckeditor.net/
  * 
+ * "Support Open Source software. What about a donation today?"
+ * 
  * File Name: Default.php
  * 	Im not very clued up on authentication but even i can see that anyone 
  * 	who can spoof an IP could perform a replay attack on this, but its 

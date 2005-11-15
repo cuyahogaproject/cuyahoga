@@ -9,6 +9,8 @@
  * For further information visit:
  * 		http://www.fckeditor.net/
  * 
+ * "Support Open Source software. What about a donation today?"
+ * 
  * File Name: fck_anchor.html
  * 	Anchor dialog window.
  * 
@@ -66,7 +68,7 @@ function Ok()
 	oAnchor		= FCK.EditorDocument.createElement( 'DIV' ) ;
 	oAnchor.innerHTML = '<a name="' + GetE('txtName').value + '"><\/a>' ;
 	oAnchor = oAnchor.firstChild ;
-		
+
 	oFakeImage	= oEditor.FCKDocumentProcessors_CreateFakeImage( 'FCK__Anchor', oAnchor ) ;
 	oFakeImage.setAttribute( '_fckanchor', 'true', 0 ) ;
 	oFakeImage	= FCK.InsertElementAndGetIt( oFakeImage ) ;

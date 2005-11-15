@@ -8,6 +8,8 @@
  * For further information visit:
  * 		http://www.fckeditor.net/
  * 
+ * "Support Open Source software. What about a donation today?"
+ * 
  * File Name: fckurlparams.js
  * 	Defines the FCKURLParams object that is used to get all parameters
  * 	passed by the URL QueryString (after the "?").
@@ -20,7 +22,7 @@
 var FCKURLParams = new Object() ;
 
 var aParams = document.location.search.substr(1).split('&') ;
-for ( i = 0 ; i < aParams.length ; i++ )
+for ( var i = 0 ; i < aParams.length ; i++ )
 {
 	var aParam = aParams[i].split('=') ;
 	var sParamName  = aParam[0] ;

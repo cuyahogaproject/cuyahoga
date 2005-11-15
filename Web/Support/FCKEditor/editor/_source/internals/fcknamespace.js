@@ -8,6 +8,8 @@
  * For further information visit:
  * 		http://www.fckeditor.net/
  * 
+ * "Support Open Source software. What about a donation today?"
+ * 
  * File Name: fcknamespace.js
  * 	This file declares the namespace (object holder) where the common editor 
  * 	objects and classes are defined.

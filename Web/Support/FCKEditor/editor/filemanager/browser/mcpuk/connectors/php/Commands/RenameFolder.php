@@ -9,6 +9,8 @@
  * For further information visit:
  * 		http://www.fckeditor.net/
  * 
+ * "Support Open Source software. What about a donation today?"
+ * 
  * File Name: RenameFolder.php
  * 	Implements the DeleteFile command to delete a file
  * 	in the current directory. Output is in XML

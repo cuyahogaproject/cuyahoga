@@ -8,6 +8,8 @@
  * For further information visit:
  * 		http://www.fckeditor.net/
  * 
+ * "Support Open Source software. What about a donation today?"
+ * 
  * File Name: en.js
  * 	English language file.
  * 
@@ -83,6 +85,8 @@ Find				: "Find",
 Replace				: "Replace",
 SpellCheck			: "Check Spell",
 UniversalKeyboard	: "Universal Keyboard",
+PageBreakLbl		: "Page Break",
+PageBreak			: "Insert Page Break",
 
 Form			: "Form",
 Checkbox		: "Checkbox",
@@ -131,6 +135,7 @@ UnknownToolbarItem	: "Unknown toolbar item \"%1\"",
 UnknownCommand		: "Unknown command name \"%1\"",
 NotImplemented		: "Command not implemented",
 UnknownToolbarSet	: "Toolbar set \"%1\" doesn't exist",
+NoActiveX			: "You browser's security settings could limit some features of the editor. You must enable the option \"Run ActiveX controls and plug-ins\". You may experience errors and notice missing features.",
 
 // Dialogs
 DlgBtnOK			: "OK",
@@ -413,7 +418,7 @@ BulletedListProp	: "Bulleted List Properties",
 NumberedListProp	: "Numbered List Properties",
 DlgLstType			: "Type",
 DlgLstTypeCircle	: "Circle",
-DlgLstTypeDisk		: "Disk",
+DlgLstTypeDisc		: "Disc",
 DlgLstTypeSquare	: "Square",
 DlgLstTypeNumbers	: "Numbers (1, 2, 3)",
 DlgLstTypeLCase		: "Lowercase Letters (a, b, c)",

@@ -8,6 +8,8 @@
  * For further information visit:
  * 		http://www.fckeditor.net/
  * 
+ * "Support Open Source software. What about a donation today?"
+ * 
  * File Name: fckcommands.js
  * 	Define all commands available in the editor.
  * 
@@ -62,6 +64,7 @@ FCKCommands.GetCommand = function( commandName )
 		case 'Preview'		: oCommand = new FCKPreviewCommand() ; break ;
 		case 'Save'			: oCommand = new FCKSaveCommand() ; break ;
 		case 'NewPage'		: oCommand = new FCKNewPageCommand() ; break ;
+		case 'PageBreak'	: oCommand = new FCKPageBreakCommand() ; break ;
 
 		case 'TextColor'	: oCommand = new FCKTextColorCommand('ForeColor') ; break ;
 		case 'BGColor'		: oCommand = new FCKTextColorCommand('BackColor') ; break ;
@@ -103,7 +106,7 @@ FCKCommands.GetCommand = function( commandName )
 			else
 			{
 				alert( FCKLang.UnknownCommand.replace( /%1/g, commandName ) ) ;
-				return ;
+				return null ;
 			}
 	}
 	

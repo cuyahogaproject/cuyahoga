@@ -8,6 +8,8 @@
  * For further information visit:
  * 		http://www.fckeditor.net/
  * 
+ * "Support Open Source software. What about a donation today?"
+ * 
  * File Name: fck_2_ie.js
  * 	This is the second part of the "FCK" object creation. This is the main
  * 	object that represents an editor instance.

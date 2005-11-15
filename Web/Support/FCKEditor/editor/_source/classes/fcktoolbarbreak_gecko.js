@@ -8,6 +8,8 @@
  * For further information visit:
  * 		http://www.fckeditor.net/
  * 
+ * "Support Open Source software. What about a donation today?"
+ * 
  * File Name: fcktoolbarbreak_gecko.js
  * 	FCKToolbarBreak Class: breaks the toolbars.
  * 	It makes it possible to force the toolbar to brak to a new line.

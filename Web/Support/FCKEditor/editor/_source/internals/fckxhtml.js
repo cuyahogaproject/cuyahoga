@@ -8,6 +8,8 @@
  * For further information visit:
  * 		http://www.fckeditor.net/
  * 
+ * "Support Open Source software. What about a donation today?"
+ * 
  * File Name: fckxhtml.js
  * 	Defines the FCKXHtml object, responsible for the XHTML operations.
  * 
@@ -146,7 +148,7 @@ FCKXHtml._AppendNode = function( xmlNode, htmlNode )
 
 			// The already processed nodes must be marked to avoid then to be duplicated (bad formatted HTML).
 			// So here, the "mark" is checked... if the element is Ok, then mark it.
-			if ( htmlNode._fckxhtmljob == FCKXHtml.CurrentJobNum )
+			if ( htmlNode._fckxhtmljob && htmlNode._fckxhtmljob == FCKXHtml.CurrentJobNum )
 				return false ;
 			else
 				htmlNode._fckxhtmljob = FCKXHtml.CurrentJobNum ;
@@ -156,8 +158,8 @@ FCKXHtml._AppendNode = function( xmlNode, htmlNode )
 //			if ( sNodeName.length == 0 || sNodeName.substr(0,1) == '/' )
 //				break ;
 
-			var oNode = this.XML.createElement( sNodeName ) ;
-
+			var oNode = this._CreateNode( sNodeName ) ;
+			
 			// Add all attributes.
 			FCKXHtml._AppendAttributes( xmlNode, htmlNode, oNode, sNodeName ) ;
 
@@ -183,7 +185,8 @@ FCKXHtml._AppendNode = function( xmlNode, htmlNode )
 
 		// Comment
 		case 8 :
-			xmlNode.appendChild( this.XML.createComment( htmlNode.nodeValue ) ) ;
+			try { xmlNode.appendChild( this.XML.createComment( htmlNode.nodeValue ) ) ; }
+			catch (e) { /* Do nothing... probably this is a wrong format comment. */ }
 			break ;
 
 		// Unknown Node type.
@@ -194,14 +197,38 @@ FCKXHtml._AppendNode = function( xmlNode, htmlNode )
 	return true ;
 }
 
+if ( FCKConfig.ForceStrongEm )
+{
+	FCKXHtml._CreateNode = function( nodeName )
+	{
+		switch ( nodeName )
+		{
+			case 'b' :
+				nodeName = 'strong' ;
+				break ;
+			case 'i' :
+				nodeName = 'em' ;
+				break ;
+		}
+		return this.XML.createElement( nodeName ) ;
+	}
+}
+else
+{
+	FCKXHtml._CreateNode = function( nodeName )
+	{
+		return this.XML.createElement( nodeName ) ;
+	}
+}
+
 // Append an item to the SpecialBlocks array and returns the tag to be used.
 FCKXHtml._AppendSpecialItem = function( item )
 {
 	return '___FCKsi___' + FCKXHtml.SpecialBlocks.addItem( item ) ;
 }
 
-if ( FCKConfig.ProcessHTMLEntities )
-{
+//if ( FCKConfig.ProcessHTMLEntities )
+//{
 	FCKXHtml._AppendTextNode = function( targetNode, textValue )
 	{
 		// We can't just replace the special chars with entities and create a
@@ -226,14 +253,14 @@ if ( FCKConfig.ProcessHTMLEntities )
 			}
 		}
 	}
-}
-else
-{
-	FCKXHtml._AppendTextNode = function( targetNode, textValue )
-	{
-		targetNode.appendChild( this.XML.createTextNode( textValue ) ) ;
-	}
-}
+//}
+//else
+//{
+//	FCKXHtml._AppendTextNode = function( targetNode, textValue )
+//	{
+//		targetNode.appendChild( this.XML.createTextNode( textValue ) ) ;
+//	}
+//}
 
 // An object that hold tag specific operations.
 FCKXHtml.TagProcessors = new Object() ;

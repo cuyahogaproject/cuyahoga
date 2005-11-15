@@ -9,6 +9,8 @@
  * For further information visit:
  * 		http://www.fckeditor.net/
  * 
+ * "Support Open Source software. What about a donation today?"
+ * 
  * File Name: GetUploadProgress.php
  * 	Implements the GetFolders command, to list the folders 
  * 	in the current directory. Output is in XML

@@ -8,6 +8,8 @@
  * For further information visit:
  * 		http://www.fckeditor.net/
  * 
+ * "Support Open Source software. What about a donation today?"
+ * 
  * File Name: fckcontextmenu.js
  * 	Defines the FCKContextMenu object that is responsible for all
  * 	Context Menu operations.
@@ -60,45 +62,39 @@ FCKContextMenu._GetGroup = function( groupName )
 		case 'Generic' :
 			// Generic items that are always available.
 			oGroup = new FCKContextMenuGroup() ;
-			with ( oGroup )
-			{
-				Add( new FCKContextMenuItem( this, 'Cut'	, FCKLang.Cut	, true ) ) ;
-				Add( new FCKContextMenuItem( this, 'Copy'	, FCKLang.Copy	, true ) ) ;
-				Add( new FCKContextMenuItem( this, 'Paste'	, FCKLang.Paste	, true ) ) ;
-			}
+
+			oGroup.Add( new FCKContextMenuItem( this, 'Cut'		, FCKLang.Cut	, true ) ) ;
+			oGroup.Add( new FCKContextMenuItem( this, 'Copy'	, FCKLang.Copy	, true ) ) ;
+			oGroup.Add( new FCKContextMenuItem( this, 'Paste'	, FCKLang.Paste	, true ) ) ;
 
 			break ;
 
 		case 'Link' :
 			oGroup = new FCKContextMenuGroup() ;
-			with ( oGroup )
-			{
-				Add( new FCKContextMenuSeparator() ) ;
-				Add( new FCKContextMenuItem( this, 'Link'	, FCKLang.EditLink	, true ) ) ;
-				Add( new FCKContextMenuItem( this, 'Unlink'	, FCKLang.RemoveLink, true ) ) ;
-			}
+
+			oGroup.Add( new FCKContextMenuSeparator() ) ;
+			oGroup.Add( new FCKContextMenuItem( this, 'Link'	, FCKLang.EditLink	, true ) ) ;
+			oGroup.Add( new FCKContextMenuItem( this, 'Unlink'	, FCKLang.RemoveLink, true ) ) ;
 
 			break ;
 
 		case 'TableCell' :
 			oGroup = new FCKContextMenuGroup() ;
-			with ( oGroup )
-			{
-				Add( new FCKContextMenuSeparator() ) ;
-				Add( new FCKContextMenuItem( this, 'TableInsertRow'		, FCKLang.InsertRow, true ) ) ;
-				Add( new FCKContextMenuItem( this, 'TableDeleteRows'	, FCKLang.DeleteRows, true ) ) ;
-				Add( new FCKContextMenuSeparator() ) ;
-				Add( new FCKContextMenuItem( this, 'TableInsertColumn'	, FCKLang.InsertColumn, true ) ) ;
-				Add( new FCKContextMenuItem( this, 'TableDeleteColumns'	, FCKLang.DeleteColumns, true ) ) ;
-				Add( new FCKContextMenuSeparator() ) ;
-				Add( new FCKContextMenuItem( this, 'TableInsertCell'	, FCKLang.InsertCell, true ) ) ;
-				Add( new FCKContextMenuItem( this, 'TableDeleteCells'	, FCKLang.DeleteCells, true ) ) ;
-				Add( new FCKContextMenuItem( this, 'TableMergeCells'	, FCKLang.MergeCells, true ) ) ;
-				Add( new FCKContextMenuItem( this, 'TableSplitCell'		, FCKLang.SplitCell, true ) ) ;
-				Add( new FCKContextMenuSeparator() ) ;
-				Add( new FCKContextMenuItem( this, 'TableCellProp'		, FCKLang.CellProperties, true ) ) ;
-				Add( new FCKContextMenuItem( this, 'TableProp'			, FCKLang.TableProperties, true ) ) ;
-			}
+
+			oGroup.Add( new FCKContextMenuSeparator() ) ;
+			oGroup.Add( new FCKContextMenuItem( this, 'TableInsertRow'		, FCKLang.InsertRow, true ) ) ;
+			oGroup.Add( new FCKContextMenuItem( this, 'TableDeleteRows'		, FCKLang.DeleteRows, true ) ) ;
+			oGroup.Add( new FCKContextMenuSeparator() ) ;
+			oGroup.Add( new FCKContextMenuItem( this, 'TableInsertColumn'	, FCKLang.InsertColumn, true ) ) ;
+			oGroup.Add( new FCKContextMenuItem( this, 'TableDeleteColumns'	, FCKLang.DeleteColumns, true ) ) ;
+			oGroup.Add( new FCKContextMenuSeparator() ) ;
+			oGroup.Add( new FCKContextMenuItem( this, 'TableInsertCell'		, FCKLang.InsertCell, true ) ) ;
+			oGroup.Add( new FCKContextMenuItem( this, 'TableDeleteCells'	, FCKLang.DeleteCells, true ) ) ;
+			oGroup.Add( new FCKContextMenuItem( this, 'TableMergeCells'		, FCKLang.MergeCells, true ) ) ;
+			oGroup.Add( new FCKContextMenuItem( this, 'TableSplitCell'		, FCKLang.SplitCell, true ) ) ;
+			oGroup.Add( new FCKContextMenuSeparator() ) ;
+			oGroup.Add( new FCKContextMenuItem( this, 'TableCellProp'		, FCKLang.CellProperties, true ) ) ;
+			oGroup.Add( new FCKContextMenuItem( this, 'TableProp'			, FCKLang.TableProperties, true ) ) ;
 
 			break ;
 
@@ -158,20 +154,19 @@ FCKContextMenu.RefreshState = function()
 	var sTagName ;
 
 	if ( oTag )
-	{
 		sTagName = oTag.tagName ;
-	}
 
 	// Set items visibility.
 
 //	var bIsAnchor = ( sTagName == 'A' && oTag.name.length > 0 && oTag.href.length == 0 ) ;
 
-	if ( this.Groups['Link'] )			this.Groups['Link'].SetVisible( /*!bIsAnchor &&*/ FCK.GetNamedCommandState( 'Unlink' ) != FCK_TRISTATE_DISABLED ) ;
+//	if ( this.Groups['Link'] )			this.Groups['Link'].SetVisible( !bIsAnchor && FCK.GetNamedCommandState( 'Unlink' ) != FCK_TRISTATE_DISABLED ) ;
+	if ( this.Groups['Link'] )			this.Groups['Link'].SetVisible( FCK.GetNamedCommandState( 'Unlink' ) != FCK_TRISTATE_DISABLED ) ;
 
 	if ( this.Groups['TableCell'] )		this.Groups['TableCell'].SetVisible( sTagName != 'TABLE' && FCKSelection.HasAncestorNode('TABLE') ) ;
 	if ( this.Groups['Table'] )			this.Groups['Table'].SetVisible( sTagName == 'TABLE' ) ;
 	
-	if ( this.Groups['Image'] )			this.Groups['Image'].SetVisible( sTagName == 'IMG' && !oTag.getAttribute('_fckflash') && !oTag.getAttribute('_fckanchor') ) ;
+	if ( this.Groups['Image'] )			this.Groups['Image'].SetVisible( sTagName == 'IMG' && !oTag.getAttribute('_fckfakelement') ) ;
 	if ( this.Groups['Flash'] )			this.Groups['Flash'].SetVisible( sTagName == 'IMG' && oTag.getAttribute('_fckflash') ) ;
 	if ( this.Groups['Anchor'] )		this.Groups['Anchor'].SetVisible( sTagName == 'IMG' && oTag.getAttribute('_fckanchor') ) ;
 

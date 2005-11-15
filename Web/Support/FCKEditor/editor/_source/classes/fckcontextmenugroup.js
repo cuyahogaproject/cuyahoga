@@ -8,6 +8,8 @@
  * For further information visit:
  * 		http://www.fckeditor.net/
  * 
+ * "Support Open Source software. What about a donation today?"
+ * 
  * File Name: fckcontextmenugroup.js
  * 	FCKContextMenuGroup Class: represents a group of items in the context 
  * 	menu. Generaly a group of items is directly dependent of the same rules.

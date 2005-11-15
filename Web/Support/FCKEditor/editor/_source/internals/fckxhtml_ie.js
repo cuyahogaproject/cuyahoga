@@ -8,6 +8,8 @@
  * For further information visit:
  * 		http://www.fckeditor.net/
  * 
+ * "Support Open Source software. What about a donation today?"
+ * 
  * File Name: fckxhtml_ie.js
  * 	Defines the FCKXHtml object, responsible for the XHTML operations.
  * 	IE specific.

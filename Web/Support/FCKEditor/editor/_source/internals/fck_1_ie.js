@@ -8,6 +8,8 @@
  * For further information visit:
  * 		http://www.fckeditor.net/
  * 
+ * "Support Open Source software. What about a donation today?"
+ * 
  * File Name: fck_1_ie.js
  * 	This is the first part of the "FCK" object creation. This is the main
  * 	object that represents an editor instance.
@@ -23,31 +25,32 @@ FCK.Description = "FCKeditor for Internet Explorer 5.5+" ;
 // errors when using a differente BaseHref.
 FCK._BehaviorsStyle =
 	'<style type="text/css" _fcktemp="true"> \
-		INPUT		{ behavior: url(' + FCKConfig.FullBasePath + 'css/behaviors/hiddenfield.htc) ; } \
-		INPUT		{ behavior: url(' + FCKConfig.FullBasePath + 'css/behaviors/disablehandles.htc) ; } \
-		TEXTAREA	{ behavior: url(' + FCKConfig.FullBasePath + 'css/behaviors/disablehandles.htc) ; } \
-		SELECT		{ behavior: url(' + FCKConfig.FullBasePath + 'css/behaviors/disablehandles.htc) ; }' ;
+		INPUT { behavior: url(' + FCKConfig.FullBasePath + 'css/behaviors/hiddenfield.htc) ; } ' ;
 
 if ( FCKConfig.ShowBorders )
 	FCK._BehaviorsStyle += 'TABLE { behavior: url(' + FCKConfig.FullBasePath + 'css/behaviors/showtableborders.htc) ; }' ;
 
+// Disable resize handlers.
+var sNoHandlers = 'INPUT, TEXTAREA, SELECT, .FCK__Anchor, .FCK__PageBreak' ;
+
 if ( FCKConfig.DisableImageHandles )
-	FCK._BehaviorsStyle += 'IMG { behavior: url(' + FCKConfig.FullBasePath + 'css/behaviors/disablehandles.htc) ; }' ;
+	sNoHandlers += ', IMG' ;
 
 if ( FCKConfig.DisableTableHandles )
-	FCK._BehaviorsStyle += 'TABLE { behavior: url(' + FCKConfig.FullBasePath + 'css/behaviors/disablehandles.htc) ; }' ;
+	sNoHandlers += ', TABLE' ;
 
-// Disable anchors handles
-FCK._BehaviorsStyle += '.FCK__Anchor { behavior: url(' + FCKConfig.FullBasePath + 'css/behaviors/disablehandles.htc) ; }' ;
+FCK._BehaviorsStyle += sNoHandlers + ' { behavior: url(' + FCKConfig.FullBasePath + 'css/behaviors/disablehandles.htc) ; }' ;
 
 FCK._BehaviorsStyle += '</style>' ;
 
-function Doc_OnMouseDown()
+function Doc_OnMouseUp()
 {
-	FCK.Focus() ;
-
-	FCK.EditorWindow.event.cancelBubble	= true ;
-	FCK.EditorWindow.event.returnValue	= false ;
+	if ( FCK.EditorWindow.event.srcElement.tagName == 'HTML' )
+	{
+		FCK.Focus() ;
+		FCK.EditorWindow.event.cancelBubble	= true ;
+		FCK.EditorWindow.event.returnValue	= false ;
+	}
 }
 
 function Doc_OnPaste()
@@ -70,34 +73,59 @@ function Doc_OnKeyDown()
 {
 	var e = FCK.EditorWindow.event ;
 
-	if ( e.keyCode == 13 && FCKConfig.UseBROnCarriageReturn )	// ENTER
+//	FCKDebug.Output( 'KeyCode: ' + e.keyCode ) ;
+
+	switch ( e.keyCode )
 	{
-		if ( (e.ctrlKey || e.altKey || e.shiftKey) )
-			return true ;
-		else
-		{
-			// We must ignore it if we are inside a List.
-			if ( FCK.EditorDocument.queryCommandState( 'InsertOrderedList' ) || FCK.EditorDocument.queryCommandState( 'InsertUnorderedList' ) )
-				return true ;
+		case 13 :	// ENTER
+			if ( FCKConfig.UseBROnCarriageReturn && !(e.ctrlKey || e.altKey || e.shiftKey) )
+			{
+				Doc_OnKeyDownUndo() ;
+				
+				// We must ignore it if we are inside a List.
+				if ( FCK.EditorDocument.queryCommandState( 'InsertOrderedList' ) || FCK.EditorDocument.queryCommandState( 'InsertUnorderedList' ) )
+					return true ;
 
-			// Insert the <BR> (The &nbsp; must be also inserted to make it work)
-			FCK.InsertHtml("<br>&nbsp;") ;
+				// Insert the <BR> (The &nbsp; must be also inserted to make it work)
+				FCK.InsertHtml( '<br>&nbsp;' ) ;
 
-			// Remove the &nbsp;
-			var oRange = FCK.EditorDocument.selection.createRange() ;
-			oRange.moveStart('character',-1) ;
-			oRange.select() ;
-			FCK.EditorDocument.selection.clear() ;
+				// Remove the &nbsp;
+				var oRange = FCK.EditorDocument.selection.createRange() ;
+				oRange.moveStart( 'character', -1 ) ;
+				oRange.select() ;
+				FCK.EditorDocument.selection.clear() ;
 
-			return false ;
-		}
-	}
-	else if ( e.keyCode == 9 && FCKConfig.TabSpaces > 0 && !(e.ctrlKey || e.altKey || e.shiftKey) )	// TAB
-	{
-		FCK.InsertHtml( window.FCKTabHTML ) ;
-		return false ;
+				return false ;
+			}
+			break ;
+			
+		case 9 :	// TAB
+			if ( FCKConfig.TabSpaces > 0 && !(e.ctrlKey || e.altKey || e.shiftKey) )
+			{
+				Doc_OnKeyDownUndo() ;
+				
+				FCK.InsertHtml( window.FCKTabHTML ) ;
+				return false ;
+			}
+			break ;
+		case 90 :	// Z
+			if ( e.ctrlKey && !(e.altKey || e.shiftKey) )
+			{
+				FCKUndo.Undo() ;
+				return false ;
+			}
+			break ;
+		case 89 :	// Y
+			if ( e.ctrlKey && !(e.altKey || e.shiftKey) )
+			{
+				FCKUndo.Redo() ;
+				return false ;
+			}
+			break ;
 	}
 	
+	if ( !( e.keyCode >=16 && e.keyCode <= 18 ) )
+		Doc_OnKeyDownUndo() ;
 	return true ;
 }
 
@@ -134,8 +162,7 @@ FCK.InitializeBehaviors = function( dontReturn )
 {
 	// Set the focus to the editable area when clicking in the document area.
 	// TODO: The cursor must be positioned at the end.
-	this.EditorDocument.attachEvent( 'onmousedown', Doc_OnMouseDown ) ;
-	this.EditorDocument.attachEvent( 'onmouseup', Doc_OnMouseDown ) ;
+	this.EditorDocument.attachEvent( 'onmouseup', Doc_OnMouseUp ) ;
 
 	// Intercept pasting operations
 	this.EditorDocument.body.attachEvent( 'onpaste', Doc_OnPaste ) ;
@@ -143,21 +170,14 @@ FCK.InitializeBehaviors = function( dontReturn )
 	// Disable Right-Click and shows the context menu.
 	this.EditorDocument.attachEvent('oncontextmenu', Doc_OnContextMenu ) ;
 
-	// Check if key strokes must be monitored.
-	if ( FCKConfig.UseBROnCarriageReturn || FCKConfig.TabSpaces > 0 )
+	// Build the "TAB" key replacement (if necessary).
+	if ( FCKConfig.TabSpaces > 0 )
 	{
-		// Build the "TAB" key replacement.
-		if ( FCKConfig.TabSpaces > 0 )
-		{
-			window.FCKTabHTML = '' ;
-			for ( i = 0 ; i < FCKConfig.TabSpaces ; i++ )
-				window.FCKTabHTML += "&nbsp;" ;
-		}
-
-		this.EditorDocument.attachEvent("onkeydown", Doc_OnKeyDown ) ;
+		window.FCKTabHTML = '' ;
+		for ( i = 0 ; i < FCKConfig.TabSpaces ; i++ )
+			window.FCKTabHTML += "&nbsp;" ;
 	}
-
-	this.EditorDocument.attachEvent("onkeydown", Doc_OnKeyDownUndo ) ;
+	this.EditorDocument.attachEvent("onkeydown", Doc_OnKeyDown ) ;
 
 	this.EditorDocument.attachEvent("ondblclick", Doc_OnDblClick ) ;
 
@@ -184,11 +204,7 @@ FCK.SetHTML = function( html, forceWYSIWYG )
 {
 	if ( forceWYSIWYG || FCK.EditMode == FCK_EDITMODE_WYSIWYG )
 	{
-		// TODO: Wait stable version and remove the following commented lines.
-		// In IE, if you do document.body.innerHTML = '<p><hr></p>' it throws a "Unknow runtime error".
-		// To solve it we must add a fake (safe) tag before it, and then remove it.
-		// this.EditorDocument.body.innerHTML = '<div id="__fakeFCKRemove__">&nbsp;</div>' + html.replace( FCKRegexLib.AposEntity, '&#39;' ) ;
-		// this.EditorDocument.getElementById('__fakeFCKRemove__').removeNode(true) ;
+		html = FCKConfig.ProtectedSource.Protect( html ) ;
 
 		var sHtml ;
 
@@ -201,7 +217,7 @@ FCK.SetHTML = function( html, forceWYSIWYG )
 			if ( FCK.TempBaseTag.length > 0 && !FCKRegexLib.HasBaseTag.test( html ) )
 				sHtml += FCK.TempBaseTag ;
 
-			sHtml = html.replace( FCKRegexLib.HeadCloser, sHtml + '</head>' ) ;
+			sHtml = html.replace( FCKRegexLib.HeadOpener, '$&' + sHtml ) ;
 		}
 		else
 		{
@@ -230,13 +246,6 @@ FCK.SetHTML = function( html, forceWYSIWYG )
 		this.EditorDocument.body.contentEditable = true ;
 
 		FCK.OnAfterSetHTML() ;
-
-		// TODO: Wait stable version and remove the following commented lines.
-//		this.EditorDocument.body.innerHTML = '' ;
-//		if ( html && html.length > 0 )
-//			this.EditorDocument.write( html ) ;
-
-//		this.EditorDocument.dir = FCKConfig.ContentLangDirection ;
 	}
 	else
 		document.getElementById('eSourceField').value = html ;
@@ -257,4 +266,13 @@ FCK.InsertHtml = function( html )
 
 	// Inset the HTML.
 	oSel.createRange().pasteHTML( html ) ;
+}
+
+FCK.SetInnerHtml = function( html )		// IE Only
+{
+	var oDoc = FCK.EditorDocument ;
+	// Using the following trick, any comment in the begining of the HTML will
+	// be preserved.
+	oDoc.body.innerHTML = '<div id="__fakeFCKRemove__">&nbsp;</div>' + html ;
+	oDoc.getElementById('__fakeFCKRemove__').removeNode( true ) ;
 }

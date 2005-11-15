@@ -8,6 +8,8 @@
  * For further information visit:
  * 		http://www.fckeditor.net/
  * 
+ * "Support Open Source software. What about a donation today?"
+ * 
  * File Name: fckpanel_ie.js
  * 	FCKPanel Class: Creates and manages floating panels in IE Browsers.
  * 

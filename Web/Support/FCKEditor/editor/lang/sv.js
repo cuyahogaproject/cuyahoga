@@ -8,6 +8,8 @@
  * For further information visit:
  * 		http://www.fckeditor.net/
  * 
+ * "Support Open Source software. What about a donation today?"
+ * 
  * File Name: sv.js
  * 	Swedish language file.
  * 
@@ -36,15 +38,15 @@ Print				: "Skriv ut",
 SelectAll			: "Markera allt",
 RemoveFormat		: "Radera formatering",
 InsertLinkLbl		: "Länk",
-InsertLink			: "Infoga/Editera länk",
+InsertLink			: "Infoga/Redigera länk",
 RemoveLink			: "Radera länk",
-Anchor				: "Infoga/Editera ankarlänk",
+Anchor				: "Infoga/Redigera ankarlänk",
 InsertImageLbl		: "Bild",
-InsertImage			: "Infoga/Editera bild",
+InsertImage			: "Infoga/Redigera bild",
 InsertFlashLbl		: "Flash",
-InsertFlash			: "Infoga/Editera Flash",
+InsertFlash			: "Infoga/Redigera Flash",
 InsertTableLbl		: "Tabell",
-InsertTable			: "Infoga/Editera tabell",
+InsertTable			: "Infoga/Redigera tabell",
 InsertLineLbl		: "Linje",
 InsertLine			: "Infoga horisontal linje",
 InsertSpecialCharLbl: "Utökade tecken",
@@ -82,7 +84,7 @@ Source				: "Källa",
 Find				: "Sök",
 Replace				: "Ersätt",
 SpellCheck			: "Stavningskontroll",
-UniversalKeyboard	: "Universalt tangentbord",
+UniversalKeyboard	: "Universellt tangentbord",
 
 Form			: "Formulär",
 Checkbox		: "Kryssruta",
@@ -95,7 +97,7 @@ SelectionField	: "Flervalslista",
 ImageButton		: "Bildknapp",
 
 // Context Menu
-EditLink			: "Editera länk",
+EditLink			: "Redigera länk",
 InsertRow			: "Infoga rad",
 DeleteRows			: "Radera rad",
 InsertColumn		: "Infoga kolumn",
@@ -131,6 +133,7 @@ UnknownToolbarItem	: "Okänt verktygsfält \"%1\"",
 UnknownCommand		: "Okänt kommando \"%1\"",
 NotImplemented		: "Kommandot finns ej",
 UnknownToolbarSet	: "Verktygsfält \"%1\" finns ej",
+NoActiveX			: "You browser's security settings could limit some features of the editor. You must enable the option \"Run ActiveX controls and plug-ins\". You may experience errors and notice missing features.",	//MISSING
 
 // Dialogs
 DlgBtnOK			: "OK",
@@ -213,7 +216,7 @@ DlgLnkAnchorSel		: "Välj ett ankare",
 DlgLnkAnchorByName	: "efter ankarnamn",
 DlgLnkAnchorById	: "efter objektid",
 DlgLnkNoAnchors		: "&lt;Inga ankare kunde hittas&gt;",
-DlgLnkEMail			: "E-post adress",
+DlgLnkEMail			: "E-postadress",
 DlgLnkEMailSubject	: "Ämne",
 DlgLnkEMailBody		: "Innehåll",
 DlgLnkUpload		: "Ladda upp",
@@ -326,9 +329,9 @@ PasteAsText		: "Klistra in som vanlig text",
 PasteFromWord	: "Klistra in från Word",
 
 DlgPasteMsg2	: "Var god och klistra in Er text i rutan nedan genom att använda (<STRONG>Ctrl+V</STRONG>) klicka sen på <STRONG>OK</STRONG>.",
-DlgPasteIgnoreFont		: "Ignorera typsnitts definitioner",
-DlgPasteRemoveStyles	: "Radera Stil definitioner",
-DlgPasteCleanBox		: "Upprensningsruta",
+DlgPasteIgnoreFont		: "Ignorera typsnittsdefinitioner",
+DlgPasteRemoveStyles	: "Radera Stildefinitioner",
+DlgPasteCleanBox		: "Töm rutans innehåll",
 
 
 // Color Picker
@@ -384,7 +387,7 @@ DlgSelectOpAvail	: "Befintliga val",
 DlgSelectOpText		: "Text",
 DlgSelectOpValue	: "Värde",
 DlgSelectBtnAdd		: "Lägg till",
-DlgSelectBtnModify	: "Editera",
+DlgSelectBtnModify	: "Redigera",
 DlgSelectBtnUp		: "Upp",
 DlgSelectBtnDown	: "Ner",
 DlgSelectBtnSetValue : "Markera som valt värde",
@@ -413,19 +416,19 @@ BulletedListProp	: "Egenskaper för punktlista",
 NumberedListProp	: "Egenskaper för numrerad lista",
 DlgLstType			: "Typ",
 DlgLstTypeCircle	: "Cirkel",
-DlgLstTypeDisk		: "Skiva",
+DlgLstTypeDisc		: "Disc",	//MISSING
 DlgLstTypeSquare	: "Ruta",
 DlgLstTypeNumbers	: "Nummer (1, 2, 3)",
 DlgLstTypeLCase		: "Gemener (a, b, c)",
 DlgLstTypeUCase		: "Versaler (A, B, C)",
 DlgLstTypeSRoman	: "Små romerska siffror (i, ii, iii)",
-DlgLstTypeLRoman	: "Stora romerska siffror (I,II,II)",
+DlgLstTypeLRoman	: "Stora romerska siffror (I, II, III)",
 
 // Document Properties Dialog
 DlgDocGeneralTab	: "Allmän",
 DlgDocBackTab		: "Bakgrund",
 DlgDocColorsTab		: "Färg och marginal",
-DlgDocMetaTab		: "Meta data",
+DlgDocMetaTab		: "Metadata",
 
 DlgDocPageTitle		: "Sidtitel",
 DlgDocLangDir		: "Språkriktning",

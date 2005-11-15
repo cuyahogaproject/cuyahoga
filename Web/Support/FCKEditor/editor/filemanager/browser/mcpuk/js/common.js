@@ -8,6 +8,8 @@
  * For further information visit:
  * 		http://www.fckeditor.net/
  * 
+ * "Support Open Source software. What about a donation today?"
+ * 
  * File Name: common.js
  * 	Common objects and functions shared by all pages that compose the
  * 	File Browser dialog window.

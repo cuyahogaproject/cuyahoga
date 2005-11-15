@@ -8,6 +8,8 @@
  * For further information visit:
  * 		http://www.fckeditor.net/
  * 
+ * "Support Open Source software. What about a donation today?"
+ * 
  * File Name: fckeditor.js
  * 	This is the integration file for JavaScript.
  * 
@@ -114,7 +116,9 @@ FCKeditor.prototype._GetConfigHtml = function()
 
 FCKeditor.prototype._GetIFrameHtml = function()
 {
-	var sLink = this.BasePath + 'editor/fckeditor.html?InstanceName=' + this.InstanceName ;
+	var sFile = (/fcksource=true/i).test( window.top.location.search ) ? 'fckeditor.original.html' : 'fckeditor.html' ;
+
+	var sLink = this.BasePath + 'editor/' + sFile + '?InstanceName=' + this.InstanceName ;
 	if (this.ToolbarSet) sLink += '&Toolbar=' + this.ToolbarSet ;
 
 	return '<iframe id="' + this.InstanceName + '___Frame" src="' + sLink + '" width="' + this.Width + '" height="' + this.Height + '" frameborder="no" scrolling="no"></iframe>' ;

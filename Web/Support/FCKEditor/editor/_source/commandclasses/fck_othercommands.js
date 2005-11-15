@@ -8,6 +8,8 @@
  * For further information visit:
  * 		http://www.fckeditor.net/
  * 
+ * "Support Open Source software. What about a donation today?"
+ * 
  * File Name: fck_othercommands.js
  * 	Definition of other commands that are not available internaly in the
  * 	browser (see FCKNamedCommand).
@@ -175,8 +177,9 @@ FCKNewPageCommand.prototype.Execute = function()
 {
 	FCKUndo.SaveUndoStep() ;
 	FCK.SetHTML( '' ) ;
+	FCKUndo.Typing = true ;
 //	FCK.SetHTML( FCKBrowserInfo.IsGecko ? '&nbsp;' : '' ) ;
-//	FCK.SetHTML( FCKBrowserInfo.IsGecko ? '<br _moz_editor_bogus_node="TRUE">' : '' ) ;
+//	FCK.SetHTML( FCKBrowserInfo.IsGecko ? GECKO_BOGUS : '' ) ;
 }
 
 FCKNewPageCommand.prototype.GetState = function()
@@ -194,8 +197,8 @@ FCKSourceCommand.prototype.Execute = function()
 {
 	if ( FCKBrowserInfo.IsGecko )
 	{
-		var iWidth	= screen.width * 0.65 ;
-		var iHeight	= screen.height * 0.65 ;
+		var iWidth	= FCKConfig.ScreenWidth * 0.65 ;
+		var iHeight	= FCKConfig.ScreenHeight * 0.65 ;
 		FCKDialog.OpenDialog( 'FCKDialog_Source', FCKLang.Source, 'dialog/fck_source.html', iWidth, iHeight, null, null, true ) ;
 	}
 	else
@@ -224,7 +227,7 @@ FCKUndoCommand.prototype.Execute = function()
 FCKUndoCommand.prototype.GetState = function()
 {
 	if ( FCKBrowserInfo.IsIE )
-		return ( FCKUndo.Typing || FCKUndo.CurrentIndex > 0 ? FCK_TRISTATE_OFF : FCK_TRISTATE_DISABLED ) ;
+		return ( FCKUndo.CheckUndoState() ? FCK_TRISTATE_OFF : FCK_TRISTATE_DISABLED ) ;
 	else
 		return FCK.GetNamedCommandState( 'Undo' ) ;
 }
@@ -246,7 +249,27 @@ FCKRedoCommand.prototype.Execute = function()
 FCKRedoCommand.prototype.GetState = function()
 {
 	if ( FCKBrowserInfo.IsIE )
-		return ( !FCKUndo.Typing && FCKUndo.CurrentIndex < ( FCKUndo.SavedData.length - 1 ) ? FCK_TRISTATE_OFF : FCK_TRISTATE_DISABLED ) ;
+		return ( FCKUndo.CheckRedoState() ? FCK_TRISTATE_OFF : FCK_TRISTATE_DISABLED ) ;
 	else
 		return FCK.GetNamedCommandState( 'Redo' ) ;
+}
+
+// ### Page Break
+var FCKPageBreakCommand = function()
+{
+	this.Name = 'PageBreak' ;
+}
+
+FCKPageBreakCommand.prototype.Execute = function()
+{
+	var oCenter = FCK.EditorDocument.createElement( 'CENTER' ) ;
+	oCenter.style.pageBreakAfter = 'always' ;
+	
+	var oFakeImage = FCKDocumentProcessors_CreateFakeImage( 'FCK__PageBreak', oCenter ) ;
+	oFakeImage	= FCK.InsertElement( oFakeImage ) ;
+}
+
+FCKPageBreakCommand.prototype.GetState = function()
+{
+	return 0 ; // FCK_TRISTATE_OFF
 }

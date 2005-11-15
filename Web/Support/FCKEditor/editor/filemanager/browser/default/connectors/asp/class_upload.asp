@@ -8,6 +8,8 @@
  * For further information visit:
  * 		http://www.fckeditor.net/
  * 
+ * "Support Open Source software. What about a donation today?"
+ * 
  * File Name: class_upload.asp
  * 	These are the classes used to handle ASP upload without using third
  * 	part components (OCX/DLL).

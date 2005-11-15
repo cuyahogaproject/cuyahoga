@@ -8,6 +8,8 @@
  * For further information visit:
  * 		http://www.fckeditor.net/
  * 
+ * "Support Open Source software. What about a donation today?"
+ * 
  * File Name: fck_internal.css
  * 	This CSS Style Sheet defines rules used by the editor for its internal use.
  * 
@@ -43,4 +45,20 @@ FORM
 	background-repeat: no-repeat;
 	width: 16px ;
 	height: 15px ;
+}
+
+.FCK__PageBreak
+{
+	background-position: center center;
+	background-image: url(images/fck_pagebreak.gif);
+	background-repeat: no-repeat;
+	clear: both;
+	display: block;
+	float: none;
+	width: 100%;
+	border-top: #999999 1px dotted;
+	border-bottom: #999999 1px dotted;
+	border-right:0px;
+	border-left:0px;
+	height: 5px;
 }

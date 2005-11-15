@@ -8,6 +8,8 @@
  * For further information visit:
  * 		http://www.fckeditor.net/
  * 
+ * "Support Open Source software. What about a donation today?"
+ * 
  * File Name: fcktoolbarset.js
  * 	Defines the FCKToolbarSet object that is used to load and draw the 
  * 	toolbar.
@@ -92,7 +94,7 @@ FCKToolbarSet.Load = function( toolbarSetName )
 		}
 		else
 		{
-			var oToolbar = new FCKToolbar() ;
+			oToolbar = new FCKToolbar() ;
 			
 			for ( var j = 0 ; j < oToolbarItems.length ; j++ ) 
 			{
