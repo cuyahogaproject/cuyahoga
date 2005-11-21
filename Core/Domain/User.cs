@@ -340,7 +340,7 @@ namespace Cuyahoga.Core.Domain
 		/// Generates a new password and stores a hashed password in the User instance.
 		/// </summary>
 		/// <returns>The newly created password.</returns>
-		public string GeneratePassword()
+		public virtual string GeneratePassword()
 		{
 			int length = 8;
 			string chars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890";
