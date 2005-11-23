@@ -96,6 +96,8 @@ namespace Cuyahoga.Web.Controls
 					try
 					{
 						Util.Email.Send(user.Email, site.WebmasterEmail, subject, body);
+						this.pnlConfirmation.Visible = true;
+						this.lblConfirmation.Text = String.Format(GetText("REGISTERCONFIRMATION"), user.Email);
 					}
 					catch
 					{
@@ -103,11 +105,8 @@ namespace Cuyahoga.Web.Controls
 						this._page.CoreRepository.DeleteObject(user);
 						this.lblError.Text = GetText("REGISTEREMAILERROR");
 						this.lblError.Visible = true;
-					}
-
+					}					
 					this.pnlRegister.Visible = false;
-					this.pnlConfirmation.Visible = true;
-					this.lblConfirmation.Text = String.Format(GetText("REGISTERCONFIRMATION"), user.Email);
 				}
 			}
 		}

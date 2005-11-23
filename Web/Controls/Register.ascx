@@ -1,9 +1,10 @@
 <%@ Control Language="c#" AutoEventWireup="false" Codebehind="Register.ascx.cs" Inherits="Cuyahoga.Web.Controls.Register" TargetSchema="http://schemas.microsoft.com/intellisense/ie5"%>
 <h3><%= GetText("REGISTERTITLE") %></h3>
 <br>
+<asp:label id="lblError" runat="server" visible="False" cssclass="error" enableviewstate="False"></asp:label>
+<br>
 <asp:panel id="pnlRegister" runat="server">
 	<%= GetText("REGISTERINFO") %><br>
-	<asp:label id="lblError" runat="server" visible="False" cssclass="error" enableviewstate="False"></asp:label>
 	<table>
 		<tr>
 			<td><%= GetText("USERNAME") %></td>

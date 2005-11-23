@@ -91,6 +91,8 @@ namespace Cuyahoga.Modules.User
 					try
 					{
 						Email.Send(user.Email, site.WebmasterEmail, subject, body);
+						this.pnlConfirmation.Visible = true;
+						this.lblConfirmation.Text = String.Format(GetText("REGISTERCONFIRMATION"), user.Email);
 					}
 					catch
 					{
@@ -101,8 +103,6 @@ namespace Cuyahoga.Modules.User
 					}
 
 					this.pnlRegister.Visible = false;
-					this.pnlConfirmation.Visible = true;
-					this.lblConfirmation.Text = String.Format(GetText("REGISTERCONFIRMATION"), user.Email);
 				}
 			}
 		}
