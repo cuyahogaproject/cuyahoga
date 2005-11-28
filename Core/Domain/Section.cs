@@ -7,7 +7,6 @@ namespace Cuyahoga.Core.Domain
 	/// <summary>
 	/// Summary description for Section.
 	/// </summary>
-	[Serializable]
 	public class Section
 	{
 		private int _id;

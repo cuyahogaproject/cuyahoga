@@ -6,7 +6,6 @@ namespace Cuyahoga.Core.Domain
 	/// <summary>
 	/// The ModuleType class describes a module.
 	/// </summary>
-	[Serializable]
 	public class ModuleType
 	{
 		private int _moduleTypeId;

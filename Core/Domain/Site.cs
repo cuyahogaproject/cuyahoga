@@ -6,7 +6,6 @@ namespace Cuyahoga.Core.Domain
 	/// <summary>
 	/// Summary description for Site.
 	/// </summary>
-	[Serializable]
 	public class Site
 	{
 		private int _id;

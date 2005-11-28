@@ -8,7 +8,6 @@ namespace Cuyahoga.Core.Domain
 	/// It's possible to create multiple template objects based on the same template
 	/// UserControl and stylesheet.
 	/// </summary>
-	[Serializable]
 	public class Template
 	{
 		private int _id;

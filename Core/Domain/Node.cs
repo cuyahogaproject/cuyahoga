@@ -7,7 +7,6 @@ namespace Cuyahoga.Core.Domain
 	/// <summary>
 	/// The Node class represents a node in the page hierarchy of the site.
 	/// </summary>
-	[Serializable]
 	public class Node
 	{
 		private int _id;

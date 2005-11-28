@@ -5,7 +5,6 @@ namespace Cuyahoga.Core.Domain
 	/// <summary>
 	/// Association class between Section and Role.
 	/// </summary>
-	[Serializable]
 	public class SectionPermission : Permission
 	{
 		private Section _section;
