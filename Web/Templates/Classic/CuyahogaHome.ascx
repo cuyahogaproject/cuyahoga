@@ -3,10 +3,11 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 TRANSITIONAL//EN" >
 <html>
 <head>
-<title><asp:literal id="PageTitle" runat="server"></asp:literal></title>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<link id="CssStyleSheet" rel="stylesheet" type="text/css" runat="server" />
-</head>
+	<title><asp:literal id="PageTitle" runat="server"></asp:literal></title>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<asp:literal id="MetaTags" runat="server" />
+	<asp:literal id="Stylesheets" runat="server" />
+	</head>
 <body>
 <form id="t" method="post" runat="server">
 <div id="container">

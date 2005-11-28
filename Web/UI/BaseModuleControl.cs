@@ -182,5 +182,15 @@ namespace Cuyahoga.Web.UI
 				HttpContext.Current.Cache.Remove(this.Module.CacheKey);
 			}
 		}
+
+		/// <summary>
+		/// Register module-specific stylesheets.
+		/// </summary>
+		/// <param name="key">The unique key for the stylesheet. Note that Cuyahoga already uses 'maincss' as key.</param>
+		/// <param name="absoluteCssPath">The path to the css file from the application root (starting with /).</param>
+		protected void RegisterStylesheet(string key, string absoluteCssPath)
+		{
+			this._pageEngine.RegisterStylesheet(key, absoluteCssPath);
+		}
 	}
 }

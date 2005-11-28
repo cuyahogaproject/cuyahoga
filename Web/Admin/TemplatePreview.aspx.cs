@@ -31,7 +31,8 @@ namespace Cuyahoga.Web.Admin
 				CoreRepository cr = new CoreRepository(true);
 				Template template = (Template)cr.GetObjectById(typeof(Template), templateId);
 				BaseTemplate templateControl = (BaseTemplate)this.LoadControl(UrlHelper.GetApplicationPath() + template.Path);
-				templateControl.Css = UrlHelper.GetApplicationPath() + template.BasePath + "/Css/" + template.Css;
+				string css = UrlHelper.GetApplicationPath() + template.BasePath + "/Css/" + template.Css;
+				templateControl.RenderCssLinks(new string[1] {css});
 				templateControl.InsertContainerButtons();
 				this.Controls.Add(templateControl);
 				cr.CloseSession();

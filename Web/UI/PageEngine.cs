@@ -30,6 +30,7 @@ namespace Cuyahoga.Web.UI
 		private BaseTemplate _templateControl;
 		private CoreRepository _coreRepository;
 		private bool _shouldLoadContent;
+		private IDictionary _stylesheets;
 
 		#region properties
 
@@ -109,6 +110,20 @@ namespace Cuyahoga.Web.UI
 			this._activeSection = null;
 			this._templateControl = null;
 			this._shouldLoadContent = true;
+			this._stylesheets = new Hashtable();
+		}
+
+		/// <summary>
+		/// Register stylesheets.
+		/// </summary>
+		/// <param name="key">The unique key for the stylesheet. Note that Cuyahoga already uses 'maincss' as key.</param>
+		/// <param name="absoluteCssPath">The path to the css file from the application root (starting with /).</param>
+		public void RegisterStylesheet(string key, string absoluteCssPath)
+		{
+			if (this._stylesheets[key] == null)
+			{
+				this._stylesheets.Add(key, absoluteCssPath);
+			}
 		}
 
 		/// <summary>
@@ -218,6 +233,9 @@ namespace Cuyahoga.Web.UI
 		/// <param name="writer"></param>
 		protected override void Render(System.Web.UI.HtmlTextWriter writer)
 		{
+			InsertStylesheets();
+			InsertMetaTags();
+
 			if (Context.Items["VirtualUrl"] != null)
 			{
 				writer = new FormFixerHtmlTextWriter(writer.InnerWriter, "", Context.Items["VirtualUrl"].ToString());
@@ -238,7 +256,8 @@ namespace Cuyahoga.Web.UI
 				// Explicitly set the id to 'p' to save some bytes (otherwise _ctl0 would be added).
 				this._templateControl.ID = "p";
 				this._templateControl.Title = this._activeNode.Site.Name + " - " + this._activeNode.Title;
-				this._templateControl.Css = appRoot + this._activeNode.Template.BasePath + "/Css/" + this._activeNode.Template.Css;
+				// Register stylesheet that belongs to the template.
+				RegisterStylesheet("maincss", appRoot + this._activeNode.Template.BasePath + "/Css/" + this._activeNode.Template.Css);
 				// Load sections that are related to the template
 				foreach (DictionaryEntry sectionEntry in this.ActiveNode.Template.Sections)
 				{
@@ -354,6 +373,23 @@ namespace Cuyahoga.Web.UI
 			{
 				return null;
 			}
+		}
+
+		private void InsertStylesheets()
+		{
+			string[] stylesheetLinks = new string[this._stylesheets.Count];
+			int i = 0;
+			foreach (string stylesheet in this._stylesheets.Values)
+			{
+				stylesheetLinks[i] = stylesheet;
+				i++;
+			}
+			this.TemplateControl.RenderCssLinks(stylesheetLinks);
+		}
+
+		private void InsertMetaTags()
+		{
+			// TODO: meta tags.
 		}
 
 		private void Section_SessionFactoryRebuilt(object sender, EventArgs e)

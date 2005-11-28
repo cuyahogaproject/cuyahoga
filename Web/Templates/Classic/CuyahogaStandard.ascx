@@ -6,7 +6,8 @@
 	<head>
 		<title><asp:literal id="PageTitle" runat="server"></asp:literal></title>
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-		<link id="CssStyleSheet" rel="stylesheet" type="text/css" runat="server" />
+		<asp:literal id="MetaTags" runat="server" />
+		<asp:literal id="Stylesheets" runat="server" />
 	</head>
 	<body>
 		<form id="t" method="post" runat="server">

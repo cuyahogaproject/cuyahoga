@@ -3,6 +3,7 @@ using System.Collections;
 using System.Web.UI;
 using System.Web.UI.HtmlControls;
 using System.Web.UI.WebControls;
+using System.Text;
 
 namespace Cuyahoga.Web.UI
 {
@@ -12,16 +13,23 @@ namespace Cuyahoga.Web.UI
 	public abstract class BaseTemplate: System.Web.UI.UserControl
 	{
 		/// <summary>
-		/// Template controls that inherit from BaseTemplate must have a Literal control with id="PageTitle"
+		/// Template controls that inherit from BaseTemplate must have a Literal control with id="PageTitle".
 		/// </summary>
 		protected System.Web.UI.WebControls.Literal PageTitle;
 		/// <summary>
-		/// Template controls that inherit from BaseTemplate must have a HtmlGenericControl control id="CssStyleSheet"
+		/// Template controls that inherit from BaseTemplate must have a Literal control with 
+		/// id="Stylesheets".
 		/// </summary>
-		protected System.Web.UI.HtmlControls.HtmlGenericControl CssStyleSheet;
-		
+		protected System.Web.UI.WebControls.Literal Stylesheets;
+
 		/// <summary>
-		/// The page title as shown in the title bar of the browser
+		/// Template controls that inherit from BaseTemplate must have a Literal control with 
+		/// id="MetaTags".
+		/// </summary>
+		protected System.Web.UI.WebControls.Literal MetaTags;
+
+		/// <summary>
+		/// The page title as shown in the title bar of the browser.
 		/// </summary>
 		public string Title
 		{
@@ -32,11 +40,11 @@ namespace Cuyahoga.Web.UI
 		/// <summary>
 		/// Path to external stylesheet file, including the application root.
 		/// </summary>
-		public string Css
-		{
-			get { return this.CssStyleSheet.Attributes["href"];	}
-			set { this.CssStyleSheet.Attributes.Add("href", this.Page.ResolveUrl(value)); }
-		}
+//		public string Css
+//		{
+//			get { return this.CssStyleSheet.Attributes["href"];	}
+//			set { this.CssStyleSheet.Attributes.Add("href", this.Page.ResolveUrl(value)); }
+//		}
 
 		/// <summary>
 		/// The form of the template.
@@ -70,6 +78,37 @@ namespace Cuyahoga.Web.UI
 					}
 				}
 				return tbl;
+			}
+		}
+
+		/// <summary>
+		/// Converts the list of css links to stylesheet tags and inserts these in the appropriate place.
+		/// </summary>
+		/// <param name="stylesheets"></param>
+		public void RenderCssLinks(string[] stylesheets)
+		{
+			StringBuilder sb = new StringBuilder();
+			foreach (string stylesheet in stylesheets)
+			{
+				sb.AppendFormat("<link rel=\"stylesheet\" type=\"text/css\" href=\"{0}\" />\n\t", stylesheet);
+			}
+			this.Stylesheets.Text = sb.ToString();
+		}
+
+		/// <summary>
+		/// Converts the dictionary of meta tags to real meta tags and inserts these in the appropriate place.
+		/// </summary>
+		/// <param name="metaTags"></param>
+		public void RenderMetaTags(IDictionary metaTags)
+		{
+			StringBuilder sb = new StringBuilder();
+			if (metaTags != null)
+			{
+				foreach (DictionaryEntry entry in metaTags)
+				{
+					sb.AppendFormat("<meta name=\"{0}\" content=\"{1}\" />\n\t", entry.Key, entry.Value);
+				}
+				this.MetaTags.Text = sb.ToString();
 			}
 		}
 

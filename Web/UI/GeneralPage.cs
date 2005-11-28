@@ -70,9 +70,10 @@ namespace Cuyahoga.Web.UI
 				// Load the template
 				this._templateControl = (BaseTemplate)this.LoadControl(UrlHelper.GetApplicationPath() 
 					+ this._currentSite.DefaultTemplate.Path);
-				this._templateControl.Css = UrlHelper.GetApplicationPath() 
+				string css = UrlHelper.GetApplicationPath() 
 					+ this._currentSite.DefaultTemplate.BasePath
 					+ "/Css/" + this._currentSite.DefaultTemplate.Css;
+				this._templateControl.RenderCssLinks(new string[1] {css});
 				if (this._title != null)
 				{
 					this._templateControl.Title = this._title;

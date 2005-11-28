@@ -42,6 +42,7 @@ namespace Cuyahoga.Modules.User
 
 		private void Page_Load(object sender, System.EventArgs e)
 		{
+			RegisterStylesheet("usercss", "/dummy.css");
 			this._module = base.Module as UserModule;
 			if (this._module.Section.Settings["SHOW_REGISTER"] != null)
 			{

@@ -14,18 +14,33 @@ namespace Cuyahoga.Web.Util
 		private bool _inForm = false;
 		private string _action;
 
+		/// <summary>
+		/// 
+		/// </summary>
+		/// <param name="writer"></param>
+		/// <param name="tabString"></param>
+		/// <param name="action"></param>
 		public FormFixerHtmlTextWriter(TextWriter writer, string tabString, string action) : base(writer, tabString)
 		{
 			this._action = action;
 		}
 
+		/// <summary>
+		/// 
+		/// </summary>
+		/// <param name="tagName"></param>
 		public override void WriteBeginTag(string tagName)
 		{
 			this._inForm = (tagName.Equals("form"));
 			base.WriteBeginTag (tagName);
 		}
 
-
+		/// <summary>
+		/// 
+		/// </summary>
+		/// <param name="name"></param>
+		/// <param name="value"></param>
+		/// <param name="fEncode"></param>
 		public override void WriteAttribute(string name, string value, bool fEncode)
 		{
 			if (this._inForm)

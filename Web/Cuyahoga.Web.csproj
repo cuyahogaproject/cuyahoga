@@ -3728,11 +3728,6 @@
                     BuildAction = "Content"
                 />
                 <File
-                    RelPath = "Templates\Classic\CuyahogaPoor.ascx"
-                    SubType = "UserControl"
-                    BuildAction = "Content"
-                />
-                <File
                     RelPath = "Templates\Classic\CuyahogaStandard.ascx"
                     SubType = "UserControl"
                     BuildAction = "Content"
