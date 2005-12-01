@@ -4,10 +4,9 @@
 		Cuyahoga Site Administration
 	</div>
 	<div id="headeruser">
-
 	</div>
 </div>
 <div id="subheader">
-	[<asp:hyperlink id="hplSite" runat="server">View the current site</asp:hyperlink>]
+	[<asp:hyperlink id="hplSite" runat="server">View the current site</asp:hyperlink>] 
 	[<asp:linkbutton id="lbtLogout" runat="server">Log out</asp:linkbutton>]
 </div>

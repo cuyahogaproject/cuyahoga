@@ -48,6 +48,7 @@ namespace Cuyahoga.Web.Util
 				return GetHostUrl() + path.ToLower();
 			}
 		}
+
 		/// <summary>
 		/// Returns a formatted url for a given node (/{ApplicationPath}/{Node.ShortDescription}.aspx.
 		/// </summary>
@@ -85,13 +86,20 @@ namespace Cuyahoga.Web.Util
 		}
 
 		/// <summary>
-		/// Returns a formatted url for a given nodeId (/{ApplicationPath}/{nodeId}/view.aspx.
+		/// Get the full url of a Node with the host url resolved via the Site property.
 		/// </summary>
-		/// <param name="nodeId"></param>
+		/// <param name="node"></param>
 		/// <returns></returns>
-		public static string GetUrlFromNodeId(int nodeId)
+		public static string GetFullUrlFromNodeViaSite(Node node)
 		{
-			return GetApplicationPath() + nodeId.ToString() + "/view.aspx";
+			if (! node.IsExternalLink)
+			{
+				return node.Site.SiteUrl + GetUrlFromNode(node);
+			}
+			else
+			{
+				return null;
+			}
 		}
 
 		/// <summary>
@@ -111,7 +119,24 @@ namespace Cuyahoga.Web.Util
 		/// <returns></returns>
 		public static string GetFullUrlFromSection(Section section)
 		{
-			return GetHostUrl() + GetApplicationPath() + section.Id + "/section.aspx";
+			return GetHostUrl() + GetUrlFromSection(section);
+		}
+
+		/// <summary>
+		/// Get the full url of a Section with the host url resolved via the Site property.
+		/// </summary>
+		/// <param name="section"></param>
+		/// <returns></returns>
+		public static string GetFullUrlFromSectionViaSite(Section section)
+		{
+			if (section.Node != null)
+			{
+				return section.Node.Site.SiteUrl + GetUrlFromSection(section);
+			}
+			else
+			{
+				return null;
+			}
 		}
 
 		/// <summary>

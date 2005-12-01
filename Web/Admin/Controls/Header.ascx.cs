@@ -34,11 +34,11 @@ namespace Cuyahoga.Web.Admin.Controls
 			}
 			if (this._page.ActiveSection != null)
 			{
-				this.hplSite.NavigateUrl = Util.UrlHelper.GetUrlFromSection(this._page.ActiveSection);
+				this.hplSite.NavigateUrl = Util.UrlHelper.GetFullUrlFromSectionViaSite(this._page.ActiveSection);
 			}
 			else if (this._page.ActiveNode != null)
 			{
-				this.hplSite.NavigateUrl = Util.UrlHelper.GetUrlFromNode(this._page.ActiveNode);
+				this.hplSite.NavigateUrl = Util.UrlHelper.GetFullUrlFromNodeViaSite(this._page.ActiveNode);
 			}
 			else if (this._page.ActiveSite != null)
 			{
