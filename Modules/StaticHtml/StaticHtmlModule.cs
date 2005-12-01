@@ -141,10 +141,17 @@ namespace Cuyahoga.Modules.StaticHtml
 
 		public SearchContent[] GetAllSearchableContent()
 		{
-			SearchContent[] searchContents = new SearchContent[1];
 			StaticHtmlContent shc = GetContent();
-			searchContents[0] = StaticHtmlContentToSearchContent(shc);
-			return searchContents;
+			if (shc != null)
+			{
+				SearchContent[] searchContents = new SearchContent[1];
+				searchContents[0] = StaticHtmlContentToSearchContent(shc);
+				return searchContents;
+			}
+			else
+			{
+				return new SearchContent[0];
+			}
 		}
 
 		public event Cuyahoga.Core.Search.IndexEventHandler ContentCreated;
