@@ -111,6 +111,21 @@ namespace Cuyahoga.Web.Admin.UI
 		}
 
 		/// <summary>
+		/// 
+		/// </summary>
+		/// <param name="e"></param>
+		protected override void OnLoad(EventArgs e)
+		{
+			base.OnLoad (e);
+
+			string message = Request.QueryString["message"];
+			if (message != null)
+			{
+				ShowMessage(message);
+			}
+		}
+
+		/// <summary>
 		/// Try to find the MessageBox control, insert the errortext and set visibility to true.
 		/// </summary>
 		/// <param name="errorText"></param>

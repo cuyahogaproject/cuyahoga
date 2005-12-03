@@ -162,7 +162,7 @@ namespace Cuyahoga.Web.Admin
 				if (this._activeUser.Id == -1)
 				{
 					base.CoreRepository.SaveObject(this._activeUser);
-					Context.Response.Redirect("UserEdit.aspx?UserId=" + this._activeUser.Id);
+					Context.Response.Redirect("UserEdit.aspx?UserId=" + this._activeUser.Id + "&message=User created successfully");
 				}
 				else
 				{
