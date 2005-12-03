@@ -3,6 +3,7 @@ using System.Web;
 using System.Web.UI.WebControls;
 
 using Cuyahoga.Core.Domain;
+using Cuyahoga.Core.Util;
 
 namespace Cuyahoga.Web.Util
 {
@@ -21,15 +22,7 @@ namespace Cuyahoga.Web.Util
 		/// <returns></returns>
 		public static string GetApplicationPath()
 		{
-			string path = HttpContext.Current.Request.ApplicationPath;
-			if (path.EndsWith("/"))
-			{
-				return path;
-			}
-			else
-			{
-				return path + "/";
-			}
+			return Text.EnsureTrailingSlash(HttpContext.Current.Request.ApplicationPath);
 		}
 
 		/// <summary>
@@ -94,7 +87,7 @@ namespace Cuyahoga.Web.Util
 		{
 			if (! node.IsExternalLink)
 			{
-				return node.Site.SiteUrl + GetUrlFromNode(node);
+				return Text.EnsureTrailingSlash(node.Site.SiteUrl) + node.Id.ToString() + "/view.aspx";
 			}
 			else
 			{
@@ -131,7 +124,7 @@ namespace Cuyahoga.Web.Util
 		{
 			if (section.Node != null)
 			{
-				return section.Node.Site.SiteUrl + GetUrlFromSection(section);
+				return Text.EnsureTrailingSlash(section.Node.Site.SiteUrl) + section.Id.ToString() + "/section.aspx";
 			}
 			else
 			{

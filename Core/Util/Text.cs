@@ -42,5 +42,22 @@ namespace Cuyahoga.Core.Util
 			text = regexStripHTML.Replace(text, " ");
 			return text;
 		}
+
+		/// <summary>
+		/// Ensure that the given string has a trailing slash.
+		/// </summary>
+		/// <param name="stringThatNeedsTrailingSlash"></param>
+		/// <returns></returns>
+		public static string EnsureTrailingSlash(string stringThatNeedsTrailingSlash)
+		{
+			if (! stringThatNeedsTrailingSlash.EndsWith("/"))
+			{
+				return stringThatNeedsTrailingSlash + "/";
+			}
+			else
+			{
+				return stringThatNeedsTrailingSlash;
+			}
+		}
 	}
 }
