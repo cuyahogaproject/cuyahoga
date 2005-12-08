@@ -8,7 +8,7 @@
 		<link id="CssStyleSheet" rel="stylesheet" type="text/css" runat="server" />
 	</head>
 	<body>
-		<form id="Frm" method="post" runat="server">
+		<form id="Frm" method="post" runat="server" enctype="multipart/form-data">
 			<uc1:header id="Header" runat="server"></uc1:header>
 			<div id="menupane">
 				<uc1:navigation id="Nav" runat="server"></uc1:navigation>
