@@ -30,7 +30,7 @@ namespace Cuyahoga.Web.UI
 		/// </summary>
 		/// <param name="key"></param>
 		/// <returns></returns>
-		protected string GetText(string key)
+		protected virtual string GetText(string key)
 		{
 			return this._resMan.GetString(key, this._currentUICulture);
 		}
@@ -40,7 +40,7 @@ namespace Cuyahoga.Web.UI
 		/// The resource keys should consist of the name of the User Control class
 		/// with the ID of the control added. For example "Articles.lblTitle".
 		/// </summary>
-		protected void LocalizeControls()
+		protected virtual void LocalizeControls()
 		{
 			LocalizeControls(this);
 		}
@@ -52,7 +52,7 @@ namespace Cuyahoga.Web.UI
 		/// Example: "Articles:lblTitle".
 		/// </summary>
 		/// <param name="control"></param>
-		protected void LocalizeControls(Control control)
+		protected virtual void LocalizeControls(Control control)
 		{
 			foreach (Control childControl in control.Controls)
 			{
@@ -86,7 +86,7 @@ namespace Cuyahoga.Web.UI
 		/// <summary>
 		/// Recursively databind controls that might have localized texts.
 		/// </summary>
-		protected void BindResources()
+		protected virtual void BindResources()
 		{
 			BindResources(this);
 		}
