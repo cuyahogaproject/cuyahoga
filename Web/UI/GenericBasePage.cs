@@ -85,6 +85,24 @@ namespace Cuyahoga.Web.UI
 		}
 
 		/// <summary>
+		/// The messagebox.
+		/// </summary>
+		public HtmlGenericControl MessageBox
+		{
+			get
+			{
+				if (this.TemplateControl != null)
+				{
+					return this.TemplateControl.FindControl("MessageBox") as HtmlGenericControl;
+				}
+				else
+				{
+					return null;
+				}
+			}
+		}
+
+		/// <summary>
 		/// The core repository for persisting Cuyahoga objects.
 		/// </summary>
 		public CoreRepository CoreRepository
@@ -118,6 +136,56 @@ namespace Cuyahoga.Web.UI
 			this._templateFilename = templateFileName;
 			this._templateDir = templateDir;
 			this._css = css;
+		}
+
+		/// <summary>
+		/// Try to find the MessageBox control, insert the errortext and set visibility to true.
+		/// </summary>
+		/// <param name="errorText"></param>
+		protected virtual void ShowError(string errorText)
+		{
+			if (this.MessageBox != null)
+			{
+				this.MessageBox.InnerHtml = "An error occured: " + errorText;
+				this.MessageBox.Attributes["class"] = "errorbox";
+				this.MessageBox.Visible = true;
+			}
+			else
+			{
+				// Throw an Exception and hope it will be handled by the global application exception handler.
+				throw new Exception(errorText);
+			}
+		}
+
+		/// <summary>
+		/// Try to find the MessageBox control, insert the message and set visibility to true.
+		/// </summary>
+		/// <param name="message"></param>
+		protected virtual void ShowMessage(string message)
+		{
+			if (this.MessageBox != null)
+			{
+				this.MessageBox.InnerHtml = message;
+				this.MessageBox.Attributes["class"] = "messagebox";
+				this.MessageBox.Visible = true;
+			}
+			// TODO: change the class attribute to make a difference with the error (nice background image?)
+		}
+
+		/// <summary>
+		/// Show the message of the exception, and the messages of the inner exceptions.
+		/// </summary>
+		/// <param name="ex"></param>
+		protected virtual void ShowException(Exception exception)
+		{
+			string exceptionMessage = "<p>" + exception.Message + "</p>";
+			Exception innerException = exception.InnerException;
+			while (innerException != null)
+			{
+				exceptionMessage +=  "<p>" + innerException.Message + "</p>";
+				innerException = innerException.InnerException;
+			}
+			ShowError(exceptionMessage);
 		}
 
 		protected override void OnInit(EventArgs e)

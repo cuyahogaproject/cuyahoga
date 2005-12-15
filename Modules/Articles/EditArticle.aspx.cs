@@ -146,7 +146,7 @@ namespace Cuyahoga.Modules.Articles
 			}
 			catch (Exception ex)
 			{
-				ShowError(ex.Message);
+				ShowException(ex);
 			}
 		}
 

@@ -46,17 +46,6 @@ namespace Cuyahoga.Web.UI
 		}
 
 		/// <summary>
-		/// Messagebox control.
-		/// </summary>
-		public HtmlGenericControl MessageBox
-		{
-			get
-			{
-				return this.TemplateControl.FindControl("MessageBox") as HtmlGenericControl;
-			}
-		}
-
-		/// <summary>
 		/// Default constructor calls base constructor with parameters for templatecontrol, 
 		/// templatepath and stylesheet.
 		/// </summary>
@@ -122,42 +111,6 @@ namespace Cuyahoga.Web.UI
 			}
 			
 			base.OnInit (e);
-		}
-
-		/// <summary>
-		/// Try to find the MessageBox control, insert the errortext and set visibility to true.
-		/// TODO: reduce redundancy with the AdminBasePage
-		/// </summary>
-		/// <param name="errorText"></param>
-		public void ShowError(string errorText)
-		{
-			if (this.MessageBox != null)
-			{
-				this.MessageBox.InnerText = "An error occured: " + errorText;
-				this.MessageBox.Attributes["class"] = "errorbox";
-				this.MessageBox.Visible = true;
-			}
-			else
-			{
-				// Throw an Exception that will be handled by the global exception handler.
-				throw new Exception(errorText);
-			}
-		}
-
-		/// <summary>
-		/// Try to find the MessageBox control, insert the message and set visibility to true.
-		/// TODO: reduce redundancy with the AdminBasePage
-		/// </summary>
-		/// <param name="message"></param>
-		public void ShowMessage(string message)
-		{
-			if (this.MessageBox != null)
-			{
-				this.MessageBox.InnerText = message;
-				this.MessageBox.Attributes["class"] = "messagebox";
-				this.MessageBox.Visible = true;
-			}
-			// TODO: change the class attribute to make a difference with the error (nice background image?)
 		}
 
 		/// <summary>
