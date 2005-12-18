@@ -28,7 +28,7 @@ feeditemid INT NOT NULL AUTO_INCREMENT,
 feedid INT NOT NULL,
 url VARCHAR(255) NOT NULL,
 title VARCHAR(100) NOT NULL,
-content TEXT,
+content MEDIUMTEXT,
 pubdate DATETIME NOT NULL,
 author VARCHAR(100),
 FOREIGN KEY (feedid) REFERENCES cm_feed (feedid),
@@ -43,7 +43,7 @@ modifiedby INT,
 articlecategoryid INT,
 title VARCHAR(100) NOT NULL,
 summary VARCHAR(255),
-content TEXT NOT NULL,
+content MEDIUMTEXT NOT NULL,
 syndicate TINYINT NOT NULL,
 dateonline DATETIME NOT NULL,
 dateoffline DATETIME NOT NULL,
@@ -77,7 +77,7 @@ sectionid INT NOT NULL,
 createdby INT NOT NULL,
 modifiedby INT,
 title VARCHAR(255),
-content TEXT NOT NULL,
+content MEDIUMTEXT NOT NULL,
 inserttimestamp TIMESTAMP NOT NULL,
 updatetimestamp DATETIME NOT NULL,
 FOREIGN KEY (sectionid) REFERENCES cuyahoga_section (sectionid),
@@ -112,4 +112,4 @@ INSERT INTO cuyahoga_modulesetting (moduletypeid, name, friendlyname, settingdat
 INSERT INTO cuyahoga_modulesetting (moduletypeid, name, friendlyname, settingdatatype, iscustomtype, isrequired) VALUES (6, 'SHOW_SOURCES', 'Show feed sources', 'System.Boolean', 0, 1);
 INSERT INTO cuyahoga_modulesetting (moduletypeid, name, friendlyname, settingdatatype, iscustomtype, isrequired) VALUES (6, 'SHOW_AUTHORS', 'Show authors', 'System.Boolean', 0, 1);
 
-INSERT INTO cuyahoga_version (assembly, major, minor, patch) VALUES ('Cuyahoga.Modules', 0, 9, 1);
+INSERT INTO cuyahoga_version (assembly, major, minor, patch) VALUES ('Cuyahoga.Modules', 1, 0, 0);
