@@ -33,7 +33,7 @@ userroleid INT NOT NULL AUTO_INCREMENT,
 userid INT NOT NULL,
 roleid INT NOT NULL,
 inserttimestamp TIMESTAMP NOT NULL,
-updatetimestamp DATETIME NOT NULL,
+updatetimestamp DATETIME,
 FOREIGN KEY (roleid) REFERENCES cuyahoga_role (roleid),
 FOREIGN KEY (userid) REFERENCES cuyahoga_user (userid),
 PRIMARY KEY (userroleid));
@@ -239,4 +239,4 @@ INSERT INTO cuyahoga_template (templateid, name, basepath, templatecontrol, css,
 INSERT INTO cuyahoga_template (templateid, name, basepath, templatecontrol, css, inserttimestamp, updatetimestamp) VALUES (3, 'Cuyahoga New', 'Templates/Default', 'CuyahogaNew.ascx', 'red-new.css', '2004-01-26 21:52:52.365', '2004-01-26 21:52:52.365');
 INSERT INTO cuyahoga_template (templateid, name, basepath, templatecontrol, css, inserttimestamp, updatetimestamp) VALUES (4, 'Another Red', 'Templates/AnotherRed', 'Cuyahoga.ascx', 'red.css', '2004-01-26 21:52:52.365', '2004-01-26 21:52:52.365');
 
-INSERT INTO cuyahoga_version (assembly, major, minor, patch) VALUES ('Cuyahoga.Core', 0, 9, 1);
+INSERT INTO cuyahoga_version (assembly, major, minor, patch) VALUES ('Cuyahoga.Core', 1, 0, 0);

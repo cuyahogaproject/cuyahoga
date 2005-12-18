@@ -174,6 +174,6 @@ INSERT INTO cuyahoga_modulesetting (moduletypeid, name, friendlyname, settingdat
 
 GO
 
-INSERT INTO cuyahoga_version (assembly, major, minor, patch) VALUES ('Cuyahoga.Modules', 0, 9, 1)
+INSERT INTO cuyahoga_version (assembly, major, minor, patch) VALUES ('Cuyahoga.Modules', 1, 0, 0)
 
 GO

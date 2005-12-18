@@ -105,4 +105,4 @@ INSERT INTO cuyahoga_modulesetting (moduletypeid, name, friendlyname, settingdat
 INSERT INTO cuyahoga_modulesetting (moduletypeid, name, friendlyname, settingdatatype, iscustomtype, isrequired) VALUES (6, 'SHOW_SOURCES', 'Show feed sources', 'System.Boolean', false, true);
 INSERT INTO cuyahoga_modulesetting (moduletypeid, name, friendlyname, settingdatatype, iscustomtype, isrequired) VALUES (6, 'SHOW_AUTHORS', 'Show authors', 'System.Boolean', false, true);
 
-INSERT INTO cuyahoga_version (assembly, major, minor, patch) VALUES ('Cuyahoga.Modules', 0, 9, 1);
+INSERT INTO cuyahoga_version (assembly, major, minor, patch) VALUES ('Cuyahoga.Modules', 1, 0, 0);

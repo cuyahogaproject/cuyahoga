@@ -375,5 +375,5 @@ SET IDENTITY_INSERT cuyahoga_template OFF
 GO
 
 
-INSERT INTO cuyahoga_version (assembly, major, minor, patch) VALUES ('Cuyahoga.Core', 0, 9, 1)
+INSERT INTO cuyahoga_version (assembly, major, minor, patch) VALUES ('Cuyahoga.Core', 1, 0, 0)
 GO
