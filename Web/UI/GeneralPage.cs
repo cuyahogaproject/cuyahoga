@@ -17,7 +17,6 @@ namespace Cuyahoga.Web.UI
 	/// </summary>
 	public class GeneralPage : PageEngine
 	{
-		private BaseTemplate _templateControl;
 		private PlaceHolder _contentPlaceHolder;
 		private Site _currentSite;
 		private string _title;
@@ -39,9 +38,9 @@ namespace Cuyahoga.Web.UI
 			set 
 			{ 
 				this._title = value; 
-				if (this._templateControl != null)
+				if (this.TemplateControl != null)
 				{
-					this._templateControl.Title = value;
+					this.TemplateControl.Title = value;
 				}
 			}
 		}
@@ -68,23 +67,25 @@ namespace Cuyahoga.Web.UI
 				&& this._currentSite.DefaultPlaceholder != String.Empty)
 			{
 				// Load the template
-				this._templateControl = (BaseTemplate)this.LoadControl(UrlHelper.GetApplicationPath() 
+				this.TemplateControl = (BaseTemplate)this.LoadControl(UrlHelper.GetApplicationPath() 
 					+ this._currentSite.DefaultTemplate.Path);
+				// Register css
 				string css = UrlHelper.GetApplicationPath() 
 					+ this._currentSite.DefaultTemplate.BasePath
 					+ "/Css/" + this._currentSite.DefaultTemplate.Css;
-				this._templateControl.RenderCssLinks(new string[1] {css});
+				RegisterStylesheet("maincss", css);
+
 				if (this._title != null)
 				{
-					this._templateControl.Title = this._title;
+					this.TemplateControl.Title = this._title;
 				}
 
 				// Add the pagecontrol on top of the control collection of the page
-				this._templateControl.ID = "p";
-				col.AddAt(0, this._templateControl);
+				this.TemplateControl.ID = "p";
+				col.AddAt(0, this.TemplateControl);
 
 				// Get the Content placeholder
-				this._contentPlaceHolder = this._templateControl.FindControl(this._currentSite.DefaultPlaceholder) as PlaceHolder;
+				this._contentPlaceHolder = this.TemplateControl.FindControl(this._currentSite.DefaultPlaceholder) as PlaceHolder;
 				if (this._contentPlaceHolder != null)
 				{
 					// Iterate through the controls in the page to find the form control.
