@@ -38,25 +38,32 @@ database for the following components wil be installed: <br>
 						<tr>
 							<td>Password</td>
 							<td>
-								<asp:textbox id="txtPassword" runat="server" textmode="Password" width="100px"></asp:textbox>
-								<asp:requiredfieldvalidator id="rfvPassword" runat="server" cssclass="validator" errormessage="The password is required"
-									display="Dynamic" controltovalidate="txtPassword" enableclientscript="False"></asp:requiredfieldvalidator></td>
+								<asp:textbox id="txtPassword" runat="server" width="100px" textmode="Password"></asp:textbox>
+								<asp:requiredfieldvalidator id="rfvPassword" runat="server" cssclass="validator" enableclientscript="False"
+									controltovalidate="txtPassword" display="Dynamic" errormessage="The password is required"></asp:requiredfieldvalidator></td>
 						</tr>
 						<tr>
 							<td>Confirm password</td>
 							<td>
-								<asp:textbox id="txtConfirmPassword" runat="server" textmode="Password" width="100px"></asp:textbox>
-								<asp:requiredfieldvalidator id="rfvConfirmPassword" runat="server" cssclass="validator" errormessage="The password is required"
-									display="Dynamic" controltovalidate="txtConfirmPassword" enableclientscript="False"></asp:requiredfieldvalidator>
-								<asp:comparevalidator id="cpvPassword" runat="server" errormessage="The passwords must be the same" controltovalidate="txtConfirmPassword"
-									enableclientscript="False" controltocompare="txtPassword"></asp:comparevalidator></td>
+								<asp:textbox id="txtConfirmPassword" runat="server" width="100px" textmode="Password"></asp:textbox>
+								<asp:requiredfieldvalidator id="rfvConfirmPassword" runat="server" cssclass="validator" enableclientscript="False"
+									controltovalidate="txtConfirmPassword" display="Dynamic" errormessage="The password is required"></asp:requiredfieldvalidator>
+								<asp:comparevalidator id="cpvPassword" runat="server" enableclientscript="False" controltovalidate="txtConfirmPassword"
+									errormessage="The passwords must be the same" controltocompare="txtPassword"></asp:comparevalidator></td>
 						</tr>
 					</table><br>
 <asp:button id="btnAdmin" runat="server" text="Create administrator account"></asp:button>		
 				</asp:panel>
+				<asp:panel id="pnlCreateSite" cssclass="group" runat="server" visible="False">
+<h4>Create site</h4>Do you want Cuyahoga to create a basic site for you? 
+<br><br>
+<asp:button id="btnCreateSite" runat="server" text="Yes, create a site"></asp:button>
+<asp:button id="btnSkipCreateSite" runat="server" text="No, skip this step"></asp:button>
+					
+					
+				</asp:panel>
 				<asp:panel id="pnlFinished" cssclass="group" runat="server" visible="False">
-					<h4>Finished</h4>
-					The Cuyahoga is successfully installed! <br><br>
+<h4>Finished</h4>The Cuyahoga is successfully installed! <br><br>
 <asp:hyperlink id="hplContinue" runat="server" navigateurl="~/Admin">Log in
 					to the site administration with the account you just created to create a site and continue.</asp:hyperlink>
 				</asp:panel>

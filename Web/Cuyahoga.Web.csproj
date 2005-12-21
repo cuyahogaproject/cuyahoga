@@ -880,6 +880,10 @@
                     BuildAction = "None"
                 />
                 <File
+                    RelPath = "Install\Core\Database\mssql2000\1.0.0.sql"
+                    BuildAction = "None"
+                />
+                <File
                     RelPath = "Install\Core\Database\mssql2000\install.sql"
                     BuildAction = "None"
                 />
@@ -893,6 +897,10 @@
                 />
                 <File
                     RelPath = "Install\Core\Database\mysql\0.9.1.sql"
+                    BuildAction = "None"
+                />
+                <File
+                    RelPath = "Install\Core\Database\mysql\1.0.0.sql"
                     BuildAction = "None"
                 />
                 <File
@@ -912,6 +920,10 @@
                     BuildAction = "None"
                 />
                 <File
+                    RelPath = "Install\Core\Database\postgresql\1.0.0.sql"
+                    BuildAction = "None"
+                />
+                <File
                     RelPath = "Install\Core\Database\postgresql\install.sql"
                     BuildAction = "None"
                 />
@@ -925,6 +937,10 @@
                 />
                 <File
                     RelPath = "Install\Modules\Database\mssql2000\0.9.1.sql"
+                    BuildAction = "None"
+                />
+                <File
+                    RelPath = "Install\Modules\Database\mssql2000\1.0.0.sql"
                     BuildAction = "None"
                 />
                 <File
@@ -944,6 +960,10 @@
                     BuildAction = "None"
                 />
                 <File
+                    RelPath = "Install\Modules\Database\mysql\1.0.0.sql"
+                    BuildAction = "None"
+                />
+                <File
                     RelPath = "Install\Modules\Database\mysql\install.sql"
                     BuildAction = "None"
                 />
@@ -957,6 +977,10 @@
                 />
                 <File
                     RelPath = "Install\Modules\Database\postgresql\0.9.1.sql"
+                    BuildAction = "None"
+                />
+                <File
+                    RelPath = "Install\Modules\Database\postgresql\1.0.0.sql"
                     BuildAction = "None"
                 />
                 <File

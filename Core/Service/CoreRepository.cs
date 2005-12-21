@@ -137,6 +137,20 @@ namespace Cuyahoga.Core.Service
 		}
 
 		/// <summary>
+		/// Gets a single object by type and description.
+		/// </summary>
+		/// <param name="type"></param>
+		/// <param name="propertyName"></param>
+		/// <param name="description"></param>
+		/// <returns></returns>
+		public object GetObjectByDescription(Type type, string propertyName, string description)
+		{
+			ICriteria crit = this._activeSession.CreateCriteria(type);
+			crit.Add(Expression.Eq(propertyName, description));
+			return crit.UniqueResult();
+		}
+
+		/// <summary>
 		/// Get all objects of a given type.
 		/// </summary>
 		/// <param name="type"></param>
@@ -176,12 +190,12 @@ namespace Cuyahoga.Core.Service
 			ITransaction trn = this._activeSession.BeginTransaction();
 			try
 			{
-				// Try to find a UpdateTimestamp property and when found, set it to the current date/time.
-				PropertyInfo pi = obj.GetType().GetProperty("UpdateTimestamp");
-				if (pi != null)
-				{
-					pi.SetValue(obj, DateTime.Now, null);
-				}
+//				// Try to find a UpdateTimestamp property and when found, set it to the current date/time.
+//				PropertyInfo pi = obj.GetType().GetProperty("UpdateTimestamp");
+//				if (pi != null)
+//				{
+//					pi.SetValue(obj, DateTime.Now, null);
+//				}
 				this._activeSession.Save(obj);
 				trn.Commit();
 			}
