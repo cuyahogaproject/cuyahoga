@@ -355,6 +355,27 @@
                     BuildAction = "EmbeddedResource"
                 />
                 <File
+                    RelPath = "Search\SearchInput.ascx"
+                    SubType = "UserControl"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Search\SearchInput.ascx.cs"
+                    DependentUpon = "SearchInput.ascx"
+                    SubType = "ASPXCodeBehind"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "Search\SearchInput.ascx.resx"
+                    DependentUpon = "SearchInput.ascx.cs"
+                    BuildAction = "EmbeddedResource"
+                />
+                <File
+                    RelPath = "Search\SearchInputModule.cs"
+                    SubType = "Code"
+                    BuildAction = "Compile"
+                />
+                <File
                     RelPath = "Search\SearchModule.cs"
                     SubType = "Code"
                     BuildAction = "Compile"

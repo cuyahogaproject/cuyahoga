@@ -42,10 +42,9 @@ a:hover
 	margin-left: 16px;
 	margin-bottom: 0px;
 	color: #fff;
-	vertical-align: bottom;
 }
 
-#title
+#titletext
 {
 	font-weight: bold;
 	font-size: 260%;
@@ -53,6 +52,28 @@ a:hover
 	margin-right: 10px;
 }
 
+#searcharea
+{
+	float: right;
+	width: 210px;
+}
+
+#searcharea div.section
+{
+	border: 0;
+}
+
+#searcharea a
+{
+	color: #fff;
+}
+
+#searcharea input
+{
+	margin: 2px;
+	border: inset 1px #fff;
+	font-size: 100%;
+}
 
 #globalmenu
 {
@@ -376,4 +397,3 @@ a:hover
 	color: #666;
 	font-size: 0.85em;
 }
-

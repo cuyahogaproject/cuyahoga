@@ -72,6 +72,11 @@ namespace Cuyahoga.Web.UI
 						Button button = (Button)childControl;
 						button.Text = localizedText;
 					}
+					if (childControl is LinkButton)
+					{
+						LinkButton linkButton = (LinkButton)childControl;
+						linkButton.Text = localizedText;
+					}
 					else if (childControl is BaseValidator)
 					{
 						BaseValidator validator = (BaseValidator)childControl;

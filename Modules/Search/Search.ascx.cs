@@ -19,8 +19,6 @@ namespace Cuyahoga.Modules.Search
 	/// </summary>
 	public class Search : BaseModuleControl
 	{
-		private const int RESULTS_PER_PAGE = 10;
-
 		private string _indexDir;
 		private SearchModule _module;
 
@@ -39,36 +37,43 @@ namespace Cuyahoga.Modules.Search
 
 		private void Page_Load(object sender, System.EventArgs e)
 		{
-			
 			this._module = this.Module as SearchModule;
 			this._indexDir = Context.Server.MapPath(Config.GetConfiguration()["SearchIndexDir"]);
-			this.pgrResults.PageSize = RESULTS_PER_PAGE;
-			//this.pgrResults.AllowCustomPaging = true;
+			this.pgrResults.PageSize = this._module.ResultsPerPage;
+			this.pnlCriteria.Visible = this._module.ShowInputPanel;
+			
+			if (! this.IsPostBack)
+			{
+				if (this._module.SearchQuery != null)
+				{
+					BindSearchResults(this._module.SearchQuery, 0);
+					this.txtSearchText.Text = this._module.SearchQuery;
+				}
+				LocalizeControls();
+			}
 		}
 
-		private void BindSearchResults(int pageIndex)
+		private void BindSearchResults(string queryString, int pageIndex)
 		{
-			SearchResultCollection results = this._module.GetSearchResults(this.txtSearchText.Text, this._indexDir);
-			SearchResultCollection filteredResults = FilterResults(results);
-			if (filteredResults.Count > 0)
+			SearchResultCollection results = this._module.GetSearchResults(queryString, this._indexDir);
+			if (results.Count > 0)
 			{
-				int start = pageIndex * RESULTS_PER_PAGE;
-				int end = start + RESULTS_PER_PAGE;
-				if (end > filteredResults.Count)
+				int start = pageIndex * this._module.ResultsPerPage;
+				int end = start + this._module.ResultsPerPage;
+				if (end > results.Count)
 				{
-					end = filteredResults.Count;
+					end = results.Count;
 				}
 				this.pnlResults.Visible = true;
 				this.pnlNotFound.Visible = false;
 
 				this.lblFrom.Text = (start + 1).ToString();
 				this.lblTo.Text = end.ToString();
-				this.lblTotal.Text = filteredResults.Count.ToString();
-				this.lblQueryText.Text = this.txtSearchText.Text;
+				this.lblTotal.Text = results.Count.ToString();
+				this.lblQueryText.Text = this._module.SearchQuery != null ? this._module.SearchQuery : this.txtSearchText.Text;
 				float duration = results.ExecutionTime * 0.0000001F;
 				this.lblDuration.Text = duration.ToString();
-				//this.pgrResults.VirtualItemCount = results.TotalCount;
-				this.rptResults.DataSource = filteredResults;
+				this.rptResults.DataSource = results;
 				this.rptResults.DataBind();
 			}
 			else
@@ -78,32 +83,7 @@ namespace Cuyahoga.Modules.Search
 			}
 		}
 
-		/// <summary>
-		/// A searchresult contains a SectionId propery that indicates to which section the 
-		/// result belongs. We need to get a real Section to determine if the current user 
-		/// has view access to that Section.
-		/// </summary>
-		/// <param name="nonFilteredResults"></param>
-		/// <returns></returns>
-		private SearchResultCollection FilterResults(SearchResultCollection nonFilteredResults)
-		{
-			SearchResultCollection filteredResults = new SearchResultCollection();
-
-			CoreRepository cr = HttpContext.Current.Items["CoreRepository"] as CoreRepository;
-			if (cr != null)
-			{
-				foreach (SearchResult result in nonFilteredResults)
-				{
-					Section section = (Section)cr.GetObjectById(typeof(Section), result.SectionId);
-					if (section.ViewAllowed(this.Page.User.Identity))
-					{
-						filteredResults.Add(result);
-					}
-				}
-			}
-
-			return filteredResults;
-		}
+		
 
 		#region Web Form Designer generated code
 		override protected void OnInit(EventArgs e)
@@ -133,14 +113,14 @@ namespace Cuyahoga.Modules.Search
 		{
 			if (this.txtSearchText.Text.Trim() != String.Empty)
 			{
-				BindSearchResults(0);
+				BindSearchResults(this.txtSearchText.Text, 0);
 			}
 		}
 
 		private void pgrResults_PageChanged(object sender, Cuyahoga.ServerControls.PageChangedEventArgs e)
 		{
 			this.pgrResults.CurrentPageIndex = e.CurrentPage;
-			BindSearchResults(this.pgrResults.CurrentPageIndex);
+			BindSearchResults(this.txtSearchText.Text, this.pgrResults.CurrentPageIndex);
 		}
 
 		private void rptResults_ItemDataBound(object sender, System.Web.UI.WebControls.RepeaterItemEventArgs e)

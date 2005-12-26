@@ -12,8 +12,11 @@
 	<form id="t" method="post" runat="server">
 		<div id="container">
 			<div id="header">
-				<span id="title">Cuyahoga</span>
-				A .NET Web Site Framework
+				<div id="searcharea"><asp:placeholder id="searchinput" runat="server"></asp:placeholder></div>
+				<div>
+					<span id="titletext">Cuyahoga</span>
+					A .NET Web Site Framework
+				</div>
 			</div>
 			
 			<!-- shadow divs -->
