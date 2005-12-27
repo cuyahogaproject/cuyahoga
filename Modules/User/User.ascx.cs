@@ -42,7 +42,6 @@ namespace Cuyahoga.Modules.User
 
 		private void Page_Load(object sender, System.EventArgs e)
 		{
-			RegisterStylesheet("usercss", "/dummy.css");
 			this._module = base.Module as UserModule;
 			if (this._module.Section.Settings["SHOW_REGISTER"] != null)
 			{
@@ -77,6 +76,10 @@ namespace Cuyahoga.Modules.User
 				BindLinks();
 				Translate();
 			}
+
+			// Register default buttons.
+			DefaultButton.SetDefault(this.Page, this.txtUsername, this.btnLogin);
+			DefaultButton.SetDefault(this.Page, this.txtPassword, this.btnLogin);			
 		}
 
 		private void BindLinks()

@@ -23,7 +23,7 @@ namespace Cuyahoga.Modules.Search
 		public ActionCollection GetOutboundActions()
 		{
 			ActionCollection ac = new ActionCollection();
-			ac.Add(new Action("Search", new string[1] {"Query"}));
+			ac.Add(new Action("Search", new string[0]));
 			return ac;
 		}
 

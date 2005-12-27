@@ -69,7 +69,7 @@ namespace Cuyahoga.Modules.Search
 			}
 			// Init inbound actions
 			this._inboundActions = new ActionCollection();
-			this._inboundActions.Add(new Action("Search", new string[1] {"Query"}));
+			this._inboundActions.Add(new Action("Search", new string[0]));
 			this._currentAction = this._inboundActions[0];
 		}
 

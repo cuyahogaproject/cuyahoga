@@ -51,6 +51,9 @@ namespace Cuyahoga.Modules.Search
 				}
 				LocalizeControls();
 			}
+
+			// Register default button when enter key is pressed.
+			DefaultButton.SetDefault(this.Page, this.txtSearchText, this.btnSearch);
 		}
 
 		private void BindSearchResults(string queryString, int pageIndex)

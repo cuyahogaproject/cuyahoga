@@ -987,6 +987,10 @@
                     RelPath = "Install\Modules\Database\postgresql\install.sql"
                     BuildAction = "None"
                 />
+                <File
+                    RelPath = "js\DefaultButton.js"
+                    BuildAction = "Content"
+                />
                 <Folder RelPath = "log\" />
                 <Folder RelPath = "Modules\" />
                 <File
@@ -3801,6 +3805,11 @@
                 <File
                     RelPath = "UI\BaseTemplate.cs"
                     SubType = "ASPXCodeBehind"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "UI\DefaultButton.cs"
+                    SubType = "Code"
                     BuildAction = "Compile"
                 />
                 <File

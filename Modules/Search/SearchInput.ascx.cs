@@ -17,8 +17,7 @@ namespace Cuyahoga.Modules.Search
 	public class SearchInput : BaseModuleControl
 	{
 		private SearchInputModule _module;
-
-		protected System.Web.UI.WebControls.LinkButton lbtSearch;
+		protected System.Web.UI.WebControls.Button btnSearch;
 		protected System.Web.UI.WebControls.TextBox txtSearchQuery;
 
 		private void Page_Load(object sender, System.EventArgs e)
@@ -29,6 +28,9 @@ namespace Cuyahoga.Modules.Search
 			{
 				LocalizeControls();
 			}
+
+			// Register default button when enter key is pressed.
+			DefaultButton.SetDefault(this.Page, this.txtSearchQuery, this.btnSearch);
 		}
 
 		#region Web Form Designer generated code
@@ -47,13 +49,13 @@ namespace Cuyahoga.Modules.Search
 		/// </summary>
 		private void InitializeComponent()
 		{
-			this.lbtSearch.Click += new System.EventHandler(this.lbtSearch_Click);
+			this.btnSearch.Click += new System.EventHandler(this.btnSearch_Click);
 			this.Load += new System.EventHandler(this.Page_Load);
 
 		}
 		#endregion
 
-		private void lbtSearch_Click(object sender, System.EventArgs e)
+		private void btnSearch_Click(object sender, System.EventArgs e)
 		{
 			if (this.txtSearchQuery.Text.Trim().Length > 0 && this._module.Section.Connections["Search"] != null)
 			{

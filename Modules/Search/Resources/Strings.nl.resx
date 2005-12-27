@@ -115,7 +115,7 @@
 	<data name="Search:btnSearch">
 		<value>Zoek</value>
 	</data>
-	<data name="SearchInput:lbtSearch">
+	<data name="SearchInput:btnSearch">
 		<value>Zoek</value>
 	</data>
 </root>
