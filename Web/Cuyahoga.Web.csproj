@@ -335,19 +335,35 @@
                     BuildAction = "EmbeddedResource"
                 />
                 <File
-                    RelPath = "Admin\SectionAttach.aspx"
+                    RelPath = "Admin\SectionAttachNode.aspx"
                     SubType = "Form"
                     BuildAction = "Content"
                 />
                 <File
-                    RelPath = "Admin\SectionAttach.aspx.cs"
-                    DependentUpon = "SectionAttach.aspx"
+                    RelPath = "Admin\SectionAttachNode.aspx.cs"
+                    DependentUpon = "SectionAttachNode.aspx"
                     SubType = "ASPXCodeBehind"
                     BuildAction = "Compile"
                 />
                 <File
-                    RelPath = "Admin\SectionAttach.aspx.resx"
-                    DependentUpon = "SectionAttach.aspx.cs"
+                    RelPath = "Admin\SectionAttachNode.aspx.resx"
+                    DependentUpon = "SectionAttachNode.aspx.cs"
+                    BuildAction = "EmbeddedResource"
+                />
+                <File
+                    RelPath = "Admin\SectionAttachTemplate.aspx"
+                    SubType = "Form"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Admin\SectionAttachTemplate.aspx.cs"
+                    DependentUpon = "SectionAttachTemplate.aspx"
+                    SubType = "ASPXCodeBehind"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "Admin\SectionAttachTemplate.aspx.resx"
+                    DependentUpon = "SectionAttachTemplate.aspx.cs"
                     BuildAction = "EmbeddedResource"
                 />
                 <File

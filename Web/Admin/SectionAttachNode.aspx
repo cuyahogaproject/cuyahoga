@@ -1,4 +1,4 @@
-<%@ Page language="c#" Codebehind="SectionAttach.aspx.cs" AutoEventWireup="false" Inherits="Cuyahoga.Web.Admin.SectionAttach" %>
+<%@ Page language="c#" Codebehind="SectionAttachNode.aspx.cs" AutoEventWireup="false" Inherits="Cuyahoga.Web.Admin.SectionAttachNode" %>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN" >
 <html>
 	<head>

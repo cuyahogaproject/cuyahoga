@@ -20,7 +20,7 @@ namespace Cuyahoga.Web.Admin
 	/// <summary>
 	/// Summary description for SectionAttach.
 	/// </summary>
-	public class SectionAttach : AdminBasePage
+	public class SectionAttachNode : AdminBasePage
 	{
 		private Section _activeSection;
 		private Site _selectedSite;

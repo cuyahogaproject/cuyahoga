@@ -578,6 +578,19 @@ namespace Cuyahoga.Core.Service
 			return q.List();
 		}
 
+		/// <summary>
+		/// Get all templates where the given section is connected to.
+		/// </summary>
+		/// <param name="section"></param>
+		/// <returns></returns>
+		public IList GetTemplatesBySection(Section section)
+		{
+			string hql = "from Template t where :section in elements(t.Sections)";
+			IQuery q = this._activeSession.CreateQuery(hql);
+			q.SetParameter("section", section);
+			return q.List();
+		}
+
 		#endregion
 
 		#region ModuleType specific

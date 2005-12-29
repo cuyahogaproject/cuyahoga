@@ -21,6 +21,8 @@
 							<th>
 								Module type</th>
 							<th>
+								Attached to template(s)</th>
+							<th>
 								Actions</th>
 						</tr>
 					</headertemplate>
@@ -29,9 +31,13 @@
 							<td><%# DataBinder.Eval(Container.DataItem, "Title") %></td>
 							<td><%# DataBinder.Eval(Container.DataItem, "ModuleType.Name") %></td>
 							<td>
+								<asp:literal id="litTemplates" runat="server" />
+							</td>
+							<td nowrap>
 								<asp:hyperlink id="hplEdit" runat="server">Edit</asp:hyperlink>
-								<asp:hyperlink id="hplAttach" runat="server">Attach to node</asp:hyperlink>
 								<asp:linkbutton id="lbtDelete" runat="server" causesvalidation="False" commandname="Delete" commandargument='<%# DataBinder.Eval(Container.DataItem, "Id") %>'>Delete</asp:linkbutton>
+								<asp:hyperlink id="hplAttachTemplate" runat="server">Attach to template</asp:hyperlink>
+								<asp:hyperlink id="hplAttachNode" runat="server">Attach to node</asp:hyperlink>
 							</td>
 						</tr>
 					</itemtemplate>

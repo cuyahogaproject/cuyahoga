@@ -20,6 +20,17 @@ namespace Cuyahoga.Web.Admin.Controls
 		protected System.Web.UI.WebControls.Image i1;
 		protected System.Web.UI.WebControls.Image i2;
 		protected System.Web.UI.WebControls.Image i3;
+		protected System.Web.UI.WebControls.Image inew;
+		protected System.Web.UI.WebControls.HyperLink hplNew;
+		protected System.Web.UI.WebControls.HyperLink hplSections;
+		protected System.Web.UI.WebControls.HyperLink hplModules;
+		protected System.Web.UI.WebControls.HyperLink hplTemplates;
+		protected System.Web.UI.WebControls.Image i5;
+		protected System.Web.UI.WebControls.HyperLink hplUsers;
+		protected System.Web.UI.WebControls.Image i6;
+		protected System.Web.UI.WebControls.HyperLink hplRoles;
+		protected System.Web.UI.WebControls.Image i7;
+		protected System.Web.UI.WebControls.HyperLink hplRebuild;
 		protected System.Web.UI.WebControls.Image i4;		
 
 		private void Page_Load(object sender, System.EventArgs e)

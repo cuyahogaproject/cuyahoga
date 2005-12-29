@@ -4,7 +4,7 @@
 		<asp:image imageurl="../Images/home.gif" runat="server" imagealign="absmiddle" id="i1"></asp:image>
 		Sites</h3>
 	<asp:placeholder id="plhNodes" runat="server"></asp:placeholder>
-	<br />
+	<br>
 	<asp:image imageurl="../Images/new.gif" runat="server" imagealign="absmiddle" id="inew"></asp:image><asp:hyperlink id="hplNew" navigateurl="../SiteEdit.aspx?SiteId=-1" cssclass="nodelink" runat="server">Add a new site</asp:hyperlink>
 </div>
 <br>
@@ -12,7 +12,7 @@
 	<h3>
 		<asp:image imageurl="../Images/modules.gif" runat="server" imagealign="absmiddle" id="i2"></asp:image>
 		Sections</h3>
-	<asp:hyperlink id="hplSections" navigateurl="../Sections.aspx" runat="server">Manage unrelated sections</asp:hyperlink>
+	<asp:hyperlink id="hplSections" navigateurl="../Sections.aspx" runat="server">Manage standalone sections</asp:hyperlink>
 </div>
 <br>
 <div class="navsection">

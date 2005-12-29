@@ -76,12 +76,32 @@ namespace Cuyahoga.Web.Admin
 		{
 			Section section = e.Item.DataItem as Section;
 			if (section != null)
-			{			
+			{	
+				IList templates = this.CoreRepository.GetTemplatesBySection(section);
 				HyperLink hplEdit = (HyperLink)e.Item.FindControl("hplEdit");
 				hplEdit.NavigateUrl = String.Format("~/Admin/SectionEdit.aspx?SectionId={0}", section.Id);
-				HyperLink hplAttach = (HyperLink)e.Item.FindControl("hplAttach");
-				hplAttach.NavigateUrl = String.Format("~/Admin/SectionAttach.aspx?SectionId={0}", section.Id);
 				LinkButton lbtDelete = (LinkButton)e.Item.FindControl("lbtDelete");
+				HyperLink hplAttachTemplate = (HyperLink)e.Item.FindControl("hplAttachTemplate");
+				hplAttachTemplate.NavigateUrl = String.Format("~/Admin/SectionAttachTemplate.aspx?SectionId={0}", section.Id);
+				HyperLink hplAttachNode = (HyperLink)e.Item.FindControl("hplAttachNode");
+				if (templates.Count > 0)
+				{
+					Literal litTemplates = (Literal)e.Item.FindControl("litTemplates");
+					for (int i = 0; i < templates.Count; i++)
+					{
+						litTemplates.Text += ((Template)templates[i]).Name;
+						if (i < templates.Count - 1)
+						{
+							litTemplates.Text += ", ";
+						}
+					}
+					hplAttachNode.Visible = false;
+					lbtDelete.Visible = false;
+				}
+				else
+				{
+					hplAttachNode.NavigateUrl = String.Format("~/Admin/SectionAttachNode.aspx?SectionId={0}", section.Id);
+				}
 				lbtDelete.Attributes.Add("onClick", "return confirm('Are you sure?')");
 			}
 		}
