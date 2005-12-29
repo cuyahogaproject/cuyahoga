@@ -7,6 +7,7 @@ using System.Diagnostics;
 using System.Threading;
 using System.Globalization;
 using System.Collections;
+using System.Web.Security;
 
 using Cuyahoga.Core;
 using Cuyahoga.Core.Domain;

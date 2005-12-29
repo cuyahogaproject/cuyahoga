@@ -12,6 +12,7 @@ using System.Web.UI.HtmlControls;
 using log4net;
 
 using Cuyahoga.Core;
+using Cuyahoga.Core.Util;
 
 namespace Cuyahoga.Web
 {
@@ -48,9 +49,19 @@ namespace Cuyahoga.Web
 					}
 					else if (innerException is AccessForbiddenException)
 					{
-						HttpContext.Current.Response.StatusCode = 403;
-						this.lblTitle.Text = "403 Access forbidden";
-						this.lblError.Text = "Access to the requested resource is forbidden.";
+						bool redirectToLoginPage = Boolean.Parse(Config.GetConfiguration()["RedirectToLoginWhenAccessDenied"]);
+						if (redirectToLoginPage)
+						{
+							string returnUrl = "~/Login.aspx?ReturnUrl=" 
+								+ HttpContext.Current.Server.UrlEncode(HttpContext.Current.Items["VirtualUrl"].ToString());
+							HttpContext.Current.Response.Redirect(returnUrl, true);						
+						}
+						else
+						{
+							HttpContext.Current.Response.StatusCode = 403;
+							this.lblTitle.Text = "403 Access forbidden";
+							this.lblError.Text = "Access to the requested resource is forbidden.";
+						}
 					}
 					else
 					{
