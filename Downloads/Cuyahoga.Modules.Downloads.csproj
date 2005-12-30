@@ -146,6 +146,10 @@
                     BuildAction = "None"
                 />
                 <File
+                    RelPath = "Install\Database\mssql2000\1.0.0.sql"
+                    BuildAction = "Content"
+                />
+                <File
                     RelPath = "Install\Database\mssql2000\install.sql"
                     BuildAction = "None"
                 />
@@ -162,6 +166,10 @@
                     BuildAction = "None"
                 />
                 <File
+                    RelPath = "Install\Database\mysql\1.0.0.sql"
+                    BuildAction = "Content"
+                />
+                <File
                     RelPath = "Install\Database\mysql\install.sql"
                     BuildAction = "None"
                 />
@@ -176,6 +184,10 @@
                 <File
                     RelPath = "Install\Database\postgresql\0.9.0.sql"
                     BuildAction = "None"
+                />
+                <File
+                    RelPath = "Install\Database\postgresql\1.0.0.sql"
+                    BuildAction = "Content"
                 />
                 <File
                     RelPath = "Install\Database\postgresql\install.sql"

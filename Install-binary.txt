@@ -3,7 +3,7 @@ Installing Cuyahoga from the binary distribution
 
 1. Requirements
     - IIS 5.0 or higher
-    - The .NET 1.1 runtime environment. Mono users have to use the source distribution.
+    - The .NET 1.1 or 2.0 runtime environment. Mono users have to use the source distribution.
     - A database server. Supported databases are
         - SQL Server/MSDE 2000 and 2005
         - PostgreSQL 7.4 and higher
@@ -32,11 +32,14 @@ Installing Cuyahoga from the binary distribution
     directory that is created in the previous step.
 
     At the first visit, the database will be installed automatically, and you'll be asked to set 
-    a password for the administrator (min. 5 characters!). After that you will redirected to the
-    site web site administration. The url of the web site administration is 
+    a password for the administrator (min. 5 characters!). After that there is an option to
+    create a sample site. When everything is finished you can visit the web site adminstration
+    pages. The url of the web site administration is 
     http://SERVER_NAME/VIRTUAL_DIRECTORY/Admin/. If you installed Cuyahoga in the cuyahoga 
-    virtual directory on your localhost, this url will become http://localhost/cuyahoga/Admin/.
+    virtual directory on your localhost, this url will be http://localhost/cuyahoga/Admin/.
 
+    The following steps are only required when no sample site is installed.
+    
     In the web site administration, the first thing to do is creating a site. Make sure that the
     site url that you enter, corresponds with the real site url, including the virtual directory
     (for example, http://localhost/cuyahoga).
@@ -45,6 +48,7 @@ Installing Cuyahoga from the binary distribution
     
     
 Hints and tips:
+
 - It's possible run the database install scripts manually if the installation fails for some
   reason. They are located in the /Install/Database directory.
 - The search index has to be in a folder that is writable for the ASP.NET user. You can specify the

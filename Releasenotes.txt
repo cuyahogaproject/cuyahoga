@@ -1,6 +1,38 @@
 Cuyahoga release notes
 
 ===========================================================================
+1.0.0 - 2005-12-30
+===========================================================================
+New features:
+- Search input module. A search input box that can be connected to the 
+  existing search module. This module makes it possible to have a global
+  search box with creating a section with this module and attaching the
+  section to a template.
+  
+Improvements:
+- Allow modules to insert their own stylesheets. 
+  BREAKING CHANGE: In custom template controls 
+    <link id="CssStyleSheet" rel="stylesheet" type="text/css" runat="server" />
+  must to be replaced with
+    <asp:literal id="Stylesheets" runat="server" />.
+- Added option to installer to create a basic sample site.
+- It's possible to attach sections to templates from the section edit page.
+- Better error messages in the module administration pages for StaticHtml
+  and Articles.
+- Added option in web.config to redirect to the login page when a user
+  has no access to a particular node (also to prevent nasty error messages
+  when a login session times out):
+    <add setting="RedirectToLoginWhenAccessDenied" value="true" /> 
+    <!-- true/false, customErrors must be enabled -->
+- Upgraded to NHibernate 1.0.1.
+
+Bugfixes:
+- Fixed error message when sending an email fails during registration.
+- Fixed confirmation messages while creating new users and nodes.
+- Fixed issue with attaching a section to a node (search-related).
+- Fixed issue with large text fields in MySQL.
+
+===========================================================================
 0.9.1 - 2005-11-13
 ===========================================================================
 New features:
