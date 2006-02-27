@@ -82,6 +82,11 @@ namespace Cuyahoga.Web.UI
 						HyperLink hyperLink = (HyperLink)childControl;
 						hyperLink.Text = localizedText;
 					}
+					if (childControl is RadioButton)
+					{
+						RadioButton radioButton = (RadioButton)childControl;
+						radioButton.Text = localizedText;
+					}
 					else if (childControl is BaseValidator)
 					{
 						BaseValidator validator = (BaseValidator)childControl;
