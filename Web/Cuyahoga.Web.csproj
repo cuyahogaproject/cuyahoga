@@ -109,6 +109,26 @@
                     AssemblyName = "Nullables"
                     HintPath = "..\lib\Nullables.dll"
                 />
+                <Reference
+                    Name = "Castle.Windsor"
+                    AssemblyName = "Castle.Windsor"
+                    HintPath = "..\lib\Castle.Windsor.dll"
+                />
+                <Reference
+                    Name = "Castle.Model"
+                    AssemblyName = "Castle.Model"
+                    HintPath = "..\lib\Castle.Model.dll"
+                />
+                <Reference
+                    Name = "Castle.Facilities.NHibernateIntegration"
+                    AssemblyName = "Castle.Facilities.NHibernateIntegration"
+                    HintPath = "..\lib\Castle.Facilities.NHibernateIntegration.dll"
+                />
+                <Reference
+                    Name = "Castle.MicroKernel"
+                    AssemblyName = "Castle.MicroKernel"
+                    HintPath = "..\lib\Castle.MicroKernel.dll"
+                />
             </References>
         </Build>
         <Files>
@@ -661,6 +681,24 @@
                     BuildAction = "Compile"
                 />
                 <File
+                    RelPath = "Components\CuyahogaContainer.cs"
+                    SubType = "Code"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "Components\UrlRewriter.cs"
+                    SubType = "Code"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "Config\facilities.config"
+                    BuildAction = "None"
+                />
+                <File
+                    RelPath = "Config\services.config"
+                    BuildAction = "None"
+                />
+                <File
                     RelPath = "Controls\EditProfile.ascx"
                     SubType = "UserControl"
                     BuildAction = "Content"
@@ -810,6 +848,11 @@
                 <File
                     RelPath = "Controls\Resources\Strings.resx"
                     BuildAction = "EmbeddedResource"
+                />
+                <File
+                    RelPath = "Handlers\PageHandler.cs"
+                    SubType = "Code"
+                    BuildAction = "Compile"
                 />
                 <File
                     RelPath = "HttpModules\AuthenticationModule.cs"
@@ -3824,6 +3867,11 @@
                     BuildAction = "Compile"
                 />
                 <File
+                    RelPath = "UI\CuyahogaPage.cs"
+                    SubType = "ASPXCodeBehind"
+                    BuildAction = "Compile"
+                />
+                <File
                     RelPath = "UI\DefaultButton.cs"
                     SubType = "Code"
                     BuildAction = "Compile"
@@ -3836,6 +3884,11 @@
                 <File
                     RelPath = "UI\GenericBasePage.cs"
                     SubType = "ASPXCodeBehind"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "UI\ICuyahogaPage.cs"
+                    SubType = "Code"
                     BuildAction = "Compile"
                 />
                 <File
@@ -3855,6 +3908,11 @@
                 />
                 <Folder RelPath = "UserFiles\File\" />
                 <Folder RelPath = "UserFiles\Image\" />
+                <File
+                    RelPath = "Util\ContainerAccessorUtil.cs"
+                    SubType = "Code"
+                    BuildAction = "Compile"
+                />
                 <File
                     RelPath = "Util\Email.cs"
                     SubType = "Code"

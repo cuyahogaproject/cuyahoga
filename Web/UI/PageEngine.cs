@@ -22,7 +22,7 @@ namespace Cuyahoga.Web.UI
 	/// Page engine. This class loads all content based on url parameters and merges
 	/// the content with the template.
 	/// </summary>
-	public class PageEngine : System.Web.UI.Page
+	public class PageEngine : CuyahogaPage
 	{
 		private Site _currentSite;
 		private Node _rootNode;

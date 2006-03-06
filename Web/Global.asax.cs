@@ -7,16 +7,27 @@ using System.Text.RegularExpressions;
 using System.Reflection;
 
 using log4net;
+using Castle.Windsor;
 
 using Cuyahoga.Core.Service;
 using Cuyahoga.Core.Util;
 using Cuyahoga.Web.Util;
+using Cuyahoga.Web.Components;
 
 namespace Cuyahoga.Web
 {
-	public class Global : System.Web.HttpApplication
+	public class Global : System.Web.HttpApplication, IContainerAccessor
 	{
 		private static readonly string ERROR_PAGE_LOCATION = "~/Error.aspx";
+		private static CuyahogaContainer _cuyahogaContainer;
+
+		/// <summary>
+		/// Obtain the container.
+		/// </summary>
+		public IWindsorContainer Container
+		{
+			get { return _cuyahogaContainer; }
+		}
 
 		public Global()
 		{
@@ -25,29 +36,8 @@ namespace Cuyahoga.Web
 		
 		protected void Application_Start(Object sender, EventArgs e)
 		{
-			// Check version and redirect to install pages if neccessary.
-			DatabaseInstaller dbInstaller = new DatabaseInstaller(HttpContext.Current.Server.MapPath("~/Install/Core"), Assembly.Load("Cuyahoga.Core"));
-			if (dbInstaller.TestDatabaseConnection())
-			{
-				if (dbInstaller.CanUpgrade)
-				{
-					// Set a flag that the application is upgrading. This will redirect visitors to a
-					// maintenance page.
-					HttpContext.Current.Application.Lock();
-					HttpContext.Current.Application["IsUpgrading"] = true;
-					HttpContext.Current.Application.UnLock();
-
-					HttpContext.Current.Response.Redirect("~/Install/Upgrade.aspx");
-				}
-				else if (dbInstaller.CanInstall)
-				{
-					HttpContext.Current.Response.Redirect("~/Install/Install.aspx");
-				}
-			}
-			else
-			{
-				throw new Exception("Cuyahoga can't connect to the database. Please check your application settings.");
-			}
+			CheckInstaller();
+			_cuyahogaContainer = new CuyahogaContainer();
 		}
  
 		protected void Session_Start(Object sender, EventArgs e)
@@ -86,7 +76,7 @@ namespace Cuyahoga.Web
 
 		protected void Application_End(Object sender, EventArgs e)
 		{
-		
+			_cuyahogaContainer.Dispose();
 		}
 			
 		#region Web Form Designer generated code
@@ -98,6 +88,33 @@ namespace Cuyahoga.Web
 		{    
 		}
 		#endregion
+
+		private void CheckInstaller()
+		{
+			// Check version and redirect to install pages if neccessary.
+			DatabaseInstaller dbInstaller = new DatabaseInstaller(HttpContext.Current.Server.MapPath("~/Install/Core"), Assembly.Load("Cuyahoga.Core"));
+			if (dbInstaller.TestDatabaseConnection())
+			{
+				if (dbInstaller.CanUpgrade)
+				{
+					// Set a flag that the application is upgrading. This will redirect visitors to a
+					// maintenance page.
+					HttpContext.Current.Application.Lock();
+					HttpContext.Current.Application["IsUpgrading"] = true;
+					HttpContext.Current.Application.UnLock();
+
+					HttpContext.Current.Response.Redirect("~/Install/Upgrade.aspx");
+				}
+				else if (dbInstaller.CanInstall)
+				{
+					HttpContext.Current.Response.Redirect("~/Install/Install.aspx");
+				}
+			}
+			else
+			{
+				throw new Exception("Cuyahoga can't connect to the database. Please check your application settings.");
+			}
+		}
 	}
 }
 

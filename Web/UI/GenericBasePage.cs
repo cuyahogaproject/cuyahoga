@@ -15,7 +15,7 @@ namespace Cuyahoga.Web.UI
 	/// <summary>
 	/// The BasePage class is the class that webforms have to inherit to use the templates.
 	/// </summary>
-	public class GenericBasePage : System.Web.UI.Page
+	public class GenericBasePage : CuyahogaPage
 	{
 		// Member variables
 		private string _templateFilename;
