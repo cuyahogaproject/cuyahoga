@@ -5,7 +5,6 @@ using System.Web.UI.WebControls;
 using System.ComponentModel;
 using System.Collections;
 using System.Reflection;
-using System.ComponentModel.Design.Serialization;
 using System.Globalization;
 
 namespace Cuyahoga.ServerControls
@@ -17,6 +16,10 @@ namespace Cuyahoga.ServerControls
 		ToolboxData("<{0}:Pager runat=server></{0}:Pager>")]
 	public class Pager : System.Web.UI.WebControls.WebControl, INamingContainer
 	{
+		private const int _defaultPageSize = 10;
+		private const int _defaultMaxDisplayPages = 10;
+		private const int _defaultCacheDuration = 30;
+
 		private PagedDataSource _pagedDataSource;
 		private Control _controlToPage;
 		private int _cacheDuration;
@@ -41,6 +44,7 @@ namespace Cuyahoga.ServerControls
 		/// <summary>
 		/// Property CacheDataSource (bool)
 		/// </summary>
+		[DefaultValue(false)]
 		public bool CacheDataSource
 		{
 			get 
@@ -72,6 +76,7 @@ namespace Cuyahoga.ServerControls
 		/// <summary>
 		/// Property CacheDuration (int)
 		/// </summary>
+		[DefaultValue(_defaultCacheDuration)]
 		public int CacheDuration
 		{
 			get 
@@ -120,6 +125,7 @@ namespace Cuyahoga.ServerControls
 		/// <summary>
 		/// 
 		/// </summary>
+		[Browsable(false)]
 		public int CurrentPageIndex
 		{
 			get 
@@ -135,6 +141,7 @@ namespace Cuyahoga.ServerControls
 		/// <summary>
 		/// 
 		/// </summary>
+		[DefaultValue(_defaultPageSize)]
 		public int PageSize
 		{
 			get 
@@ -142,7 +149,7 @@ namespace Cuyahoga.ServerControls
 				if (ViewState["PageSize"] != null)
 					return (int)ViewState["PageSize"];
 				else
-					return 10; // Default PageSize = 10
+					return _defaultPageSize;
 			}
 			set 
 			{ 
@@ -155,6 +162,10 @@ namespace Cuyahoga.ServerControls
 			}
 		}
 
+		/// <summary>
+		/// Allow custom paging (for example, when limiting items with a query)?
+		/// </summary>
+		[DefaultValue(false)]
 		public bool AllowCustomPaging
 		{
 			get
@@ -171,6 +182,9 @@ namespace Cuyahoga.ServerControls
 			}
 		}
 
+		/// <summary>
+		/// Virtual number of items.
+		/// </summary>
 		[Browsable(false)]
 		public int VirtualItemCount
 		{
@@ -185,6 +199,65 @@ namespace Cuyahoga.ServerControls
 			{ 
 				this._pagedDataSource.VirtualCount = value;
 				ViewState["VirtualItemCount"] = value; 
+			}
+		}
+
+		/// <summary>
+		/// The maximal number of pages that are clickable in in the pager.
+		/// If the number of pages exceeds this limit, an option is presented
+		/// to navigate to the next (or previous) set of pages.
+		/// </summary>
+		[DefaultValue(_defaultMaxDisplayPages)]
+		public int MaxDisplayPages
+		{
+			get
+			{
+				if (ViewState["MaxDisplayPages"] != null)
+					return (int)ViewState["MaxDisplayPages"];
+				else
+					return _defaultMaxDisplayPages;
+			}
+			set
+			{
+				ViewState["MaxDisplayPages"] = value;
+			}
+		}
+
+		/// <summary>
+		/// Hide the pager when there is only one page?
+		/// </summary>
+		[DefaultValue(false)]
+		public bool HideWhenOnePage
+		{
+			get
+			{
+				if (ViewState["HideWhenOnePage"] != null)
+					return (bool)ViewState["HideWhenOnePage"];
+				else
+					return false;
+			}
+			set 
+			{ 
+				ViewState["HideWhenOnePage"] = value; 
+			}
+		}
+
+		/// <summary>
+		/// The validator causes the form to validate?
+		/// </summary>
+		[DefaultValue(false)]
+		public bool CausesValidation
+		{
+			get
+			{
+				if (ViewState["CausesValidation"] != null)
+					return (bool)ViewState["CausesValidation"];
+				else
+					return false;
+			}
+			set 
+			{ 
+				ViewState["CausesValidation"] = value; 
 			}
 		}
 
@@ -216,7 +289,7 @@ namespace Cuyahoga.ServerControls
 		/// </summary>
 		public Pager()
 		{
-			this._cacheDuration = 30;
+			this._cacheDuration = _defaultCacheDuration;
 		}
 		
 		#region methods
@@ -269,61 +342,117 @@ namespace Cuyahoga.ServerControls
 		{
 			if (this._controlToPage != null && this.CurrentPageIndex != -1)
 			{
+				int currentPageGroupIndex = GetCurrentPageGroupIndex();
+				int totalPageGroups = GetTotalPageGroups();
+
 				LinkButton lbt = null;
 				// First
-				lbt = new LinkButton();
+				lbt = CreateLinkButton();
 				lbt.ID = "First";
 				lbt.Text = "<<";
 				if (! this._pagedDataSource.IsFirstPage)
 					lbt.Click += new EventHandler(First_Click);
 				else
-					lbt.Enabled = false;
+					lbt.Visible = false;
 				this.Controls.Add(lbt);
 
 				// Prev
-				lbt = new LinkButton();
+				lbt = CreateLinkButton();
 				lbt.ID = "Prev";
 				lbt.Text = "<";
 				if (! this._pagedDataSource.IsFirstPage)
 					lbt.Click += new EventHandler(Prev_Click);
 				else
-					lbt.Enabled = false;
+					lbt.Visible = false;
+				this.Controls.Add(lbt);
+
+				// Previous page group
+				lbt = CreateLinkButton();
+				lbt.ID = "PrevGroup";
+				lbt.Text = "...";
+
+				if (currentPageGroupIndex > 0)
+				{
+					lbt.Click += new EventHandler(PrevGroup_Click);
+				}
+				else
+				{
+					lbt.Visible = false;
+				}
 				this.Controls.Add(lbt);
 
 				// Numbers
+				int beginPageNumberIndex = currentPageGroupIndex * this.MaxDisplayPages;
+				int endPageNumberIndex = beginPageNumberIndex + this.MaxDisplayPages - 1;
+				if (this.TotalPages <= endPageNumberIndex)
+				{
+					endPageNumberIndex = this.TotalPages - 1;
+					if (endPageNumberIndex - this.MaxDisplayPages >= 0)
+					{
+						beginPageNumberIndex = endPageNumberIndex - this.MaxDisplayPages;
+					}
+				}
 				for (int i = 0; i < this.TotalPages; i++)
 				{
-					lbt = new LinkButton();
+					lbt = CreateLinkButton();
 					lbt.ID = i.ToString();
 					lbt.Text = Convert.ToString(i + 1);
-					if (this._pagedDataSource.CurrentPageIndex != i)
-						lbt.Click += new EventHandler(Number_Click);
+					if (i >= beginPageNumberIndex && i <= endPageNumberIndex)
+					{
+						if (this._pagedDataSource.CurrentPageIndex != i)
+							lbt.Click += new EventHandler(Number_Click);
+						else
+						{
+							if (! (this.TotalPages == 1 && this.HideWhenOnePage))
+							{
+								lbt.Font.Bold = true;
+								lbt.Enabled = false;
+							}
+							else
+							{
+								lbt.Visible = false;
+							}
+						}
+					}
 					else
 					{
-						lbt.Font.Bold = true;
-						lbt.Enabled = false;
+						lbt.Visible = false;
 					}
 					this.Controls.Add(lbt);
 				}
 
+				// Next page group
+				lbt = CreateLinkButton();
+				lbt.ID = "NextGroup";
+				lbt.Text = "...";
+				if (currentPageGroupIndex < totalPageGroups)
+				{
+					lbt.Click += new EventHandler(NextGroup_Click);
+				}
+				else
+				{
+					lbt.Visible = false;
+				}
+				this.Controls.Add(lbt);
+
 				// Next
-				lbt = new LinkButton();
+				lbt = CreateLinkButton();
 				lbt.ID = "Next";
 				lbt.Text = ">";
 				if (this._pagedDataSource.DataSource == null || ! this._pagedDataSource.IsLastPage)
 					lbt.Click += new EventHandler(Next_Click);
 				else
-					lbt.Enabled = false;
+					lbt.Visible = false;
 				this.Controls.Add(lbt);
 
 				// Last
-				lbt = new LinkButton();
+				lbt = CreateLinkButton();
 				lbt.ID = "Last";
 				lbt.Text = ">>";
 				if (this._pagedDataSource.DataSource == null || ! this._pagedDataSource.IsLastPage)
 					lbt.Click += new EventHandler(Last_Click);
 				else
-					lbt.Enabled = false;
+					lbt.Visible = false;
 				this.Controls.Add(lbt);
 			}
 		}
@@ -342,7 +471,26 @@ namespace Cuyahoga.ServerControls
 			return cacheKey;
 		}
 
+		private LinkButton CreateLinkButton()
+		{
+			LinkButton lbt = new LinkButton();
+			lbt.CausesValidation = this.CausesValidation;
+			return lbt;
+		}
+
+		private int GetCurrentPageGroupIndex()
+		{
+			return (int)Math.Floor(this.CurrentPageIndex / this.MaxDisplayPages);
+		}
+
+		private int GetTotalPageGroups()
+		{
+			return (int)Math.Ceiling(this.TotalPages / this.MaxDisplayPages);
+		}
+
 		#endregion
+
+		#region event handlers
 
 		private void ControlToPage_DataBinding(object sender, EventArgs e)
 		{
@@ -434,25 +582,55 @@ namespace Cuyahoga.ServerControls
 			PageChangedEventArgs args = new PageChangedEventArgs(this.CurrentPageIndex, nextPage);
 			OnPageChanged(args);
 		}
+
+		private void PrevGroup_Click(object sender, EventArgs e)
+		{
+			int nextPage = (GetCurrentPageGroupIndex() - 1) * this.MaxDisplayPages;
+			PageChangedEventArgs args = new PageChangedEventArgs(this.CurrentPageIndex, nextPage);
+			OnPageChanged(args);
+		}
+
+		private void NextGroup_Click(object sender, EventArgs e)
+		{
+			int nextPage = (GetCurrentPageGroupIndex() + 1) * this.MaxDisplayPages;
+			PageChangedEventArgs args = new PageChangedEventArgs(this.CurrentPageIndex, nextPage);
+			OnPageChanged(args);
+		}
+
+		#endregion
 	}
 
 	#region PageChangedEvent
 
+	/// <summary>
+	/// EventArgs class for Pager events.
+	/// </summary>
 	public class PageChangedEventArgs
 	{
 		private int _prevPage;
 		private int _currentPage;
 
+		/// <summary>
+		/// The page index of the previous page.
+		/// </summary>
 		public int PrevPage
 		{
 			get { return this._prevPage; }
 		}
 
+		/// <summary>
+		/// The page index of the current page (after clicking next).
+		/// </summary>
 		public int CurrentPage
 		{
 			get { return this._currentPage; }
 		}
 
+		/// <summary>
+		/// Constructor.
+		/// </summary>
+		/// <param name="prevPage"></param>
+		/// <param name="currentPage"></param>
 		public PageChangedEventArgs(int prevPage, int currentPage)
 		{
 			this._prevPage = prevPage;
@@ -460,6 +638,9 @@ namespace Cuyahoga.ServerControls
 		}
 	}
 
+	/// <summary>
+	/// Delegate for pager events.
+	/// </summary>
 	public delegate void PageChangedEventHandler(object sender, PageChangedEventArgs e);
 
 	#endregion
