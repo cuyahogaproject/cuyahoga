@@ -425,7 +425,7 @@ namespace Cuyahoga.ServerControls
 				lbt = CreateLinkButton();
 				lbt.ID = "NextGroup";
 				lbt.Text = "...";
-				if (currentPageGroupIndex < totalPageGroups)
+				if (currentPageGroupIndex < totalPageGroups - 1)
 				{
 					lbt.Click += new EventHandler(NextGroup_Click);
 				}
