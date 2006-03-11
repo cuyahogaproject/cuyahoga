@@ -35,8 +35,8 @@
 		<map name="Settings" table="cuyahoga_sectionsetting" lazy="true" cascade="all">
 			<cache usage="read-write" />
 		    <key column="sectionid" />
-		    <index column="Name" type="String" length="50" />
-			<element column="Value" type="String" length="100" />
+		    <index column="name" type="String" length="50" />
+			<element column="value" type="String" length="100" />
 		</map>
 		
 		<map name="Connections" table="cuyahoga_sectionconnection" lazy="true" cascade="none">
