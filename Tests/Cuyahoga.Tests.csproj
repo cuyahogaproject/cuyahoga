@@ -79,52 +79,6 @@
                     AssemblyName = "System.Xml"
                     HintPath = "..\..\..\WINDOWS\Microsoft.NET\Framework\v1.1.4322\System.XML.dll"
                 />
-                <Reference
-                    Name = "Core"
-                    Project = "{723B7D30-6472-4B96-8D09-4F094C96650E}"
-                    Package = "{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}"
-                />
-                <Reference
-                    Name = "NHibernate"
-                    AssemblyName = "NHibernate"
-                    HintPath = "..\lib\NHibernate.dll"
-                />
-                <Reference
-                    Name = "Castle.Facilities.AutomaticTransactionManagement"
-                    AssemblyName = "Castle.Facilities.AutomaticTransactionManagement"
-                    HintPath = "..\lib\Castle.Facilities.AutomaticTransactionManagement.dll"
-                />
-                <Reference
-                    Name = "Castle.MicroKernel"
-                    AssemblyName = "Castle.MicroKernel"
-                    HintPath = "..\lib\Castle.MicroKernel.dll"
-                />
-                <Reference
-                    Name = "Castle.Model"
-                    AssemblyName = "Castle.Model"
-                    HintPath = "..\lib\Castle.Model.dll"
-                />
-                <Reference
-                    Name = "Castle.Services.Transaction"
-                    AssemblyName = "Castle.Services.Transaction"
-                    HintPath = "..\lib\Castle.Services.Transaction.dll"
-                />
-                <Reference
-                    Name = "Castle.Windsor"
-                    AssemblyName = "Castle.Windsor"
-                    HintPath = "..\lib\Castle.Windsor.dll"
-                />
-                <Reference
-                    Name = "Castle.Facilities.NHibernateIntegration"
-                    AssemblyName = "Castle.Facilities.NHibernateIntegration"
-                    HintPath = "..\lib\Castle.Facilities.NHibernateIntegration.dll"
-                />
-                <Reference
-                    Name = "nunit.framework"
-                    AssemblyName = "nunit.framework"
-                    HintPath = "C:\Program Files\NUnit 2.2\bin\nunit.framework.dll"
-                    AssemblyFolderKey = "hklm\dn\nunit.framework"
-                />
             </References>
         </Build>
         <Files>
