@@ -1,26 +1,29 @@
 using System;
 using System.Web;
 
+using Castle.Windsor;
+
 using Cuyahoga.Core.Service;
+using Cuyahoga.Web.Components;
+using Cuyahoga.Web.Util;
 
 namespace Cuyahoga.Web.HttpModules
 {
 	/// <summary>
 	/// Http module that manages the NHibernate sessions during an HTTP Request.
 	/// </summary>
-	public class NHSessionModule : IHttpModule
+	public class CoreRepositoryModule : IHttpModule
 	{
 		/// <summary>
 		/// Default constructor.
 		/// </summary>
-		public NHSessionModule()
+		public CoreRepositoryModule()
 		{
 		}
 
 		public void Init(HttpApplication context)
 		{
 			context.BeginRequest += new EventHandler(Context_BeginRequest);
-			context.EndRequest += new EventHandler(Context_EndRequest);
 		}
 
 		public void Dispose()
@@ -30,19 +33,10 @@ namespace Cuyahoga.Web.HttpModules
 
 		private void Context_BeginRequest(object sender, EventArgs e)
 		{
-			// Create the repository for Core objects and add it to the current HttpContext.
-			CoreRepository cr = new CoreRepository(true);
+			// Get the adapter for the 1.0 CoreRepository and store it in the HttpContext.Items collection.
+			IWindsorContainer container = ContainerAccessorUtil.GetContainer();
+			CoreRepository cr = (CoreRepository)container["corerepositoryadapter"];
 			HttpContext.Current.Items.Add("CoreRepository", cr);
-		}
-
-		private void Context_EndRequest(object sender, EventArgs e)
-		{
-			// Close the NHibernate session.
-			if (HttpContext.Current.Items["CoreRepository"] != null)
-			{
-				CoreRepository cr = (CoreRepository)HttpContext.Current.Items["CoreRepository"];
-				cr.CloseSession();
-			}
 		}
 	}
 }

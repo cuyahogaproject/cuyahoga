@@ -2,6 +2,8 @@ using System;
 
 using Castle.Model;
 
+using Cuyahoga.Core.Service;
+
 namespace Cuyahoga.Web.UI
 {
 	/// <summary>

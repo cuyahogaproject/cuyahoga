@@ -129,6 +129,16 @@
                     AssemblyName = "Castle.MicroKernel"
                     HintPath = "..\lib\Castle.MicroKernel.dll"
                 />
+                <Reference
+                    Name = "Castle.Facilities.AutomaticTransactionManagement"
+                    AssemblyName = "Castle.Facilities.AutomaticTransactionManagement"
+                    HintPath = "..\lib\Castle.Facilities.AutomaticTransactionManagement.dll"
+                />
+                <Reference
+                    Name = "NHibernate"
+                    AssemblyName = "NHibernate"
+                    HintPath = "..\lib\NHibernate.dll"
+                />
             </References>
         </Build>
         <Files>
@@ -695,6 +705,10 @@
                     BuildAction = "None"
                 />
                 <File
+                    RelPath = "Config\properties.config"
+                    BuildAction = "None"
+                />
+                <File
                     RelPath = "Config\services.config"
                     BuildAction = "None"
                 />
@@ -860,7 +874,7 @@
                     BuildAction = "Compile"
                 />
                 <File
-                    RelPath = "HttpModules\NHSessionModule.cs"
+                    RelPath = "HttpModules\CoreRepositoryModule.cs"
                     SubType = "Code"
                     BuildAction = "Compile"
                 />

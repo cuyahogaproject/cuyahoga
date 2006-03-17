@@ -15,6 +15,7 @@ namespace Cuyahoga.Core.Service
 	/// should be split up into several classes, but we'll start with one
 	/// repository for all core classes.
 	/// </summary>
+	[Obsolete("The functionality of the CoreRepository is replaced by several decoupled services.")]
 	public class CoreRepository
 	{
 		private static readonly ILog log = LogManager.GetLogger(typeof(CoreRepository));
@@ -25,68 +26,19 @@ namespace Cuyahoga.Core.Service
 		/// <summary>
 		/// Get the active NHibernate session.
 		/// </summary>
-		public ISession ActiveSession
+		public virtual ISession ActiveSession
 		{
 			get { return this._activeSession; }
-		}
-		/// <summary>
-		/// Create a repository for core objects.
-		/// </summary>
-		public CoreRepository() : this(false)
-		{
-		}
-
-		/// <summary>
-		/// Create a repository for core objects.
-		/// </summary>
-		/// <param name="openSession">Indicate if the CoreRepository should open a session and keep it in memory.</param>
-		public CoreRepository(bool openSession)
-		{
-			this._factory = SessionFactory.GetInstance().GetNHibernateFactory();
-			if (openSession)
-			{
-				this._activeSession = this._factory.OpenSession();
-			}
-		}
-
-		/// <summary>
-		/// Open a NHibernate session.
-		/// </summary>
-		public void OpenSession()
-		{
-			if (this._activeSession == null || ! this._activeSession.IsOpen)
-			{
-				this._activeSession = this._factory.OpenSession();
-			}
-			else
-			{
-				throw new InvalidOperationException("The repository already has an open session");
-			}
 		}
 
 		/// <summary>
 		/// Flushes the current active NHibernate session.
 		/// </summary>
-		public void FlushSession()
+		public virtual void FlushSession()
 		{
 			if (this._activeSession != null && this._activeSession.IsOpen)
 			{
 				this._activeSession.Flush();
-			}
-		}
-
-		/// <summary>
-		/// Close the active NHibernate session
-		/// </summary>
-		public void CloseSession()
-		{
-			if (this._activeSession != null)
-			{
-				if (this._activeSession.IsOpen)
-				{
-					this._activeSession.Close();
-				}
-				this._activeSession.Dispose();
 			}
 		}
 
@@ -98,7 +50,7 @@ namespace Cuyahoga.Core.Service
 		/// <param name="type">The type of the object to fetch.</param>
 		/// <param name="id">The identifier of the object.</param>
 		/// <returns></returns>
-		public object GetObjectById(Type type, int id)
+		public virtual object GetObjectById(Type type, int id)
 		{
 			if (this._activeSession != null)
 			{
@@ -117,7 +69,7 @@ namespace Cuyahoga.Core.Service
 		/// <param name="id">The identifier of the object.</param>
 		/// <param name="allowNull">Allow null as return value.</param>
 		/// <returns></returns>
-		public object GetObjectById(Type type, int id, bool allowNull)
+		public virtual object GetObjectById(Type type, int id, bool allowNull)
 		{
 			if (allowNull)
 			{
@@ -143,7 +95,7 @@ namespace Cuyahoga.Core.Service
 		/// <param name="propertyName"></param>
 		/// <param name="description"></param>
 		/// <returns></returns>
-		public object GetObjectByDescription(Type type, string propertyName, string description)
+		public virtual object GetObjectByDescription(Type type, string propertyName, string description)
 		{
 			ICriteria crit = this._activeSession.CreateCriteria(type);
 			crit.Add(Expression.Eq(propertyName, description));
@@ -155,7 +107,7 @@ namespace Cuyahoga.Core.Service
 		/// </summary>
 		/// <param name="type"></param>
 		/// <returns></returns>
-		public IList GetAll(Type type)
+		public virtual IList GetAll(Type type)
 		{
 			return GetAll(type, null);
 		}
@@ -168,7 +120,7 @@ namespace Cuyahoga.Core.Service
 		/// <remarks>Sorting is Ascending order. Construct a specific query/method when the sort order
 		/// should be different.</remarks>
 		/// <returns></returns>
-		public IList GetAll(Type type, params string[] sortProperties)
+		public virtual IList GetAll(Type type, params string[] sortProperties)
 		{
 			ICriteria crit = this._activeSession.CreateCriteria(type);
 			if (sortProperties != null)
@@ -185,7 +137,7 @@ namespace Cuyahoga.Core.Service
 		/// Generic method to insert an object.
 		/// </summary>
 		/// <param name="obj"></param>
-		public void SaveObject(object obj)
+		public virtual void SaveObject(object obj)
 		{
 			ITransaction trn = this._activeSession.BeginTransaction();
 			try
@@ -210,7 +162,7 @@ namespace Cuyahoga.Core.Service
 		/// Generic method to update an object.
 		/// </summary>
 		/// <param name="obj"></param>
-		public void UpdateObject(object obj)
+		public virtual void UpdateObject(object obj)
 		{
 			ITransaction trn = this._activeSession.BeginTransaction();
 			try
@@ -230,7 +182,7 @@ namespace Cuyahoga.Core.Service
 		/// to related objects.
 		/// </summary>
 		/// <param name="obj"></param>
-		public void DeleteObject(object obj)
+		public virtual void DeleteObject(object obj)
 		{
 			ITransaction trn = this._activeSession.BeginTransaction();
 			try
@@ -249,7 +201,7 @@ namespace Cuyahoga.Core.Service
 		/// Mark an object for deletion. Commit the deletion with Session.Flush.
 		/// </summary>
 		/// <param name="obj"></param>
-		public void MarkForDeletion(object obj)
+		public virtual void MarkForDeletion(object obj)
 		{
 			this._activeSession.Delete(obj);
 		}
@@ -258,7 +210,7 @@ namespace Cuyahoga.Core.Service
 		/// Clear the cache for a given type.
 		/// </summary>
 		/// <param name="type"></param>
-		public void ClearCache(Type type)
+		public virtual void ClearCache(Type type)
 		{
 			log.Info("Clearing cache for type " + type.Name);
 			this._factory.Evict(type);
@@ -269,7 +221,7 @@ namespace Cuyahoga.Core.Service
 		/// </summary>
 		/// <param name="roleName">The full path to a collection property,
 		/// for example Cuyahoga.Core.Domain.Node.Sections.</param>
-		public void ClearCollectionCache(string roleName)
+		public virtual void ClearCollectionCache(string roleName)
 		{
 			log.Info("Clearing cache for collection property " + roleName);
 			this._factory.EvictCollection(roleName);
@@ -279,7 +231,7 @@ namespace Cuyahoga.Core.Service
 		/// Clear the cache for a given cacheRegion.
 		/// </summary>
 		/// <param name="cacheRegion"></param>
-		public void ClearQueryCache(string cacheRegion)
+		public virtual void ClearQueryCache(string cacheRegion)
 		{
 			log.Info("Clearing query cache for cacheregion " + cacheRegion);
 			this._factory.EvictQueries(cacheRegion);
@@ -294,7 +246,7 @@ namespace Cuyahoga.Core.Service
 		/// </summary>
 		/// <param name="siteUrl"></param>
 		/// <returns></returns>
-		public Site GetSiteBySiteUrl(string siteUrl)
+		public virtual Site GetSiteBySiteUrl(string siteUrl)
 		{
 			// The query is case insensitive.
 			string hql = "from Site s where lower(s.SiteUrl) = :siteUrl1 or lower(s.SiteUrl) = :siteUrl2";
@@ -318,7 +270,7 @@ namespace Cuyahoga.Core.Service
 			}
 		}
 
-		public SiteAlias GetSiteAliasByUrl(string url)
+		public virtual SiteAlias GetSiteAliasByUrl(string url)
 		{
 			// The query is case insensitive.
 			string hql = "from SiteAlias sa where lower(sa.Url) = :url1 or lower(sa.Url) = :url2";
@@ -347,7 +299,7 @@ namespace Cuyahoga.Core.Service
 		/// </summary>
 		/// <param name="site"></param>
 		/// <returns></returns>
-		public IList GetSiteAliasesBySite(Site site)
+		public virtual IList GetSiteAliasesBySite(Site site)
 		{
 			string hql = "from SiteAlias sa where sa.Site.Id = :siteId ";
 			IQuery query = this._activeSession.CreateQuery(hql);
@@ -363,7 +315,7 @@ namespace Cuyahoga.Core.Service
 		/// Retrieve the root nodes for a given site.
 		/// </summary>
 		/// <returns></returns>
-		public IList GetRootNodes(Site site)
+		public virtual IList GetRootNodes(Site site)
 		{
 			string hql = "from Node n where n.ParentNode is null and n.Site.Id = :siteId order by n.Position";
 			IQuery q = this._activeSession.CreateQuery(hql);
@@ -373,7 +325,7 @@ namespace Cuyahoga.Core.Service
 			return q.List();
 		}
 
-		public Node GetRootNodeByCultureAndSite(string culture, Site site)
+		public virtual Node GetRootNodeByCultureAndSite(string culture, Site site)
 		{
 			string hql = "from Node n where n.ParentNode is null and n.Culture = :culture and n.Site.Id = :siteId";
 			IQuery q = this._activeSession.CreateQuery(hql);
@@ -402,7 +354,7 @@ namespace Cuyahoga.Core.Service
 		/// <param name="shortDescription"></param>
 		/// <param name="siteId"></param>
 		/// <returns></returns>
-		public Node GetNodeByShortDescriptionAndSite(string shortDescription, Site site)
+		public virtual Node GetNodeByShortDescriptionAndSite(string shortDescription, Site site)
 		{
 			string hql = "from Node n where n.ShortDescription = :shortDescription and n.Site.Id = :siteId";
 			IQuery q = this._activeSession.CreateQuery(hql);
@@ -430,7 +382,7 @@ namespace Cuyahoga.Core.Service
 		/// </summary>
 		/// <param name="template"></param>
 		/// <returns></returns>
-		public IList GetNodesByTemplate(Template template)
+		public virtual IList GetNodesByTemplate(Template template)
 		{
 			string hql = "from Node n where n.Template.Id = :templateId ";
 			IQuery q = this._activeSession.CreateQuery(hql);
@@ -444,7 +396,7 @@ namespace Cuyahoga.Core.Service
 		/// <param name="node"></param>
 		/// <param name="propagatePermissionsToChildNodes"></param>
 		/// <param name="propagatePermissionsToChildNodes"></param>
-		public void UpdateNode(Node node, bool propagatePermissionsToChildNodes, bool propagatePermissionsToSections)
+		public virtual void UpdateNode(Node node, bool propagatePermissionsToChildNodes, bool propagatePermissionsToSections)
 		{
 			UpdateObject(node);
 			if (propagatePermissionsToChildNodes)
@@ -461,7 +413,7 @@ namespace Cuyahoga.Core.Service
 		/// Delete a node. Also clean up any references in custom menu's first.
 		/// </summary>
 		/// <param name="node"></param>
-		public void DeleteNode(Node node)
+		public virtual void DeleteNode(Node node)
 		{
 			string hql = "select m from CustomMenu m join m.Nodes n where n.Id = :nodeId";
 			IQuery q = this._activeSession.CreateQuery(hql);
@@ -540,7 +492,7 @@ namespace Cuyahoga.Core.Service
 		/// </summary>
 		/// <param name="rootNode"></param>
 		/// <returns></returns>
-		public IList GetMenusByRootNode(Node rootNode)
+		public virtual IList GetMenusByRootNode(Node rootNode)
 		{
 			string hql = "from CustomMenu m where m.RootNode.Id = :rootNodeId";
 			IQuery q = this._activeSession.CreateQuery(hql);
@@ -552,14 +504,14 @@ namespace Cuyahoga.Core.Service
 
 		#endregion
 
-		#region Section specific
+		#region virtual Section specific
 		
 		/// <summary>
 		/// Retrieve the sections belonging to a given node sorted by PlaceholderId and Position.
 		/// </summary>
 		/// <param name="node"></param>
 		/// <returns></returns>
-		public IList GetSortedSectionsByNode(Node node)
+		public virtual IList GetSortedSectionsByNode(Node node)
 		{
 			string hql = "from Section s where s.Node.Id = :nodeId order by s.PlaceholderId, s.Position ";
 			IQuery q = this._activeSession.CreateQuery(hql);
@@ -571,7 +523,7 @@ namespace Cuyahoga.Core.Service
 		/// Retrieve all sections that are not connected to a node.
 		/// </summary>
 		/// <returns></returns>
-		public IList GetUnconnectedSections()
+		public virtual IList GetUnconnectedSections()
 		{
 			string hql = "from Section s where s.Node is null order by s.Title";
 			IQuery q = this._activeSession.CreateQuery(hql);
@@ -583,7 +535,7 @@ namespace Cuyahoga.Core.Service
 		/// </summary>
 		/// <param name="section"></param>
 		/// <returns></returns>
-		public IList GetTemplatesBySection(Section section)
+		public virtual IList GetTemplatesBySection(Section section)
 		{
 			string hql = "from Template t where :section in elements(t.Sections)";
 			IQuery q = this._activeSession.CreateQuery(hql);
@@ -600,7 +552,7 @@ namespace Cuyahoga.Core.Service
 		/// </summary>
 		/// <param name="moduleTypes"></param>
 		/// <returns></returns>
-		public IList GetSectionsByModuleTypes(IList moduleTypes)
+		public virtual IList GetSectionsByModuleTypes(IList moduleTypes)
 		{
 			if (moduleTypes.Count > 0)
 			{
@@ -631,7 +583,7 @@ namespace Cuyahoga.Core.Service
 		/// <param name="username"></param>
 		/// <param name="password"></param>
 		/// <returns></returns>
-		public User GetUserByUsernameAndPassword(string username, string password)
+		public virtual User GetUserByUsernameAndPassword(string username, string password)
 		{
 			ICriteria crit = this._activeSession.CreateCriteria(typeof(User));
 			crit.Add(Expression.Eq("UserName", username));
@@ -657,7 +609,7 @@ namespace Cuyahoga.Core.Service
 		/// <param name="username"></param>
 		/// <param name="email"></param>
 		/// <returns></returns>
-		public User GetUserByUsernameAndEmail(string username, string email)
+		public virtual User GetUserByUsernameAndEmail(string username, string email)
 		{
 			ICriteria crit = this._activeSession.CreateCriteria(typeof(User));
 			crit.Add(Expression.Eq("UserName", username));
@@ -679,7 +631,7 @@ namespace Cuyahoga.Core.Service
 		/// </summary>
 		/// <param name="searchString"></param>
 		/// <returns></returns>
-		public IList FindUsersByUsername(string searchString)
+		public virtual IList FindUsersByUsername(string searchString)
 		{
 			string hql;
 			if (searchString.Length > 0)

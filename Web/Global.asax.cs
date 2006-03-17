@@ -36,8 +36,9 @@ namespace Cuyahoga.Web
 		
 		protected void Application_Start(Object sender, EventArgs e)
 		{
-			CheckInstaller();
+			log4net.Config.XmlConfigurator.Configure();
 			_cuyahogaContainer = new CuyahogaContainer();
+			CheckInstaller();
 		}
  
 		protected void Session_Start(Object sender, EventArgs e)

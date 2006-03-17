@@ -28,14 +28,13 @@ namespace Cuyahoga.Web.Admin
 			if (Context.Request.QueryString["TemplateId"] != null)
 			{
 				int templateId = Int32.Parse(Context.Request.QueryString["TemplateId"]);
-				CoreRepository cr = new CoreRepository(true);
+				CoreRepository cr = (CoreRepository)HttpContext.Current.Items["CoreRepository"];
 				Template template = (Template)cr.GetObjectById(typeof(Template), templateId);
 				BaseTemplate templateControl = (BaseTemplate)this.LoadControl(UrlHelper.GetApplicationPath() + template.Path);
 				string css = UrlHelper.GetApplicationPath() + template.BasePath + "/Css/" + template.Css;
 				templateControl.RenderCssLinks(new string[1] {css});
 				templateControl.InsertContainerButtons();
 				this.Controls.Add(templateControl);
-				cr.CloseSession();
 			}
 		}
 

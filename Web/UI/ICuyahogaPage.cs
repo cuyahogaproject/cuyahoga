@@ -1,5 +1,7 @@
 using System;
 
+using Cuyahoga.Core.Service;
+
 namespace Cuyahoga.Web.UI
 {
 	/// <summary>
@@ -7,5 +9,6 @@ namespace Cuyahoga.Web.UI
 	/// </summary>
 	public interface ICuyahogaPage
 	{
+		
 	}
 }

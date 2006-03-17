@@ -4,6 +4,8 @@ using System.Reflection;
 using NHibernate;
 using NHibernate.Cfg;
 
+using Castle.MicroKernel;
+
 namespace Cuyahoga.Core.Service
 {
 	/// <summary>
@@ -12,27 +14,44 @@ namespace Cuyahoga.Core.Service
 	/// </summary>
 	public class SessionFactory
 	{
-		private static SessionFactory _sessionFactory = new SessionFactory();
 		private Configuration _nhibernateConfiguration;
 		private ISessionFactory _nhibernateFactory;
+		private static IKernel _kernel;
 		private bool _classesAdded = false;
+
+		public event EventHandler SessionFactoryRebuilt;
+
+		protected void OnSessionfactoryRebuilt()
+		{
+			if (SessionFactoryRebuilt != null)
+			{
+				SessionFactoryRebuilt(this, EventArgs.Empty);
+			}
+		}
 
 		/// <summary>
 		/// Default constructor.
 		/// </summary>
-		protected SessionFactory()
+		public SessionFactory(Configuration nhConfiguration, IKernel kernel)
 		{
-			RegisterCoreClasses();
+			this._nhibernateConfiguration = nhConfiguration;
+			_kernel = kernel;
+		}
+
+		public void ExternalInitialize(ISessionFactory nhSessionFactory)
+		{
+			this._nhibernateFactory = nhSessionFactory;
 		}
 
 		/// <summary>
 		/// Gets the one instance of the SessionFactory. This is done with a singleton so we don't have
 		/// to register mappings etc. with every request.
+		/// HACK: this method now delegates 
 		/// </summary>
 		/// <returns></returns>
 		public static SessionFactory GetInstance()
 		{
-			return _sessionFactory;
+			return _kernel[typeof(SessionFactory)] as SessionFactory;
 		}
 
 		/// <summary>
@@ -77,19 +96,13 @@ namespace Cuyahoga.Core.Service
 			{
 				this._nhibernateFactory = this._nhibernateConfiguration.BuildSessionFactory();
 				this._classesAdded = false;
+				OnSessionfactoryRebuilt();
 				return true;
 			}
 			else
 			{
 				return false;
 			}
-		}
-
-		private void RegisterCoreClasses()
-		{
-			Configuration config = new Configuration();
-			this._nhibernateConfiguration = config.AddAssembly(this.GetType().Assembly);
-			this._nhibernateFactory = this._nhibernateConfiguration.BuildSessionFactory();
 		}
 	}
 }
