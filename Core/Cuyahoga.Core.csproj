@@ -380,6 +380,11 @@
                     BuildAction = "Compile"
                 />
                 <File
+                    RelPath = "Service\SessionFactoryHelper.cs"
+                    SubType = "Code"
+                    BuildAction = "Compile"
+                />
+                <File
                     RelPath = "Service\Email\IEmailService.cs"
                     SubType = "Code"
                     BuildAction = "Compile"

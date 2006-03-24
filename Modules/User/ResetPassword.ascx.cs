@@ -64,7 +64,9 @@ namespace Cuyahoga.Modules.User
 			if (this.Page.IsValid)
 			{
 				// Check if the username and email combination exists.
-				Cuyahoga.Core.Domain.User user = base.PageEngine.CoreRepository.GetUserByUsernameAndEmail(this.txtUsername.Text, this.txtEmail.Text);
+				// TODO: refactor
+				CoreRepository cr = HttpContext.Current.Items["CoreRepository"] as CoreRepository;
+				Cuyahoga.Core.Domain.User user = cr.GetUserByUsernameAndEmail(this.txtUsername.Text, this.txtEmail.Text);
 				if (user == null)
 				{
 					this.lblError.Text = GetText("RESETUSERERROR");
@@ -76,7 +78,8 @@ namespace Cuyahoga.Modules.User
 					// OK, reset password
 					string prevPassword = user.Password;
 					string newPassword = user.GeneratePassword();
-					base.PageEngine.CoreRepository.SaveObject(user);
+
+					cr.SaveObject(user);
 					
 					// Send email
 					string subject = GetText("RESETEMAILSUBJECT").Replace("{site}", site.Name);

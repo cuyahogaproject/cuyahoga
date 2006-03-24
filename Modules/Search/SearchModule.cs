@@ -57,21 +57,27 @@ namespace Cuyahoga.Modules.Search
 		/// <summary>
 		/// Default constructor.
 		/// </summary>
-		public SearchModule(Section section) : base (section)
+		public SearchModule()
 		{
-			if (section.Settings["RESULTS_PER_PAGE"] != null)
-			{
-				this._resultsPerPage = Convert.ToInt32(section.Settings["RESULTS_PER_PAGE"]);
-			}
-			if (section.Settings["SHOW_INPUT_PANEL"] != null)
-			{
-				this._showInputPanel = Convert.ToBoolean(section.Settings["SHOW_INPUT_PANEL"]);
-			}
 			// Init inbound actions
 			this._inboundActions = new ActionCollection();
 			this._inboundActions.Add(new Action("Search", new string[0]));
 			this._currentAction = this._inboundActions[0];
 		}
+
+		public override void ReadSectionSettings()
+		{
+			base.ReadSectionSettings ();
+			if (base.Section.Settings["RESULTS_PER_PAGE"] != null)
+			{
+				this._resultsPerPage = Convert.ToInt32(base.Section.Settings["RESULTS_PER_PAGE"]);
+			}
+			if (base.Section.Settings["SHOW_INPUT_PANEL"] != null)
+			{
+				this._showInputPanel = Convert.ToBoolean(base.Section.Settings["SHOW_INPUT_PANEL"]);
+			}
+		}
+
 
 		/// <summary>
 		/// Get paged search results.

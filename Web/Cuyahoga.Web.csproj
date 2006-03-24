@@ -696,6 +696,11 @@
                     BuildAction = "Compile"
                 />
                 <File
+                    RelPath = "Components\ModuleLoader.cs"
+                    SubType = "Code"
+                    BuildAction = "Compile"
+                />
+                <File
                     RelPath = "Components\UrlRewriter.cs"
                     SubType = "Code"
                     BuildAction = "Compile"

@@ -217,6 +217,7 @@ namespace Cuyahoga.Core.Domain
 		/// <param name="sectionUrl">The url that indentifies the section. We need this because the section
 		/// can't determine the url itself because it doesn't have a http context.</param>
 		/// <returns></returns>
+		[Obsolete("Deprecated, use the ModuleService to obtain module instances")]
 		public virtual ModuleBase CreateModule(string sectionUrl)
 		{
 			if (this._moduleType != null)

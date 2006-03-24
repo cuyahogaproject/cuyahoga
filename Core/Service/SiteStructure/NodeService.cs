@@ -32,7 +32,7 @@ namespace Cuyahoga.Core.Service.SiteStructure
 
 		public Node GetNodeById(int nodeId)
 		{
-			return (Node)this._commonDao.GetObjectById(typeof(Node), nodeId);
+			return (Node)this._commonDao.GetObjectById(typeof(Node), nodeId, true);
 		}
 
 		public IList GetRootNodes(Site site)

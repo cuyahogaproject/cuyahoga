@@ -17,17 +17,8 @@ namespace Cuyahoga.Modules.StaticHtml
 	/// </summary>
 	public class StaticHtmlModule : ModuleBase, ISearchable
 	{
-		public StaticHtmlModule(Section section) : base(section)
+		public StaticHtmlModule()
 		{	
-			SessionFactory sf = SessionFactory.GetInstance();
-			// Register classes that are used by the StaticHtmlModule.
-			sf.RegisterPersistentClass(typeof(StaticHtmlContent));
-
-			// Set a flag to indicate that the SessionFactory is rebuilt. It would be more elegant
-			// to do this with an event but since this happens in the constructor, there can't
-			// be any event handlers attached already. We leave it up to the Section to raise the 
-			// event (see Section.CreateModule()).
-			base.SessionFactoryRebuilt = sf.Rebuild();
 		}
 
 		/// <summary>

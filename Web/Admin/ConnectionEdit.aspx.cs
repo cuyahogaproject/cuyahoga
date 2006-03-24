@@ -12,6 +12,8 @@ using System.Web.UI.HtmlControls;
 using Cuyahoga.Core.Domain;
 using Cuyahoga.Core.Communication;
 
+using Cuyahoga.Web.Components;
+
 namespace Cuyahoga.Web.Admin
 {
 	/// <summary>
@@ -19,6 +21,10 @@ namespace Cuyahoga.Web.Admin
 	/// </summary>
 	public class ConnectionEdit : Cuyahoga.Web.Admin.UI.AdminBasePage
 	{
+		private ModuleLoader _moduleLoader;
+		private Section _activeSection;
+		private IActionProvider _activeActionProvider;
+
 		protected System.Web.UI.WebControls.Panel pnlTo;
 		protected System.Web.UI.WebControls.Label lblSectionFrom;
 		protected System.Web.UI.WebControls.Label lblModuleType;
@@ -26,8 +32,14 @@ namespace Cuyahoga.Web.Admin
 		protected System.Web.UI.WebControls.DropDownList ddlSectionTo;
 		protected System.Web.UI.WebControls.Button btnSave;
 		protected System.Web.UI.WebControls.Button btnBack;
-		private Section _activeSection;
-		private IActionProvider _activeActionProvider;
+
+		/// <summary>
+		/// 
+		/// </summary>
+		public ModuleLoader ModuleLoader
+		{
+			set { this._moduleLoader = value; }
+		}
 	
 		private void Page_Load(object sender, System.EventArgs e)
 		{
@@ -39,7 +51,7 @@ namespace Cuyahoga.Web.Admin
 				this._activeSection = (Section)base.CoreRepository.GetObjectById(typeof(Section), 
 					Int32.Parse(Context.Request.QueryString["SectionId"]));
 
-				ModuleBase moduleInstance = this._activeSection.CreateModule(null);
+				ModuleBase moduleInstance = this._moduleLoader.GetModuleFromSection(this._activeSection);
 				if (moduleInstance is IActionProvider)
 				{
 					this._activeActionProvider = moduleInstance as IActionProvider;
@@ -93,7 +105,7 @@ namespace Cuyahoga.Web.Admin
 				string assemblyQualifiedName = mt.ClassName + ", " + mt.AssemblyName;
 				Type moduleTypeType = Type.GetType(assemblyQualifiedName);
 				Section dummySection = new Section();
-				ModuleBase moduleInstance = (ModuleBase)Activator.CreateInstance(moduleTypeType, new object[] {dummySection});
+				ModuleBase moduleInstance = (ModuleBase)Activator.CreateInstance(moduleTypeType);
 				if (moduleInstance is IActionConsumer)
 				{
 					IActionConsumer actionConsumer = moduleInstance as IActionConsumer;

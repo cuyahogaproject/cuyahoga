@@ -45,23 +45,20 @@ namespace Cuyahoga.Modules.Articles
 		/// Default constructor. The ArticleModule registers its own Domain classes in the NHibernate
 		/// SessionFactory.
 		/// </summary>
-		public ArticleModule(Section section) : base(section)
+		public ArticleModule()
 		{
 			this._currentArticleId = -1;
 			this._currentCategoryId = -1;
+		}
 
-			SessionFactory sf = SessionFactory.GetInstance();
-			// Register classes that are used by the ArticleModule
-			sf.RegisterPersistentClass(typeof(Cuyahoga.Modules.Articles.Category));
-			sf.RegisterPersistentClass(typeof(Cuyahoga.Modules.Articles.Article));
-			sf.RegisterPersistentClass(typeof(Cuyahoga.Modules.Articles.Comment));
-
-			base.SessionFactoryRebuilt = sf.Rebuild();
+		public override void ReadSectionSettings()
+		{
+			base.ReadSectionSettings();
 
 			try
 			{
-				this._sortBy = (SortBy)Enum.Parse(typeof(SortBy), section.Settings["SORT_BY"].ToString());
-				this._sortDirection = (SortDirection)Enum.Parse(typeof(SortDirection), section.Settings["SORT_DIRECTION"].ToString());
+				this._sortBy = (SortBy)Enum.Parse(typeof(SortBy), base.Section.Settings["SORT_BY"].ToString());
+				this._sortDirection = (SortDirection)Enum.Parse(typeof(SortDirection), base.Section.Settings["SORT_DIRECTION"].ToString());
 			}
 			catch
 			{
@@ -70,6 +67,7 @@ namespace Cuyahoga.Modules.Articles
 				this._sortDirection = SortDirection.DESC;
 			}
 		}
+
 
 		/// <summary>
 		/// Get the available categories for the current site (via Article -> Section -> Node -> Site). 

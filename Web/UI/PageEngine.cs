@@ -11,10 +11,11 @@ using System.Web.Security;
 
 using Cuyahoga.Core;
 using Cuyahoga.Core.Domain;
-using Cuyahoga.Core.Service;
+using Cuyahoga.Core.Service.SiteStructure;
 using Cuyahoga.Core.Util;
 using Cuyahoga.Web.UI;
 using Cuyahoga.Web.Util;
+using Cuyahoga.Web.Components;
 
 namespace Cuyahoga.Web.UI
 {
@@ -29,9 +30,13 @@ namespace Cuyahoga.Web.UI
 		private Node _activeNode;
 		private Section _activeSection;
 		private BaseTemplate _templateControl;
-		private CoreRepository _coreRepository;
 		private bool _shouldLoadContent;
 		private IDictionary _stylesheets;
+
+		private ModuleLoader _moduleLoader;
+		private INodeService _nodeService;
+		private ISiteService _siteService;
+		private ISectionService _sectionService;
 
 		#region properties
 
@@ -87,17 +92,41 @@ namespace Cuyahoga.Web.UI
 		/// <summary>
 		/// 
 		/// </summary>
-		public CoreRepository CoreRepository
+		public Site CurrentSite
 		{
-			get { return this._coreRepository; }
+			get { return this._currentSite; }
+		}
+
+		/// <summary>
+		/// Module loader. The container is responsible for setting this one.
+		/// </summary>
+		public ModuleLoader ModuleLoader
+		{
+			set { this._moduleLoader = value; }
 		}
 
 		/// <summary>
 		/// 
 		/// </summary>
-		public Site CurrentSite
+		public ISiteService SiteService
 		{
-			get { return this._currentSite; }
+			set { this._siteService = value; }
+		}
+
+		/// <summary>
+		/// 
+		/// </summary>
+		public INodeService NodeService
+		{
+			set { this._nodeService = value; }
+		}
+
+		/// <summary>
+		/// 
+		/// </summary>
+		public ISectionService SectionService
+		{
+			set { this._sectionService = value; }
 		}
 
 		#endregion
@@ -134,12 +163,10 @@ namespace Cuyahoga.Web.UI
 		/// <param name="obj"></param>
 		protected override void OnInit(EventArgs e)
 		{		
-			this._coreRepository = (CoreRepository)HttpContext.Current.Items["CoreRepository"];
-
 			// Load the current site
 			Node entryNode = null;
 			string siteUrl = UrlHelper.GetSiteUrl();
-			SiteAlias currentSiteAlias = this._coreRepository.GetSiteAliasByUrl(siteUrl);
+			SiteAlias currentSiteAlias = this._siteService.GetSiteAliasByUrl(siteUrl);
 			if (currentSiteAlias != null)
 			{
 				this._currentSite = currentSiteAlias.Site;
@@ -147,7 +174,7 @@ namespace Cuyahoga.Web.UI
 			}
 			else
 			{
-				this._currentSite = this._coreRepository.GetSiteBySiteUrl(siteUrl);
+				this._currentSite = this._siteService.GetSiteBySiteUrl(siteUrl);
 			}
 			if (this._currentSite == null)
 			{
@@ -160,8 +187,7 @@ namespace Cuyahoga.Web.UI
 			{
 				try
 				{
-					this._activeSection = (Section)this._coreRepository.GetObjectById(typeof(Section)
-						, Int32.Parse(Context.Request.QueryString["SectionId"]));
+					this._activeSection = this._sectionService.GetSectionById(Int32.Parse(Context.Request.QueryString["SectionId"]));
 					this._activeNode = this._activeSection.Node;
 				}
 				catch
@@ -171,13 +197,11 @@ namespace Cuyahoga.Web.UI
 			}
 			else if (Context.Request.QueryString["ShortDescription"] != null)
 			{
-				this._activeNode = this._coreRepository.GetNodeByShortDescriptionAndSite(Context.Request.QueryString["ShortDescription"], this._currentSite);
+				this._activeNode = this._nodeService.GetNodeByShortDescriptionAndSite(Context.Request.QueryString["ShortDescription"], this._currentSite);
 			}
 			else if (Context.Request.QueryString["NodeId"] != null)
 			{
-				this._activeNode = (Node)this._coreRepository.GetObjectById(typeof(Node)
-					, Int32.Parse(Context.Request.QueryString["NodeId"])
-					, true);
+				this._activeNode = this._nodeService.GetNodeById(Int32.Parse(Context.Request.QueryString["NodeId"]));
 			}
 			else if (entryNode != null)
 			{
@@ -193,7 +217,7 @@ namespace Cuyahoga.Web.UI
 				{
 					currentCulture = Context.Request.Cookies["CuyahogaCulture"].Value;
 				}
-				this._activeNode = this._coreRepository.GetRootNodeByCultureAndSite(currentCulture, this._currentSite);
+				this._activeNode = this._nodeService.GetRootNodeByCultureAndSite(currentCulture, this._currentSite);
 			}
 			// Raise an exception when there is no Node found. It will be handled by the global error handler
 			// and translated into a proper 404.
@@ -301,10 +325,9 @@ namespace Cuyahoga.Web.UI
 			if (section.ViewAllowed(this.User.Identity))
 			{
 				// Create the module that is connected to the section.
-				// Create event handlers for NHibernate-related events that can occur in the module.
-				section.SessionFactoryRebuilt += new EventHandler(Section_SessionFactoryRebuilt);
-				ModuleBase module = section.CreateModule(UrlHelper.GetUrlFromSection(section));
-				section.SessionFactoryRebuilt -= new EventHandler(Section_SessionFactoryRebuilt);
+				this._moduleLoader.ModuleAdded += new EventHandler(ModuleLoader_ModuleAdded);
+				ModuleBase module = this._moduleLoader.GetModuleFromSection(section);
+				this._moduleLoader.ModuleAdded -= new EventHandler(ModuleLoader_ModuleAdded);
 
 				if (module != null)
 				{
@@ -329,7 +352,7 @@ namespace Cuyahoga.Web.UI
 
 		private void LoadMenus()
 		{
-			IList menus = this._coreRepository.GetMenusByRootNode(this._rootNode);
+			IList menus = this._nodeService.GetMenusByRootNode(this._rootNode);
 			foreach (CustomMenu menu in menus)
 			{
 				PlaceHolder plc = this._templateControl.Containers[menu.Placeholder] as PlaceHolder;
@@ -393,18 +416,16 @@ namespace Cuyahoga.Web.UI
 			// TODO: meta tags.
 		}
 
-		private void Section_SessionFactoryRebuilt(object sender, EventArgs e)
+		private void ModuleLoader_ModuleAdded(object sender, EventArgs e)
 		{
-			// The SessionFactory was rebuilt, so the current NHibernate Session has become invalid.
-			// This is handled by a simple reload of the page. 
-			// TODO: handle more elegantly?
+			// A module was loaded for the first time. We need to reload the page.
 			if (Context.Items["VirtualUrl"] != null)
 			{
-				Context.Response.Redirect(Context.Items["VirtualUrl"].ToString());
+				Context.Response.Redirect(Context.Items["VirtualUrl"].ToString(), true);
 			}
 			else
 			{
-				Context.Response.Redirect(Context.Request.RawUrl);
+				Context.Response.Redirect(Context.Request.RawUrl, true);
 			}
 		}
 	}

@@ -23,7 +23,7 @@ namespace Cuyahoga.Modules.User
 		/// Default constructor.
 		/// </summary>
 		/// <param name="section"></param>
-		public UserModule(Section section) : base(section)
+		public UserModule()
 		{
 			InitOutboundActions();
 		}

@@ -37,32 +37,29 @@ namespace Cuyahoga.Web.Components
 
 		private void RegisterServices()
 		{
+			// Data access components
 			AddComponent("core.commondao", typeof(ICommonDao), typeof(CommonDao));
 			AddComponent("core.sitestructuredao", typeof(ISiteStructureDao), typeof(SiteStructureDao));
 			AddComponent("core.userdao", typeof(IUserDao), typeof(UserDao));
+			
+			// Core services
 			AddComponent("core.siteservice", typeof(ISiteService), typeof(SiteService));
 			AddComponent("core.nodeservice", typeof(INodeService), typeof(NodeService));
 			AddComponent("core.sectionservice", typeof(ISectionService), typeof(SectionService));
+
+			// Utility services
+			AddComponent("web.moduleloader", typeof(ModuleLoader));
+			AddComponent("core.sessionfactoryhelper", typeof(SessionFactoryHelper));
+
+			// Legacy
 			AddComponent("corerepositoryadapter", typeof(CoreRepositoryAdapter));
 		}
 
 
 		private void ConfigureLegacySessionFactory()
 		{
-			// TODO: get rid of this solution as soon as possible!
-			AddComponent("core.legacysessionfactory", typeof(SessionFactory));
-			SessionFactory cuyahogaSessionFactory = this[typeof(SessionFactory)] as SessionFactory;
-			// We can't auto-wire the ISessionFactory via the constructor because it's
-			// impossible to remove the old ISessonFactory from the container after a rebuild.
-			cuyahogaSessionFactory.ExternalInitialize(this[typeof(ISessionFactory)] as ISessionFactory);
-			cuyahogaSessionFactory.SessionFactoryRebuilt += new EventHandler(cuyahogaSessionFactory_SessionFactoryRebuilt);
-		}
-
-		private void cuyahogaSessionFactory_SessionFactoryRebuilt(object sender, EventArgs e)
-		{
-			ISessionFactory newNhSessionFactory = ((SessionFactory)this[typeof(SessionFactory)]).GetNHibernateFactory();
-			this.Kernel.RemoveComponent("nhibernate.factory");
-			this.Kernel.AddComponentInstance("nhibernate.factory", newNhSessionFactory);
+			SessionFactoryHelper sessionFactoryHelper = this[typeof(SessionFactoryHelper)] as SessionFactoryHelper;
+			sessionFactoryHelper.ConfigureLegacySessionFactory();
 		}
 	}
 }

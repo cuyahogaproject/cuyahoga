@@ -126,7 +126,9 @@ namespace Cuyahoga.Modules.User
 				try
 				{
 					// Save user
-					base.PageEngine.CoreRepository.UpdateObject(currentUser);
+					// TODO: refactor
+					CoreRepository cr = HttpContext.Current.Items["CoreRepository"] as CoreRepository;
+					cr.UpdateObject(currentUser);
 					// Remove old user from the cache
 					HttpContext.Current.Cache.Remove(USER_CACHE_PREFIX + currentUser.Id.ToString());
 					ShowMessage(GetText("EDITPROFILECONFIRMATION"));
@@ -163,8 +165,10 @@ namespace Cuyahoga.Modules.User
 					return;
 				}
 				currentUser.Password = Cuyahoga.Core.Domain.User.HashPassword(this.txtNewPassword.Text);
-				// Save user
-				base.PageEngine.CoreRepository.UpdateObject(currentUser);
+				// Save user 
+				// TODO: refactor
+				CoreRepository cr = HttpContext.Current.Items["CoreRepository"] as CoreRepository;
+				cr.UpdateObject(currentUser);
 				// Remove old user from the cache
 				HttpContext.Current.Cache.Remove(USER_CACHE_PREFIX + currentUser.Id.ToString());
 				ShowMessage(GetText("EDITPASSWORDCONFIRMATION"));

@@ -34,7 +34,9 @@ namespace Cuyahoga.Modules.User
 			{
 				try
 				{
-					Cuyahoga.Core.Domain.User user = (Cuyahoga.Core.Domain.User)base.PageEngine.CoreRepository.GetObjectById(typeof(Cuyahoga.Core.Domain.User), this._module.CurrentUserId);
+					// TODO: refactor
+					CoreRepository cr = HttpContext.Current.Items["CoreRepository"] as CoreRepository;
+					Cuyahoga.Core.Domain.User user = (Cuyahoga.Core.Domain.User)cr.GetObjectById(typeof(Cuyahoga.Core.Domain.User), this._module.CurrentUserId);
 					this.litTitle.Text = String.Format(GetText("VIEWPROFILETITLE"), user.UserName);
 					BindUser(user);
 					if (! this.IsPostBack)

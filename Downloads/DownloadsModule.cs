@@ -91,25 +91,25 @@ namespace Cuyahoga.Modules.Downloads
 		/// Default constructor.
 		/// </summary>
 		/// <param name="section"></param>
-		public DownloadsModule(Section section) : base(section)
+		public DownloadsModule()
 		{
-			SessionFactory sf = SessionFactory.GetInstance();
-			// Register classes that are used by the DownloadsModule
-			sf.RegisterPersistentClass(typeof(Cuyahoga.Modules.Downloads.Domain.File));
+		}
 
-			base.SessionFactoryRebuilt = sf.Rebuild();
-
+		public override void ReadSectionSettings()
+		{
+			base.ReadSectionSettings ();
 			// Set dynamic module settings
-			string physicalDir = Convert.ToString(section.Settings["PHYSICAL_DIR"]);
+			string physicalDir = Convert.ToString(base.Section.Settings["PHYSICAL_DIR"]);
 			if (physicalDir != String.Empty)
 			{
 				this._physicalDir = physicalDir;
 				CheckPhysicalDirectory();
 			}
-			this._showPublisher = Convert.ToBoolean(section.Settings["SHOW_PUBLISHER"]);
-			this._showDateModified = Convert.ToBoolean(section.Settings["SHOW_DATE"]);
-			this._showNumberOfDownloads = Convert.ToBoolean(section.Settings["SHOW_NUMBER_OF_DOWNLOADS"]);
+			this._showPublisher = Convert.ToBoolean(base.Section.Settings["SHOW_PUBLISHER"]);
+			this._showDateModified = Convert.ToBoolean(base.Section.Settings["SHOW_DATE"]);
+			this._showNumberOfDownloads = Convert.ToBoolean(base.Section.Settings["SHOW_NUMBER_OF_DOWNLOADS"]);
 		}
+
 
 		/// <summary>
 		/// Retrieve the meta-information of all files that belong to this module.

@@ -12,6 +12,7 @@ using Cuyahoga.Core.Domain;
 using Cuyahoga.Core.Communication;
 using Cuyahoga.Web.UI;
 using Cuyahoga.Web.Admin.UI;
+using Cuyahoga.Web.Components;
 
 namespace Cuyahoga.Web.Admin
 {
@@ -22,6 +23,7 @@ namespace Cuyahoga.Web.Admin
 	{
 		private Section _activeSection = null;
 		private IList _availableModuleTypes;
+		private ModuleLoader _moduleLoader;
 
 		protected System.Web.UI.WebControls.TextBox txtTitle;
 		protected System.Web.UI.WebControls.CheckBox chkShowTitle;
@@ -41,6 +43,11 @@ namespace Cuyahoga.Web.Admin
 		protected System.Web.UI.WebControls.HyperLink hplNewConnection;
 		protected System.Web.UI.WebControls.Repeater rptConnections;
 		protected System.Web.UI.WebControls.PlaceHolder plcCustomSettings;
+
+		public ModuleLoader ModuleLoader
+		{
+			set { this._moduleLoader = value; }
+		}
 	
 		private void Page_Load(object sender, System.EventArgs e)
 		{
@@ -241,7 +248,7 @@ namespace Cuyahoga.Web.Admin
 			// First test if connections are possible
 			if (this._activeSection.ModuleType != null)
 			{
-				ModuleBase moduleInstance = this._activeSection.CreateModule(null);
+				ModuleBase moduleInstance = this._moduleLoader.GetModuleFromSection(this._activeSection);
 				if (moduleInstance is IActionProvider)
 				{
 					IActionProvider actionProvider = (IActionProvider)moduleInstance;

@@ -26,7 +26,7 @@ namespace Cuyahoga.Modules.User
 		/// Default constructor.
 		/// </summary>
 		/// <param name="section"></param>
-		public ProfileModule(Section section) : base(section)
+		public ProfileModule()
 		{
 			// Set default action.
 			this._currentAction = ProfileModuleAction.EditProfile;

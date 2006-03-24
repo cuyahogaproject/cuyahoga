@@ -2,6 +2,7 @@ using System;
 using System.Web;
 
 using NHibernate;
+using Castle.Model;
 
 using Cuyahoga.Core.Service;
 
@@ -10,6 +11,7 @@ namespace Cuyahoga.Core.Domain
 	/// <summary>
 	/// The base class for all Cuyahoga modules. 
 	/// </summary>
+	[Transient]
 	public abstract class ModuleBase
 	{
 		private Section _section;
@@ -97,6 +99,7 @@ namespace Cuyahoga.Core.Domain
 		public Section Section
 		{
 			get { return this._section; }
+			set { this._section = value; }
 		}
 
 		/// <summary>
@@ -151,7 +154,14 @@ namespace Cuyahoga.Core.Domain
 		}
 
 		/// <summary>
-		/// Default constructor.
+		/// Constructor.
+		/// </summary>
+		public ModuleBase()
+		{
+		}
+
+		/// <summary>
+		/// Constructor that allows a section.
 		/// </summary>
 		public ModuleBase(Section section)
 		{
@@ -188,6 +198,17 @@ namespace Cuyahoga.Core.Domain
 		{
 			// Do nothing here
 			return;
+		}
+
+		/// <summary>
+		/// Configure the module by reading the settings of the section.
+		/// </summary>
+		public virtual void ReadSectionSettings()
+		{
+			if (this._section == null)
+			{
+				throw new NullReferenceException("Can't access the section for settings.");
+			}
 		}
 	}
 }

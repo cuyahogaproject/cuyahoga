@@ -10,6 +10,7 @@ namespace Cuyahoga.Modules.LanguageSwitcher
 	using System.Collections;
 
 	using Cuyahoga.Core.Domain;
+	using Cuyahoga.Core.Service;
 	using Cuyahoga.Web.UI;
 	using Cuyahoga.Web.Util;
 
@@ -19,6 +20,7 @@ namespace Cuyahoga.Modules.LanguageSwitcher
 	public class LanguageSwitcher : BaseModuleControl
 	{
 		private PageEngine _page;
+		private CoreRepository _coreRepository;
 
 		protected System.Web.UI.WebControls.ImageButton imbGo;
 		protected System.Web.UI.WebControls.DropDownList ddlLanguage;
@@ -26,6 +28,7 @@ namespace Cuyahoga.Modules.LanguageSwitcher
 		private void Page_Load(object sender, System.EventArgs e)
 		{
 			this._page = this.Page as PageEngine;
+			this._coreRepository = HttpContext.Current.Items["CoreRepository"] as CoreRepository;
 			this.imbGo.ImageUrl = this.TemplateSourceDirectory + "/Images/go.gif";
 			if (! this.IsPostBack)
 			{
@@ -37,7 +40,7 @@ namespace Cuyahoga.Modules.LanguageSwitcher
 		{
 			if (this._page != null)
 			{
-				IList rootNodes = this._page.CoreRepository.GetRootNodes(this._page.ActiveNode.Site);
+				IList rootNodes = this._coreRepository.GetRootNodes(this._page.ActiveNode.Site);
 				foreach (Node node in rootNodes)
 				{
 					CultureInfo ci = new CultureInfo(node.Culture);
@@ -79,7 +82,7 @@ namespace Cuyahoga.Modules.LanguageSwitcher
 			string selectedCulture = this.ddlLanguage.SelectedValue;
 			// Get the root node for the selected culture from the cache and build an url from
 			// it where the user will be redirected to.
-			Node rootNodeForSelectedCulture = this._page.CoreRepository.GetRootNodeByCultureAndSite(selectedCulture, this._page.CurrentSite);
+			Node rootNodeForSelectedCulture = this._coreRepository.GetRootNodeByCultureAndSite(selectedCulture, this._page.CurrentSite);
 			if (rootNodeForSelectedCulture != null)
 			{
 				// Set cookie for the selected culture. In the future we might enable persisting

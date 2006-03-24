@@ -34,22 +34,8 @@ namespace Cuyahoga.Modules.RemoteContent
 		/// <summary>
 		/// Default constructor. Registers the module classes in the current SessionFactory.
 		/// </summary>
-		public RemoteContentModule(Section section) : base(section)
+		public RemoteContentModule()
 		{
-			SessionFactory sf = SessionFactory.GetInstance();
-			// Register classes that are used by the RemoteContentModule
-			sf.RegisterPersistentClass(typeof(Cuyahoga.Modules.RemoteContent.Feed));
-			sf.RegisterPersistentClass(typeof(Cuyahoga.Modules.RemoteContent.FeedItem));
-
-			base.SessionFactoryRebuilt = sf.Rebuild();
-
-			// Set dynamic module settings
-			this._cacheDuration = Convert.ToInt32(section.Settings["CACHE_DURATION"]);
-			this._backgroundRefresh = Convert.ToBoolean(section.Settings["BACKGROUND_REFRESH"]);
-			this._showContents = Convert.ToBoolean(section.Settings["SHOW_CONTENTS"]);
-			this._showDates = Convert.ToBoolean(section.Settings["SHOW_DATES"]);
-			this._showSources = Convert.ToBoolean(section.Settings["SHOW_SOURCES"]);
-			this._showAuthors = Convert.ToBoolean(section.Settings["SHOW_AUTHORS"]);
 		}
 
 		#region properties
@@ -87,6 +73,19 @@ namespace Cuyahoga.Modules.RemoteContent
 		}
 
 		#endregion
+
+		public override void ReadSectionSettings()
+		{
+			base.ReadSectionSettings ();
+			// Set dynamic module settings
+			this._cacheDuration = Convert.ToInt32(base.Section.Settings["CACHE_DURATION"]);
+			this._backgroundRefresh = Convert.ToBoolean(base.Section.Settings["BACKGROUND_REFRESH"]);
+			this._showContents = Convert.ToBoolean(base.Section.Settings["SHOW_CONTENTS"]);
+			this._showDates = Convert.ToBoolean(base.Section.Settings["SHOW_DATES"]);
+			this._showSources = Convert.ToBoolean(base.Section.Settings["SHOW_SOURCES"]);
+			this._showAuthors = Convert.ToBoolean(base.Section.Settings["SHOW_AUTHORS"]);
+		}
+
 
 		/// <summary>
 		/// Retrieve all feeds that belong to this module.

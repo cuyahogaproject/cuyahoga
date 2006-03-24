@@ -64,7 +64,9 @@ namespace Cuyahoga.Modules.User
 			if (this.Page.IsValid)
 			{
 				// Check if username already exists.
-				if (base.PageEngine.CoreRepository.FindUsersByUsername(this.txtUsername.Text).Count > 0)
+				// TODO: refactor
+				CoreRepository cr = HttpContext.Current.Items["CoreRepository"] as CoreRepository;
+				if (cr.FindUsersByUsername(this.txtUsername.Text).Count > 0)
 				{
 					this.lblError.Text = String.Format(GetText("USEREXISTS"), this.txtUsername.Text);
 					this.lblError.Visible = true;
@@ -80,7 +82,7 @@ namespace Cuyahoga.Modules.User
 					string newPassword = user.GeneratePassword();
 					// Add the default role from the current site.
 					user.Roles.Add(site.DefaultRole);
-					base.PageEngine.CoreRepository.SaveObject(user);
+					cr.SaveObject(user);
 					
 					// Send email
 					string subject = GetText("REGISTEREMAILSUBJECT").Replace("{site}", site.Name);
@@ -97,7 +99,7 @@ namespace Cuyahoga.Modules.User
 					catch
 					{
 						// delete user when sending email fails.
-						base.PageEngine.CoreRepository.DeleteObject(user);
+						cr.DeleteObject(user);
 						this.lblError.Text = GetText("REGISTEREMAILERROR");
 						this.lblError.Visible = true;
 					}
