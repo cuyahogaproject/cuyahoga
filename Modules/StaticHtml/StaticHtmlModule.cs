@@ -4,6 +4,7 @@ using System.Collections;
 using NHibernate;
 using NHibernate.Expression;
 
+using Cuyahoga.Core;
 using Cuyahoga.Core.Service;
 using Cuyahoga.Core.Domain;
 using Cuyahoga.Core.Search;
@@ -15,7 +16,7 @@ namespace Cuyahoga.Modules.StaticHtml
 	/// The StaticHtmlModule provides the content of simple static page. It needs at least its 
 	/// Section to be set to do something with the content (load, update, delete).
 	/// </summary>
-	public class StaticHtmlModule : ModuleBase, ISearchable
+	public class StaticHtmlModule : ModuleBase, ISearchable, INHibernateModule
 	{
 		public StaticHtmlModule()
 		{	

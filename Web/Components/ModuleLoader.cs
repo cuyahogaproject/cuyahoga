@@ -4,6 +4,7 @@ using System.Collections;
 using Castle.MicroKernel;
 using Castle.Model;
 
+using Cuyahoga.Core;
 using Cuyahoga.Core.Domain;
 using Cuyahoga.Core.Service;
 using Cuyahoga.Web.UI;
@@ -61,11 +62,17 @@ namespace Cuyahoga.Web.Components
 			{
 				if (! this._kernel.HasComponent(moduleType))
 				{
-					// Module is not registered, do it now and register mappings.
+					// Module is not registered, do it now.
 					this._kernel.AddComponent("module." + section.ModuleType.Name, moduleType);
-					this._sessionFactoryHelper.AddAssembly(moduleType.Assembly);
-					OnModuleAdded();
+
+					if (typeof(INHibernateModule).IsAssignableFrom(moduleType))
+					{
+						// Module needs its NHibernate mappings registered.
+						this._sessionFactoryHelper.AddAssembly(moduleType.Assembly);
+						OnModuleAdded();
+					}
 				}
+
 				// Kernel 'knows' the module, return a fresh instance (ModuleBase is transient).
 				ModuleBase module = this._kernel[moduleType] as ModuleBase;
 				module.Section = section;

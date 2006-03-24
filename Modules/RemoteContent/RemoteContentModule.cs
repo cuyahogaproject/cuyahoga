@@ -11,6 +11,7 @@ using System.Threading;
 using NHibernate;
 using log4net;
 
+using Cuyahoga.Core;
 using Cuyahoga.Core.Domain;
 using Cuyahoga.Core.Service;
 using Cuyahoga.Core.Util;
@@ -21,7 +22,7 @@ namespace Cuyahoga.Modules.RemoteContent
 	/// The RemoteContent module provides facilities to display content that is 
 	/// syndictated from other sites.
 	/// </summary>
-	public class RemoteContentModule : ModuleBase
+	public class RemoteContentModule : ModuleBase, INHibernateModule
 	{
 		private static readonly ILog log = LogManager.GetLogger(typeof(RemoteContentModule));
 		private int _cacheDuration;

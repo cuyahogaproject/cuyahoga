@@ -4,6 +4,7 @@ using System.Web;
 
 using NHibernate;
 
+using Cuyahoga.Core;
 using Cuyahoga.Core.Domain;
 using Cuyahoga.Core.Service;
 using Cuyahoga.Modules.Downloads.Domain;
@@ -13,7 +14,7 @@ namespace Cuyahoga.Modules.Downloads
 	/// <summary>
 	/// The Downloads Module provides file downloads for users.
 	/// </summary>
-	public class DownloadsModule : ModuleBase
+	public class DownloadsModule : ModuleBase, INHibernateModule
 	{
 		private string _physicalDir;
 		private bool _showPublisher;
@@ -221,7 +222,7 @@ namespace Cuyahoga.Modules.Downloads
 				throw new Exception(String.Format("The Downloads module didn't find the physical directory {0} on the server.", this._physicalDir));
 			}
 		}
-	}
+		}
 
 	public enum DownloadsModuleActions
 	{

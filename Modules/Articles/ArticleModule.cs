@@ -18,7 +18,7 @@ namespace Cuyahoga.Modules.Articles
 	/// <summary>
 	/// The ArticleModule provides a news system (articles, comments, content expiration, rss feed).
 	/// </summary>
-	public class ArticleModule : ModuleBase, ISyndicatable, ISearchable, IActionProvider
+	public class ArticleModule : ModuleBase, ISyndicatable, ISearchable, IActionProvider, INHibernateModule
 	{
 		private int _currentArticleId;
 		private int _currentCategoryId;
