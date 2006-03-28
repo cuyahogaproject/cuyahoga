@@ -5,6 +5,7 @@ using System.Configuration;
 
 using Cuyahoga.Core;
 using Cuyahoga.Core.Domain;
+using Cuyahoga.Core.Service.SiteStructure;
 using Cuyahoga.Web.UI;
 
 namespace Cuyahoga.Web.Admin.UI
@@ -17,6 +18,9 @@ namespace Cuyahoga.Web.Admin.UI
 		private Site _activeSite;
 		private Node _activeNode;
 		private Section _activeSection;
+		private ISiteService _siteService;
+		private INodeService _nodeService;
+		private ISectionService _sectionService;
 
 		/// <summary>
 		/// The Site context of the admin page.
@@ -44,6 +48,33 @@ namespace Cuyahoga.Web.Admin.UI
 		}
 
 		/// <summary>
+		/// Site service (injected).
+		/// </summary>
+		public ISiteService SiteService
+		{
+			get { return this._siteService; }
+			set { this._siteService = value; }
+		}
+
+		/// <summary>
+		/// Node Service (injected).
+		/// </summary>
+		public INodeService NodeService
+		{
+			get { return this._nodeService; }
+			set { this._nodeService = value; }
+		}
+
+		/// <summary>
+		/// Section service (injected).
+		/// </summary>
+		public ISectionService SectionService
+		{
+			get { return this._sectionService; }
+			set { this._sectionService = value; }
+		}
+
+		/// <summary>
 		/// Default constructor.
 		/// </summary>
 		public AdminBasePage()
@@ -64,7 +95,7 @@ namespace Cuyahoga.Web.Admin.UI
 				int sectionId = Int32.Parse(Context.Request.QueryString["SectionId"]);
 				if (sectionId > 0)
 				{
-					this._activeSection = (Section)base.CoreRepository.GetObjectById(typeof(Section), sectionId);
+					this._activeSection = this._sectionService.GetSectionById(sectionId);
 					if (this._activeSection.Node != null)
 					{
 						this._activeNode = this._activeSection.Node;
@@ -77,7 +108,7 @@ namespace Cuyahoga.Web.Admin.UI
 				int nodeId = Int32.Parse(Context.Request.QueryString["NodeId"]);
 				if (nodeId > 0)
 				{
-					this._activeNode = (Node)base.CoreRepository.GetObjectById(typeof(Node), nodeId);
+					this._activeNode = this._nodeService.GetNodeById(nodeId);
 					this._activeSite = this._activeNode.Site;
 				}
 			}
@@ -86,7 +117,7 @@ namespace Cuyahoga.Web.Admin.UI
 				int siteId = Int32.Parse(Context.Request.QueryString["SiteId"]);
 				if (siteId > 0)
 				{
-					this._activeSite = (Site)base.CoreRepository.GetObjectById(typeof(Site), siteId);
+					this._activeSite = this._siteService.GetSiteById(siteId);
 				}
 			}
 

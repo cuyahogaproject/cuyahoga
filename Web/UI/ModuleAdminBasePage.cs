@@ -9,6 +9,7 @@ using Cuyahoga.Core.Service;
 using Cuyahoga.Core.Search;
 using Cuyahoga.Core.Util;
 using Cuyahoga.Web.Util;
+using Cuyahoga.Web.Components;
 
 namespace Cuyahoga.Web.UI
 {
@@ -20,6 +21,7 @@ namespace Cuyahoga.Web.UI
 		private Node _node;
 		private Section _section;
 		private ModuleBase _module;
+		private ModuleLoader _moduleLoader;
 
 		/// <summary>
 		/// Property Node (Node)
@@ -46,6 +48,14 @@ namespace Cuyahoga.Web.UI
 		}
 
 		/// <summary>
+		/// Module loader (injected).
+		/// </summary>
+		public ModuleLoader ModuleLoader
+		{
+			set { this._moduleLoader = value; }
+		}
+
+		/// <summary>
 		/// Default constructor calls base constructor with parameters for templatecontrol, 
 		/// templatepath and stylesheet.
 		/// </summary>
@@ -68,8 +78,8 @@ namespace Cuyahoga.Web.UI
 				this._node = (Node)base.CoreRepository.GetObjectById(typeof(Node), nodeId);
 				int sectionId = Int32.Parse(Context.Request.QueryString["SectionId"]);
 				this._section = (Section)base.CoreRepository.GetObjectById(typeof(Section), sectionId);
-				this._section.SessionFactoryRebuilt += new EventHandler(Section_SessionFactoryRebuilt);
-				this._module = this._section.CreateModule(UrlHelper.GetUrlFromSection(this._section));
+				this._moduleLoader.ModuleAdded += new EventHandler(ModuleLoader_ModuleAdded);
+				this._module = this._moduleLoader.GetModuleFromSection(this._section);
 			}
 			catch (Exception ex)
 			{
@@ -142,14 +152,6 @@ namespace Cuyahoga.Web.UI
 			ib.Close();
 		}
 
-		private void Section_SessionFactoryRebuilt(object sender, EventArgs e)
-		{
-			// The SessionFactory was rebuilt, so the current NHibernate Session has become invalid.
-			// This is handled by a simple reload of the page. 
-			// TODO: handle more elegantly?
-			Context.Response.Redirect(Context.Request.RawUrl);
-		}
-
 		private void searchableModule_ContentCreated(object sender, IndexEventArgs e)
 		{
 			IndexContent(e.SearchContent, IndexAction.Create);	
@@ -170,6 +172,11 @@ namespace Cuyahoga.Web.UI
 			Create,
 			Update,
 			Delete
+		}
+
+		private void ModuleLoader_ModuleAdded(object sender, EventArgs e)
+		{
+			Context.Response.Redirect(Context.Request.RawUrl);
 		}
 	}
 }

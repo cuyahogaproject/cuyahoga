@@ -46,6 +46,7 @@ namespace Cuyahoga.Web.Components
 			AddComponent("core.siteservice", typeof(ISiteService), typeof(SiteService));
 			AddComponent("core.nodeservice", typeof(INodeService), typeof(NodeService));
 			AddComponent("core.sectionservice", typeof(ISectionService), typeof(SectionService));
+			AddComponent("core.templateservice", typeof(ITemplateService), typeof(TemplateService));
 
 			// Utility services
 			AddComponent("web.moduleloader", typeof(ModuleLoader));

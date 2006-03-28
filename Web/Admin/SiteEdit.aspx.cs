@@ -11,6 +11,8 @@ using System.Web.UI.HtmlControls;
 using System.Globalization;
 
 using Cuyahoga.Core.Domain;
+using Cuyahoga.Core.Service.SiteStructure;
+using Cuyahoga.Core.Service.Membership;
 using Cuyahoga.Web.UI;
 using Cuyahoga.Web.Admin.UI;
 
@@ -22,6 +24,8 @@ namespace Cuyahoga.Web.Admin
 	public class SiteEdit : AdminBasePage
 	{
 		private Site _activeSite;
+		private ITemplateService _templateService;
+		private IUserService _userService;
 
 		protected System.Web.UI.WebControls.TextBox txtName;
 		protected System.Web.UI.WebControls.RequiredFieldValidator rfvName;
@@ -40,6 +44,22 @@ namespace Cuyahoga.Web.Admin
 		protected System.Web.UI.WebControls.Repeater rptAliases;
 		protected System.Web.UI.WebControls.CheckBox chkUseFriendlyUrls;
 		protected System.Web.UI.WebControls.RequiredFieldValidator rfvSiteUrl;
+
+		/// <summary>
+		/// Template service (injected).
+		/// </summary>
+		public ITemplateService TemplateService
+		{
+			set { this._templateService = value; }
+		}
+
+		/// <summary>
+		/// User service (injected).
+		/// </summary>
+		public IUserService UserService
+		{
+			set { this._userService = value; }
+		}
 	
 		private void Page_Load(object sender, System.EventArgs e)
 		{
@@ -57,8 +77,7 @@ namespace Cuyahoga.Web.Admin
 				else
 				{
 					// Get site data
-					this._activeSite = (Site)base.CoreRepository.GetObjectById(typeof(Cuyahoga.Core.Domain.Site)
-						, Int32.Parse(Context.Request.QueryString["SiteId"]));
+					this._activeSite = base.SiteService.GetSiteById(Int32.Parse(Context.Request.QueryString["SiteId"]));
 					this.btnDelete.Visible = true;
 					this.btnDelete.Attributes.Add("onClick", "return confirm('Are you sure?')");
 				}
@@ -86,7 +105,7 @@ namespace Cuyahoga.Web.Admin
 
 		private void BindTemplates()
 		{
-			IList templates = base.CoreRepository.GetAll(typeof(Template), "Name");
+			IList templates = this._templateService.GetAllTemplates();
 			// Insert option for no template
 			Template emptyTemplate = new Template();
 			emptyTemplate.Id = -1;
@@ -113,7 +132,7 @@ namespace Cuyahoga.Web.Admin
 			{
 				try
 				{
-					Template template = (Template)base.CoreRepository.GetObjectById(typeof(Template), Int32.Parse(this.ddlTemplates.SelectedValue));
+					Template template = this._templateService.GetTemplateById(Int32.Parse(this.ddlTemplates.SelectedValue));
 					// Read template control and get the containers (placeholders)
 					string templatePath = Util.UrlHelper.GetApplicationPath() + template.Path;
 					BaseTemplate templateControl = (BaseTemplate)this.LoadControl(templatePath);
@@ -151,7 +170,7 @@ namespace Cuyahoga.Web.Admin
 
 		private void BindRoles()
 		{
-			this.ddlRoles.DataSource = base.CoreRepository.GetAll(typeof(Role), "PermissionLevel");
+			this.ddlRoles.DataSource = this._userService.GetAllRoles();
 			this.ddlRoles.DataValueField = "Id";
 			this.ddlRoles.DataTextField = "Name";
 			this.ddlRoles.DataBind();
@@ -163,32 +182,9 @@ namespace Cuyahoga.Web.Admin
 
 		private void BindAliases()
 		{
-			this.rptAliases.DataSource = base.CoreRepository.GetSiteAliasesBySite(this._activeSite);
+			this.rptAliases.DataSource = base.SiteService.GetSiteAliasesBySite(this._activeSite);
 			this.rptAliases.DataBind();
 			this.hplNewAlias.NavigateUrl = String.Format("~/Admin/SiteAliasEdit.aspx?SiteId={0}&SiteAliasId=-1", this._activeSite.Id);
-		}
-
-		private void SaveSite()
-		{
-			base.CoreRepository.ClearQueryCache("Sites");
-
-			try
-			{
-				if (this._activeSite.Id == -1)
-				{
-					base.CoreRepository.SaveObject(this._activeSite);
-					Context.Response.Redirect("Default.aspx");
-				}
-				else
-				{
-					base.CoreRepository.UpdateObject(this._activeSite);
-					ShowMessage("Site saved");
-				}
-			}
-			catch (Exception ex)
-			{
-				ShowError(ex.Message);
-			}				
 		}
 
 		#region Web Form Designer generated code
@@ -228,7 +224,7 @@ namespace Cuyahoga.Web.Admin
 				if (this.ddlTemplates.SelectedValue != "-1")
 				{
 					int templateId = Int32.Parse(this.ddlTemplates.SelectedValue);
-					Template template = (Template) base.CoreRepository.GetObjectById(typeof (Template), templateId);
+					Template template = this._templateService.GetTemplateById(templateId);
 					this._activeSite.DefaultTemplate = template;
 					if (this.ddlPlaceholders.SelectedIndex > -1)
 					{
@@ -242,40 +238,31 @@ namespace Cuyahoga.Web.Admin
 				}
 				this._activeSite.DefaultCulture = this.ddlCultures.SelectedValue;
 				int defaultRoleId = Int32.Parse(this.ddlRoles.SelectedValue);
-				this._activeSite.DefaultRole = (Role)base.CoreRepository.GetObjectById(typeof(Role), defaultRoleId);
+				this._activeSite.DefaultRole = this._userService.GetRoleById(defaultRoleId);
 
-				SaveSite();
+				try
+				{
+					base.SiteService.SaveSite(this._activeSite);
+					ShowMessage("Site saved.");
+				}
+				catch (Exception ex)
+				{
+					ShowError(ex.Message);
+				}
 			}
 		}
 
 		private void btnCancel_Click(object sender, System.EventArgs e)
 		{
-			Context.Response.Redirect("Default.aspx");
+			Response.Redirect("Default.aspx");
 		}
 
 		private void btnDelete_Click(object sender, System.EventArgs e)
 		{
-			base.CoreRepository.ClearQueryCache("Sites");
-
 			try
 			{
-				if (this._activeSite.RootNodes.Count > 0)
-				{
-					ShowError("Can't delete a site when there are still related nodes. Please delete all nodes before deleting an entire site.");
-				}
-				else
-				{
-					IList aliases = base.CoreRepository.GetSiteAliasesBySite(this._activeSite);
-					if (aliases.Count == 0)
-					{
-						base.CoreRepository.DeleteObject(this._activeSite);
-						Context.Response.Redirect("Default.aspx");
-					}
-					else
-					{
-						ShowError("Can't delete a site when there are aliases for the site. Please delete all aliases first.");
-					}
-				}
+				base.SiteService.DeleteSite(this._activeSite);
+				Response.Redirect("Default.aspx");
 			}
 			catch (Exception ex)
 			{

@@ -10,6 +10,7 @@ using System.Web.UI.WebControls;
 using System.Web.UI.HtmlControls;
 
 using Cuyahoga.Core.Domain;
+using Cuyahoga.Core.Service.SiteStructure;
 using Cuyahoga.Web.Admin.UI;
 
 namespace Cuyahoga.Web.Admin
@@ -19,13 +20,14 @@ namespace Cuyahoga.Web.Admin
 	/// </summary>
 	public class SiteAliasEdit : AdminBasePage
 	{
+		private SiteAlias _activeSiteAlias;
+
 		protected System.Web.UI.WebControls.TextBox txtUrl;
 		protected System.Web.UI.WebControls.RequiredFieldValidator rfvName;
 		protected System.Web.UI.WebControls.Button btnSave;
 		protected System.Web.UI.WebControls.Button btnCancel;
 		protected System.Web.UI.WebControls.Button btnDelete;
 		protected System.Web.UI.WebControls.DropDownList ddlEntryNodes;
-		private SiteAlias _activeSiteAlias;
 
 		private void Page_Load(object sender, System.EventArgs e)
 		{
@@ -39,8 +41,7 @@ namespace Cuyahoga.Web.Admin
 					this._activeSiteAlias = new SiteAlias();
 					if (Context.Request.QueryString["SiteId"] != null)
 					{
-						this._activeSiteAlias.Site = (Site)base.CoreRepository.GetObjectById(typeof(Cuyahoga.Core.Domain.Site)
-							, Int32.Parse(Context.Request.QueryString["SiteId"]));
+						this._activeSiteAlias.Site = base.SiteService.GetSiteById(Int32.Parse(Request.QueryString["SiteId"]));
 					}
 					else
 					{
@@ -51,8 +52,7 @@ namespace Cuyahoga.Web.Admin
 				else
 				{
 					// Get site alias data
-					this._activeSiteAlias = (SiteAlias)base.CoreRepository.GetObjectById(typeof(Cuyahoga.Core.Domain.SiteAlias)
-						, Int32.Parse(Context.Request.QueryString["SiteAliasId"]));
+					this._activeSiteAlias = base.SiteService.GetSiteAliasById(Int32.Parse(Request.QueryString["SiteAliasId"]));
 					this.btnDelete.Visible = true;
 					this.btnDelete.Attributes.Add("onClick", "return confirm('Are you sure?')");
 				}
@@ -98,21 +98,6 @@ namespace Cuyahoga.Web.Admin
 			}
 		}
 
-		private void SaveSiteAlias()
-		{
-			base.CoreRepository.ClearQueryCache("Sites");
-
-			if (this._activeSiteAlias.Id > 0)
-			{
-				base.CoreRepository.UpdateObject(this._activeSiteAlias);
-			}
-			else
-			{
-				base.CoreRepository.SaveObject(this._activeSiteAlias);
-			}
-			Context.Response.Redirect("SiteEdit.aspx?SiteId=" + this._activeSiteAlias.Site.Id.ToString());
-		}
-
 		#region Web Form Designer generated code
 		override protected void OnInit(EventArgs e)
 		{
@@ -139,7 +124,7 @@ namespace Cuyahoga.Web.Admin
 
 		private void btnCancel_Click(object sender, System.EventArgs e)
 		{
-			Context.Response.Redirect("SiteEdit.aspx?SiteId=" + this._activeSiteAlias.Site.Id.ToString());
+			Response.Redirect("SiteEdit.aspx?SiteId=" + this._activeSiteAlias.Site.Id.ToString());
 		}
 
 		private void btnSave_Click(object sender, System.EventArgs e)
@@ -150,25 +135,31 @@ namespace Cuyahoga.Web.Admin
 				if (this.ddlEntryNodes.SelectedIndex > 0)
 				{
 					int entryNodeId = Int32.Parse(this.ddlEntryNodes.SelectedValue);
-					this._activeSiteAlias.EntryNode = (Node)base.CoreRepository.GetObjectById(typeof(Node), entryNodeId);
+					this._activeSiteAlias.EntryNode = base.NodeService.GetNodeById(entryNodeId);
 				}
 				else
 				{
 					this._activeSiteAlias.EntryNode = null;
 				}
-				SaveSiteAlias();
+				try
+				{
+					base.SiteService.SaveSiteAlias(this._activeSiteAlias);
+					Response.Redirect("SiteEdit.aspx?SiteId=" + this._activeSiteAlias.Site.Id.ToString());
+				}
+				catch(Exception ex)
+				{
+					ShowError(ex.Message);
+				}
 			}
 		}
 
 		private void btnDelete_Click(object sender, System.EventArgs e)
 		{
-			base.CoreRepository.ClearQueryCache("Sites");
-
 			if (this._activeSiteAlias != null)
 			{
 				try
 				{
-					base.CoreRepository.DeleteObject(this._activeSiteAlias);
+					base.SiteService.DeleteSiteAlias(this._activeSiteAlias);
 					Context.Response.Redirect("SiteEdit.aspx?SiteId=" + this._activeSiteAlias.Site.Id.ToString());
 				}
 				catch (Exception ex)

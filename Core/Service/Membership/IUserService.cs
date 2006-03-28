@@ -37,5 +37,18 @@ namespace Cuyahoga.Core.Service.Membership
 		/// </summary>
 		/// <param name="user"></param>
 		void ResetPassword(string username, string email);
+
+		/// <summary>
+		/// Get all available roles.
+		/// </summary>
+		/// <returns></returns>
+		IList GetAllRoles();
+
+		/// <summary>
+		/// Get a single role by id.
+		/// </summary>
+		/// <param name="roleId"></param>
+		/// <returns></returns>
+		Role GetRoleById(int roleId);
 	}
 }

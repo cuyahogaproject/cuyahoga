@@ -101,5 +101,30 @@ namespace Cuyahoga.Core.DataAccess
 		/// <param name="moduleTypes"></param>
 		/// <returns></returns>
 		IList GetSectionsByModuleTypes(IList moduleTypes);
+
+		/// <summary>
+		/// Save a site instance.
+		/// </summary>
+		/// <param name="site"></param>
+		void SaveSite(Site site);
+
+		/// <summary>
+		/// Delete a site instance.
+		/// </summary>
+		/// <param name="site"></param>
+		void DeleteSite(Site site);
+
+		/// <summary>
+		/// Save a site alias instance.
+		/// </summary>
+		/// <param name="siteAlias"></param>
+		void SaveSiteAlias(SiteAlias siteAlias);
+
+		/// <summary>
+		/// Delete a site alias instance.
+		/// </summary>
+		/// <param name="siteAlias"></param>
+		void DeleteSiteAlias(SiteAlias siteAlias);
+
 	}
 }

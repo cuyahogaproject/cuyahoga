@@ -48,7 +48,7 @@ namespace Cuyahoga.Web.Admin.Controls
 
 		private void BuildNodeTree()
 		{
-			IList sites = this._page.CoreRepository.GetAll(typeof(Site));
+			IList sites = this._page.SiteService.GetAllSites();
 			DisplaySites(sites);
 		}
 

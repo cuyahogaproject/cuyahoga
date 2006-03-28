@@ -12,14 +12,16 @@ namespace Cuyahoga.Core.Service.Membership
 	public class DefaultUserService : IUserService
 	{
 		private IUserDao _userDao;
+		private ICommonDao _commonDao;
 
 		/// <summary>
 		/// Constructor.
 		/// </summary>
 		/// <param name="userDao"></param>
-		public DefaultUserService(IUserDao userDao)
+		public DefaultUserService(IUserDao userDao, ICommonDao commonDao)
 		{
 			this._userDao = userDao;
+			this._commonDao = commonDao;
 		}
 
 		#region IUserService Members
@@ -42,6 +44,16 @@ namespace Cuyahoga.Core.Service.Membership
 		public void ResetPassword(string username, string email)
 		{
 			throw new NotImplementedException();
+		}
+
+		public IList GetAllRoles()
+		{
+			return this._commonDao.GetAll(typeof(Role));
+		}
+
+		public Role GetRoleById(int roleId)
+		{
+			return (Role)this._commonDao.GetObjectById(typeof(Role), roleId);
 		}
 
 		#endregion

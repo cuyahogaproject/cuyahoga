@@ -436,6 +436,11 @@
                     BuildAction = "Compile"
                 />
                 <File
+                    RelPath = "Service\SiteStructure\ITemplateService.cs"
+                    SubType = "Code"
+                    BuildAction = "Compile"
+                />
+                <File
                     RelPath = "Service\SiteStructure\NodeService.cs"
                     SubType = "Code"
                     BuildAction = "Compile"
@@ -447,6 +452,11 @@
                 />
                 <File
                     RelPath = "Service\SiteStructure\SiteService.cs"
+                    SubType = "Code"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "Service\SiteStructure\TemplateService.cs"
                     SubType = "Code"
                     BuildAction = "Compile"
                 />

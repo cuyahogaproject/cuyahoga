@@ -12,6 +12,7 @@ namespace Cuyahoga.Core.DataAccess
 	/// <summary>
 	/// Provides data access for site structure components. NHibernate is being used here.
 	/// </summary>
+	[Transactional]
 	public class SiteStructureDao : ISiteStructureDao
 	{
 		private ISessionManager _sessionManager;
@@ -209,6 +210,54 @@ namespace Cuyahoga.Core.DataAccess
 			{
 				return null;
 			}
+		}
+
+		[Transaction(TransactionMode.Requires)]
+		public void SaveSite(Site site)
+		{
+			ISession session = this._sessionManager.OpenSession();
+
+			// Clear query cache first
+			session.SessionFactory.EvictQueries("Sites");
+
+			// Save site
+			session.SaveOrUpdate(site);
+		}
+
+		[Transaction(TransactionMode.Requires)]
+		public void DeleteSite(Site site)
+		{
+			ISession session = this._sessionManager.OpenSession();
+
+			// Clear query cache first
+			session.SessionFactory.EvictQueries("Sites");
+
+			// Delete site
+			session.Delete(site);
+		}
+
+		[Transaction(TransactionMode.Requires)]
+		public void SaveSiteAlias(SiteAlias siteAlias)
+		{
+			ISession session = this._sessionManager.OpenSession();
+
+			// Clear query cache first
+			session.SessionFactory.EvictQueries("Sites");
+
+			// Save site
+			session.SaveOrUpdate(siteAlias);
+		}
+
+		[Transaction(TransactionMode.Requires)]
+		public void DeleteSiteAlias(SiteAlias siteAlias)
+		{
+			ISession session = this._sessionManager.OpenSession();
+
+			// Clear query cache first
+			session.SessionFactory.EvictQueries("Sites");
+
+			// Delete site
+			session.Delete(siteAlias);
 		}
 
 		#endregion
