@@ -28,6 +28,8 @@ namespace Cuyahoga.Modules.Downloads
 		private DownloadsModuleActions _currentAction;
 		private IFileService _fileService;
 
+		#region properties
+
 		/// <summary>
 		/// The physical directory where the files are located.
 		/// </summary>
@@ -93,10 +95,12 @@ namespace Cuyahoga.Modules.Downloads
 			get { return this._showNumberOfDownloads; }
 		}
 
+		#endregion
+
 		/// <summary>
 		/// Constructor.
 		/// </summary>
-		/// <param name="section"></param>
+		/// <param name="fileService">FileService dependency</param>
 		public DownloadsModule(IFileService fileService)
 		{
 			this._fileService = fileService;
@@ -118,7 +122,7 @@ namespace Cuyahoga.Modules.Downloads
 		}
 
 		/// <summary>
-		/// Get the current file as stream.
+		/// Get the a file as stream.
 		/// </summary>
 		/// <returns></returns>
 		public System.IO.Stream GetFileAsStream(File file)
