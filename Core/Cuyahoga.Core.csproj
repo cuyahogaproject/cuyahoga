@@ -395,7 +395,27 @@
                     BuildAction = "Compile"
                 />
                 <File
+                    RelPath = "Service\Files\FileTransactionManager.cs"
+                    SubType = "Code"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "Service\Files\FileWriter.cs"
+                    SubType = "Code"
+                    BuildAction = "Compile"
+                />
+                <File
                     RelPath = "Service\Files\IFileService.cs"
+                    SubType = "Code"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "Service\Files\StreamUtil.cs"
+                    SubType = "Code"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "Service\Files\TransactionalFileService.cs"
                     SubType = "Code"
                     BuildAction = "Compile"
                 />

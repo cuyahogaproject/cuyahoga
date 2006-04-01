@@ -107,13 +107,6 @@ namespace Cuyahoga.Modules.Downloads.Web
 			}
 		}
 
-		private void DeleteCurrentFile()
-		{
-			this._downloadsModule.DeleteFile(this._file);
-			string fullFilePath = this._downloadsModule.FileDir + System.IO.Path.DirectorySeparatorChar + this._file.FilePath;
-			System.IO.File.Delete(fullFilePath);
-		}
-
 		private void SetRoles()
 		{
 			this._file.AllowedRoles.Clear();
@@ -172,20 +165,10 @@ namespace Cuyahoga.Modules.Downloads.Web
 				this._file.Section = base.Section;
 				
 				string fullFilePath = this._downloadsModule.FileDir + System.IO.Path.DirectorySeparatorChar + this._file.FilePath;
-				// First save the uploaded file.
+				// Save the file
 				try
 				{
-					postedFile.SaveAs(fullFilePath);
-				}
-				catch (Exception ex)
-				{
-					ShowError("Error uploading file: " + ex.Message);
-					return;
-				}
-				// Update the meta-information of the file.
-				try
-				{
-					this._downloadsModule.SaveFile(this._file);
+					this._downloadsModule.SaveFile(this._file, postedFile.InputStream);
 					if (this._fileId <= 0 && this._file.Id > 0)
 					{
 						// This appears to be a new file. Store the id of the file in the viewstate
@@ -196,9 +179,8 @@ namespace Cuyahoga.Modules.Downloads.Web
 				}
 				catch (Exception ex)
 				{
-					// Something went wrong during the update of the meta-information. Delete the file.
-					System.IO.File.Delete(fullFilePath);
-					ShowError("Error updating meta-information of the file: " + ex.Message);
+					// Something went wrong
+					ShowError("Error saving the file: " + ex.Message);
 				}
 			}
 		}
@@ -214,6 +196,7 @@ namespace Cuyahoga.Modules.Downloads.Web
 
 				try
 				{
+					// Only save meta data.
 					this._downloadsModule.SaveFile(this._file);
 					Context.Response.Redirect("EditDownloads.aspx" + base.GetBaseQueryString());
 				}
@@ -228,7 +211,7 @@ namespace Cuyahoga.Modules.Downloads.Web
 		{
 			try
 			{
-				DeleteCurrentFile();
+				this._downloadsModule.DeleteFile(this._file);
 				Context.Response.Redirect("EditDownloads.aspx" + base.GetBaseQueryString());
 			}
 			catch (Exception ex)
@@ -241,7 +224,7 @@ namespace Cuyahoga.Modules.Downloads.Web
 			// Check if there is a new file pending. This has to be deleted
 			if (ViewState["tempFileId"] != null)
 			{
-				DeleteCurrentFile();
+				this._downloadsModule.DeleteFile(this._file);
 			}
 			Context.Response.Redirect("EditDownloads.aspx" + base.GetBaseQueryString());
 		}

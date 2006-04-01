@@ -21,6 +21,7 @@ namespace Cuyahoga.Modules.Downloads.Web
 	{
 		private const int BUFFER_SIZE = 8192;
 
+
 		private DownloadsModule _downloadsModule;
 
 		protected System.Web.UI.WebControls.Repeater rptFiles;
@@ -52,89 +53,71 @@ namespace Cuyahoga.Modules.Downloads.Web
 		private void DownloadCurrentFile()
 		{
 			Domain.File file = this._downloadsModule.GetFileById(this._downloadsModule.CurrentFileId);
-			if (file.IsDownloadAllowed(this.Page.User.Identity))
+			Stream fileStream = this._downloadsModule.GetFileAsStream(file);
+			try
 			{
-				string physicalFilePath = Path.Combine(this._downloadsModule.FileDir, file.FilePath);
-				if (System.IO.File.Exists(physicalFilePath))
+				byte[] buffer = new byte[BUFFER_SIZE];
+
+				// Total bytes to read:
+				long dataToRead = fileStream.Length;
+
+				// Support for resuming downloads
+				long position = 0;
+				if (Request.Headers["Range"] != null)
 				{
-					Stream fileStream = null;
-					try
+					Response.StatusCode = 206;
+					Response.StatusDescription = "Partial Content";
+					position = long.Parse(Request.Headers["Range"].Replace("bytes=", "").Replace("-", ""));
+				}
+				if (position != 0)
+				{
+					Response.AddHeader("Content-Range", "bytes " + position.ToString() + "-" + ((long)(dataToRead - 1)).ToString() + "/" + dataToRead.ToString());
+				}
+				Response.ContentType = file.ContentType;
+				Response.AppendHeader("Content-Disposition", "attachment; filename=" + file.FilePath);
+				// The content length depends on the amount that is already transfered in an earlier request.
+				Response.AppendHeader("Content-Length", (fileStream.Length - position).ToString());
+			
+				// Stream the actual content
+				bool isInterrupted = false;
+				while (dataToRead > 0 && ! isInterrupted)
+				{
+					// Verify that the client is connected.
+					if (Response.IsClientConnected)
 					{
-						byte[] buffer = new byte[BUFFER_SIZE];
-						// Open the file.
-						fileStream = new System.IO.FileStream(physicalFilePath, System.IO.FileMode.Open,
-							System.IO.FileAccess.Read, System.IO.FileShare.Read);
+						// Read the data in buffer.
+						int length = fileStream.Read(buffer, 0, BUFFER_SIZE);
 
-						// Total bytes to read:
-						long dataToRead = fileStream.Length;
+						// Write the data to the current output stream.
+						Response.OutputStream.Write(buffer, 0, length);
 
-						// Support for resuming downloads
-						long position = 0;
-						if (Request.Headers["Range"] != null)
-						{
-							Response.StatusCode = 206;
-							Response.StatusDescription = "Partial Content";
-							position = long.Parse(Request.Headers["Range"].Replace("bytes=", "").Replace("-", ""));
-						}
-						if (position != 0)
-						{
-							Response.AddHeader("Content-Range", "bytes " + position.ToString() + "-" + ((long)(dataToRead - 1)).ToString() + "/" + dataToRead.ToString());
-						}
-						Response.ContentType = file.ContentType;
-						Response.AppendHeader("Content-Disposition", "attachment; filename=" + file.FilePath);
-						// The content length depends on the amount that is already transfered in an earlier request.
-						Response.AppendHeader("Content-Length", (fileStream.Length - position).ToString());
-					
-						// Stream the actual content
-						bool isInterrupted = false;
-						while (dataToRead > 0 && ! isInterrupted)
-						{
-							// Verify that the client is connected.
-							if (Response.IsClientConnected)
-							{
-								// Read the data in buffer.
-								int length = fileStream.Read(buffer, 0, BUFFER_SIZE);
+						// Flush the data to the HTML output.
+						Response.Flush();
 
-								// Write the data to the current output stream.
-								Response.OutputStream.Write(buffer, 0, length);
-
-								// Flush the data to the HTML output.
-								Response.Flush();
-
-								buffer = new byte[BUFFER_SIZE];
-								dataToRead = dataToRead - length;
-							}
-							else
-							{
-								//prevent infinite loop if user disconnects
-								isInterrupted = true;
-							}
-						}
-
-						// Only update download statistics if the download is succeeded.
-						if (! isInterrupted)
-						{
-							file.NrOfDownloads++;
-							this._downloadsModule.SaveFile(file);
-						}
+						buffer = new byte[BUFFER_SIZE];
+						dataToRead = dataToRead - length;
 					}
-					finally
+					else
 					{
-						if (fileStream != null)
-						{
-							fileStream.Close();
-						}
-						Response.End();
+						//prevent infinite loop if user disconnects
+						isInterrupted = true;
 					}
 				}
-				else
+
+				// Only update download statistics if the download is succeeded.
+				if (! isInterrupted)
 				{
-					throw new Exception("The physical file was not found on the server.");
+					file.NrOfDownloads++;
+					this._downloadsModule.SaveFile(file);
 				}
 			}
-			else
+			finally
 			{
-				throw new Exception("You are not allowed to download the file.");
+				if (fileStream != null)
+				{
+					fileStream.Close();
+				}
+				Response.End();
 			}
 		}
 

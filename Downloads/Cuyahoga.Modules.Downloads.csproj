@@ -114,6 +114,11 @@
                     Project = "{C64DAA00-AAB1-4AC7-ADE2-119B53B9666A}"
                     Package = "{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}"
                 />
+                <Reference
+                    Name = "Castle.Services.Transaction"
+                    AssemblyName = "Castle.Services.Transaction"
+                    HintPath = "..\lib\Castle.Services.Transaction.dll"
+                />
             </References>
         </Build>
         <Files>

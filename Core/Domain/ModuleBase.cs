@@ -3,6 +3,7 @@ using System.Web;
 
 using NHibernate;
 using Castle.Model;
+using Castle.Facilities.NHibernateIntegration;
 
 using Cuyahoga.Core.Service;
 
@@ -15,7 +16,7 @@ namespace Cuyahoga.Core.Domain
 	public abstract class ModuleBase
 	{
 		private Section _section;
-		private ISession _session;
+		private ISessionManager _sessionManager;
 		private bool _sessionFactoryRebuilt = false;
 		private string _modulePathInfo;
 		private string[] _moduleParams;
@@ -29,14 +30,14 @@ namespace Cuyahoga.Core.Domain
 		{
 			get 
 			{ 
-				if (this._session == null)
+				if (this._sessionManager != null)
 				{
-					// There is no NHibernate session. Obtain the session
-					// stored in the current ASP.NET context.
-					CoreRepository cr = HttpContext.Current.Items["CoreRepository"] as CoreRepository;
-					this._session = cr.ActiveSession;
+					return this._sessionManager.OpenSession(); 
 				}
-				return this._session;
+				else
+				{
+					throw new NullReferenceException("Unable to obtain an NHibernate session because the session manager is null.");
+				}
 			}
 		}
 
@@ -154,19 +155,27 @@ namespace Cuyahoga.Core.Domain
 		}
 
 		/// <summary>
+		/// Sets the NHibernate session manager for the module (injected).
+		/// </summary>
+		public ISessionManager SessionManager
+		{
+			set { this._sessionManager = value; }
+		}
+
+		/// <summary>
 		/// Constructor.
 		/// </summary>
 		public ModuleBase()
 		{
 		}
 
-		/// <summary>
-		/// Constructor that allows a section.
-		/// </summary>
-		public ModuleBase(Section section)
-		{
-			this._section = section;
-		}
+//		/// <summary>
+//		/// Constructor that allows a section.
+//		/// </summary>
+//		public ModuleBase(Section section)
+//		{
+//			this._section = section;
+//		}
 
 		/// <summary>
 		/// Override this method if you module needs module-specific pathinfo parsing.

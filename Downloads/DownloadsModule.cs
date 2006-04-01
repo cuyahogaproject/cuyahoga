@@ -4,9 +4,12 @@ using System.Web;
 
 using NHibernate;
 
+using Castle.Services.Transaction;
+
 using Cuyahoga.Core;
 using Cuyahoga.Core.Domain;
 using Cuyahoga.Core.Service;
+using Cuyahoga.Core.Service.Files;
 using Cuyahoga.Modules.Downloads.Domain;
 
 namespace Cuyahoga.Modules.Downloads
@@ -14,6 +17,7 @@ namespace Cuyahoga.Modules.Downloads
 	/// <summary>
 	/// The Downloads Module provides file downloads for users.
 	/// </summary>
+	[Transactional]
 	public class DownloadsModule : ModuleBase, INHibernateModule
 	{
 		private string _physicalDir;
@@ -22,6 +26,7 @@ namespace Cuyahoga.Modules.Downloads
 		private bool _showNumberOfDownloads;
 		private int _currentFileId;
 		private DownloadsModuleActions _currentAction;
+		private IFileService _fileService;
 
 		/// <summary>
 		/// The physical directory where the files are located.
@@ -89,11 +94,12 @@ namespace Cuyahoga.Modules.Downloads
 		}
 
 		/// <summary>
-		/// Default constructor.
+		/// Constructor.
 		/// </summary>
 		/// <param name="section"></param>
-		public DownloadsModule()
+		public DownloadsModule(IFileService fileService)
 		{
+			this._fileService = fileService;
 		}
 
 		public override void ReadSectionSettings()
@@ -111,6 +117,29 @@ namespace Cuyahoga.Modules.Downloads
 			this._showNumberOfDownloads = Convert.ToBoolean(base.Section.Settings["SHOW_NUMBER_OF_DOWNLOADS"]);
 		}
 
+		/// <summary>
+		/// Get the current file as stream.
+		/// </summary>
+		/// <returns></returns>
+		public System.IO.Stream GetFileAsStream(File file)
+		{
+			if (file.IsDownloadAllowed(HttpContext.Current.User.Identity))
+			{
+				string physicalFilePath = System.IO.Path.Combine(this.FileDir, file.FilePath);
+				if (System.IO.File.Exists(physicalFilePath))
+				{
+					return this._fileService.ReadFile(physicalFilePath);
+				}
+				else
+				{
+					throw new System.IO.FileNotFoundException("File not found", physicalFilePath);
+				}
+			}
+			else
+			{
+				throw new AccessForbiddenException("The current user has no permission to download the file.");
+			}
+		}
 
 		/// <summary>
 		/// Retrieve the meta-information of all files that belong to this module.
@@ -152,37 +181,39 @@ namespace Cuyahoga.Modules.Downloads
 		/// <summary>
 		/// Insert or update the meta-information of a file.
 		/// </summary>
-		public void SaveFile(File file)
+		[Transaction(TransactionMode.Requires)]
+		public virtual void SaveFile(File file)
 		{
-			ITransaction tx = base.NHSession.BeginTransaction();
-			try
-			{
-				base.NHSession.SaveOrUpdate(file);
-				tx.Commit();
-			}
-			catch (Exception ex)
-			{
-				tx.Rollback();
-				throw new Exception("Unable to save File", ex);
-			}
+			base.NHSession.SaveOrUpdate(file);
+		}
+
+		/// <summary>
+		/// Insert or update the meta-information of a file and update the file contents at the 
+		/// same time in one transaction.
+		/// </summary>
+		/// <param name="file"></param>
+		/// <param name="fileContents"></param>
+		[Transaction(TransactionMode.RequiresNew)]
+		public virtual void SaveFile(File file, System.IO.Stream fileContents)
+		{
+			// Save physical file.
+			string physicalFilePath = System.IO.Path.Combine(this.FileDir, file.FilePath);
+			this._fileService.WriteFile(physicalFilePath, fileContents);
+			// Save meta-information.
+			SaveFile(file);
 		}
 
 		/// <summary>
 		/// Delete the meta-information of a file
 		/// </summary>
-		public void DeleteFile(File file)
+		[Transaction(TransactionMode.RequiresNew)]
+		public virtual void DeleteFile(File file)
 		{
-			ITransaction tx = base.NHSession.BeginTransaction();
-			try
-			{
-				base.NHSession.Delete(file);
-				tx.Commit();
-			}
-			catch (Exception ex)
-			{
-				tx.Rollback();
-				throw new Exception("Unable to delete File", ex);
-			}
+			// Delete physical file.
+			string physicalFilePath = System.IO.Path.Combine(this.FileDir, file.FilePath);
+			this._fileService.DeleteFile(physicalFilePath);
+			// Delete meta information.
+			base.NHSession.Delete(file);
 		}
 
 		/// <summary>
