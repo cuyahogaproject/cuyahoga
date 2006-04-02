@@ -119,6 +119,11 @@
                     AssemblyName = "Castle.Services.Transaction"
                     HintPath = "..\lib\Castle.Services.Transaction.dll"
                 />
+                <Reference
+                    Name = "Castle.Facilities.NHibernateIntegration"
+                    AssemblyName = "Castle.Facilities.NHibernateIntegration"
+                    HintPath = "..\lib\Castle.Facilities.NHibernateIntegration.dll"
+                />
             </References>
         </Build>
         <Files>

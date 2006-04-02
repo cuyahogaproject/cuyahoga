@@ -108,7 +108,7 @@ namespace Cuyahoga.Modules.Downloads.Web
 				if (! isInterrupted)
 				{
 					file.NrOfDownloads++;
-					this._downloadsModule.SaveFile(file);
+					this._downloadsModule.SaveFileInfo(file);
 				}
 			}
 			finally

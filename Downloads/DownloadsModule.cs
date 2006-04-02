@@ -3,8 +3,8 @@ using System.Collections;
 using System.Web;
 
 using NHibernate;
-
 using Castle.Services.Transaction;
+using Castle.Facilities.NHibernateIntegration;
 
 using Cuyahoga.Core;
 using Cuyahoga.Core.Domain;
@@ -26,6 +26,7 @@ namespace Cuyahoga.Modules.Downloads
 		private bool _showNumberOfDownloads;
 		private int _currentFileId;
 		private DownloadsModuleActions _currentAction;
+		private ISessionManager _sessionManager;
 		private IFileService _fileService;
 
 		#region properties
@@ -100,9 +101,11 @@ namespace Cuyahoga.Modules.Downloads
 		/// <summary>
 		/// Constructor.
 		/// </summary>
-		/// <param name="fileService">FileService dependency</param>
-		public DownloadsModule(IFileService fileService)
+		/// <param name="fileService">FileService dependency.</param>
+		/// <param name="sessionManager">NHibernate session manager dependency.</param>
+		public DownloadsModule(IFileService fileService, ISessionManager sessionManager)
 		{
+			this._sessionManager = sessionManager;
 			this._fileService = fileService;
 		}
 
@@ -151,8 +154,9 @@ namespace Cuyahoga.Modules.Downloads
 		/// <returns></returns>
 		public IList GetAllFiles()
 		{
+			ISession session = this._sessionManager.OpenSession();
 			string hql = "from File f where f.Section.Id = :sectionId order by f.DatePublished desc";
-			IQuery q = base.NHSession.CreateQuery(hql);
+			IQuery q = session.CreateQuery(hql);
 			q.SetInt32("sectionId", base.Section.Id);
 
 			try
@@ -172,23 +176,15 @@ namespace Cuyahoga.Modules.Downloads
 		/// <returns></returns>
 		public File GetFileById(int fileId)
 		{
+			ISession session = this._sessionManager.OpenSession();
 			try
 			{
-				return (File)base.NHSession.Load(typeof(File), fileId);
+				return (File)session.Load(typeof(File), fileId);
 			}
 			catch (Exception ex)
 			{
 				throw new Exception("Unable to get File with identifier: " + fileId.ToString(), ex);
 			}
-		}
-
-		/// <summary>
-		/// Insert or update the meta-information of a file.
-		/// </summary>
-		[Transaction(TransactionMode.Requires)]
-		public virtual void SaveFile(File file)
-		{
-			base.NHSession.SaveOrUpdate(file);
 		}
 
 		/// <summary>
@@ -204,7 +200,19 @@ namespace Cuyahoga.Modules.Downloads
 			string physicalFilePath = System.IO.Path.Combine(this.FileDir, file.FilePath);
 			this._fileService.WriteFile(physicalFilePath, fileContents);
 			// Save meta-information.
-			SaveFile(file);
+			SaveFileInfo(file);
+		}
+
+		/// <summary>
+		/// Insert or update the meta-information of a file.
+		/// </summary>
+		[Transaction(TransactionMode.Requires)]
+		public virtual void SaveFileInfo(File file)
+		{
+			// Obtain current NHibernate session.
+			ISession session = this._sessionManager.OpenSession();
+			// Save meta-information
+			session.SaveOrUpdate(file);
 		}
 
 		/// <summary>
@@ -217,7 +225,8 @@ namespace Cuyahoga.Modules.Downloads
 			string physicalFilePath = System.IO.Path.Combine(this.FileDir, file.FilePath);
 			this._fileService.DeleteFile(physicalFilePath);
 			// Delete meta information.
-			base.NHSession.Delete(file);
+			ISession session = this._sessionManager.OpenSession();
+			session.Delete(file);
 		}
 
 		/// <summary>

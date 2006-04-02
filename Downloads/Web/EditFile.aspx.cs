@@ -197,7 +197,7 @@ namespace Cuyahoga.Modules.Downloads.Web
 				try
 				{
 					// Only save meta data.
-					this._downloadsModule.SaveFile(this._file);
+					this._downloadsModule.SaveFileInfo(this._file);
 					Context.Response.Redirect("EditDownloads.aspx" + base.GetBaseQueryString());
 				}
 				catch (Exception ex)
