@@ -480,12 +480,12 @@ namespace Cuyahoga.ServerControls
 
 		private int GetCurrentPageGroupIndex()
 		{
-			return (int)Math.Floor(this.CurrentPageIndex / this.MaxDisplayPages);
+			return (int)Math.Floor((double)(this.CurrentPageIndex / this.MaxDisplayPages));
 		}
 
 		private int GetTotalPageGroups()
 		{
-			return (int)Math.Ceiling(this.TotalPages / this.MaxDisplayPages);
+			return (int)Math.Ceiling((double)(this.TotalPages / this.MaxDisplayPages));
 		}
 
 		#endregion
