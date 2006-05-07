@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8" ?> 
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.0">
+	<class name="Cuyahoga.Core.Domain.IContentItem, Cuyahoga.Core" table="cuyahoga_contentitem">
+		
+		<cache usage="read-write" />
+
+		<id name="Id" column="contentitemid" type="Int64" unsaved-value="-1">
+			<generator class="native">
+				<param name="sequence">cuyahoga_contentitem_contentitemid_seq</param>
+			</generator>
+		</id>
+
+		<!--<property name="GlobalId" column="globalid" type="Guid" />-->
+		<!--<property name="GlobalId" column="globalid" type="String" length="255" not-null="true" />-->
+		<property name="Title" column="title" type="String" length="255" not-null="true" />
+		<property name="Description" column="description" type="String" length="255" not-null="false" />
+		<property name="Version" column="version" type="Int32" not-null="true" />
+		<property name="TypeInfo" column="typeinfo" type="String" length="255" not-null="true" />
+		<!-- <property name="Classification" column="classification" type="Cuyahoga.Core.Domain.ContentItemClass, Cuyahoga.Core"/> -->
+		<property name="CreatedAt" column="createdat" type="DateTime" not-null="false" />
+		<property name="ModifiedAt" column="modifiedat" type="DateTime" not-null="false" />
+		<property name="PublishedAt" column="publishedat" type="DateTime" not-null="false" />
+	
+		<many-to-one name="CreatedBy" class="Cuyahoga.Core.Domain.User, Cuyahoga.Core" column="createdby" not-null="false" />
+		<many-to-one name="ModifiedBy" class="Cuyahoga.Core.Domain.User, Cuyahoga.Core" column="modifiedby" not-null="false" />
+		<many-to-one name="PublishedBy" class="Cuyahoga.Core.Domain.User, Cuyahoga.Core" column="publishedby" not-null="false" />
+		
+		<many-to-one name="Section" class="Cuyahoga.Core.Domain.Section, Cuyahoga.Core" column="sectionid" not-null="true" />
+		
+		<!-- <bag name="Categories" table="cuyahoga_categorycontentitem" cascade="none" lazy="true" inverse="true">
+			<cache usage="read-write" />
+			<key column="contentitemid" />
+			<many-to-many column="categoryid" class="Cuyahoga.Core.Domain.Category, Cuyahoga.Core" />
+		</bag> -->
+		
+		
+	</class>
+</hibernate-mapping>

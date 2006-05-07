@@ -174,7 +174,27 @@
                     BuildAction = "Compile"
                 />
                 <File
+                    RelPath = "DataAccess\ContentItemDao.cs"
+                    SubType = "Code"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "DataAccess\FileResourceDao.cs"
+                    SubType = "Code"
+                    BuildAction = "Compile"
+                />
+                <File
                     RelPath = "DataAccess\ICommonDao.cs"
+                    SubType = "Code"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "DataAccess\IContentItemDao.cs"
+                    SubType = "Code"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "DataAccess\IFileResourceDao.cs"
                     SubType = "Code"
                     BuildAction = "Compile"
                 />
@@ -199,6 +219,21 @@
                     BuildAction = "Compile"
                 />
                 <File
+                    RelPath = "Domain\Category.cs"
+                    SubType = "Code"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "Domain\CategorySystem.cs"
+                    SubType = "Code"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "Domain\ContentItem.cs"
+                    SubType = "Code"
+                    BuildAction = "Compile"
+                />
+                <File
                     RelPath = "Domain\CustomMenu.cs"
                     SubType = "Code"
                     BuildAction = "Compile"
@@ -211,6 +246,24 @@
                     RelPath = "Domain\Enumerations.cs"
                     SubType = "Code"
                     BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "Domain\FileResource.cs"
+                    SubType = "Code"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "Domain\FileResource.hbm.xml"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Domain\IContentItem.cs"
+                    SubType = "Code"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "Domain\IContentItem.hbm.xml"
+                    BuildAction = "EmbeddedResource"
                 />
                 <File
                     RelPath = "Domain\ModuleBase.cs"
@@ -390,7 +443,22 @@
                     BuildAction = "Compile"
                 />
                 <File
+                    RelPath = "Service\Content\ContentItemService.cs"
+                    SubType = "Code"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "Service\Content\IContentItemService.cs"
+                    SubType = "Code"
+                    BuildAction = "Compile"
+                />
+                <File
                     RelPath = "Service\Email\IEmailService.cs"
+                    SubType = "Code"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "Service\Files\FileResourceService.cs"
                     SubType = "Code"
                     BuildAction = "Compile"
                 />
@@ -401,6 +469,11 @@
                 />
                 <File
                     RelPath = "Service\Files\FileWriter.cs"
+                    SubType = "Code"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "Service\Files\IFileResourceService.cs"
                     SubType = "Code"
                     BuildAction = "Compile"
                 />
