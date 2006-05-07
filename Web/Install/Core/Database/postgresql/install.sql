@@ -1,4 +1,3 @@
-
 CREATE TABLE cuyahoga_user(
 userid serial NOT NULL CONSTRAINT PK_user PRIMARY KEY,
 username varchar(50) NOT NULL CONSTRAINT UC_user_username UNIQUE,
@@ -199,12 +198,59 @@ CONSTRAINT FK_sectionrole_section_sectionid FOREIGN KEY (sectionid) REFERENCES c
 
 CREATE UNIQUE INDEX IX_sectionrole_roleid_sectionid ON cuyahoga_sectionrole (roleid,sectionid);
 
+CREATE TABLE cuyahoga_contentitem(
+contentitemid serial8 NOT NULL,
+globalid varchar(255),
+title varchar(255) NOT NULL,
+description varchar(255),
+version int4 NOT NULL,
+typeinfo varchar(255) NOT NULL,
+createdat timestamp DEFAULT current_timestamp,
+modifiedat timestamp,
+publishedat timestamp,
+createdby int4,
+modifiedby int4,
+publishedby int4,
+sectionid int4,
+CONSTRAINT PK_contentitem PRIMARY KEY (contentitemid),
+CONSTRAINT FK_contentitem_user_createdby FOREIGN KEY (createdby) REFERENCES cuyahoga_user (userid),
+CONSTRAINT FK_contentitem_user_modifiedby FOREIGN KEY (modifiedby) REFERENCES cuyahoga_user (userid),
+CONSTRAINT FK_contentitem_user_publishedby FOREIGN KEY (publishedby) REFERENCES cuyahoga_user (userid),
+CONSTRAINT FK_contentitem_section_sectionid  FOREIGN KEY (sectionid) REFERENCES cuyahoga_section (sectionid));
+ 
+CREATE TABLE cuyahoga_fileresource(
+fileresourceid int8 NOT NULL,
+physicalpath varchar(255) NOT NULL,
+length int8,
+mimetype varchar(255),
+filename varchar(255),
+downloadcount int4,
+CONSTRAINT FK_fileresource_contentitem_fileresourceid FOREIGN KEY (fileresourceid) REFERENCES cuyahoga_contentitem (contentitemid),
+CONSTRAINT PK_fileresource PRIMARY KEY (fileresourceid));
+
+CREATE TABLE cuyahoga_fileresourceuserattributes(
+fileresourceuserattributesid serial NOT NULL CONSTRAINT PK_fileresourceuserattributes PRIMARY KEY,
+fileresourceid int8 NOT NULL,
+attributekey varchar(50) NOT NULL,
+attributevalue varchar(255) NOT NULL, 
+CONSTRAINT FK_fileresourceuserattributes_fileresource_fileresourceid FOREIGN KEY (fileresourceid) REFERENCES cuyahoga_fileresource (fileresourceid));
+
+CREATE TABLE cuyahoga_fileresourcerole(
+fileresourceroleid serial NOT NULL CONSTRAINT PK_fileresourcerole PRIMARY KEY,
+fileresourceid int8 NOT NULL,
+roleid int4 NOT NULL,
+CONSTRAINT FK_fileresourcerole_fileresource_fileresourceid FOREIGN KEY (fileresourceid) REFERENCES cuyahoga_fileresource (fileresourceid),
+CONSTRAINT FK_fileresourcerole_role_roleid FOREIGN KEY (roleid) REFERENCES cuyahoga_role (roleid));
+
+
+
 CREATE TABLE cuyahoga_version(
 versionid serial NOT NULL CONSTRAINT PK_version PRIMARY KEY,
 assembly varchar(255) NOT NULL,
 major int NOT NULL,
 minor int NOT NULL,
 patch int NOT NULL);
+
 
 -- DATA --
 

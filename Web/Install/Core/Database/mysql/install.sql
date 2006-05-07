@@ -219,6 +219,57 @@ FOREIGN KEY (sectionid) REFERENCES cuyahoga_section (sectionid),
 PRIMARY KEY (sectionroleid),
 UNIQUE IX_sectionrole_roleid_sectionid (roleid,sectionid));
 
+
+CREATE TABLE cuyahoga_contentitem(
+contentitemid BIGINT NOT NULL AUTO_INCREMENT,
+globalid VARCHAR(255),
+title VARCHAR(255) NOT NULL,
+description VARCHAR(255),
+version INT NOT NULL,
+typeinfo VARCHAR(255) NOT NULL,
+createdat DATETIME,
+modifiedat DATETIME,
+publishedat DATETIME,
+createdby INT,
+modifiedby INT,
+publishedby INT,
+sectionid INT,
+PRIMARY KEY (contentitemid),
+FOREIGN KEY (createdby) REFERENCES cuyahoga_user (userid),
+FOREIGN KEY (modifiedby) REFERENCES cuyahoga_user (userid),
+FOREIGN KEY (publishedby) REFERENCES cuyahoga_user (userid),
+FOREIGN KEY (sectionid) REFERENCES cuyahoga_section (sectionid));
+ 
+
+CREATE TABLE cuyahoga_fileresource(
+fileresourceid BIGINT NOT NULL,
+physicalpath VARCHAR(255) NOT NULL,
+length BIGINT,
+mimetype VARCHAR(255),
+filename VARCHAR(255),
+downloadcount INT,
+FOREIGN KEY (fileresourceid) REFERENCES cuyahoga_contentitem (contentitemid),
+PRIMARY KEY (fileresourceid));
+
+
+CREATE TABLE cuyahoga_fileresourceuserattributes(
+fileresourceuserattributesid INT NOT NULL AUTO_INCREMENT,
+fileresourceid BIGINT NOT NULL,
+attributekey varchar(50) NOT NULL,
+attributevalue varchar(255) NOT NULL, 
+FOREIGN KEY (fileresourceid) REFERENCES cuyahoga_fileresource (fileresourceid),
+PRIMARY KEY (fileresourceuserattributesid));
+
+
+CREATE TABLE cuyahoga_fileresourcerole(
+fileresourceroleid INT NOT NULL AUTO_INCREMENT,
+fileresourceid BIGINT NOT NULL,
+roleid INT NOT NULL,
+FOREIGN KEY (fileresourceid) REFERENCES cuyahoga_fileresource (fileresourceid),
+FOREIGN KEY (roleid) REFERENCES cuyahoga_role (roleid),
+PRIMARY KEY (fileresourceroleid));
+
+
 CREATE TABLE cuyahoga_version(
 versionid INT NOT NULL AUTO_INCREMENT,
 assembly VARCHAR(255) NOT NULL,
