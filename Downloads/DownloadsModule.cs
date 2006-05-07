@@ -99,7 +99,7 @@ namespace Cuyahoga.Modules.Downloads
 		#endregion
 
 		/// <summary>
-		/// Constructor.
+		/// DownloadsModule constructor.
 		/// </summary>
 		/// <param name="fileService">FileService dependency.</param>
 		/// <param name="sessionManager">NHibernate session manager dependency.</param>
@@ -216,7 +216,7 @@ namespace Cuyahoga.Modules.Downloads
 		}
 
 		/// <summary>
-		/// Delete the meta-information of a file
+		/// Delete a file
 		/// </summary>
 		[Transaction(TransactionMode.RequiresNew)]
 		public virtual void DeleteFile(File file)

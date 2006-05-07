@@ -11,6 +11,8 @@ using NHibernate.Cfg;
 using Cuyahoga.Core.DataAccess;
 using Cuyahoga.Core.Service;
 using Cuyahoga.Core.Service.SiteStructure;
+using Cuyahoga.Core.Service.Content;
+using Cuyahoga.Core.Service.Files;
 
 namespace Cuyahoga.Web.Components
 {
@@ -37,17 +39,8 @@ namespace Cuyahoga.Web.Components
 
 		private void RegisterServices()
 		{
-			// Data access components
-			AddComponent("core.commondao", typeof(ICommonDao), typeof(CommonDao));
-			AddComponent("core.sitestructuredao", typeof(ISiteStructureDao), typeof(SiteStructureDao));
-			AddComponent("core.userdao", typeof(IUserDao), typeof(UserDao));
+			// The core services are registrated via services.config
 			
-			// Core services
-			AddComponent("core.siteservice", typeof(ISiteService), typeof(SiteService));
-			AddComponent("core.nodeservice", typeof(INodeService), typeof(NodeService));
-			AddComponent("core.sectionservice", typeof(ISectionService), typeof(SectionService));
-			AddComponent("core.templateservice", typeof(ITemplateService), typeof(TemplateService));
-
 			// Utility services
 			AddComponent("web.moduleloader", typeof(ModuleLoader));
 			AddComponent("core.sessionfactoryhelper", typeof(SessionFactoryHelper));
@@ -55,7 +48,6 @@ namespace Cuyahoga.Web.Components
 			// Legacy
 			AddComponent("corerepositoryadapter", typeof(CoreRepositoryAdapter));
 		}
-
 
 		private void ConfigureLegacySessionFactory()
 		{

@@ -6,6 +6,7 @@ using System.Configuration;
 using Cuyahoga.Core;
 using Cuyahoga.Core.Domain;
 using Cuyahoga.Core.Service.SiteStructure;
+using Cuyahoga.Web.Components;
 using Cuyahoga.Web.UI;
 
 namespace Cuyahoga.Web.Admin.UI
@@ -21,6 +22,7 @@ namespace Cuyahoga.Web.Admin.UI
 		private ISiteService _siteService;
 		private INodeService _nodeService;
 		private ISectionService _sectionService;
+		private ModuleLoader _moduleLoader;
 
 		/// <summary>
 		/// The Site context of the admin page.
@@ -72,6 +74,15 @@ namespace Cuyahoga.Web.Admin.UI
 		{
 			get { return this._sectionService; }
 			set { this._sectionService = value; }
+		}
+
+		/// <summary>
+		/// Moduleloader (injected).
+		/// </summary>
+		public ModuleLoader ModuleLoader
+		{
+			get { return this._moduleLoader; }
+			set { this._moduleLoader = value; }
 		}
 
 		/// <summary>

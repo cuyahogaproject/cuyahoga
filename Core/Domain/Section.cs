@@ -230,7 +230,7 @@ namespace Cuyahoga.Core.Domain
 				}
 				else
 				{
-					ModuleBase concreteModule = (ModuleBase)Activator.CreateInstance(moduleType, new object[] {this});
+					ModuleBase concreteModule = (ModuleBase)Activator.CreateInstance(moduleType, null);
 					if (concreteModule.SessionFactoryRebuilt)
 					{
 						OnSessionFactoryRebuilt(EventArgs.Empty);

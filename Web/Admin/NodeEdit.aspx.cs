@@ -593,7 +593,7 @@ namespace Cuyahoga.Web.Admin
 					try
 					{
 						// First tell the module to remove its content.
-						ModuleBase module = section.CreateModule(UrlHelper.GetUrlFromSection(section));
+						ModuleBase module = ModuleLoader.GetModuleFromSection(section);
 						module.DeleteModuleContent();
 						// Make sure there is no gap in the section indexes. 
 						// ABUSE: this method was not designed for this, but works fine.
