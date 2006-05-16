@@ -2,7 +2,7 @@
 <project default="build" basedir="." xmlns="http://nant.sf.net/release/0.85-rc3/nant.xsd">
 	<!-- global project settings -->
 	<property name="project.name" value="Cuyahoga" />
-	<property name="project.version" value="1.0.0" />
+	<property name="project.version" value="1.x.x" />
 	<!-- default configuration -->
 	<property name="project.config" value="debug" /> <!-- debug|release -->
 	<property name="lib.dir" value="lib" />
@@ -42,6 +42,7 @@
 		<copy todir="${build.dir}/bin">
 			<fileset basedir="${lib.dir}">
 				<include name="**/*.dll" />
+				<include name="**/*.txt" />
 			</fileset>
 		</copy>
 	</target>
@@ -63,6 +64,8 @@
 				<include name="${lib.dir}/Nullables.dll" />
 				<include name="${lib.dir}/log4net.dll" />
 				<include name="${lib.dir}/Lucene.Net.*" />
+				<include name="${lib.dir}/Castle.*" />
+				<exclude name="${lib.dir}/*.txt" />
 			</references>
 		</csc>
 	</target>
@@ -103,6 +106,8 @@
 				<include name="${lib.dir}/Lucene.Net.*" />
 				<include name="${build.dir}/bin/Cuyahoga.Core.dll" />
 				<include name="${build.dir}/bin/Cuyahoga.ServerControls.dll" />
+				<include name="${lib.dir}/Castle.*" />
+				<exclude name="${lib.dir}/*.txt" />
 			</references>
 		</csc>
 	</target>
@@ -131,6 +136,8 @@
 				<include name="${build.dir}/bin/Cuyahoga.Core.dll" />
 				<include name="${build.dir}/bin/Cuyahoga.Web.dll" />
 				<include name="${build.dir}/bin/Cuyahoga.ServerControls.dll" />
+				<include name="${lib.dir}/Castle.*" />
+				<exclude name="${lib.dir}/*.txt" />
 			</references>
 		</csc>
 	</target>
@@ -157,7 +164,9 @@
 				<include name="${build.dir}/bin/Cuyahoga.Core.dll" />
 				<include name="${build.dir}/bin/Cuyahoga.Web.dll" />
 				<include name="${build.dir}/bin/Cuyahoga.ServerControls.dll" />
-			</references>
+				<include name="${lib.dir}/Castle.*" />
+				<exclude name="${lib.dir}/*.txt" />
+		</references>
 		</csc>
 	</target>
 	<target name="sdkdoc" depends="init" description="Generates MSDN style documentation">
