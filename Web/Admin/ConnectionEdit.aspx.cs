@@ -21,7 +21,6 @@ namespace Cuyahoga.Web.Admin
 	/// </summary>
 	public class ConnectionEdit : Cuyahoga.Web.Admin.UI.AdminBasePage
 	{
-		private ModuleLoader _moduleLoader;
 		private Section _activeSection;
 		private IActionProvider _activeActionProvider;
 
@@ -32,14 +31,6 @@ namespace Cuyahoga.Web.Admin
 		protected System.Web.UI.WebControls.DropDownList ddlSectionTo;
 		protected System.Web.UI.WebControls.Button btnSave;
 		protected System.Web.UI.WebControls.Button btnBack;
-
-		/// <summary>
-		/// 
-		/// </summary>
-		public ModuleLoader ModuleLoader
-		{
-			set { this._moduleLoader = value; }
-		}
 	
 		private void Page_Load(object sender, System.EventArgs e)
 		{
@@ -51,7 +42,7 @@ namespace Cuyahoga.Web.Admin
 				this._activeSection = (Section)base.CoreRepository.GetObjectById(typeof(Section), 
 					Int32.Parse(Context.Request.QueryString["SectionId"]));
 
-				ModuleBase moduleInstance = this._moduleLoader.GetModuleFromSection(this._activeSection);
+				ModuleBase moduleInstance = base.ModuleLoader.GetModuleFromSection(this._activeSection);
 				if (moduleInstance is IActionProvider)
 				{
 					this._activeActionProvider = moduleInstance as IActionProvider;
@@ -104,17 +95,20 @@ namespace Cuyahoga.Web.Admin
 			{
 				string assemblyQualifiedName = mt.ClassName + ", " + mt.AssemblyName;
 				Type moduleTypeType = Type.GetType(assemblyQualifiedName);
-				Section dummySection = new Section();
-				ModuleBase moduleInstance = (ModuleBase)Activator.CreateInstance(moduleTypeType);
-				if (moduleInstance is IActionConsumer)
-				{
-					IActionConsumer actionConsumer = moduleInstance as IActionConsumer;
-					Action currentAction = this._activeActionProvider.GetOutboundActions().FindByName(selectedAction);
-					if (actionConsumer.GetInboundActions().Contains(currentAction))
-					{
-						compatibleModuleTypes.Add(mt);
-					}
-				}
+
+                if (moduleTypeType != null) // throw exception when moduleTypeType == null?
+                {
+                    ModuleBase moduleInstance = base.ModuleLoader.GetModuleFromType(moduleTypeType);
+                    if (moduleInstance is IActionConsumer)
+                    {
+                        IActionConsumer actionConsumer = moduleInstance as IActionConsumer;
+                        Action currentAction = this._activeActionProvider.GetOutboundActions().FindByName(selectedAction);
+                        if (actionConsumer.GetInboundActions().Contains(currentAction))
+                        {
+                            compatibleModuleTypes.Add(mt);
+                        }
+                    }
+                }
 			}
 
 			if (compatibleModuleTypes.Count > 0)

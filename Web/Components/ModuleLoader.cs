@@ -1,5 +1,4 @@
 using System;
-using System.Collections;
 
 using Castle.MicroKernel;
 using Castle.Model;
@@ -7,7 +6,6 @@ using Castle.Model;
 using Cuyahoga.Core;
 using Cuyahoga.Core.Domain;
 using Cuyahoga.Core.Service;
-using Cuyahoga.Web.UI;
 using Cuyahoga.Web.Util;
 
 namespace Cuyahoga.Web.Components
@@ -60,27 +58,37 @@ namespace Cuyahoga.Web.Components
 			}
 			else
 			{
-				if (! this._kernel.HasComponent(moduleType))
-				{
-					// Module is not registered, do it now.
-					this._kernel.AddComponent("module." + section.ModuleType.Name, moduleType);
-
-					if (typeof(INHibernateModule).IsAssignableFrom(moduleType))
-					{
-						// Module needs its NHibernate mappings registered.
-						this._sessionFactoryHelper.AddAssembly(moduleType.Assembly);
-						OnModuleAdded();
-					}
-				}
-
-				// Kernel 'knows' the module, return a fresh instance (ModuleBase is transient).
-				ModuleBase module = this._kernel[moduleType] as ModuleBase;
-				module.Section = section;
+			    ModuleBase module = GetModuleFromType(moduleType);
+			    module.Section = section;
 				module.SectionUrl = UrlHelper.GetUrlFromSection(section);
 				module.ReadSectionSettings();
 
 				return module;
 			}
 		}
+
+	    /// <summary>
+	    /// Get a module instance of a given type.
+	    /// </summary>
+	    /// <param name="moduleType"></param>
+	    /// <returns></returns>
+	    public ModuleBase GetModuleFromType(Type moduleType)
+	    {
+	        if (! this._kernel.HasComponent(moduleType))
+	        {
+	            // Module is not registered, do it now.
+	            this._kernel.AddComponent("module." + moduleType.FullName, moduleType);
+
+	            if (typeof(INHibernateModule).IsAssignableFrom(moduleType))
+	            {
+	                // Module needs its NHibernate mappings registered.
+	                this._sessionFactoryHelper.AddAssembly(moduleType.Assembly);
+	                OnModuleAdded();
+	            }
+	        }
+
+	        // Kernel 'knows' the module, return a fresh instance (ModuleBase is transient).
+	        return this._kernel[moduleType] as ModuleBase;
+	    }
 	}
 }
