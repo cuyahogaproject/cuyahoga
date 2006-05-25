@@ -1,18 +1,7 @@
-using System;
-
 using Castle.Windsor;
 using Castle.Windsor.Configuration.Interpreters;
-using Castle.Facilities.NHibernateIntegration;
-using Castle.Facilities.AutomaticTransactionManagement;
 
-using NHibernate;
-using NHibernate.Cfg;
-
-using Cuyahoga.Core.DataAccess;
 using Cuyahoga.Core.Service;
-using Cuyahoga.Core.Service.SiteStructure;
-using Cuyahoga.Core.Service.Content;
-using Cuyahoga.Core.Service.Files;
 
 namespace Cuyahoga.Web.Components
 {
@@ -33,8 +22,8 @@ namespace Cuyahoga.Web.Components
 
 		private void RegisterFacilities()
 		{
-			AddFacility("nhibernate", new Cuyahoga.Core.Facilities.CuyahogaNHibernateFacility());
-			AddFacility("autotransaction", new TransactionFacility());
+			//AddFacility("nhibernate", new Cuyahoga.Core.Facilities.CuyahogaNHibernateFacility());
+			//AddFacility("autotransaction", new TransactionFacility());
 		}
 
 		private void RegisterServices()
