@@ -101,10 +101,6 @@
       <Name>log4net</Name>
       <HintPath>..\lib\log4net.dll</HintPath>
     </Reference>
-    <Reference Include="NHibernate">
-      <Name>NHibernate</Name>
-      <HintPath>..\lib\NHibernate.dll</HintPath>
-    </Reference>
     <Reference Include="Nullables">
       <Name>Nullables</Name>
       <HintPath>..\lib\Nullables.dll</HintPath>
