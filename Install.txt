@@ -7,18 +7,18 @@ Installing Cuyahoga from source.
 1. Unzip the files to a local directory.
 
 2. Create a database. Supported databases are:
-    - SQL Server 2000 / MSDE 2000
+    - SQL Server 2000 / SQL Server 2005 / SQL Server Express / MSDE 2000 
     - PostgreSQL 7.4 and higher
     - MySQL 4.0 and higher
 
 3. Build and run.
 
-    There are 2 possible ways to build Cuyahoga: using Visual Studio .NET 2003 (VS.NET) or NAnt.
+    There are 2 possible ways to build Cuyahoga: using Visual Studio .NET 2005 (VS.NET) or NAnt.
     
     3a. Building with VS.NET.
+        - Make sure you have installed the Web Application Project model (http://webproject.scottgu.com/)
         - Open Cuyahoga.sln with VS.NET.
         - Build Solution.
-        - Create an IIS application (virtual directory) that points to the Web folder.
         - Change the connection string in the Web.config (hibernate.connection.connection_string)
           to the database that is created in step 2.
           
@@ -30,13 +30,7 @@ Installing Cuyahoga from source.
           
           Make sure that the account that connects to the database has enough permissions to create
           the database!
-          
-        - If you want to run/debug the application from VS.NET you have to change the 
-          default Start Action: 
-          Go to Project -> Properties -> Configuration Properties -> Debugging. Change debug mode
-          to 'URL' and set the Start URL to the url of the created IIS application 
-          (for example http://localhost/cuyahoga).
-          
+                    
     3b. Building with NAnt.
         - Make sure you have a 0.85 version of NAnt (http://nant.sourceforge.net).
         - Open a command prompt, go to the directory where you extracted the .zip file.
