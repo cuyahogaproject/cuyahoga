@@ -1,69 +1,59 @@
-Microsoft Visual Studio Solution File, Format Version 8.00
+Microsoft Visual Studio Solution File, Format Version 9.00
+# Visual Studio 2005
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cuyahoga.Web", "Web\Cuyahoga.Web.csproj", "{DD158F08-6E8F-4234-B3F6-A5402C8E34CC}"
-	ProjectSection(ProjectDependencies) = postProject
-	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cuyahoga.Core", "Core\Cuyahoga.Core.csproj", "{723B7D30-6472-4B96-8D09-4F094C96650E}"
-	ProjectSection(ProjectDependencies) = postProject
-	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cuyahoga.Modules", "Modules\Cuyahoga.Modules.csproj", "{7069F87A-95E1-4E61-B5FD-E0892E6F821F}"
-	ProjectSection(ProjectDependencies) = postProject
-	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cuyahoga.ServerControls", "ServerControls\Cuyahoga.ServerControls.csproj", "{C64DAA00-AAB1-4AC7-ADE2-119B53B9666A}"
-	ProjectSection(ProjectDependencies) = postProject
-	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cuyahoga.Tests", "Tests\Cuyahoga.Tests.csproj", "{E737CCAD-734D-4E61-8576-A42E4E803FA2}"
-	ProjectSection(ProjectDependencies) = postProject
-	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cuyahoga.Modules.Downloads", "Downloads\Cuyahoga.Modules.Downloads.csproj", "{A613CF88-E66F-492B-9FD3-259BA3BD7310}"
-	ProjectSection(ProjectDependencies) = postProject
-	EndProjectSection
 EndProject
-Global
-	GlobalSection(SolutionConfiguration) = preSolution
-		Debug = Debug
-		Release = Release
-	EndGlobalSection
-	GlobalSection(ProjectConfiguration) = postSolution
-		{DD158F08-6E8F-4234-B3F6-A5402C8E34CC}.Debug.ActiveCfg = Debug|.NET
-		{DD158F08-6E8F-4234-B3F6-A5402C8E34CC}.Debug.Build.0 = Debug|.NET
-		{DD158F08-6E8F-4234-B3F6-A5402C8E34CC}.Release.ActiveCfg = Release|.NET
-		{DD158F08-6E8F-4234-B3F6-A5402C8E34CC}.Release.Build.0 = Release|.NET
-		{723B7D30-6472-4B96-8D09-4F094C96650E}.Debug.ActiveCfg = Debug|.NET
-		{723B7D30-6472-4B96-8D09-4F094C96650E}.Debug.Build.0 = Debug|.NET
-		{723B7D30-6472-4B96-8D09-4F094C96650E}.Release.ActiveCfg = Release|.NET
-		{723B7D30-6472-4B96-8D09-4F094C96650E}.Release.Build.0 = Release|.NET
-		{7069F87A-95E1-4E61-B5FD-E0892E6F821F}.Debug.ActiveCfg = Debug|.NET
-		{7069F87A-95E1-4E61-B5FD-E0892E6F821F}.Debug.Build.0 = Debug|.NET
-		{7069F87A-95E1-4E61-B5FD-E0892E6F821F}.Release.ActiveCfg = Release|.NET
-		{7069F87A-95E1-4E61-B5FD-E0892E6F821F}.Release.Build.0 = Release|.NET
-		{C64DAA00-AAB1-4AC7-ADE2-119B53B9666A}.Debug.ActiveCfg = Debug|.NET
-		{C64DAA00-AAB1-4AC7-ADE2-119B53B9666A}.Debug.Build.0 = Debug|.NET
-		{C64DAA00-AAB1-4AC7-ADE2-119B53B9666A}.Release.ActiveCfg = Release|.NET
-		{C64DAA00-AAB1-4AC7-ADE2-119B53B9666A}.Release.Build.0 = Release|.NET
-		{E737CCAD-734D-4E61-8576-A42E4E803FA2}.Debug.ActiveCfg = Debug|.NET
-		{E737CCAD-734D-4E61-8576-A42E4E803FA2}.Debug.Build.0 = Debug|.NET
-		{E737CCAD-734D-4E61-8576-A42E4E803FA2}.Release.ActiveCfg = Release|.NET
-		{E737CCAD-734D-4E61-8576-A42E4E803FA2}.Release.Build.0 = Release|.NET
-		{A613CF88-E66F-492B-9FD3-259BA3BD7310}.Debug.ActiveCfg = Debug|.NET
-		{A613CF88-E66F-492B-9FD3-259BA3BD7310}.Debug.Build.0 = Debug|.NET
-		{A613CF88-E66F-492B-9FD3-259BA3BD7310}.Release.ActiveCfg = Release|.NET
-		{A613CF88-E66F-492B-9FD3-259BA3BD7310}.Release.Build.0 = Release|.NET
-	EndGlobalSection
-	GlobalSection(SolutionItems) = postSolution
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{B64CE28C-13A9-4445-8699-F38B3AA0D928}"
+	ProjectSection(SolutionItems) = preProject
 		Cuyahoga.build = Cuyahoga.build
 		Install-binary.txt = Install-binary.txt
 		Install.txt = Install.txt
 		LICENSE.txt = LICENSE.txt
 		Releasenotes.txt = Releasenotes.txt
 		Upgrade.txt = Upgrade.txt
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
-	GlobalSection(ExtensibilityGlobals) = postSolution
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{DD158F08-6E8F-4234-B3F6-A5402C8E34CC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DD158F08-6E8F-4234-B3F6-A5402C8E34CC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DD158F08-6E8F-4234-B3F6-A5402C8E34CC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DD158F08-6E8F-4234-B3F6-A5402C8E34CC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{723B7D30-6472-4B96-8D09-4F094C96650E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{723B7D30-6472-4B96-8D09-4F094C96650E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{723B7D30-6472-4B96-8D09-4F094C96650E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{723B7D30-6472-4B96-8D09-4F094C96650E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7069F87A-95E1-4E61-B5FD-E0892E6F821F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7069F87A-95E1-4E61-B5FD-E0892E6F821F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7069F87A-95E1-4E61-B5FD-E0892E6F821F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7069F87A-95E1-4E61-B5FD-E0892E6F821F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C64DAA00-AAB1-4AC7-ADE2-119B53B9666A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C64DAA00-AAB1-4AC7-ADE2-119B53B9666A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C64DAA00-AAB1-4AC7-ADE2-119B53B9666A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C64DAA00-AAB1-4AC7-ADE2-119B53B9666A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E737CCAD-734D-4E61-8576-A42E4E803FA2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E737CCAD-734D-4E61-8576-A42E4E803FA2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E737CCAD-734D-4E61-8576-A42E4E803FA2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E737CCAD-734D-4E61-8576-A42E4E803FA2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A613CF88-E66F-492B-9FD3-259BA3BD7310}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A613CF88-E66F-492B-9FD3-259BA3BD7310}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A613CF88-E66F-492B-9FD3-259BA3BD7310}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A613CF88-E66F-492B-9FD3-259BA3BD7310}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
-	GlobalSection(ExtensibilityAddIns) = postSolution
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
 	EndGlobalSection
 EndGlobal

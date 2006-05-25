@@ -1,592 +1,391 @@
-<VisualStudioProject>
-    <CSHARP
-        ProjectType = "Local"
-        ProductVersion = "7.10.3077"
-        SchemaVersion = "2.0"
-        ProjectGuid = "{723B7D30-6472-4B96-8D09-4F094C96650E}"
-    >
-        <Build>
-            <Settings
-                ApplicationIcon = ""
-                AssemblyKeyContainerName = ""
-                AssemblyName = "Cuyahoga.Core"
-                AssemblyOriginatorKeyFile = ""
-                DefaultClientScript = "JScript"
-                DefaultHTMLPageLayout = "Grid"
-                DefaultTargetSchema = "IE50"
-                DelaySign = "false"
-                OutputType = "Library"
-                PreBuildEvent = ""
-                PostBuildEvent = ""
-                RootNamespace = "Cuyahoga.Core"
-                RunPostBuildEvent = "OnBuildSuccess"
-                StartupObject = ""
-            >
-                <Config
-                    Name = "Debug"
-                    AllowUnsafeBlocks = "false"
-                    BaseAddress = "285212672"
-                    CheckForOverflowUnderflow = "false"
-                    ConfigurationOverrideFile = ""
-                    DefineConstants = "DEBUG;TRACE"
-                    DocumentationFile = ""
-                    DebugSymbols = "true"
-                    FileAlignment = "4096"
-                    IncrementalBuild = "false"
-                    NoStdLib = "false"
-                    NoWarn = ""
-                    Optimize = "false"
-                    OutputPath = "bin\Debug\"
-                    RegisterForComInterop = "false"
-                    RemoveIntegerChecks = "false"
-                    TreatWarningsAsErrors = "false"
-                    WarningLevel = "4"
-                />
-                <Config
-                    Name = "Release"
-                    AllowUnsafeBlocks = "false"
-                    BaseAddress = "285212672"
-                    CheckForOverflowUnderflow = "false"
-                    ConfigurationOverrideFile = ""
-                    DefineConstants = "TRACE"
-                    DocumentationFile = ""
-                    DebugSymbols = "false"
-                    FileAlignment = "4096"
-                    IncrementalBuild = "false"
-                    NoStdLib = "false"
-                    NoWarn = ""
-                    Optimize = "true"
-                    OutputPath = "bin\Release\"
-                    RegisterForComInterop = "false"
-                    RemoveIntegerChecks = "false"
-                    TreatWarningsAsErrors = "false"
-                    WarningLevel = "4"
-                />
-            </Settings>
-            <References>
-                <Reference
-                    Name = "System"
-                    AssemblyName = "System"
-                    HintPath = "..\..\..\WINDOWS\Microsoft.NET\Framework\v1.1.4322\System.dll"
-                />
-                <Reference
-                    Name = "System.Data"
-                    AssemblyName = "System.Data"
-                    HintPath = "..\..\..\WINDOWS\Microsoft.NET\Framework\v1.1.4322\System.Data.dll"
-                />
-                <Reference
-                    Name = "System.XML"
-                    AssemblyName = "System.Xml"
-                    HintPath = "..\..\..\WINDOWS\Microsoft.NET\Framework\v1.1.4322\System.XML.dll"
-                />
-                <Reference
-                    Name = "NHibernate"
-                    AssemblyName = "NHibernate"
-                    HintPath = "..\lib\NHibernate.dll"
-                />
-                <Reference
-                    Name = "Lucene.Net"
-                    AssemblyName = "Lucene.Net"
-                    HintPath = "..\lib\Lucene.Net.dll"
-                />
-                <Reference
-                    Name = "log4net"
-                    AssemblyName = "log4net"
-                    HintPath = "..\lib\log4net.dll"
-                />
-                <Reference
-                    Name = "Nullables"
-                    AssemblyName = "Nullables"
-                    HintPath = "..\lib\Nullables.dll"
-                />
-                <Reference
-                    Name = "System.Web"
-                    AssemblyName = "System.Web"
-                    HintPath = "..\..\..\WINDOWS\Microsoft.NET\Framework\v1.1.4322\System.Web.dll"
-                />
-                <Reference
-                    Name = "Castle.Facilities.NHibernateIntegration"
-                    AssemblyName = "Castle.Facilities.NHibernateIntegration"
-                    HintPath = "..\lib\Castle.Facilities.NHibernateIntegration.dll"
-                />
-                <Reference
-                    Name = "Castle.Services.Transaction"
-                    AssemblyName = "Castle.Services.Transaction"
-                    HintPath = "..\lib\Castle.Services.Transaction.dll"
-                />
-                <Reference
-                    Name = "Castle.Model"
-                    AssemblyName = "Castle.Model"
-                    HintPath = "..\lib\Castle.Model.dll"
-                />
-                <Reference
-                    Name = "Castle.MicroKernel"
-                    AssemblyName = "Castle.MicroKernel"
-                    HintPath = "..\lib\Castle.MicroKernel.dll"
-                />
-            </References>
-        </Build>
-        <Files>
-            <Include>
-                <File
-                    RelPath = "AssemblyInfo.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "Exceptions.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "INHibernateModule.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "ISyndicatable.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "Communication\Action.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "Communication\ActionCollection.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "Communication\IActionConsumer.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "Communication\IActionProvider.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "DataAccess\CommonDao.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "DataAccess\ContentItemDao.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "DataAccess\FileResourceDao.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "DataAccess\ICommonDao.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "DataAccess\IContentItemDao.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "DataAccess\IFileResourceDao.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "DataAccess\ISiteStructureDao.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "DataAccess\IUserDao.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "DataAccess\SiteStructureDao.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "DataAccess\UserDao.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "Domain\Category.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "Domain\CategorySystem.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "Domain\ContentItem.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "Domain\CustomMenu.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "Domain\CustomMenu.hbm.xml"
-                    BuildAction = "EmbeddedResource"
-                />
-                <File
-                    RelPath = "Domain\Enumerations.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "Domain\FileResource.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "Domain\FileResource.hbm.xml"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "Domain\IContentItem.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "Domain\IContentItem.hbm.xml"
-                    BuildAction = "EmbeddedResource"
-                />
-                <File
-                    RelPath = "Domain\ModuleBase.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "Domain\ModuleSetting.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "Domain\ModuleType.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "Domain\ModuleType.hbm.xml"
-                    BuildAction = "EmbeddedResource"
-                />
-                <File
-                    RelPath = "Domain\Node.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "Domain\Node.hbm.xml"
-                    BuildAction = "EmbeddedResource"
-                />
-                <File
-                    RelPath = "Domain\NodePermission.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "Domain\Permission.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "Domain\Role.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "Domain\Role.hbm.xml"
-                    BuildAction = "EmbeddedResource"
-                />
-                <File
-                    RelPath = "Domain\Section.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "Domain\Section.hbm.xml"
-                    BuildAction = "EmbeddedResource"
-                />
-                <File
-                    RelPath = "Domain\SectionPermission.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "Domain\Site.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "Domain\Site.hbm.xml"
-                    BuildAction = "EmbeddedResource"
-                />
-                <File
-                    RelPath = "Domain\SiteAlias.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "Domain\SiteAlias.hbm.xml"
-                    BuildAction = "EmbeddedResource"
-                />
-                <File
-                    RelPath = "Domain\Template.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "Domain\Template.hbm.xml"
-                    BuildAction = "EmbeddedResource"
-                />
-                <File
-                    RelPath = "Domain\User.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "Domain\User.hbm.xml"
-                    BuildAction = "EmbeddedResource"
-                />
-                <File
-                    RelPath = "Facilities\CuyahogaNHibernateFacility.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "Facilities\CuyahogaSessionManager.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "Facilities\SessionFactoryResolver.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "Search\IndexBuilder.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "Search\IndexEvent.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "Search\IndexQuery.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "Search\ISearchable.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "Search\SearchContent.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "Search\SearchResult.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "Search\SearchResultCollection.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "Security\CuyahogaPrincipal.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "Service\CoreRepository.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "Service\CoreRepositoryAdapter.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "Service\DatabaseInstaller.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "Service\SessionFactory.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "Service\SessionFactoryHelper.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "Service\Content\ContentItemService.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "Service\Content\IContentItemService.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "Service\Email\IEmailService.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "Service\Files\FileResourceService.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "Service\Files\FileTransactionManager.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "Service\Files\FileWriter.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "Service\Files\IFileResourceService.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "Service\Files\IFileService.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "Service\Files\StreamUtil.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "Service\Files\TransactionalFileService.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "Service\Membership\DefaultAuthenticationService.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "Service\Membership\DefaultUserService.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "Service\Membership\IAuthenticationService.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "Service\Membership\IUserService.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <Folder RelPath = "Service\Search\" />
-                <File
-                    RelPath = "Service\SiteStructure\INodeService.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "Service\SiteStructure\ISectionService.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "Service\SiteStructure\ISiteService.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "Service\SiteStructure\ITemplateService.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "Service\SiteStructure\NodeService.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "Service\SiteStructure\SectionService.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "Service\SiteStructure\SiteService.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "Service\SiteStructure\TemplateService.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <Folder RelPath = "Service\Versioning\" />
-                <Folder RelPath = "Service\Workflow\" />
-                <File
-                    RelPath = "Util\Config.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "Util\DatabaseUtil.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "Util\Encryption.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "Util\Rss.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "Util\Text.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "Util\TimeZoneUtil.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-            </Include>
-        </Files>
-    </CSHARP>
-</VisualStudioProject>
-
+﻿<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <ProjectType>Local</ProjectType>
+    <ProductVersion>8.0.50727</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{723B7D30-6472-4B96-8D09-4F094C96650E}</ProjectGuid>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ApplicationIcon>
+    </ApplicationIcon>
+    <AssemblyKeyContainerName>
+    </AssemblyKeyContainerName>
+    <AssemblyName>Cuyahoga.Core</AssemblyName>
+    <AssemblyOriginatorKeyFile>
+    </AssemblyOriginatorKeyFile>
+    <DefaultClientScript>JScript</DefaultClientScript>
+    <DefaultHTMLPageLayout>Grid</DefaultHTMLPageLayout>
+    <DefaultTargetSchema>IE50</DefaultTargetSchema>
+    <DelaySign>false</DelaySign>
+    <OutputType>Library</OutputType>
+    <RootNamespace>Cuyahoga.Core</RootNamespace>
+    <RunPostBuildEvent>OnBuildSuccess</RunPostBuildEvent>
+    <StartupObject>
+    </StartupObject>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
+    <UpgradeBackupLocation>
+    </UpgradeBackupLocation>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <OutputPath>bin\Debug\</OutputPath>
+    <AllowUnsafeBlocks>false</AllowUnsafeBlocks>
+    <BaseAddress>285212672</BaseAddress>
+    <CheckForOverflowUnderflow>false</CheckForOverflowUnderflow>
+    <ConfigurationOverrideFile>
+    </ConfigurationOverrideFile>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DocumentationFile>
+    </DocumentationFile>
+    <DebugSymbols>true</DebugSymbols>
+    <FileAlignment>4096</FileAlignment>
+    <NoStdLib>false</NoStdLib>
+    <NoWarn>
+    </NoWarn>
+    <Optimize>false</Optimize>
+    <RegisterForComInterop>false</RegisterForComInterop>
+    <RemoveIntegerChecks>false</RemoveIntegerChecks>
+    <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
+    <WarningLevel>4</WarningLevel>
+    <DebugType>full</DebugType>
+    <ErrorReport>prompt</ErrorReport>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <OutputPath>bin\Release\</OutputPath>
+    <AllowUnsafeBlocks>false</AllowUnsafeBlocks>
+    <BaseAddress>285212672</BaseAddress>
+    <CheckForOverflowUnderflow>false</CheckForOverflowUnderflow>
+    <ConfigurationOverrideFile>
+    </ConfigurationOverrideFile>
+    <DefineConstants>TRACE</DefineConstants>
+    <DocumentationFile>
+    </DocumentationFile>
+    <DebugSymbols>false</DebugSymbols>
+    <FileAlignment>4096</FileAlignment>
+    <NoStdLib>false</NoStdLib>
+    <NoWarn>
+    </NoWarn>
+    <Optimize>true</Optimize>
+    <RegisterForComInterop>false</RegisterForComInterop>
+    <RemoveIntegerChecks>false</RemoveIntegerChecks>
+    <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
+    <WarningLevel>4</WarningLevel>
+    <DebugType>none</DebugType>
+    <ErrorReport>prompt</ErrorReport>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Castle.Facilities.NHibernateIntegration">
+      <Name>Castle.Facilities.NHibernateIntegration</Name>
+      <HintPath>..\lib\Castle.Facilities.NHibernateIntegration.dll</HintPath>
+    </Reference>
+    <Reference Include="Castle.MicroKernel">
+      <Name>Castle.MicroKernel</Name>
+      <HintPath>..\lib\Castle.MicroKernel.dll</HintPath>
+    </Reference>
+    <Reference Include="Castle.Model">
+      <Name>Castle.Model</Name>
+      <HintPath>..\lib\Castle.Model.dll</HintPath>
+    </Reference>
+    <Reference Include="Castle.Services.Transaction">
+      <Name>Castle.Services.Transaction</Name>
+      <HintPath>..\lib\Castle.Services.Transaction.dll</HintPath>
+    </Reference>
+    <Reference Include="log4net">
+      <Name>log4net</Name>
+      <HintPath>..\lib\log4net.dll</HintPath>
+    </Reference>
+    <Reference Include="Lucene.Net">
+      <Name>Lucene.Net</Name>
+      <HintPath>..\lib\Lucene.Net.dll</HintPath>
+    </Reference>
+    <Reference Include="NHibernate">
+      <Name>NHibernate</Name>
+      <HintPath>..\lib\NHibernate.dll</HintPath>
+    </Reference>
+    <Reference Include="Nullables">
+      <Name>Nullables</Name>
+      <HintPath>..\lib\Nullables.dll</HintPath>
+    </Reference>
+    <Reference Include="System">
+      <Name>System</Name>
+    </Reference>
+    <Reference Include="System.Data">
+      <Name>System.Data</Name>
+    </Reference>
+    <Reference Include="System.Web">
+      <Name>System.Web</Name>
+    </Reference>
+    <Reference Include="System.Xml">
+      <Name>System.XML</Name>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="AssemblyInfo.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Communication\Action.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Communication\ActionCollection.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Communication\IActionConsumer.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Communication\IActionProvider.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="DataAccess\CommonDao.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="DataAccess\ContentItemDao.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="DataAccess\FileResourceDao.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="DataAccess\ICommonDao.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="DataAccess\IContentItemDao.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="DataAccess\IFileResourceDao.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="DataAccess\ISiteStructureDao.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="DataAccess\IUserDao.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="DataAccess\SiteStructureDao.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="DataAccess\UserDao.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Domain\Category.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Domain\CategorySystem.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Domain\ContentItem.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Domain\CustomMenu.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Domain\Enumerations.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Domain\FileResource.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Domain\IContentItem.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Domain\ModuleBase.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Domain\ModuleSetting.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Domain\ModuleType.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Domain\Node.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Domain\NodePermission.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Domain\Permission.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Domain\Role.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Domain\Section.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Domain\SectionPermission.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Domain\Site.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Domain\SiteAlias.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Domain\Template.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Domain\User.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Exceptions.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Facilities\CuyahogaNHibernateFacility.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Facilities\CuyahogaSessionManager.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Facilities\SessionFactoryResolver.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="INHibernateModule.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="ISyndicatable.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Search\IndexBuilder.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Search\IndexEvent.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Search\IndexQuery.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Search\ISearchable.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Search\SearchContent.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Search\SearchResult.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Search\SearchResultCollection.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Security\CuyahogaPrincipal.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Service\Content\ContentItemService.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Service\Content\IContentItemService.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Service\CoreRepository.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Service\CoreRepositoryAdapter.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Service\DatabaseInstaller.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Service\Email\IEmailService.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Service\Files\FileResourceService.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Service\Files\FileTransactionManager.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Service\Files\FileWriter.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Service\Files\IFileResourceService.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Service\Files\IFileService.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Service\Files\StreamUtil.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Service\Files\TransactionalFileService.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Service\Membership\DefaultAuthenticationService.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Service\Membership\DefaultUserService.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Service\Membership\IAuthenticationService.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Service\Membership\IUserService.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Service\SessionFactory.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Service\SessionFactoryHelper.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Service\SiteStructure\INodeService.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Service\SiteStructure\ISectionService.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Service\SiteStructure\ISiteService.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Service\SiteStructure\ITemplateService.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Service\SiteStructure\NodeService.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Service\SiteStructure\SectionService.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Service\SiteStructure\SiteService.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Service\SiteStructure\TemplateService.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Util\Config.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Util\DatabaseUtil.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Util\Encryption.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Util\Rss.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Util\Text.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Util\TimeZoneUtil.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <EmbeddedResource Include="Domain\CustomMenu.hbm.xml" />
+    <EmbeddedResource Include="Domain\IContentItem.hbm.xml" />
+    <EmbeddedResource Include="Domain\ModuleType.hbm.xml" />
+    <EmbeddedResource Include="Domain\Node.hbm.xml" />
+    <EmbeddedResource Include="Domain\Role.hbm.xml" />
+    <EmbeddedResource Include="Domain\Section.hbm.xml" />
+    <EmbeddedResource Include="Domain\Site.hbm.xml" />
+    <EmbeddedResource Include="Domain\SiteAlias.hbm.xml" />
+    <EmbeddedResource Include="Domain\Template.hbm.xml" />
+    <EmbeddedResource Include="Domain\User.hbm.xml" />
+    <Content Include="Domain\FileResource.hbm.xml" />
+    <Folder Include="Service\Search" />
+    <Folder Include="Service\Versioning" />
+    <Folder Include="Service\Workflow" />
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PreBuildEvent>
+    </PreBuildEvent>
+    <PostBuildEvent>
+    </PostBuildEvent>
+  </PropertyGroup>
+</Project>

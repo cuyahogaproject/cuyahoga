@@ -1,539 +1,367 @@
-<VisualStudioProject>
-    <CSHARP
-        ProjectType = "Local"
-        ProductVersion = "7.10.3077"
-        SchemaVersion = "2.0"
-        ProjectGuid = "{7069F87A-95E1-4E61-B5FD-E0892E6F821F}"
-    >
-        <Build>
-            <Settings
-                ApplicationIcon = ""
-                AssemblyKeyContainerName = ""
-                AssemblyName = "Cuyahoga.Modules"
-                AssemblyOriginatorKeyFile = ""
-                DefaultClientScript = "JScript"
-                DefaultHTMLPageLayout = "Grid"
-                DefaultTargetSchema = "IE50"
-                DelaySign = "false"
-                OutputType = "Library"
-                PreBuildEvent = ""
-                PostBuildEvent = 'xcopy /s /y "$(ProjectDir)"*.as?x "$(SolutionDir)"Web\Modules&#xd;&#xa;xcopy /s /y "$(ProjectDir)"*.gif "$(SolutionDir)"Web\Modules&#xd;&#xa;xcopy /s /y "$(TargetDir)"Cuyahoga.Modules*.dll "$(SolutionDir)"Web\bin&#xd;&#xa;xcopy /s /y "$(TargetDir)"FredCK.FCKeditorV2.dll "$(SolutionDir)"Web\bin'
-                RootNamespace = "Cuyahoga.Modules"
-                RunPostBuildEvent = "OnBuildSuccess"
-                StartupObject = ""
-            >
-                <Config
-                    Name = "Debug"
-                    AllowUnsafeBlocks = "false"
-                    BaseAddress = "285212672"
-                    CheckForOverflowUnderflow = "false"
-                    ConfigurationOverrideFile = ""
-                    DefineConstants = "DEBUG;TRACE"
-                    DocumentationFile = ""
-                    DebugSymbols = "true"
-                    FileAlignment = "4096"
-                    IncrementalBuild = "false"
-                    NoStdLib = "false"
-                    NoWarn = ""
-                    Optimize = "false"
-                    OutputPath = "bin\Debug\"
-                    RegisterForComInterop = "false"
-                    RemoveIntegerChecks = "false"
-                    TreatWarningsAsErrors = "false"
-                    WarningLevel = "4"
-                />
-                <Config
-                    Name = "Release"
-                    AllowUnsafeBlocks = "false"
-                    BaseAddress = "285212672"
-                    CheckForOverflowUnderflow = "false"
-                    ConfigurationOverrideFile = ""
-                    DefineConstants = "TRACE"
-                    DocumentationFile = ""
-                    DebugSymbols = "false"
-                    FileAlignment = "4096"
-                    IncrementalBuild = "false"
-                    NoStdLib = "false"
-                    NoWarn = ""
-                    Optimize = "true"
-                    OutputPath = "bin\Release\"
-                    RegisterForComInterop = "false"
-                    RemoveIntegerChecks = "false"
-                    TreatWarningsAsErrors = "false"
-                    WarningLevel = "4"
-                />
-            </Settings>
-            <References>
-                <Reference
-                    Name = "System"
-                    AssemblyName = "System"
-                    HintPath = "..\..\..\WINDOWS\Microsoft.NET\Framework\v1.1.4322\System.dll"
-                />
-                <Reference
-                    Name = "System.Data"
-                    AssemblyName = "System.Data"
-                    HintPath = "..\..\..\WINDOWS\Microsoft.NET\Framework\v1.1.4322\System.Data.dll"
-                />
-                <Reference
-                    Name = "System.XML"
-                    AssemblyName = "System.Xml"
-                    HintPath = "..\..\..\WINDOWS\Microsoft.NET\Framework\v1.1.4322\System.XML.dll"
-                />
-                <Reference
-                    Name = "System.Web"
-                    AssemblyName = "System.Web"
-                    HintPath = "..\..\..\WINDOWS\Microsoft.NET\Framework\v1.1.4322\System.Web.dll"
-                />
-                <Reference
-                    Name = "NHibernate"
-                    AssemblyName = "NHibernate"
-                    HintPath = "..\lib\NHibernate.dll"
-                />
-                <Reference
-                    Name = "System.Drawing"
-                    AssemblyName = "System.Drawing"
-                    HintPath = "..\..\..\WINDOWS\Microsoft.NET\Framework\v1.1.4322\System.Drawing.dll"
-                />
-                <Reference
-                    Name = "Cuyahoga.Web"
-                    Project = "{DD158F08-6E8F-4234-B3F6-A5402C8E34CC}"
-                    Package = "{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}"
-                />
-                <Reference
-                    Name = "Cuyahoga.ServerControls"
-                    Project = "{C64DAA00-AAB1-4AC7-ADE2-119B53B9666A}"
-                    Package = "{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}"
-                />
-                <Reference
-                    Name = "Cuyahoga.Core"
-                    Project = "{723B7D30-6472-4B96-8D09-4F094C96650E}"
-                    Package = "{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}"
-                />
-                <Reference
-                    Name = "FredCK.FCKeditorV2"
-                    AssemblyName = "FredCK.FCKeditorV2"
-                    HintPath = "..\lib\FredCK.FCKeditorV2.dll"
-                />
-                <Reference
-                    Name = "log4net"
-                    AssemblyName = "log4net"
-                    HintPath = "..\lib\log4net.dll"
-                />
-                <Reference
-                    Name = "Nullables"
-                    AssemblyName = "Nullables"
-                    HintPath = "..\lib\Nullables.dll"
-                />
-            </References>
-        </Build>
-        <Files>
-            <Include>
-                <File
-                    RelPath = "AssemblyInfo.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "Articles\AdminArticles.aspx"
-                    SubType = "Form"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "Articles\AdminArticles.aspx.cs"
-                    DependentUpon = "AdminArticles.aspx"
-                    SubType = "ASPXCodeBehind"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "Articles\AdminArticles.aspx.resx"
-                    DependentUpon = "AdminArticles.aspx.cs"
-                    BuildAction = "EmbeddedResource"
-                />
-                <File
-                    RelPath = "Articles\AdminComments.aspx"
-                    SubType = "Form"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "Articles\AdminComments.aspx.cs"
-                    DependentUpon = "AdminComments.aspx"
-                    SubType = "ASPXCodeBehind"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "Articles\AdminComments.aspx.resx"
-                    DependentUpon = "AdminComments.aspx.cs"
-                    BuildAction = "EmbeddedResource"
-                />
-                <File
-                    RelPath = "Articles\Article.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "Articles\Article.hbm.xml"
-                    BuildAction = "EmbeddedResource"
-                />
-                <File
-                    RelPath = "Articles\ArticleModule.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "Articles\Articles.ascx"
-                    SubType = "UserControl"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "Articles\Articles.ascx.cs"
-                    DependentUpon = "Articles.ascx"
-                    SubType = "ASPXCodeBehind"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "Articles\Articles.ascx.resx"
-                    DependentUpon = "Articles.ascx.cs"
-                    BuildAction = "EmbeddedResource"
-                />
-                <File
-                    RelPath = "Articles\Category.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "Articles\Category.hbm.xml"
-                    BuildAction = "EmbeddedResource"
-                />
-                <File
-                    RelPath = "Articles\Comment.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "Articles\Comment.hbm.xml"
-                    BuildAction = "EmbeddedResource"
-                />
-                <File
-                    RelPath = "Articles\EditArticle.aspx"
-                    SubType = "Form"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "Articles\EditArticle.aspx.cs"
-                    DependentUpon = "EditArticle.aspx"
-                    SubType = "ASPXCodeBehind"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "Articles\EditArticle.aspx.resx"
-                    DependentUpon = "EditArticle.aspx.cs"
-                    BuildAction = "EmbeddedResource"
-                />
-                <File
-                    RelPath = "Articles\Resources\Strings.nl.resx"
-                    BuildAction = "EmbeddedResource"
-                />
-                <File
-                    RelPath = "Articles\Resources\Strings.resx"
-                    BuildAction = "EmbeddedResource"
-                />
-                <File
-                    RelPath = "LanguageSwitcher\LanguageSwitcher.ascx"
-                    SubType = "UserControl"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "LanguageSwitcher\LanguageSwitcher.ascx.cs"
-                    DependentUpon = "LanguageSwitcher.ascx"
-                    SubType = "ASPXCodeBehind"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "LanguageSwitcher\LanguageSwitcher.ascx.resx"
-                    DependentUpon = "LanguageSwitcher.ascx.cs"
-                    BuildAction = "EmbeddedResource"
-                />
-                <File
-                    RelPath = "LanguageSwitcher\LanguageSwitcherModule.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "LanguageSwitcher\Images\go.gif"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "RemoteContent\AdminRemoteContent.aspx"
-                    SubType = "Form"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "RemoteContent\AdminRemoteContent.aspx.cs"
-                    DependentUpon = "AdminRemoteContent.aspx"
-                    SubType = "ASPXCodeBehind"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "RemoteContent\AdminRemoteContent.aspx.resx"
-                    DependentUpon = "AdminRemoteContent.aspx.cs"
-                    BuildAction = "EmbeddedResource"
-                />
-                <File
-                    RelPath = "RemoteContent\EditFeed.aspx"
-                    SubType = "Form"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "RemoteContent\EditFeed.aspx.cs"
-                    DependentUpon = "EditFeed.aspx"
-                    SubType = "ASPXCodeBehind"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "RemoteContent\EditFeed.aspx.resx"
-                    DependentUpon = "EditFeed.aspx.cs"
-                    BuildAction = "EmbeddedResource"
-                />
-                <File
-                    RelPath = "RemoteContent\Feed.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "RemoteContent\Feed.hbm.xml"
-                    BuildAction = "EmbeddedResource"
-                />
-                <File
-                    RelPath = "RemoteContent\FeedItem.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "RemoteContent\FeedItem.hbm.xml"
-                    BuildAction = "EmbeddedResource"
-                />
-                <File
-                    RelPath = "RemoteContent\RemoteContent.ascx"
-                    SubType = "UserControl"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "RemoteContent\RemoteContent.ascx.cs"
-                    DependentUpon = "RemoteContent.ascx"
-                    SubType = "ASPXCodeBehind"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "RemoteContent\RemoteContent.ascx.resx"
-                    DependentUpon = "RemoteContent.ascx.cs"
-                    BuildAction = "EmbeddedResource"
-                />
-                <File
-                    RelPath = "RemoteContent\RemoteContentModule.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "RemoteContent\Util\RFC2822Date.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "Search\Search.ascx"
-                    SubType = "UserControl"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "Search\Search.ascx.cs"
-                    DependentUpon = "Search.ascx"
-                    SubType = "ASPXCodeBehind"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "Search\Search.ascx.resx"
-                    DependentUpon = "Search.ascx.cs"
-                    BuildAction = "EmbeddedResource"
-                />
-                <File
-                    RelPath = "Search\SearchInput.ascx"
-                    SubType = "UserControl"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "Search\SearchInput.ascx.cs"
-                    DependentUpon = "SearchInput.ascx"
-                    SubType = "ASPXCodeBehind"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "Search\SearchInput.ascx.resx"
-                    DependentUpon = "SearchInput.ascx.cs"
-                    BuildAction = "EmbeddedResource"
-                />
-                <File
-                    RelPath = "Search\SearchInputModule.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "Search\SearchModule.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "Search\Resources\Strings.nl.resx"
-                    BuildAction = "EmbeddedResource"
-                />
-                <File
-                    RelPath = "Search\Resources\Strings.resx"
-                    BuildAction = "EmbeddedResource"
-                />
-                <File
-                    RelPath = "StaticHtml\EditHtml.aspx"
-                    SubType = "Form"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "StaticHtml\EditHtml.aspx.cs"
-                    DependentUpon = "EditHtml.aspx"
-                    SubType = "ASPXCodeBehind"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "StaticHtml\EditHtml.aspx.resx"
-                    DependentUpon = "EditHtml.aspx.cs"
-                    BuildAction = "EmbeddedResource"
-                />
-                <File
-                    RelPath = "StaticHtml\StaticHtml.ascx"
-                    SubType = "UserControl"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "StaticHtml\StaticHtml.ascx.cs"
-                    DependentUpon = "StaticHtml.ascx"
-                    SubType = "ASPXCodeBehind"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "StaticHtml\StaticHtml.ascx.resx"
-                    DependentUpon = "StaticHtml.ascx.cs"
-                    BuildAction = "EmbeddedResource"
-                />
-                <File
-                    RelPath = "StaticHtml\StaticHtmlContent.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "StaticHtml\StaticHtmlContent.hbm.xml"
-                    BuildAction = "EmbeddedResource"
-                />
-                <File
-                    RelPath = "StaticHtml\StaticHtmlModule.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "User\EditProfile.ascx"
-                    SubType = "UserControl"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "User\EditProfile.ascx.cs"
-                    DependentUpon = "EditProfile.ascx"
-                    SubType = "ASPXCodeBehind"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "User\EditProfile.ascx.resx"
-                    DependentUpon = "EditProfile.ascx.cs"
-                    BuildAction = "EmbeddedResource"
-                />
-                <File
-                    RelPath = "User\ProfileModule.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "User\Register.ascx"
-                    SubType = "UserControl"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "User\Register.ascx.cs"
-                    DependentUpon = "Register.ascx"
-                    SubType = "ASPXCodeBehind"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "User\Register.ascx.resx"
-                    DependentUpon = "Register.ascx.cs"
-                    BuildAction = "EmbeddedResource"
-                />
-                <File
-                    RelPath = "User\ResetPassword.ascx"
-                    SubType = "UserControl"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "User\ResetPassword.ascx.cs"
-                    DependentUpon = "ResetPassword.ascx"
-                    SubType = "ASPXCodeBehind"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "User\ResetPassword.ascx.resx"
-                    DependentUpon = "ResetPassword.ascx.cs"
-                    BuildAction = "EmbeddedResource"
-                />
-                <File
-                    RelPath = "User\User.ascx"
-                    SubType = "UserControl"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "User\User.ascx.cs"
-                    DependentUpon = "User.ascx"
-                    SubType = "ASPXCodeBehind"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "User\User.ascx.resx"
-                    DependentUpon = "User.ascx.cs"
-                    BuildAction = "EmbeddedResource"
-                />
-                <File
-                    RelPath = "User\UserModule.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "User\ViewProfile.ascx"
-                    SubType = "UserControl"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "User\ViewProfile.ascx.cs"
-                    DependentUpon = "ViewProfile.ascx"
-                    SubType = "ASPXCodeBehind"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "User\ViewProfile.ascx.resx"
-                    DependentUpon = "ViewProfile.ascx.cs"
-                    BuildAction = "EmbeddedResource"
-                />
-                <File
-                    RelPath = "User\Resources\Strings.nl.resx"
-                    BuildAction = "EmbeddedResource"
-                />
-                <File
-                    RelPath = "User\Resources\Strings.resx"
-                    BuildAction = "EmbeddedResource"
-                />
-            </Include>
-        </Files>
-    </CSHARP>
-</VisualStudioProject>
-
+﻿<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <ProjectType>Local</ProjectType>
+    <ProductVersion>8.0.50727</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{7069F87A-95E1-4E61-B5FD-E0892E6F821F}</ProjectGuid>
+    <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ApplicationIcon>
+    </ApplicationIcon>
+    <AssemblyKeyContainerName>
+    </AssemblyKeyContainerName>
+    <AssemblyName>Cuyahoga.Modules</AssemblyName>
+    <AssemblyOriginatorKeyFile>
+    </AssemblyOriginatorKeyFile>
+    <DefaultClientScript>JScript</DefaultClientScript>
+    <DefaultHTMLPageLayout>Grid</DefaultHTMLPageLayout>
+    <DefaultTargetSchema>IE50</DefaultTargetSchema>
+    <DelaySign>false</DelaySign>
+    <OutputType>Library</OutputType>
+    <RootNamespace>Cuyahoga.Modules</RootNamespace>
+    <RunPostBuildEvent>OnBuildSuccess</RunPostBuildEvent>
+    <StartupObject>
+    </StartupObject>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
+    <UpgradeBackupLocation>
+    </UpgradeBackupLocation>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <OutputPath>bin\Debug\</OutputPath>
+    <AllowUnsafeBlocks>false</AllowUnsafeBlocks>
+    <BaseAddress>285212672</BaseAddress>
+    <CheckForOverflowUnderflow>false</CheckForOverflowUnderflow>
+    <ConfigurationOverrideFile>
+    </ConfigurationOverrideFile>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DocumentationFile>
+    </DocumentationFile>
+    <DebugSymbols>true</DebugSymbols>
+    <FileAlignment>4096</FileAlignment>
+    <NoStdLib>false</NoStdLib>
+    <NoWarn>
+    </NoWarn>
+    <Optimize>false</Optimize>
+    <RegisterForComInterop>false</RegisterForComInterop>
+    <RemoveIntegerChecks>false</RemoveIntegerChecks>
+    <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
+    <WarningLevel>4</WarningLevel>
+    <DebugType>full</DebugType>
+    <ErrorReport>prompt</ErrorReport>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <OutputPath>bin\Release\</OutputPath>
+    <AllowUnsafeBlocks>false</AllowUnsafeBlocks>
+    <BaseAddress>285212672</BaseAddress>
+    <CheckForOverflowUnderflow>false</CheckForOverflowUnderflow>
+    <ConfigurationOverrideFile>
+    </ConfigurationOverrideFile>
+    <DefineConstants>TRACE</DefineConstants>
+    <DocumentationFile>
+    </DocumentationFile>
+    <DebugSymbols>false</DebugSymbols>
+    <FileAlignment>4096</FileAlignment>
+    <NoStdLib>false</NoStdLib>
+    <NoWarn>
+    </NoWarn>
+    <Optimize>true</Optimize>
+    <RegisterForComInterop>false</RegisterForComInterop>
+    <RemoveIntegerChecks>false</RemoveIntegerChecks>
+    <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
+    <WarningLevel>4</WarningLevel>
+    <DebugType>none</DebugType>
+    <ErrorReport>prompt</ErrorReport>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="FredCK.FCKeditorV2">
+      <Name>FredCK.FCKeditorV2</Name>
+      <HintPath>..\lib\FredCK.FCKeditorV2.dll</HintPath>
+    </Reference>
+    <Reference Include="log4net">
+      <Name>log4net</Name>
+      <HintPath>..\lib\log4net.dll</HintPath>
+    </Reference>
+    <Reference Include="NHibernate">
+      <Name>NHibernate</Name>
+      <HintPath>..\lib\NHibernate.dll</HintPath>
+    </Reference>
+    <Reference Include="Nullables">
+      <Name>Nullables</Name>
+      <HintPath>..\lib\Nullables.dll</HintPath>
+    </Reference>
+    <Reference Include="System">
+      <Name>System</Name>
+    </Reference>
+    <Reference Include="System.Data">
+      <Name>System.Data</Name>
+    </Reference>
+    <Reference Include="System.Drawing">
+      <Name>System.Drawing</Name>
+    </Reference>
+    <Reference Include="System.Web">
+      <Name>System.Web</Name>
+    </Reference>
+    <Reference Include="System.Xml">
+      <Name>System.XML</Name>
+    </Reference>
+    <ProjectReference Include="..\Core\Cuyahoga.Core.csproj">
+      <Name>Cuyahoga.Core</Name>
+      <Project>{723B7D30-6472-4B96-8D09-4F094C96650E}</Project>
+      <Package>{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</Package>
+    </ProjectReference>
+    <ProjectReference Include="..\ServerControls\Cuyahoga.ServerControls.csproj">
+      <Name>Cuyahoga.ServerControls</Name>
+      <Project>{C64DAA00-AAB1-4AC7-ADE2-119B53B9666A}</Project>
+      <Package>{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</Package>
+    </ProjectReference>
+    <ProjectReference Include="..\Web\Cuyahoga.Web.csproj">
+      <Name>Cuyahoga.Web</Name>
+      <Project>{DD158F08-6E8F-4234-B3F6-A5402C8E34CC}</Project>
+      <Package>{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</Package>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Articles\AdminArticles.aspx.cs">
+      <DependentUpon>AdminArticles.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Articles\AdminComments.aspx.cs">
+      <DependentUpon>AdminComments.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Articles\Article.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Articles\ArticleModule.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Articles\Articles.ascx.cs">
+      <DependentUpon>Articles.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Articles\Category.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Articles\Comment.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Articles\EditArticle.aspx.cs">
+      <DependentUpon>EditArticle.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="AssemblyInfo.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="LanguageSwitcher\LanguageSwitcher.ascx.cs">
+      <DependentUpon>LanguageSwitcher.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="LanguageSwitcher\LanguageSwitcherModule.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="RemoteContent\AdminRemoteContent.aspx.cs">
+      <DependentUpon>AdminRemoteContent.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="RemoteContent\EditFeed.aspx.cs">
+      <DependentUpon>EditFeed.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="RemoteContent\Feed.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="RemoteContent\FeedItem.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="RemoteContent\RemoteContent.ascx.cs">
+      <DependentUpon>RemoteContent.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="RemoteContent\RemoteContentModule.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="RemoteContent\Util\RFC2822Date.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Search\Search.ascx.cs">
+      <DependentUpon>Search.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Search\SearchInput.ascx.cs">
+      <DependentUpon>SearchInput.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Search\SearchInputModule.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Search\SearchModule.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="StaticHtml\EditHtml.aspx.cs">
+      <DependentUpon>EditHtml.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="StaticHtml\StaticHtml.ascx.cs">
+      <DependentUpon>StaticHtml.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="StaticHtml\StaticHtmlContent.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="StaticHtml\StaticHtmlModule.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="User\EditProfile.ascx.cs">
+      <DependentUpon>EditProfile.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="User\ProfileModule.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="User\Register.ascx.cs">
+      <DependentUpon>Register.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="User\ResetPassword.ascx.cs">
+      <DependentUpon>ResetPassword.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="User\User.ascx.cs">
+      <DependentUpon>User.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="User\UserModule.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="User\ViewProfile.ascx.cs">
+      <DependentUpon>ViewProfile.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Content Include="Articles\AdminArticles.aspx">
+      <SubType>Form</SubType>
+    </Content>
+    <Content Include="Articles\AdminComments.aspx">
+      <SubType>Form</SubType>
+    </Content>
+    <Content Include="Articles\Articles.ascx">
+      <SubType>UserControl</SubType>
+    </Content>
+    <Content Include="Articles\EditArticle.aspx">
+      <SubType>Form</SubType>
+    </Content>
+    <Content Include="LanguageSwitcher\Images\go.gif" />
+    <Content Include="LanguageSwitcher\LanguageSwitcher.ascx">
+      <SubType>UserControl</SubType>
+    </Content>
+    <Content Include="RemoteContent\AdminRemoteContent.aspx">
+      <SubType>Form</SubType>
+    </Content>
+    <Content Include="RemoteContent\EditFeed.aspx">
+      <SubType>Form</SubType>
+    </Content>
+    <Content Include="RemoteContent\RemoteContent.ascx">
+      <SubType>UserControl</SubType>
+    </Content>
+    <Content Include="Search\Search.ascx">
+      <SubType>UserControl</SubType>
+    </Content>
+    <Content Include="Search\SearchInput.ascx">
+      <SubType>UserControl</SubType>
+    </Content>
+    <Content Include="StaticHtml\EditHtml.aspx">
+      <SubType>Form</SubType>
+    </Content>
+    <Content Include="StaticHtml\StaticHtml.ascx">
+      <SubType>UserControl</SubType>
+    </Content>
+    <Content Include="User\EditProfile.ascx">
+      <SubType>UserControl</SubType>
+    </Content>
+    <Content Include="User\Register.ascx">
+      <SubType>UserControl</SubType>
+    </Content>
+    <Content Include="User\ResetPassword.ascx">
+      <SubType>UserControl</SubType>
+    </Content>
+    <Content Include="User\User.ascx">
+      <SubType>UserControl</SubType>
+    </Content>
+    <Content Include="User\ViewProfile.ascx">
+      <SubType>UserControl</SubType>
+    </Content>
+    <EmbeddedResource Include="Articles\AdminArticles.aspx.resx">
+      <DependentUpon>AdminArticles.aspx.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Articles\AdminComments.aspx.resx">
+      <DependentUpon>AdminComments.aspx.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Articles\Article.hbm.xml" />
+    <EmbeddedResource Include="Articles\Articles.ascx.resx">
+      <DependentUpon>Articles.ascx.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Articles\Category.hbm.xml" />
+    <EmbeddedResource Include="Articles\Comment.hbm.xml" />
+    <EmbeddedResource Include="Articles\EditArticle.aspx.resx">
+      <DependentUpon>EditArticle.aspx.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Articles\Resources\Strings.nl.resx" />
+    <EmbeddedResource Include="Articles\Resources\Strings.resx" />
+    <EmbeddedResource Include="LanguageSwitcher\LanguageSwitcher.ascx.resx">
+      <DependentUpon>LanguageSwitcher.ascx.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="RemoteContent\AdminRemoteContent.aspx.resx">
+      <DependentUpon>AdminRemoteContent.aspx.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="RemoteContent\EditFeed.aspx.resx">
+      <DependentUpon>EditFeed.aspx.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="RemoteContent\Feed.hbm.xml" />
+    <EmbeddedResource Include="RemoteContent\FeedItem.hbm.xml" />
+    <EmbeddedResource Include="RemoteContent\RemoteContent.ascx.resx">
+      <DependentUpon>RemoteContent.ascx.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Search\Resources\Strings.nl.resx" />
+    <EmbeddedResource Include="Search\Resources\Strings.resx" />
+    <EmbeddedResource Include="Search\Search.ascx.resx">
+      <DependentUpon>Search.ascx.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Search\SearchInput.ascx.resx">
+      <DependentUpon>SearchInput.ascx.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="StaticHtml\EditHtml.aspx.resx">
+      <DependentUpon>EditHtml.aspx.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="StaticHtml\StaticHtml.ascx.resx">
+      <DependentUpon>StaticHtml.ascx.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="StaticHtml\StaticHtmlContent.hbm.xml" />
+    <EmbeddedResource Include="User\EditProfile.ascx.resx">
+      <DependentUpon>EditProfile.ascx.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="User\Register.ascx.resx">
+      <DependentUpon>Register.ascx.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="User\ResetPassword.ascx.resx">
+      <DependentUpon>ResetPassword.ascx.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="User\Resources\Strings.nl.resx" />
+    <EmbeddedResource Include="User\Resources\Strings.resx" />
+    <EmbeddedResource Include="User\User.ascx.resx">
+      <DependentUpon>User.ascx.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="User\ViewProfile.ascx.resx">
+      <DependentUpon>ViewProfile.ascx.cs</DependentUpon>
+    </EmbeddedResource>
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PreBuildEvent>
+    </PreBuildEvent>
+    <PostBuildEvent>xcopy /s /y "$(ProjectDir)"*.as?x "$(SolutionDir)"Web\Modules
+xcopy /s /y "$(ProjectDir)"*.gif "$(SolutionDir)"Web\Modules
+xcopy /s /y "$(TargetDir)"Cuyahoga.Modules*.dll "$(SolutionDir)"Web\bin
+xcopy /s /y "$(TargetDir)"FredCK.FCKeditorV2.dll "$(SolutionDir)"Web\bin</PostBuildEvent>
+  </PropertyGroup>
+</Project>
