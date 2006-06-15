@@ -169,14 +169,6 @@ namespace Cuyahoga.Core.Domain
 		{
 		}
 
-//		/// <summary>
-//		/// Constructor that allows a section.
-//		/// </summary>
-//		public ModuleBase(Section section)
-//		{
-//			this._section = section;
-//		}
-
 		/// <summary>
 		/// Override this method if you module needs module-specific pathinfo parsing.
 		/// </summary>
@@ -219,5 +211,39 @@ namespace Cuyahoga.Core.Domain
 				throw new NullReferenceException("Can't access the section for settings.");
 			}
 		}
+
+        /// <summary>
+        /// Override this method when your module needs to register some extra components
+        /// in the container.
+        /// <remarks>
+        /// The easiest way to obtain a reference to the container is by adding it as a
+        /// constructor parameter.
+        /// </remarks>
+        /// <example>
+        /// using Castle.MicroKernel
+        /// using Cuyahoga.Core.Domain;
+        /// 
+        /// public class MyModule : ModuleBase
+        /// {
+        ///     private IKernel _kernel;
+        /// 
+        ///     public MyModule(IKernel kernel)
+        ///     {
+        ///         _kernel = kernel;
+        ///     }
+        /// 
+        ///     public override void RegisterComponents()
+        ///     {
+        ///         _kernel.AddComponent("my-component-identification", typeof(MyComponent));
+        ///         _kernel.AddComponent("my-component-identification2, typeof(MyComponentInterface)
+        ///             , typeof(MyComponentConcreteClass));
+        ///     }
+        /// }
+        /// </example>
+        /// </summary>
+        public virtual void RegisterComponents()
+        {
+            // We don't have to do anything here yet. It's up to the subclass.
+        }
 	}
 }

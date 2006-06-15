@@ -24,7 +24,7 @@ namespace Cuyahoga.Web.Components
 		/// </summary>
 		public event EventHandler ModuleAdded;
 
-		protected void OnModuleAdded()
+		protected void OnNHibernateModuleAdded()
 		{
 			if (ModuleAdded != null)
 			{
@@ -38,7 +38,7 @@ namespace Cuyahoga.Web.Components
 		/// <param name="kernel"></param>
 		/// <param name="sessionFactoryHelper"></param>
 		public ModuleLoader(IKernel kernel, SessionFactoryHelper sessionFactoryHelper)
-		{	
+		{
 			this._kernel = kernel;
 			this._sessionFactoryHelper = sessionFactoryHelper;
 		}
@@ -58,8 +58,8 @@ namespace Cuyahoga.Web.Components
 			}
 			else
 			{
-			    ModuleBase module = GetModuleFromType(moduleType);
-			    module.Section = section;
+				ModuleBase module = GetModuleFromType(moduleType);
+				module.Section = section;
 				module.SectionUrl = UrlHelper.GetUrlFromSection(section);
 				module.ReadSectionSettings();
 
@@ -67,28 +67,39 @@ namespace Cuyahoga.Web.Components
 			}
 		}
 
-	    /// <summary>
-	    /// Get a module instance of a given type.
-	    /// </summary>
-	    /// <param name="moduleType"></param>
-	    /// <returns></returns>
-	    public ModuleBase GetModuleFromType(Type moduleType)
-	    {
-	        if (! this._kernel.HasComponent(moduleType))
-	        {
-	            // Module is not registered, do it now.
-	            this._kernel.AddComponent("module." + moduleType.FullName, moduleType);
+		/// <summary>
+		/// Get a module instance of a given type.
+		/// </summary>
+		/// <param name="moduleType"></param>
+		/// <returns></returns>
+		public ModuleBase GetModuleFromType(Type moduleType)
+		{
+			ModuleBase module = null;
 
-	            if (typeof(INHibernateModule).IsAssignableFrom(moduleType))
-	            {
-	                // Module needs its NHibernate mappings registered.
-	                this._sessionFactoryHelper.AddAssembly(moduleType.Assembly);
-	                OnModuleAdded();
-	            }
-	        }
+			if (!this._kernel.HasComponent(moduleType))
+			{
+				// Module is not registered, do it now.
+				this._kernel.AddComponent("module." + moduleType.FullName, moduleType);
 
-	        // Kernel 'knows' the module, return a fresh instance (ModuleBase is transient).
-	        return this._kernel[moduleType] as ModuleBase;
-	    }
+				// Retrieve a fresh instance of the registered module and call RegisterComponents()
+				// to let the module register its own components.
+				module = this._kernel[moduleType] as ModuleBase;
+				module.RegisterComponents();
+
+				if (typeof(INHibernateModule).IsAssignableFrom(moduleType))
+				{
+					// Module needs its NHibernate mappings registered.
+					this._sessionFactoryHelper.AddAssembly(moduleType.Assembly);
+					OnNHibernateModuleAdded();
+				}
+			}
+			else
+			{
+				// Kernel 'knows' the module, return a fresh instance (ModuleBase is transient).
+				module = this._kernel[moduleType] as ModuleBase;
+			}
+
+			return module;
+		}
 	}
 }
