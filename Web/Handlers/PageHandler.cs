@@ -1,6 +1,7 @@
 using System;
 using System.Web;
 using System.Web.UI;
+using System.Web.SessionState;
 
 using log4net;
 using Castle.Windsor;
@@ -15,7 +16,7 @@ namespace Cuyahoga.Web.Handlers
 	/// <summary>
 	/// This class handles all aspx page requests for Cuyahoga.
 	/// </summary>
-	public class PageHandler : IHttpHandler
+	public class PageHandler : IHttpHandler, IRequiresSessionState
 	{
 		private static readonly ILog log = LogManager.GetLogger(typeof(PageHandler));
 
