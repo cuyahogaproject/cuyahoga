@@ -289,9 +289,6 @@
     <Compile Include="HttpModules\CoreRepositoryModule.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="HttpModules\UrlHandlerModule.cs">
-      <SubType>Code</SubType>
-    </Compile>
     <Compile Include="Install\Install.aspx.cs">
       <DependentUpon>Install.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>

@@ -99,4 +99,20 @@ namespace Cuyahoga.Web.Components
 			return rewrittenUrl;
 		}
 	}
+
+	/// <summary>
+	/// ConfigSection class
+	/// </summary>
+	public class UrlMappingsSectionHandler : NameValueSectionHandler
+	{
+		protected override string KeyAttributeName
+		{
+			get { return "match"; }
+		}
+
+		protected override string ValueAttributeName
+		{
+			get { return "replace"; }
+		}
+	}
 }

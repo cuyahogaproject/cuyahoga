@@ -13,7 +13,7 @@ using Cuyahoga.Web.Util;
 namespace Cuyahoga.Web.Handlers
 {
 	/// <summary>
-	/// This class handles all aspx page requests for Cuyahoga
+	/// This class handles all aspx page requests for Cuyahoga.
 	/// </summary>
 	public class PageHandler : IHttpHandler
 	{
