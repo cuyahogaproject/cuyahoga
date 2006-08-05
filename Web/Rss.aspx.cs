@@ -11,15 +11,26 @@ using Cuyahoga.Core.Domain;
 using Cuyahoga.Core.Service;
 using Cuyahoga.Core.Util;
 using Cuyahoga.Web.Util;
+using Cuyahoga.Web.Components;
+using Cuyahoga.Web.UI;
 
 namespace Cuyahoga.Web
 {
 	/// <summary>
 	/// Summary description for Rss.
 	/// </summary>
-	public class Rss : System.Web.UI.Page
+	public class Rss : CuyahogaPage
 	{
 		private CoreRepository _coreRepository;
+		private ModuleLoader _moduleLoader;
+
+		/// <summary>
+		/// Module loader (injected)
+		/// </summary>
+		public ModuleLoader ModuleLoader
+		{
+			set { this._moduleLoader = value; }
+		}
 
 		private void Page_Load(object sender, System.EventArgs e)
 		{
@@ -38,9 +49,9 @@ namespace Cuyahoga.Web
 					// Use the same cache duration for the RSS feed as the Section.
 					this._coreRepository = (CoreRepository)HttpContext.Current.Items["CoreRepository"];
 					Section section = (Section)this._coreRepository.GetObjectById(typeof(Section), sectionId);
-					section.SessionFactoryRebuilt += new EventHandler(Section_SessionFactoryRebuilt);
-					ModuleBase module = section.CreateModule(UrlHelper.GetUrlFromSection(section));
-					// Create event handlers for NHibernate-related events that can occur in the module.
+
+					this._moduleLoader.ModuleAdded += new EventHandler(ModuleLoader_ModuleAdded);
+					ModuleBase module = this._moduleLoader.GetModuleFromSection(section);
 
 					module.ModulePathInfo = pathInfo;
 					ISyndicatable syndicatableModule = module as ISyndicatable;
@@ -146,9 +157,9 @@ namespace Cuyahoga.Web
 		}
 		#endregion
 
-		private void Section_SessionFactoryRebuilt(object sender, EventArgs e)
+		private void ModuleLoader_ModuleAdded(object sender, EventArgs e)
 		{
-			// The SessionFactory was rebuilt, so the current NHibernate Session has become invalid.
+			// A module that uses NHibernate was loaded for the first time.
 			// This is handled by a simple reload of the page. 
 			// TODO: handle more elegantly?
 			if (Context.Items["VirtualUrl"] != null)

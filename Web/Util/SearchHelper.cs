@@ -4,6 +4,7 @@ using System.Web;
 using Cuyahoga.Core.Domain;
 using Cuyahoga.Core.Search;
 using Cuyahoga.Core.Util;
+using Cuyahoga.Web.Components;
 
 namespace Cuyahoga.Web.Util
 {
@@ -22,10 +23,17 @@ namespace Cuyahoga.Web.Util
 		/// <param name="section"></param>
 		public static void UpdateIndexFromSection(Section section)
 		{
+			// Get ModuleLoader from the container. This needs to happen explicit here because
+			// this is a static method
+			ModuleLoader moduleLoader = ContainerAccessorUtil.GetContainer()[typeof(ModuleLoader)] as ModuleLoader;
+			if (moduleLoader == null)
+			{
+				throw new NullReferenceException("Unable to find the ModuleLoader instance");
+			}
 			string indexDir = HttpContext.Current.Server.MapPath(Config.GetConfiguration()["SearchIndexDir"]);
 			IndexBuilder ib = new IndexBuilder(indexDir, false);
 
-			ModuleBase module = section.CreateModule(Util.UrlHelper.GetUrlFromSection(section));
+			ModuleBase module = moduleLoader.GetModuleFromSection(section);
 			if (module is ISearchable)
 			{
 				ib.UpdateContentFromModule(module);

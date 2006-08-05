@@ -15,6 +15,8 @@ using Cuyahoga.Core;
 using Cuyahoga.Core.Domain;
 using Cuyahoga.Core.Service;
 using Cuyahoga.Core.Util;
+using Cuyahoga.Web.Util;
+using Cuyahoga.Web.Components;
 
 namespace Cuyahoga.Modules.RemoteContent
 {
@@ -361,9 +363,10 @@ namespace Cuyahoga.Modules.RemoteContent
 		/// </summary>
 		public void FetchFeed()
 		{
-			RemoteContentModule module = this._feed.Section.CreateModule(null) as RemoteContentModule;
 			try
 			{
+				ModuleLoader moduleLoader = ContainerAccessorUtil.GetContainer()[typeof(ModuleLoader)] as ModuleLoader;
+				RemoteContentModule module = moduleLoader.GetModuleFromSection(this._feed.Section) as RemoteContentModule;
 				// Use in a different session, otherwise things go wrong because this method might
 				// run in a different thread.
 				ISession session = SessionFactory.GetInstance().GetSession();

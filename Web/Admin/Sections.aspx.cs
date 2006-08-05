@@ -116,7 +116,7 @@ namespace Cuyahoga.Web.Admin
 				try
 				{
 					// First tell the module to remove its content.
-					ModuleBase module = section.CreateModule(UrlHelper.GetUrlFromSection(section));
+					ModuleBase module = this.ModuleLoader.GetModuleFromSection(section);
 					module.DeleteModuleContent();
 					// Now delete the Section.
 					base.CoreRepository.DeleteObject(section);

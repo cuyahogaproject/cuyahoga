@@ -17,6 +17,7 @@ using Cuyahoga.Core.Util;
 using Cuyahoga.Core.Domain;
 using Cuyahoga.Core.Service;
 using Cuyahoga.Core.Search;
+using Cuyahoga.Web.Components;
 
 namespace Cuyahoga.Web.Admin
 {
@@ -27,8 +28,18 @@ namespace Cuyahoga.Web.Admin
 	{
 		private static readonly ILog log = LogManager.GetLogger(typeof(RebuildIndex));
 
+		private ModuleLoader _moduleLoader;
+
 		protected System.Web.UI.WebControls.Button btnRebuild;
 		protected System.Web.UI.WebControls.Label lblMessage;
+
+		/// <summary>
+		/// Module loader (injected)
+		/// </summary>
+		public ModuleLoader ModuleLoader
+		{
+			set { this._moduleLoader = value; }
+		}
 	
 		private void Page_Load(object sender, System.EventArgs e)
 		{
@@ -70,12 +81,11 @@ namespace Cuyahoga.Web.Admin
 		{
 			foreach (Section section in node.Sections)
 			{
-				section.SessionFactoryRebuilt += new EventHandler(section_SessionFactoryRebuilt);
-				string sectionUrl = UrlHelper.GetUrlFromSection(section);
 				ModuleBase module = null;
 				try
 				{
-					module = section.CreateModule(sectionUrl);
+					this._moduleLoader.ModuleAdded += new EventHandler(ModuleLoader_ModuleAdded);
+					module = this._moduleLoader.GetModuleFromSection(section);
 				}
 				catch (Exception ex)
 				{
@@ -125,9 +135,12 @@ namespace Cuyahoga.Web.Admin
 		}
 		#endregion
 
-		private void section_SessionFactoryRebuilt(object sender, EventArgs e)
+
+		private void ModuleLoader_ModuleAdded(object sender, EventArgs e)
 		{
-			// TODO: how to react when not all modules were mapped in the SessionFactory?
+			// TODO
+			throw new Exception("The method or operation is not implemented.");		
 		}
+
 	}
 }
