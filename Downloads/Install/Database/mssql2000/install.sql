@@ -47,6 +47,8 @@ go
 /*
  *  Table data
  */
+SET DATEFORMAT ymd
+
 
 DECLARE @moduletypeid int
 

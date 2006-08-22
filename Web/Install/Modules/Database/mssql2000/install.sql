@@ -136,6 +136,7 @@ FOREIGN KEY (modifiedby) REFERENCES cuyahoga_user (userid)
 go
 
 -- DATA
+SET DATEFORMAT ymd
 
 SET IDENTITY_INSERT cuyahoga_moduletype ON
 

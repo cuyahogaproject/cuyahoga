@@ -424,6 +424,7 @@ FOREIGN KEY (roleid) REFERENCES cuyahoga_role (roleid)
 go
 
 -- DATA
+SET DATEFORMAT ymd
 
 
 SET IDENTITY_INSERT cuyahoga_role ON
