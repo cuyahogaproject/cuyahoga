@@ -12,7 +12,7 @@ namespace Cuyahoga.Core.Service
 	/// The SessionFactory provides the NHibernate sessions and provides the possibility to register
 	/// additional classes with NHibernate by modules.
 	/// </summary>
-	[Obsolete("Replaced the SessionFactoryHelper and the ISessionManager")] 
+	[Obsolete("Replaced with the SessionFactoryHelper and the ISessionManager")] 
 	public class SessionFactory
 	{
 		private Configuration _nhibernateConfiguration;
