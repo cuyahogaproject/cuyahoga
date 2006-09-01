@@ -285,6 +285,7 @@
     <Compile Include="Service\Email\IEmailService.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Service\Email\DefaultEmailService.cs" />
     <Compile Include="Service\Files\FileResourceService.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -377,9 +378,11 @@
     <EmbeddedResource Include="Domain\Template.hbm.xml" />
     <EmbeddedResource Include="Domain\User.hbm.xml" />
     <Content Include="Domain\FileResource.hbm.xml" />
-    <Folder Include="Service\Search" />
-    <Folder Include="Service\Versioning" />
-    <Folder Include="Service\Workflow" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Service\Search\" />
+    <Folder Include="Service\Versioning\" />
+    <Folder Include="Service\Workflow\" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
