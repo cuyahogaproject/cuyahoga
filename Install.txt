@@ -19,14 +19,14 @@ Installing Cuyahoga from source.
         - Make sure you have installed the Web Application Project model (http://webproject.scottgu.com/)
         - Open Cuyahoga.sln with VS.NET.
         - Build Solution.
-        - Change the connection string in the Web.config (hibernate.connection.connection_string)
+        - Change the connection string in the Web\Config\properties.config (connectionString)
           to the database that is created in step 2.
-          
+		  
           Example (SQL Server):
-          <add key="hibernate.connection.connection_string" value="server=(local);database=Cuyahoga;uid=***;pwd=***;" />  	
+		  <connectionString>server=(local);database=Cuyahoga;uid=***;pwd=***;</connectionString>
           
           Example (PostgreSQL):
-          <add key="hibernate.connection.connection_string" value="server=192.168.0.1;port=5432;database=Cuyahoga;uid=***;pwd=***;" />  	
+		  <connectionString>server=192.168.0.1;port=5432;database=Cuyahoga;uid=***;pwd=***;</connectionString>
           
           Make sure that the account that connects to the database has enough permissions to create
           the database!
