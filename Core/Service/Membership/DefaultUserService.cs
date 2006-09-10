@@ -31,19 +31,50 @@ namespace Cuyahoga.Core.Service.Membership
 			return this._userDao.FindUsersByUsername(searchString);
 		}
 
+		public User GetUserById(int userId)
+		{
+			return this._commonDao.GetObjectById(typeof(User), userId, true) as User;
+		}
+
 		public User GetUserByUsernameAndEmail(string username, string email)
 		{
 			return this._userDao.GetUserByUsernameAndEmail(username, email);
 		}
 
-		public void CreateUser(User user)
+		public string CreateUser(string username, string email, Site currentSite)
 		{
-			throw new NotImplementedException();
+			User user = new User();
+			user.UserName = username;
+			user.Email = email;
+			user.IsActive = true;
+			string newPassword = user.GeneratePassword();
+			// Add the default role from the current site.
+			user.Roles.Add(currentSite.DefaultRole);
+			this._commonDao.SaveOrUpdateObject(user);
+
+			return newPassword;
 		}
 
-		public void ResetPassword(string username, string email)
+		public void UpdateUser(User user)
 		{
-			throw new NotImplementedException();
+			this._commonDao.SaveOrUpdateObject(user);
+		}
+
+		public void DeleteUser(User user)
+		{
+			this._commonDao.DeleteObject(user);
+		}
+
+		public string ResetPassword(string username, string email)
+		{
+			User user = this._userDao.GetUserByUsernameAndEmail(username, email);
+			if (user == null)
+			{
+				throw new NullReferenceException("No user found with the given username and email");
+			}
+			string newPassword = user.GeneratePassword();
+			this._userDao.SaveOrUpdateUser(user);
+			return newPassword;
 		}
 
 		public IList GetAllRoles()

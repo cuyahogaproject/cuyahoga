@@ -9,9 +9,18 @@ namespace Cuyahoga.Core.Service.Email
 	public interface IEmailService
 	{
 		/// <summary>
-		/// The physical template directory.
+		/// The physical template directory. This can be set from code or via a configuration parameter.
 		/// </summary>
-		string templateDir
+		string TemplateDir
+		{
+			set;
+		}
+
+		/// <summary>
+		/// The two-letter ISO language code (for example, 'en') that is used to load language-specific templates.
+		/// When left null, no language-specific template is assumed.
+		/// </summary>
+		string Language
 		{
 			set;
 		}
@@ -20,9 +29,11 @@ namespace Cuyahoga.Core.Service.Email
 		/// Send an email based on a template. The template contains the subject and the body with optional
 		/// placeholders for dynamic content.
 		/// </summary>
+		/// <param name="from">The from address</param>
+		/// <param name="to">The to address</param>
 		/// <param name="templateName">The name of the template</param>
 		/// <param name="subjectParams">Dynamic subject parameters</param>
 		/// <param name="bodyParams">Dynamic body parameters</param>
-		void ProcessEmail(string templateName, Dictionary<string, string> subjectParams, Dictionary<string, string> bodyParams);
+		void ProcessEmail(string from, string to, string templateName, Dictionary<string, string> subjectParams, Dictionary<string, string> bodyParams);
 	}
 }

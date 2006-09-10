@@ -69,7 +69,7 @@ namespace Cuyahoga.Core.Service.Email
 
 		public void Send(string from, string to, string subject, string body)
 		{
-			Send(from, to, subject, body);
+			Send(from, to, subject, body, null, null);
 		}
 
 		public void Send(string from, string to, string subject, string body, string[] cc, string[] bcc)
@@ -78,14 +78,14 @@ namespace Cuyahoga.Core.Service.Email
 			MailMessage message = new MailMessage(from, to, subject, body);
 			message.BodyEncoding = this._encoding;
 
-			if (cc.Length > 0)
+			if (cc != null && cc.Length > 0)
 			{
 				foreach (string ccAddress in cc)
 				{
 					message.CC.Add(new MailAddress(ccAddress));
 				}
 			}
-			if (bcc.Length > 0)
+			if (bcc != null && bcc.Length > 0)
 			{
 				foreach (string bccAddress in bcc)
 				{

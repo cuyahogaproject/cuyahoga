@@ -4,7 +4,7 @@ using System.Collections.Generic;
 namespace Cuyahoga.Core.Service.Email
 {
 	/// <summary>
-	/// Manages email templates.
+	/// Processes email templates.
 	/// </summary>
 	public interface IEmailTemplateEngine
 	{
@@ -14,7 +14,8 @@ namespace Cuyahoga.Core.Service.Email
 		/// <param name="templatePath">Physical path of the template</param>
 		/// <param name="subjectParams"></param>
 		/// <param name="bodyParams"></param>
-		/// <returns>The merged email subject and body (0 is subject, 1 is body)</returns>
+		/// <returns>The merged email subject and body (position 0 is the subject, position 1 is the body)</returns>
+		/// TODO: refactor to return a decent MailMessage class or something.
 		string[] ProcessTemplate(string templatePath, Dictionary<string, string> subjectParams, Dictionary<string, string> bodyParams);
 	}
 }

@@ -18,25 +18,47 @@ namespace Cuyahoga.Core.Service.Membership
 		IList FindUsersByUsername(string searchString);
 
 		/// <summary>
+		/// Get a user by ID.
+		/// </summary>
+		/// <param name="userId"></param>
+		/// <returns></returns>
+		User GetUserById(int userId);
+
+		/// <summary>
 		/// Get a user by username and email.
 		/// </summary>
 		/// <param name="username"></param>
 		/// <param name="email"></param>
 		/// <returns></returns>
-		[Obsolete("This method is deprecated, use ResetPassword instead.")]
 		User GetUserByUsernameAndEmail(string username, string email);
 
 		/// <summary>
-		/// Create a new user.
+		/// Create a new user with the supplied username and email address for the given site.
+		/// </summary>
+		/// <param name="username"></param>
+		/// <param name="email"></param>
+		/// <param name="site"></param>
+		/// <returns>The generated password in clear text.</returns>
+		string CreateUser(string username, string email, Site site);
+
+		/// <summary>
+		/// Update an existing user.
 		/// </summary>
 		/// <param name="user"></param>
-		void CreateUser(User user);
+		void UpdateUser(User user);
+
+		/// <summary>
+		/// Delete an existing user.
+		/// </summary>
+		/// <param name="user"></param>
+		void DeleteUser(User user);
 
 		/// <summary>
 		/// Reset the password of the user with the given username and email address.
 		/// </summary>
 		/// <param name="user"></param>
-		void ResetPassword(string username, string email);
+		/// <returns>The new password</returns>
+		string ResetPassword(string username, string email);
 
 		/// <summary>
 		/// Get all available roles.

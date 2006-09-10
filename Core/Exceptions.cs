@@ -43,4 +43,12 @@ namespace Cuyahoga.Core
 		{
 		}
 	}
+
+	public class EmailException : ApplicationException
+	{
+		public EmailException(string message, Exception innerException)
+			: base(message, innerException)
+		{
+		}
+	}
 }
