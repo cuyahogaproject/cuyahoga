@@ -7,8 +7,6 @@ namespace Cuyahoga.Modules.User
 	using System.Web.UI.WebControls;
 	using System.Web.UI.HtmlControls;
 
-	using Cuyahoga.Core.Domain;
-	using Cuyahoga.Core.Service;
 	using Cuyahoga.Web.UI;
 
 	/// <summary>
@@ -32,20 +30,18 @@ namespace Cuyahoga.Modules.User
 			this._module = base.Module as ProfileModule;
 			if (this._module.CurrentUserId > 0)
 			{
-				try
+				Cuyahoga.Core.Domain.User user = this._module.GetUserById(this._module.CurrentUserId);
+				if (user != null)
 				{
-					// TODO: refactor
-					CoreRepository cr = HttpContext.Current.Items["CoreRepository"] as CoreRepository;
-					Cuyahoga.Core.Domain.User user = (Cuyahoga.Core.Domain.User)cr.GetObjectById(typeof(Cuyahoga.Core.Domain.User), this._module.CurrentUserId);
 					this.litTitle.Text = String.Format(GetText("VIEWPROFILETITLE"), user.UserName);
 					BindUser(user);
-					if (! this.IsPostBack)
+					if (!this.IsPostBack)
 					{
 						// Databind is required to bind the localized resources.
 						this.DataBind();
 					}
 				}
-				catch
+				else
 				{
 					this.lblError.Text = String.Format(GetText("USERNOTFOUND"), this._module.CurrentUserId.ToString());
 					this.lblError.Visible = true;

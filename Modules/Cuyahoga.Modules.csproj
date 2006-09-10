@@ -283,6 +283,10 @@
     <Content Include="User\EditProfile.ascx">
       <SubType>UserControl</SubType>
     </Content>
+    <Content Include="User\EmailTemplates\Register.nl.txt" />
+    <Content Include="User\EmailTemplates\Register.txt" />
+    <Content Include="User\EmailTemplates\ResetPassword.nl.txt" />
+    <Content Include="User\EmailTemplates\ResetPassword.txt" />
     <Content Include="User\Register.ascx">
       <SubType>UserControl</SubType>
     </Content>
@@ -365,6 +369,7 @@
     </PreBuildEvent>
     <PostBuildEvent>xcopy /s /y "$(ProjectDir)"*.as?x "$(SolutionDir)"Web\Modules
 xcopy /s /y "$(ProjectDir)"*.gif "$(SolutionDir)"Web\Modules
+xcopy /s /y "$(ProjectDir)"*.txt "$(SolutionDir)"Web\Modules
 xcopy /s /y "$(TargetDir)"Cuyahoga.Modules*.dll "$(SolutionDir)"Web\bin
 xcopy /s /y "$(TargetDir)"FredCK.FCKeditorV2.dll "$(SolutionDir)"Web\bin</PostBuildEvent>
   </PropertyGroup>

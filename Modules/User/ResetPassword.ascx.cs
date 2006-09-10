@@ -7,16 +7,16 @@ namespace Cuyahoga.Modules.User
 	using System.Web.UI.WebControls;
 	using System.Web.UI.HtmlControls;
 
-	using Cuyahoga.Core.Domain;
-	using Cuyahoga.Core.Service;
+	using Cuyahoga.Core;
 	using Cuyahoga.Web.UI;
-	using Cuyahoga.Web.Util;
 
 	/// <summary>
 	///		Summary description for ResetPassword.
 	/// </summary>
 	public class ResetPassword : BaseModuleControl
 	{
+		private ProfileModule _module;
+
 		protected System.Web.UI.WebControls.Label lblError;
 		protected System.Web.UI.WebControls.TextBox txtUsername;
 		protected System.Web.UI.WebControls.RequiredFieldValidator rfvUsername;
@@ -30,6 +30,8 @@ namespace Cuyahoga.Modules.User
 
 		private void Page_Load(object sender, System.EventArgs e)
 		{
+			this._module = base.Module as ProfileModule;
+
 			if (! this.IsPostBack)
 			{
 				// Databind is required to bind the localized resources.
@@ -63,42 +65,22 @@ namespace Cuyahoga.Modules.User
 		{
 			if (this.Page.IsValid)
 			{
-				// Check if the username and email combination exists.
-				// TODO: refactor
-				CoreRepository cr = HttpContext.Current.Items["CoreRepository"] as CoreRepository;
-				Cuyahoga.Core.Domain.User user = cr.GetUserByUsernameAndEmail(this.txtUsername.Text, this.txtEmail.Text);
-				if (user == null)
+				try
 				{
-					this.lblError.Text = GetText("RESETUSERERROR");
-					this.lblError.Visible = true;
-				}
-				else
-				{
-					Site site = base.PageEngine.ActiveNode.Site;
-					// OK, reset password
-					string prevPassword = user.Password;
-					string newPassword = user.GeneratePassword();
-
-					cr.SaveObject(user);
-					
-					// Send email
-					string subject = GetText("RESETEMAILSUBJECT").Replace("{site}", site.Name);
-					string body = GetText("RESETEMAILBODY");
-					body = body.Replace("{username}", user.UserName);
-					body = body.Replace("{password}", newPassword);
-					try
-					{
-						Email.Send(user.Email, site.WebmasterEmail, subject, body);
-					}
-					catch
-					{
-						this.lblError.Text = GetText("RESETEMAILERROR");
-						this.lblError.Visible = true;
-					}
-
+					this._module.ResetPassword(this.txtUsername.Text, this.txtEmail.Text);
 					this.pnlReset.Visible = false;
 					this.pnlConfirmation.Visible = true;
-					this.lblConfirmation.Text = String.Format(GetText("RESETCONFIRMATION"), user.Email);
+					this.lblConfirmation.Text = String.Format(GetText("RESETCONFIRMATION"), this.txtEmail.Text);
+				}
+				catch (EmailException)
+				{
+					this.lblError.Text = GetText("RESETEMAILERROR");
+					this.lblError.Visible = true;
+				}
+				catch (Exception ex)
+				{
+					this.lblError.Text = ex.Message;
+					this.lblError.Visible = true;
 				}
 			}
 		}

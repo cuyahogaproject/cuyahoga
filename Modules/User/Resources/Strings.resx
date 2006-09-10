@@ -3,7 +3,7 @@
   <!-- 
     Microsoft ResX Schema 
     
-    Version 1.3
+    Version 2.0
     
     The primary goals of this format is to allow a simple XML format 
     that is mostly human readable. The generation and parsing of the 
@@ -14,16 +14,17 @@
     
     ... ado.net/XML headers & schema ...
     <resheader name="resmimetype">text/microsoft-resx</resheader>
-    <resheader name="version">1.3</resheader>
+    <resheader name="version">2.0</resheader>
     <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
     <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
-    <data name="Name1">this is my long string</data>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
     <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
     <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
-        [base64 mime encoded serialized .NET Framework object]
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
     </data>
     <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
-        [base64 mime encoded string representing a byte array form of the .NET Framework object]
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
     </data>
                 
     There are any number of "resheader" rows that contain simple 
@@ -35,7 +36,7 @@
     Classes that don't support this are serialized and stored with the 
     mimetype set.
     
-    The mimetype is used forserialized objects, and tells the 
+    The mimetype is used for serialized objects, and tells the 
     ResXResourceReader how to depersist the object. This is currently not 
     extensible. For a given mimetype the value must be set accordingly:
     
@@ -45,7 +46,7 @@
     
     mimetype: application/x-microsoft.net.object.binary.base64
     value   : The object must be serialized with 
-            : System.Serialization.Formatters.Binary.BinaryFormatter
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
             : and then encoded with base64 encoding.
     
     mimetype: application/x-microsoft.net.object.soap.base64
@@ -59,18 +60,37 @@
             : and then encoded with base64 encoding.
     -->
   <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
     <xsd:element name="root" msdata:IsDataSet="true">
       <xsd:complexType>
         <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
           <xsd:element name="data">
             <xsd:complexType>
               <xsd:sequence>
                 <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
                 <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
               </xsd:sequence>
-              <xsd:attribute name="name" type="xsd:string" msdata:Ordinal="1" />
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
               <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
               <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
             </xsd:complexType>
           </xsd:element>
           <xsd:element name="resheader">
@@ -89,173 +109,162 @@
     <value>text/microsoft-resx</value>
   </resheader>
   <resheader name="version">
-    <value>1.3</value>
+    <value>2.0</value>
   </resheader>
   <resheader name="reader">
-    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=1.0.5000.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <resheader name="writer">
-    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=1.0.5000.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="LOGINERROR">
+  <data name="LOGINERROR" xml:space="preserve">
     <value>An unexpected error occured while logging in:</value>
   </data>
-  <data name="USERNAMEPASSWORDMISSING">
+  <data name="USERNAMEPASSWORDMISSING" xml:space="preserve">
     <value>Please enter both a username and a password</value>
   </data>
-  <data name="LOGOUT">
+  <data name="LOGOUT" xml:space="preserve">
     <value>Logout</value>
   </data>
-  <data name="REGISTER">
+  <data name="REGISTER" xml:space="preserve">
     <value>Register</value>
   </data>
-  <data name="USERNAMEPASSWORDERROR">
+  <data name="USERNAMEPASSWORDERROR" xml:space="preserve">
     <value>Invalid username or password</value>
   </data>
-  <data name="RESET">
+  <data name="RESET" xml:space="preserve">
     <value>Reset password</value>
   </data>
-  <data name="LOGIN">
+  <data name="LOGIN" xml:space="preserve">
     <value>Login</value>
   </data>
-  <data name="LOGGEDINTEXT">
+  <data name="LOGGEDINTEXT" xml:space="preserve">
     <value>Logged in as</value>
   </data>
-  <data name="PERSISTLOGIN">
+  <data name="PERSISTLOGIN" xml:space="preserve">
     <value>Remember login</value>
   </data>
-  <data name="PASSWORD">
+  <data name="PASSWORD" xml:space="preserve">
     <value>Password</value>
   </data>
-  <data name="EDITACCOUNT">
+  <data name="EDITACCOUNT" xml:space="preserve">
     <value>Edit account information</value>
   </data>
-  <data name="USERNAME">
+  <data name="USERNAME" xml:space="preserve">
     <value>Username</value>
   </data>
-  <data name="RESETEMAILERROR">
+  <data name="RESETEMAILERROR" xml:space="preserve">
     <value>Resetting of your password failed because an error occured while sending your account information. Please try to reset again later.</value>
   </data>
-  <data name="RESETINFO">
+  <data name="RESETINFO" xml:space="preserve">
     <value>Please enter your username and e-mail address. A new password will be generated and send to you.</value>
   </data>
-  <data name="EDITPASSWORDCONFIRMATION">
+  <data name="EDITPASSWORDCONFIRMATION" xml:space="preserve">
     <value>Your password was successfully updated.</value>
   </data>
-  <data name="EDITPASSWORDCONFIRMERROR">
+  <data name="EDITPASSWORDCONFIRMERROR" xml:space="preserve">
     <value>The confirmation password has to be the same as the new password.</value>
   </data>
-  <data name="USERNOTFOUND">
+  <data name="USERNOTFOUND" xml:space="preserve">
     <value>The user with ID {0} could not be found.</value>
   </data>
-  <data name="EMAIL">
+  <data name="EMAIL" xml:space="preserve">
     <value>E-mail</value>
   </data>
-  <data name="RESETUSERERROR">
+  <data name="RESETUSERERROR" xml:space="preserve">
     <value>No user was found with the given username and e-mail.</value>
   </data>
-  <data name="REGISTERCONFIRMATION">
+  <data name="REGISTERCONFIRMATION" xml:space="preserve">
     <value>Thank you for registering with this site. An e-mail with the password is sent to {0}.</value>
   </data>
-  <data name="SAVEPASSWORD">
+  <data name="SAVEPASSWORD" xml:space="preserve">
     <value>Save new password</value>
   </data>
-  <data name="USERNAMEREQUIRED">
+  <data name="USERNAMEREQUIRED" xml:space="preserve">
     <value>The username is required</value>
   </data>
-  <data name="WEBSITE">
+  <data name="WEBSITE" xml:space="preserve">
     <value>Website</value>
   </data>
-  <data name="REGISTEREMAILBODY">
-    <value>Your registration at {site}.
-
-Username: {username}
-Password: {password}
-
-Have fun!</value>
-  </data>
-  <data name="EDITPROFILETITLE">
+  <data name="EDITPROFILETITLE" xml:space="preserve">
     <value>Update account</value>
   </data>
-  <data name="NEWPASSWORD">
+  <data name="NEWPASSWORD" xml:space="preserve">
     <value>New password</value>
   </data>
-  <data name="EDITPROFILEINFO">
+  <data name="EDITPROFILEINFO" xml:space="preserve">
     <value>Update your account information. Note that your e-mail address will never be publicly shown.</value>
   </data>
-  <data name="LASTNAME">
+  <data name="LASTNAME" xml:space="preserve">
     <value>Last name</value>
   </data>
-  <data name="REGISTERTITLE">
+  <data name="REGISTERTITLE" xml:space="preserve">
     <value>Register as new user</value>
   </data>
-  <data name="LASTLOGINON">
+  <data name="LASTLOGINON" xml:space="preserve">
     <value>Last visit</value>
   </data>
-  <data name="SAVEPROFILE">
+  <data name="SAVEPROFILE" xml:space="preserve">
     <value>Save account information</value>
   </data>
-  <data name="RESETTITLE">
+  <data name="RESETTITLE" xml:space="preserve">
     <value>Reset password</value>
   </data>
-  <data name="REGISTEREMAILERROR">
+  <data name="REGISTEREMAILERROR" xml:space="preserve">
     <value>The registration failed because an error occured while sending your account information. Please try again later.</value>
   </data>
-  <data name="TIMEZONE">
+  <data name="TIMEZONE" xml:space="preserve">
     <value>Timezone</value>
   </data>
-  <data name="EMAILINVALID">
+  <data name="EMAILINVALID" xml:space="preserve">
     <value>Invalid e-mail address</value>
   </data>
-  <data name="EMAILREQUIRED">
+  <data name="EMAILREQUIRED" xml:space="preserve">
     <value>The e-mail address is required</value>
   </data>
-  <data name="RESETEMAILSUBJECT">
+  <data name="RESETEMAILSUBJECT" xml:space="preserve">
     <value>{site} updated account information.</value>
   </data>
-  <data name="REGISTERINFO">
+  <data name="REGISTERINFO" xml:space="preserve">
     <value>Please enter the desired username and your e-mail address. The password will be sent to your e-mail address.</value>
   </data>
-  <data name="EDITPROFILECONFIRMATION">
+  <data name="EDITPROFILECONFIRMATION" xml:space="preserve">
     <value>Your account information was successfully updated.</value>
   </data>
-  <data name="FIRSTNAME">
+  <data name="FIRSTNAME" xml:space="preserve">
     <value>First name</value>
   </data>
-  <data name="REGISTEREDON">
+  <data name="REGISTEREDON" xml:space="preserve">
     <value>Registered</value>
   </data>
-  <data name="USEREXISTS">
+  <data name="USEREXISTS" xml:space="preserve">
     <value>A user with username {0} already exists. Please choose a different username.</value>
   </data>
-  <data name="REGISTEREMAILSUBJECT">
-    <value>{site} account information</value>
-  </data>
-  <data name="VIEWPROFILETITLE">
+  <data name="VIEWPROFILETITLE" xml:space="preserve">
     <value>Profile of {0}</value>
   </data>
-  <data name="CURRENTPASSWORD">
+  <data name="CURRENTPASSWORD" xml:space="preserve">
     <value>Current password</value>
   </data>
-  <data name="NEWPASSWORDCONFIRMATION">
+  <data name="NEWPASSWORDCONFIRMATION" xml:space="preserve">
     <value>New password (confirmation)</value>
   </data>
-  <data name="NOTAUTHENTICATED">
+  <data name="NOTAUTHENTICATED" xml:space="preserve">
     <value>You have to be logged in perform this action.</value>
   </data>
-  <data name="RESETCONFIRMATION">
+  <data name="RESETCONFIRMATION" xml:space="preserve">
     <value>An e-mail with a new password is sent to {0}.</value>
   </data>
-  <data name="RESETEMAILBODY">
+  <data name="RESETEMAILBODY" xml:space="preserve">
     <value>Your updated login information:
 
 Username: {username}
 Password: {password}</value>
   </data>
-  <data name="INVALIDPASSWORD">
+  <data name="INVALIDPASSWORD" xml:space="preserve">
     <value>You entered an invalid password. The password has to be at least 5 characters long.</value>
   </data>
-  <data name="EDITPASSWORDCURRENTERROR">
+  <data name="EDITPASSWORDCURRENTERROR" xml:space="preserve">
     <value>The current password you entered doesn't match your real current password.</value>
   </data>
 </root>

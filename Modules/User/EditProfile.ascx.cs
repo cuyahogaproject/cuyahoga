@@ -18,7 +18,7 @@ namespace Cuyahoga.Modules.User
 	/// </summary>
 	public class EditProfile : BaseModuleControl
 	{
-		private const string USER_CACHE_PREFIX = "User_";
+		private ProfileModule _module;
 
 		protected System.Web.UI.WebControls.Label lblError;
 		protected System.Web.UI.WebControls.Label lblUsername;
@@ -42,6 +42,8 @@ namespace Cuyahoga.Modules.User
 
 		private void Page_Load(object sender, System.EventArgs e)
 		{
+			this._module = base.Module as ProfileModule;
+
 			if (! Context.User.Identity.IsAuthenticated)
 			{
 				ShowMessage(base.GetText("NOTAUTHENTICATED"));
@@ -126,11 +128,7 @@ namespace Cuyahoga.Modules.User
 				try
 				{
 					// Save user
-					// TODO: refactor
-					CoreRepository cr = HttpContext.Current.Items["CoreRepository"] as CoreRepository;
-					cr.UpdateObject(currentUser);
-					// Remove old user from the cache
-					HttpContext.Current.Cache.Remove(USER_CACHE_PREFIX + currentUser.Id.ToString());
+					this._module.UpdateUser(currentUser);
 					ShowMessage(GetText("EDITPROFILECONFIRMATION"));
 				}
 				catch (Exception ex)
@@ -166,11 +164,7 @@ namespace Cuyahoga.Modules.User
 				}
 				currentUser.Password = Cuyahoga.Core.Domain.User.HashPassword(this.txtNewPassword.Text);
 				// Save user 
-				// TODO: refactor
-				CoreRepository cr = HttpContext.Current.Items["CoreRepository"] as CoreRepository;
-				cr.UpdateObject(currentUser);
-				// Remove old user from the cache
-				HttpContext.Current.Cache.Remove(USER_CACHE_PREFIX + currentUser.Id.ToString());
+				this._module.UpdateUser(currentUser);
 				ShowMessage(GetText("EDITPASSWORDCONFIRMATION"));
 			}
 			catch (Exception ex)

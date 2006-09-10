@@ -11,12 +11,15 @@ namespace Cuyahoga.Modules.User
 	using Cuyahoga.Core.Service;
 	using Cuyahoga.Web.Util;
 	using Cuyahoga.Web.UI;
+	using Cuyahoga.Core;
 
 	/// <summary>
 	///		Summary description for Register.
 	/// </summary>
 	public class Register : BaseModuleControl
 	{
+		private ProfileModule _module;
+
 		protected System.Web.UI.WebControls.TextBox txtUsername;
 		protected System.Web.UI.WebControls.TextBox txtEmail;
 		protected System.Web.UI.WebControls.Panel pnlRegister;
@@ -30,6 +33,8 @@ namespace Cuyahoga.Modules.User
 
 		private void Page_Load(object sender, System.EventArgs e)
 		{
+			this._module = base.Module as ProfileModule;
+
 			if (! this.IsPostBack)
 			{
 				// Databind is required to bind the localized resources.
@@ -61,12 +66,10 @@ namespace Cuyahoga.Modules.User
 
 		private void btnRegister_Click(object sender, System.EventArgs e)
 		{
-			if (this.Page.IsValid)
+			if (this.Page.IsValid && this.IsPostBack)
 			{
 				// Check if username already exists.
-				// TODO: refactor
-				CoreRepository cr = HttpContext.Current.Items["CoreRepository"] as CoreRepository;
-				if (cr.FindUsersByUsername(this.txtUsername.Text).Count > 0)
+				if (this._module.CheckIfUserExists(this.txtUsername.Text))
 				{
 					this.lblError.Text = String.Format(GetText("USEREXISTS"), this.txtUsername.Text);
 					this.lblError.Visible = true;
@@ -75,32 +78,20 @@ namespace Cuyahoga.Modules.User
 				{
 					Site site = base.PageEngine.ActiveNode.Site;
 					// OK, create new user.
-					Cuyahoga.Core.Domain.User user = new Cuyahoga.Core.Domain.User();
-					user.UserName = txtUsername.Text;
-					user.Email = txtEmail.Text;
-					user.IsActive = true;
-					string newPassword = user.GeneratePassword();
-					// Add the default role from the current site.
-					user.Roles.Add(site.DefaultRole);
-					cr.SaveObject(user);
-					
-					// Send email
-					string subject = GetText("REGISTEREMAILSUBJECT").Replace("{site}", site.Name);
-					string body = GetText("REGISTEREMAILBODY");
-					body = body.Replace("{site}", site.Name + " (" + site.SiteUrl + ")");
-					body = body.Replace("{username}", user.UserName);
-					body = body.Replace("{password}", newPassword);
 					try
 					{
-						Email.Send(user.Email, site.WebmasterEmail, subject, body);
+						this._module.RegisterUser(this.txtUsername.Text, this.txtEmail.Text);
 						this.pnlConfirmation.Visible = true;
-						this.lblConfirmation.Text = String.Format(GetText("REGISTERCONFIRMATION"), user.Email);
+						this.lblConfirmation.Text = String.Format(GetText("REGISTERCONFIRMATION"), this.txtEmail.Text);
 					}
-					catch
+					catch (EmailException)
 					{
-						// delete user when sending email fails.
-						cr.DeleteObject(user);
 						this.lblError.Text = GetText("REGISTEREMAILERROR");
+						this.lblError.Visible = true;
+					}
+					catch (Exception ex)
+					{
+						this.lblError.Text = ex.Message;
 						this.lblError.Visible = true;
 					}
 

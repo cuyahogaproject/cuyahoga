@@ -1,0 +1,11 @@
+[subject]
+$site account info
+[/subject]
+[body]
+Uw inlogggevens voor $site.
+
+Gebruikersnaam: $username
+Wachtwoord: $password
+
+Veel plezier!
+[/body]

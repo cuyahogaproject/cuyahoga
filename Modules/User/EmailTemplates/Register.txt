@@ -1,0 +1,11 @@
+[subject]
+$site account information
+[/subject]
+[body]
+Your registration at $site.
+
+Username: $username
+Password: $password
+
+Have fun!
+[/body]
