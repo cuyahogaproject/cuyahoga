@@ -282,10 +282,12 @@
     <Compile Include="Service\DatabaseInstaller.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Service\Email\IEmailService.cs">
-      <SubType>Code</SubType>
-    </Compile>
     <Compile Include="Service\Email\DefaultEmailService.cs" />
+    <Compile Include="Service\Email\IEmailSender.cs" />
+    <Compile Include="Service\Email\IEmailService.cs" />
+    <Compile Include="Service\Email\IEmailTemplateEngine.cs" />
+    <Compile Include="Service\Email\SimpleEmailTemplateEngine.cs" />
+    <Compile Include="Service\Email\SmtpNet2EmailSender.cs" />
     <Compile Include="Service\Files\FileResourceService.cs">
       <SubType>Code</SubType>
     </Compile>
