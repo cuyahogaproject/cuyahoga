@@ -32,6 +32,7 @@ namespace Cuyahoga.Web.UI
 		private BaseTemplate _templateControl;
 		private bool _shouldLoadContent;
 		private IDictionary _stylesheets;
+		private IDictionary _metaTags;
 
 		private ModuleLoader _moduleLoader;
 		private INodeService _nodeService;
@@ -141,6 +142,7 @@ namespace Cuyahoga.Web.UI
 			this._templateControl = null;
 			this._shouldLoadContent = true;
 			this._stylesheets = new Hashtable();
+			this._metaTags = new Hashtable();
 		}
 
 		/// <summary>
@@ -153,6 +155,19 @@ namespace Cuyahoga.Web.UI
 			if (this._stylesheets[key] == null)
 			{
 				this._stylesheets.Add(key, absoluteCssPath);
+			}
+		}
+
+		/// <summary>
+		/// Register a meta tag. The values can be overriden.
+		/// </summary>
+		/// <param name="name"></param>
+		/// <param name="content"></param>
+		public void RegisterMetaTag(string name, string content)
+		{
+			if (content != null && content.Length > 0)
+			{
+				this._metaTags[name] = content;
 			}
 		}
 
@@ -283,6 +298,23 @@ namespace Cuyahoga.Web.UI
 				this._templateControl.Title = this._activeNode.Site.Name + " - " + this._activeNode.Title;
 				// Register stylesheet that belongs to the template.
 				RegisterStylesheet("maincss", appRoot + this._activeNode.Template.BasePath + "/Css/" + this._activeNode.Template.Css);
+				//Register the metatags
+				if (ActiveNode.MetaKeywords != null)
+				{
+					RegisterMetaTag("keywords", ActiveNode.MetaKeywords);
+				}
+				else
+				{
+					RegisterMetaTag("keywords", ActiveNode.Site.MetaKeywords);
+				}
+				if (ActiveNode.MetaDescription != null)
+				{
+					RegisterMetaTag("description", ActiveNode.MetaDescription);
+				}
+				else
+				{
+					RegisterMetaTag("description", ActiveNode.Site.MetaDescription);
+				}
 				// Load sections that are related to the template
 				foreach (DictionaryEntry sectionEntry in this.ActiveNode.Template.Sections)
 				{
@@ -413,7 +445,7 @@ namespace Cuyahoga.Web.UI
 
 		private void InsertMetaTags()
 		{
-			// TODO: meta tags.
+			this.TemplateControl.RenderMetaTags(this._metaTags);
 		}
 
 		private void ModuleLoader_ModuleAdded(object sender, EventArgs e)

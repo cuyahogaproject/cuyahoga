@@ -25,6 +25,8 @@ namespace Cuyahoga.Core.Domain
 		private bool _showInNavigation;
 		private string _linkUrl;
 		private LinkTarget _linkTarget;
+		private string _metaKeywords;
+		private string _metaDescription;
 		private DateTime _updateTimestamp;
 
 		#region properties
@@ -113,6 +115,24 @@ namespace Cuyahoga.Core.Domain
 		public virtual bool IsExternalLink
 		{
 			get { return this._linkUrl != null && this._linkUrl != String.Empty; }
+		}
+
+		/// <summary>
+		/// List of keywords for the page.
+		/// </summary>
+		public virtual string MetaKeywords
+		{
+			get { return this._metaKeywords; }
+			set { this._metaKeywords = value; }
+		}
+
+		/// <summary>
+		/// Description of the page.
+		/// </summary>
+		public virtual string MetaDescription
+		{
+			get { return this._metaDescription; }
+			set { this._metaDescription = value; }
 		}
 
 		/// <summary>

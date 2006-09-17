@@ -44,6 +44,8 @@ namespace Cuyahoga.Web.Admin
 		protected System.Web.UI.WebControls.Repeater rptAliases;
 		protected System.Web.UI.WebControls.CheckBox chkUseFriendlyUrls;
 		protected System.Web.UI.WebControls.RequiredFieldValidator rfvSiteUrl;
+		protected System.Web.UI.WebControls.TextBox txtMetaDescription;
+		protected System.Web.UI.WebControls.TextBox txtMetaKeywords;
 
 		/// <summary>
 		/// Template service (injected).
@@ -101,6 +103,8 @@ namespace Cuyahoga.Web.Admin
 			this.txtSiteUrl.Text = this._activeSite.SiteUrl;
 			this.txtWebmasterEmail.Text = this._activeSite.WebmasterEmail;
 			this.chkUseFriendlyUrls.Checked = this._activeSite.UseFriendlyUrls;
+			this.txtMetaDescription.Text = this._activeSite.MetaDescription;
+			this.txtMetaKeywords.Text = this._activeSite.MetaKeywords;
 		}
 
 		private void BindTemplates()
@@ -221,6 +225,7 @@ namespace Cuyahoga.Web.Admin
 				this._activeSite.SiteUrl = txtSiteUrl.Text;
 				this._activeSite.WebmasterEmail = txtWebmasterEmail.Text;
 				this._activeSite.UseFriendlyUrls = this.chkUseFriendlyUrls.Checked;
+
 				if (this.ddlTemplates.SelectedValue != "-1")
 				{
 					int templateId = Int32.Parse(this.ddlTemplates.SelectedValue);
@@ -239,6 +244,12 @@ namespace Cuyahoga.Web.Admin
 				this._activeSite.DefaultCulture = this.ddlCultures.SelectedValue;
 				int defaultRoleId = Int32.Parse(this.ddlRoles.SelectedValue);
 				this._activeSite.DefaultRole = this._userService.GetRoleById(defaultRoleId);
+				this._activeSite.MetaDescription = this.txtMetaDescription.Text.Trim().Length > 0
+					? this.txtMetaDescription.Text.Trim()
+					: null;
+				this._activeSite.MetaKeywords = this.txtMetaKeywords.Text.Trim().Length > 0
+					? this.txtMetaKeywords.Text.Trim()
+					: null;
 
 				try
 				{

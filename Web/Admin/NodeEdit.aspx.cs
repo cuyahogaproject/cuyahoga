@@ -56,6 +56,8 @@ namespace Cuyahoga.Web.Admin
 		protected System.Web.UI.WebControls.Panel pnlSections;
 		protected System.Web.UI.WebControls.CheckBox chkLink;
 		protected System.Web.UI.WebControls.TextBox txtTitle;
+		protected System.Web.UI.WebControls.TextBox txtMetaDescription;
+		protected System.Web.UI.WebControls.TextBox txtMetaKeywords;
 	
 		private void Page_Load(object sender, System.EventArgs e)
 		{
@@ -136,6 +138,8 @@ namespace Cuyahoga.Web.Admin
 				this.lblParentNode.Text = this.ActiveNode.ParentNode.Title;
 			}
 			this.chkShowInNavigation.Checked = this.ActiveNode.ShowInNavigation;
+			this.txtMetaDescription.Text = this.ActiveNode.MetaDescription;
+			this.txtMetaKeywords.Text = this.ActiveNode.MetaKeywords;
 
 			this.chkLink.Enabled = this.ActiveNode.Sections.Count == 0;
 			if (this.ActiveNode.IsExternalLink)
@@ -370,6 +374,12 @@ namespace Cuyahoga.Web.Admin
 					this.ActiveNode.Title = this.txtTitle.Text;
 					this.ActiveNode.Culture = this.ddlCultures.SelectedValue;
 					this.ActiveNode.ShowInNavigation = this.chkShowInNavigation.Checked;
+					this.ActiveNode.MetaDescription = this.txtMetaDescription.Text.Trim().Length > 0
+					? this.txtMetaDescription.Text.Trim()
+					: null;
+					this.ActiveNode.MetaKeywords = this.txtMetaKeywords.Text.Trim().Length > 0
+						? this.txtMetaKeywords.Text.Trim()
+						: null;
 					if (this.chkLink.Checked)
 					{
 						this.ActiveNode.LinkUrl = this.txtLinkUrl.Text;

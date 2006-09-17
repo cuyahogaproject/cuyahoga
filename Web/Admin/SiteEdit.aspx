@@ -54,6 +54,20 @@
 						<td>Role for registered users</td>
 						<td><asp:dropdownlist id="ddlRoles" runat="server"></asp:dropdownlist></td>
 					</tr>
+					<tr>
+						<td>
+							Meta description</td>
+						<td>
+							<asp:TextBox ID="txtMetaDescription" runat="server" MaxLength="500" TextMode="MultiLine"
+								Width="400px" height="70px"></asp:TextBox></td>
+					</tr>
+					<tr>
+						<td>
+							Meta keywords</td>
+						<td>
+							<asp:TextBox ID="txtMetaKeywords" runat="server" MaxLength="500" TextMode="MultiLine"
+								Width="400px" height="70px"></asp:TextBox></td>
+					</tr>
 				</table>
 			</div>
 			<asp:panel id="pnlAliases" runat="server" cssclass="group">

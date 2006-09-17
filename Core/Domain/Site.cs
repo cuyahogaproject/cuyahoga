@@ -16,6 +16,8 @@ namespace Cuyahoga.Core.Domain
 		private string _defaultPlaceholder;
 		private string _webmasterEmail;
 		private bool _useFriendlyUrls;
+		private string _metaKeywords;
+		private string _metaDescription;
 		private Role _defaultRole;
 		private IList _rootNodes;
 		private DateTime _updateTimestamp;
@@ -101,6 +103,24 @@ namespace Cuyahoga.Core.Domain
 		{
 			get { return this._useFriendlyUrls; }
 			set { this._useFriendlyUrls = value; }
+		}
+
+		/// <summary>
+		/// List of global keywords for the site.
+		/// </summary>
+		public virtual string MetaKeywords
+		{
+			get { return this._metaKeywords; }
+			set { this._metaKeywords = value; }
+		}
+
+		/// <summary>
+		/// Global description for the site.
+		/// </summary>
+		public virtual string MetaDescription
+		{
+			get { return this._metaDescription; }
+			set { this._metaDescription = value; }
 		}
 
 		/// <summary>

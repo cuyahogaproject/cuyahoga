@@ -83,6 +83,8 @@ defaultculture nvarchar(8) NOT NULL,
 defaultplaceholder nvarchar(100) NULL,
 webmasteremail nvarchar(100) NOT NULL,
 usefriendlyurls bit NULL,
+metakeywords nvarchar(500) NULL,
+metadescription nvarchar(500) NULL,
 inserttimestamp datetime DEFAULT current_timestamp NOT NULL,
 updatetimestamp datetime DEFAULT current_timestamp NOT NULL,
 CONSTRAINT UC_site_name UNIQUE(name))
@@ -101,6 +103,8 @@ culture nvarchar(8) NOT NULL,
 showinnavigation bit NOT NULL,
 linkurl nvarchar(255) NULL,
 linktarget int NULL,
+metakeywords nvarchar(500) NULL,
+metadescription nvarchar(500) NULL,
 inserttimestamp datetime DEFAULT current_timestamp NOT NULL,
 updatetimestamp datetime DEFAULT current_timestamp NOT NULL)
 go

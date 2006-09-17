@@ -38,15 +38,6 @@ namespace Cuyahoga.Web.UI
 		}
 
 		/// <summary>
-		/// Path to external stylesheet file, including the application root.
-		/// </summary>
-//		public string Css
-//		{
-//			get { return this.CssStyleSheet.Attributes["href"];	}
-//			set { this.CssStyleSheet.Attributes.Add("href", this.Page.ResolveUrl(value)); }
-//		}
-
-		/// <summary>
 		/// The form of the template.
 		/// </summary>
 		public Control Form

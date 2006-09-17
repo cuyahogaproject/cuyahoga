@@ -53,11 +53,24 @@
 						<td><asp:checkbox id="chkShowInNavigation" runat="server"></asp:checkbox></td>
 					</tr>
 					<tr>
+						<td>Meta description</td>
+						<td>
+							<asp:textbox id="txtMetaDescription" runat="server" maxlength="500" textmode="MultiLine"
+								width="400px" height="70px"></asp:textbox></td>
+					</tr>
+					<tr>
+						<td>Meta keywords</td>
+						<td>
+							<asp:textbox id="txtMetaKeywords" runat="server" maxlength="500" textmode="MultiLine"
+								width="400px" height="70px"></asp:textbox></td>
+					</tr>
+
+					<tr>
 						<td></td>
 						<td><asp:checkbox id="chkLink" runat="server" autopostback="True" text="The node is a link to an external url"></asp:checkbox><asp:panel id="pnlLink" runat="server" visible="False">
 								<table>
 									<tr>
-										<td width="60">Url</td>
+										<td style="width:60px">Url</td>
 										<td>
 											<asp:textbox id="txtLinkUrl" runat="server" width="400px"></asp:textbox></td>
 									</tr>

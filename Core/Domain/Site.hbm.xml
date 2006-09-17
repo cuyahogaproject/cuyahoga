@@ -19,6 +19,8 @@
 		<property name="DefaultPlaceholder" column="defaultplaceholder" type="String" length="100" />
 		<property name="WebmasterEmail" column="webmasteremail" type="String" length="100" />
 		<property name="UseFriendlyUrls" column="usefriendlyurls" type="Boolean" />
+		<property name="MetaKeywords" column="metakeywords" type="String" length="500" />
+		<property name="MetaDescription" column="metadescription" type="String" length="500" />
 		
 		<many-to-one name="DefaultTemplate" class="Cuyahoga.Core.Domain.Template, Cuyahoga.Core" column="templateid" not-null="false" outer-join="false" />
 		<many-to-one name="DefaultRole" class="Cuyahoga.Core.Domain.Role, Cuyahoga.Core" column="roleid" not-null="true" outer-join="true" />
