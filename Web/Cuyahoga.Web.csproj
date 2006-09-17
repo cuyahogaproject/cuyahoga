@@ -280,9 +280,7 @@
       <DependentUpon>Global.asax</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Handlers\PageHandler.cs">
-      <SubType>Code</SubType>
-    </Compile>
+    <Compile Include="HttpHandlers\PageHandler.cs" />
     <Compile Include="HttpModules\AuthenticationModule.cs">
       <SubType>Code</SubType>
     </Compile>

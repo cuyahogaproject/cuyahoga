@@ -11,7 +11,7 @@ using Cuyahoga.Web.Components;
 using Cuyahoga.Web.UI;
 using Cuyahoga.Web.Util;
 
-namespace Cuyahoga.Web.Handlers
+namespace Cuyahoga.Web.HttpHandlers
 {
 	/// <summary>
 	/// This class handles all aspx page requests for Cuyahoga.
@@ -29,9 +29,13 @@ namespace Cuyahoga.Web.Handlers
 		/// <param name="context"></param>
 		public void ProcessRequest(HttpContext context)
 		{
+			string rawUrl = context.Request.RawUrl;
+			log.Info("Starting request for " + rawUrl);
+			DateTime startTime = DateTime.Now;
+
 			// Rewrite url
 			UrlRewriter urlRewriter = new UrlRewriter(context);
-			string rewrittenUrl = urlRewriter.RewriteUrl(context.Request.RawUrl);
+			string rewrittenUrl = urlRewriter.RewriteUrl(rawUrl);
 
 			// Obtain the handler for the current page
 			string aspxPagePath = rewrittenUrl.Substring(0, rewrittenUrl.IndexOf(".aspx") + 5);
@@ -45,6 +49,10 @@ namespace Cuyahoga.Web.Handlers
 
 			// Remove the page from the container
 			RemoveAspxPage(handler, context);
+
+			// Log duration
+			TimeSpan duration = DateTime.Now - startTime;
+			log.Info(String.Format("Request finshed. Total duration: {0} ms.", duration.Milliseconds));
 		}
 
 		/// <summary>
