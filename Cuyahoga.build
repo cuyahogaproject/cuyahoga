@@ -262,6 +262,7 @@
 				<include name="**/*.js" />
 				<include name="**/*.css" />
 				<include name="**/*.xslt" />
+				<include name="**/*.txt" />
 			</fileset>
 		</copy>
 		<!-- Copy Modules.Downloads to the Web dir -->
