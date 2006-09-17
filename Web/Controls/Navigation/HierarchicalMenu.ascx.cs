@@ -81,7 +81,7 @@ namespace Cuyahoga.Web.Templates.Controls
 			HtmlGenericControl list = new HtmlGenericControl("ul");
 			foreach (Node node in nodes)
 			{
-				if (node.ViewAllowed(this._page.CuyahogaUser))
+				if (node.ViewAllowed(this._page.CuyahogaUser) && node.ShowInNavigation)
 				{
 					HtmlControl listItem = BuildListItemFromNode(node);
 					if (node.Level <= this._page.ActiveNode.Level 
