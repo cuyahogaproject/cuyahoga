@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Security.Principal;
+using System.Text.RegularExpressions;
 
 namespace Cuyahoga.Core.Domain
 {
@@ -495,7 +496,11 @@ namespace Cuyahoga.Core.Domain
 			{
 				prefix += this._parentNode.ShortDescription + "/";
 			}
-			this._shortDescription = prefix + this._title.Replace(" ", "-").ToLower();
+			// Substitute spaces
+			string tempTitle = Regex.Replace(this._title.Trim(), "\\s", "-");
+			// Remove illegal characters
+			tempTitle = Regex.Replace(tempTitle, "[^A-Za-z0-9+-.]", "");
+			this._shortDescription = prefix + tempTitle.ToLower();
 		}
 
 		/// <summary>
