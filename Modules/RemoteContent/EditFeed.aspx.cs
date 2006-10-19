@@ -40,7 +40,7 @@ namespace Cuyahoga.Modules.RemoteContent
 		private void Page_Load(object sender, System.EventArgs e)
 		{
 			this._remoteContentModule = base.Module as RemoteContentModule;
-			this.btnCancel.Attributes.Add("onClick", String.Format("document.location.href='AdminRemoteContent.aspx{0}'", base.GetBaseQueryString()));
+			this.btnCancel.Attributes.Add("onclick", String.Format("document.location.href='AdminRemoteContent.aspx{0}'", base.GetBaseQueryString()));
 
 			if (Request.QueryString["FeedId"] != null)
 			{
@@ -54,7 +54,7 @@ namespace Cuyahoga.Modules.RemoteContent
 					}
 					this.btnSave.Enabled = true;
 					this.btnDelete.Visible = true;
-					this.btnDelete.Attributes.Add("onClick", "return confirm('Are you sure?');");
+					this.btnDelete.Attributes.Add("onclick", "return confirm('Are you sure?');");
 				}
 				else
 				{

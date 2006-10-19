@@ -21,10 +21,10 @@
 				</asp:panel>
 				<asp:panel id="pnlIntro" cssclass="group" runat="server" visible="False">
 <h4>Create Database</h4>The installer will first install the database. After 
-that you have to set the password for the default administrator. <br><br>The 
-database for the following components wil be installed: <br>
-<asp:label id="lblCoreAssembly" runat="server" font-bold="True"></asp:label><br>
-<asp:label id="lblModulesAssembly" runat="server" font-bold="True"></asp:label><br><br>
+that you have to set the password for the default administrator. <br/><br/>The 
+database for the following components wil be installed: <br/>
+<asp:label id="lblCoreAssembly" runat="server" font-bold="True"></asp:label><br/>
+<asp:label id="lblModulesAssembly" runat="server" font-bold="True"></asp:label><br/><br/>
 <asp:button id="btnInstallDatabase" runat="server" text="Install database"></asp:button>
 				</asp:panel>
 				<asp:panel id="pnlAdmin" cssclass="group" runat="server" visible="False">
@@ -51,19 +51,19 @@ database for the following components wil be installed: <br>
 								<asp:comparevalidator id="cpvPassword" runat="server" enableclientscript="False" controltovalidate="txtConfirmPassword"
 									errormessage="The passwords must be the same" controltocompare="txtPassword"></asp:comparevalidator></td>
 						</tr>
-					</table><br>
+					</table><br/>
 <asp:button id="btnAdmin" runat="server" text="Create administrator account"></asp:button>		
 				</asp:panel>
 				<asp:panel id="pnlCreateSite" cssclass="group" runat="server" visible="False">
 <h4>Create site</h4>Do you want Cuyahoga to create a basic site for you? 
-<br><br>
+<br/><br/>
 <asp:button id="btnCreateSite" runat="server" text="Yes, create a site"></asp:button>
 <asp:button id="btnSkipCreateSite" runat="server" text="No, skip this step"></asp:button>
 					
 					
 				</asp:panel>
 				<asp:panel id="pnlFinished" cssclass="group" runat="server" visible="False">
-<h4>Finished</h4>The Cuyahoga is successfully installed! <br><br>
+<h4>Finished</h4>The Cuyahoga is successfully installed! <br/><br/>
 <asp:hyperlink id="hplContinue" runat="server" navigateurl="~/Admin">Log in
 					to the site administration with the account you just created to create a site and continue.</asp:hyperlink>
 				</asp:panel>

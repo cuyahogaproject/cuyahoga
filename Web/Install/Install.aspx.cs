@@ -87,7 +87,7 @@ namespace Cuyahoga.Web.Install
 				}
 				catch (Exception ex)
 				{
-					ShowError("An error occured: <br><br>" + ex.ToString());
+					ShowError("An error occured: <br/><br/>" + ex.ToString());
 				}
 			}
 		}
@@ -302,7 +302,7 @@ namespace Cuyahoga.Web.Install
 			}
 			catch (Exception ex)
 			{
-				ShowError("An error occured while installing the database tables: <br>" + ex.ToString());
+				ShowError("An error occured while installing the database tables: <br/>" + ex.ToString());
 			}
 		}
 
@@ -334,7 +334,7 @@ namespace Cuyahoga.Web.Install
 					}
 					catch (Exception ex)
 					{
-						ShowError("An error occured while creating the administrator: <br>" + ex.ToString());
+						ShowError("An error occured while creating the administrator: <br/>" + ex.ToString());
 					}					
 				}
 			}
@@ -350,7 +350,7 @@ namespace Cuyahoga.Web.Install
 			}
 			catch (Exception ex)
 			{
-				ShowError("An error occured while creating the site: <br>" + ex.ToString());
+				ShowError("An error occured while creating the site: <br/>" + ex.ToString());
 			}
 		}
 

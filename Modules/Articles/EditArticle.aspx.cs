@@ -43,7 +43,7 @@ namespace Cuyahoga.Modules.Articles
 		{
 			this.fckContent.BasePath = this.Page.ResolveUrl("~/Support/FCKEditor/");
 			this._articleModule = base.Module as ArticleModule;
-			this.btnCancel.Attributes.Add("onClick", String.Format("document.location.href='AdminArticles.aspx{0}'", base.GetBaseQueryString()));
+			this.btnCancel.Attributes.Add("onclick", String.Format("document.location.href='AdminArticles.aspx{0}'", base.GetBaseQueryString()));
 
 			if (! this.IsPostBack)
 			{
@@ -61,7 +61,7 @@ namespace Cuyahoga.Modules.Articles
 						BindArticle();
 					}
 					this.btnDelete.Visible = true;
-					this.btnDelete.Attributes.Add("onClick", "return confirm('Are you sure?');");
+					this.btnDelete.Attributes.Add("onclick", "return confirm('Are you sure?');");
 				}
 			}
 		}

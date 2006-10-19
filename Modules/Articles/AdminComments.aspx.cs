@@ -98,7 +98,7 @@ namespace Cuyahoga.Modules.Articles
 			LinkButton lbtDelete = e.Item.FindControl("lbtDelete") as LinkButton;
 			if (lbtDelete != null)
 			{
-				lbtDelete.Attributes.Add("onClick", "return confirm('Are you sure?')");
+				lbtDelete.Attributes.Add("onclick", "return confirm('Are you sure?')");
 				lbtDelete.Command += new CommandEventHandler(lbtDelete_Command);
 				lbtDelete.CommandName = "DeleteComment";
 				lbtDelete.CommandArgument = comment.Id.ToString();

@@ -1,7 +1,7 @@
 <%@ Control Language="c#" AutoEventWireup="false" Codebehind="ViewProfile.ascx.cs" Inherits="Cuyahoga.Web.Controls.ViewProfile" TargetSchema="http://schemas.microsoft.com/intellisense/ie5"%>
 <h3><asp:literal id="litTitle" runat="server"></asp:literal></h3>
 
-<asp:label id="lblError" runat="server" enableviewstate="False" cssclass="error" visible="False"></asp:label><br>
+<asp:label id="lblError" runat="server" enableviewstate="False" cssclass="error" visible="False"></asp:label><br/>
 <table class="tbl">
 	<tr>
 		<td style="WIDTH: 100px"><%= GetText("USERNAME") %></td>

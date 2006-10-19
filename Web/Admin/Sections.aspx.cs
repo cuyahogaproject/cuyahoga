@@ -102,7 +102,7 @@ namespace Cuyahoga.Web.Admin
 				{
 					hplAttachNode.NavigateUrl = String.Format("~/Admin/SectionAttachNode.aspx?SectionId={0}", section.Id);
 				}
-				lbtDelete.Attributes.Add("onClick", "return confirm('Are you sure?')");
+				lbtDelete.Attributes.Add("onclick", "return confirm('Are you sure?')");
 			}
 		}
 

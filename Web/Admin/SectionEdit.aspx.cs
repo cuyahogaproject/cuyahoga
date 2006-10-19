@@ -37,6 +37,7 @@ namespace Cuyahoga.Web.Admin
 		protected System.Web.UI.WebControls.RequiredFieldValidator rfvCache;
 		protected System.Web.UI.WebControls.CompareValidator cpvCache;
 		protected System.Web.UI.WebControls.Repeater rptRoles;
+		protected System.Web.UI.WebControls.Panel pnlCustomSettings;
 		protected System.Web.UI.WebControls.Repeater rptCustomSettings;
 		protected System.Web.UI.WebControls.Button btnBack;
 		protected System.Web.UI.WebControls.Panel pnlConnections;
@@ -193,7 +194,7 @@ namespace Cuyahoga.Web.Admin
 						}
 						// Create url for lookup
 						this.hplLookup.NavigateUrl = "javascript:;";
-						this.hplLookup.Attributes.Add("onClick"
+						this.hplLookup.Attributes.Add("onclick"
 							, String.Format("window.open(\"TemplatePreview.aspx?TemplateId={0}&Control={1}\", \"Preview\", \"width=760 height=400\")"
 							, this.ActiveNode.Template.Id
 							, this.ddlPlaceholder.ClientID)
@@ -240,6 +241,10 @@ namespace Cuyahoga.Web.Admin
 						}
 					}
 				}
+			}
+			else
+			{
+				this.pnlCustomSettings.Visible = false;
 			}
 		}
 

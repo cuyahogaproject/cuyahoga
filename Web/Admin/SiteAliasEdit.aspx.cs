@@ -54,7 +54,7 @@ namespace Cuyahoga.Web.Admin
 					// Get site alias data
 					this._activeSiteAlias = base.SiteService.GetSiteAliasById(Int32.Parse(Request.QueryString["SiteAliasId"]));
 					this.btnDelete.Visible = true;
-					this.btnDelete.Attributes.Add("onClick", "return confirm('Are you sure?')");
+					this.btnDelete.Attributes.Add("onclick", "return confirm('Are you sure?')");
 				}
 				if (! this.IsPostBack)
 				{

@@ -99,7 +99,7 @@ namespace Cuyahoga.Web.Admin
 			this.ddlTimeZone.Items.FindByValue(this._activeUser.TimeZone.ToString()).Selected = true;
 			this.chkActive.Checked = this._activeUser.IsActive;
 			this.btnDelete.Visible = (this._activeUser.Id > 0);
-			this.btnDelete.Attributes.Add("onClick", "return confirmDeleteUser();");
+			this.btnDelete.Attributes.Add("onclick", "return confirmDeleteUser();");
 		}
 
 		private void BindRoles()

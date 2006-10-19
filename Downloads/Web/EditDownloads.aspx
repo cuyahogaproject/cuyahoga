@@ -49,7 +49,7 @@
 						</asp:repeater>
 					</table>
 				</p>
-				<br>
+				<br/>
 				<input id="btnNew" type="button" value="Add File" runat="server" name="btnNew">
 			</div>
 		</form>

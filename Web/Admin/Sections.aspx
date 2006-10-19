@@ -33,7 +33,7 @@
 							<td>
 								<asp:literal id="litTemplates" runat="server" />
 							</td>
-							<td nowrap>
+							<td style="white-space:nowrap">
 								<asp:hyperlink id="hplEdit" runat="server">Edit</asp:hyperlink>
 								<asp:linkbutton id="lbtDelete" runat="server" causesvalidation="False" commandname="Delete" commandargument='<%# DataBinder.Eval(Container.DataItem, "Id") %>'>Delete</asp:linkbutton>
 								<asp:hyperlink id="hplAttachTemplate" runat="server">Attach to template</asp:hyperlink>
@@ -42,7 +42,7 @@
 						</tr>
 					</itemtemplate>
 				</asp:repeater></table>
-			<br>
+			<br/>
 			<div><asp:button id="btnNew" runat="server" text="Add new section"></asp:button></div>
 		</form>
 	</body>

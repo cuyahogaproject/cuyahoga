@@ -103,13 +103,13 @@ namespace Cuyahoga.Web.Admin
 				DatabaseInstaller dbInstaller = new DatabaseInstaller(physicalModuleInstallDirectory, moduleAssembly);
 				LinkButton lbtInstall = e.Item.FindControl("lbtInstall") as LinkButton;
 				lbtInstall.Visible = dbInstaller.CanInstall;
-				lbtInstall.Attributes.Add("onClick", "return confirm('Install this module?')");
+				lbtInstall.Attributes.Add("onclick", "return confirm('Install this module?')");
 				LinkButton lbtUpgrade = e.Item.FindControl("lbtUpgrade") as LinkButton;
 				lbtUpgrade.Visible = dbInstaller.CanUpgrade;
-				lbtUpgrade.Attributes.Add("onClick", "return confirm('Upgrade this module?')");
+				lbtUpgrade.Attributes.Add("onclick", "return confirm('Upgrade this module?')");
 				LinkButton lbtUninstall = e.Item.FindControl("lbtUninstall") as LinkButton;
 				lbtUninstall.Visible = dbInstaller.CanUninstall;
-				lbtUninstall.Attributes.Add("onClick", "return confirm('Uninstall this module?')");
+				lbtUninstall.Attributes.Add("onclick", "return confirm('Uninstall this module?')");
 
 				Literal litStatus = e.Item.FindControl("litStatus") as Literal;
 				if (dbInstaller.CurrentVersionInDatabase != null)
@@ -166,7 +166,7 @@ namespace Cuyahoga.Web.Admin
 			}
 			catch (Exception ex)
 			{
-				ShowError(e.CommandName + ": operation failed for " + moduleName + ".<br>" + ex.Message);
+				ShowError(e.CommandName + ": operation failed for " + moduleName + ".<br/>" + ex.Message);
 			}
 		}
 	}

@@ -30,7 +30,7 @@ namespace Cuyahoga.Modules.Downloads.Web
 		{
 			// The base page has already created the module, we only have to cast it here to the right type.
 			this._downloadsModule = base.Module as DownloadsModule;
-			this.btnNew.Attributes.Add("onClick", String.Format("document.location.href='EditFile.aspx{0}&FileId=-1'", base.GetBaseQueryString()));
+			this.btnNew.Attributes.Add("onclick", String.Format("document.location.href='EditFile.aspx{0}&FileId=-1'", base.GetBaseQueryString()));
 
 			if (! this.IsPostBack)
 			{

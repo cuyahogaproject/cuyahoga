@@ -11,7 +11,7 @@
 	</head>
 	<body>
 		<form id="Form1" method="post" runat="server">
-			<script language="javascript"> <!--
+			<script type="text/javascript"> <!--
 				function confirmDeleteNode()
 				{
 					return confirm("Are you sure you want to delete this node?");
@@ -189,8 +189,8 @@
 							</tr>
 						</itemtemplate>
 					</asp:repeater></table>
-				<br>
-				<asp:checkbox id="chkPropagateToSections" runat="server" text="Propagate security settings to sections"></asp:checkbox><br>
+				<br/>
+				<asp:checkbox id="chkPropagateToSections" runat="server" text="Propagate security settings to sections"></asp:checkbox><br/>
 				<asp:checkbox id="chkPropagateToChildNodes" runat="server" text="Propagate security settings to child nodes"></asp:checkbox></div>
 			<div><asp:button id="btnSave" runat="server" text="Save"></asp:button><asp:button id="btnCancel" runat="server" causesvalidation="False" text="Cancel"></asp:button><asp:button id="btnNew" runat="server" text="Add new child"></asp:button><asp:button id="btnDelete" runat="server" causesvalidation="False" text="Delete"></asp:button></div>
 		</form>

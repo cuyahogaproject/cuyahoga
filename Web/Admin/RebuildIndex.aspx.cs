@@ -46,7 +46,7 @@ namespace Cuyahoga.Web.Admin
 			this.Title = "Rebuild fulltext index";
 			if (! this.IsPostBack)
 			{
-				this.btnRebuild.Attributes.Add("onClick", "this.disabled='true';document.getElementById('pleasewait').style.display = 'block';" + GetPostBackEventReference(btnRebuild).ToString());
+				this.btnRebuild.Attributes.Add("onclick", "this.disabled='true';document.getElementById('pleasewait').style.display = 'block';" + GetPostBackEventReference(btnRebuild).ToString());
 			}
 			else
 			{

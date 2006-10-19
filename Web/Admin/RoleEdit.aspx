@@ -11,7 +11,7 @@
 	<body ms_positioning="FlowLayout">
 
 		<form id="Form1" method="post" runat="server">
-			<script language="javascript"> <!--
+			<script type="text/javascript"> <!--
 				function confirmDeleteRole(roleId)
 				{
 					if (confirm("Are you sure you want to delete this role?"))
@@ -36,7 +36,7 @@
 					</tr>
 				</table>
 			</div>
-			<br >
+			<br/>
 			<asp:button id="btnSave" runat="server" text="Save"></asp:button>
 			<asp:Button id="btnCancel" runat="server" Text="Cancel" causesvalidation="false"></asp:Button>
 			<asp:Button id="btnDelete" runat="server" Text="Delete" causesvalidation="false"></asp:Button>

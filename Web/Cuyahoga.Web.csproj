@@ -478,7 +478,7 @@
       <SubType>Form</SubType>
     </Content>
     <Content Include="Global.asax" />
-    <Content Include="Images\feed-rss.gif" />
+    <Content Include="Images\feed-icon.png" />
     <Content Include="Install\Install.aspx">
       <SubType>Form</SubType>
     </Content>

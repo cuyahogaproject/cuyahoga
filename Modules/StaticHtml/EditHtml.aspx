@@ -14,8 +14,8 @@
 			<div id="moduleadminpane">
 				<h1>Edit static content</h1>
 				<fckeditorv2:fckeditor id="fckEditor" runat="server" height="400px" width="700px"></fckeditorv2:fckeditor>
-				<br>
-				<br>
+				<br/>
+				<br/>
 				<asp:button id="btnSave" runat="server" text="Save"></asp:button>
 			</div>
 		</form>

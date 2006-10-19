@@ -33,7 +33,7 @@
 							</td>
 						</tr>
 					</itemtemplate>
-				</asp:repeater></table><br>
+				</asp:repeater></table><br/>
 			<div>
 				<asp:button id="btnNew" runat="server" text="Add new template"></asp:button>
 			</div></form>

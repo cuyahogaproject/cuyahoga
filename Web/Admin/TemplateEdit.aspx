@@ -48,7 +48,7 @@
 					</tr>
 				</table>
 			</div>
-			<br>
+			<br/>
 			<asp:panel id="pnlPlaceholders" runat="server" visible="False" cssclass="group">
 				<h4>Placeholders</h4>
 				<table class="tbl">
@@ -75,7 +75,7 @@
 						</itemtemplate>
 					</asp:repeater></table>
 			</asp:panel>
-			<br>
+			<br/>
 			<asp:button id="btnSave" runat="server" text="Save"></asp:button>
 			<asp:button id="btnBack" runat="server" text="Back" causesvalidation="false"></asp:button>
 			<asp:button id="btnDelete" runat="server" text="Delete" causesvalidation="false"></asp:button>

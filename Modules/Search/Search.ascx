@@ -3,8 +3,8 @@
 <asp:panel id="pnlCriteria" runat="server">
 	<asp:textbox id="txtSearchText" runat="server" width="200px"></asp:textbox>
 	<asp:button id="btnSearch" runat="server" text="Search"></asp:button>
-	<br>
-	<br>
+	<br/>
+	<br/>
 </asp:panel>
 <asp:panel id="pnlResults" runat="server" visible="False">
 	<%= base.GetText("DISPLAYING_RESULTS") %>

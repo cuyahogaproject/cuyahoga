@@ -25,7 +25,7 @@
 					</tr>
 				</table>
 			</div>
-			<br>
+			<br/>
 			<div class="group">
 				<h4>Section</h4>
 				<table>
@@ -36,7 +36,7 @@
 					</tr>
 				</table>
 			</div>
-			<br>
+			<br/>
 			<asp:button id="btnAttach" runat="server" text="Attach selected section"></asp:button>
 			<asp:button id="btnBack" runat="server" text="Back"></asp:button>
 		</form>

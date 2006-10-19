@@ -58,9 +58,9 @@ namespace Cuyahoga.Web.Admin.Controls
 			{
 				this.plhNodes.Controls.Add(CreateDisplaySite(site));
 				DisplayNodes(site.RootNodes);
-				this.plhNodes.Controls.Add(new LiteralControl("<br>"));
+				this.plhNodes.Controls.Add(new LiteralControl("<br/>"));
 				this.plhNodes.Controls.Add(CreateNewNodeControl(site));
-				this.plhNodes.Controls.Add(new LiteralControl("<br>"));
+				this.plhNodes.Controls.Add(new LiteralControl("<br/>"));
 			}
 		}
 
@@ -91,7 +91,8 @@ namespace Cuyahoga.Web.Admin.Controls
 			container.Attributes.Add("class", "site");
 			Image img = new Image();
 			img.ImageUrl ="../Images/internet.gif";
-			img.ImageAlign = ImageAlign.AbsMiddle;
+			img.ImageAlign = ImageAlign.Left;
+			img.AlternateText = "Site";
 			container.Controls.Add(img);
 			HyperLink hpl = new HyperLink();
 			hpl.Text = String.Format("{0} ({1})", site.Name, site.SiteUrl);
@@ -108,7 +109,8 @@ namespace Cuyahoga.Web.Admin.Controls
 			container.Attributes.Add("style", String.Format("padding-left: {0}px", 20));
 			Image img = new Image();
 			img.ImageUrl ="../Images/new.gif";
-			img.ImageAlign = ImageAlign.AbsMiddle;
+			img.ImageAlign = ImageAlign.Left;
+			img.AlternateText = "New Node";
 			container.Controls.Add(img);
 			HyperLink hpl = new HyperLink();
 			hpl.Text = "Add a new node at root level";
@@ -146,7 +148,8 @@ namespace Cuyahoga.Web.Admin.Controls
 			container.Attributes.Add("style", String.Format("padding-left: {0}px", indent.ToString()));
 			Image img = new Image();
 			img.ImageUrl = imgUrl;
-			img.ImageAlign = ImageAlign.AbsMiddle;
+			img.ImageAlign = ImageAlign.Left;
+			img.AlternateText = "Node";
 			container.Controls.Add(img);
 			if (this._page.ActiveNode != null && node.Id == this._page.ActiveNode.Id)
 			{

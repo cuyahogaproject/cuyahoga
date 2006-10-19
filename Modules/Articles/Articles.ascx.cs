@@ -35,13 +35,13 @@ namespace Cuyahoga.Modules.Articles
 		protected System.Web.UI.WebControls.Label lblError;
 		protected System.Web.UI.WebControls.Button btnSaveComment;
 		protected System.Web.UI.WebControls.Panel pnlComment;
+		protected System.Web.UI.WebControls.Panel pnlComments;
 		protected System.Web.UI.WebControls.Repeater rptComments;
 		protected System.Web.UI.WebControls.TextBox txtName;
 		protected System.Web.UI.WebControls.TextBox txtWebsite;
 		protected System.Web.UI.WebControls.Panel pnlAnonymous;
 		protected System.Web.UI.WebControls.RequiredFieldValidator rfvName;
 		protected System.Web.UI.WebControls.RequiredFieldValidator rfvComment;
-		protected System.Web.UI.HtmlControls.HtmlAnchor ancComments;
 		protected System.Web.UI.WebControls.Panel pnlArticleList;
 
 		private void Page_Load(object sender, System.EventArgs e)
@@ -75,7 +75,7 @@ namespace Cuyahoga.Modules.Articles
 					this.rfvComment.ErrorMessage = base.GetText("COMMENTREQUIRED");
 
 					this.pnlArticleDetails.Visible = true;
-					this.ancComments.Visible = this._allowComments;
+					this.pnlComments.Visible = this._allowComments && this._activeArticle.Comments.Count > 0;
 					if (this._allowAnonymousComments || (this.Page.User.Identity.IsAuthenticated && this._allowComments))
 					{
 						this.pnlComment.Visible = true;
@@ -209,8 +209,8 @@ namespace Cuyahoga.Modules.Articles
 			{
 				// Strip any html tags.
 				string commentText = Regex.Replace(this.txtComment.Text, @"<(.|\n)*?>", string.Empty);
-				// Replace carriage returns with <br>.
-				commentText = commentText.Replace("\r", "<br>");
+				// Replace carriage returns with <br/>.
+				commentText = commentText.Replace("\r", "<br/>");
 				// Save comment.
 				Comment comment = new Comment();
 				comment.Article = this._activeArticle;

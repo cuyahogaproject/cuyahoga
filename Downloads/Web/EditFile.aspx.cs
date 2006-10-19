@@ -51,7 +51,7 @@ namespace Cuyahoga.Modules.Downloads.Web
 					BindFile();
 				}
 				this.btnDelete.Visible = true;
-				this.btnDelete.Attributes.Add("onClick", "return confirm('Are you sure?');");
+				this.btnDelete.Attributes.Add("onclick", "return confirm('Are you sure?');");
 			}
 			else
 			{

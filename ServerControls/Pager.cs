@@ -406,7 +406,6 @@ namespace Cuyahoga.ServerControls
 							if (! (this.TotalPages == 1 && this.HideWhenOnePage))
 							{
 								lbt.Font.Bold = true;
-								lbt.Enabled = false;
 							}
 							else
 							{

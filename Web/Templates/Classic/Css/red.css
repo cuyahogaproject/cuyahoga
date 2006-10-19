@@ -68,6 +68,11 @@ td
 	font-size: 0.9em;
 }
 
+img
+{
+	border: 0;
+}
+
 #header
 {
 	margin: 0;

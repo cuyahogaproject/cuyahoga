@@ -77,7 +77,7 @@ namespace Cuyahoga.Web.Admin
 			this.txtName.Text = this._activeTemplate.Name;
 			this.txtBasePath.Text = this._activeTemplate.BasePath;
 			this.btnDelete.Visible = (this._activeTemplate.Id > 0 && base.CoreRepository.GetNodesByTemplate(this._activeTemplate).Count <= 0);
-			this.btnDelete.Attributes.Add("onClick", "return confirm('Are you sure?')");
+			this.btnDelete.Attributes.Add("onclick", "return confirm('Are you sure?')");
 		}
 
 		private void BindTemplateUserControls()
@@ -285,7 +285,7 @@ namespace Cuyahoga.Web.Admin
 					hplSection.Visible = true;
 					hplAttachSection.Visible = false;
 					lbtDetachSection.Visible = true;
-					lbtDetachSection.Attributes.Add("onClick", "return confirm(\"Are you sure?\");");
+					lbtDetachSection.Attributes.Add("onclick", "return confirm(\"Are you sure?\");");
 					lbtDetachSection.CommandArgument = placeholder;
 				}
 				else

@@ -30,7 +30,7 @@
 					</itemtemplate>
 				</asp:repeater>
 			</table>
-			<br>
+			<br/>
 			<div>
 				<asp:button id="btnNew" runat="server" text="Add new role"></asp:button>
 			</div>

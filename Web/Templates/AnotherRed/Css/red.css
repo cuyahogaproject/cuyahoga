@@ -30,6 +30,11 @@ a:hover
 	text-decoration: underline;
 }
 
+img
+{
+	border: 0;
+}
+
 #container
 {
 	margin: 0 70px;

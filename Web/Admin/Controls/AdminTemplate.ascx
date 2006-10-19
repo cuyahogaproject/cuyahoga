@@ -1,8 +1,8 @@
 <%@ Control Language="c#" AutoEventWireup="false" Codebehind="AdminTemplate.ascx.cs" Inherits="Cuyahoga.Web.Admin.Controls.AdminTemplate" TargetSchema="http://schemas.microsoft.com/intellisense/ie5"%>
 <%@ Register TagPrefix="uc1" TagName="Header" Src="Header.ascx" %>
 <%@ Register TagPrefix="uc1" TagName="Navigation" Src="Navigation.ascx" %>
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 TRANSITIONAL//EN" >
-<html>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
 	<head>
 		<title><asp:literal id="PageTitle" runat="server"></asp:literal></title>
 		<link id="CssStyleSheet" rel="stylesheet" type="text/css" runat="server" />

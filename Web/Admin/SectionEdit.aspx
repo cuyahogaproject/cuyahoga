@@ -45,12 +45,12 @@
 					</tr>
 				</table>
 			</div>
-			<div class="group">
+			<asp:panel id="pnlCustomSettings" cssclass="group" runat="server">
 				<h4>Custom settings</h4>
 				<table>
 					<asp:placeholder id="plcCustomSettings" runat="server" />
 				</table>
-			</div>
+			</asp:panel>
 			<asp:panel id="pnlConnections" cssclass="group" runat="server" visible="False">
 				<h4>Connections</h4>
 				<table class="tbl">
@@ -102,7 +102,7 @@
 				<asp:button id="btnSave" runat="server" text="Save"></asp:button>
 				<asp:button id="btnBack" runat="server" text="Back" causesvalidation="False"></asp:button>
 			</div>
-			<script language="javascript"> <!--
+			<script type="text/javascript"> <!--
 			function setPlaceholderValue(ddlist, val)
 			{
 				var placeholdersList = document.getElementById(ddlist);

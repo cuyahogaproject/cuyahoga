@@ -155,7 +155,7 @@ namespace Cuyahoga.Web.Admin
 			// main buttons visibility
 			btnNew.Visible = (this.ActiveNode.Id > 0);
 			btnDelete.Visible = (this.ActiveNode.Id > 0);
-			btnDelete.Attributes.Add("onClick", "return confirmDeleteNode();");
+			btnDelete.Attributes.Add("onclick", "return confirmDeleteNode();");
 		}
 
 		private void BindCultures()
@@ -496,7 +496,7 @@ namespace Cuyahoga.Web.Admin
 					hplSectionDown.Visible = true;
 				}
 				LinkButton lbtDelete = (LinkButton)e.Item.FindControl("lbtDelete");
-				lbtDelete.Attributes.Add("onClick", "return confirm('Are you sure?')");
+				lbtDelete.Attributes.Add("onclick", "return confirm('Are you sure?')");
 
 				// Check if the placeholder exists in the currently attached template
 				BaseTemplate templateControl = (BaseTemplate)this.LoadControl(UrlHelper.GetApplicationPath() + this.ActiveNode.Template.Path);

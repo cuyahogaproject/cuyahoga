@@ -121,7 +121,7 @@ namespace Cuyahoga.Web.Admin
 						// Create url for lookup
 						this.hplLookup.Visible = true;
 						this.hplLookup.NavigateUrl = "javascript:;";
-						this.hplLookup.Attributes.Add("onClick"
+						this.hplLookup.Attributes.Add("onclick"
 							, String.Format("window.open(\"TemplatePreview.aspx?TemplateId={0}&Control={1}\", \"Preview\", \"width=760 height=400\")"
 							, this._selectedNode.Template.Id
 							, this.ddlPlaceholder.ClientID)

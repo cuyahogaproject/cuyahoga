@@ -57,7 +57,7 @@
 					<cc1:pager id="pgrArticles" runat="server" controltopage="rptArticles" cachedatasource="True"
 						pagesize="10" cacheduration="30" cachevarybyparams="SectionId"></cc1:pager>
 				</div>
-				<br>
+				<br/>
 				<input id="btnNew" type="button" value="New Article" runat="server">
 			</div>
 		</form>

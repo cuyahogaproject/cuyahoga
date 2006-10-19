@@ -29,7 +29,7 @@ namespace Cuyahoga.Modules.Articles
 		{
 			// The base page has already created the module, we only have to cast it here to the right type.
 			this._articleModule = base.Module as ArticleModule;
-			this.btnNew.Attributes.Add("onClick", String.Format("document.location.href='EditArticle.aspx{0}&ArticleId=-1'", base.GetBaseQueryString()));
+			this.btnNew.Attributes.Add("onclick", String.Format("document.location.href='EditArticle.aspx{0}&ArticleId=-1'", base.GetBaseQueryString()));
 
 			if (! this.IsPostBack)
 			{

@@ -51,7 +51,7 @@
 				<asp:button id="btnSave" runat="server" text="Save"></asp:button>
 				<asp:button id="btnBack" runat="server" text="Back" causesvalidation="False"></asp:button>
 			</div>
-			<script language="javascript"> <!--
+			<script type="text/javascript"> <!--
 			function setPlaceholderValue(ddlist, val)
 			{
 				var placeholdersList = document.getElementById(ddlist);

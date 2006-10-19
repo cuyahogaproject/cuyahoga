@@ -10,7 +10,7 @@
 	</head>
 	<body ms_positioning="FlowLayout">
 		<form id="Form1" method="post" runat="server">
-			<script language="javascript"> <!--
+			<script type="text/javascript"> <!--
 				function confirmDeleteUser(userId)
 				{
 					if (confirm("Are you sure you want to delete this user?"))

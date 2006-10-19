@@ -28,7 +28,7 @@ namespace Cuyahoga.Modules.RemoteContent
 		{
 			// The base page has already created the module, we only have to cast it here to the right type.
 			this._remoteContentModule = base.Module as RemoteContentModule;
-			this.btnNew.Attributes.Add("onClick", String.Format("document.location.href='EditFeed.aspx{0}&FeedId=-1'", base.GetBaseQueryString()));
+			this.btnNew.Attributes.Add("onclick", String.Format("document.location.href='EditFeed.aspx{0}&FeedId=-1'", base.GetBaseQueryString()));
 
 			if (! this.IsPostBack)
 			{

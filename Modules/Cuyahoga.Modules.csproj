@@ -354,8 +354,12 @@
     <EmbeddedResource Include="User\ResetPassword.ascx.resx">
       <DependentUpon>ResetPassword.ascx.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="User\Resources\Strings.nl.resx" />
-    <EmbeddedResource Include="User\Resources\Strings.resx" />
+    <EmbeddedResource Include="User\Resources\Strings.nl.resx">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="User\Resources\Strings.resx">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
     <EmbeddedResource Include="User\User.ascx.resx">
       <DependentUpon>User.ascx.cs</DependentUpon>
     </EmbeddedResource>

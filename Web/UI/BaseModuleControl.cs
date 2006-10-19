@@ -96,8 +96,8 @@ namespace Cuyahoga.Web.UI
 			writer.Write("<div class=\"moduletools\">");
 			if (this._displaySyndicationIcon)
 			{
-				writer.Write(String.Format("<a href=\"{0}\"><img src=\"{1}\" border=\"0\"></a>", 
-					UrlHelper.GetRssUrlFromSection(this._module.Section) + this._module.ModulePathInfo, UrlHelper.GetApplicationPath() + "Images/feed-rss.gif"));
+				writer.Write(String.Format("<a href=\"{0}\"><img src=\"{1}\" alt=\"RSS-2.0\"/></a>", 
+					UrlHelper.GetRssUrlFromSection(this._module.Section) + this._module.ModulePathInfo, UrlHelper.GetApplicationPath() + "Images/feed-icon.png"));
 			}
 			// Edit button
 			User cuyahogaUser = this.Page.User.Identity as User;
@@ -108,14 +108,14 @@ namespace Cuyahoga.Web.UI
 				{
 					if (this._module.Section.Node != null)
 					{
-						writer.Write(String.Format("&nbsp;[<a href=\"{0}?NodeId={1}&SectionId={2}\">Edit</a>]"
+						writer.Write(String.Format("&nbsp;[<a href=\"{0}?NodeId={1}&amp;SectionId={2}\">Edit</a>]"
 							, UrlHelper.GetApplicationPath() + this._module.Section.ModuleType.EditPath
 							, this._module.Section.Node.Id
 							, this._module.Section.Id));
 					}
 					else
 					{
-						writer.Write(String.Format("&nbsp;[<a href=\"{0}?NodeId={1}&SectionId={2}\">Edit</a>]"
+						writer.Write(String.Format("&nbsp;[<a href=\"{0}?NodeId={1}&amp;SectionId={2}\">Edit</a>]"
 							, UrlHelper.GetApplicationPath() + this._module.Section.ModuleType.EditPath
 							, this.PageEngine.ActiveNode.Id
 							, this._module.Section.Id));
@@ -125,7 +125,7 @@ namespace Cuyahoga.Web.UI
 				{
 					if (this._module.Section.Node != null)
 					{
-						writer.Write(String.Format("&nbsp;[<a href=\"{0}Admin/SectionEdit.aspx?NodeId={1}&SectionId={2}\">Section Properties</a>]"
+						writer.Write(String.Format("&nbsp;[<a href=\"{0}Admin/SectionEdit.aspx?NodeId={1}&amp;SectionId={2}\">Section Properties</a>]"
 							, UrlHelper.GetApplicationPath()
 							, this._module.Section.Node.Id
 							, this._module.Section.Id));

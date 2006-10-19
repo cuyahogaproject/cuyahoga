@@ -54,7 +54,7 @@ namespace Cuyahoga.Web.Admin
 					this._activeMenu = (CustomMenu)base.CoreRepository.GetObjectById(typeof(CustomMenu), 
 						Int32.Parse(Context.Request.QueryString["MenuId"]));
 					this.btnDelete.Visible = true;
-					this.btnDelete.Attributes.Add("onClick", "return confirm('Are you sure?');");
+					this.btnDelete.Attributes.Add("onclick", "return confirm('Are you sure?');");
 				}
 			}
 			if (! this.IsPostBack)

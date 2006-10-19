@@ -28,12 +28,12 @@
 				<h4>Nodes</h4>
 				<table>
 					<tr>
-						<td>Available:<br><asp:listbox id="lbxAvailableNodes" runat="server" width="150px" height="200px"></asp:listbox></td>
-						<td><asp:button id="btnAdd" runat="server" width="50px" text=">"></asp:button><br>
+						<td>Available:<br/><asp:listbox id="lbxAvailableNodes" runat="server" width="150px" height="200px"></asp:listbox></td>
+						<td><asp:button id="btnAdd" runat="server" width="50px" text=">"></asp:button><br/>
 							<asp:button id="btnRemove" runat="server" width="50px" text="<"></asp:button></td>
-						<td>Selected:<br><asp:listbox id="lbxSelectedNodes" runat="server" width="150px" height="200px"></asp:listbox></td>
+						<td>Selected:<br/><asp:listbox id="lbxSelectedNodes" runat="server" width="150px" height="200px"></asp:listbox></td>
 						<td>
-							<asp:button id="btnUp" runat="server" text="Up" width="50px"></asp:button><br>
+							<asp:button id="btnUp" runat="server" text="Up" width="50px"></asp:button><br/>
 							<asp:button id="btnDown" runat="server" text="Down" width="50px"></asp:button></td>
 					</tr>
 				</table>

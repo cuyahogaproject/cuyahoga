@@ -37,7 +37,7 @@
 						</asp:repeater>
 					</table>
 				</p>
-				<br>
+				<br/>
 				<asp:button id="btnBack" runat="server" text="Back"></asp:button>
 			</div>
 		</form>

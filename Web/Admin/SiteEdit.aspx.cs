@@ -81,7 +81,7 @@ namespace Cuyahoga.Web.Admin
 					// Get site data
 					this._activeSite = base.SiteService.GetSiteById(Int32.Parse(Context.Request.QueryString["SiteId"]));
 					this.btnDelete.Visible = true;
-					this.btnDelete.Attributes.Add("onClick", "return confirm('Are you sure?')");
+					this.btnDelete.Attributes.Add("onclick", "return confirm('Are you sure?')");
 				}
 				if (! this.IsPostBack)
 				{

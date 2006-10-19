@@ -1,8 +1,8 @@
 <%@ Control Language="c#" AutoEventWireup="false" Codebehind="ResetPassword.ascx.cs" Inherits="Cuyahoga.Web.Controls.ResetPassword" TargetSchema="http://schemas.microsoft.com/intellisense/ie5"%>
 <h3><%= GetText("RESETTITLE") %></h3>
-<br>
+<br/>
 <asp:panel id="pnlReset" runat="server">
-	<%= GetText("RESETINFO") %><br>
+	<%= GetText("RESETINFO") %><br/>
 	<asp:label id="lblError" runat="server" cssclass="error" enableviewstate="False" visible="False"></asp:label>
 	<table>
 		<tr>

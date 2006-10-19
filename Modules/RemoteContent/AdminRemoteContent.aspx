@@ -48,7 +48,7 @@
 						</asp:repeater>
 					</table>
 				</p>
-				<br>
+				<br/>
 				<input id="btnNew" type="button" value="Add Feed" runat="server" name="btnNew">
 			</div>
 		</form>

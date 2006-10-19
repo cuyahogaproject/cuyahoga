@@ -115,7 +115,7 @@ namespace Cuyahoga.Web.UI
 				{
 					HtmlInputButton btn = new HtmlInputButton();
 					btn.Value = plc.ID;
-					btn.Attributes.Add("onClick", String.Format("window.opener.setPlaceholderValue('{0}','{1}');self.close()", placeholderChooseControl, plc.ID));
+					btn.Attributes.Add("onclick", String.Format("window.opener.setPlaceholderValue('{0}','{1}');self.close()", placeholderChooseControl, plc.ID));
 					plc.Controls.Add(btn);
 				}
 			}

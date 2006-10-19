@@ -1,11 +1,11 @@
 <%@ Control Language="c#" AutoEventWireup="false" Codebehind="EditProfile.ascx.cs" Inherits="Cuyahoga.Web.Controls.EditProfile" TargetSchema="http://schemas.microsoft.com/intellisense/ie5"%>
 <h3><%= GetText("EDITPROFILETITLE") %></h3>
-<br>
+<br/>
 <asp:panel id="pnlEdit" runat="server">
 	<%= GetText("EDITPROFILEINFO") %>
-	<br>
+	<br/>
 	<asp:label id="lblError" runat="server" visible="False" cssclass="error" enableviewstate="False"></asp:label>
-	<br>
+	<br/>
 	<table class="tbl">
 		<tr>
 			<td style="WIDTH: 200px"><%= GetText("USERNAME") %></td>
@@ -45,7 +45,7 @@
 				</asp:button></td>
 		</tr>
 	</table>
-	<br>
+	<br/>
 	<table class="tbl">
 		<tr>
 			<td><%= GetText("CURRENTPASSWORD") %></td>
