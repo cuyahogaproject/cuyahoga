@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8" ?> 
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.0">
+	<class name="Cuyahoga.Modules.Forum.Domain.ForumUser, Cuyahoga.Modules.Forum" table="cm_forumuser">
+		<id name="Id" column="id" type="Int32" unsaved-value="-1">
+			<generator class="native">
+				<param name="sequence">cm_forum_forumuserid_seq</param>
+			</generator>
+		</id>
+
+		<timestamp name="DateModified" column="updatetimestamp" />
+
+		<property name="DateCreated" column="inserttimestamp" type="DateTime" />
+		<property name="UserId" column="userid" type="Int32" not-null="false" />
+		<property name="Location" column="location" type="String" length="50" />
+		<property name="Occupation" column="occupation" type="String" length="50" />
+		<property name="Interest" column="interest" type="String" length="100" />
+		<property name="Homepage" column="homepage" type="String" length="100" />
+		<property name="MSN" column="msn" type="String" length="50" />
+		<property name="YahooMessenger" column="yahoomessenger" type="String" length="50" />
+		<property name="AIMName" column="aimname" type="String" length="50" />
+		<property name="ICQNumber" column="icqnumber" type="String" length="50" />
+		<property name="Signature" column="signature" type="StringClob" />
+		<property name="Gender" column="gender" type="Int32" />
+		<property name="TimeZone" column="timezone" type="Int32" />
+		<property name="Avartar" column="avartar" type="String" length="50" />
+	</class>
+</hibernate-mapping>

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8" ?> 
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.0">
+	<class name="Cuyahoga.Modules.Forum.Domain.ForumEmoticon, Cuyahoga.Modules.Forum" table="cm_forumemoticon">
+		<id name="Id" column="id" type="Int32" unsaved-value="-1">
+			<generator class="native">
+				<param name="sequence">cm_forum_emoticonid_seq</param>
+			</generator>
+		</id>
+
+		<timestamp name="DateModified" column="updatetimestamp" />
+		<property name="DateCreated" column="inserttimestamp" type="DateTime" />
+		<property name="TextVersion" column="textversion" type="String" length="50" />
+		<property name="ImageName" column="imagename" type="String" length="254" />
+	</class>
+</hibernate-mapping>

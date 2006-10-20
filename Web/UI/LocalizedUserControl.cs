@@ -47,20 +47,31 @@ namespace Cuyahoga.Web.UI
 
 		/// <summary>
 		/// Try to localize the controls. 
-		/// The resource keys should consist of the name of the User Control code-behind  class
-		/// with the ID of the control added, separated with a colon. 
-		/// Example: "Articles:lblTitle".
+		/// The resource keys should be the same as the ID of the control that should be translated.
+		/// You can override this behavior by adding a prefix with the UserControl name and a 
+		/// semicolon, for example: "Articles:lblTitle".
 		/// </summary>
 		/// <param name="control"></param>
 		protected virtual void LocalizeControls(Control control)
 		{
 			foreach (Control childControl in control.Controls)
 			{
+				// First try to find a string for this specific user control.
 				// Use the name of BaseType because we need the code-behind class.
 				string resourceKey = this.GetType().BaseType.Name + ":" + childControl.ID;
 				string localizedText = GetText(resourceKey);
 
-				if (localizedText != null && localizedText != String.Empty)
+				if (localizedText == null)
+				{
+					// No translation found with the user control prefix. Try to find a translation that
+					// only has the control ID as key
+					if (childControl.ID != null)
+					{
+						localizedText = GetText(childControl.ID);
+					}
+				}
+
+				if (! String.IsNullOrEmpty(localizedText))
 				{
 					if ((childControl is Label) && ! (childControl is BaseValidator))
 					{

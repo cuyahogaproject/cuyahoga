@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" ?> 
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.0">
+	<class name="Cuyahoga.Modules.Forum.Domain.ForumPost, Cuyahoga.Modules.Forum" table="cm_forumposts">
+		<id name="Id" column="postid" type="Int32" unsaved-value="-1">
+			<generator class="native">
+				<param name="sequence">cm_forum_forumpostid_seq</param>
+			</generator>
+		</id>
+
+		<timestamp name="DateModified" column="updatetimestamp" />
+
+		<property name="DateCreated" column="inserttimestamp" type="DateTime" />
+		<property name="ForumId" column="forumid" type="Int32" />
+		<property name="Topic" column="topic" type="String" length="50" />
+		<property name="ReplytoId" column="replytoid" type="Int32" />
+		<property name="UserId" column="userid" type="Int32" />
+		<property name="UserName" column="username" type="String" length="50" />
+		<property name="Ip" column="ip" type="String" length="15" />
+		<property name="Message" column="message" type="StringClob" />
+		<property name="Views" column="views" type="Int32" />
+		<property name="Replies" column="replies" type="Int32" />
+		<property name="AttachmentId" column="attachmentid" type="Int32" />
+	</class>
+</hibernate-mapping>

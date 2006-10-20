@@ -1,0 +1,262 @@
+
+.copyright, .copyright a, .copyright a:visited
+{
+	font-size: 10px;
+	color: #999999;
+}
+
+/* elements */
+
+p.forum
+{
+	font-size: 12px;
+}
+
+a.forum
+{
+	font-size: 12px;
+	font-weight: bold;
+	color: #900;
+}
+a.forum:visited
+{
+	font-size: 12px;
+	font-weight: bold;
+	color: #900;
+}
+a.forum:hover
+{
+	font-size: 12px;
+	font-weight: bold;
+	color: #900;
+}
+blockquote
+{
+	background-color: #ffffaa;
+	font-size: 12px;
+	font-weight: bold;
+	color: #900;
+    border : 2px solid #aaaaaa;	
+}
+h2.forum 
+{
+	font-family: Trebuchet MS, Verdana, Arial, sans-serif;
+	font-size: 16px;
+	margin: 0px 0px 4px 0px;
+	clear: both;
+}
+
+h3.forum
+{
+	font-family: Trebuchet MS, Verdana, Arial, sans-serif;
+	font-size: 14px;
+	margin-bottom: 0px;
+}
+
+h5.forum
+{
+	font-size: 10px;
+	color: #999999;
+	margin-bottom: 0px;
+}
+
+hr.forum
+{
+	color: #1a264d;
+	background-color: #1a264d;
+	border: 0px;
+	height: 1px;
+	border-collapse: collapse;
+}
+
+pre.forum
+{
+	font-family: Monospace, Serif;
+	font-size: 11px;
+	background-color: #f0f0f0;
+	color: #000000;
+	padding: 6px 10px 6px 10px;
+}
+
+/* form elements */
+
+forumlinkbutton, a.forumlinkbutton, a:visited.forumlinkbutton
+{
+	color: #1a264d;
+	background-color: #bacaf9;
+	font-family: Trebuchet MS, Verdana, Arial, sans-serif;
+	font-size: 12px;
+	font-weight: bold;
+	border-bottom: solid 1px #1a264d;
+	border-right: solid 1px #1a264d;
+	border-top: solid 1px #bacaf9;
+	border-left: solid 1px #bacaf9;
+	text-decoration: none;
+	padding: 2px 4px 2px 4px;
+}
+
+a:hover.forumlinkbutton
+{
+	border-bottom: solid 1px #bacaf9;
+	border-right: solid 1px #bacaf9;
+	border-top: solid 1px #1a264d;
+	border-left: solid 1px #1a264d;
+	color: #1a264d;
+}
+
+input.forum, select.forum, textarea.forum, .textbox
+{
+	background-color: #f0f0f0;
+	font-family: Verdana, Arial, Sans-Serif;
+	font-size: 12px;
+	border: solid 1px #1a264d;
+}
+
+.warning
+{
+	color: #ff0000;
+	font-weight: bold;
+	font-family: Verdana, Arial, Sans-Serif;
+	font-size: 11px;
+}
+
+/* grids */
+
+.grid
+{
+	/*clear: both;*/
+	border-collapse: collapse;
+	border: solid 1px #1a264d;
+	margin-bottom: 4px;
+	width: 100%;
+}
+
+.gridheader
+{
+	background-image: url(gridheaderbg.gif);
+	background-color: #7997f2;
+	font-family: Trebuchet MS, Verdana, Arial, sans-serif;
+	font-size: 12px;
+	font-weight: bold;
+	color: #1a264d;
+	margin: 0px 0px 0px 4px;
+}
+.gridheader a, .gridheader a:visited
+{
+	color: #1a264d;
+	font-size: 12px;
+}
+
+.gridsubheader, .gridpager
+{
+	background-image: url(gridsubheaderbg.gif);
+	background-color: #cccccc;
+	background-repeat: repeat-x;
+	font-family: Trebuchet MS, Verdana, Arial, sans-serif;
+	font-size: 12px;
+	font-weight: bold;
+	color: #1a264d;
+	/*margin: 0px 0px 0px 4px;*/
+}
+
+#forumgrid, #forumarchivegrid, #forumstatgrid, #memberinfo, #PrivateStats
+{
+	width: 100%;
+	margin-top: 8px;
+}
+
+.forumrow
+{
+	background-color: #fefefe;
+	font-size: 12px;
+}
+
+.forumrowalt
+{
+	/*background-image: url(altbg.gif);*/
+	/*background-repeat: repeat-x;*/
+	background-color: #f0f0f0;
+	font-size: 12px;
+}
+
+.forumrow td, .forumrowalt td
+{
+	/*padding: 4px;*/
+	border-bottom: solid 1px #f0f0f0;
+}
+
+.newcolumn
+{
+	width: 34px;
+	text-align: center;
+	vertical-align: top;
+	/*background-image: url(altbg.gif);*/
+	/*background-repeat: repeat-x;*/
+	background-color: #f0f0f0;
+}
+.newcolumnalt
+{
+	width: 34px;
+	text-align: center;
+	vertical-align: top;
+	background-image: url(altbg.gif);
+	background-repeat: repeat-x;
+	background-color: #f0f0f0;
+}
+
+.forumcolumn
+{
+	vertical-align: top;
+	font-size: 12px;
+}
+
+.lastpostcolumn
+{
+	width: 150px;
+	font-size: 12px;
+}
+
+.topicstartedbycolumn
+{
+	width: 100px;
+	font-size: 11px;
+}
+
+.topictitlecolumn
+{
+}
+
+.topicrepliescolumn, .topicviewscolumn
+{
+	width: 40px;
+	text-align: center;
+}
+
+.removecolumn
+{
+	border-right: solid 1px #ffffff;
+	vertical-align: top;
+}
+
+.grid .gridheader td, .posttable .gridheader td
+{
+	font-size: 12px;
+}
+
+
+.forumcolumn, .topictitlecolumn, .topicrepliescolumn, .topicviewscolumn, .topicstartedbycolumn
+{
+	border-left: solid 1px #ffffff;
+	border-right: solid 1px #ffffff;
+}
+
+#forumgrid tr td
+{
+	border-bottom: solid 1px #55441c;
+	border-top: solid 1px #55441c;
+}
+
+.forumsmily
+{
+	border: solid 1px #e0e0e0;
+}
