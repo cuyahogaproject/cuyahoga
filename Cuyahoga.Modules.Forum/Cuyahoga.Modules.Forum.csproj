@@ -66,18 +66,23 @@
     <Compile Include="Utils\Utils.cs" />
     <Compile Include="Web\AdminEditCategory.aspx.cs">
       <DependentUpon>AdminEditCategory.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="Web\AdminEditEmotion.aspx.cs">
       <DependentUpon>AdminEditEmotion.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="Web\AdminEditForum.aspx.cs">
       <DependentUpon>AdminEditForum.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="Web\AdminEditTag.aspx.cs">
       <DependentUpon>AdminEditTag.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="Web\AdminForum.aspx.cs">
       <DependentUpon>AdminForum.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="Web\UI\BaseForumControl.cs">
       <SubType>ASPXCodeBehind</SubType>
