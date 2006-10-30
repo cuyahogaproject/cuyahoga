@@ -314,6 +314,12 @@
     <EmbeddedResource Include="Articles\EditArticle.aspx.resx">
       <DependentUpon>EditArticle.aspx.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Articles\Resources\Strings.es.resx">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Articles\Resources\Strings.fr.resx">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
     <EmbeddedResource Include="Articles\Resources\Strings.nl.resx" />
     <EmbeddedResource Include="Articles\Resources\Strings.resx" />
     <EmbeddedResource Include="LanguageSwitcher\LanguageSwitcher.ascx.resx">
@@ -329,6 +335,12 @@
     <EmbeddedResource Include="RemoteContent\FeedItem.hbm.xml" />
     <EmbeddedResource Include="RemoteContent\RemoteContent.ascx.resx">
       <DependentUpon>RemoteContent.ascx.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Search\Resources\Strings.es.resx">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Search\Resources\Strings.fr.resx">
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Search\Resources\Strings.nl.resx" />
     <EmbeddedResource Include="Search\Resources\Strings.resx" />
@@ -353,6 +365,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="User\ResetPassword.ascx.resx">
       <DependentUpon>ResetPassword.ascx.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="User\Resources\Strings.es.resx">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="User\Resources\Strings.fr.resx">
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="User\Resources\Strings.nl.resx">
       <SubType>Designer</SubType>
