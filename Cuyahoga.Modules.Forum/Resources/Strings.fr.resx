@@ -300,4 +300,7 @@
   <data name="rfvSubject" xml:space="preserve">
     <value>Le champ sujet est obligatoire</value>
   </data>
+  <data name="lbtnRemove" xml:space="preserve">
+    <value>Supprimer</value>
+  </data>
 </root>

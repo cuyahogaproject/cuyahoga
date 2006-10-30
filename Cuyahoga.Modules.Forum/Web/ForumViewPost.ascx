@@ -8,6 +8,8 @@
 			<td class="gridsubheader">
 				<asp:label id="lblTopic" runat="server">Forum title / info</asp:label></td>
 			<td class="gridsubheader" align="right">
+                <asp:LinkButton ID="lbtnRemove" runat="server" OnClick="lbtnRemove_Click" cssclass="forum" Visible=false>Remove post</asp:LinkButton>
+                &nbsp;
 				<asp:hyperlink id="hplReply" runat="server" cssclass="forum">Add reply</asp:hyperlink>&nbsp;
 				<asp:hyperlink id="hplNewTopic" runat="server" cssclass="forum">New Topic</asp:hyperlink></td>
 		</tr>
@@ -15,9 +17,9 @@
 			<td colspan="2">
 				<table id="tblForumPostOrigTable" cellspacing="1" cellpadding="1" width="100%" border="0">
 					<tr class="forumrowalt">
-						<td width="20%">
+						<td width="20%" style="height: 46px">
 							<asp:hyperlink id="hplAuthor" runat="server">Label</asp:hyperlink></td>
-						<td width="80%">
+						<td width="80%" style="height: 46px">
 							<table width="100%">
 								<tr>
 									<td width="80%">
@@ -32,9 +34,9 @@
 			</td>
 		</tr>
 		<tr class="forumrow">
-			<td width="20%">
+			<td width="20%" style="height: 21px">
 				<asp:label id="lblUserInfo" runat="server">Label</asp:label></td>
-			<td width="80%">
+			<td width="80%" style="height: 21px">
 				<asp:literal id="lblMessages" runat="server">Label</asp:literal></td>
 		</tr>
 		<asp:panel id="pnlAttachment" runat="server" visible="False">
@@ -48,9 +50,9 @@
 			</tr>
 		</asp:panel>
 		<tr class="forumrowalt">
-			<td width="20%">
+			<td width="20%" style="height: 21px">
 				&nbsp;</td>
-			<td width="80%">
+			<td width="80%" style="height: 21px">
 				&nbsp;</td>
 		</tr>
 		<tr>
@@ -72,7 +74,9 @@
 									<%# GetPostedDate(Container.DataItem) %>
 								</td>
 								<td width="20%">
-									<%# GetQuoteLink(Container.DataItem) %>
+                                        <asp:LinkButton ID="lbtnRemove" runat="server" OnClick="lbtnRemove_Click" cssclass="forum" CommandArgument="<%# GetForumPostId(Container.DataItem) %>" Visible=false>Remove post</asp:LinkButton>
+                                        &nbsp;
+                						<%# GetQuoteLink(Container.DataItem) %>
 								</td>
 							</tr>
 						</table>
@@ -109,6 +113,4 @@
 				</tr>
 			</itemtemplate>
 		</asp:repeater>
-	</tbody>
-</table>
-</TD></TR></TBODY></TABLE><asp:placeholder id="phForumFooter" runat="server"></asp:placeholder>
+</TBODY></TABLE><asp:placeholder id="phForumFooter" runat="server"></asp:placeholder>

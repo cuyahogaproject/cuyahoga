@@ -4,6 +4,7 @@ using System.Web.UI.WebControls;
 using System.IO;
 
 using Cuyahoga.Core.Util;
+using Cuyahoga.Core.Domain;
 using Cuyahoga.Web.UI;
 using Cuyahoga.Web.Util;
 using Cuyahoga.Modules.Forum;
@@ -42,6 +43,7 @@ namespace Cuyahoga.Modules.Forum
 		protected System.Web.UI.WebControls.Panel pnlAttachment;
 		protected System.Web.UI.WebControls.Label lblAttachment;
 		protected System.Web.UI.WebControls.HyperLink hplPostAttachment;
+        protected System.Web.UI.WebControls.LinkButton lbtnRemove;
 
 
 
@@ -67,6 +69,8 @@ namespace Cuyahoga.Modules.Forum
 				this.hplReply.Visible = false;
 				this.hplQuotePost.Visible = false;
 			}
+
+
 
 			if(!this.IsPostBack)
 			{
@@ -151,6 +155,15 @@ namespace Cuyahoga.Modules.Forum
 
 				this.ltlFileinfo.Text = String.Format(GetText("attachinfo"),fFile.FileSize,fFile.DlCount);
 			}
+            User cuyahogaUser = this.Page.User.Identity as User;
+
+            if (cuyahogaUser != null)
+            {
+                if (cuyahogaUser.CanEdit(this._module.Section))
+                {
+                    this.lbtnRemove.Visible = true;
+                }
+            }
 		}
 
 		private void BindForumPostReplies()
@@ -212,6 +225,15 @@ namespace Cuyahoga.Modules.Forum
 						ltlReplyFileinfo.Text = String.Format(GetText("attachinfo"),fFile.FileSize,fFile.DlCount);
 					}
 				}
+                User cuyahogaUser = this.Page.User.Identity as User;
+
+                if (cuyahogaUser != null)
+                {
+                    if (cuyahogaUser.CanEdit(this._module.Section))
+                    {
+                        e.Item.FindControl("lbtnRemove").Visible = true;
+                    }
+                }
 			}
 		}
 
@@ -256,6 +278,13 @@ namespace Cuyahoga.Modules.Forum
 			}
 		}
 
+        public string GetForumPostId(object o)
+		{
+			ForumPost tPost = o as ForumPost;
+			return tPost.Id.ToString();
+		}
+
+        
 		private void DownloadCurrentFile()
 		{
 			//Response.End();
@@ -347,6 +376,48 @@ namespace Cuyahoga.Modules.Forum
 			//}
 			
 		}
+
+        protected void lbtnRemove_Click(object sender, EventArgs e)
+        {
+            LinkButton lbtnRemoveTemp = (LinkButton)sender;
+            if (!lbtnRemoveTemp.Parent.GetType().Equals(typeof(RepeaterItem)) )
+            {
+                foreach (RepeaterItem item in this.rptForumPostRepliesList.Items)
+                {
+                    LinkButton lbtnRemoveTemp2 = (LinkButton)item.FindControl("lbtnRemove");
+                    ForumPost postTemp = this._module.GetForumPostById(int.Parse(lbtnRemoveTemp2.CommandArgument));
+
+                    if (postTemp.AttachmentId != 0)
+                    {
+                        ForumFile fFile = this._module.GetForumFileById(postTemp.AttachmentId);
+                        this._module.DeleteForumFile(fFile);
+                    }
+                    
+                    this._module.DeleteForumPost(postTemp);
+                }
+
+                this._forumPost = this._module.GetForumPostById(this._module.CurrentForumPostId);
+                if (this._forumPost.AttachmentId != 0)
+                {
+                    ForumFile fFile = this._module.GetForumFileById(this._forumPost.AttachmentId);
+                    this._module.DeleteForumFile(fFile);
+                }
+                this._module.DeleteForumPost(this._forumPost);
+                Response.Redirect(String.Format("{0}/ForumView/{1}", UrlHelper.GetUrlFromSection(base.ForumModule.Section), base.ForumModule.CurrentForumId));
+            }
+            else
+            {
+                ForumPost post = this._module.GetForumPostById(int.Parse(lbtnRemoveTemp.CommandArgument));
+                if (post.AttachmentId != 0)
+                {
+                    ForumFile fFile = this._module.GetForumFileById(post.AttachmentId);
+                    this._module.DeleteForumFile(fFile);
+                }
+                this._module.DeleteForumPost(post);
+                Response.Redirect(String.Format("{0}/ForumViewPost/{1}/PostId/{2}", UrlHelper.GetUrlFromSection(base.ForumModule.Section), base.ForumModule.CurrentForumId, base.ForumModule.CurrentForumPostId));
+            }
+            
+        }
 	
 	
 	}

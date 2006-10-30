@@ -830,6 +830,24 @@ namespace Cuyahoga.Modules.Forum
 				throw new Exception("Unable to save Forum file", ex);
 			}
 		}
+        [Transaction(TransactionMode.RequiresNew)]
+        public virtual void DeleteForumFile(ForumFile forumfile)
+        {
+            ISession session = this._sessionManager.OpenSession();
+            NHibernate.ITransaction tx = session.BeginTransaction();
+            try
+            {
+                System.IO.File.Delete(forumfile.ForumFileName);
+                session.Delete(forumfile);
+                tx.Commit();
+                session.Close();
+            }
+            catch (Exception ex)
+            {
+                tx.Rollback();
+                throw new Exception("Unable to save Forum file", ex);
+            }
+        }
 
 		public ForumFile GetForumFileById(int id)
 		{

@@ -337,6 +337,7 @@ xcopy /s /y "$(ProjectDir)"Web\*.gif "$(SolutionDir)"Web\Modules\Forum\
 xcopy /s /y "$(ProjectDir)"Web\*.css "$(SolutionDir)"Web\Modules\Forum\
 xcopy /s /y "$(ProjectDir)"Web\*.js "$(SolutionDir)"Web\Modules\Forum\
 xcopy /s /y "$(ProjectDir)"Install\Database\*.sql "$(SolutionDir)"Web\Modules\Forum\Install\Database\
-xcopy /s /y "$(TargetPath)" "$(SolutionDir)"Web\bin\</PostBuildEvent>
+xcopy /s /y "$(TargetPath)" "$(SolutionDir)"Web\bin\
+xcopy /s /y "$(TargetDir)"Cuyahoga.Modules.Forum*.dll "$(SolutionDir)"Web\bin\</PostBuildEvent>
   </PropertyGroup>
 </Project>
