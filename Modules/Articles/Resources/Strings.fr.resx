@@ -1,0 +1,281 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="LOGINERROR" xml:space="preserve">
+    <value>An erreur est survénue péndant la connéction:</value>
+  </data>
+  <data name="USERNAMEPASSWORDMISSING" xml:space="preserve">
+    <value>Merci de saisir l'utilisateur et le mot de passe</value>
+  </data>
+  <data name="LOGOUT" xml:space="preserve">
+    <value>Se déconnecter</value>
+  </data>
+  <data name="REGISTER" xml:space="preserve">
+    <value>S'enregistrer</value>
+  </data>
+  <data name="USERNAMEPASSWORDERROR" xml:space="preserve">
+    <value>Utilisateur ou mot de passe incorrécte</value>
+  </data>
+  <data name="RESET" xml:space="preserve">
+    <value>Réinitialiser le mot de passe</value>
+  </data>
+  <data name="LOGIN" xml:space="preserve">
+    <value>Se connecter</value>
+  </data>
+  <data name="LOGGEDINTEXT" xml:space="preserve">
+    <value>Connecté comme </value>
+  </data>
+  <data name="PERSISTLOGIN" xml:space="preserve">
+    <value>Mémoriser l'utilisateur</value>
+  </data>
+  <data name="PASSWORD" xml:space="preserve">
+    <value>Mot de passe</value>
+  </data>
+  <data name="EDITACCOUNT" xml:space="preserve">
+    <value>Modifier l'information d'utilisateur</value>
+  </data>
+  <data name="USERNAME" xml:space="preserve">
+    <value>Utilisateur</value>
+  </data>
+  <data name="RESETEMAILERROR" xml:space="preserve">
+    <value>La re-initialisation de votre mot de passe à echoué à cause d'une erreur d'envoie d'information de votre compte.Merci de ré-ésayer ulteriorement.</value>
+  </data>
+  <data name="RESETINFO" xml:space="preserve">
+    <value>Merci de saisir l'utilisateur et l'adresse de courier électronique. Le nouveau mot de passe sérà envoyait dans l'adresse spécifié.</value>
+  </data>
+  <data name="EDITPASSWORDCONFIRMATION" xml:space="preserve">
+    <value>Votre mot de passe était modifié</value>
+  </data>
+  <data name="EDITPASSWORDCONFIRMERROR" xml:space="preserve">
+    <value>Le nouveau mot de passe doit être égal au nouveau mot de passe.</value>
+  </data>
+  <data name="USERNOTFOUND" xml:space="preserve">
+    <value>L'utilisateur avec l'idéntifiant {0} n'a pas pu être trouvé.</value>
+  </data>
+  <data name="EMAIL" xml:space="preserve">
+    <value>Adresse de méssagerie</value>
+  </data>
+  <data name="RESETUSERERROR" xml:space="preserve">
+    <value>Aucun utilisateur n'a était trouvé pour l'utilisateur et courier électronique specifié.</value>
+  </data>
+  <data name="REGISTERCONFIRMATION" xml:space="preserve">
+    <value>Merci de vous avoir enregistré dans ce site. Un courier électronique avec le mot de passe était envoyé au {0}.</value>
+  </data>
+  <data name="SAVEPASSWORD" xml:space="preserve">
+    <value>Enregistrer le mot de passe</value>
+  </data>
+  <data name="USERNAMEREQUIRED" xml:space="preserve">
+    <value>Le nom d'utilisateur est incorrécte</value>
+  </data>
+  <data name="WEBSITE" xml:space="preserve">
+    <value>Site web</value>
+  </data>
+  <data name="REGISTEREMAILBODY" xml:space="preserve">
+    <value>Votre enregistrement dans le site {site}.
+
+Utilisateur: {username}
+Mot de passe: {password}
+
+Merci!</value>
+  </data>
+  <data name="EDITPROFILETITLE" xml:space="preserve">
+    <value>Actualiser votre compte</value>
+  </data>
+  <data name="NEWPASSWORD" xml:space="preserve">
+    <value>Nouveau mot de passe</value>
+  </data>
+  <data name="EDITPROFILEINFO" xml:space="preserve">
+    <value>Actualizer votre information de compte. Votre adrésse de messagerie ne séra pas affiché publiquement.</value>
+  </data>
+  <data name="LASTNAME" xml:space="preserve">
+    <value>Nom</value>
+  </data>
+  <data name="REGISTERTITLE" xml:space="preserve">
+    <value>Enregistrement de nouveau utilisateur</value>
+  </data>
+  <data name="LASTLOGINON" xml:space="preserve">
+    <value>Dérnière visite</value>
+  </data>
+  <data name="SAVEPROFILE" xml:space="preserve">
+    <value>Enregistrer l'information de compte</value>
+  </data>
+  <data name="RESETTITLE" xml:space="preserve">
+    <value>Initialiser le mot de passe</value>
+  </data>
+  <data name="REGISTEREMAILERROR" xml:space="preserve">
+    <value>L'enregistrement à échoué due à une erreur pendant l'envoie d'information de votre compte. Merci de re-essayer ultérieurement.</value>
+  </data>
+  <data name="TIMEZONE" xml:space="preserve">
+    <value>Plage horaire</value>
+  </data>
+  <data name="EMAILINVALID" xml:space="preserve">
+    <value>Adresse de messagerie incorréct</value>
+  </data>
+  <data name="EMAILREQUIRED" xml:space="preserve">
+    <value>L'adresse de messagerie est nécessaire</value>
+  </data>
+  <data name="RESETEMAILSUBJECT" xml:space="preserve">
+    <value>Information de compte pour le site {site}.</value>
+  </data>
+  <data name="REGISTERINFO" xml:space="preserve">
+    <value>Merci de saisir l'utilisateur et l'adresse de messagerie. Le mot de passe vous sérà envoyé par courier électronique.</value>
+  </data>
+  <data name="EDITPROFILECONFIRMATION" xml:space="preserve">
+    <value>Votre compte était modifié avec succés.</value>
+  </data>
+  <data name="FIRSTNAME" xml:space="preserve">
+    <value>Prénom</value>
+  </data>
+  <data name="REGISTEREDON" xml:space="preserve">
+    <value>Enregistré le </value>
+  </data>
+  <data name="USEREXISTS" xml:space="preserve">
+    <value>Un utilisateur avéc le nom {0} éxiste déjà. Merci de choisir un autre nom d'utilisateur.</value>
+  </data>
+  <data name="REGISTEREMAILSUBJECT" xml:space="preserve">
+    <value>Information de compte pour le site {site}</value>
+  </data>
+  <data name="VIEWPROFILETITLE" xml:space="preserve">
+    <value>Information pour l'utilisateur {0}</value>
+  </data>
+  <data name="CURRENTPASSWORD" xml:space="preserve">
+    <value>Mot de pase</value>
+  </data>
+  <data name="NEWPASSWORDCONFIRMATION" xml:space="preserve">
+    <value>Confirmation de mot de passe</value>
+  </data>
+  <data name="NOTAUTHENTICATED" xml:space="preserve">
+    <value>Vous devez vous connecter pour accéder a cétte fonctionalité.</value>
+  </data>
+  <data name="RESETCONFIRMATION" xml:space="preserve">
+    <value>Un courier électronique viens d'être envoyé avec votre nouveau mot de passe dans l'adresse {0}.</value>
+  </data>
+  <data name="RESETEMAILBODY" xml:space="preserve">
+    <value>Votre information actualisé:
+
+Utilisateur: {username}
+Mot de passe: {password}</value>
+  </data>
+  <data name="INVALIDPASSWORD" xml:space="preserve">
+    <value>Vous avéz saisie un mot de passe incorréct. Le mot de passe doit compter d'au moins une longueur de 5 charatéres.</value>
+  </data>
+  <data name="EDITPASSWORDCURRENTERROR" xml:space="preserve">
+    <value>Le mot de passe actuel ne se correspond pas au mot de passe actuel.</value>
+  </data>
+</root>
