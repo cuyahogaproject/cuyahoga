@@ -157,6 +157,9 @@
     <EmbeddedResource Include="Web\EditFile.aspx.resx">
       <DependentUpon>EditFile.aspx.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Web\Resources\Strings.it.resx">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
     <EmbeddedResource Include="Web\Resources\Strings.nl.resx" />
     <EmbeddedResource Include="Web\Resources\Strings.resx" />
     <None Include="Install\Database\mssql2000\0.8.2.sql" />
@@ -211,4 +214,19 @@ xcopy /s /y "$(ProjectDir)"Web\*.gif "$(SolutionDir)"Web\Modules\Downloads\
 xcopy /s /y "$(ProjectDir)"Install\Database\*.sql "$(SolutionDir)"Web\Modules\Downloads\Install\Database\
 xcopy /s /y "$(TargetDir)"Cuyahoga.Modules.Downloads*.dll "$(SolutionDir)"Web\bin\</PostBuildEvent>
   </PropertyGroup>
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
+        <WebProjectProperties>
+          <UseIIS>False</UseIIS>
+          <AutoAssignPort>True</AutoAssignPort>
+          <DevelopmentServerPort>0</DevelopmentServerPort>
+          <DevelopmentServerVPath>/</DevelopmentServerVPath>
+          <IISUrl>
+          </IISUrl>
+          <NTLMAuthentication>False</NTLMAuthentication>
+        </WebProjectProperties>
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
 </Project>

@@ -213,6 +213,9 @@
     <Content Include="Web\Standard\yahooicon.gif" />
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="Resources\Strings.it.resx">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
     <EmbeddedResource Include="Resources\Strings.da.resx">
       <SubType>Designer</SubType>
     </EmbeddedResource>

@@ -1040,6 +1040,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Controls\Resources\Strings.nl.resx" />
     <EmbeddedResource Include="Controls\Resources\Strings.resx" />
+    <EmbeddedResource Include="Controls\Resources\Strings.it.resx">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
     <EmbeddedResource Include="Controls\ViewProfile.ascx.resx">
       <DependentUpon>ViewProfile.ascx.cs</DependentUpon>
     </EmbeddedResource>
