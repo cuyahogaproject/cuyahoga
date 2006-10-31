@@ -2,7 +2,6 @@ using System;
 using System.Collections;
 using System.ComponentModel;
 using System.Data;
-using System.Drawing;
 using System.Web;
 using System.Web.SessionState;
 using System.Web.UI;
@@ -65,15 +64,26 @@ namespace Cuyahoga.Web.Admin
 			Role role = e.Item.DataItem as Role;
 			if (role != null)
 			{
-				// Permissions
-				Label lblPermissions = (Label)e.Item.FindControl("lblPermissions");
-				lblPermissions.Text = role.PermissionsString;
-				
-				HyperLink hplEdit = (HyperLink)e.Item.FindControl("hplEdit");
-
-				// HACK: as long as ~/ doesn't work properly in mono we have to use a relative path from the Controls
-				// directory due to the template construction.
-				hplEdit.NavigateUrl = String.Format("~/Admin/RoleEdit.aspx?RoleId={0}", role.Id);
+                HyperLink hplEdit = (HyperLink)e.Item.FindControl("hplEdit");
+                Image imgRole = (Image)e.Item.FindControl("imgRole");
+                if (role.Name == "Administrator" || role.Name == "Anonymous user")
+                {
+                    imgRole.ImageUrl = "~/Admin/Images/lock.png";
+                    hplEdit.Visible = false;
+                }
+                else
+                {
+                    imgRole.Visible = false;
+                    // HACK: as long as ~/ doesn't work properly in mono we have to use a relative path from the Controls
+                    // directory due to the template construction.
+                    hplEdit.NavigateUrl = String.Format("~/Admin/RoleEdit.aspx?RoleId={0}", role.Id);
+                }
+                    // Permissions
+                    Label lblPermissions = (Label)e.Item.FindControl("lblPermissions");
+                    lblPermissions.Text = role.PermissionsString;
+                    // Last update
+                    Label lblLastUpdate = (Label)e.Item.FindControl("lblLastUpdate");
+                    lblLastUpdate.Text = role.UpdateTimestamp.ToString();
 			}
 		}
 

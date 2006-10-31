@@ -385,6 +385,7 @@
     <Content Include="Admin\Images\home.gif" />
     <Content Include="Admin\Images\internet.gif" />
     <Content Include="Admin\Images\leftred.gif" />
+    <Content Include="Admin\Images\lock.png" />
     <Content Include="Admin\Images\new.gif" />
     <Content Include="Admin\Images\rightred.gif" />
     <Content Include="Admin\Images\search.gif" />
