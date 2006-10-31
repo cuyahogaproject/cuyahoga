@@ -11,14 +11,6 @@
 	<body ms_positioning="FlowLayout">
 
 		<form id="Form1" method="post" runat="server">
-			<script type="text/javascript"> <!--
-				function confirmDeleteRole(roleId)
-				{
-					if (confirm("Are you sure you want to delete this role?"))
-						document.location.href = "RoleEdit.aspx?RoleId=" + roleId + "&Action=Delete";
-				}
-				// -->
-			</script>
 			<div class="group">
 				<h4>General</h4>
 				<table>

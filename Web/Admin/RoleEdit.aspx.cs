@@ -57,7 +57,7 @@ namespace Cuyahoga.Web.Admin
 		{
 			this.txtName.Text = this._activeRole.Name;
 			this.btnDelete.Visible = (this._activeRole.Id > 0);
-			this.btnDelete.Attributes.Add("onclick", "return confirmDeleteRole();");
+			this.btnDelete.Attributes.Add("onclick", "return confirm(\"Ary you sure?\")");
 		}
 
 		private void BindPermissions()
