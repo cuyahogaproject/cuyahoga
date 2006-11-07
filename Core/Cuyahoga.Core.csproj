@@ -74,6 +74,10 @@
     <ErrorReport>prompt</ErrorReport>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Castle.Core, Version=1.0.0.0, Culture=neutral, PublicKeyToken=407dd0808d44fbdc, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\lib\Castle.Core.dll</HintPath>
+    </Reference>
     <Reference Include="Castle.Facilities.NHibernateIntegration">
       <Name>Castle.Facilities.NHibernateIntegration</Name>
       <HintPath>..\lib\Castle.Facilities.NHibernateIntegration.dll</HintPath>
@@ -81,10 +85,6 @@
     <Reference Include="Castle.MicroKernel">
       <Name>Castle.MicroKernel</Name>
       <HintPath>..\lib\Castle.MicroKernel.dll</HintPath>
-    </Reference>
-    <Reference Include="Castle.Model">
-      <Name>Castle.Model</Name>
-      <HintPath>..\lib\Castle.Model.dll</HintPath>
     </Reference>
     <Reference Include="Castle.Services.Transaction">
       <Name>Castle.Services.Transaction</Name>
@@ -226,15 +226,6 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Exceptions.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Facilities\CuyahogaNHibernateFacility.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Facilities\CuyahogaSessionManager.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Facilities\SessionFactoryResolver.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="INHibernateModule.cs">

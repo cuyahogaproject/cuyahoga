@@ -1,6 +1,6 @@
 using System;
 
-using Castle.Model;
+using Castle.Core;
 using Castle.Services.Transaction;
 
 namespace Cuyahoga.Core.Service.Files

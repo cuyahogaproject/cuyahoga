@@ -2,7 +2,7 @@ using System;
 using System.Web;
 
 using NHibernate;
-using Castle.Model;
+using Castle.Core;
 using Castle.Facilities.NHibernateIntegration;
 
 using Cuyahoga.Core.Service;

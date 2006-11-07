@@ -1,7 +1,7 @@
 using System;
 
 using Castle.MicroKernel;
-using Castle.Model;
+using Castle.Core;
 
 using Cuyahoga.Core;
 using Cuyahoga.Core.Domain;

@@ -4,7 +4,7 @@ using System.Collections;
 using NHibernate;
 using log4net;
 using Castle.Facilities.NHibernateIntegration;
-using Castle.Model;
+using Castle.Core;
 
 using Cuyahoga.Core.Domain;
 using Cuyahoga.Core.DataAccess;

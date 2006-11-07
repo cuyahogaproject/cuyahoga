@@ -1,6 +1,6 @@
 using System;
 
-using Castle.Model;
+using Castle.Core;
 
 using Cuyahoga.Core.Service;
 

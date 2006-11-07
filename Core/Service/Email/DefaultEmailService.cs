@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 
 using log4net;
-using Castle.Model;
+using Castle.Core;
 
 namespace Cuyahoga.Core.Service.Email
 {
