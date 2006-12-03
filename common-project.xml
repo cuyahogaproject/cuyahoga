@@ -93,7 +93,7 @@
 	</target>
 
 	<target name="common.set-assembly-attribute-values">
-		<property overwrite="false" name="assembly.is-cls-compliant" value="true" />
+		<property overwrite="false" name="assembly.is-cls-compliant" value="false" />
 		<property overwrite="false" name="assembly.is-com-visible" value="false" />
 		<property overwrite="false" name="assembly.guid" value="" />
 		<property overwrite="false" name="assembly.allow-partially-trusted-callers" value="true" />
