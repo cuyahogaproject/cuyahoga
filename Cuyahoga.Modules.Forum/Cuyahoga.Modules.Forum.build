@@ -13,6 +13,7 @@
 			<include name="System.Web.dll" />
 			<include name="System.XML.dll" />
 			<include name="System.Configuration.dll" />
+			<include name="System.Drawing.dll" />
 			<include name="Castle.Facilities.NHibernateIntegration.dll" />
 			<include name="Castle.Services.Transaction.dll" />
 			<include name="log4net.dll" />
