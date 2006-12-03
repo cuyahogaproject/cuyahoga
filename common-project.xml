@@ -1,0 +1,142 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<project name="Cuyahoga" xmlns="http://nant.sf.net/release/0.85/nant.xsd">
+	<description><![CDATA[
+		This file contains common tasks tailored specifically for the ISA
+		build process. The goal was to define all the actions in this file, so
+		that actual project build files only have to configure a few variables
+		and call tasks in this file.
+
+		Usage
+
+		<property name="root.dir" value="..\.." />
+		<include buildfile="${root.dir}/common-project.xml" />
+
+		These lines should be placed at the top level under the <project>
+		element. Property root.dir defines a relative path to the root of the
+		distribution, that is, ISA directory.
+
+		After including the file, a target should be defined to initialize
+		configuration variables according to the project being built.
+		The standard of this target is init (but any other name can be chosen).
+		The init target should depend on (or call) target common.init defined
+		in this file.
+
+		Other predefined targets are:
+
+		- common.compile-dll
+		compile a DLL, generating the documentation.
+
+		- common.generate-assemblyinfo, common.generate-assemblyinfoversion
+		generate an AssemblyInfo.cs or AssemblyInfoVersion.cs file from
+		assembly.* NAnt properties.
+
+		All compile/run targets put the output in build.dir. Common.compile*
+		targets use source fileset with id="project.sources", assembly fileset
+		with id="project.references" and resource fileset with id="project.resources"
+		to compile the project. The source and resource filesets are optional.
+	]]></description>
+
+	<include buildfile="common.xml" />
+
+	<target name="common.compile-dll"
+		description="Compile sources into a DLL">
+
+		<csc
+			target="library" 
+			define="${current.build.defines}" 
+			debug="${build.debug}" 
+			optimize="${build.optimize}"
+			output="${build.bin.dir}/${project::get-name()}.dll" 
+			doc="${build.bin.dir}/${project::get-name()}.xml"
+			rebuild="${build.rebuild}"
+			>
+			<nowarn>
+				<warning number="1591" />
+				<!-- No XML comment for publicly visible member -->
+			</nowarn>
+			<sources refid="project.sources" />
+			<references refid="project.references" />
+			<resources refid="project.resources" />
+		</csc>
+	</target>
+
+	<target name="common.copy-references">
+		<foreach item="File" property="reference">
+			<in>
+				<items refid="project.references" />
+			</in>
+			<do>
+				<copy file="${reference}" todir="${bin.dir}" overwrite="${build.rebuild}" />
+			</do>
+		</foreach>
+	</target>
+
+	<target name="common.compile-winexe"
+		description="Compile sources into a WinForms executable">
+
+		<csc
+			target="winexe"
+			define="${current.build.defines}" 
+			debug="${build.debug}"
+			optimize="${build.optimize}"
+			output="${build.dir}\${project::get-name()}.exe" 
+			win32icon="${app.icon}"
+			>
+			<nowarn>
+				<warning number="1591" />
+				<!-- No XML comment for publicly visible member -->
+			</nowarn>
+			<sources refid="project.sources" />
+			<references refid="project.references" />
+			<resources refid="project.resources" />
+		</csc>
+	</target>
+
+	<target name="common.set-assembly-attribute-values">
+		<property overwrite="false" name="assembly.is-cls-compliant" value="true" />
+		<property overwrite="false" name="assembly.is-com-visible" value="false" />
+		<property overwrite="false" name="assembly.guid" value="" />
+		<property overwrite="false" name="assembly.allow-partially-trusted-callers" value="true" />
+		<property overwrite="false" name="assembly.description" value="" />
+		<property overwrite="false" name="assembly.product" value="${project::get-name()}" />
+		<property overwrite="false" name="assembly.company" value="${project.company}" />
+		<property overwrite="false" name="assembly.title" value="${project::get-name()} for ${framework::get-description(framework::get-target-framework())}" />
+		<!-- Default assembly version. Override this one in the assembly-specific build file -->
+		<property overwrite="false" name="assembly.version" value="1.5.0.${svn.revision}" />
+		<property overwrite="false" name="assembly.version.informational" value="${assembly.major}.${assembly.minor}.${assembly.build}.${svn.revision}" />
+		<property overwrite="false" name="assembly.copyright" value="2004-2006 Cuyahoga Project. All rights reserved." />
+	</target>
+
+	<target name="common.generate-assemblyinfo"
+		depends="common.init common.set-assembly-attribute-values"
+		description="Generate AssemblyInfo.cs using assembly.* properties."
+		>
+		<property name="assemblyinfo.cs" value="${path::combine(src.dir,'AssemblyInfo.cs')}" />
+		<attrib file="${assemblyinfo.cs}" readonly="false" />
+		<asminfo output="${assemblyinfo.cs}" language="CSharp">
+			<imports>
+				<import namespace="System" />
+				<import namespace="System.Reflection" />
+				<import namespace="System.Runtime.CompilerServices" />
+				<import namespace="System.Runtime.InteropServices" />
+				<import namespace="System.Security" if="${assembly.allow-partially-trusted-callers}" />
+			</imports>
+			<attributes>
+				<attribute type="CLSCompliantAttribute" value="${assembly.is-cls-compliant}" />
+				<attribute type="ComVisibleAttribute" value="${assembly.is-com-visible}" />
+				<attribute type="GuidAttribute" value="${assembly.guid}" if="${assembly.guid != ''}" />
+				<attribute type="AssemblyTitleAttribute" value="${assembly.title}" />
+				<attribute type="AssemblyDescriptionAttribute" value="${assembly.description}" />
+				<attribute type="AssemblyCompanyAttribute" value="${assembly.company}" />
+				<attribute type="AssemblyProductAttribute" value="${assembly.product}" />
+				<attribute type="AssemblyCopyrightAttribute" value="${assembly.copyright}" />
+				<attribute type="AssemblyVersionAttribute" value="${assembly.version}" />
+				<attribute type="AssemblyInformationalVersionAttribute" value="${assembly.version.informational}" />
+				<attribute type="AssemblyFileVersionAttribute" value="${assembly.version}" />
+
+				<!-- For some reason, NAnt doesn't detect that APTCA has a public no-argument constructor -->
+				<attribute asis="true" type="AllowPartiallyTrustedCallersAttribute" if="${assembly.allow-partially-trusted-callers}" />
+			</attributes>
+		</asminfo>
+	</target>
+</project>

@@ -1,0 +1,134 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<project name="Cuyahoga" xmlns="http://nant.sf.net/release/0.85/nant.xsd">
+	<!-- 
+		Path to the folder that contain the external assemblies.  For net-2.0 the values will
+		be lib, lib/net, and lib/net/2.0 respectively.
+	-->
+	<property name="lib.dir" value="lib" dynamic="true" />
+	<property name="lib.family.dir" value="${path::combine(lib.dir, framework::get-family(framework::get-target-framework()))}" dynamic="true" />
+	<property name="lib.framework.dir" value="${path::combine(lib.family.dir, version::to-string(framework::get-version(framework::get-target-framework())))}" dynamic="true" />
+
+	<!-- Versioning	-->
+	<property name="project.version" value="1.5.0.0" overwrite="false" />
+	<property name="project.major" value="${version::get-major(version::parse(project.version))}" dynamic="true" />
+	<property name="project.minor" value="${version::get-minor(version::parse(project.version))}" dynamic="true" />
+	<property name="project.build" value="${version::get-build(version::parse(project.version))}" dynamic="true" />
+	<property name="project.revision" value="${svn.revision}" dynamic="true" />
+
+	<property name="assembly.major" value="${version::get-major(version::parse(assembly.version))}"	dynamic="true" />
+	<property name="assembly.minor" value="${version::get-minor(version::parse(assembly.version))}" dynamic="true" />
+	<property name="assembly.build"	value="${version::get-build(version::parse(assembly.version))}" dynamic="true" />
+	<property name="assembly.revision" value="${version::get-revision(version::parse(assembly.version))}" dynamic="true" />
+
+	<property name="svn.revision" value="0" overwrite="false" />
+
+	<!-- 
+		These are used to set the correct attributes in AssemblyInfo.cs.  
+	-->
+	<property name="project.company" value="Cuyahoga Project" />
+	
+	<!-- Default build defines -->
+	<property name="build.defines" value="TRACE" />
+
+	<!-- platform specific properties. These are the defaults -->
+	<property name="current.build.defines" value="${build.defines}" />
+
+	<!-- platform specific properties. These are the defaults -->
+	<property name="current.build.defines" value="${build.defines}" />
+
+	<!-- named project configurations -->
+	<target name="set-debug-project-configuration" description="Perform a 'debug' build">
+		<property name="build.debug" value="true" />
+		<property name="build.optimize"	value="false" overwrite="false" />
+	</target>
+
+	<target name="set-release-project-configuration" description="Perform a 'release' build">
+		<property name="build.debug" value="false" />
+		<property name="build.optimize" value="true" overwrite="false" />
+	</target>
+
+	<target name="set-project-configuration">
+		<property name="project.config" value="debug" overwrite="false" />
+		<if test="${not(target::exists('set-' + project.config + '-project-configuration'))}">
+			<fail message="Unknown configuration: '${project.config}'" />
+		</if>
+		<call target="set-${project.config}-project-configuration" />
+
+		<property name="src.dir" value="${path::get-full-path(project::get-base-directory())}" />
+		<property name="build.base.dir"	value="${root.dir}/build" />
+		<property name="build.family.dir" value="${build.base.dir}/${nant.settings.currentframework}" />
+		<property name="build.dir" value="${path::get-full-path(path::combine(build.family.dir,project.config))}" dynamic="true" />
+		<property name="build.bin.dir" value="${path::get-full-path(path::combine(build.family.dir,project.config))}/bin" dynamic="true" />
+		<property name="build.rebuild" value="false" overwrite="false" />
+	</target>
+
+	<target name="set-framework-configuration">
+		<if test="${not(target::exists('set-'+framework::get-target-framework()+'-framework-configuration'))}">
+			<fail message="The '${framework::get-target-framework()}' framework is not supported by this version of Cast;e." />
+		</if>
+		<call target="set-${framework::get-target-framework()}-framework-configuration" />
+	</target>
+
+	<target name="set-net-2.0-framework-configuration">
+		<property name="nant.settings.currentframework" value="net-2.0" />
+		<property name="current.build.defines" value="${build.defines},NET,DOTNET2" />
+		<property name="link.sdkdoc.version" value="SDK_v2_0" />
+	</target>
+
+	<target name="set-mono-2.0-framework-configuration">
+		<property name="nant.settings.currentframework" value="mono-2.0" />
+		<property name="current.build.defines" value="${build.defines},MONO,MONO2" />
+		<property name="link.sdkdoc.version" value="MsdnOnline" />
+	</target>
+
+	<target name="display-current-runtime">
+		<echo message="" />
+		<echo message="----------------------------------------------------------" />
+		<echo message=" ${framework::get-description(framework::get-target-framework())}" />
+		<echo message="----------------------------------------------------------" />
+		<echo message="" />
+		<echo message="framework : ${framework::get-target-framework()}" />
+		<echo message="description : ${framework::get-description(framework::get-target-framework())}" />
+		<echo message="sdk directory : ${framework::get-sdk-directory(framework::get-target-framework())}" />
+		<echo message="framework directory : ${framework::get-framework-directory(framework::get-target-framework())}" />
+		<echo message="assembly directory : ${framework::get-assembly-directory(framework::get-target-framework())}" />
+		<echo message="runtime engine : ${framework::get-runtime-engine(framework::get-target-framework())}" />
+		<echo message="" />
+	</target>
+
+	<target name="common.init"
+		depends="set-framework-configuration set-project-configuration"
+		description="Initializes build properties">
+
+		<fileset id="project.sources" failonempty="true">
+			<include name="${src.dir}/**/*.cs" />
+			<!-- exclude the VS.NET AssemblyInfo.cs file -->
+			<exclude name="${src.dir}/**/Properties/AssemblyInfo.cs" />
+		</fileset>
+		<!-- 
+		Include the .resx files as embedded resource by default. Override in the project when incuding other files
+		such as NHibernate mapping files.
+		-->
+		<resourcefileset id="project.resources" basedir="${project::get-base-directory()}" prefix="${project::get-name()}" dynamicprefix="true">
+			<include name="${src.dir}/**/*.resx" />
+		</resourcefileset>
+	</target>
+
+	<target name="common.find-svninfo">
+		<!-- For adding SVN revision to builds -->
+		<property name="svn.revision" value="0" overwrite="false" />
+		<!-- try to update the revision -->
+		<exec
+			program="svn"
+			commandline='info "${project::get-base-directory()}" --xml'
+			output="_revision.xml"
+			failonerror="false"/>
+		<xmlpeek
+			file="_revision.xml"
+			xpath="/info/entry/commit/@revision"
+			property="svn.revision"
+			failonerror="false"/>
+		<delete file="_revision.xml" failonerror="false" />
+		<echo message="INFO: Using Subversion revision number: ${svn.revision}"/>
+	</target>
+</project>

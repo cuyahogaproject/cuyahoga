@@ -1,173 +1,116 @@
 <?xml version="1.0" encoding="utf-8" ?>
-<project default="build" basedir="." xmlns="http://nant.sf.net/release/0.85-rc3/nant.xsd">
-	<!-- global project settings -->
-	<property name="project.name" value="Cuyahoga" />
-	<property name="project.version" value="1.x.x" />
-	<!-- default configuration -->
-	<property name="project.config" value="debug" /> <!-- debug|release -->
-	<property name="lib.dir" value="lib" />
-	<target name="debug" description="Perform a 'debug' build">
-		<property name="project.config" value="debug" />
-		<property name="build.debug" value="true" />
-		<property name="build.dir" value="${nant.project.basedir}/build/${nant.settings.currentframework}.${nant.platform.name}/${project.name}-${project.version}-${project.config}" />
-		<property name="build.name" value="${project.name}-${project.version}-${project.config}" />
+<project name="Cuyahoga" default="build" basedir="." xmlns="http://nant.sf.net/release/0.85/nant.xsd">
+	<property name="root.dir" value="." />
+	<include buildfile="${root.dir}/common.xml" />
+
+	<fileset id="buildfiles.all">
+		<!-- Files have to be in dependency order -->
+		<include name="Core/Cuyahoga.Core.build" />
+		<include name="ServerControls/Cuyahoga.ServerControls.build" />
+		<include name="Web/Cuyahoga.Web.build" />
+		<include name="Modules/Cuyahoga.Modules.build" />
+		<include name="Downloads/Cuyahoga.Modules.Downloads.build" />
+		<include name="Cuyahoga.Modules.Forum/Cuyahoga.Modules.Forum.build" />
+	</fileset>
+
+	<target name="build" 
+		depends="init copy-referenced-assemblies" 
+		description="Builds Cuyahoga in the current configuration">
+		
+		<nant target="build">
+			<buildfiles refid="buildfiles.all" />
+		</nant>
+		
 	</target>
-	<target name="release" description="Perform a 'release' build">
-		<property name="project.config" value="release" />
-		<property name="build.debug" value="false" />
-		<property name="build.dir" value="${nant.project.basedir}/build/${nant.settings.currentframework}.${nant.platform.name}/${project.name}-${project.version}-${project.config}" />
-		<property name="build.name" value="${project.name}-${project.version}" />
+
+	<target name="rebuild" description="Rebuilds Cuyahoga in the current configuration" depends="init recreate-build-directory build" />
+
+	<target name="init" depends="common.init">
+		<mkdir dir="${build.dir}" />
+		<call target="common.find-svninfo" />
 	</target>
-	<!-- build tasks -->
-	<target name="init" description="Initializes build properties">
-		<call target="${project.config}" />
-	</target>
-	<target name="clean" depends="init" description="Deletes current build configuration">
+
+	<target name="clean" description="Deletes current build artifacts" depends="common.init">
 		<delete dir="${build.dir}" failonerror="false" />
+		<delete>
+			<fileset basedir="${build.base.dir}">
+				<include name="*.*" />
+			</fileset>
+		</delete>
 	</target>
-	<target name="cleanall" description="Deletes every build configuration">
+
+	<target name="cleanall" description="Deletes all build artifacts" depends="common.init">
 		<echo message="Deleting all builds from all configurations" />
-		<delete dir="build" failonerror="false" />
+		<delete dir="${build.base.dir}" failonerror="false" />
+		<call target="clean-vs" />
 	</target>
-	<target name="build" depends="init" description="Builds current configuration">
-		<echo message="Building ${build.name}..." />
+
+	<target name="recreate-build-directory">
+		<echo message="Current Directory is ${project::get-base-directory()}" />
 		<echo message="Build Directory is ${build.dir}" />
-		<mkdir dir="${build.dir}/bin" />
-		<call target="build.core" />
-		<call target="build.servercontrols" />
-		<call target="build.web" />
-		<call target="build.modules" />
-		<call target="build.modules.downloads" />
-		<!-- copy libraries -->
-		<copy todir="${build.dir}/bin">
+
+		<!-- Prepare build directory -->
+		<delete dir="${build.dir}" failonerror="false" />
+		<mkdir dir="${build.dir}" />
+		<call target="copy-referenced-assemblies" />
+		<property name="build.rebuild" value="true" />
+	</target>
+
+	<target name="copy-referenced-assemblies">
+		<!-- Copy framework-neutral libraries -->
+		<copy todir="${build.bin.dir}" >
 			<fileset basedir="${lib.dir}">
-				<include name="**/*.dll" />
-				<include name="**/*.txt" />
+				<include name="*.dll" />
+				<include name="*.xml" />
+				<include name="*.license.txt" />
+			</fileset>
+
+		</copy>
+		<!-- Copy family-specific libraries -->
+		<!-- 
+			The build of log4net works just fine for all versions of .NET.
+			When they do get framework specific extensions then we
+			can just move them to the framework specific section
+		-->
+		<copy todir="${build.bin.dir}">
+			<fileset basedir="${lib.family.dir}">
+				<include name="*.dll" />
+				<include name="*.xml" />
+				<include name="*.license.txt" />
+			</fileset>
+		</copy>
+
+		<!-- Copy framework-specific libraries -->
+		<copy todir="${build.bin.dir}">
+			<fileset basedir="${lib.framework.dir}">
+				<include name="*.dll" />
+				<include name="*.xml" />
+				<include name="*.license.txt" />
 			</fileset>
 		</copy>
 	</target>
-	<target name="build.core">
-		<csc target="library" output="${build.dir}/bin/Cuyahoga.Core.dll" debug="${build.debug}"
-			doc="${build.dir}/bin/Cuyahoga.Core.xml">
-			<sources>
-				<include name="Core/**/*.cs" />
-			</sources>
-			<resources dynamicprefix="true" prefix="Cuyahoga">
-				<include name="Core/Domain/*.hbm.xml" />
-			</resources>
-			<references>
-				<include name="System.dll" />
-				<include name="System.Data.dll" />
-				<include name="System.Xml.dll" />
-				<include name="System.Web.dll" />
-				<include name="${lib.dir}/NHibernate.*" />
-				<include name="${lib.dir}/Nullables.dll" />
-				<include name="${lib.dir}/log4net.dll" />
-				<include name="${lib.dir}/Lucene.Net.*" />
-				<include name="${lib.dir}/Castle.*" />
-				<exclude name="${lib.dir}/*.txt" />
-			</references>
-		</csc>
+	<target name="generate-assemblyinfo"
+		depends="init"
+		description="Generate AssemblyInfo files">
+
+		<property name="visual-studio" value="true" />
+		<nant target="generate-assemblyinfo">
+			<buildfiles refid="buildfiles.all" />
+		</nant>
 	</target>
-	<target name="build.servercontrols">
-		<csc target="library" output="${build.dir}/bin/Cuyahoga.ServerControls.dll" debug="${build.debug}"
-			doc="${build.dir}/bin/Cuyahoga.ServerControls.xml">
-			<sources>
-				<include name="ServerControls/**/*.cs" />
-			</sources>
-			<references>
-				<include name="System.dll" />
-				<include name="System.Data.dll" />
-				<include name="System.Drawing.dll" />
-				<include name="System.Xml.dll" />
-				<include name="System.Web.dll" />
-			</references>
-		</csc>
-	</target>
-	<target name="build.web">
-		<csc target="library" output="${build.dir}/bin/Cuyahoga.Web.dll" debug="${build.debug}"
-			doc="${build.dir}/bin/Cuyahoga.Web.xml">
-			<sources>
-				<include name="Web/**/*.cs" />
-			</sources>
-			<resources dynamicprefix="true" prefix="Cuyahoga">
-				<include name="Web/Controls/**/Strings*.resx" if="${framework::get-family(framework::get-target-framework()) == 'net'}" />
-				<include name="Web/Controls/**/Strings.resx" if="${framework::get-family(framework::get-target-framework()) == 'mono'}" />
-			</resources>
-			<references>
-				<include name="System.dll" />
-				<include name="System.Data.dll" />
-				<include name="System.Drawing.dll" />
-				<include name="System.Xml.dll" />
-				<include name="System.Web.dll" />
-				<include name="${lib.dir}/NHibernate.dll" />
-				<include name="${lib.dir}/Nullables.dll" />
-				<include name="${lib.dir}/log4net.dll" />
-				<include name="${lib.dir}/Lucene.Net.*" />
-				<include name="${build.dir}/bin/Cuyahoga.Core.dll" />
-				<include name="${build.dir}/bin/Cuyahoga.ServerControls.dll" />
-				<include name="${lib.dir}/Castle.*" />
-				<exclude name="${lib.dir}/*.txt" />
-			</references>
-		</csc>
-	</target>
-	<target name="build.modules" depends="build.core">
-		<csc target="library" output="${build.dir}/bin/Cuyahoga.Modules.dll" debug="${build.debug}"
-			doc="${build.dir}/bin/Cuyahoga.Modules.xml">
-			<sources>
-				<include name="Modules/**/*.cs" />
-			</sources>
-			<resources dynamicprefix="true" prefix="Cuyahoga">
-				<include name="Modules/**/*.hbm.xml" />
-				<include name="Modules/**/Strings*.resx" if="${framework::get-family(framework::get-target-framework()) == 'net'}" />
-				<include name="Modules/**/Strings.resx" if="${framework::get-family(framework::get-target-framework()) == 'mono'}" />
-			</resources>
-			<references>
-				<include name="System.dll" />
-				<include name="System.Data.dll" />
-				<include name="System.Xml.dll" />
-				<include name="System.Drawing.dll" />
-				<include name="System.Web.dll" />
-				<include name="${lib.dir}/NHibernate.dll" />
-				<include name="${lib.dir}/Nullables.dll" />
-				<include name="${lib.dir}/log4net.dll" />
-				<include name="${lib.dir}/Lucene.Net.*" />
-				<include name="${lib.dir}/FredCK.FCKeditorV2.dll" />
-				<include name="${build.dir}/bin/Cuyahoga.Core.dll" />
-				<include name="${build.dir}/bin/Cuyahoga.Web.dll" />
-				<include name="${build.dir}/bin/Cuyahoga.ServerControls.dll" />
-				<include name="${lib.dir}/Castle.*" />
-				<exclude name="${lib.dir}/*.txt" />
-			</references>
-		</csc>
-	</target>
-	<target name="build.modules.downloads" depends="build.core">
-		<csc target="library" output="${build.dir}/bin/Cuyahoga.Modules.Downloads.dll" debug="${build.debug}"
-			doc="${build.dir}/bin/Cuyahoga.Modules.Downloads.xml">
-			<sources>
-				<include name="Downloads/**/*.cs" />
-			</sources>
-			<resources dynamicprefix="true" prefix="Cuyahoga.Modules">
-				<include name="Downloads/**/*.hbm.xml" />
-				<include name="Downloads/**/Strings*.resx" if="${framework::get-family(framework::get-target-framework()) == 'net'}" />
-				<include name="Downloads/**/Strings.resx" if="${framework::get-family(framework::get-target-framework()) == 'mono'}" />
-			</resources>
-			<references>
-				<include name="System.dll" />
-				<include name="System.Data.dll" />
-				<include name="System.Xml.dll" />
-				<include name="System.Drawing.dll" />
-				<include name="System.Web.dll" />
-				<include name="${lib.dir}/NHibernate.dll" />
-				<include name="${lib.dir}/Nullables.dll" />
-				<include name="${lib.dir}/log4net.dll" />
-				<include name="${build.dir}/bin/Cuyahoga.Core.dll" />
-				<include name="${build.dir}/bin/Cuyahoga.Web.dll" />
-				<include name="${build.dir}/bin/Cuyahoga.ServerControls.dll" />
-				<include name="${lib.dir}/Castle.*" />
-				<exclude name="${lib.dir}/*.txt" />
-		</references>
-		</csc>
+
+	<target name="build-all-frameworks" depends="init">
+		<!-- Save the current framework -->
+		<property name="current.framework.saved" value="${nant.settings.currentframework}" />
+
+		<!-- Execute build for each framework -->
+		<foreach item="String" delim=" " property="framework" in="net-2.0 mono-2.0">
+			<call target="set-${framework}-framework-configuration" />
+			<call target="build" />
+		</foreach>
+
+		<!-- Reset the current framework to the saved value -->
+		<call target="set-${current.framework.saved}-framework-configuration" />
 	</target>
 	<target name="sdkdoc" depends="init" description="Generates MSDN style documentation">
 		<mkdir dir="${build.dir}/doc/sdk" />
@@ -248,6 +191,7 @@
 				<exclude name="UserFiles/Image/*.*" />
 				<exclude name="UserFiles/File/*.*" />
 				<exclude name="files/*.*" />
+				<exclude name="obj/*.*" />
 				<exclude name="**/log.txt" />
 			</fileset>
 		</copy>
@@ -283,6 +227,24 @@
 				<include name="**/*.sql" />
 			</fileset>
 		</copy>
+		<!-- Copy Modules.Forum to the Web dir -->
+		<mkdir dir="${build.dir}/Modules/Forum" />
+		<copy todir="${build.dir}/Modules/Forum">
+			<fileset basedir="Cuyahoga.Modules.Forum/Web">
+				<include name="**/*.as?x" />
+				<include name="**/*.gif" />
+				<include name="**/*.png" />
+				<include name="**/*.jpg" />
+				<include name="**/*.js" />
+				<include name="**/*.css" />
+				<include name="**/*.xslt" />
+			</fileset>
+		</copy>
+		<copy todir="${build.dir}/Modules/Forum">
+			<fileset basedir="Cuyahoga.Modules.Forum">
+				<include name="**/*.sql" />
+			</fileset>
+		</copy>
 	</target>
 	<target name="package-source" depends="init" description="Create a Zip file for Source Releases">
 		<mkdir dir="${build.dir}/package" />
@@ -296,6 +258,7 @@
 				<include name="Web/**" />
 				<include name="Modules/**" />
 				<include name="Downloads/**" />
+				<include name="Cuyahoga.Modules.Forum/**" />
 				<include name="Tests/**" />
 				<include name="doc/**/*.pdf" />
 				<include name="Database/**" /> <!-- obsolete scripts, for upgrade only -->

@@ -373,6 +373,9 @@
     <Content Include="Domain\FileResource.hbm.xml" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Cuyahoga.Core.build" />
+  </ItemGroup>
+  <ItemGroup>
     <Folder Include="Service\Search\" />
     <Folder Include="Service\Versioning\" />
     <Folder Include="Service\Workflow\" />

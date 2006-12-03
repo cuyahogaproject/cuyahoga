@@ -308,6 +308,9 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <None Include="Cuyahoga.Modules.Forum.build" />
+  </ItemGroup>
+  <ItemGroup>
     <Folder Include="Web\Images\" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />

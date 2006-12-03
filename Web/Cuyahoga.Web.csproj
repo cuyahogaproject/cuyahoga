@@ -1073,6 +1073,7 @@
     <None Include="Config\facilities.config" />
     <None Include="Config\properties.config" />
     <None Include="Config\services.config" />
+    <None Include="Cuyahoga.Web.build" />
     <None Include="Install\Core\Database\mssql2000\0.8.2.sql" />
     <None Include="Install\Core\Database\mssql2000\0.9.0.sql" />
     <None Include="Install\Core\Database\mssql2000\0.9.1.sql" />
