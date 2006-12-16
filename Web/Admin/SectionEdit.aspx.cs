@@ -136,6 +136,7 @@ namespace Cuyahoga.Web.Admin
 					this.plcCustomSettings.Controls.Add(settingRow);
 				}
 			}
+			this.pnlCustomSettings.Visible = mt.ModuleSettings.Count > 0;
 		}
 
 		private void BindSectionControls()
@@ -241,10 +242,6 @@ namespace Cuyahoga.Web.Admin
 						}
 					}
 				}
-			}
-			else
-			{
-				this.pnlCustomSettings.Visible = false;
 			}
 		}
 
