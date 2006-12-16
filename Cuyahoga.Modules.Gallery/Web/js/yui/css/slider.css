@@ -1,0 +1,18 @@
+#sliderbg
+{
+	position: relative;
+	top: 0px;
+	background: url(/xpWeb/Modules/xpgallery/js/yui/css/horizBg.png) no-repeat;
+	height: 26px;
+	width: 218px;
+	z-index: 5;
+}
+#sliderthumb
+{
+    position:absolute; 
+    left: 100px; /* the default position is the center of the bg */
+    top: 8px;  /* force the image down a bit */
+    cursor:default;
+    width:18px; 
+    height:18px; 
+}

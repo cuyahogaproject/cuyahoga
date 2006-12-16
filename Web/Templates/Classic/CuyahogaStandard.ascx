@@ -7,6 +7,7 @@
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 		<asp:literal id="MetaTags" runat="server" />
 		<asp:literal id="Stylesheets" runat="server" />
+		<asp:literal id="JavaScripts" runat="server" />
 	</head>
 	<body>
 		<form id="t" method="post" runat="server">

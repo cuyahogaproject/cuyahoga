@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8" ?> 
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.0">
+	<class name="Cuyahoga.Modules.Gallery.Domain.Photo, Cuyahoga.Modules.Gallery" table="cm_gal_photo">
+		
+		<id name="Id" column="photoid" type="Int32" unsaved-value="-1">
+			<generator class="native">
+				<param name="sequence">cm_gal_photo_photoid_seq</param>
+			</generator>
+		</id>
+		<timestamp name="DateUpdated" column="modified" />
+		<property name="Sequence" column="photoseq" type="Int32" />
+		<property name="Views" column="views" type="Int64" />
+		<property name="Downloads" column="downloads" type="Int64" />
+		<property name="Rank1" column="rank1" type="Int64" />
+		<property name="Rank2" column="rank2" type="Int64" />
+		<property name="Rank3" column="rank3" type="Int64" />
+		<property name="Rank4" column="rank4" type="Int64" />
+		<property name="Rank5" column="rank5" type="Int64" />
+		<property name="Rank6" column="rank6" type="Int64" />
+		<property name="Rank7" column="rank7" type="Int64" />
+		<property name="Rank8" column="rank8" type="Int64" />
+		<property name="Rank9" column="rank9" type="Int64" />
+		<property name="Title" column="photoname" type="String" length="50" />
+		<property name="ThumbImage" column="thumbimage" type="String" length="255" not-null="false" />
+		<property name="ThumbOver" column="thumbover" type="String" length="255" not-null="false" />
+		<property name="LargeImage" column="largeimage" type="String" length="255" />
+		<property name="Serie" column="serie" type="String" length="255" not-null="false" />
+		<property name="Category" column="category" type="String" length="255" not-null="false" />
+		<property name="OriginalSize" column="originalsize" type="String" length="255" not-null="false" />
+		<property name="DownloadAllowed" column="downloadallowed" type="Boolean" />
+		<property name="DateCreated" column="created" type="DateTime" />
+
+		<many-to-one name="Gallery" class="Cuyahoga.Modules.Gallery.Domain.Gallery, Cuyahoga.Modules.Gallery" column="galleryid" />
+		
+	</class>
+</hibernate-mapping>

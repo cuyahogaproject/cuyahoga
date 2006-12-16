@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8" ?> 
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.0">
+	<class name="Cuyahoga.Modules.Gallery.Domain.PhotoGallery, Cuyahoga.Modules.Gallery" table="cm_gal_gallery">
+		
+		<id name="Id" column="galleryid" type="Int32" unsaved-value="-1">
+			<generator class="native">
+				<param name="sequence">cm_gal_gallery_galleryid_seq</param>
+			</generator>
+		</id>
+		<timestamp name="DateUpdated" column="modified" />
+		<property name="Name" column="galleryname" type="String" length="50" />
+		<property name="Title" column="title" type="String" length="50" />
+		<property name="ThumbImage" column="gallerythumb" type="String" length="255" />
+		<property name="VirtualPath" column="virtualpath" type="String" length="255" />
+		<property name="Artist" column="artist" type="String" length="255" />
+		<property name="Include" column="include" type="Boolean" />
+		<property name="Sequence" column="sequence" type="Int32" not-null="false"/>
+		<property name="DateCreated" column="created" type="DateTime" />
+
+		<many-to-one name="Owner" class="Cuyahoga.Core.Domain.User, Cuyahoga.Core" column="owner" cascade="none" />
+
+		<bag name="GalleryComments" cascade="all-delete-orphan" lazy="true" order-by="updated" inverse="true">
+			<key column="galleryid" />
+			<one-to-many class="Cuyahoga.Modules.Gallery.Domain.GalleryComment, Cuyahoga.Modules.Gallery" /> 
+		</bag>
+
+		<bag name="Photos" cascade="all-delete-orphan" lazy="true" order-by="photoseq" inverse="true">
+			<key column="galleryid" />
+			<one-to-many class="Cuyahoga.Modules.Gallery.Domain.Photo, Cuyahoga.Modules.Gallery" /> 
+		</bag>
+
+	</class>
+</hibernate-mapping>

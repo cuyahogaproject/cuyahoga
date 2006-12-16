@@ -50,9 +50,6 @@ namespace Cuyahoga.Modules.Forum
 		private void Page_Load(object sender, System.EventArgs e)
 		{
 			this._module = base.Module as ForumModule;
-			// Add the CSS
-			string cssfile = String.Format("{0}Modules/Forum/Images/Standard/forum.css",UrlHelper.GetApplicationPath());
-			this.RegisterStylesheet("forumcss",cssfile);
 
 			this._forumForum	= this._module.GetForumById(this._module.CurrentForumId);
 			this._module.CurrentForumCategoryId = this._forumForum.CategoryId;

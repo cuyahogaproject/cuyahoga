@@ -323,8 +323,12 @@
     <EmbeddedResource Include="Articles\Resources\Strings.fr.resx">
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="Articles\Resources\Strings.nl.resx" />
-    <EmbeddedResource Include="Articles\Resources\Strings.resx" />
+    <EmbeddedResource Include="Articles\Resources\Strings.nl.resx">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Articles\Resources\Strings.resx">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
     <EmbeddedResource Include="LanguageSwitcher\LanguageSwitcher.ascx.resx">
       <DependentUpon>LanguageSwitcher.ascx.cs</DependentUpon>
     </EmbeddedResource>
@@ -348,8 +352,12 @@
     <EmbeddedResource Include="Search\Resources\Strings.fr.resx">
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="Search\Resources\Strings.nl.resx" />
-    <EmbeddedResource Include="Search\Resources\Strings.resx" />
+    <EmbeddedResource Include="Search\Resources\Strings.nl.resx">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Search\Resources\Strings.resx">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
     <EmbeddedResource Include="Search\Search.ascx.resx">
       <DependentUpon>Search.ascx.cs</DependentUpon>
     </EmbeddedResource>

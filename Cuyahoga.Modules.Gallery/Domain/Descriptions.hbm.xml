@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" ?> 
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.0">
+	<class name="Cuyahoga.Modules.Gallery.Domain.Descriptions, Cuyahoga.Modules.Gallery" table="cm_gal_descriptions">
+		
+		<id name="Id" column="descriptionid" type="Int32" unsaved-value="-1">
+			<generator class="native">
+				<param name="sequence">cm_gal_descriptions_descriptionid_seq</param>
+			</generator>
+		</id>
+		
+		<timestamp name="DateUpdated" column="modified" />
+		<property name="Culture" column="culture" type="String"  length="8" />
+		<property name="TargetClass" column="class" type="string" length="255"  />
+		<property name="ObjectUID" column="ouid" type="Int32"  />
+		<property name="Description" column="description" type="String" length="2400" not-null="false"  />
+		<property name="DateCreated" column="created" type="DateTime" />
+		
+	</class>
+</hibernate-mapping>
