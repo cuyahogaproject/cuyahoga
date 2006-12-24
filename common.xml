@@ -13,7 +13,7 @@
 	<property name="project.major" value="${version::get-major(version::parse(project.version))}" dynamic="true" />
 	<property name="project.minor" value="${version::get-minor(version::parse(project.version))}" dynamic="true" />
 	<property name="project.build" value="${version::get-build(version::parse(project.version))}" dynamic="true" />
-	<property name="project.revision" value="${svn.revision}" dynamic="true" />
+	<property name="project.revision" value="${version::get-revision(version::parse(project.version))}" dynamic="true" />
 
 	<property name="assembly.major" value="${version::get-major(version::parse(assembly.version))}"	dynamic="true" />
 	<property name="assembly.minor" value="${version::get-minor(version::parse(assembly.version))}" dynamic="true" />
@@ -26,6 +26,7 @@
 		These are used to set the correct attributes in AssemblyInfo.cs.  
 	-->
 	<property name="project.company" value="Cuyahoga Project" />
+	<property name="project.productname" value="Cuyahoga" />
 	
 	<!-- Default build defines -->
 	<property name="build.defines" value="TRACE" />
@@ -102,8 +103,6 @@
 
 		<fileset id="project.sources" failonempty="true">
 			<include name="${src.dir}/**/*.cs" />
-			<!-- exclude the VS.NET AssemblyInfo.cs file -->
-			<exclude name="${src.dir}/**/Properties/AssemblyInfo.cs" />
 		</fileset>
 		<!-- 
 		Include the .resx files as embedded resource by default. Override in the project when incuding other files

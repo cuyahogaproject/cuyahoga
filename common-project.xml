@@ -98,11 +98,10 @@
 		<property overwrite="false" name="assembly.guid" value="" />
 		<property overwrite="false" name="assembly.allow-partially-trusted-callers" value="true" />
 		<property overwrite="false" name="assembly.description" value="" />
-		<property overwrite="false" name="assembly.product" value="${project::get-name()}" />
+		<property overwrite="false" name="assembly.product" value="${project.productname}" />
 		<property overwrite="false" name="assembly.company" value="${project.company}" />
 		<property overwrite="false" name="assembly.title" value="${project::get-name()} for ${framework::get-description(framework::get-target-framework())}" />
-		<!-- Default assembly version. Override this one in the assembly-specific build file -->
-		<property overwrite="false" name="assembly.version" value="1.5.0.${svn.revision}" />
+		<property overwrite="false" name="assembly.version" value="${project.version}" />
 		<property overwrite="false" name="assembly.version.informational" value="${assembly.major}.${assembly.minor}.${assembly.build}.${svn.revision}" />
 		<property overwrite="false" name="assembly.copyright" value="2004-2006 Cuyahoga Project. All rights reserved." />
 	</target>
@@ -111,7 +110,7 @@
 		depends="common.init common.set-assembly-attribute-values"
 		description="Generate AssemblyInfo.cs using assembly.* properties."
 		>
-		<property name="assemblyinfo.cs" value="${path::combine(src.dir,'AssemblyInfo.cs')}" />
+		<property name="assemblyinfo.cs" value="${path::combine(src.dir,'Properties/AssemblyInfo.cs')}" />
 		<attrib file="${assemblyinfo.cs}" readonly="false" />
 		<asminfo output="${assemblyinfo.cs}" language="CSharp">
 			<imports>

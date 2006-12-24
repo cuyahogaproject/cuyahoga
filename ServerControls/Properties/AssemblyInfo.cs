@@ -16,7 +16,7 @@ using System.Security;
 
 [assembly: CLSCompliantAttribute(false)]
 [assembly: ComVisibleAttribute(false)]
-[assembly: AssemblyTitleAttribute("Cuyahoga.Modules.Forum for Microsoft .NET Framework 2.0")]
+[assembly: AssemblyTitleAttribute("Cuyahoga.ServerControls for Microsoft .NET Framework 2.0")]
 [assembly: AssemblyDescriptionAttribute("")]
 [assembly: AssemblyCompanyAttribute("Cuyahoga Project")]
 [assembly: AssemblyProductAttribute("Cuyahoga")]

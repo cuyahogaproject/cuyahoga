@@ -27,4 +27,31 @@
 
 	<target name="build" description="Build ${project::get-name()}" depends="generate-assemblyinfo common.compile-dll" />
 
+	<target name="deploy" description="Deploy ${project::get-name()}" depends="common.init">
+		<mkdir dir="${build.dir}/UserFiles/Image" />
+		<mkdir dir="${build.dir}/UserFiles/File" />
+		<mkdir dir="${build.dir}/index" />
+		<mkdir dir="${build.dir}/files" />
+		<copy todir="${build.dir}">
+			<fileset>
+				<include name="**/*.as?x" />
+				<include name="**/*.config" />
+				<include name="**/*.gif" />
+				<include name="**/*.png" />
+				<include name="**/*.jpg" />
+				<include name="**/*.js" />
+				<include name="**/*.xml" />
+				<include name="**/*.css" />
+				<include name="**/*.txt" />
+				<include name="**/*.html" />
+				<include name="**/*.sql" />
+				<exclude name="UserFiles/Image/*.*" />
+				<exclude name="UserFiles/File/*.*" />
+				<exclude name="files/*.*" />
+				<exclude name="obj/*.*" />
+				<exclude name="**/log.txt" />
+			</fileset>
+		</copy>
+	</target>
+
 </project>

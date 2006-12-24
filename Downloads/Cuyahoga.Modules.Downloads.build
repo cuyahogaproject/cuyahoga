@@ -11,7 +11,6 @@
 			<include name="System.dll" />
 			<include name="System.Data.dll" />
 			<include name="System.Web.dll" />
-			<include name="System.XML.dll" />
 			<include name="System.Drawing.dll" />
 			<include name="Castle.Facilities.NHibernateIntegration.dll" />
 			<include name="Castle.Services.Transaction.dll" />
@@ -30,5 +29,27 @@
 	<target name="generate-assemblyinfo" depends="init common.generate-assemblyinfo" />
 
 	<target name="build" description="Build ${project::get-name()}" depends="generate-assemblyinfo common.compile-dll" />
+
+	<target name="deploy" description="Deploy ${project::get-name()}" depends="common.init">
+		<!-- Copy Modules.Downloads to the Web dir -->
+		<mkdir dir="${build.dir}/Modules/Downloads" />
+		<copy todir="${build.dir}/Modules/Downloads">
+			<fileset basedir="Web">
+				<include name="**/*.as?x" />
+				<include name="**/*.gif" />
+				<include name="**/*.png" />
+				<include name="**/*.jpg" />
+				<include name="**/*.js" />
+				<include name="**/*.css" />
+				<include name="**/*.xslt" />
+				<exclude name="obj/**" />
+			</fileset>
+		</copy>
+		<copy todir="${build.dir}/Modules/Downloads">
+			<fileset>
+				<include name="**/*.sql" />
+			</fileset>
+		</copy>
+	</target>
 
 </project>

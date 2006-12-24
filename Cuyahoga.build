@@ -11,6 +11,16 @@
 		<include name="Modules/Cuyahoga.Modules.build" />
 		<include name="Downloads/Cuyahoga.Modules.Downloads.build" />
 		<include name="Cuyahoga.Modules.Forum/Cuyahoga.Modules.Forum.build" />
+		<include name="Cuyahoga.Modules.Flash/Cuyahoga.Modules.Flash.build" />
+	</fileset>
+
+	<fileset id="buildfiles.deploy">
+		<!-- Include all buildfiles here that have a deploy target -->
+		<include name="Web/Cuyahoga.Web.build" />
+		<include name="Modules/Cuyahoga.Modules.build" />
+		<include name="Downloads/Cuyahoga.Modules.Downloads.build" />
+		<include name="Cuyahoga.Modules.Forum/Cuyahoga.Modules.Forum.build" />
+		<include name="Cuyahoga.Modules.Flash/Cuyahoga.Modules.Flash.build" />
 	</fileset>
 
 	<target name="build" 
@@ -112,6 +122,13 @@
 		<!-- Reset the current framework to the saved value -->
 		<call target="set-${current.framework.saved}-framework-configuration" />
 	</target>
+
+	<target name="deploy" depends="build" description="Deploys the website to the deployment directory">
+		<nant target="deploy">
+			<buildfiles refid="buildfiles.deploy" />
+		</nant>
+	</target>
+
 	<target name="sdkdoc" depends="init" description="Generates MSDN style documentation">
 		<mkdir dir="${build.dir}/doc/sdk" />
 		<ndoc>
@@ -170,82 +187,7 @@
 			</fileset>
 		</delete>
 	</target>
-	<target name="deploy" depends="build" description="Deploys the website to the deployment directory">
-		<mkdir dir="${build.dir}/UserFiles/Image" />
-		<mkdir dir="${build.dir}/UserFiles/File" />
-		<mkdir dir="${build.dir}/index" />
-		<mkdir dir="${build.dir}/files" />
-		<copy todir="${build.dir}">
-			<fileset basedir="Web">
-				<include name="**/*.as?x" />
-				<include name="**/*.config" />
-				<include name="**/*.gif" />
-				<include name="**/*.png" />
-				<include name="**/*.jpg" />
-				<include name="**/*.js" />
-				<include name="**/*.xml" />
-				<include name="**/*.css" />
-				<include name="**/*.txt" />
-				<include name="**/*.html" />
-				<include name="**/*.sql" />
-				<exclude name="UserFiles/Image/*.*" />
-				<exclude name="UserFiles/File/*.*" />
-				<exclude name="files/*.*" />
-				<exclude name="obj/*.*" />
-				<exclude name="**/log.txt" />
-			</fileset>
-		</copy>
-		<!-- Copy Modules to the Web dir -->
-		<mkdir dir="${build.dir}/Modules" />
-		<copy todir="${build.dir}/Modules">
-			<fileset basedir="Modules">
-				<include name="**/*.as?x" />
-				<include name="**/*.gif" />
-				<include name="**/*.png" />
-				<include name="**/*.jpg" />
-				<include name="**/*.js" />
-				<include name="**/*.css" />
-				<include name="**/*.xslt" />
-				<include name="**/*.txt" />
-			</fileset>
-		</copy>
-		<!-- Copy Modules.Downloads to the Web dir -->
-		<mkdir dir="${build.dir}/Modules/Downloads" />
-		<copy todir="${build.dir}/Modules/Downloads">
-			<fileset basedir="Downloads/Web">
-				<include name="**/*.as?x" />
-				<include name="**/*.gif" />
-				<include name="**/*.png" />
-				<include name="**/*.jpg" />
-				<include name="**/*.js" />
-				<include name="**/*.css" />
-				<include name="**/*.xslt" />
-			</fileset>
-		</copy>
-		<copy todir="${build.dir}/Modules/Downloads">
-			<fileset basedir="Downloads">
-				<include name="**/*.sql" />
-			</fileset>
-		</copy>
-		<!-- Copy Modules.Forum to the Web dir -->
-		<mkdir dir="${build.dir}/Modules/Forum" />
-		<copy todir="${build.dir}/Modules/Forum">
-			<fileset basedir="Cuyahoga.Modules.Forum/Web">
-				<include name="**/*.as?x" />
-				<include name="**/*.gif" />
-				<include name="**/*.png" />
-				<include name="**/*.jpg" />
-				<include name="**/*.js" />
-				<include name="**/*.css" />
-				<include name="**/*.xslt" />
-			</fileset>
-		</copy>
-		<copy todir="${build.dir}/Modules/Forum">
-			<fileset basedir="Cuyahoga.Modules.Forum">
-				<include name="**/*.sql" />
-			</fileset>
-		</copy>
-	</target>
+		
 	<target name="package-source" depends="init" description="Create a Zip file for Source Releases">
 		<mkdir dir="${build.dir}/package" />
 		<copy todir="${build.dir}/package" includeemptydirs="true">
@@ -259,6 +201,7 @@
 				<include name="Modules/**" />
 				<include name="Downloads/**" />
 				<include name="Cuyahoga.Modules.Forum/**" />
+				<include name="Cuyahoga.Modules.Flash/**" />
 				<include name="Tests/**" />
 				<include name="doc/**/*.pdf" />
 				<include name="Database/**" /> <!-- obsolete scripts, for upgrade only -->
