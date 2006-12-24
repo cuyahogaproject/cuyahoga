@@ -1,0 +1,20 @@
+﻿<?xml version="1.0" encoding="utf-8" ?> 
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.0">
+	<class name="Cuyahoga.Modules.Flash.Domain.AlternateContent, Cuyahoga.Modules.Flash" table="cm_flashaltcontent">
+		<id name="Id" column="flashaltcontentid" type="Int32" unsaved-value="-1">
+			<generator class="native">
+				<param name="sequence">cm_flashaltcontent_flashaltcontentid_seq</param>
+			</generator>
+		</id>
+		
+		<timestamp name="UpdateTimestamp" column="updatetimestamp" />
+		
+		<property name="Title" column="title" type="String" length="255" />
+		<property name="Content" column="content" type="StringClob" not-null="true"/>
+
+		<many-to-one name="Section" class="Cuyahoga.Core.Domain.Section, Cuyahoga.Core" column="sectionid" not-null="true" />
+		<many-to-one name="CreatedBy" class="Cuyahoga.Core.Domain.User, Cuyahoga.Core" column="createdby" not-null="true" />
+		<many-to-one name="ModifiedBy" class="Cuyahoga.Core.Domain.User, Cuyahoga.Core" column="modifiedby" />
+
+	</class>
+</hibernate-mapping>
