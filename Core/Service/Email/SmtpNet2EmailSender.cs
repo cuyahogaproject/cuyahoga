@@ -15,7 +15,7 @@ namespace Cuyahoga.Core.Service.Email
 		private string _smtpUsername;
 		private string _smtpPassword;
 		private Encoding _encoding;
-
+		
 		/// <summary>
 		/// SMTP port (default 25).
 		/// </summary>
@@ -53,7 +53,7 @@ namespace Cuyahoga.Core.Service.Email
 				}
 			}
 		}
-
+		
 		/// <summary>
 		/// Constructor.
 		/// </summary>
@@ -65,7 +65,7 @@ namespace Cuyahoga.Core.Service.Email
 			this._encoding = Encoding.Default;
 		}
 
-		#region IEmailService Members
+		#region IEmailSender Members
 
 		public void Send(string from, string to, string subject, string body)
 		{
