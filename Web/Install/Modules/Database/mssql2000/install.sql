@@ -68,7 +68,7 @@ sectionid int NOT NULL,
 createdby int NOT NULL,
 modifiedby int NULL,
 title nvarchar(255) NULL,
-content text NOT NULL,
+content ntext NOT NULL,
 inserttimestamp datetime DEFAULT current_timestamp NOT NULL,
 updatetimestamp datetime DEFAULT current_timestamp NOT NULL)
 go
