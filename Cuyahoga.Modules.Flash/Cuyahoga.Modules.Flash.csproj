@@ -67,7 +67,6 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Web\detection\swfobject.js" />
     <EmbeddedResource Include="Domain\AlternateContent.hbm.xml" />
     <Content Include="Install\Database\mssql2000\install.sql" />
     <Content Include="Install\Database\mssql2000\uninstall.sql" />

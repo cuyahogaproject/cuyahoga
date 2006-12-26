@@ -22,7 +22,7 @@ go
 
 DECLARE @moduletypeid int
 
-INSERT INTO cuyahoga_moduletype ([name], assemblyname, classname, path, editpath, inserttimestamp, updatetimestamp) VALUES ('Flash', 'Cuyahoga.Modules.Flash', 'Cuyahoga.Modules.Flash.FlashModule', 'Modules/Flash/Flash.ascx', 'Modules/Flash/EditFlash.aspx', '2005-05-15 14:36:28.324', '2004-05-15 14:36:28.324')
+INSERT INTO cuyahoga_moduletype ([name], assemblyname, classname, path, editpath, inserttimestamp, updatetimestamp) VALUES ('Flash', 'Cuyahoga.Modules.Flash', 'Cuyahoga.Modules.Flash.FlashModule', 'Modules/Flash/Flash.ascx', 'Modules/Flash/EditFlash.aspx', current_timestamp, current_timestamp)
 
 SELECT @moduletypeid = Scope_Identity()
 
@@ -38,6 +38,7 @@ INSERT INTO cuyahoga_modulesetting ( moduletypeid, name, friendlyname, settingda
 INSERT INTO cuyahoga_modulesetting ( moduletypeid, name, friendlyname, settingdatatype, iscustomtype, isrequired) VALUES ( @moduletypeid, 'MINORPLUGINVERSION', 'Minor Plugin Version', 'System.Int32', 0, 1)
 INSERT INTO cuyahoga_modulesetting ( moduletypeid, name, friendlyname, settingdatatype, iscustomtype, isrequired) VALUES ( @moduletypeid, 'MINORPLUGINVERSIONREVISION', 'Minor Plugin Version Revision', 'System.Int32', 0, 0)
 INSERT INTO cuyahoga_modulesetting ( moduletypeid, name, friendlyname, settingdatatype, iscustomtype, isrequired) VALUES ( @moduletypeid, 'ALTERNATEDIVID', 'Use Alternate Div Id for Flash replacement', 'System.String', 0, 0)
+INSERT INTO cuyahoga_modulesetting ( moduletypeid, name, friendlyname, settingdatatype, iscustomtype, isrequired) VALUES ( @moduletypeid, 'MOVIEVARS', 'Set any flash vars (var:value;)', 'System.String', 0, 0)
 GO
 
 INSERT INTO cuyahoga_version (assembly, major, minor, patch) VALUES ('Cuyahoga.Modules.Flash', 1, 0, 0);

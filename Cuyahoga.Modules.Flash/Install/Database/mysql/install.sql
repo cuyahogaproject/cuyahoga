@@ -21,9 +21,9 @@ SELECT @moduletypeid := last_insert_id();
 
 INSERT INTO cuyahoga_modulesetting ( moduletypeid, name, friendlyname, settingdatatype, iscustomtype, isrequired) VALUES ( @moduletypeid, 'MOVIEALIGN', 'Movie Align', 'Cuyahoga.Modules.Flash.MovieAlign', 1, 0);
 INSERT INTO cuyahoga_modulesetting ( moduletypeid, name, friendlyname, settingdatatype, iscustomtype, isrequired) VALUES ( @moduletypeid, 'MOVIEBGCOLOR', 'Movie Background Color', 'System.String', 0, 0);
-INSERT INTO cuyahoga_modulesetting ( moduletypeid, name, friendlyname, settingdatatype, iscustomtype, isrequired) VALUES ( @moduletypeid, 'MOVIEHEIGHT', 'Movie Height', 'System.String', 0, 1)
-INSERT INTO cuyahoga_modulesetting ( moduletypeid, name, friendlyname, settingdatatype, iscustomtype, isrequired) VALUES ( @moduletypeid, 'MOVIEWIDTH', 'Movie Width', 'System.String', 0, 1)
-INSERT INTO cuyahoga_modulesetting ( moduletypeid, name, friendlyname, settingdatatype, iscustomtype, isrequired) VALUES ( @moduletypeid, 'MOVIENAME', 'Movie Name', 'System.String', 0, 1)
+INSERT INTO cuyahoga_modulesetting ( moduletypeid, name, friendlyname, settingdatatype, iscustomtype, isrequired) VALUES ( @moduletypeid, 'MOVIEHEIGHT', 'Movie Height', 'System.String', 0, 1);
+INSERT INTO cuyahoga_modulesetting ( moduletypeid, name, friendlyname, settingdatatype, iscustomtype, isrequired) VALUES ( @moduletypeid, 'MOVIEWIDTH', 'Movie Width', 'System.String', 0, 1);
+INSERT INTO cuyahoga_modulesetting ( moduletypeid, name, friendlyname, settingdatatype, iscustomtype, isrequired) VALUES ( @moduletypeid, 'MOVIENAME', 'Movie Name', 'System.String', 0, 1);
 INSERT INTO cuyahoga_modulesetting ( moduletypeid, name, friendlyname, settingdatatype, iscustomtype, isrequired) VALUES ( @moduletypeid, 'MOVIEQUALITY', 'Movie Quality', 'Cuyahoga.Modules.Flash.MovieQuality', 1, 1);
 INSERT INTO cuyahoga_modulesetting ( moduletypeid, name, friendlyname, settingdatatype, iscustomtype, isrequired) VALUES ( @moduletypeid, 'MOVIESCRIPTACCESS', 'Movie Script Access', 'Cuyahoga.Modules.Flash.MovieScriptAccess', 1, 1);
 INSERT INTO cuyahoga_modulesetting ( moduletypeid, name, friendlyname, settingdatatype, iscustomtype, isrequired) VALUES ( @moduletypeid, 'MAJORPLUGINVERSION', 'Major Plugin Version', 'System.Int32', 0, 1);
@@ -31,5 +31,6 @@ INSERT INTO cuyahoga_modulesetting ( moduletypeid, name, friendlyname, settingda
 INSERT INTO cuyahoga_modulesetting ( moduletypeid, name, friendlyname, settingdatatype, iscustomtype, isrequired) VALUES ( @moduletypeid, 'MINORPLUGINVERSION', 'Minor Plugin Version', 'System.Int32', 0, 1);
 INSERT INTO cuyahoga_modulesetting ( moduletypeid, name, friendlyname, settingdatatype, iscustomtype, isrequired) VALUES ( @moduletypeid, 'MINORPLUGINVERSIONREVISION', 'Minor Plugin Version Revision', 'System.Int32', 0, 0);
 INSERT INTO cuyahoga_modulesetting ( moduletypeid, name, friendlyname, settingdatatype, iscustomtype, isrequired) VALUES ( @moduletypeid, 'ALTERNATEDIVID', 'Use Alternate Div Id for Flash replacement', 'System.String', 0, 0);
+INSERT INTO cuyahoga_modulesetting ( moduletypeid, name, friendlyname, settingdatatype, iscustomtype, isrequired) VALUES ( @moduletypeid, 'MOVIEVARS', 'Set any flash vars (var:value;)', 'System.String', 0, 0);
 
 INSERT INTO cuyahoga_version (assembly, major, minor, patch) VALUES ('Cuyahoga.Modules.Flash', 1, 0, 0);

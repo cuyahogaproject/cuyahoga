@@ -1,12 +1,12 @@
 using System;
+using System.Collections.Generic;
 using System.Drawing;
-using System.Collections.Specialized;
+using System.Text.RegularExpressions;
 using System.Web;
 using System.Web.UI.WebControls;
-using Cuyahoga.Web.UI;
-using Cuyahoga.Web.Util;
-using Xylem.Controls;
 using Cuyahoga.Modules.Flash.Domain;
+using Cuyahoga.Web.UI;
+using Xylem.Controls;
 
 namespace Cuyahoga.Modules.Flash.Web
 {
@@ -52,7 +52,7 @@ namespace Cuyahoga.Modules.Flash.Web
 				if(this.Module.Section.Settings["MOVIENAME"].ToString() != string.Empty)
 				{
 					string movie = Convert.ToString(this.Module.Section.Settings["MOVIENAME"]);
-					flashMovie.MovieName = this.Page.ResolveUrl("~/"+movie);
+					flashMovie.MovieName = this.Page.ResolveUrl(movie);
 				}
 							
 				if(this.Module.Section.Settings["MOVIEQUALITY"].ToString() != string.Empty)
@@ -60,9 +60,15 @@ namespace Cuyahoga.Modules.Flash.Web
 							
 				if(this.Module.Section.Settings["MOVIESCRIPTACCESS"].ToString() != string.Empty)
 					flashMovie.MovieScriptAccess = Convert.ToString(this.Module.Section.Settings["MOVIESCRIPTACCESS"]);
-							
-				//Add any flash vars here.
-				//flashMovie.MovieVariables.Add("MyVar",MyVar);
+
+                if (this.Module.Section.Settings["MOVIEVARS"].ToString() != string.Empty)
+                {
+                    Dictionary<string, string> flashVars = ParseFlashVars(this.Module.Section.Settings["MOVIEVARS"].ToString());
+                    foreach(string key in flashVars.Keys)
+                    {
+                        flashMovie.MovieVariables.Add(key, flashVars[key]);
+                    }
+                }
 
 				//set alt content
 				if(this.Module.Section.Settings["ALTERNATEDIVID"].ToString() != string.Empty)
@@ -74,8 +80,8 @@ namespace Cuyahoga.Modules.Flash.Web
 					LoadAlternateContent();
 				}
 
-				if(HttpContext.Current.Request["EditAlternatContent"] != null)
-					if(Boolean.Parse(HttpContext.Current.Request["EditAlternatContent"].ToString()))
+				if(HttpContext.Current.Request["EditAlternateContent"] != null)
+					if(Boolean.Parse(HttpContext.Current.Request["EditAlternateContent"].ToString()))
 						flashMovie.Visible = false;
 			}
 		}
@@ -98,6 +104,41 @@ namespace Cuyahoga.Modules.Flash.Web
 			}
 			
 		}
+        
+        private Dictionary<string, string> ParseFlashVars(string vars)
+        {
+            Regex regex = new Regex(@"^((\s*([^:]+)\s*:\s*([^;]+?)\s*;\s*)*?)$",
+                            RegexOptions.IgnoreCase
+                            | RegexOptions.Multiline
+                            | RegexOptions.IgnorePatternWhitespace
+                            | RegexOptions.Compiled
+                            );
+
+            Dictionary<string,string> styles = new Dictionary<string, string>();
+            MatchCollection matches = regex.Matches(EndsWithSemiColon(vars));
+            if(matches.Count > 0)
+            {
+                GroupCollection groups = matches[0].Groups;
+                for (int i = 0; i < groups[3].Captures.Count; i++)
+                {
+                    styles.Add(groups[3].Captures[i].Value, groups[4].Captures[i].Value);
+                }
+            }
+            else
+            {
+                throw new InvalidFlashVarsException("Unable to parse flash vars : " + vars);
+            }
+
+            return styles;
+        }
+
+        private string EndsWithSemiColon(string vars)
+        {
+            if (vars.EndsWith(";"))
+                return vars;
+            else
+                return String.Concat(vars,";");
+        }
 
 		override protected void OnInit(EventArgs e)
 		{
@@ -106,4 +147,12 @@ namespace Cuyahoga.Modules.Flash.Web
 		}
 
 	}
+
+    public class InvalidFlashVarsException : ApplicationException
+    {
+        public InvalidFlashVarsException(string message)
+            : base(message)
+        {
+        }
+    }
 }

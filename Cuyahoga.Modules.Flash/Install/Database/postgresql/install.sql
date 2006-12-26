@@ -22,9 +22,9 @@ INSERT INTO cuyahoga_moduletype ( name, assemblyname, classname, path, editpath,
 
 INSERT INTO cuyahoga_modulesetting ( moduletypeid, name, friendlyname, settingdatatype, iscustomtype, isrequired) VALUES ( currval('cuyahoga_moduletype_moduletypeid_seq'), 'MOVIEALIGN', 'Movie Align', 'Cuyahoga.Modules.Flash.MovieAlign', 1, 0);
 INSERT INTO cuyahoga_modulesetting ( moduletypeid, name, friendlyname, settingdatatype, iscustomtype, isrequired) VALUES ( currval('cuyahoga_moduletype_moduletypeid_seq'), 'MOVIEBGCOLOR', 'Movie Background Color', 'System.String', 0, 0);
-INSERT INTO cuyahoga_modulesetting ( moduletypeid, name, friendlyname, settingdatatype, iscustomtype, isrequired) VALUES ( currval('cuyahoga_moduletype_moduletypeid_seq'), 'MOVIEHEIGHT', 'Movie Height', 'System.String', 0, 1)
-INSERT INTO cuyahoga_modulesetting ( moduletypeid, name, friendlyname, settingdatatype, iscustomtype, isrequired) VALUES ( currval('cuyahoga_moduletype_moduletypeid_seq'), 'MOVIEWIDTH', 'Movie Width', 'System.String', 0, 1)
-INSERT INTO cuyahoga_modulesetting ( moduletypeid, name, friendlyname, settingdatatype, iscustomtype, isrequired) VALUES ( currval('cuyahoga_moduletype_moduletypeid_seq'), 'MOVIENAME', 'Movie Name', 'System.String', 0, 1)
+INSERT INTO cuyahoga_modulesetting ( moduletypeid, name, friendlyname, settingdatatype, iscustomtype, isrequired) VALUES ( currval('cuyahoga_moduletype_moduletypeid_seq'), 'MOVIEHEIGHT', 'Movie Height', 'System.String', 0, 1);
+INSERT INTO cuyahoga_modulesetting ( moduletypeid, name, friendlyname, settingdatatype, iscustomtype, isrequired) VALUES ( currval('cuyahoga_moduletype_moduletypeid_seq'), 'MOVIEWIDTH', 'Movie Width', 'System.String', 0, 1);
+INSERT INTO cuyahoga_modulesetting ( moduletypeid, name, friendlyname, settingdatatype, iscustomtype, isrequired) VALUES ( currval('cuyahoga_moduletype_moduletypeid_seq'), 'MOVIENAME', 'Movie Name', 'System.String', 0, 1);
 INSERT INTO cuyahoga_modulesetting ( moduletypeid, name, friendlyname, settingdatatype, iscustomtype, isrequired) VALUES ( currval('cuyahoga_moduletype_moduletypeid_seq'), 'MOVIEQUALITY', 'Movie Quality', 'Cuyahoga.Modules.Flash.MovieQuality', 1, 1);
 INSERT INTO cuyahoga_modulesetting ( moduletypeid, name, friendlyname, settingdatatype, iscustomtype, isrequired) VALUES ( currval('cuyahoga_moduletype_moduletypeid_seq'), 'MOVIESCRIPTACCESS', 'Movie Script Access', 'Cuyahoga.Modules.Flash.MovieScriptAccess', 1, 1);
 INSERT INTO cuyahoga_modulesetting ( moduletypeid, name, friendlyname, settingdatatype, iscustomtype, isrequired) VALUES ( currval('cuyahoga_moduletype_moduletypeid_seq'), 'MAJORPLUGINVERSION', 'Major Plugin Version', 'System.Int32', 0, 1);
@@ -32,5 +32,6 @@ INSERT INTO cuyahoga_modulesetting ( moduletypeid, name, friendlyname, settingda
 INSERT INTO cuyahoga_modulesetting ( moduletypeid, name, friendlyname, settingdatatype, iscustomtype, isrequired) VALUES ( currval('cuyahoga_moduletype_moduletypeid_seq'), 'MINORPLUGINVERSION', 'Minor Plugin Version', 'System.Int32', 0, 1);
 INSERT INTO cuyahoga_modulesetting ( moduletypeid, name, friendlyname, settingdatatype, iscustomtype, isrequired) VALUES ( currval('cuyahoga_moduletype_moduletypeid_seq'), 'MINORPLUGINVERSIONREVISION', 'Minor Plugin Version Revision', 'System.Int32', 0, 0);
 INSERT INTO cuyahoga_modulesetting ( moduletypeid, name, friendlyname, settingdatatype, iscustomtype, isrequired) VALUES ( currval('cuyahoga_moduletype_moduletypeid_seq'), 'ALTERNATEDIVID', 'Use Alternate Div Id for Flash replacement', 'System.String', 0, 0);
+INSERT INTO cuyahoga_modulesetting ( moduletypeid, name, friendlyname, settingdatatype, iscustomtype, isrequired) VALUES ( currval('cuyahoga_moduletype_moduletypeid_seq'), 'MOVIEVARS', 'Set any flash vars (var:value;)', 'System.String', 0, 0);
 
 INSERT INTO cuyahoga_version (assembly, major, minor, patch) VALUES ('Cuyahoga.Modules.Flash', 1, 0, 0);

@@ -34,14 +34,6 @@
 	<target name="build" description="Build ${project::get-name()}" depends="generate-assemblyinfo common.compile-dll" />
 
 	<target name="deploy" description="Deploy ${project::get-name()}">
-		<!-- Copy FlashMovieControl .js files to the Web dir -->
-		<mkdir dir="${build.dir}/detection" />
-		<copy todir="${build.dir}/detection">
-			<fileset basedir="Web/detection">
-				<include name="**/*.js" />
-			</fileset>
-		</copy>
-		
 		<!-- Copy FlashModule to the Web dir -->
 		<mkdir dir="${build.dir}/Modules/Flash" />
 		<copy todir="${build.dir}/Modules/Flash">
