@@ -41,8 +41,7 @@ namespace Cuyahoga.Web.Components
 			for (int i = 0; i < mappings.Count; i++)
 			{
 				string matchExpression = UrlHelper.GetApplicationPath() + mappings.GetKey(i);
-				Regex regEx = new Regex(matchExpression, RegexOptions.IgnoreCase|RegexOptions.Singleline|RegexOptions.CultureInvariant|RegexOptions.Compiled);
-				if (regEx.IsMatch(urlToRewrite))
+				if (Regex.IsMatch(urlToRewrite, matchExpression, RegexOptions.IgnoreCase | RegexOptions.Singleline | RegexOptions.CultureInvariant))
 				{
 					// Don't rewrite when the mapping is an empty string (used for Default, Admin etc.)
 					if (mappings[i] != String.Empty)
@@ -57,7 +56,7 @@ namespace Cuyahoga.Web.Components
 
 						// Store the original url in the Context.Items collection. We need to save this for setting
 						// the action of the form.
-						string rewritePath = regEx.Replace(urlToRewrite, UrlHelper.GetApplicationPath() + mappings[i]);
+						string rewritePath = Regex.Replace(urlToRewrite, matchExpression, UrlHelper.GetApplicationPath() + mappings[i], RegexOptions.IgnoreCase | RegexOptions.Singleline);
 						// MONO_WORKAROUND: split the rewritten path in path, pathinfo and querystring
 						// because MONO doesn't handle the pathinfo directly
 						//context.RewritePath(rewritePath);
