@@ -203,6 +203,14 @@
     <Compile Include="Search\SearchModule.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Sitemap\SitemapModule.cs" />
+    <Compile Include="Sitemap\SitemapControl.ascx.cs">
+      <DependentUpon>SitemapControl.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Sitemap\SitemapControl.ascx.designer.cs">
+      <DependentUpon>SitemapControl.ascx</DependentUpon>
+    </Compile>
     <Compile Include="StaticHtml\EditHtml.aspx.cs">
       <DependentUpon>EditHtml.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -274,6 +282,7 @@
     <Content Include="Search\SearchInput.ascx">
       <SubType>UserControl</SubType>
     </Content>
+    <Content Include="Sitemap\SitemapControl.ascx" />
     <Content Include="StaticHtml\EditHtml.aspx">
       <SubType>Form</SubType>
     </Content>
