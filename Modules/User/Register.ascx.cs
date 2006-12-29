@@ -16,22 +16,12 @@ namespace Cuyahoga.Modules.User
 	/// <summary>
 	///		Summary description for Register.
 	/// </summary>
-	public class Register : BaseModuleControl
+	public partial class Register : BaseModuleControl
 	{
 		private ProfileModule _module;
 
-		protected System.Web.UI.WebControls.TextBox txtUsername;
-		protected System.Web.UI.WebControls.TextBox txtEmail;
-		protected System.Web.UI.WebControls.Panel pnlRegister;
-		protected System.Web.UI.WebControls.Button btnRegister;
-		protected System.Web.UI.WebControls.Label lblConfirmation;
-		protected System.Web.UI.WebControls.RequiredFieldValidator rfvUsername;
-		protected System.Web.UI.WebControls.RequiredFieldValidator rfvEmail;
-		protected System.Web.UI.WebControls.RegularExpressionValidator revEmail;
-		protected System.Web.UI.WebControls.Label lblError;
-		protected System.Web.UI.WebControls.Panel pnlConfirmation;
 
-		private void Page_Load(object sender, System.EventArgs e)
+		protected void Page_Load(object sender, System.EventArgs e)
 		{
 			this._module = base.Module as ProfileModule;
 
@@ -58,13 +48,11 @@ namespace Cuyahoga.Modules.User
 		/// </summary>
 		private void InitializeComponent()
 		{
-			this.btnRegister.Click += new System.EventHandler(this.btnRegister_Click);
-			this.Load += new System.EventHandler(this.Page_Load);
 
 		}
 		#endregion
 
-		private void btnRegister_Click(object sender, System.EventArgs e)
+		protected void btnRegister_Click(object sender, System.EventArgs e)
 		{
 			if (this.Page.IsValid && this.IsPostBack)
 			{

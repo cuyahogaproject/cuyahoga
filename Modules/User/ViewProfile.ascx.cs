@@ -12,20 +12,12 @@ namespace Cuyahoga.Modules.User
 	/// <summary>
 	///		Summary description for Profile.
 	/// </summary>
-	public class ViewProfile : BaseModuleControl
+	public partial class ViewProfile : BaseModuleControl
 	{
 		private ProfileModule _module;
 
-		protected System.Web.UI.WebControls.Literal litTitle;
-		protected System.Web.UI.WebControls.Label lblUsername;
-		protected System.Web.UI.WebControls.Label lblRegisteredOn;
-		protected System.Web.UI.WebControls.Label lblFirstname;
-		protected System.Web.UI.WebControls.Label lblLastLogin;
-		protected System.Web.UI.WebControls.HyperLink hplWebsite;
-		protected System.Web.UI.WebControls.Label lblError;
-		protected System.Web.UI.WebControls.Label lblLastname;
 
-		private void Page_Load(object sender, System.EventArgs e)
+		protected void Page_Load(object sender, System.EventArgs e)
 		{
 			this._module = base.Module as ProfileModule;
 			if (this._module.CurrentUserId > 0)
@@ -82,7 +74,6 @@ namespace Cuyahoga.Modules.User
 		/// </summary>
 		private void InitializeComponent()
 		{
-			this.Load += new System.EventHandler(this.Page_Load);
 
 		}
 		#endregion

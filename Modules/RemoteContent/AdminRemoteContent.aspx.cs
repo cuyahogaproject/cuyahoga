@@ -17,14 +17,12 @@ namespace Cuyahoga.Modules.RemoteContent
 	/// <summary>
 	/// Summary description for AdminRemoteContent.
 	/// </summary>
-	public class AdminRemoteContent : ModuleAdminBasePage
+	public partial class AdminRemoteContent : ModuleAdminBasePage
 	{
 		private RemoteContentModule _remoteContentModule;
 
-		protected System.Web.UI.WebControls.Repeater rptFeeds;
-		protected System.Web.UI.HtmlControls.HtmlInputButton btnNew;
 	
-		private void Page_Load(object sender, System.EventArgs e)
+		protected void Page_Load(object sender, System.EventArgs e)
 		{
 			// The base page has already created the module, we only have to cast it here to the right type.
 			this._remoteContentModule = base.Module as RemoteContentModule;
@@ -60,7 +58,6 @@ namespace Cuyahoga.Modules.RemoteContent
 		{    
 			this.rptFeeds.ItemDataBound += new System.Web.UI.WebControls.RepeaterItemEventHandler(this.rptFeeds_ItemDataBound);
 			this.rptFeeds.ItemCommand += new System.Web.UI.WebControls.RepeaterCommandEventHandler(this.rptFeeds_ItemCommand);
-			this.Load += new System.EventHandler(this.Page_Load);
 
 		}
 		#endregion

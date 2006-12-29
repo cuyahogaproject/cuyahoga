@@ -106,7 +106,6 @@ img
 	color: #fff;
 }
 
-
 #containerleft
 {
 	background-image: url(../Images/shadow-left.gif);
@@ -399,4 +398,18 @@ img
 	padding-bottom: 2px;
 	color: #666;
 	font-size: 0.85em;
+}
+
+.languageswitcher ul
+{
+	padding: 0;
+	margin: 0;
+	list-style: none;
+}
+
+.languageswitcher li
+{
+	display: inline;
+	padding: 2px;
+	margin-right: 3px;
 }

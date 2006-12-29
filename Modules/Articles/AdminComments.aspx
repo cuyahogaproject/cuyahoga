@@ -1,4 +1,4 @@
-<%@ Page language="c#" Codebehind="AdminComments.aspx.cs" AutoEventWireup="false" Inherits="Cuyahoga.Modules.Articles.AdminComments" %>
+<%@ Page language="c#" Codebehind="AdminComments.aspx.cs" AutoEventWireup="True" Inherits="Cuyahoga.Modules.Articles.AdminComments" %>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN" >
 <html>
 	<head>
@@ -38,7 +38,7 @@
 					</table>
 				</p>
 				<br/>
-				<asp:button id="btnBack" runat="server" text="Back"></asp:button>
+				<asp:button id="btnBack" runat="server" text="Back" onclick="btnBack_Click"></asp:button>
 			</div>
 		</form>
 

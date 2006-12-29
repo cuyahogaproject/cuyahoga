@@ -18,15 +18,13 @@ namespace Cuyahoga.Modules.Articles
 	/// <summary>
 	/// Summary description for AdminComments.
 	/// </summary>
-	public class AdminComments : ModuleAdminBasePage
+	public partial class AdminComments : ModuleAdminBasePage
 	{
 		private Article _article;
 		private ArticleModule _articleModule;
 
-		protected System.Web.UI.WebControls.Button btnBack;
-		protected System.Web.UI.WebControls.Repeater rptComments;
 	
-		private void Page_Load(object sender, System.EventArgs e)
+		protected void Page_Load(object sender, System.EventArgs e)
 		{
 			this._articleModule = base.Module as ArticleModule;
 
@@ -64,13 +62,11 @@ namespace Cuyahoga.Modules.Articles
 		/// </summary>
 		private void InitializeComponent()
 		{    
-			this.btnBack.Click += new System.EventHandler(this.btnBack_Click);
-			this.Load += new System.EventHandler(this.Page_Load);
 
 		}
 		#endregion
 
-		private void btnBack_Click(object sender, System.EventArgs e)
+		protected void btnBack_Click(object sender, System.EventArgs e)
 		{
 			Context.Response.Redirect("AdminArticles.aspx" + base.GetBaseQueryString());
 		}

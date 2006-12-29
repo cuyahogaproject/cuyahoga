@@ -17,30 +17,15 @@ namespace Cuyahoga.Modules.User
 	/// <summary>
 	///	Module to enable authentication and user sign-up etc.
 	/// </summary>
-	public class User : BaseModuleControl
+	public partial class User : BaseModuleControl
 	{
 		private bool _showRegister = true;
 		private bool _showResetPassword = true;
 		private bool _showEditProfile = true;
 		private UserModule _module;
 
-		protected System.Web.UI.WebControls.Panel pnlLogin;
-		protected System.Web.UI.WebControls.TextBox txtUsername;
-		protected System.Web.UI.WebControls.TextBox txtPassword;
-		protected System.Web.UI.WebControls.Button btnLogin;
-		protected System.Web.UI.WebControls.Label lblLoginError;
-		protected System.Web.UI.WebControls.Label lblUsername;
-		protected System.Web.UI.WebControls.Button btnLogout;
-		protected System.Web.UI.WebControls.Label lblLoggedInText;
-		protected System.Web.UI.WebControls.Label lblLoggedInUser;
-		protected System.Web.UI.WebControls.Label lblPassword;
-		protected System.Web.UI.WebControls.HyperLink hplRegister;
-		protected System.Web.UI.WebControls.HyperLink hplResetPassword;
-		protected System.Web.UI.WebControls.HyperLink hplEdit;
-		protected System.Web.UI.WebControls.CheckBox chkPersistLogin;
-		protected System.Web.UI.WebControls.Panel pnlUserInfo;
 
-		private void Page_Load(object sender, System.EventArgs e)
+		protected void Page_Load(object sender, System.EventArgs e)
 		{
 			this._module = base.Module as UserModule;
 			if (this._module.Section.Settings["SHOW_REGISTER"] != null)
@@ -144,16 +129,13 @@ namespace Cuyahoga.Modules.User
 		/// </summary>
 		private void InitializeComponent()
 		{
-			this.btnLogin.Click += new System.EventHandler(this.btnLogin_Click);
-			this.btnLogout.Click += new System.EventHandler(this.btnLogout_Click);
-			this.Load += new System.EventHandler(this.Page_Load);
 
 		}
 		#endregion
 
 		
 
-		private void btnLogin_Click(object sender, System.EventArgs e)
+		protected void btnLogin_Click(object sender, System.EventArgs e)
 		{
 			AuthenticationModule am = (AuthenticationModule)Context.ApplicationInstance.Modules["AuthenticationModule"];
 			if (this.txtUsername.Text.Trim().Length > 0 && this.txtPassword.Text.Trim().Length > 0)
@@ -193,7 +175,7 @@ namespace Cuyahoga.Modules.User
 			}
 		}
 
-		private void btnLogout_Click(object sender, System.EventArgs e)
+		protected void btnLogout_Click(object sender, System.EventArgs e)
 		{
 			// Log out
 			AuthenticationModule am = (AuthenticationModule)Context.ApplicationInstance.Modules["AuthenticationModule"];

@@ -1,5 +1,5 @@
 <%@ Register TagPrefix="fckeditorv2" Namespace="FredCK.FCKeditorV2" Assembly="FredCK.FCKeditorV2" %>
-<%@ Page language="c#" Codebehind="EditHtml.aspx.cs" AutoEventWireup="false" Inherits="Cuyahoga.Modules.StaticHtml.EditHtml" ValidateRequest="false" %>
+<%@ Page language="c#" Codebehind="EditHtml.aspx.cs" AutoEventWireup="True" Inherits="Cuyahoga.Modules.StaticHtml.EditHtml" ValidateRequest="false" %>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN" >
 <html>
 	<head>
@@ -16,7 +16,7 @@
 				<fckeditorv2:fckeditor id="fckEditor" runat="server" height="400px" width="700px"></fckeditorv2:fckeditor>
 				<br/>
 				<br/>
-				<asp:button id="btnSave" runat="server" text="Save"></asp:button>
+				<asp:button id="btnSave" runat="server" text="Save" onclick="btnSave_Click"></asp:button>
 			</div>
 		</form>
 	</body>

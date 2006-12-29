@@ -14,13 +14,11 @@ namespace Cuyahoga.Modules.Search
 	/// <summary>
 	///		Summary description for SearchInput.
 	/// </summary>
-	public class SearchInput : BaseModuleControl
+	public partial class SearchInput : BaseModuleControl
 	{
 		private SearchInputModule _module;
-		protected System.Web.UI.WebControls.Button btnSearch;
-		protected System.Web.UI.WebControls.TextBox txtSearchQuery;
 
-		private void Page_Load(object sender, System.EventArgs e)
+		protected void Page_Load(object sender, System.EventArgs e)
 		{
 			this._module = base.Module as SearchInputModule;
 
@@ -49,13 +47,11 @@ namespace Cuyahoga.Modules.Search
 		/// </summary>
 		private void InitializeComponent()
 		{
-			this.btnSearch.Click += new System.EventHandler(this.btnSearch_Click);
-			this.Load += new System.EventHandler(this.Page_Load);
 
 		}
 		#endregion
 
-		private void btnSearch_Click(object sender, System.EventArgs e)
+		protected void btnSearch_Click(object sender, System.EventArgs e)
 		{
 			if (this.txtSearchQuery.Text.Trim().Length > 0 && this._module.Section.Connections["Search"] != null)
 			{

@@ -11,11 +11,10 @@ namespace Cuyahoga.Modules.StaticHtml
 	/// <summary>
 	///		Summary description for StaticHtml.
 	/// </summary>
-	public class StaticHtml : BaseModuleControl
+	public partial class StaticHtml : BaseModuleControl
 	{
-		protected System.Web.UI.WebControls.PlaceHolder plcContent;
 
-		private void Page_Load(object sender, System.EventArgs e)
+		protected void Page_Load(object sender, System.EventArgs e)
 		{
 			StaticHtmlModule module = this.Module as StaticHtmlModule;
 			if (module != null && ! base.HasCachedOutput)
@@ -50,7 +49,6 @@ namespace Cuyahoga.Modules.StaticHtml
 		/// </summary>
 		private void InitializeComponent()
 		{
-			this.Load += new System.EventHandler(this.Page_Load);
 
 		}
 		#endregion

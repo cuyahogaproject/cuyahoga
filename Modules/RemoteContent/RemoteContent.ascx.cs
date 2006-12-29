@@ -13,13 +13,12 @@ namespace Cuyahoga.Modules.RemoteContent
 	/// <summary>
 	///		Summary description for RemoteContent.
 	/// </summary>
-	public class RemoteContent : BaseModuleControl
+	public partial class RemoteContent : BaseModuleControl
 	{	
 		private RemoteContentModule _module;
 
-		protected System.Web.UI.WebControls.Repeater rptFeedItems;
 
-		private void Page_Load(object sender, System.EventArgs e)
+		protected void Page_Load(object sender, System.EventArgs e)
 		{
 			if (! this.IsPostBack && ! base.HasCachedOutput)
 			{
@@ -46,7 +45,6 @@ namespace Cuyahoga.Modules.RemoteContent
 		private void InitializeComponent()
 		{
 			this.rptFeedItems.ItemDataBound += new System.Web.UI.WebControls.RepeaterItemEventHandler(this.rptFeedItems_ItemDataBound);
-			this.Load += new System.EventHandler(this.Page_Load);
 
 		}
 		#endregion

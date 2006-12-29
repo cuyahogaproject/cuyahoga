@@ -17,13 +17,11 @@ namespace Cuyahoga.Modules.StaticHtml
 	/// <summary>
 	/// Summary description for EditHtml.
 	/// </summary>
-	public class EditHtml : ModuleAdminBasePage
+	public partial class EditHtml : ModuleAdminBasePage
 	{
 		private StaticHtmlModule _module;
-		protected FredCK.FCKeditorV2.FCKeditor fckEditor;
-		protected System.Web.UI.WebControls.Button btnSave;
 	
-		private void Page_Load(object sender, System.EventArgs e)
+		protected void Page_Load(object sender, System.EventArgs e)
 		{
 			this.fckEditor.BasePath = this.Page.ResolveUrl("~/Support/FCKEditor/");
 			this._module = base.Module as StaticHtmlModule;
@@ -79,13 +77,11 @@ namespace Cuyahoga.Modules.StaticHtml
 		/// </summary>
 		private void InitializeComponent()
 		{    
-			this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
-			this.Load += new System.EventHandler(this.Page_Load);
 
 		}
 		#endregion
 
-		private void btnSave_Click(object sender, System.EventArgs e)
+		protected void btnSave_Click(object sender, System.EventArgs e)
 		{
 			try
 			{

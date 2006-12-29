@@ -1,4 +1,4 @@
-<%@ Page language="c#" Codebehind="EditFeed.aspx.cs" AutoEventWireup="false" Inherits="Cuyahoga.Modules.RemoteContent.EditFeed" %>
+<%@ Page language="c#" Codebehind="EditFeed.aspx.cs" AutoEventWireup="True" Inherits="Cuyahoga.Modules.RemoteContent.EditFeed" %>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN" >
 <html>
 	<head>
@@ -19,7 +19,7 @@
 							<td style="WIDTH: 100px">Url (incl http://)</td>
 							<td>
 								<asp:textbox id="txtUrl" runat="server" width="400px"></asp:textbox>
-								<asp:button id="btnVerify" runat="server" text="Verify feed" causesvalidation="False"></asp:button>
+								<asp:button id="btnVerify" runat="server" text="Verify feed" causesvalidation="False" onclick="btnVerify_Click"></asp:button>
 								<asp:requiredfieldvalidator id="rfvUrl" runat="server" errormessage="Url is required" display="Dynamic" cssclass="validator"
 									enableclientscript="False" controltovalidate="txtUrl"></asp:requiredfieldvalidator></td>
 						</tr>
@@ -53,8 +53,8 @@
 					</table>
 				</div>
 				<p>
-					<asp:button id="btnSave" runat="server" text="Save"></asp:button>
-					<asp:button id="btnDelete" runat="server" text="Delete" visible="False" causesvalidation="False"></asp:button>
+					<asp:button id="btnSave" runat="server" text="Save" onclick="btnSave_Click"></asp:button>
+					<asp:button id="btnDelete" runat="server" text="Delete" visible="False" causesvalidation="False" onclick="btnDelete_Click"></asp:button>
 					<input id="btnCancel" type="button" value="Cancel" runat="server" name="btnCancel">
 				</p>
 			</div>

@@ -16,31 +16,14 @@ namespace Cuyahoga.Modules.User
 	/// <summary>
 	///		Summary description for EditProfile.
 	/// </summary>
-	public class EditProfile : BaseModuleControl
+	public partial class EditProfile : BaseModuleControl
 	{
 		private ProfileModule _module;
 
-		protected System.Web.UI.WebControls.Label lblError;
-		protected System.Web.UI.WebControls.Label lblUsername;
-		protected System.Web.UI.WebControls.TextBox txtFirstname;
-		protected System.Web.UI.WebControls.TextBox txtLastname;
-		protected System.Web.UI.WebControls.TextBox txtEmail;
-		protected System.Web.UI.WebControls.TextBox txtWebsite;
-		protected System.Web.UI.WebControls.Button btnSave;
-		protected System.Web.UI.WebControls.Panel pnlEdit;
 		protected System.Web.UI.WebControls.Label lblConfirmation;
-		protected System.Web.UI.WebControls.TextBox txtNewPassword;
-		protected System.Web.UI.WebControls.TextBox txtNewPasswordConfirmation;
-		protected System.Web.UI.WebControls.TextBox txtCurrentPassword;
-		protected System.Web.UI.WebControls.Button btnSavePassword;
-		protected System.Web.UI.WebControls.Label lblInfo;
-		protected System.Web.UI.WebControls.Panel pnlInfo;
-		protected System.Web.UI.WebControls.RequiredFieldValidator rfvEmail;
-		protected System.Web.UI.WebControls.RegularExpressionValidator revEmail;
-		protected System.Web.UI.WebControls.DropDownList ddlTimeZone;
 		protected System.Web.UI.WebControls.Panel pnlConfirmation;
 
-		private void Page_Load(object sender, System.EventArgs e)
+		protected void Page_Load(object sender, System.EventArgs e)
 		{
 			this._module = base.Module as ProfileModule;
 
@@ -107,14 +90,11 @@ namespace Cuyahoga.Modules.User
 		/// </summary>
 		private void InitializeComponent()
 		{
-			this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
-			this.btnSavePassword.Click += new System.EventHandler(this.btnSavePassword_Click);
-			this.Load += new System.EventHandler(this.Page_Load);
 
 		}
 		#endregion
 
-		private void btnSave_Click(object sender, System.EventArgs e)
+		protected void btnSave_Click(object sender, System.EventArgs e)
 		{
 			if (this.Page.IsValid)
 			{
@@ -138,7 +118,7 @@ namespace Cuyahoga.Modules.User
 			}
 		}
 
-		private void btnSavePassword_Click(object sender, System.EventArgs e)
+		protected void btnSavePassword_Click(object sender, System.EventArgs e)
 		{
 			Cuyahoga.Core.Domain.User currentUser = Context.User.Identity as Cuyahoga.Core.Domain.User;
 			try

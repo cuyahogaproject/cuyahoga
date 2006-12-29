@@ -17,7 +17,7 @@ namespace Cuyahoga.Modules.Articles
 	/// <summary>
 	///		Summary description for Articles.
 	/// </summary>
-	public class Articles : BaseModuleControl
+	public partial class Articles : BaseModuleControl
 	{
 		private ArticleModule _module;
 		private Article _activeArticle;
@@ -26,25 +26,8 @@ namespace Cuyahoga.Modules.Articles
 		private int _numberOfArticlesInList;
 		private bool _allowSyndication;
 
-		protected System.Web.UI.WebControls.Panel pnlArticleDetails;
-		protected System.Web.UI.WebControls.Repeater rptArticles;
-		protected System.Web.UI.WebControls.Literal litContent;
-		protected System.Web.UI.WebControls.Literal litTitle;
-		protected System.Web.UI.WebControls.HyperLink hplBack;
-		protected System.Web.UI.WebControls.TextBox txtComment;
-		protected System.Web.UI.WebControls.Label lblError;
-		protected System.Web.UI.WebControls.Button btnSaveComment;
-		protected System.Web.UI.WebControls.Panel pnlComment;
-		protected System.Web.UI.WebControls.Panel pnlComments;
-		protected System.Web.UI.WebControls.Repeater rptComments;
-		protected System.Web.UI.WebControls.TextBox txtName;
-		protected System.Web.UI.WebControls.TextBox txtWebsite;
-		protected System.Web.UI.WebControls.Panel pnlAnonymous;
-		protected System.Web.UI.WebControls.RequiredFieldValidator rfvName;
-		protected System.Web.UI.WebControls.RequiredFieldValidator rfvComment;
-		protected System.Web.UI.WebControls.Panel pnlArticleList;
 
-		private void Page_Load(object sender, System.EventArgs e)
+		protected void Page_Load(object sender, System.EventArgs e)
 		{
 			this._module = this.Module as ArticleModule;
 			if (this.Module.Section.Settings["ALLOW_SYNDICATION"] != null)
@@ -150,8 +133,6 @@ namespace Cuyahoga.Modules.Articles
 		/// </summary>
 		private void InitializeComponent()
 		{
-			this.btnSaveComment.Click += new System.EventHandler(this.btnSaveComment_Click);
-			this.Load += new System.EventHandler(this.Page_Load);
 
 		}
 		#endregion
@@ -203,7 +184,7 @@ namespace Cuyahoga.Modules.Articles
 			}
 		}
 
-		private void btnSaveComment_Click(object sender, System.EventArgs e)
+		protected void btnSaveComment_Click(object sender, System.EventArgs e)
 		{
 			if (this.Page.IsValid)
 			{

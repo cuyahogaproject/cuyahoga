@@ -18,14 +18,11 @@ namespace Cuyahoga.Modules.Articles
 	/// <summary>
 	/// Summary description for EditArticles.
 	/// </summary>
-	public class AdminArticles : ModuleAdminBasePage
+	public partial class AdminArticles : ModuleAdminBasePage
 	{
-		protected System.Web.UI.WebControls.Repeater rptArticles;
-		protected Cuyahoga.ServerControls.Pager pgrArticles;
-		protected System.Web.UI.HtmlControls.HtmlInputButton btnNew;
 		private ArticleModule _articleModule;
 
-		private void Page_Load(object sender, System.EventArgs e)
+		protected void Page_Load(object sender, System.EventArgs e)
 		{
 			// The base page has already created the module, we only have to cast it here to the right type.
 			this._articleModule = base.Module as ArticleModule;
@@ -56,8 +53,6 @@ namespace Cuyahoga.Modules.Articles
 		{    
 			this.rptArticles.ItemDataBound += new System.Web.UI.WebControls.RepeaterItemEventHandler(this.rptArticles_ItemDataBound);
 			this.pgrArticles.PageChanged += new Cuyahoga.ServerControls.PageChangedEventHandler(this.pgrArticles_PageChanged);
-			this.pgrArticles.CacheEmpty += new System.EventHandler(this.pgrArticles_CacheEmpty);
-			this.Load += new System.EventHandler(this.Page_Load);
 
 		}
 		#endregion
@@ -94,7 +89,7 @@ namespace Cuyahoga.Modules.Articles
 			this.rptArticles.DataBind();
 		}
 
-		private void pgrArticles_CacheEmpty(object sender, System.EventArgs e)
+		protected void pgrArticles_CacheEmpty(object sender, System.EventArgs e)
 		{
 			this.rptArticles.DataSource = this._articleModule.GetAllArticles();
 		}

@@ -1,4 +1,4 @@
-<%@ Control Language="c#" AutoEventWireup="false" Codebehind="EditProfile.ascx.cs" Inherits="Cuyahoga.Modules.User.EditProfile" TargetSchema="http://schemas.microsoft.com/intellisense/ie5" %>
+<%@ Control Language="c#" AutoEventWireup="True" Codebehind="EditProfile.ascx.cs" Inherits="Cuyahoga.Modules.User.EditProfile" TargetSchema="http://schemas.microsoft.com/intellisense/ie5" %>
 <h3><%= GetText("EDITPROFILETITLE") %></h3>
 <br/>
 <asp:panel id="pnlEdit" runat="server">
@@ -44,7 +44,7 @@
 		<tr>
 			<td></td>
 			<td>
-				<asp:button id=btnSave runat="server" text='<%# GetText("SAVEPROFILE") %>'>
+				<asp:button id=btnSave runat="server" text='<%# GetText("SAVEPROFILE") %>' onclick="btnSave_Click">
 				</asp:button></td>
 		</tr>
 	</table>
@@ -68,7 +68,7 @@
 		<tr>
 			<td></td>
 			<td>
-				<asp:button id="btnSavePassword" runat="server" text='<%# GetText("SAVEPASSWORD") %>'>
+				<asp:button id="btnSavePassword" runat="server" text='<%# GetText("SAVEPASSWORD") %>' onclick="btnSavePassword_Click">
 				</asp:button></td>
 		</tr>
 	</table>

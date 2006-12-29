@@ -18,26 +18,13 @@ namespace Cuyahoga.Modules.RemoteContent
 	/// <summary>
 	/// Summary description for EditFeed.
 	/// </summary>
-	public class EditFeed : ModuleAdminBasePage
+	public partial class EditFeed : ModuleAdminBasePage
 	{
 		private Feed _feed;
 		private RemoteContentModule _remoteContentModule;
 
-		protected System.Web.UI.WebControls.Button btnSave;
-		protected System.Web.UI.WebControls.Button btnDelete;
-		protected System.Web.UI.WebControls.TextBox txtUrl;
-		protected System.Web.UI.WebControls.TextBox txtTitle;
-		protected System.Web.UI.WebControls.TextBox txtNumberOfItems;
-		protected System.Web.UI.WebControls.Label lblPubDate;
-		protected System.Web.UI.WebControls.Label lblUpdateTimestamp;
-		protected System.Web.UI.WebControls.Button btnVerify;
-		protected System.Web.UI.WebControls.RequiredFieldValidator rfvUrl;
-		protected System.Web.UI.WebControls.RequiredFieldValidator rfvTitle;
-		protected System.Web.UI.WebControls.RequiredFieldValidator rfvNumberOfItems;
-		protected System.Web.UI.WebControls.CompareValidator covNumberOfItems;
-		protected System.Web.UI.HtmlControls.HtmlInputButton btnCancel;
 	
-		private void Page_Load(object sender, System.EventArgs e)
+		protected void Page_Load(object sender, System.EventArgs e)
 		{
 			this._remoteContentModule = base.Module as RemoteContentModule;
 			this.btnCancel.Attributes.Add("onclick", String.Format("document.location.href='AdminRemoteContent.aspx{0}'", base.GetBaseQueryString()));
@@ -89,15 +76,11 @@ namespace Cuyahoga.Modules.RemoteContent
 		/// </summary>
 		private void InitializeComponent()
 		{    
-			this.btnVerify.Click += new System.EventHandler(this.btnVerify_Click);
-			this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
-			this.btnDelete.Click += new System.EventHandler(this.btnDelete_Click);
-			this.Load += new System.EventHandler(this.Page_Load);
 
 		}
 		#endregion
 
-		private void btnVerify_Click(object sender, System.EventArgs e)
+		protected void btnVerify_Click(object sender, System.EventArgs e)
 		{
 			try
 			{
@@ -113,7 +96,7 @@ namespace Cuyahoga.Modules.RemoteContent
 			}
 		}
 
-		private void btnSave_Click(object sender, System.EventArgs e)
+		protected void btnSave_Click(object sender, System.EventArgs e)
 		{
 			this._feed.Url = this.txtUrl.Text;
 			this._feed.Title = this.txtTitle.Text;
@@ -130,7 +113,7 @@ namespace Cuyahoga.Modules.RemoteContent
 			}
 		}
 
-		private void btnDelete_Click(object sender, System.EventArgs e)
+		protected void btnDelete_Click(object sender, System.EventArgs e)
 		{
 			try
 			{

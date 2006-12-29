@@ -1,4 +1,4 @@
-<%@ Page language="c#" Codebehind="AdminRemoteContent.aspx.cs" AutoEventWireup="false" Inherits="Cuyahoga.Modules.RemoteContent.AdminRemoteContent" %>
+<%@ Page language="c#" Codebehind="AdminRemoteContent.aspx.cs" AutoEventWireup="True" Inherits="Cuyahoga.Modules.RemoteContent.AdminRemoteContent" %>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN" >
 <html>
 	<head>

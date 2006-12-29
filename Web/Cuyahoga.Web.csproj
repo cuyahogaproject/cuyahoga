@@ -480,9 +480,15 @@
     </Content>
     <Content Include="Global.asax" />
     <Content Include="Images\feed-icon.png" />
+    <Content Include="Install\Core\Database\mssql2000\1.5.0.sql" />
+    <Content Include="Install\Core\Database\mysql\1.5.0.sql" />
+    <Content Include="Install\Core\Database\postgresql\1.5.0.sql" />
     <Content Include="Install\Install.aspx">
       <SubType>Form</SubType>
     </Content>
+    <Content Include="Install\Modules\Database\mssql2000\1.5.0.sql" />
+    <Content Include="Install\Modules\Database\mysql\1.5.0.sql" />
+    <Content Include="Install\Modules\Database\postgresql\1.5.0.sql" />
     <Content Include="Install\Sorry.aspx">
       <SubType>Form</SubType>
     </Content>

@@ -1,4 +1,4 @@
-<%@ Control Language="c#" AutoEventWireup="false" Codebehind="Articles.ascx.cs" Inherits="Cuyahoga.Modules.Articles.Articles" TargetSchema="http://schemas.microsoft.com/intellisense/ie5" %>
+<%@ Control Language="c#" AutoEventWireup="True" Codebehind="Articles.ascx.cs" Inherits="Cuyahoga.Modules.Articles.Articles" TargetSchema="http://schemas.microsoft.com/intellisense/ie5" %>
 <asp:panel id="pnlArticleList" runat="server" visible="False">
 	<ul class="articlelist">
 		<asp:repeater id="rptArticles" runat="server" enableviewstate="False">
@@ -70,7 +70,7 @@
 				enableclientscript="False" cssclass="articleerror"></asp:requiredfieldvalidator>
 			<asp:label id="lblError" visible="False" runat="server" cssclass="articleerror"></asp:label>
 			<br/>
-			<asp:button id="btnSaveComment" runat="server"></asp:button>
+			<asp:button id="btnSaveComment" runat="server" onclick="btnSaveComment_Click"></asp:button>
 		</asp:panel><br/>
 		<asp:hyperlink id="hplBack" runat="server"></asp:hyperlink></div>
 </asp:panel>

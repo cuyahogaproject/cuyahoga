@@ -1,8 +1,8 @@
-<%@ Control Language="c#" AutoEventWireup="false" Codebehind="Search.ascx.cs" Inherits="Cuyahoga.Modules.Search.Search" TargetSchema="http://schemas.microsoft.com/intellisense/ie5"%>
+<%@ Control Language="c#" AutoEventWireup="True" Codebehind="Search.ascx.cs" Inherits="Cuyahoga.Modules.Search.Search" TargetSchema="http://schemas.microsoft.com/intellisense/ie5"%>
 <%@ Register TagPrefix="csc" Namespace="Cuyahoga.ServerControls" Assembly="Cuyahoga.ServerControls" %>
 <asp:panel id="pnlCriteria" runat="server">
 	<asp:textbox id="txtSearchText" runat="server" width="200px"></asp:textbox>
-	<asp:button id="btnSearch" runat="server" text="Search"></asp:button>
+	<asp:button id="btnSearch" runat="server" text="Search" onclick="btnSearch_Click"></asp:button>
 	<br/>
 	<br/>
 </asp:panel>

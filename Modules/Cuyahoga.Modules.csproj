@@ -131,9 +131,15 @@
       <DependentUpon>AdminArticles.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
+    <Compile Include="Articles\AdminArticles.aspx.designer.cs">
+      <DependentUpon>AdminArticles.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Articles\AdminComments.aspx.cs">
       <DependentUpon>AdminComments.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Articles\AdminComments.aspx.designer.cs">
+      <DependentUpon>AdminComments.aspx</DependentUpon>
     </Compile>
     <Compile Include="Articles\Article.cs">
       <SubType>Code</SubType>
@@ -145,6 +151,9 @@
       <DependentUpon>Articles.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
+    <Compile Include="Articles\Articles.ascx.designer.cs">
+      <DependentUpon>Articles.ascx</DependentUpon>
+    </Compile>
     <Compile Include="Articles\Category.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -154,6 +163,12 @@
     <Compile Include="Articles\EditArticle.aspx.cs">
       <DependentUpon>EditArticle.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Articles\EditArticle.aspx.designer.cs">
+      <DependentUpon>EditArticle.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="LanguageSwitcher\LanguageSwitcher.ascx.designer.cs">
+      <DependentUpon>LanguageSwitcher.ascx</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
@@ -169,9 +184,15 @@
       <DependentUpon>AdminRemoteContent.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
+    <Compile Include="RemoteContent\AdminRemoteContent.aspx.designer.cs">
+      <DependentUpon>AdminRemoteContent.aspx</DependentUpon>
+    </Compile>
     <Compile Include="RemoteContent\EditFeed.aspx.cs">
       <DependentUpon>EditFeed.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="RemoteContent\EditFeed.aspx.designer.cs">
+      <DependentUpon>EditFeed.aspx</DependentUpon>
     </Compile>
     <Compile Include="RemoteContent\Feed.cs">
       <SubType>Code</SubType>
@@ -183,6 +204,9 @@
       <DependentUpon>RemoteContent.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
+    <Compile Include="RemoteContent\RemoteContent.ascx.designer.cs">
+      <DependentUpon>RemoteContent.ascx</DependentUpon>
+    </Compile>
     <Compile Include="RemoteContent\RemoteContentModule.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -193,9 +217,15 @@
       <DependentUpon>Search.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
+    <Compile Include="Search\Search.ascx.designer.cs">
+      <DependentUpon>Search.ascx</DependentUpon>
+    </Compile>
     <Compile Include="Search\SearchInput.ascx.cs">
       <DependentUpon>SearchInput.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Search\SearchInput.ascx.designer.cs">
+      <DependentUpon>SearchInput.ascx</DependentUpon>
     </Compile>
     <Compile Include="Search\SearchInputModule.cs">
       <SubType>Code</SubType>
@@ -215,9 +245,15 @@
       <DependentUpon>EditHtml.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
+    <Compile Include="StaticHtml\EditHtml.aspx.designer.cs">
+      <DependentUpon>EditHtml.aspx</DependentUpon>
+    </Compile>
     <Compile Include="StaticHtml\StaticHtml.ascx.cs">
       <DependentUpon>StaticHtml.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="StaticHtml\StaticHtml.ascx.designer.cs">
+      <DependentUpon>StaticHtml.ascx</DependentUpon>
     </Compile>
     <Compile Include="StaticHtml\StaticHtmlContent.cs">
       <SubType>Code</SubType>
@@ -229,6 +265,9 @@
       <DependentUpon>EditProfile.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
+    <Compile Include="User\EditProfile.ascx.designer.cs">
+      <DependentUpon>EditProfile.ascx</DependentUpon>
+    </Compile>
     <Compile Include="User\ProfileModule.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -236,13 +275,22 @@
       <DependentUpon>Register.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
+    <Compile Include="User\Register.ascx.designer.cs">
+      <DependentUpon>Register.ascx</DependentUpon>
+    </Compile>
     <Compile Include="User\ResetPassword.ascx.cs">
       <DependentUpon>ResetPassword.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
+    <Compile Include="User\ResetPassword.ascx.designer.cs">
+      <DependentUpon>ResetPassword.ascx</DependentUpon>
+    </Compile>
     <Compile Include="User\User.ascx.cs">
       <DependentUpon>User.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="User\User.ascx.designer.cs">
+      <DependentUpon>User.ascx</DependentUpon>
     </Compile>
     <Compile Include="User\UserModule.cs">
       <SubType>Code</SubType>
@@ -250,6 +298,9 @@
     <Compile Include="User\ViewProfile.ascx.cs">
       <DependentUpon>ViewProfile.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="User\ViewProfile.ascx.designer.cs">
+      <DependentUpon>ViewProfile.ascx</DependentUpon>
     </Compile>
     <Content Include="Articles\AdminArticles.aspx">
       <SubType>Form</SubType>
@@ -263,6 +314,230 @@
     <Content Include="Articles\EditArticle.aspx">
       <SubType>Form</SubType>
     </Content>
+    <Content Include="LanguageSwitcher\Images\flags\ad.png" />
+    <Content Include="LanguageSwitcher\Images\flags\ae.png" />
+    <Content Include="LanguageSwitcher\Images\flags\af.png" />
+    <Content Include="LanguageSwitcher\Images\flags\ag.png" />
+    <Content Include="LanguageSwitcher\Images\flags\ai.png" />
+    <Content Include="LanguageSwitcher\Images\flags\al.png" />
+    <Content Include="LanguageSwitcher\Images\flags\am.png" />
+    <Content Include="LanguageSwitcher\Images\flags\an.png" />
+    <Content Include="LanguageSwitcher\Images\flags\ao.png" />
+    <Content Include="LanguageSwitcher\Images\flags\aq.png" />
+    <Content Include="LanguageSwitcher\Images\flags\ar.png" />
+    <Content Include="LanguageSwitcher\Images\flags\as.png" />
+    <Content Include="LanguageSwitcher\Images\flags\at.png" />
+    <Content Include="LanguageSwitcher\Images\flags\au.png" />
+    <Content Include="LanguageSwitcher\Images\flags\aw.png" />
+    <Content Include="LanguageSwitcher\Images\flags\az.png" />
+    <Content Include="LanguageSwitcher\Images\flags\ba.png" />
+    <Content Include="LanguageSwitcher\Images\flags\bb.png" />
+    <Content Include="LanguageSwitcher\Images\flags\bd.png" />
+    <Content Include="LanguageSwitcher\Images\flags\be.png" />
+    <Content Include="LanguageSwitcher\Images\flags\bf.png" />
+    <Content Include="LanguageSwitcher\Images\flags\bg.png" />
+    <Content Include="LanguageSwitcher\Images\flags\bh.png" />
+    <Content Include="LanguageSwitcher\Images\flags\bi.png" />
+    <Content Include="LanguageSwitcher\Images\flags\bj.png" />
+    <Content Include="LanguageSwitcher\Images\flags\bm.png" />
+    <Content Include="LanguageSwitcher\Images\flags\bn.png" />
+    <Content Include="LanguageSwitcher\Images\flags\bo.png" />
+    <Content Include="LanguageSwitcher\Images\flags\br.png" />
+    <Content Include="LanguageSwitcher\Images\flags\bs.png" />
+    <Content Include="LanguageSwitcher\Images\flags\bt.png" />
+    <Content Include="LanguageSwitcher\Images\flags\bw.png" />
+    <Content Include="LanguageSwitcher\Images\flags\by.png" />
+    <Content Include="LanguageSwitcher\Images\flags\bz.png" />
+    <Content Include="LanguageSwitcher\Images\flags\ca.png" />
+    <Content Include="LanguageSwitcher\Images\flags\cd.png" />
+    <Content Include="LanguageSwitcher\Images\flags\cf.png" />
+    <Content Include="LanguageSwitcher\Images\flags\cg.png" />
+    <Content Include="LanguageSwitcher\Images\flags\ch.png" />
+    <Content Include="LanguageSwitcher\Images\flags\ci.png" />
+    <Content Include="LanguageSwitcher\Images\flags\ck.png" />
+    <Content Include="LanguageSwitcher\Images\flags\cl.png" />
+    <Content Include="LanguageSwitcher\Images\flags\cm.png" />
+    <Content Include="LanguageSwitcher\Images\flags\cn.png" />
+    <Content Include="LanguageSwitcher\Images\flags\co.png" />
+    <Content Include="LanguageSwitcher\Images\flags\cq.png" />
+    <Content Include="LanguageSwitcher\Images\flags\cr.png" />
+    <Content Include="LanguageSwitcher\Images\flags\cu.png" />
+    <Content Include="LanguageSwitcher\Images\flags\cv.png" />
+    <Content Include="LanguageSwitcher\Images\flags\cy.png" />
+    <Content Include="LanguageSwitcher\Images\flags\cz.png" />
+    <Content Include="LanguageSwitcher\Images\flags\de.png" />
+    <Content Include="LanguageSwitcher\Images\flags\dj.png" />
+    <Content Include="LanguageSwitcher\Images\flags\dk.png" />
+    <Content Include="LanguageSwitcher\Images\flags\dm.png" />
+    <Content Include="LanguageSwitcher\Images\flags\do.png" />
+    <Content Include="LanguageSwitcher\Images\flags\dz.png" />
+    <Content Include="LanguageSwitcher\Images\flags\ec.png" />
+    <Content Include="LanguageSwitcher\Images\flags\ee.png" />
+    <Content Include="LanguageSwitcher\Images\flags\eg.png" />
+    <Content Include="LanguageSwitcher\Images\flags\er.png" />
+    <Content Include="LanguageSwitcher\Images\flags\es.png" />
+    <Content Include="LanguageSwitcher\Images\flags\et.png" />
+    <Content Include="LanguageSwitcher\Images\flags\fi.png" />
+    <Content Include="LanguageSwitcher\Images\flags\fj.png" />
+    <Content Include="LanguageSwitcher\Images\flags\fk.png" />
+    <Content Include="LanguageSwitcher\Images\flags\fm.png" />
+    <Content Include="LanguageSwitcher\Images\flags\fo.png" />
+    <Content Include="LanguageSwitcher\Images\flags\fr.png" />
+    <Content Include="LanguageSwitcher\Images\flags\ga.png" />
+    <Content Include="LanguageSwitcher\Images\flags\gb.png" />
+    <Content Include="LanguageSwitcher\Images\flags\gd.png" />
+    <Content Include="LanguageSwitcher\Images\flags\ge.png" />
+    <Content Include="LanguageSwitcher\Images\flags\gf.png" />
+    <Content Include="LanguageSwitcher\Images\flags\gh.png" />
+    <Content Include="LanguageSwitcher\Images\flags\gi.png" />
+    <Content Include="LanguageSwitcher\Images\flags\gl.png" />
+    <Content Include="LanguageSwitcher\Images\flags\gm.png" />
+    <Content Include="LanguageSwitcher\Images\flags\gn.png" />
+    <Content Include="LanguageSwitcher\Images\flags\gp.png" />
+    <Content Include="LanguageSwitcher\Images\flags\gq.png" />
+    <Content Include="LanguageSwitcher\Images\flags\gr.png" />
+    <Content Include="LanguageSwitcher\Images\flags\gt.png" />
+    <Content Include="LanguageSwitcher\Images\flags\gu.png" />
+    <Content Include="LanguageSwitcher\Images\flags\gw.png" />
+    <Content Include="LanguageSwitcher\Images\flags\gy.png" />
+    <Content Include="LanguageSwitcher\Images\flags\hk.png" />
+    <Content Include="LanguageSwitcher\Images\flags\hn.png" />
+    <Content Include="LanguageSwitcher\Images\flags\hr.png" />
+    <Content Include="LanguageSwitcher\Images\flags\ht.png" />
+    <Content Include="LanguageSwitcher\Images\flags\hu.png" />
+    <Content Include="LanguageSwitcher\Images\flags\id.png" />
+    <Content Include="LanguageSwitcher\Images\flags\ie.png" />
+    <Content Include="LanguageSwitcher\Images\flags\il.png" />
+    <Content Include="LanguageSwitcher\Images\flags\in.png" />
+    <Content Include="LanguageSwitcher\Images\flags\io.png" />
+    <Content Include="LanguageSwitcher\Images\flags\iq.png" />
+    <Content Include="LanguageSwitcher\Images\flags\ir.png" />
+    <Content Include="LanguageSwitcher\Images\flags\is.png" />
+    <Content Include="LanguageSwitcher\Images\flags\it.png" />
+    <Content Include="LanguageSwitcher\Images\flags\jm.png" />
+    <Content Include="LanguageSwitcher\Images\flags\jo.png" />
+    <Content Include="LanguageSwitcher\Images\flags\jp.png" />
+    <Content Include="LanguageSwitcher\Images\flags\ke.png" />
+    <Content Include="LanguageSwitcher\Images\flags\kg.png" />
+    <Content Include="LanguageSwitcher\Images\flags\kh.png" />
+    <Content Include="LanguageSwitcher\Images\flags\ki.png" />
+    <Content Include="LanguageSwitcher\Images\flags\km.png" />
+    <Content Include="LanguageSwitcher\Images\flags\kn.png" />
+    <Content Include="LanguageSwitcher\Images\flags\kp.png" />
+    <Content Include="LanguageSwitcher\Images\flags\kr.png" />
+    <Content Include="LanguageSwitcher\Images\flags\kw.png" />
+    <Content Include="LanguageSwitcher\Images\flags\ky.png" />
+    <Content Include="LanguageSwitcher\Images\flags\kz.png" />
+    <Content Include="LanguageSwitcher\Images\flags\la.png" />
+    <Content Include="LanguageSwitcher\Images\flags\lb.png" />
+    <Content Include="LanguageSwitcher\Images\flags\lc.png" />
+    <Content Include="LanguageSwitcher\Images\flags\li.png" />
+    <Content Include="LanguageSwitcher\Images\flags\lk.png" />
+    <Content Include="LanguageSwitcher\Images\flags\lr.png" />
+    <Content Include="LanguageSwitcher\Images\flags\ls.png" />
+    <Content Include="LanguageSwitcher\Images\flags\lt.png" />
+    <Content Include="LanguageSwitcher\Images\flags\lu.png" />
+    <Content Include="LanguageSwitcher\Images\flags\lv.png" />
+    <Content Include="LanguageSwitcher\Images\flags\ly.png" />
+    <Content Include="LanguageSwitcher\Images\flags\ma.png" />
+    <Content Include="LanguageSwitcher\Images\flags\mc.png" />
+    <Content Include="LanguageSwitcher\Images\flags\md.png" />
+    <Content Include="LanguageSwitcher\Images\flags\mg.png" />
+    <Content Include="LanguageSwitcher\Images\flags\mh.png" />
+    <Content Include="LanguageSwitcher\Images\flags\mk.png" />
+    <Content Include="LanguageSwitcher\Images\flags\ml.png" />
+    <Content Include="LanguageSwitcher\Images\flags\mm.png" />
+    <Content Include="LanguageSwitcher\Images\flags\mn.png" />
+    <Content Include="LanguageSwitcher\Images\flags\mq.png" />
+    <Content Include="LanguageSwitcher\Images\flags\mr.png" />
+    <Content Include="LanguageSwitcher\Images\flags\ms.png" />
+    <Content Include="LanguageSwitcher\Images\flags\mt.png" />
+    <Content Include="LanguageSwitcher\Images\flags\mu.png" />
+    <Content Include="LanguageSwitcher\Images\flags\mv.png" />
+    <Content Include="LanguageSwitcher\Images\flags\mw.png" />
+    <Content Include="LanguageSwitcher\Images\flags\mx.png" />
+    <Content Include="LanguageSwitcher\Images\flags\my.png" />
+    <Content Include="LanguageSwitcher\Images\flags\mz.png" />
+    <Content Include="LanguageSwitcher\Images\flags\na.png" />
+    <Content Include="LanguageSwitcher\Images\flags\nc.png" />
+    <Content Include="LanguageSwitcher\Images\flags\ne.png" />
+    <Content Include="LanguageSwitcher\Images\flags\nf.png" />
+    <Content Include="LanguageSwitcher\Images\flags\ng.png" />
+    <Content Include="LanguageSwitcher\Images\flags\ni.png" />
+    <Content Include="LanguageSwitcher\Images\flags\nl.png" />
+    <Content Include="LanguageSwitcher\Images\flags\no.png" />
+    <Content Include="LanguageSwitcher\Images\flags\np.png" />
+    <Content Include="LanguageSwitcher\Images\flags\nr.png" />
+    <Content Include="LanguageSwitcher\Images\flags\nz.png" />
+    <Content Include="LanguageSwitcher\Images\flags\om.png" />
+    <Content Include="LanguageSwitcher\Images\flags\pa.png" />
+    <Content Include="LanguageSwitcher\Images\flags\pe.png" />
+    <Content Include="LanguageSwitcher\Images\flags\pf.png" />
+    <Content Include="LanguageSwitcher\Images\flags\pg.png" />
+    <Content Include="LanguageSwitcher\Images\flags\ph.png" />
+    <Content Include="LanguageSwitcher\Images\flags\pk.png" />
+    <Content Include="LanguageSwitcher\Images\flags\pl.png" />
+    <Content Include="LanguageSwitcher\Images\flags\pn.png" />
+    <Content Include="LanguageSwitcher\Images\flags\pr.png" />
+    <Content Include="LanguageSwitcher\Images\flags\pt.png" />
+    <Content Include="LanguageSwitcher\Images\flags\pw.png" />
+    <Content Include="LanguageSwitcher\Images\flags\py.png" />
+    <Content Include="LanguageSwitcher\Images\flags\qa.png" />
+    <Content Include="LanguageSwitcher\Images\flags\re.png" />
+    <Content Include="LanguageSwitcher\Images\flags\ro.png" />
+    <Content Include="LanguageSwitcher\Images\flags\ru.png" />
+    <Content Include="LanguageSwitcher\Images\flags\rw.png" />
+    <Content Include="LanguageSwitcher\Images\flags\sa.png" />
+    <Content Include="LanguageSwitcher\Images\flags\sb.png" />
+    <Content Include="LanguageSwitcher\Images\flags\sc.png" />
+    <Content Include="LanguageSwitcher\Images\flags\sd.png" />
+    <Content Include="LanguageSwitcher\Images\flags\se.png" />
+    <Content Include="LanguageSwitcher\Images\flags\sg.png" />
+    <Content Include="LanguageSwitcher\Images\flags\sh.png" />
+    <Content Include="LanguageSwitcher\Images\flags\si.png" />
+    <Content Include="LanguageSwitcher\Images\flags\sk.png" />
+    <Content Include="LanguageSwitcher\Images\flags\sl.png" />
+    <Content Include="LanguageSwitcher\Images\flags\sm.png" />
+    <Content Include="LanguageSwitcher\Images\flags\sn.png" />
+    <Content Include="LanguageSwitcher\Images\flags\so.png" />
+    <Content Include="LanguageSwitcher\Images\flags\sr.png" />
+    <Content Include="LanguageSwitcher\Images\flags\st.png" />
+    <Content Include="LanguageSwitcher\Images\flags\sv.png" />
+    <Content Include="LanguageSwitcher\Images\flags\sy.png" />
+    <Content Include="LanguageSwitcher\Images\flags\sz.png" />
+    <Content Include="LanguageSwitcher\Images\flags\tc.png" />
+    <Content Include="LanguageSwitcher\Images\flags\td.png" />
+    <Content Include="LanguageSwitcher\Images\flags\tg.png" />
+    <Content Include="LanguageSwitcher\Images\flags\th.png" />
+    <Content Include="LanguageSwitcher\Images\flags\tj.png" />
+    <Content Include="LanguageSwitcher\Images\flags\tk.png" />
+    <Content Include="LanguageSwitcher\Images\flags\tm.png" />
+    <Content Include="LanguageSwitcher\Images\flags\tn.png" />
+    <Content Include="LanguageSwitcher\Images\flags\to.png" />
+    <Content Include="LanguageSwitcher\Images\flags\tr.png" />
+    <Content Include="LanguageSwitcher\Images\flags\tt.png" />
+    <Content Include="LanguageSwitcher\Images\flags\tw.png" />
+    <Content Include="LanguageSwitcher\Images\flags\tz.png" />
+    <Content Include="LanguageSwitcher\Images\flags\ua.png" />
+    <Content Include="LanguageSwitcher\Images\flags\ug.png" />
+    <Content Include="LanguageSwitcher\Images\flags\um.png" />
+    <Content Include="LanguageSwitcher\Images\flags\us.png" />
+    <Content Include="LanguageSwitcher\Images\flags\uy.png" />
+    <Content Include="LanguageSwitcher\Images\flags\uz.png" />
+    <Content Include="LanguageSwitcher\Images\flags\va.png" />
+    <Content Include="LanguageSwitcher\Images\flags\vc.png" />
+    <Content Include="LanguageSwitcher\Images\flags\ve.png" />
+    <Content Include="LanguageSwitcher\Images\flags\vg.png" />
+    <Content Include="LanguageSwitcher\Images\flags\vi.png" />
+    <Content Include="LanguageSwitcher\Images\flags\vn.png" />
+    <Content Include="LanguageSwitcher\Images\flags\vu.png" />
+    <Content Include="LanguageSwitcher\Images\flags\wf.png" />
+    <Content Include="LanguageSwitcher\Images\flags\ws.png" />
+    <Content Include="LanguageSwitcher\Images\flags\ye.png" />
+    <Content Include="LanguageSwitcher\Images\flags\yu.png" />
+    <Content Include="LanguageSwitcher\Images\flags\za.png" />
+    <Content Include="LanguageSwitcher\Images\flags\zm.png" />
+    <Content Include="LanguageSwitcher\Images\flags\zw.png" />
     <Content Include="LanguageSwitcher\Images\go.gif" />
     <Content Include="LanguageSwitcher\LanguageSwitcher.ascx">
       <SubType>UserControl</SubType>
@@ -413,6 +688,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Cuyahoga.Modules.build" />
+    <None Include="LanguageSwitcher\Images\flags\flag.tar.gz" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
@@ -420,6 +696,7 @@
     </PreBuildEvent>
     <PostBuildEvent>xcopy /s /y "$(ProjectDir)"*.as?x "$(SolutionDir)"Web\Modules
 xcopy /s /y "$(ProjectDir)"*.gif "$(SolutionDir)"Web\Modules
+xcopy /s /y "$(ProjectDir)"*.png "$(SolutionDir)"Web\Modules
 xcopy /s /y "$(ProjectDir)"*.txt "$(SolutionDir)"Web\Modules
 xcopy /s /y "$(TargetDir)"Cuyahoga.Modules*.dll "$(SolutionDir)"Web\bin
 xcopy /s /y "$(TargetDir)"FredCK.FCKeditorV2.dll "$(SolutionDir)"Web\bin</PostBuildEvent>

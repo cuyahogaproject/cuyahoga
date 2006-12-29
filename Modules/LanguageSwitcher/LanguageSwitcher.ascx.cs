@@ -2,58 +2,135 @@ namespace Cuyahoga.Modules.LanguageSwitcher
 {
 	using System;
 	using System.Data;
-	using System.Drawing;
 	using System.Web;
 	using System.Web.UI.WebControls;
 	using System.Web.UI.HtmlControls;
 	using System.Globalization;
-	using System.Collections;
+	using System.Collections.Generic;
 
 	using Cuyahoga.Core.Domain;
 	using Cuyahoga.Core.Service;
 	using Cuyahoga.Web.UI;
 	using Cuyahoga.Web.Util;
+	using System.Collections.Specialized;
 
 	/// <summary>
 	///		Summary description for LanguageSwitcher.
 	/// </summary>
-	public class LanguageSwitcher : BaseModuleControl
+	public partial class LanguageSwitcher : BaseModuleControl
 	{
-		private PageEngine _page;
-		private CoreRepository _coreRepository;
+		private LanguageSwitcherModule _module;
+		private Dictionary<string, string> _homePagesForLanguages = new Dictionary<string, string>();
 
-		protected System.Web.UI.WebControls.ImageButton imbGo;
-		protected System.Web.UI.WebControls.DropDownList ddlLanguage;
-
-		private void Page_Load(object sender, System.EventArgs e)
+		protected void Page_Load(object sender, System.EventArgs e)
 		{
-			this._page = this.Page as PageEngine;
-			this._coreRepository = HttpContext.Current.Items["CoreRepository"] as CoreRepository;
+			this._module = base.Module as LanguageSwitcherModule;
+
 			this.imbGo.ImageUrl = this.TemplateSourceDirectory + "/Images/go.gif";
 			if (! this.IsPostBack)
 			{
+				HandleDisplayMode();
 				BindLanguageOptions();
+				if (this._module.RedirectToUserLanguage)
+				{
+					SetPreferedLanguage();
+				}
 			}
+		}
+
+		private void HandleDisplayMode()
+		{
+			this.pnlLinks.Visible = this._module.DisplayMode == DisplayMode.Text || this._module.DisplayMode == DisplayMode.Flag;
+			this.pnlDropDown.Visible = this._module.DisplayMode == DisplayMode.DropDown;
 		}
 
 		private void BindLanguageOptions()
 		{
-			if (this._page != null)
+			Dictionary<string, Node> cultureNodes = this._module.GetCultureRootNodesBySite(base.PageEngine.CurrentSite);
+			HtmlGenericControl listControl = new HtmlGenericControl("ul");
+			listControl.EnableViewState = false;
+
+			foreach (KeyValuePair<string, Node> cultureNode in cultureNodes)
 			{
-				IList rootNodes = this._coreRepository.GetRootNodes(this._page.ActiveNode.Site);
-				foreach (Node node in rootNodes)
+				string languageAsText = this._module.GetNativeLanguageTextFromCulture(cultureNode.Key);
+				switch (this._module.DisplayMode)
 				{
-					CultureInfo ci = new CultureInfo(node.Culture);
-					string languageAsText = ci.NativeName.Substring(0, ci.NativeName.IndexOf("(") - 1);
-					ListItem item = new ListItem(languageAsText, node.Culture);
-					if (this._page.ActiveNode.Culture == ci.Name)
-					{
-						item.Selected = true;
-					}
-					this.ddlLanguage.Items.Add(item);
+					case DisplayMode.Text:
+						AddLanguageLink(cultureNode.Key, cultureNode.Value, listControl, languageAsText, false);
+						break;
+					case DisplayMode.Flag:
+						AddLanguageLink(cultureNode.Key, cultureNode.Value, listControl, languageAsText, true);
+						break;
+					case DisplayMode.DropDown:
+						AddDropDownOption(cultureNode.Key, languageAsText);
+						break;
+				}
+
+				// Also add the language and root url to the list of possible redirectable urls. We can use this 
+				// later to redirect to the root node that corresponds with the browser language if there is no
+				// specific page requested.
+				if (cultureNode.Key != base.PageEngine.RootNode.Culture)
+				{
+					this._homePagesForLanguages.Add(this._module.GetLanguageFromCulture(cultureNode.Key), UrlHelper.GetUrlFromNode(cultureNode.Value));
+				}
+			}
+			if (this._module.DisplayMode == DisplayMode.Text || this._module.DisplayMode == DisplayMode.Flag)
+			{
+				this.plhLanguageLinks.Controls.Add(listControl);
+			}
+		}
+
+		private void SetPreferedLanguage()
+		{
+			NameValueCollection vars = this.Request.ServerVariables;
+			if (vars.Get("HTTP_ACCEPT_LANGUAGE") != null)
+			{
+				string preferedLanguage = vars.Get("HTTP_ACCEPT_LANGUAGE").Substring(0, 2);
+				string url = System.Web.HttpContext.Current.Items["VirtualUrl"].ToString();
+				bool isStartPage = url.ToLower().EndsWith("/default.aspx");
+
+				// Only redirect when there is no specific url requested and there is a root page for the 
+				// user language.
+				if (isStartPage && this._homePagesForLanguages.ContainsKey(preferedLanguage))
+				{
+					Context.Response.Redirect(this._homePagesForLanguages[preferedLanguage].ToString());
 				}
 			}
 		}
+
+		private void AddLanguageLink(string culture, Node node, HtmlGenericControl listControl, string languageAsText, bool showImage)
+		{
+			if (node.Culture != base.PageEngine.RootNode.Culture)
+			{
+				HtmlGenericControl listItem = new HtmlGenericControl("li");
+				HyperLink hpl = new HyperLink();
+				hpl.NavigateUrl = UrlHelper.GetUrlFromNode(node);
+				hpl.Text = languageAsText;
+				if (showImage)
+				{
+					string countryCode = this._module.GetCountryFromCulture(culture).ToLower();
+					string imageUrl = this.TemplateSourceDirectory + String.Format("/Images/flags/{0}.png", countryCode);
+					Image image = new Image();
+					image.ImageUrl = imageUrl;
+					image.AlternateText = languageAsText;
+					hpl.ToolTip = languageAsText;
+					hpl.Controls.Add(image);
+				}
+				listItem.Controls.Add(hpl);
+				listControl.Controls.Add(listItem);
+			}
+		}
+
+		private void AddDropDownOption(string culture, string languageAsText)
+		{
+			ListItem item = new ListItem(languageAsText, culture);
+			if (base.PageEngine.ActiveNode.Culture == culture)
+			{
+				item.Selected = true;
+			}
+			this.ddlLanguage.Items.Add(item);
+		}
+
 
 		#region Web Form Designer generated code
 		override protected void OnInit(EventArgs e)
@@ -72,7 +149,6 @@ namespace Cuyahoga.Modules.LanguageSwitcher
 		private void InitializeComponent()
 		{
 			this.imbGo.Click += new System.Web.UI.ImageClickEventHandler(this.imbGo_Click);
-			this.Load += new System.EventHandler(this.Page_Load);
 
 		}
 		#endregion
@@ -82,7 +158,7 @@ namespace Cuyahoga.Modules.LanguageSwitcher
 			string selectedCulture = this.ddlLanguage.SelectedValue;
 			// Get the root node for the selected culture from the cache and build an url from
 			// it where the user will be redirected to.
-			Node rootNodeForSelectedCulture = this._coreRepository.GetRootNodeByCultureAndSite(selectedCulture, this._page.CurrentSite);
+			Node rootNodeForSelectedCulture = this._module.GetRootNodeByCultureAndSite(selectedCulture, base.PageEngine.CurrentSite);
 			if (rootNodeForSelectedCulture != null)
 			{
 				// Set cookie for the selected culture. In the future we might enable persisting

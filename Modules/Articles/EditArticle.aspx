@@ -1,4 +1,4 @@
-<%@ Page language="c#" Codebehind="EditArticle.aspx.cs" AutoEventWireup="false" Inherits="Cuyahoga.Modules.Articles.EditArticle" ValidateRequest="false" %>
+<%@ Page language="c#" Codebehind="EditArticle.aspx.cs" AutoEventWireup="True" Inherits="Cuyahoga.Modules.Articles.EditArticle" ValidateRequest="false" %>
 <%@ Register TagPrefix="cc1" Namespace="Cuyahoga.ServerControls" Assembly="Cuyahoga.ServerControls" %>
 <%@ Register TagPrefix="fckeditorv2" Namespace="FredCK.FCKeditorV2" Assembly="FredCK.FCKeditorV2" %>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN" >
@@ -57,7 +57,7 @@
 						</tr>
 					</table>
 				</div>
-				<p><asp:button id="btnSave" runat="server" text="Save"></asp:button><asp:button id="btnDelete" runat="server" text="Delete" visible="False"></asp:button><input id="btnCancel" type="button" value="Cancel" runat="server"></p>
+				<p><asp:button id="btnSave" runat="server" text="Save" onclick="btnSave_Click"></asp:button><asp:button id="btnDelete" runat="server" text="Delete" visible="False" onclick="btnDelete_Click"></asp:button><input id="btnCancel" type="button" value="Cancel" runat="server"></p>
 			</div>
 		</form>
 	</body>

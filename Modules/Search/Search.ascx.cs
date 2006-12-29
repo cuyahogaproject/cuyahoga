@@ -17,25 +17,13 @@ namespace Cuyahoga.Modules.Search
 	/// <summary>
 	///		Summary description for Search.
 	/// </summary>
-	public class Search : BaseModuleControl
+	public partial class Search : BaseModuleControl
 	{
 		private string _indexDir;
 		private SearchModule _module;
 
-		protected System.Web.UI.WebControls.Panel pnlCriteria;
-		protected System.Web.UI.WebControls.Panel pnlResults;
-		protected System.Web.UI.WebControls.TextBox txtSearchText;
-		protected System.Web.UI.WebControls.Label lblFrom;
-		protected System.Web.UI.WebControls.Label lblTo;
-		protected System.Web.UI.WebControls.Label lblQueryText;
-		protected System.Web.UI.WebControls.Label lblDuration;
-		protected System.Web.UI.WebControls.Panel pnlNotFound;
-		protected System.Web.UI.WebControls.Label lblTotal;
-		protected System.Web.UI.WebControls.Repeater rptResults;
-		protected Cuyahoga.ServerControls.Pager pgrResults;
-		protected System.Web.UI.WebControls.Button btnSearch;
 
-		private void Page_Load(object sender, System.EventArgs e)
+		protected void Page_Load(object sender, System.EventArgs e)
 		{
 			this._module = this.Module as SearchModule;
 			this._indexDir = Context.Server.MapPath(Config.GetConfiguration()["SearchIndexDir"]);
@@ -104,15 +92,13 @@ namespace Cuyahoga.Modules.Search
 		/// </summary>
 		private void InitializeComponent()
 		{
-			this.btnSearch.Click += new System.EventHandler(this.btnSearch_Click);
 			this.rptResults.ItemDataBound += new System.Web.UI.WebControls.RepeaterItemEventHandler(this.rptResults_ItemDataBound);
 			this.pgrResults.PageChanged += new Cuyahoga.ServerControls.PageChangedEventHandler(this.pgrResults_PageChanged);
-			this.Load += new System.EventHandler(this.Page_Load);
 
 		}
 		#endregion
 
-		private void btnSearch_Click(object sender, System.EventArgs e)
+		protected void btnSearch_Click(object sender, System.EventArgs e)
 		{
 			if (this.txtSearchText.Text.Trim() != String.Empty)
 			{

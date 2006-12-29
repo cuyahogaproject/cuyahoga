@@ -1,4 +1,4 @@
-<%@ Control Language="c#" AutoEventWireup="false" Codebehind="ViewProfile.ascx.cs" Inherits="Cuyahoga.Modules.User.ViewProfile" TargetSchema="http://schemas.microsoft.com/intellisense/ie5" %>
+<%@ Control Language="c#" AutoEventWireup="True" Codebehind="ViewProfile.ascx.cs" Inherits="Cuyahoga.Modules.User.ViewProfile" TargetSchema="http://schemas.microsoft.com/intellisense/ie5" %>
 <h3><asp:literal id="litTitle" runat="server"></asp:literal></h3>
 
 <asp:label id="lblError" runat="server" enableviewstate="False" cssclass="error" visible="False"></asp:label><br/>

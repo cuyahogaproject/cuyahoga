@@ -19,27 +19,15 @@ namespace Cuyahoga.Modules.Articles
 	/// <summary>
 	/// Summary description for EditArticle.
 	/// </summary>
-	public class EditArticle : ModuleAdminBasePage
+	public partial class EditArticle : ModuleAdminBasePage
 	{
 		private Article _article;
 		private ArticleModule _articleModule;
 
-		protected System.Web.UI.WebControls.Button btnSave;
-		protected System.Web.UI.WebControls.Button btnDelete;
-		protected System.Web.UI.HtmlControls.HtmlInputButton btnCancel;
-		protected System.Web.UI.WebControls.TextBox txtTitle;
-		protected System.Web.UI.WebControls.TextBox txtSummary;
-		protected System.Web.UI.WebControls.CheckBox chkSyndicate;
-		protected System.Web.UI.WebControls.RequiredFieldValidator rfvTitle;
-		protected System.Web.UI.WebControls.TextBox txtCategory;
-		protected System.Web.UI.WebControls.DropDownList ddlCategory;
-		protected Cuyahoga.ServerControls.Calendar calDateOnline;
 		protected System.Web.UI.WebControls.RequiredFieldValidator rfvDateOnline;
 		protected System.Web.UI.WebControls.RequiredFieldValidator rfvDateOffline;
-		protected FredCK.FCKeditorV2.FCKeditor fckContent;
-		protected Cuyahoga.ServerControls.Calendar calDateOffline;
 
-		private void Page_Load(object sender, System.EventArgs e)
+		protected void Page_Load(object sender, System.EventArgs e)
 		{
 			this.fckContent.BasePath = this.Page.ResolveUrl("~/Support/FCKEditor/");
 			this._articleModule = base.Module as ArticleModule;
@@ -166,14 +154,11 @@ namespace Cuyahoga.Modules.Articles
 		/// </summary>
 		private void InitializeComponent()
 		{    
-			this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
-			this.btnDelete.Click += new System.EventHandler(this.btnDelete_Click);
-			this.Load += new System.EventHandler(this.Page_Load);
 
 		}
 		#endregion
 
-		private void btnSave_Click(object sender, System.EventArgs e)
+		protected void btnSave_Click(object sender, System.EventArgs e)
 		{
 			if (this.IsValid)
 			{
@@ -187,7 +172,7 @@ namespace Cuyahoga.Modules.Articles
 			}
 		}
 
-		private void btnDelete_Click(object sender, System.EventArgs e)
+		protected void btnDelete_Click(object sender, System.EventArgs e)
 		{
 			if (this._article != null)
 			{

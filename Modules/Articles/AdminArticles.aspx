@@ -1,5 +1,5 @@
 <%@ Register TagPrefix="cc1" Namespace="Cuyahoga.ServerControls" Assembly="Cuyahoga.ServerControls" %>
-<%@ Page language="c#" Codebehind="AdminArticles.aspx.cs" AutoEventWireup="false" Inherits="Cuyahoga.Modules.Articles.AdminArticles" %>
+<%@ Page language="c#" Codebehind="AdminArticles.aspx.cs" AutoEventWireup="True" Inherits="Cuyahoga.Modules.Articles.AdminArticles" %>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN" >
 <html>
 	<head>
@@ -55,7 +55,7 @@
 				</p>
 				<div class="pager">
 					<cc1:pager id="pgrArticles" runat="server" controltopage="rptArticles" cachedatasource="True"
-						pagesize="10" cacheduration="30" cachevarybyparams="SectionId"></cc1:pager>
+						pagesize="10" cacheduration="30" cachevarybyparams="SectionId" oncacheempty="pgrArticles_CacheEmpty"></cc1:pager>
 				</div>
 				<br/>
 				<input id="btnNew" type="button" value="New Article" runat="server">
