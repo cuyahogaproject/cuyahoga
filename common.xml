@@ -65,7 +65,7 @@
 
 	<target name="set-framework-configuration">
 		<if test="${not(target::exists('set-'+framework::get-target-framework()+'-framework-configuration'))}">
-			<fail message="The '${framework::get-target-framework()}' framework is not supported by this version of Cast;e." />
+			<fail message="The '${framework::get-target-framework()}' framework is not supported by this version of Cuyahoga." />
 		</if>
 		<call target="set-${framework::get-target-framework()}-framework-configuration" />
 	</target>
@@ -107,9 +107,12 @@
 		<!-- 
 		Include the .resx files as embedded resource by default. Override in the project when incuding other files
 		such as NHibernate mapping files.
+		Only include Strings.resx when building on Mono because the Mono al.exe is not able to handle satellite 
+		assemblies.
 		-->
 		<resourcefileset id="project.resources" basedir="${project::get-base-directory()}" prefix="${project::get-name()}" dynamicprefix="true">
-			<include name="${src.dir}/**/*.resx" />
+			<include name="${src.dir}/**/*.resx" if="${framework::get-family(framework::get-target-framework()) != 'mono'}" />
+			<include name="${src.dir}/**/Strings.resx" if="${framework::get-family(framework::get-target-framework()) != 'mono'}" />
 		</resourcefileset>
 	</target>
 

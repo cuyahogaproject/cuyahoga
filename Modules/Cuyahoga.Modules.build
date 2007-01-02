@@ -24,7 +24,8 @@
 		</assemblyfileset>
 		<resourcefileset id="project.resources" basedir="${project::get-base-directory()}" prefix="${project::get-name()}" dynamicprefix="true">
 			<include name="/**/*.hbm.xml" />
-			<include name="/**/*.resx" />
+			<include name="/**/*.resx" if="${framework::get-family(framework::get-target-framework()) != 'mono'}" />
+			<include name="/**/Strings.resx" if="${framework::get-family(framework::get-target-framework()) == 'mono'}" />
 		</resourcefileset>
 
 	</target>
