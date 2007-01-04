@@ -9,7 +9,9 @@
 		<include name="ServerControls/Cuyahoga.ServerControls.build" />
 		<include name="Web/Cuyahoga.Web.build" />
 		<include name="Modules/Cuyahoga.Modules.build" />
+		<include name="Cuyahoga.Modules.Articles/Cuyahoga.Modules.Articles.build" />
 		<include name="Cuyahoga.Modules.Downloads/Cuyahoga.Modules.Downloads.build" />
+		<include name="Cuyahoga.Modules.RemoteContent/Cuyahoga.Modules.RemoteContent.build" />
 		<include name="Cuyahoga.Modules.Forum/Cuyahoga.Modules.Forum.build" />
 		<include name="Cuyahoga.Modules.Flash/Cuyahoga.Modules.Flash.build" />
 	</fileset>
@@ -18,7 +20,9 @@
 		<!-- Include all buildfiles here that have a deploy target -->
 		<include name="Web/Cuyahoga.Web.build" />
 		<include name="Modules/Cuyahoga.Modules.build" />
+		<include name="Cuyahoga.Modules.Articles/Cuyahoga.Modules.Articles.build" />
 		<include name="Cuyahoga.Modules.Downloads/Cuyahoga.Modules.Downloads.build" />
+		<include name="Cuyahoga.Modules.RemoteContent/Cuyahoga.Modules.RemoteContent.build" />
 		<include name="Cuyahoga.Modules.Forum/Cuyahoga.Modules.Forum.build" />
 		<include name="Cuyahoga.Modules.Flash/Cuyahoga.Modules.Flash.build" />
 	</fileset>

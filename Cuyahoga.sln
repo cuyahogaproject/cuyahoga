@@ -72,6 +72,18 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "NAnt build files", "NAnt bu
 		Cuyahoga.build = Cuyahoga.build
 	EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cuyahoga.Modules.Articles", "Cuyahoga.Modules.Articles\Cuyahoga.Modules.Articles.csproj", "{9DCEC808-4FB7-47B1-ACAC-2016762BEE37}"
+	ProjectSection(WebsiteProperties) = preProject
+		Debug.AspNetCompiler.Debug = "True"
+		Release.AspNetCompiler.Debug = "False"
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cuyahoga.Modules.RemoteContent", "Cuyahoga.Modules.RemoteContent\Cuyahoga.Modules.RemoteContent.csproj", "{6F05541C-E08B-4806-8F3C-E06958CF3CCB}"
+	ProjectSection(WebsiteProperties) = preProject
+		Debug.AspNetCompiler.Debug = "True"
+		Release.AspNetCompiler.Debug = "False"
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -110,6 +122,14 @@ Global
 		{02784221-B558-4104-8803-E6CE580F27C9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{02784221-B558-4104-8803-E6CE580F27C9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{02784221-B558-4104-8803-E6CE580F27C9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9DCEC808-4FB7-47B1-ACAC-2016762BEE37}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9DCEC808-4FB7-47B1-ACAC-2016762BEE37}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9DCEC808-4FB7-47B1-ACAC-2016762BEE37}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9DCEC808-4FB7-47B1-ACAC-2016762BEE37}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6F05541C-E08B-4806-8F3C-E06958CF3CCB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6F05541C-E08B-4806-8F3C-E06958CF3CCB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6F05541C-E08B-4806-8F3C-E06958CF3CCB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6F05541C-E08B-4806-8F3C-E06958CF3CCB}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
