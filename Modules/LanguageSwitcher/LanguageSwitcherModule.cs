@@ -85,40 +85,6 @@ namespace Cuyahoga.Modules.LanguageSwitcher
 		{
 			return this._nodeService.GetRootNodeByCultureAndSite(culture, site);
 		}
-
-		/// <summary>
-		/// Get the description of a language from a culture.
-		/// </summary>
-		/// <param name="culture"></param>
-		/// <returns></returns>
-		public string GetNativeLanguageTextFromCulture(string culture)
-		{
-			CultureInfo ci = new CultureInfo(culture);
-			string languageAsText = ci.NativeName.Substring(0, ci.NativeName.IndexOf("(") - 1);
-
-			return languageAsText;
-		}
-
-		/// <summary>
-		/// Get the country part from the culture string.
-		/// </summary>
-		/// <param name="culture"></param>
-		/// <returns></returns>
-		public string GetCountryFromCulture(string culture)
-		{
-			return culture.Substring(3);
-		}
-
-		/// <summary>
-		/// Get the two-letter ISO language name of the given culture.
-		/// </summary>
-		/// <param name="culture"></param>
-		/// <returns></returns>
-		public string GetLanguageFromCulture(string culture)
-		{
-			CultureInfo ci = new CultureInfo(culture);
-			return ci.TwoLetterISOLanguageName;
-		}
 	}
 
 	/// <summary>

@@ -13,6 +13,7 @@ namespace Cuyahoga.Modules.LanguageSwitcher
 	using Cuyahoga.Web.UI;
 	using Cuyahoga.Web.Util;
 	using System.Collections.Specialized;
+	using Cuyahoga.Core.Util;
 
 	/// <summary>
 	///		Summary description for LanguageSwitcher.
@@ -52,7 +53,7 @@ namespace Cuyahoga.Modules.LanguageSwitcher
 
 			foreach (KeyValuePair<string, Node> cultureNode in cultureNodes)
 			{
-				string languageAsText = this._module.GetNativeLanguageTextFromCulture(cultureNode.Key);
+				string languageAsText = Globalization.GetNativeLanguageTextFromCulture(cultureNode.Key);
 				switch (this._module.DisplayMode)
 				{
 					case DisplayMode.Text:
@@ -71,7 +72,7 @@ namespace Cuyahoga.Modules.LanguageSwitcher
 				// specific page requested.
 				if (cultureNode.Key != base.PageEngine.RootNode.Culture)
 				{
-					this._homePagesForLanguages.Add(this._module.GetLanguageFromCulture(cultureNode.Key), UrlHelper.GetUrlFromNode(cultureNode.Value));
+					this._homePagesForLanguages.Add(Globalization.GetLanguageFromCulture(cultureNode.Key), UrlHelper.GetUrlFromNode(cultureNode.Value));
 				}
 			}
 			if (this._module.DisplayMode == DisplayMode.Text || this._module.DisplayMode == DisplayMode.Flag)
@@ -108,7 +109,7 @@ namespace Cuyahoga.Modules.LanguageSwitcher
 				hpl.Text = languageAsText;
 				if (showImage)
 				{
-					string countryCode = this._module.GetCountryFromCulture(culture).ToLower();
+					string countryCode = Globalization.GetCountryFromCulture(culture).ToLower();
 					string imageUrl = this.TemplateSourceDirectory + String.Format("/Images/flags/{0}.png", countryCode);
 					Image image = new Image();
 					image.ImageUrl = imageUrl;
