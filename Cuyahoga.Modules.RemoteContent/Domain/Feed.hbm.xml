@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" ?> 
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.0">
+	<class name="Cuyahoga.Modules.RemoteContent.Domain.Feed, Cuyahoga.Modules.RemoteContent" table="cm_feed">
+	
+		<id name="Id" column="feedid" type="Int32" unsaved-value="-1">
+			<generator class="native">
+				<param name="sequence">cm_feed_feedid_seq</param>
+			</generator>
+		</id>
+		
+		<timestamp name="UpdateTimestamp" column="updatetimestamp" unsaved-value="1/1/0001" />
+		
+		<property name="Url" column="url" type="String" length="255" />
+		<property name="Title" column="title" type="String" length="100" />
+		<property name="PubDate" column="pubdate" type="DateTime" />
+		<property name="NumberOfItems" column="numberofitems" type="Int32" />
+
+		<many-to-one name="Section" class="Cuyahoga.Core.Domain.Section, Cuyahoga.Core" column="sectionid" cascade="none" />
+
+		<bag name="FeedItems" cascade="all-delete-orphan" lazy="true" inverse="true">
+			<key column="feedid" />
+			<one-to-many class="Cuyahoga.Modules.RemoteContent.Domain.FeedItem, Cuyahoga.Modules.RemoteContent" />
+		</bag>
+	</class>
+</hibernate-mapping>
