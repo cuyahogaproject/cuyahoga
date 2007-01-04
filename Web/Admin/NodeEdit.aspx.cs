@@ -14,6 +14,7 @@ using log4net;
 using Cuyahoga.Core.Domain;
 using Cuyahoga.Web.Util;
 using Cuyahoga.Web.UI;
+using Cuyahoga.Core.Util;
 
 namespace Cuyahoga.Web.Admin
 {
@@ -160,9 +161,9 @@ namespace Cuyahoga.Web.Admin
 
 		private void BindCultures()
 		{
-			this.ddlCultures.DataSource = CultureInfo.GetCultures(CultureTypes.SpecificCultures);
-			this.ddlCultures.DataValueField = "Name";
-			this.ddlCultures.DataTextField = "DisplayName";
+			this.ddlCultures.DataSource = Globalization.GetOrderedCultures();
+			this.ddlCultures.DataValueField = "Value";
+			this.ddlCultures.DataTextField = "Key";
 			this.ddlCultures.DataBind();
 			if (this.ActiveNode.Culture != null)
 			{

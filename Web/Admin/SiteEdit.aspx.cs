@@ -15,6 +15,7 @@ using Cuyahoga.Core.Service.SiteStructure;
 using Cuyahoga.Core.Service.Membership;
 using Cuyahoga.Web.UI;
 using Cuyahoga.Web.Admin.UI;
+using Cuyahoga.Core.Util;
 
 namespace Cuyahoga.Web.Admin
 {
@@ -162,9 +163,9 @@ namespace Cuyahoga.Web.Admin
 
 		private void BindCultures()
 		{
-			this.ddlCultures.DataSource = CultureInfo.GetCultures(CultureTypes.SpecificCultures);
-			this.ddlCultures.DataValueField = "Name";
-			this.ddlCultures.DataTextField = "DisplayName";
+			this.ddlCultures.DataSource = Globalization.GetOrderedCultures();
+			this.ddlCultures.DataValueField = "Value";
+			this.ddlCultures.DataTextField = "Key";
 			this.ddlCultures.DataBind();
 			if (this._activeSite.DefaultCulture != null)
 			{

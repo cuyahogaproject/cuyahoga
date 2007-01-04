@@ -349,6 +349,7 @@
     <Compile Include="Util\Encryption.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Util\Globalization.cs" />
     <Compile Include="Util\Rss.cs">
       <SubType>Code</SubType>
     </Compile>
