@@ -41,7 +41,10 @@
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Web" />
-    <Reference Include="Xylem.Controls.FlashMovieControl, Version=1.0.2417.16069, Culture=neutral, processorArchitecture=MSIL" />
+    <Reference Include="Xylem.Controls.FlashMovieControl, Version=2.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>lib\Xylem.Controls.FlashMovieControl.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Domain\AlternateContent.cs" />
