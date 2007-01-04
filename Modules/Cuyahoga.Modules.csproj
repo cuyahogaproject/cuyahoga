@@ -127,46 +127,6 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Articles\AdminArticles.aspx.cs">
-      <DependentUpon>AdminArticles.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Articles\AdminArticles.aspx.designer.cs">
-      <DependentUpon>AdminArticles.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="Articles\AdminComments.aspx.cs">
-      <DependentUpon>AdminComments.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Articles\AdminComments.aspx.designer.cs">
-      <DependentUpon>AdminComments.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="Articles\Article.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Articles\ArticleModule.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Articles\Articles.ascx.cs">
-      <DependentUpon>Articles.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Articles\Articles.ascx.designer.cs">
-      <DependentUpon>Articles.ascx</DependentUpon>
-    </Compile>
-    <Compile Include="Articles\Category.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Articles\Comment.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Articles\EditArticle.aspx.cs">
-      <DependentUpon>EditArticle.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Articles\EditArticle.aspx.designer.cs">
-      <DependentUpon>EditArticle.aspx</DependentUpon>
-    </Compile>
     <Compile Include="LanguageSwitcher\LanguageSwitcher.ascx.designer.cs">
       <DependentUpon>LanguageSwitcher.ascx</DependentUpon>
     </Compile>
@@ -178,39 +138,6 @@
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="LanguageSwitcher\LanguageSwitcherModule.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="RemoteContent\AdminRemoteContent.aspx.cs">
-      <DependentUpon>AdminRemoteContent.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="RemoteContent\AdminRemoteContent.aspx.designer.cs">
-      <DependentUpon>AdminRemoteContent.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="RemoteContent\EditFeed.aspx.cs">
-      <DependentUpon>EditFeed.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="RemoteContent\EditFeed.aspx.designer.cs">
-      <DependentUpon>EditFeed.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="RemoteContent\Feed.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="RemoteContent\FeedItem.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="RemoteContent\RemoteContent.ascx.cs">
-      <DependentUpon>RemoteContent.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="RemoteContent\RemoteContent.ascx.designer.cs">
-      <DependentUpon>RemoteContent.ascx</DependentUpon>
-    </Compile>
-    <Compile Include="RemoteContent\RemoteContentModule.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="RemoteContent\Util\RFC2822Date.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Search\Search.ascx.cs">
@@ -302,18 +229,6 @@
     <Compile Include="User\ViewProfile.ascx.designer.cs">
       <DependentUpon>ViewProfile.ascx</DependentUpon>
     </Compile>
-    <Content Include="Articles\AdminArticles.aspx">
-      <SubType>Form</SubType>
-    </Content>
-    <Content Include="Articles\AdminComments.aspx">
-      <SubType>Form</SubType>
-    </Content>
-    <Content Include="Articles\Articles.ascx">
-      <SubType>UserControl</SubType>
-    </Content>
-    <Content Include="Articles\EditArticle.aspx">
-      <SubType>Form</SubType>
-    </Content>
     <Content Include="LanguageSwitcher\Images\flags\ad.png" />
     <Content Include="LanguageSwitcher\Images\flags\ae.png" />
     <Content Include="LanguageSwitcher\Images\flags\af.png" />
@@ -542,15 +457,6 @@
     <Content Include="LanguageSwitcher\LanguageSwitcher.ascx">
       <SubType>UserControl</SubType>
     </Content>
-    <Content Include="RemoteContent\AdminRemoteContent.aspx">
-      <SubType>Form</SubType>
-    </Content>
-    <Content Include="RemoteContent\EditFeed.aspx">
-      <SubType>Form</SubType>
-    </Content>
-    <Content Include="RemoteContent\RemoteContent.ascx">
-      <SubType>UserControl</SubType>
-    </Content>
     <Content Include="Search\Search.ascx">
       <SubType>UserControl</SubType>
     </Content>
@@ -583,49 +489,8 @@
     <Content Include="User\ViewProfile.ascx">
       <SubType>UserControl</SubType>
     </Content>
-    <EmbeddedResource Include="Articles\AdminArticles.aspx.resx">
-      <DependentUpon>AdminArticles.aspx.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Articles\AdminComments.aspx.resx">
-      <DependentUpon>AdminComments.aspx.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Articles\Article.hbm.xml" />
-    <EmbeddedResource Include="Articles\Articles.ascx.resx">
-      <DependentUpon>Articles.ascx.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Articles\Category.hbm.xml" />
-    <EmbeddedResource Include="Articles\Comment.hbm.xml" />
-    <EmbeddedResource Include="Articles\EditArticle.aspx.resx">
-      <DependentUpon>EditArticle.aspx.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Articles\Resources\Strings.it.resx">
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Articles\Resources\Strings.es.resx">
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Articles\Resources\Strings.fr.resx">
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Articles\Resources\Strings.nl.resx">
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Articles\Resources\Strings.resx">
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
     <EmbeddedResource Include="LanguageSwitcher\LanguageSwitcher.ascx.resx">
       <DependentUpon>LanguageSwitcher.ascx.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="RemoteContent\AdminRemoteContent.aspx.resx">
-      <DependentUpon>AdminRemoteContent.aspx.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="RemoteContent\EditFeed.aspx.resx">
-      <DependentUpon>EditFeed.aspx.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="RemoteContent\Feed.hbm.xml" />
-    <EmbeddedResource Include="RemoteContent\FeedItem.hbm.xml" />
-    <EmbeddedResource Include="RemoteContent\RemoteContent.ascx.resx">
-      <DependentUpon>RemoteContent.ascx.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Search\Resources\Strings.it.resx">
       <SubType>Designer</SubType>
