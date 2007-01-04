@@ -30,7 +30,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cuyahoga.Tests", "Tests\Cuy
 		Release.AspNetCompiler.Debug = "False"
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cuyahoga.Modules.Downloads", "Downloads\Cuyahoga.Modules.Downloads.csproj", "{A613CF88-E66F-492B-9FD3-259BA3BD7310}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cuyahoga.Modules.Downloads", "Cuyahoga.Modules.Downloads\Cuyahoga.Modules.Downloads.csproj", "{A613CF88-E66F-492B-9FD3-259BA3BD7310}"
 	ProjectSection(WebsiteProperties) = preProject
 		Debug.AspNetCompiler.Debug = "True"
 		Release.AspNetCompiler.Debug = "False"
