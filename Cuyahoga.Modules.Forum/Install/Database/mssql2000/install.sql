@@ -104,7 +104,7 @@ INSERT INTO cuyahoga_moduletype (name, assemblyname, classname, path, editpath, 
 
 SELECT @moduletypeid = Scope_Identity()
 
-INSERT INTO cuyahoga_version (assembly, major, minor, patch) VALUES ('Cuyahoga.Modules.Forum', 1, 0, 0)
+INSERT INTO cuyahoga_version (assembly, major, minor, patch) VALUES ('Cuyahoga.Modules.Forum', 1, 5, 0)
 go
 INSERT INTO cm_forumemoticon (textversion, imagename,  inserttimestamp, updatetimestamp) VALUES ('8)', 'cool.gif', '2005-02-11 14:36:28.324', '2004-02-11 14:36:28.324')
 go

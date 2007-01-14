@@ -11,21 +11,25 @@ using System.Web.UI.HtmlControls;
 using System.Reflection;
 
 using Cuyahoga.Core.Domain;
+using Cuyahoga.Core.DataAccess;
 using Cuyahoga.Core.Service;
 using Cuyahoga.Web.Util;
+using System.IO;
+using Cuyahoga.Web.UI;
 
 namespace Cuyahoga.Web.Install
 {
 	/// <summary>
 	/// Summary description for Install.
 	/// </summary>
-	public class Install : System.Web.UI.Page
+	public class Install : CuyahogaPage
 	{
-		private CoreRepository _coreRepository;
+		private ICommonDao _commonDao;
 
 		protected System.Web.UI.WebControls.Panel pnlErrors;
 		protected System.Web.UI.WebControls.Panel pnlIntro;
 		protected System.Web.UI.WebControls.Panel pnlAdmin;
+		protected System.Web.UI.WebControls.Panel pnlModules;
 		protected System.Web.UI.WebControls.HyperLink hplContinue;
 		protected System.Web.UI.WebControls.Label lblError;
 		protected System.Web.UI.WebControls.Button btnInstallDatabase;
@@ -43,10 +47,18 @@ namespace Cuyahoga.Web.Install
 		protected System.Web.UI.WebControls.Button btnCreateSite;
 		protected System.Web.UI.WebControls.Button btnSkipCreateSite;
 		protected System.Web.UI.WebControls.Panel pnlFinished;
+		protected System.Web.UI.WebControls.Repeater rptModules;
+
+		/// <summary>
+		/// Generic data access object (injected)
+		/// </summary>
+		public ICommonDao CommonDao
+		{
+			set { this._commonDao = value; }
+		}
 	
 		private void Page_Load(object sender, System.EventArgs e)
 		{
-			this._coreRepository = (CoreRepository)HttpContext.Current.Items["CoreRepository"];
 			this.pnlErrors.Visible = false;
 
 			if (! this.IsPostBack)
@@ -75,7 +87,7 @@ namespace Cuyahoga.Web.Install
 					else
 					{
 						// Check if we perhaps need to add an admin
-						if (this._coreRepository.GetAll(typeof(Cuyahoga.Core.Domain.User)).Count == 0)
+						if (this._commonDao.GetAll(typeof(Cuyahoga.Core.Domain.User)).Count == 0)
 						{
 							this.pnlAdmin.Visible = true;
 						}
@@ -88,6 +100,56 @@ namespace Cuyahoga.Web.Install
 				catch (Exception ex)
 				{
 					ShowError("An error occured: <br/><br/>" + ex.ToString());
+				}
+			}
+		}
+
+		private void BindOptionalModules()
+		{
+			// Retrieve the modules that are already installed.
+			IList availableModules = this._commonDao.GetAll(typeof(ModuleType), "Name");
+			// Retrieve the available modules from the filesystem.
+			string moduleRootDir = HttpContext.Current.Server.MapPath("~/Modules");
+			DirectoryInfo[] moduleDirectories = new DirectoryInfo(moduleRootDir).GetDirectories();
+			// Go through the directories and add the modules that can be installed
+			ArrayList installableModules = new ArrayList();
+			foreach (DirectoryInfo di in moduleDirectories)
+			{
+				// Skip hidden directories.
+				bool shouldAdd = (di.Attributes & FileAttributes.Hidden) != FileAttributes.Hidden;
+				foreach (ModuleType moduleType in availableModules)
+				{
+					if (moduleType.Name == di.Name)
+					{
+						shouldAdd = false;
+						break;
+					}
+				}
+				if (shouldAdd)
+				{
+					// Check if the module can be installed
+					DatabaseInstaller moduleInstaller = new DatabaseInstaller(Path.Combine(Server.MapPath("~/Modules/" + di.Name), "Install"), null);
+					if (moduleInstaller.CanInstall)
+					{
+						installableModules.Add(di.Name);
+					}
+				}
+			}
+			this.rptModules.DataSource = installableModules;
+			this.rptModules.DataBind();
+		}
+
+		private void InstallOptionalModules()
+		{
+			foreach (RepeaterItem ri in this.rptModules.Items)
+			{
+				CheckBox chkInstall = ri.FindControl("chkInstall") as CheckBox;
+				if (chkInstall != null && chkInstall.Checked)
+				{
+					Literal litModuleName = ri.FindControl("litModuleName") as Literal;
+					string moduleName = litModuleName.Text;
+					DatabaseInstaller moduleInstaller = new DatabaseInstaller(Path.Combine(Server.MapPath("~/Modules/" + moduleName), "Install"), null);
+					moduleInstaller.Install();
 				}
 			}
 		}
@@ -106,11 +168,13 @@ namespace Cuyahoga.Web.Install
 			this.pnlErrors.Visible = false;
 		}
 
+		#region Site creation code
+
 		private void CreateSite()
 		{
-			Cuyahoga.Core.Domain.User adminUser = this._coreRepository.GetObjectById(typeof(Cuyahoga.Core.Domain.User), 1) as Cuyahoga.Core.Domain.User;
-			Template defaultTemplate = this._coreRepository.GetObjectByDescription(typeof(Template), "Name", "Another Red") as Template;
-			Role defaultAuthenticatedRole = this._coreRepository.GetObjectByDescription(typeof(Role), "Name", "Authenticated user") as Role;
+			Cuyahoga.Core.Domain.User adminUser = this._commonDao.GetObjectById(typeof(Cuyahoga.Core.Domain.User), 1) as Cuyahoga.Core.Domain.User;
+			Template defaultTemplate = this._commonDao.GetObjectByDescription(typeof(Template), "Name", "Another Red") as Template;
+			Role defaultAuthenticatedRole = this._commonDao.GetObjectByDescription(typeof(Role), "Name", "Authenticated user") as Role;
 
 			// Site
 			Site site = new Site();
@@ -122,7 +186,7 @@ namespace Cuyahoga.Web.Install
 			site.DefaultTemplate = defaultTemplate;
 			site.DefaultPlaceholder = "maincontent";
 			site.DefaultRole = defaultAuthenticatedRole;
-			this._coreRepository.SaveObject(site);
+			this._commonDao.SaveOrUpdateObject(site);
 
 			// Root node
 			Node rootNode = new Node();
@@ -133,7 +197,7 @@ namespace Cuyahoga.Web.Install
 			rootNode.Site = site;
 			rootNode.Template = defaultTemplate;
 			rootNode.Title = "Home";
-			IList allRoles = this._coreRepository.GetAll(typeof(Role));
+			IList allRoles = this._commonDao.GetAll(typeof(Role));
 			foreach (Role role in allRoles)
 			{
 				NodePermission np = new NodePermission();
@@ -143,11 +207,11 @@ namespace Cuyahoga.Web.Install
 				np.EditAllowed = role.HasPermission(AccessLevel.Administrator);
 				rootNode.NodePermissions.Add(np);
 			}
-			this._coreRepository.SaveObject(rootNode);
+			this._commonDao.SaveOrUpdateObject(rootNode);
 
 			// Sections on root Node
 			Section loginSection = new Section();
-			loginSection.ModuleType = this._coreRepository.GetObjectByDescription(typeof(ModuleType), "Name", "User") as ModuleType;
+			loginSection.ModuleType = this._commonDao.GetObjectByDescription(typeof(ModuleType), "Name", "User") as ModuleType;
 			loginSection.Title = "Login";
 			loginSection.CacheDuration = 0;
 			loginSection.Node = rootNode;
@@ -159,9 +223,9 @@ namespace Cuyahoga.Web.Install
 			loginSection.Settings.Add("SHOW_REGISTER", "True");
 			loginSection.CopyRolesFromNode();
 			rootNode.Sections.Add(loginSection);
-			this._coreRepository.SaveObject(loginSection);
+			this._commonDao.SaveOrUpdateObject(loginSection);
 			Section introSection = new Section();
-			introSection.ModuleType = this._coreRepository.GetObjectByDescription(typeof(ModuleType), "Name", "StaticHtml") as ModuleType;
+			introSection.ModuleType = this._commonDao.GetObjectByDescription(typeof(ModuleType), "Name", "StaticHtml") as ModuleType;
 			introSection.Title = "Welcome";
 			introSection.CacheDuration = 0;
 			introSection.Node = rootNode;
@@ -170,7 +234,7 @@ namespace Cuyahoga.Web.Install
 			introSection.ShowTitle = true;
 			introSection.CopyRolesFromNode();
 			rootNode.Sections.Add(introSection);
-			this._coreRepository.SaveObject(introSection);
+			this._commonDao.SaveOrUpdateObject(introSection);
 			
 			// Pages
 			Node page1 = new Node();
@@ -183,25 +247,30 @@ namespace Cuyahoga.Web.Install
 			page1.Title = "Articles";
 			page1.ParentNode = rootNode;
 			page1.CopyRolesFromParent();
-			this._coreRepository.SaveObject(page1);
-			Section articleSection = new Section();
-			articleSection.ModuleType = this._coreRepository.GetObjectByDescription(typeof(ModuleType), "Name", "Articles") as ModuleType;
-			articleSection.Title = "Articles";
-			articleSection.CacheDuration = 0;
-			articleSection.Node = page1;
-			articleSection.PlaceholderId = "maincontent";
-			articleSection.Position = 0;
-			articleSection.ShowTitle = true;
-			articleSection.Settings.Add("DISPLAY_TYPE", "FullContent");
-			articleSection.Settings.Add("ALLOW_ANONYMOUS_COMMENTS", "True");
-			articleSection.Settings.Add("ALLOW_COMMENTS", "True");
-			articleSection.Settings.Add("SORT_BY", "DateOnline");
-			articleSection.Settings.Add("SORT_DIRECTION", "DESC");
-			articleSection.Settings.Add("ALLOW_SYNDICATION", "True");
-			articleSection.Settings.Add("NUMBER_OF_ARTICLES_IN_LIST", "5");
-			articleSection.CopyRolesFromNode();
-			page1.Sections.Add(articleSection);
-			this._coreRepository.SaveObject(articleSection);
+			this._commonDao.SaveOrUpdateObject(page1);
+			ModuleType articlesModuleType = this._commonDao.GetObjectByDescription(typeof(ModuleType), "Name", "Articles") as ModuleType;
+			// Check if the articles module is installed
+			if (articlesModuleType != null)
+			{
+				Section articleSection = new Section();
+				articleSection.ModuleType = articlesModuleType;
+				articleSection.Title = "Articles";
+				articleSection.CacheDuration = 0;
+				articleSection.Node = page1;
+				articleSection.PlaceholderId = "maincontent";
+				articleSection.Position = 0;
+				articleSection.ShowTitle = true;
+				articleSection.Settings.Add("DISPLAY_TYPE", "FullContent");
+				articleSection.Settings.Add("ALLOW_ANONYMOUS_COMMENTS", "True");
+				articleSection.Settings.Add("ALLOW_COMMENTS", "True");
+				articleSection.Settings.Add("SORT_BY", "DateOnline");
+				articleSection.Settings.Add("SORT_DIRECTION", "DESC");
+				articleSection.Settings.Add("ALLOW_SYNDICATION", "True");
+				articleSection.Settings.Add("NUMBER_OF_ARTICLES_IN_LIST", "5");
+				articleSection.CopyRolesFromNode();
+				page1.Sections.Add(articleSection);
+				this._commonDao.SaveOrUpdateObject(articleSection);
+			}
 			Node page2 = new Node();
 			page2.Culture = site.DefaultCulture;
 			page2.Position = 1;
@@ -212,9 +281,9 @@ namespace Cuyahoga.Web.Install
 			page2.Title = "Page 2";
 			page2.ParentNode = rootNode;
 			page2.CopyRolesFromParent();
-			this._coreRepository.SaveObject(page2);
+			this._commonDao.SaveOrUpdateObject(page2);
 			Section page2Section = new Section();
-			page2Section.ModuleType = this._coreRepository.GetObjectByDescription(typeof(ModuleType), "Name", "StaticHtml") as ModuleType;
+			page2Section.ModuleType = this._commonDao.GetObjectByDescription(typeof(ModuleType), "Name", "StaticHtml") as ModuleType;
 			page2Section.Title = "Page 2";
 			page2Section.CacheDuration = 0;
 			page2Section.Node = page2;
@@ -223,7 +292,7 @@ namespace Cuyahoga.Web.Install
 			page2Section.ShowTitle = true;
 			page2Section.CopyRolesFromNode();
 			rootNode.Sections.Add(page2Section);
-			this._coreRepository.SaveObject(page2Section);
+			this._commonDao.SaveOrUpdateObject(page2Section);
 
 			// User Profile node
 			Node userProfileNode = new Node();
@@ -236,9 +305,9 @@ namespace Cuyahoga.Web.Install
 			userProfileNode.Title = "User Profile";
 			userProfileNode.ParentNode = rootNode;
 			userProfileNode.CopyRolesFromParent();
-			this._coreRepository.SaveObject(userProfileNode);
+			this._commonDao.SaveOrUpdateObject(userProfileNode);
 			Section userProfileSection = new Section();
-			userProfileSection.ModuleType = this._coreRepository.GetObjectByDescription(typeof(ModuleType), "Name", "UserProfile") as ModuleType;
+			userProfileSection.ModuleType = this._commonDao.GetObjectByDescription(typeof(ModuleType), "Name", "UserProfile") as ModuleType;
 			userProfileSection.Title = "User Profile";
 			userProfileSection.CacheDuration = 0;
 			userProfileSection.Node = userProfileNode;
@@ -247,20 +316,17 @@ namespace Cuyahoga.Web.Install
 			userProfileSection.ShowTitle = false;
 			userProfileSection.CopyRolesFromNode();
 			userProfileNode.Sections.Add(userProfileSection);
-			this._coreRepository.SaveObject(userProfileSection);
+			this._commonDao.SaveOrUpdateObject(userProfileSection);
 
 			// Connections from Login to User Profile
 			loginSection.Connections.Add("Register", userProfileSection);
 			loginSection.Connections.Add("ResetPassword", userProfileSection);
 			loginSection.Connections.Add("ViewProfile", userProfileSection);
 			loginSection.Connections.Add("EditProfile", userProfileSection);
-			this._coreRepository.UpdateObject(loginSection);
-
-			// Connection from Articles to User Profile
-			articleSection.Connections.Add("ViewProfile", userProfileSection);
-			this._coreRepository.UpdateObject(articleSection);
-			
+			this._commonDao.SaveOrUpdateObject(loginSection);
 		}
+
+		#endregion
 
 		#region Web Form Designer generated code
 		override protected void OnInit(EventArgs e)
@@ -297,7 +363,8 @@ namespace Cuyahoga.Web.Install
 				dbInstaller.Install();
 				modulesDbInstaller.Install();
 				this.pnlIntro.Visible = false;
-				this.pnlAdmin.Visible = true;
+				this.pnlModules.Visible = true;
+				BindOptionalModules();
 				ShowMessage("Database tables successfully created.");
 			}
 			catch (Exception ex)
@@ -306,12 +373,32 @@ namespace Cuyahoga.Web.Install
 			}
 		}
 
+		protected void btnInstallModules_Click(object sender, EventArgs e)
+		{
+			try
+			{
+				InstallOptionalModules();
+				this.pnlModules.Visible = false;
+				this.pnlAdmin.Visible = true;
+			}
+			catch (Exception ex)
+			{
+				ShowError("An error occured while installing additional modules: <br/>" + ex.ToString());
+			}
+		}
+
+		protected void btnSkipInstallModules_Click(object sender, EventArgs e)
+		{
+			this.pnlModules.Visible = false;
+			this.pnlAdmin.Visible = true;
+		}
+
 		private void btnAdmin_Click(object sender, System.EventArgs e)
 		{
 			if (this.IsValid)
 			{
 				// Only create an admin if there are really NO users.
-				if (this._coreRepository.GetAll(typeof(Cuyahoga.Core.Domain.User)).Count > 0)
+				if (this._commonDao.GetAll(typeof(Cuyahoga.Core.Domain.User)).Count > 0)
 				{
 					ShowError("There is already a user in the database. For security reasons Cuyahoga won't add a new user!");
 				}
@@ -326,9 +413,9 @@ namespace Cuyahoga.Web.Install
 
 					try
 					{
-						Role adminRole = (Role)this._coreRepository.GetObjectById(typeof(Role), 1);	
+						Role adminRole = (Role)this._commonDao.GetObjectById(typeof(Role), 1);	
 						newAdmin.Roles.Add(adminRole);
-						this._coreRepository.SaveObject(newAdmin);
+						this._commonDao.SaveOrUpdateObject(newAdmin);
 						this.pnlAdmin.Visible = false;
 						this.pnlCreateSite.Visible = true;
 					}
@@ -359,5 +446,7 @@ namespace Cuyahoga.Web.Install
 			this.pnlCreateSite.Visible = false;
 			this.pnlFinished.Visible = true;
 		}
+
+		
 	}
 }

@@ -180,8 +180,11 @@
     <None Include="Install\Database\postgresql\install.sql" />
     <None Include="Install\Database\postgresql\uninstall.sql" />
     <Content Include="Install\Database\mssql2000\1.0.0.sql" />
+    <Content Include="Install\Database\mssql2000\1.5.0.sql" />
     <Content Include="Install\Database\mysql\1.0.0.sql" />
+    <Content Include="Install\Database\mysql\1.5.0.sql" />
     <Content Include="Install\Database\postgresql\1.0.0.sql" />
+    <Content Include="Install\Database\postgresql\1.5.0.sql" />
     <Content Include="Web\Downloads.ascx">
       <SubType>UserControl</SubType>
     </Content>

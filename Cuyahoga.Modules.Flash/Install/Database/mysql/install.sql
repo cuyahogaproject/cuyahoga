@@ -33,4 +33,4 @@ INSERT INTO cuyahoga_modulesetting ( moduletypeid, name, friendlyname, settingda
 INSERT INTO cuyahoga_modulesetting ( moduletypeid, name, friendlyname, settingdatatype, iscustomtype, isrequired) VALUES ( @moduletypeid, 'ALTERNATEDIVID', 'Use Alternate Div Id for Flash replacement', 'System.String', 0, 0);
 INSERT INTO cuyahoga_modulesetting ( moduletypeid, name, friendlyname, settingdatatype, iscustomtype, isrequired) VALUES ( @moduletypeid, 'MOVIEVARS', 'Set any flash vars (var:value;)', 'System.String', 0, 0);
 
-INSERT INTO cuyahoga_version (assembly, major, minor, patch) VALUES ('Cuyahoga.Modules.Flash', 1, 0, 0);
+INSERT INTO cuyahoga_version (assembly, major, minor, patch) VALUES ('Cuyahoga.Modules.Flash', 1, 5, 0);

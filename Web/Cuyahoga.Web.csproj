@@ -584,13 +584,6 @@
     <Content Include="Support\FCKeditor\editor\filemanager\browser\default\browser.css" />
     <Content Include="Support\FCKeditor\editor\filemanager\browser\default\browser.html" />
     <Content Include="Support\FCKeditor\editor\filemanager\browser\default\connectors\aspx\connector.aspx" />
-    <Content Include="Support\FCKeditor\editor\filemanager\browser\default\connectors\asp\basexml.asp" />
-    <Content Include="Support\FCKeditor\editor\filemanager\browser\default\connectors\asp\class_upload.asp" />
-    <Content Include="Support\FCKeditor\editor\filemanager\browser\default\connectors\asp\commands.asp" />
-    <Content Include="Support\FCKeditor\editor\filemanager\browser\default\connectors\asp\config.asp" />
-    <Content Include="Support\FCKeditor\editor\filemanager\browser\default\connectors\asp\connector.asp" />
-    <Content Include="Support\FCKeditor\editor\filemanager\browser\default\connectors\asp\io.asp" />
-    <Content Include="Support\FCKeditor\editor\filemanager\browser\default\connectors\asp\util.asp" />
     <Content Include="Support\FCKeditor\editor\filemanager\browser\default\connectors\test.html" />
     <Content Include="Support\FCKeditor\editor\filemanager\browser\default\frmactualfolder.html" />
     <Content Include="Support\FCKeditor\editor\filemanager\browser\default\frmcreatefolder.html" />
@@ -660,10 +653,6 @@
     <Content Include="Support\FCKeditor\editor\filemanager\browser\default\js\common.js" />
     <Content Include="Support\FCKeditor\editor\filemanager\browser\default\js\fckxml.js" />
     <Content Include="Support\FCKeditor\editor\filemanager\upload\aspx\upload.aspx" />
-    <Content Include="Support\FCKeditor\editor\filemanager\upload\asp\class_upload.asp" />
-    <Content Include="Support\FCKeditor\editor\filemanager\upload\asp\config.asp" />
-    <Content Include="Support\FCKeditor\editor\filemanager\upload\asp\io.asp" />
-    <Content Include="Support\FCKeditor\editor\filemanager\upload\asp\upload.asp" />
     <Content Include="Support\FCKeditor\editor\filemanager\upload\test.html" />
     <Content Include="Support\FCKeditor\editor\images\anchor.gif" />
     <Content Include="Support\FCKeditor\editor\images\arrow_ltr.gif" />
@@ -1123,30 +1112,7 @@
     <None Include="Support\FCKeditor\editor\dialog\fck_spellerpages\spellerpages\server-scripts\spellchecker.cfm" />
     <None Include="Support\FCKeditor\editor\dialog\fck_spellerpages\spellerpages\server-scripts\spellchecker.php" />
     <None Include="Support\FCKeditor\editor\dialog\fck_spellerpages\spellerpages\server-scripts\spellchecker.pl" />
-    <None Include="Support\FCKeditor\editor\filemanager\browser\default\connectors\cfm\config.cfm" />
-    <None Include="Support\FCKeditor\editor\filemanager\browser\default\connectors\cfm\connector.cfm" />
-    <None Include="Support\FCKeditor\editor\filemanager\browser\default\connectors\lasso\config.lasso" />
-    <None Include="Support\FCKeditor\editor\filemanager\browser\default\connectors\lasso\connector.lasso" />
-    <None Include="Support\FCKeditor\editor\filemanager\browser\default\connectors\perl\basexml.pl" />
-    <None Include="Support\FCKeditor\editor\filemanager\browser\default\connectors\perl\commands.pl" />
-    <None Include="Support\FCKeditor\editor\filemanager\browser\default\connectors\perl\connector.cgi" />
-    <None Include="Support\FCKeditor\editor\filemanager\browser\default\connectors\perl\io.pl" />
-    <None Include="Support\FCKeditor\editor\filemanager\browser\default\connectors\perl\upload_fck.pl" />
-    <None Include="Support\FCKeditor\editor\filemanager\browser\default\connectors\perl\util.pl" />
-    <None Include="Support\FCKeditor\editor\filemanager\browser\default\connectors\php\basexml.php" />
-    <None Include="Support\FCKeditor\editor\filemanager\browser\default\connectors\php\commands.php" />
-    <None Include="Support\FCKeditor\editor\filemanager\browser\default\connectors\php\config.php" />
-    <None Include="Support\FCKeditor\editor\filemanager\browser\default\connectors\php\connector.php" />
-    <None Include="Support\FCKeditor\editor\filemanager\browser\default\connectors\php\io.php" />
-    <None Include="Support\FCKeditor\editor\filemanager\browser\default\connectors\php\util.php" />
-    <None Include="Support\FCKeditor\editor\filemanager\browser\default\connectors\py\connector.py" />
-    <None Include="Support\FCKeditor\editor\filemanager\upload\cfm\config.cfm" />
-    <None Include="Support\FCKeditor\editor\filemanager\upload\cfm\upload.cfm" />
-    <None Include="Support\FCKeditor\editor\filemanager\upload\lasso\config.lasso" />
-    <None Include="Support\FCKeditor\editor\filemanager\upload\lasso\upload.lasso" />
-    <None Include="Support\FCKeditor\editor\filemanager\upload\php\config.php" />
-    <None Include="Support\FCKeditor\editor\filemanager\upload\php\upload.php" />
-    <None Include="Support\FCKeditor\editor\filemanager\upload\php\util.php" />
+    <Content Include="Support\FCKeditor\editor\filemanager\Web.config" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="index\" />

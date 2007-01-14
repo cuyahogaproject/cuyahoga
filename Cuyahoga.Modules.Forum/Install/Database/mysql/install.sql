@@ -106,7 +106,7 @@ VALUES ('Forum', 'Cuyahoga.Modules.Forum', 'Cuyahoga.Modules.Forum.ForumModule',
 
 SELECT @moduletypeid := last_insert_id();
 
-INSERT INTO cuyahoga_version (assembly, major, minor, patch) VALUES ('Cuyahoga.Modules.Forum', 1, 0, 0);
+INSERT INTO cuyahoga_version (assembly, major, minor, patch) VALUES ('Cuyahoga.Modules.Forum', 1, 5, 0);
 
 INSERT INTO cm_forumemoticon (textversion, imagename,updatetimestamp,inserttimestamp)
 VALUES ('8)', 'cool.gif', '2005-02-11 14:36:28.324', '2004-02-11 14:36:28.324');
