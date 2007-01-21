@@ -26,8 +26,6 @@ CREATE TABLE cuyahoga_userrole(
 userroleid serial NOT NULL CONSTRAINT PK_userrole PRIMARY KEY,
 userid int4 NOT NULL,
 roleid int4 NOT NULL,
-inserttimestamp timestamp DEFAULT current_timestamp NOT NULL,
-updatetimestamp timestamp DEFAULT current_timestamp NOT NULL,
 CONSTRAINT FK_role_roleid FOREIGN KEY (roleid) REFERENCES cuyahoga_role (roleid),
 CONSTRAINT FK_user_userid FOREIGN KEY (userid) REFERENCES cuyahoga_user (userid));
 

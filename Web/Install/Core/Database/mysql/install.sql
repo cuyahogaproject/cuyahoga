@@ -32,8 +32,6 @@ CREATE TABLE cuyahoga_userrole(
 userroleid INT NOT NULL AUTO_INCREMENT,
 userid INT NOT NULL,
 roleid INT NOT NULL,
-inserttimestamp TIMESTAMP NOT NULL,
-updatetimestamp DATETIME,
 FOREIGN KEY (roleid) REFERENCES cuyahoga_role (roleid),
 FOREIGN KEY (userid) REFERENCES cuyahoga_user (userid),
 PRIMARY KEY (userroleid));

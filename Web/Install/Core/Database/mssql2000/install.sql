@@ -30,9 +30,7 @@ go
 CREATE TABLE cuyahoga_userrole(
 userroleid int identity(1,1) NOT NULL CONSTRAINT PK_userrole PRIMARY KEY,
 userid int NOT NULL,
-roleid int NOT NULL,
-inserttimestamp datetime DEFAULT current_timestamp NOT NULL,
-updatetimestamp datetime DEFAULT current_timestamp NOT NULL)
+roleid int NOT NULL)
 go
 
 
