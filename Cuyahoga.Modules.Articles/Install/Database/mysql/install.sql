@@ -71,6 +71,9 @@ INSERT INTO cuyahoga_modulesetting (moduletypeid, name, friendlyname, settingdat
 VALUES (@moduletypeid, 'ALLOW_SYNDICATION', 'Allow syndication', 'System.Boolean', 0, 1);
 
 INSERT INTO cuyahoga_modulesetting (moduletypeid, name, friendlyname, settingdatatype, iscustomtype, isrequired) 
+VALUES (@moduletypeid, 'SHOW_ARCHIVE', 'Show link to archived articles', 'System.Boolean', 0, 1);
+
+INSERT INTO cuyahoga_modulesetting (moduletypeid, name, friendlyname, settingdatatype, iscustomtype, isrequired) 
 VALUES (@moduletypeid, 'SORT_BY', 'Sort by', 'Cuyahoga.Modules.Articles.SortBy', 1, 1);
 
 INSERT INTO cuyahoga_modulesetting (moduletypeid, name, friendlyname, settingdatatype, iscustomtype, isrequired) 

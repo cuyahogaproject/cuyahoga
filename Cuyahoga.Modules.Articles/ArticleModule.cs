@@ -2,10 +2,6 @@ using System;
 using System.Collections;
 using System.Text.RegularExpressions;
 
-using NHibernate;
-using NHibernate.Expression;
-using NHibernate.Type;
-
 using Cuyahoga.Core;
 using Cuyahoga.Core.Domain;
 using Cuyahoga.Core.Service;
@@ -15,6 +11,11 @@ using Cuyahoga.Core.Communication;
 using Cuyahoga.Modules.Articles.Domain;
 
 using ArticleCategory = Cuyahoga.Modules.Articles.Domain.Category;
+using Cuyahoga.Web.Util;
+using Cuyahoga.Modules.Articles.DataAccess;
+using Cuyahoga.Core.DataAccess;
+using Castle.MicroKernel;
+using Castle.Services.Transaction;
 
 namespace Cuyahoga.Modules.Articles
 {
@@ -23,10 +24,33 @@ namespace Cuyahoga.Modules.Articles
 	/// </summary>
 	public class ArticleModule : ModuleBase, ISyndicatable, ISearchable, IActionProvider, INHibernateModule
 	{
+		private ICommonDao _commonDao;
+		private ArticleDao _articleDao;
+		private IKernel _kernel;
+
 		private int _currentArticleId;
 		private int _currentCategoryId;
+		private bool _isArchive;
+		private bool _allowComments;
+		private bool _allowAnonymousComments;
+		private bool _allowSyndication;
+		private bool _showArchive;
+		private int _numberOfArticlesInList;
+		private DisplayType _displayType;
 		private SortBy _sortBy;
 		private SortDirection _sortDirection;
+		private ArticleModuleAction _currentAction;
+
+		#region properties
+
+		/// <summary>
+		/// Article DAO (injected). We can't add it as a constructor parameter because the module has to register the DAO itself.
+		/// TODO: fix this properly.
+		/// </summary>
+		public ArticleDao ArticleDao
+		{
+			set { this._articleDao = value; }
+		}
 
 		/// <summary>
 		/// Property CurrentArticleId (int)
@@ -45,13 +69,73 @@ namespace Cuyahoga.Modules.Articles
 		}
 
 		/// <summary>
-		/// Default constructor. The ArticleModule registers its own Domain classes in the NHibernate
-		/// SessionFactory.
+		/// 
 		/// </summary>
-		public ArticleModule()
+		public ArticleModuleAction CurrentAction
 		{
+			get { return this._currentAction; }
+		}
+
+		/// <summary>
+		/// Show archived articles instead of the current ones.
+		/// </summary>
+		public bool IsArchive
+		{
+			get { return this._isArchive; }
+		}
+
+		/// <summary>
+		/// Allow syndication of articles?
+		/// </summary>
+		public bool AllowSyndication
+		{
+			get { return this._allowSyndication; }
+		}
+
+		/// <summary>
+		/// 
+		/// </summary>
+		public bool AllowComments
+		{
+			get { return this._allowComments; }
+		}
+
+		/// <summary>
+		/// 
+		/// </summary>
+		public bool AllowAnonymousComments
+		{
+			get { return this._allowAnonymousComments; }
+		}
+
+		/// <summary>
+		/// 
+		/// </summary>
+		public int NumberOfArticlesInList
+		{
+			get { return this._numberOfArticlesInList; }
+		}
+
+		/// <summary>
+		/// Show a link to archived articles.
+		/// </summary>
+		public bool ShowArchive
+		{
+			get { return this._showArchive; }
+		}
+
+		#endregion
+
+		/// <summary>
+		/// Default constructor.
+		/// </summary>
+		public ArticleModule(ICommonDao commonDao, IKernel kernel)
+		{
+			this._commonDao = commonDao;
+			this._kernel = kernel;
 			this._currentArticleId = -1;
 			this._currentCategoryId = -1;
+			this._currentAction = ArticleModuleAction.List;
 		}
 
 		public override void ReadSectionSettings()
@@ -60,6 +144,12 @@ namespace Cuyahoga.Modules.Articles
 
 			try
 			{
+				this._allowComments = Convert.ToBoolean(base.Section.Settings["ALLOW_COMMENTS"]);
+				this._allowAnonymousComments = Convert.ToBoolean(base.Section.Settings["ALLOW_ANONYMOUS_COMMENTS"]);
+				this._allowSyndication = Convert.ToBoolean(base.Section.Settings["ALLOW_SYNDICATION"]);
+				this._showArchive = Convert.ToBoolean(base.Section.Settings["SHOW_ARCHIVE"]);
+				this._numberOfArticlesInList = Convert.ToInt32(base.Section.Settings["NUMBER_OF_ARTICLES_IN_LIST"]);
+				this._displayType = (DisplayType)Enum.Parse(typeof(DisplayType), base.Section.Settings["DISPLAY_TYPE"].ToString());
 				this._sortBy = (SortBy)Enum.Parse(typeof(SortBy), base.Section.Settings["SORT_BY"].ToString());
 				this._sortDirection = (SortDirection)Enum.Parse(typeof(SortDirection), base.Section.Settings["SORT_DIRECTION"].ToString());
 			}
@@ -71,257 +161,24 @@ namespace Cuyahoga.Modules.Articles
 			}
 		}
 
-
-		/// <summary>
-		/// Get the available categories for the current site (via Article -> Section -> Node -> Site). 
-		/// </summary>
-		/// <returns></returns>
-		public IList GetAvailableCategories()
+		public override void DeleteModuleContent()
 		{
-			try
+			if (this.GetAllArticles().Count > 0)
 			{
-				string hql = "select distinct c from Category c, Article a where a.Category = c and a.Section.Node.Site.Id = :siteId";
-				IQuery q = base.NHSession.CreateQuery(hql);
-				q.SetInt32("siteId", base.Section.Node.Site.Id);
-				return q.List();
-			}
-			catch (Exception ex)
-			{
-				throw new Exception("Unable to get Categories", ex);
+				throw new ActionForbiddenException("You have to manually delete the related Articles before you can delete the Section.");
 			}
 		}
 
 		/// <summary>
-		/// 
+		/// Register components that belong to this module.
 		/// </summary>
-		/// <param name="categoryId"></param>
-		/// <returns></returns>
-		public ArticleCategory GetCategoryById(int categoryId)
+		public override void RegisterComponents()
 		{
-			try
-			{
-				return (ArticleCategory)base.NHSession.Load(typeof(ArticleCategory), categoryId);
-			}
-			catch (Exception ex)
-			{
-				throw new Exception("Unable to get Category", ex);
-			}
-		}
+			this._kernel.AddComponent("articles.articledao", typeof(ArticleDao));
+			// HACK: the first time we have to manually set the ArticleDao
+			this._articleDao = this._kernel[typeof(ArticleDao)] as ArticleDao;
 
-		/// <summary>
-		/// 
-		/// </summary>
-		/// <returns></returns>
-		public IList GetAllArticles()
-		{
-			try
-			{
-				string hql = "from Article a where a.Section.Id = ? " + GetOrderByClause("a");
-				return base.NHSession.Find(hql, this.Section.Id, NHibernateUtil.Int32);
-			}
-			catch (Exception ex)
-			{
-				throw new Exception("Unable to get Articles", ex);
-			}
-		}
-
-		/// <summary>
-		/// 
-		/// </summary>
-		/// <param name="number"></param>
-		/// <returns></returns>
-		public IList GetDisplayArticles(int number)
-		{
-			try
-			{
-				string hql = "from Article a where a.Section.Id = :sectionId and a.DateOnline < :now and a.DateOffline > :now " + GetOrderByClause("a");
-				IQuery q = base.NHSession.CreateQuery(hql);
-				q.SetInt32("sectionId", base.Section.Id);
-				q.SetDateTime("now", DateTime.Now);
-				q.SetMaxResults(number);
-				return q.List();
-			}
-			catch (Exception ex)
-			{
-				throw new Exception("Unable to get Articles", ex);
-			}
-		}
-
-		/// <summary>
-		/// 
-		/// </summary>
-		/// <returns></returns>
-		public IList GetDisplayArticlesByCategory()
-		{
-			try
-			{
-				string hql = "from Article a where a.Category.Id = :categoryId and a.DateOnline < :now and a.DateOffline > :now " + GetOrderByClause("a");
-				IQuery q = base.NHSession.CreateQuery(hql);
-				q.SetInt32("categoryId", this._currentCategoryId);
-				q.SetDateTime("now", DateTime.Now);
-				return q.List();
-			}
-			catch (Exception ex)
-			{
-				throw new Exception("Unable to get Articles", ex);
-			}
-		}
-
-		/// <summary>
-		/// 
-		/// </summary>
-		/// <returns></returns>
-		public IList GetRssArticlesByCategory()
-		{
-			try
-			{
-				string hql = "from Article a where a.Category.Id = :categoryId and a.Syndicate = :syndicate and a.DateOnline < :now and a.DateOffline > :now " + GetOrderByClause("a");
-				IQuery q = base.NHSession.CreateQuery(hql);
-				q.SetInt32("categoryId", this._currentCategoryId);
-				q.SetBoolean("syndicate", true);
-				q.SetDateTime("now", DateTime.Now);
-				return q.List();
-			}
-			catch (Exception ex)
-			{
-				throw new Exception("Unable to get Articles", ex);
-			}
-		}
-
-		/// <summary>
-		/// 
-		/// </summary>
-		/// <param name="number"></param>
-		/// <returns></returns>
-		public IList GetRssArticles(int number)
-		{
-			try
-			{
-				string hql = "from Article a where a.Section.Id = :sectionId and a.Syndicate = :syndicate and a.DateOnline < :now and a.DateOffline > :now " + GetOrderByClause("a");
-				IQuery q = base.NHSession.CreateQuery(hql);
-				q.SetInt32("sectionId", base.Section.Id);
-				q.SetBoolean("syndicate", true);
-				q.SetDateTime("now", DateTime.Now);
-				q.SetMaxResults(number);
-				return q.List();
-			}
-			catch (Exception ex)
-			{
-				throw new Exception("Unable to get Articles", ex);
-			}
-		}
-
-		/// <summary>
-		/// 
-		/// </summary>
-		/// <param name="id"></param>
-		/// <returns></returns>
-		public Article GetArticleById(int id)
-		{
-			try
-			{
-				return (Article)base.NHSession.Load(typeof(Article), id);
-			}
-			catch (Exception ex)
-			{
-				throw new Exception("Unable to get Article", ex);
-			}
-		}
-
-		/// <summary>
-		/// 
-		/// </summary>
-		/// <param name="article"></param>
-		public void SaveArticle(Article article)
-		{
-			ITransaction tx = base.NHSession.BeginTransaction();
-			try
-			{
-				article.Category = HandleCategory(article.Category, base.NHSession);
-				if (article.Id == -1)
-				{
-					article.DateModified = DateTime.Now;
-					base.NHSession.Save(article);
-					OnContentCreated(new IndexEventArgs(ArticleToSearchContent(article)));
-				}
-				else
-				{
-					base.NHSession.Update(article);
-					OnContentUpdated(new IndexEventArgs(ArticleToSearchContent(article)));
-				}
-				tx.Commit();
-			}
-			catch (Exception ex)
-			{
-				tx.Rollback();
-				throw new Exception("Unable to save Article", ex);
-			}
-		}
-
-		/// <summary>
-		/// 
-		/// </summary>
-		/// <param name="article"></param>
-		public void DeleteArticle(Article article)
-		{
-			ITransaction tx = base.NHSession.BeginTransaction();
-			try
-			{
-				base.NHSession.Delete(article);
-				OnContentDeleted(new IndexEventArgs(ArticleToSearchContent(article)));
-				tx.Commit();
-			}
-			catch (Exception ex)
-			{
-				tx.Rollback();
-				throw new Exception("Unable to delete Article", ex);
-			}
-		}
-
-		/// <summary>
-		/// 
-		/// </summary>
-		/// <param name="comment"></param>
-		public void SaveComment(Comment comment)
-		{
-			ITransaction tx = base.NHSession.BeginTransaction();
-			try
-			{
-				if (comment.Id == -1)
-				{
-					comment.UpdateTimestamp = DateTime.Now;
-					base.NHSession.Save(comment);
-				}
-				else
-				{
-					base.NHSession.Update(comment);
-				}
-				tx.Commit();
-			}
-			catch (Exception ex)
-			{
-				tx.Rollback();
-				throw new Exception("Unable to save Comment", ex);
-			}
-		}
-
-		/// <summary>
-		/// 
-		/// </summary>
-		/// <param name="comment"></param>
-		public void DeleteComment(Comment comment)
-		{
-			ITransaction tx = base.NHSession.BeginTransaction();
-			try
-			{
-				base.NHSession.Delete(comment);
-				tx.Commit();
-			}
-			catch (Exception ex)
-			{
-				tx.Rollback();
-				throw new Exception("Unable to delete Comment", ex);
-			}
+			base.RegisterComponents();
 		}
 
 		/// <summary>
@@ -333,56 +190,225 @@ namespace Cuyahoga.Modules.Articles
 			{
 				// try to find an articleId
 				string expression = @"^\/(\d+)";
-				Regex articleIdRegEx = new Regex(expression, RegexOptions.Singleline|RegexOptions.CultureInvariant|RegexOptions.Compiled);
-				if (articleIdRegEx.IsMatch(base.ModulePathInfo))
-				{					
-					this._currentArticleId = Int32.Parse(articleIdRegEx.Match(base.ModulePathInfo).Groups[1].Value);
+				if (Regex.IsMatch(base.ModulePathInfo, expression, RegexOptions.Singleline | RegexOptions.CultureInvariant | RegexOptions.Compiled))
+				{
+					this._currentArticleId = Int32.Parse(Regex.Match(base.ModulePathInfo, expression).Groups[1].Value);
+					this._currentAction = ArticleModuleAction.Details;
+					return;
 				}
-				
+
 				// try to find a categoryid
 				expression = @"^\/category\/(\d+)";
-				Regex categoryRegex = new Regex(expression, RegexOptions.Singleline|RegexOptions.CultureInvariant|RegexOptions.Compiled);
-				if (categoryRegex.IsMatch(base.ModulePathInfo))
+				if (Regex.IsMatch(base.ModulePathInfo, expression, RegexOptions.Singleline | RegexOptions.CultureInvariant | RegexOptions.Compiled))
 				{
-					this._currentCategoryId = Int32.Parse(categoryRegex.Match(base.ModulePathInfo).Groups[1].Value);
+					this._currentCategoryId = Int32.Parse(Regex.Match(base.ModulePathInfo, expression).Groups[1].Value);
+					this._currentAction = ArticleModuleAction.Category;
+					return;
+				}
+
+				expression = @"^\/archive";
+				if (Regex.IsMatch(base.ModulePathInfo, expression, RegexOptions.Singleline | RegexOptions.CultureInvariant | RegexOptions.Compiled))
+				{
+					this._isArchive = true;
+					this._currentAction = ArticleModuleAction.Archive;
+					return;
 				}
 			}
 		}
 
-		public override void DeleteModuleContent()
+		/// <summary>
+		/// The current view user control based on the action that was set while parsing the pathinfo.
+		/// </summary>
+		public override string CurrentViewControlPath
 		{
-			if (this.GetAllArticles().Count > 0)
+			get
 			{
-				throw new ActionForbiddenException("You have to manually delete the related Articles before you can delete the Section.");
+				string basePath = "Modules/Articles/";
+				switch (this._currentAction)
+				{
+					case ArticleModuleAction.List:
+					case ArticleModuleAction.Category:
+					case ArticleModuleAction.Archive:
+						return basePath + "Articles.ascx";
+					case ArticleModuleAction.Details:
+						return basePath + "ArticleDetails.ascx";
+					default:
+						return basePath + "Articles.ascx";
+				}
 			}
 		}
 
+		#region Data Access
 
-		private ArticleCategory HandleCategory(ArticleCategory category, ISession session)
+		/// <summary>
+		/// Get the available categories for the current site (via Article -> Section -> Node -> Site). 
+		/// </summary>
+		/// <returns></returns>
+		public IList GetAvailableCategories()
+		{
+			return this._articleDao.GetAvailableCategoriesBySite(base.Section.Node.Site);
+		}
+
+		/// <summary>
+		/// 
+		/// </summary>
+		/// <param name="categoryId"></param>
+		/// <returns></returns>
+		public ArticleCategory GetCategoryById(int categoryId)
+		{
+			return (ArticleCategory)this._commonDao.GetObjectById(typeof(ArticleCategory), categoryId);
+		}
+
+		/// <summary>
+		/// 
+		/// </summary>
+		/// <returns></returns>
+		public IList GetAllArticles()
+		{
+			return this._articleDao.GetAllArticlesBySection(base.Section, this._sortBy, this._sortDirection);
+		}
+
+		/// <summary>
+		/// Get this list of articles
+		/// </summary>
+		/// <returns></returns>
+		public IList GetArticleList()
+		{
+			switch (this._currentAction)
+			{
+				case ArticleModuleAction.List:
+					return this._articleDao.GetDisplayArticlesBySection(base.Section, this._sortBy, this._sortDirection);
+				case ArticleModuleAction.Category:
+					return this._articleDao.GetDisplayArticlesByCategory((ArticleCategory)this._commonDao.GetObjectById(typeof(ArticleCategory)
+						, this._currentArticleId), this._sortBy, this._sortDirection);
+				case ArticleModuleAction.Archive:
+					return this._articleDao.GetArchivedArticlesBySection(base.Section, this._sortBy, this._sortDirection);
+				default:
+					return null;
+			}
+		}
+
+		/// <summary>
+		/// 
+		/// </summary>
+		/// <returns></returns>
+		public IList GetRssArticlesByCategory()
+		{
+			return this._articleDao.GetRssArticlesByCategory((ArticleCategory)this._commonDao.GetObjectById(typeof(ArticleCategory), this._currentCategoryId)
+				, this._sortBy, this._sortDirection);
+		}
+
+		/// <summary>
+		/// 
+		/// </summary>
+		/// <param name="number"></param>
+		/// <returns></returns>
+		public IList GetRssArticles(int number)
+		{
+			return this._articleDao.GetRssArticles(base.Section, this._numberOfArticlesInList, this._sortBy, this._sortDirection);
+		}
+
+		/// <summary>
+		/// 
+		/// </summary>
+		/// <param name="id"></param>
+		/// <returns></returns>
+		public Article GetArticleById(int id)
+		{
+			return (Article)this._commonDao.GetObjectById(typeof(Article), id);
+		}
+
+		/// <summary>
+		/// 
+		/// </summary>
+		/// <param name="article"></param>
+		[Transaction(TransactionMode.RequiresNew)]
+		public void SaveArticle(Article article)
+		{			
+			article.Category = HandleCategory(article.Category);
+			if (article.Id == -1)
+			{
+				this._commonDao.SaveOrUpdateObject(article);
+				OnContentCreated(new IndexEventArgs(ArticleToSearchContent(article)));
+			}
+			else
+			{
+				this._commonDao.SaveOrUpdateObject(article);
+				OnContentUpdated(new IndexEventArgs(ArticleToSearchContent(article)));
+			}
+		}
+
+		/// <summary>
+		/// 
+		/// </summary>
+		/// <param name="article"></param>
+		[Transaction(TransactionMode.RequiresNew)]
+		public void DeleteArticle(Article article)
+		{
+			this._commonDao.DeleteObject(article);
+			OnContentDeleted(new IndexEventArgs(ArticleToSearchContent(article)));
+		}
+
+		/// <summary>
+		/// 
+		/// </summary>
+		/// <param name="comment"></param>
+		[Transaction(TransactionMode.RequiresNew)]
+		public void SaveComment(Comment comment)
+		{
+			this._commonDao.SaveOrUpdateObject(comment);
+		}
+
+		/// <summary>
+		/// 
+		/// </summary>
+		/// <param name="comment"></param>
+		[Transaction(TransactionMode.RequiresNew)]
+		public void DeleteComment(Comment comment)
+		{
+			this._commonDao.DeleteObject(comment);
+		}
+
+		private ArticleCategory HandleCategory(ArticleCategory category)
 		{
 			if (category != null && category.Id == -1)
 			{
 				// Unknown category, this could be a new one or maybe still an existing one.
-				// HACK: checking if a category exists should occur before attaching it to an article.
-				// Now we have to temporarily disable autoflush to prevent flushing while searching
-				// for a category.
-				session.FlushMode = FlushMode.Commit;
-				IList categories = session.CreateCriteria(typeof(ArticleCategory)).Add(Expression.Eq("Title", category.Title)).List();
-				session.FlushMode = FlushMode.Auto;
+				ArticleCategory cat = this._articleDao.FindCategoryByTitleAndSite(category.Title, base.Section.Node.Site);
+				
 
-				if (categories.Count > 0)
+				if (cat != null)
 				{
-					// Use the existing one.
-					category = (ArticleCategory)categories[0];
+					// Category already exists.
+					category = cat;
 				}
 				else
 				{
 					// Insert the new one, so the Id will be generated and retrieved.
-					category.UpdateTimestamp = DateTime.Now;
-					session.Save(category);
+					this._commonDao.SaveOrUpdateObject(category);
 				}
 			}
 			return category;
+		}
+
+		#endregion
+
+		/// <summary>
+		/// Get the url of a user profile. This only works if this module is connected to a UserProfile module.
+		/// </summary>
+		/// <param name="userId"></param>
+		/// <returns></returns>
+		public string GetProfileUrl(int userId)
+		{
+			Section sectionTo = this.Section.Connections["ViewProfile"] as Section;
+			if (sectionTo != null)
+			{
+				return UrlHelper.GetUrlFromSection(sectionTo) + "/ViewProfile/" + userId.ToString();
+			}
+			else
+			{
+				return null;
+			}
 		}
 
 		private SearchContent ArticleToSearchContent(Article article)
@@ -408,33 +434,6 @@ namespace Cuyahoga.Modules.Articles
 			sc.SectionId = this.Section.Id;
 
 			return sc;
-		}
-
-		private string GetOrderByClause(string articleAlias)
-		{
-			if (this._sortBy == SortBy.None)
-			{
-				return String.Empty;
-			}
-			else
-			{
-				switch (this._sortBy)
-				{
-					case SortBy.DateCreated:
-					case SortBy.DateModified:
-					case SortBy.DateOnline:
-					case SortBy.Title:
-						return String.Format("order by {0}.{1} {2}", articleAlias, this._sortBy.ToString(), this._sortDirection.ToString());
-					case SortBy.Category:
-						return String.Format("order by {0}.Category.Title {1}", articleAlias, this._sortDirection.ToString());
-					case SortBy.CreatedBy:
-						return String.Format("order by {0}.CreatedBy.UserName {1}", articleAlias, this._sortDirection.ToString());
-					case SortBy.ModifiedBy:
-						return String.Format("order by {0}.ModifiedBy.UserName {1}", articleAlias, this._sortDirection.ToString());
-					default:
-						return String.Empty;
-				}
-			}
 		}
 
 		#region ISyndicatable Members
@@ -563,6 +562,7 @@ namespace Cuyahoga.Modules.Articles
 		}
 
 		#endregion
+
 	}
 
 	/// <summary>
@@ -627,5 +627,25 @@ namespace Cuyahoga.Modules.Articles
 		/// Sort ascending.
 		/// </summary>
 		ASC
+	}
+
+	public enum ArticleModuleAction
+	{
+		/// <summary>
+		/// Show the list of articles.
+		/// </summary>
+		List,
+		/// <summary>
+		/// Show a single article.
+		/// </summary>
+		Details,
+		/// <summary>
+		/// Show all articles for a particular category.
+		/// </summary>
+		Category,
+		/// <summary>
+		/// Show all expired articles.
+		/// </summary>
+		Archive
 	}
 }
