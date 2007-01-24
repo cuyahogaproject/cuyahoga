@@ -71,6 +71,19 @@ go
 CREATE UNIQUE INDEX IX_modulesetting_moduletypeid_name ON cuyahoga_modulesetting (moduletypeid,name)
 go
 
+CREATE TABLE cuyahoga_moduleservice(
+moduleserviceid int identity(1,1) NOT NULL CONSTRAINT PK_moduleservice PRIMARY KEY,
+moduletypeid int NOT NULL,
+servicekey nvarchar(50) NOT NULL,
+servicetype nvarchar(255) NOT NULL,
+classtype nvarchar(255) NOT NULL,
+lifestyle nvarchar(10) NULL)
+go
+
+CREATE UNIQUE INDEX IX_moduleservice_moduletypeid_servicekey ON cuyahoga_moduleservice (moduletypeid,servicekey)
+go
+
+
 CREATE TABLE cuyahoga_site(
 siteid int identity(1,1) NOT NULL CONSTRAINT PK_site PRIMARY KEY,
 templateid int NULL,
@@ -269,6 +282,12 @@ go
 
 ALTER TABLE cuyahoga_modulesetting
 ADD CONSTRAINT FK_modulesetting_moduletype_moduletypeid
+FOREIGN KEY (moduletypeid) REFERENCES cuyahoga_moduletype (moduletypeid)
+go
+
+
+ALTER TABLE cuyahoga_moduleservice
+ADD CONSTRAINT FK_moduleservice_moduletype_moduletypeid
 FOREIGN KEY (moduletypeid) REFERENCES cuyahoga_moduletype (moduletypeid)
 go
 

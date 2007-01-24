@@ -74,6 +74,18 @@ PRIMARY KEY (modulesettingid),
 UNIQUE IX_modulesetting_moduletypeid_name (moduletypeid,name));
 
 
+CREATE TABLE cuyahoga_moduleservice(
+moduleserviceid INT NOT NULL AUTO_INCREMENT,
+moduletypeid INT NOT NULL,
+servicekey VARCHAR(50) NOT NULL,
+servicetype VARCHAR(255) NOT NULL,
+classtype VARCHAR(255) NOT NULL,
+lifestyle VARCHAR(10) NOT NULL,
+FOREIGN KEY (moduletypeid) REFERENCES cuyahoga_moduletype (moduletypeid),
+PRIMARY KEY (moduleserviceid),
+UNIQUE IX_moduleservice_moduletypeid_servicekey (moduletypeid,servicekey));
+
+
 CREATE TABLE cuyahoga_site(
 siteid INT NOT NULL AUTO_INCREMENT,
 templateid INT,

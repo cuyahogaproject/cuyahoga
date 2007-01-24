@@ -98,7 +98,7 @@ namespace Cuyahoga.Web.Admin
 
                 if (moduleTypeType != null) // throw exception when moduleTypeType == null?
                 {
-                    ModuleBase moduleInstance = base.ModuleLoader.GetModuleFromType(moduleTypeType);
+                    ModuleBase moduleInstance = base.ModuleLoader.GetModuleFromType(mt);
                     if (moduleInstance is IActionConsumer)
                     {
                         IActionConsumer actionConsumer = moduleInstance as IActionConsumer;

@@ -13,6 +13,8 @@
 		<property name="Title" column="title" type="String" length="100" unique="true" />
 		<property name="Summary" column="summary" type="String" length="255" />
 		<property name="Syndicate" column="syndicate" type="Boolean" />
+
+		<many-to-one name="Site" class="Cuyahoga.Core.Domain.Site, Cuyahoga.Core" column="siteid" not-null="true" cascade="none" />
 		
 		<bag name="Articles" cascade="none" lazy="true">
 			<key column="articlecategoryid" />

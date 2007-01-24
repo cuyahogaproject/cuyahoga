@@ -13,13 +13,15 @@ using ArticleCategory = Cuyahoga.Modules.Articles.Domain.Category;
 using Cuyahoga.Core.Domain;
 using System.Collections;
 using NHibernate;
+using System.Globalization;
 
 namespace Cuyahoga.Modules.Articles.DataAccess
 {
 	/// <summary>
 	/// Specific Data Access functionality for Article module.
 	/// </summary>
-	public class ArticleDao
+	[Transactional]
+	public class ArticleDao : Cuyahoga.Modules.Articles.DataAccess.IArticleDao
 	{
 		private ISessionManager _sessionManager;
 
@@ -39,7 +41,7 @@ namespace Cuyahoga.Modules.Articles.DataAccess
 		/// <returns></returns>
 		public IList GetAvailableCategoriesBySite(Site site)
 		{
-			string hql = "select distinct c from Cuyahoga.Modules.Articles.Domain.Category c, Article a where a.Category = c and a.Section.Node.Site.Id = :siteId";
+			string hql = "select c from Cuyahoga.Modules.Articles.Domain.Category c where c.Site.Id = :siteId order by c.Title";
 			IQuery q = this._sessionManager.OpenSession().CreateQuery(hql);
 			q.SetInt32("siteId", site.Id);
 			return q.List();
@@ -52,9 +54,9 @@ namespace Cuyahoga.Modules.Articles.DataAccess
 		/// <param name="site"></param>
 		/// <returns></returns>
 		[Transaction(TransactionMode.Supported)]
-		public ArticleCategory FindCategoryByTitleAndSite(string title, Site site)
+		public virtual ArticleCategory FindCategoryByTitleAndSite(string title, Site site)
 		{
-			string hql = "from Cuyahoga.Modules.Articles.Domain.Category c, Article a where c.Title = :title and a.Category = c and a.Section.Node.Site.Id = :siteId";
+			string hql = "from Cuyahoga.Modules.Articles.Domain.Category c where lower(c.Title) = :title and c.Site.Id = :siteId";
 			ISession session = this._sessionManager.OpenSession();
 			
 			// HACK: set the FlushMode of the session to temporarily to Commit because this method is being called in a transaction
@@ -63,7 +65,7 @@ namespace Cuyahoga.Modules.Articles.DataAccess
 			session.FlushMode = FlushMode.Commit;
 
 			IQuery q = this._sessionManager.OpenSession().CreateQuery(hql);
-			q.SetString("title", title);
+			q.SetString("title", title.ToLower(CultureInfo.InvariantCulture));
 			q.SetInt32("siteId", site.Id);
 			ArticleCategory category = q.UniqueResult() as ArticleCategory;
 			session.FlushMode = originalFlushMode;
@@ -94,7 +96,7 @@ namespace Cuyahoga.Modules.Articles.DataAccess
 		/// <returns></returns>
 		public IList GetDisplayArticlesBySection(Section section, SortBy sortBy, SortDirection sortDirection)
 		{
-			string hql = "from Article a where a.Section.Id = :sectionId and a.DateOnline < :now and a.DateOffline > :now " 
+			string hql = "from Article a left join fetch a.Category where a.Section.Id = :sectionId and a.DateOnline < :now and a.DateOffline > :now " 
 				+ GetOrderByClause(sortBy, sortDirection, "a");
 			IQuery q = this._sessionManager.OpenSession().CreateQuery(hql);
 			q.SetInt32("sectionId", section.Id);
@@ -124,7 +126,7 @@ namespace Cuyahoga.Modules.Articles.DataAccess
 		/// <returns></returns>
 		public IList GetArchivedArticlesBySection(Section section, SortBy sortBy, SortDirection sortDirection)
 		{
-			string hql = "from Article a where a.Section.Id = :sectionId and a.DateOffline <= :now " 
+			string hql = "from Article a left join fetch a.Category where a.Section.Id = :sectionId and a.DateOffline <= :now " 
 				+ GetOrderByClause(sortBy, sortDirection, "a");
 			IQuery q = this._sessionManager.OpenSession().CreateQuery(hql);
 			q.SetInt32("sectionId", section.Id);
@@ -158,7 +160,7 @@ namespace Cuyahoga.Modules.Articles.DataAccess
 		/// <returns></returns>
 		public IList GetRssArticles(Section section, int maxNumberOfArticles, SortBy sortBy, SortDirection sortDirection)
 		{
-			string hql = "from Article a where a.Section.Id = :sectionId and a.Syndicate = :syndicate and a.DateOnline < :now and a.DateOffline > :now "
+			string hql = "from Article a left join fetch a.Category where a.Section.Id = :sectionId and a.Syndicate = :syndicate and a.DateOnline < :now and a.DateOffline > :now "
 				+ GetOrderByClause(sortBy, sortDirection, "a");
 			IQuery q = this._sessionManager.OpenSession().CreateQuery(hql);
 			q.SetInt32("sectionId", section.Id);

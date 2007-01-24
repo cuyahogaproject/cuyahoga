@@ -186,6 +186,7 @@
     <Compile Include="Domain\ModuleBase.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Domain\ModuleService.cs" />
     <Compile Include="Domain\ModuleSetting.cs">
       <SubType>Code</SubType>
     </Compile>

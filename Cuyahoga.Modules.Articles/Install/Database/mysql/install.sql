@@ -3,11 +3,13 @@
  */
 CREATE TABLE cm_articlecategory(
 articlecategoryid INT NOT NULL AUTO_INCREMENT,
+siteid INT NOT NULL,
 title VARCHAR(100) NOT NULL,
 summary VARCHAR(255),
 syndicate TINYINT NOT NULL,
 inserttimestamp TIMESTAMP NOT NULL,
 updatetimestamp DATETIME NOT NULL,
+FOREIGN KEY (siteid) REFERENCES cuyahoga_site (siteid),
 PRIMARY KEY (articlecategoryid));
 
 CREATE TABLE cm_article(
@@ -78,6 +80,10 @@ VALUES (@moduletypeid, 'SORT_BY', 'Sort by', 'Cuyahoga.Modules.Articles.SortBy',
 
 INSERT INTO cuyahoga_modulesetting (moduletypeid, name, friendlyname, settingdatatype, iscustomtype, isrequired) 
 VALUES (@moduletypeid, 'SORT_DIRECTION', 'Sort direction', 'Cuyahoga.Modules.Articles.SortDirection', 1, 1);
+
+INSERT INTO cuyahoga_moduleservice (moduletypeid, servicekey, servicetype, classtype) 
+VALUES (@moduletypeid, 'articles.articledao', 'Cuyahoga.Modules.Articles.DataAccess.IArticleDao, Cuyahoga.Modules.Articles', 'Cuyahoga.Modules.Articles.DataAccess.ArticleDao, Cuyahoga.Modules.Articles');
+
 
 INSERT INTO cuyahoga_version (assembly, major, minor, patch) VALUES ('Cuyahoga.Modules.Articles', 1, 5, 0);
 

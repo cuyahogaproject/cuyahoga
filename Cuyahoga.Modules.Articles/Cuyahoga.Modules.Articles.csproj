@@ -65,6 +65,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DataAccess\ArticleDao.cs" />
+    <Compile Include="DataAccess\IArticleDao.cs" />
     <Compile Include="Web\AdminArticles.aspx.cs">
       <DependentUpon>AdminArticles.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>

@@ -7,6 +7,10 @@ DELETE FROM cuyahoga_version WHERE assembly = 'Cuyahoga.Modules.Articles';
 DELETE FROM cuyahoga_modulesetting
 WHERE moduletypeid in 
 	(SELECT mt.moduletypeid FROM cuyahoga_moduletype mt WHERE mt.assemblyname = 'Cuyahoga.Modules.Articles');
+	
+DELETE FROM cuyahoga_moduleservice
+WHERE moduletypeid in 
+	(SELECT mt.moduletypeid FROM cuyahoga_moduletype mt WHERE mt.assemblyname = 'Cuyahoga.Modules.Articles');
 
 DELETE FROM cuyahoga_moduletype
 WHERE assemblyname = 'Cuyahoga.Modules.Articles';

@@ -15,6 +15,7 @@ namespace Cuyahoga.Modules.Articles.Domain
 		private string _summary;
 		private bool _syndicate;
 		private IList _articles;
+		private Site _site;
 		private DateTime _updateTimestamp;
 
 		#region properties
@@ -65,9 +66,18 @@ namespace Cuyahoga.Modules.Articles.Domain
 		}
 
 		/// <summary>
+		/// The site where this category belongs to.
+		/// </summary>
+		public virtual Site Site
+		{
+			get { return this._site; }
+			set { this._site = value; }
+		}
+
+		/// <summary>
 		/// Property UpdateTimestamp (DateTime)
 		/// </summary>
-		public DateTime UpdateTimestamp
+		public virtual DateTime UpdateTimestamp
 		{
 			get { return this._updateTimestamp; }
 			set { this._updateTimestamp = value; }

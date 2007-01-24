@@ -10,6 +10,12 @@ FROM cuyahoga_modulesetting ms
 	INNER JOIN cuyahoga_moduletype mt ON mt.moduletypeid = ms.moduletypeid AND mt.assemblyname = 'Cuyahoga.Modules.Articles'
 go
 
+DELETE cuyahoga_moduleservice
+FROM cuyahoga_moduleservice ms
+	INNER JOIN cuyahoga_moduletype mt ON mt.moduletypeid = ms.moduletypeid AND mt.assemblyname = 'Cuyahoga.Modules.Articles'
+go
+
+
 DELETE FROM cuyahoga_moduletype
 WHERE assemblyname = 'Cuyahoga.Modules.Articles'
 go

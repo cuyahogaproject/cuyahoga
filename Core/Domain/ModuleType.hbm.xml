@@ -26,5 +26,15 @@
 				<property name="IsRequired" column="isrequired" type="Boolean" />
 			</composite-element>
 		</bag>
+		<bag name="ModuleServices" table="cuyahoga_moduleservice" lazy="true" cascade="all">
+			<key column="moduletypeid" />
+			<composite-element class="Cuyahoga.Core.Domain.ModuleService, Cuyahoga.Core">
+				<parent name="ModuleType" />
+				<property name="ServiceKey" column="servicekey" type="string" length="50" not-null="true" />
+				<property name="ServiceType" column="servicetype" type="string" length="255" not-null="true" />
+				<property name="ClassType" column="classtype" type="string" length="255" not-null="true" />
+				<property name="Lifestyle" column="lifestyle" type="string" length="10" />
+			</composite-element>
+		</bag>
 	</class>
 </hibernate-mapping>

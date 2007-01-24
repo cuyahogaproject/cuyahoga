@@ -15,6 +15,7 @@ namespace Cuyahoga.Core.Domain
 		private string _path;
 		private string _editPath;
 		private IList _moduleSettings;
+		private IList _moduleServices;
 
 		#region properties
 		
@@ -81,12 +82,25 @@ namespace Cuyahoga.Core.Domain
 			set { this._moduleSettings = value; }
 		}
 
+		/// <summary>
+		/// List of module-specific services.
+		/// </summary>
+		public IList ModuleServices
+		{
+			get { return this._moduleServices; }
+			set { this._moduleServices = value; }
+		}
+
 		#endregion
 
+		/// <summary>
+		/// Constructor.
+		/// </summary>
 		public ModuleType()
 		{
 			this._moduleTypeId = -1;
 			this._moduleSettings = new ArrayList();
+			this._moduleServices = new ArrayList();
 		}
 	}
 }

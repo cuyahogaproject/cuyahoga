@@ -4,11 +4,13 @@
 
 CREATE TABLE cm_articlecategory(
 articlecategoryid serial NOT NULL CONSTRAINT PK_articlecategory PRIMARY KEY,
+siteid int4 NOT NULL,
 title varchar(100) NOT NULL,
 summary varchar(255),
 syndicate bool NOT NULL,
 inserttimestamp timestamp DEFAULT current_timestamp NOT NULL,
-updatetimestamp timestamp DEFAULT current_timestamp NOT NULL);
+updatetimestamp timestamp DEFAULT current_timestamp NOT NULL,
+CONSTRAINT FK_articlecategory_site_siteid FOREIGN KEY (siteid) REFERENCES cuyahoga_site (siteid));
 
 CREATE TABLE cm_article(
 articleid serial NOT NULL CONSTRAINT PK_article PRIMARY KEY,
@@ -77,6 +79,10 @@ VALUES (currval('cuyahoga_moduletype_moduletypeid_seq'), 'SORT_BY', 'Sort by', '
 
 INSERT INTO cuyahoga_modulesetting (moduletypeid, name, friendlyname, settingdatatype, iscustomtype, isrequired) 
 VALUES (currval('cuyahoga_moduletype_moduletypeid_seq'), 'SORT_DIRECTION', 'Sort direction', 'Cuyahoga.Modules.Articles.SortDirection', true, true);
+
+INSERT INTO cuyahoga_moduleservice (moduletypeid, servicekey, servicetype, classtype) 
+VALUES (currval('cuyahoga_moduletype_moduletypeid_seq'), 'articles.articledao', 'Cuyahoga.Modules.Articles.DataAccess.IArticleDao, Cuyahoga.Modules.Articles', 'Cuyahoga.Modules.Articles.DataAccess.ArticleDao, Cuyahoga.Modules.Articles');
+
 
 INSERT INTO cuyahoga_version (assembly, major, minor, patch) VALUES ('Cuyahoga.Modules.Articles', 1, 5, 0);
 

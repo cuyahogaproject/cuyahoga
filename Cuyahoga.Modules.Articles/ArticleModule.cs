@@ -22,11 +22,11 @@ namespace Cuyahoga.Modules.Articles
 	/// <summary>
 	/// The ArticleModule provides a news system (articles, comments, content expiration, rss feed).
 	/// </summary>
+	[Transactional]
 	public class ArticleModule : ModuleBase, ISyndicatable, ISearchable, IActionProvider, INHibernateModule
 	{
 		private ICommonDao _commonDao;
-		private ArticleDao _articleDao;
-		private IKernel _kernel;
+		private IArticleDao _articleDao;
 
 		private int _currentArticleId;
 		private int _currentCategoryId;
@@ -42,15 +42,6 @@ namespace Cuyahoga.Modules.Articles
 		private ArticleModuleAction _currentAction;
 
 		#region properties
-
-		/// <summary>
-		/// Article DAO (injected). We can't add it as a constructor parameter because the module has to register the DAO itself.
-		/// TODO: fix this properly.
-		/// </summary>
-		public ArticleDao ArticleDao
-		{
-			set { this._articleDao = value; }
-		}
 
 		/// <summary>
 		/// Property CurrentArticleId (int)
@@ -129,10 +120,10 @@ namespace Cuyahoga.Modules.Articles
 		/// <summary>
 		/// Default constructor.
 		/// </summary>
-		public ArticleModule(ICommonDao commonDao, IKernel kernel)
+		public ArticleModule(ICommonDao commonDao, IArticleDao articleDao)
 		{
 			this._commonDao = commonDao;
-			this._kernel = kernel;
+			this._articleDao = articleDao;
 			this._currentArticleId = -1;
 			this._currentCategoryId = -1;
 			this._currentAction = ArticleModuleAction.List;
@@ -167,18 +158,6 @@ namespace Cuyahoga.Modules.Articles
 			{
 				throw new ActionForbiddenException("You have to manually delete the related Articles before you can delete the Section.");
 			}
-		}
-
-		/// <summary>
-		/// Register components that belong to this module.
-		/// </summary>
-		public override void RegisterComponents()
-		{
-			this._kernel.AddComponent("articles.articledao", typeof(ArticleDao));
-			// HACK: the first time we have to manually set the ArticleDao
-			this._articleDao = this._kernel[typeof(ArticleDao)] as ArticleDao;
-
-			base.RegisterComponents();
 		}
 
 		/// <summary>
@@ -280,7 +259,7 @@ namespace Cuyahoga.Modules.Articles
 					return this._articleDao.GetDisplayArticlesBySection(base.Section, this._sortBy, this._sortDirection);
 				case ArticleModuleAction.Category:
 					return this._articleDao.GetDisplayArticlesByCategory((ArticleCategory)this._commonDao.GetObjectById(typeof(ArticleCategory)
-						, this._currentArticleId), this._sortBy, this._sortDirection);
+						, this._currentCategoryId), this._sortBy, this._sortDirection);
 				case ArticleModuleAction.Archive:
 					return this._articleDao.GetArchivedArticlesBySection(base.Section, this._sortBy, this._sortDirection);
 				default:
@@ -323,7 +302,7 @@ namespace Cuyahoga.Modules.Articles
 		/// </summary>
 		/// <param name="article"></param>
 		[Transaction(TransactionMode.RequiresNew)]
-		public void SaveArticle(Article article)
+		public virtual void SaveArticle(Article article)
 		{			
 			article.Category = HandleCategory(article.Category);
 			if (article.Id == -1)
@@ -343,7 +322,7 @@ namespace Cuyahoga.Modules.Articles
 		/// </summary>
 		/// <param name="article"></param>
 		[Transaction(TransactionMode.RequiresNew)]
-		public void DeleteArticle(Article article)
+		public virtual void DeleteArticle(Article article)
 		{
 			this._commonDao.DeleteObject(article);
 			OnContentDeleted(new IndexEventArgs(ArticleToSearchContent(article)));
@@ -354,7 +333,7 @@ namespace Cuyahoga.Modules.Articles
 		/// </summary>
 		/// <param name="comment"></param>
 		[Transaction(TransactionMode.RequiresNew)]
-		public void SaveComment(Comment comment)
+		public virtual void SaveComment(Comment comment)
 		{
 			this._commonDao.SaveOrUpdateObject(comment);
 		}
@@ -364,7 +343,7 @@ namespace Cuyahoga.Modules.Articles
 		/// </summary>
 		/// <param name="comment"></param>
 		[Transaction(TransactionMode.RequiresNew)]
-		public void DeleteComment(Comment comment)
+		public virtual void DeleteComment(Comment comment)
 		{
 			this._commonDao.DeleteObject(comment);
 		}
@@ -385,6 +364,7 @@ namespace Cuyahoga.Modules.Articles
 				else
 				{
 					// Insert the new one, so the Id will be generated and retrieved.
+					category.Site = base.Section.Node.Site;
 					this._commonDao.SaveOrUpdateObject(category);
 				}
 			}

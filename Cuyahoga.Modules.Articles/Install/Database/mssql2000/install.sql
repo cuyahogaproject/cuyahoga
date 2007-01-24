@@ -3,6 +3,7 @@
  */
 CREATE TABLE cm_articlecategory(
 articlecategoryid int identity(1,1) NOT NULL CONSTRAINT PK_articlecategory PRIMARY KEY,
+siteid int NOT NULL,
 title nvarchar(100) NOT NULL,
 summary nvarchar(255) NULL,
 syndicate bit NOT NULL,
@@ -37,6 +38,11 @@ commenttext nvarchar(2000) NOT NULL,
 userip nvarchar(15) NULL,
 inserttimestamp datetime DEFAULT current_timestamp NOT NULL,
 updatetimestamp datetime DEFAULT current_timestamp NOT NULL)
+go
+
+ALTER TABLE cm_articlecategory
+ADD CONSTRAINT FK_articlecategory_site_siteid
+FOREIGN KEY (siteid) REFERENCES cuyahoga_site (siteid)
 go
 
 ALTER TABLE cm_article
@@ -92,6 +98,9 @@ INSERT INTO cuyahoga_modulesetting (moduletypeid, name, friendlyname, settingdat
 INSERT INTO cuyahoga_modulesetting (moduletypeid, name, friendlyname, settingdatatype, iscustomtype, isrequired) VALUES (@moduletypeid, 'SHOW_ARCHIVE', 'Show link to archived articles', 'System.Boolean', 0, 1)
 INSERT INTO cuyahoga_modulesetting (moduletypeid, name, friendlyname, settingdatatype, iscustomtype, isrequired) VALUES (@moduletypeid, 'SORT_BY', 'Sort by', 'Cuyahoga.Modules.Articles.SortBy', 1, 1)
 INSERT INTO cuyahoga_modulesetting (moduletypeid, name, friendlyname, settingdatatype, iscustomtype, isrequired) VALUES (@moduletypeid, 'SORT_DIRECTION', 'Sort direction', 'Cuyahoga.Modules.Articles.SortDirection', 1, 1)
+
+INSERT INTO cuyahoga_moduleservice (moduletypeid, servicekey, servicetype, classtype) 
+VALUES (@moduletypeid, 'articles.articledao', 'Cuyahoga.Modules.Articles.DataAccess.IArticleDao, Cuyahoga.Modules.Articles', 'Cuyahoga.Modules.Articles.DataAccess.ArticleDao, Cuyahoga.Modules.Articles')
 
 go
 
