@@ -25,50 +25,47 @@ namespace Cuyahoga.Modules.Articles.Web
 		protected void Page_Load(object sender, System.EventArgs e)
 		{
 			this._module = this.Module as ArticleModule;
+			this.pgrArticles.PageSize = this._module.NumberOfArticlesInList;
+			// We need to set the url where the pager needs to send the user to because otherwise
+			// The pager would add pathinfo parameters to the node url, which are not parsed 
+			// (instead of the section url).
+			this.pgrArticles.PageUrl = UrlHelper.GetUrlFromSection(this._module.Section);
 
 			// Don't display the syndication icon on the article view
 			base.DisplaySyndicationIcon = this._module.AllowSyndication && this._module.CurrentArticleId == -1;
 
-			if (this._module != null && (! base.HasCachedOutput || this.Page.IsPostBack) || this.Page.User.Identity.IsAuthenticated)
+			if (! IsPostBack && ((! base.HasCachedOutput) || this.Page.User.Identity.IsAuthenticated))
 			{
-				// Article list view
-				this.rptArticles.ItemDataBound += new RepeaterItemEventHandler(rptArticles_ItemDataBound);
-				this.rptArticles.DataSource = this._module.GetArticleList();
-				this.rptArticles.DataBind();
+				BindArticles();
+			}
+		}
 
-				if (this._module.CurrentAction == ArticleModuleAction.Category)
+		private void BindArticles()
+		{
+			// Article list view
+			this.rptArticles.DataSource = this._module.GetArticleList();
+			this.rptArticles.DataBind();
+
+			if (this._module.CurrentAction == ArticleModuleAction.Category)
+			{
+				if (this.rptArticles.Items.Count > 0)
 				{
-					if (this.rptArticles.Items.Count > 0)
-					{
-						// HACK: Get the name of the category from the first article in the list.
-						Article firstArticle = ((IList)this.rptArticles.DataSource)[0] as Article;
-						base.Module.DisplayTitle = base.GetText("CATEGORY") + " " + firstArticle.Category.Title;
-					}
+					// HACK: Get the name of the category from the first article in the list.
+					Article firstArticle = ((IList)this.rptArticles.DataSource)[0] as Article;
+					base.Module.DisplayTitle = base.GetText("CATEGORY") + " " + firstArticle.Category.Title;
 				}
 			}
 		}
 
-		#region Web Form Designer generated code
-		override protected void OnInit(EventArgs e)
+		protected void pgrArticles_PageChanged(object sender, Cuyahoga.ServerControls.PageChangedEventArgs e)
 		{
-			//
-			// CODEGEN: This call is required by the ASP.NET Web Form Designer.
-			//
-			InitializeComponent();
-			base.OnInit(e);
+			if (this.IsPostBack || ((! base.HasCachedOutput) || this.Page.User.Identity.IsAuthenticated))
+			{
+				BindArticles();
+			}
 		}
-		
-		/// <summary>
-		///		Required method for Designer support - do not modify
-		///		the contents of this method with the code editor.
-		/// </summary>
-		private void InitializeComponent()
-		{
 
-		}
-		#endregion
-
-		private void rptArticles_ItemDataBound(object sender, RepeaterItemEventArgs e)
+		protected void rptArticles_ItemDataBound(object sender, RepeaterItemEventArgs e)
 		{
 			if (e.Item.ItemType == ListItemType.Item || e.Item.ItemType == ListItemType.AlternatingItem)
 			{
@@ -78,7 +75,7 @@ namespace Cuyahoga.Modules.Articles.Web
 				hpl.NavigateUrl = UrlHelper.GetUrlFromSection(this._module.Section) + "/" + article.Id;
 
 				Literal litDateOnline = e.Item.FindControl("litDateOnline") as Literal;
-				litDateOnline.Text = 
+				litDateOnline.Text =
 					TimeZoneUtil.AdjustDateToUserTimeZone(article.DateOnline, this.Page.User.Identity).ToLongDateString();
 				HyperLink hplAuthor = e.Item.FindControl("hplAuthor") as HyperLink;
 				hplAuthor.NavigateUrl = this._module.GetProfileUrl(article.CreatedBy.Id);
@@ -87,7 +84,7 @@ namespace Cuyahoga.Modules.Articles.Web
 				HyperLink hplCategory = e.Item.FindControl("hplCategory") as HyperLink;
 				if (article.Category != null)
 				{
-					hplCategory.NavigateUrl = UrlHelper.GetUrlFromSection(this.Module.Section) + 
+					hplCategory.NavigateUrl = UrlHelper.GetUrlFromSection(this.Module.Section) +
 						String.Format("/category/{0}", article.Category.Id);
 					hplCategory.Text = article.Category.Title;
 				}
@@ -99,7 +96,7 @@ namespace Cuyahoga.Modules.Articles.Web
 				HyperLink hplComments = e.Item.FindControl("hplComments") as HyperLink;
 				if (this._module.AllowComments)
 				{
-					hplComments.NavigateUrl = UrlHelper.GetUrlFromSection(this._module.Section) 
+					hplComments.NavigateUrl = UrlHelper.GetUrlFromSection(this._module.Section)
 						+ String.Format("/{0}#comments", article.Id);
 					hplComments.Text = base.GetText("COMMENTS") + " " + article.Comments.Count.ToString();
 				}

@@ -1,7 +1,8 @@
 <%@ Control Language="c#" AutoEventWireup="True" Codebehind="Articles.ascx.cs" Inherits="Cuyahoga.Modules.Articles.Web.Articles" TargetSchema="http://schemas.microsoft.com/intellisense/ie5" %>
+<%@ register assembly="Cuyahoga.ServerControls" namespace="Cuyahoga.ServerControls"	tagprefix="cc1" %>
 <asp:panel id="pnlArticleList" runat="server">
 	<ul class="articlelist">
-		<asp:repeater id="rptArticles" runat="server" enableviewstate="False">
+		<asp:repeater id="rptArticles" runat="server" enableviewstate="False" onitemdatabound="rptArticles_ItemDataBound">
 			<itemtemplate>
 				<li>
 					<h4>
@@ -28,4 +29,7 @@
 				</li>
 			</itemtemplate>
 		</asp:repeater></ul>
+		<div class="pager">
+			<cc1:pager id="pgrArticles" runat="server" controltopage="rptArticles" hidewhenonepage="true" onpagechanged="pgrArticles_PageChanged" pagerlinkmode="HyperLinkPathInfo" />
+		</div>
 </asp:panel>

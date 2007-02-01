@@ -6,6 +6,7 @@ using System.ComponentModel;
 using System.Collections;
 using System.Reflection;
 using System.Globalization;
+using System.Text.RegularExpressions;
 
 namespace Cuyahoga.ServerControls
 {
@@ -261,6 +262,70 @@ namespace Cuyahoga.ServerControls
 			}
 		}
 
+		/// <summary>
+		/// The link behavior for the pager controls.
+		/// </summary>
+		[DefaultValue(PagerLinkMode.LinkButton)]
+		public PagerLinkMode PagerLinkMode
+		{
+			get
+			{
+				if (ViewState["PagerLinkMode"] != null)
+				{
+					return (PagerLinkMode)ViewState["PagerLinkMode"];
+				}
+				else
+				{
+					return PagerLinkMode.LinkButton;
+				}
+			}
+			set
+			{
+				ViewState["PagerLinkMode"] = value;
+			}
+		}
+
+		/// <summary>
+		/// The base url of the page where the pager is put on.
+		/// </summary>
+		[Description("Set this if you want a specific url for the the pages that are being paged.")]
+		public string PageUrl
+		{
+			get
+            {
+            	if (ViewState["PageUrl"] != null)
+				{
+					return (string)ViewState["PageUrl"];
+				}
+				else
+				{
+					if (HttpContext.Current != null)
+					{
+						return HttpContext.Current.Request.RawUrl;
+					}
+					else
+					{
+						return null;
+					}
+				}
+            }
+			set
+            {
+				if (HttpContext.Current != null)
+				{
+					// Only set the PageUrl when it is not already in the current url.
+					if (HttpContext.Current.Request.RawUrl.Contains(value))
+					{
+						ViewState["PageUrl"] = HttpContext.Current.Request.RawUrl;
+					}
+					else
+					{
+						ViewState["PageUrl"] = value;
+					}
+				}
+            }
+		}
+
 		#endregion
 
 		#region events
@@ -312,6 +377,28 @@ namespace Cuyahoga.ServerControls
 			base.OnInit (e);
 		}
 
+		protected override void OnLoad(EventArgs e)
+		{
+			// Check if we have pathinfo or querystring parameters that set a specific page number.
+			if (HttpContext.Current.Request.QueryString.HasKeys() || ! String.IsNullOrEmpty(HttpContext.Current.Request.PathInfo))
+			{
+				string pathInfoPattern = @"\/page\/(\d+)$";
+				string queryStringPattern = @"(\?|\&)page=(\d+)$";
+
+				if (Regex.IsMatch(this.PageUrl, pathInfoPattern))
+				{
+					int pageNumber = Int32.Parse(Regex.Match(this.PageUrl, pathInfoPattern).Groups[1].Value);
+					OnPageChanged(new PageChangedEventArgs(-1, pageNumber -1));
+				}
+				else if (Regex.IsMatch(this.PageUrl, queryStringPattern))
+				{
+					int pageNumber = Int32.Parse(Regex.Match(this.PageUrl, queryStringPattern).Groups[2].Value);
+					OnPageChanged(new PageChangedEventArgs(-1, pageNumber -1));
+				}
+			}
+			base.OnLoad(e);
+		}
+
 		protected override void CreateChildControls()
 		{
 			this.Controls.Clear();
@@ -345,41 +432,21 @@ namespace Cuyahoga.ServerControls
 				int currentPageGroupIndex = GetCurrentPageGroupIndex();
 				int totalPageGroups = GetTotalPageGroups();
 
-				LinkButton lbt = null;
 				// First
-				lbt = CreateLinkButton();
-				lbt.ID = "First";
-				lbt.Text = "<<";
-				if (! this._pagedDataSource.IsFirstPage)
-					lbt.Click += new EventHandler(First_Click);
-				else
-					lbt.Visible = false;
-				this.Controls.Add(lbt);
+				Control firstPageControl = CreateLinkControl(ButtonAction.First, "<<", 0);
+				firstPageControl.Visible = (! this._pagedDataSource.IsFirstPage);
+				this.Controls.Add(firstPageControl);
 
 				// Prev
-				lbt = CreateLinkButton();
-				lbt.ID = "Prev";
-				lbt.Text = "<";
-				if (! this._pagedDataSource.IsFirstPage)
-					lbt.Click += new EventHandler(Prev_Click);
-				else
-					lbt.Visible = false;
-				this.Controls.Add(lbt);
+				Control prevPageControl = CreateLinkControl(ButtonAction.Prev, "<", this.CurrentPageIndex - 1);
+				prevPageControl.Visible = (! this._pagedDataSource.IsFirstPage);
+				this.Controls.Add(prevPageControl);
 
 				// Previous page group
-				lbt = CreateLinkButton();
-				lbt.ID = "PrevGroup";
-				lbt.Text = "...";
-
-				if (currentPageGroupIndex > 0)
-				{
-					lbt.Click += new EventHandler(PrevGroup_Click);
-				}
-				else
-				{
-					lbt.Visible = false;
-				}
-				this.Controls.Add(lbt);
+				int prevPageGroupPageIndex = (currentPageGroupIndex - 1) * this.MaxDisplayPages;
+				Control prevGroupControl = CreateLinkControl(ButtonAction.PrevGroup, "...", prevPageGroupPageIndex);
+				prevGroupControl.Visible = currentPageGroupIndex > 0;
+				this.Controls.Add(prevGroupControl);
 
 				// Numbers
 				int beginPageNumberIndex = currentPageGroupIndex * this.MaxDisplayPages;
@@ -394,65 +461,47 @@ namespace Cuyahoga.ServerControls
 				}
 				for (int i = 0; i < this.TotalPages; i++)
 				{
-					lbt = CreateLinkButton();
-					lbt.ID = i.ToString();
-					lbt.Text = Convert.ToString(i + 1);
+					string pageNumberString = Convert.ToString(i + 1);
+					Control numberControl = CreateLinkControl(ButtonAction.Page, pageNumberString, i);
 					if (i >= beginPageNumberIndex && i <= endPageNumberIndex)
 					{
-						if (this._pagedDataSource.CurrentPageIndex != i)
-							lbt.Click += new EventHandler(Number_Click);
-						else
+						if (this._pagedDataSource.CurrentPageIndex == i)
 						{
 							if (! (this.TotalPages == 1 && this.HideWhenOnePage))
 							{
-								lbt.Font.Bold = true;
+								Label currentPageLabel = new Label();
+                                currentPageLabel.Text = pageNumberString;
+								currentPageLabel.Font.Bold = true;
+								numberControl = currentPageLabel;
 							}
 							else
 							{
-								lbt.Visible = false;
+								numberControl.Visible = false;
 							}
 						}
 					}
 					else
 					{
-						lbt.Visible = false;
+						numberControl.Visible = false;
 					}
-					this.Controls.Add(lbt);
+					this.Controls.Add(numberControl);
 				}
 
 				// Next page group
-				lbt = CreateLinkButton();
-				lbt.ID = "NextGroup";
-				lbt.Text = "...";
-				if (currentPageGroupIndex < totalPageGroups - 1)
-				{
-					lbt.Click += new EventHandler(NextGroup_Click);
-				}
-				else
-				{
-					lbt.Visible = false;
-				}
-				this.Controls.Add(lbt);
+				int nextPageGroupPageIndex = (currentPageGroupIndex + 1) * this.MaxDisplayPages;
+				Control nextGroupControl = CreateLinkControl(ButtonAction.NextGroup, "...", nextPageGroupPageIndex);
+				nextGroupControl.Visible = currentPageGroupIndex < totalPageGroups - 1;
+				this.Controls.Add(nextGroupControl);
 
 				// Next
-				lbt = CreateLinkButton();
-				lbt.ID = "Next";
-				lbt.Text = ">";
-				if (this._pagedDataSource.DataSource == null || ! this._pagedDataSource.IsLastPage)
-					lbt.Click += new EventHandler(Next_Click);
-				else
-					lbt.Visible = false;
-				this.Controls.Add(lbt);
+				Control nextPageControl = CreateLinkControl(ButtonAction.Next, ">", this.CurrentPageIndex + 1);
+				nextPageControl.Visible = (this._pagedDataSource.DataSource == null || ! this._pagedDataSource.IsLastPage);
+				this.Controls.Add(nextPageControl);
 
 				// Last
-				lbt = CreateLinkButton();
-				lbt.ID = "Last";
-				lbt.Text = ">>";
-				if (this._pagedDataSource.DataSource == null || ! this._pagedDataSource.IsLastPage)
-					lbt.Click += new EventHandler(Last_Click);
-				else
-					lbt.Visible = false;
-				this.Controls.Add(lbt);
+				Control lastPageControl = CreateLinkControl(ButtonAction.Last, ">>", this.TotalPages - 1);
+				lastPageControl.Visible = (this._pagedDataSource.DataSource == null || ! this._pagedDataSource.IsLastPage);
+				this.Controls.Add(lastPageControl);
 			}
 		}
 
@@ -477,14 +526,97 @@ namespace Cuyahoga.ServerControls
 			return lbt;
 		}
 
+		private Control CreateLinkControl(ButtonAction buttonAction, string buttonText, int pageIndex)
+		{
+			Control control = null;
+			if (this.PagerLinkMode == PagerLinkMode.LinkButton)
+			{
+				LinkButton lbt = new LinkButton();
+				lbt.CausesValidation = false;
+				lbt.ID = buttonAction.ToString();
+				lbt.Text = buttonText;
+
+				switch (buttonAction)
+				{
+					case ButtonAction.First:
+						lbt.Click += new EventHandler(First_Click);
+						break;
+					case ButtonAction.Prev:
+						lbt.Click += new EventHandler(Prev_Click);
+						break;
+					case ButtonAction.PrevGroup:
+						lbt.Click += new EventHandler(PrevGroup_Click);
+						break;
+					case ButtonAction.Page:
+						// Override ID with the page index. 
+						lbt.ID = pageIndex.ToString();
+						lbt.Click += new EventHandler(Number_Click);
+						break;
+					case ButtonAction.NextGroup:
+						lbt.Click += new EventHandler(NextGroup_Click);
+						break;
+					case ButtonAction.Next:
+						lbt.Click += new EventHandler(Next_Click);
+						break;
+					case ButtonAction.Last:
+						lbt.Click += new EventHandler(Last_Click);
+						break;
+				}
+
+				control = lbt;
+			}
+			else
+			{
+				HyperLink hpl = new HyperLink();
+				hpl.EnableViewState = false;
+				hpl.Text = buttonText;
+
+				if (this.PagerLinkMode == PagerLinkMode.HyperLinkPathInfo)
+				{
+					hpl.NavigateUrl = GetPageUrlWithPageNumberToPathInfo(pageIndex);
+				}
+				else
+				{
+					hpl.NavigateUrl = GetPageUrlWithPageNumberToQueryString(pageIndex);
+				}
+
+				control = hpl;
+			}
+
+			return control;
+		}
+
+
+		private string GetPageUrlWithPageNumberToPathInfo(int pageIndex)
+		{
+			string pathInfoPagePattern = @"\/page\/\d+$";
+			string urlWithoutPageInfo = Regex.Replace(this.PageUrl, pathInfoPagePattern, String.Empty);
+			return urlWithoutPageInfo + String.Format("/page/{0}", pageIndex + 1);
+		}
+
+		private string GetPageUrlWithPageNumberToQueryString(int pageIndex)
+		{
+			string queryStringPagePattern = @"(\?|\&)page=\d+$";
+			string urlWithoutPageInfo = Regex.Replace(this.PageUrl, queryStringPagePattern, String.Empty);
+			if (urlWithoutPageInfo.Contains("?"))
+			{
+				return urlWithoutPageInfo + String.Format("&page={0}", pageIndex + 1);
+			}
+			else
+			{
+				return urlWithoutPageInfo + String.Format("?page={0}", pageIndex + 1);
+			}
+		}
+
 		private int GetCurrentPageGroupIndex()
 		{
-			return (int)Math.Floor((double)(this.CurrentPageIndex / this.MaxDisplayPages));
+			return (int)Math.Floor((this.CurrentPageIndex / (double)this.MaxDisplayPages));
 		}
 
 		private int GetTotalPageGroups()
 		{
-			return (int)Math.Ceiling((double)(this.TotalPages / this.MaxDisplayPages));
+			double temp = (this.TotalPages / (double)this.MaxDisplayPages);
+			return (int)Math.Ceiling(temp);
 		}
 
 		#endregion
@@ -597,6 +729,17 @@ namespace Cuyahoga.ServerControls
 		}
 
 		#endregion
+
+		private enum ButtonAction
+		{
+			First,
+			Prev,
+			PrevGroup,
+			Page,
+			NextGroup,
+			Next,
+			Last
+		}
 	}
 
 	#region PageChangedEvent
@@ -716,4 +859,23 @@ namespace Cuyahoga.ServerControls
 		}
 	}
 	#endregion
+
+	/// <summary>
+	/// The way pager links are generated.
+	/// </summary>
+	public enum PagerLinkMode
+	{
+		/// <summary>
+		/// Pager links are linkbuttons and cause a postback
+		/// </summary>
+		LinkButton,
+		/// <summary>
+		/// Pager links are plain hyperlinks and add '/page/pagenumber' to the end of the pathinfo
+		/// </summary>
+		HyperLinkPathInfo,
+		/// <summary>
+		/// Pager links are plain hyperlink and '&page=pagenumber' to the querystring.
+		/// </summary>
+		HyperLinkQueryString
+	}
 }

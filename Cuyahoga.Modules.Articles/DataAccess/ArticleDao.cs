@@ -81,7 +81,8 @@ namespace Cuyahoga.Modules.Articles.DataAccess
 		/// <returns></returns>
 		public IList GetAllArticlesBySection(Section section, SortBy sortBy, SortDirection sortDirection)
 		{
-			string hql = "from Article a where a.Section.Id = :sectionId " + GetOrderByClause(sortBy, sortDirection, "a");
+			string hql = "from Article a left join fetch a.Category where a.Section.Id = :sectionId " 
+				+ GetOrderByClause(sortBy, sortDirection, "a");
 			IQuery q = this._sessionManager.OpenSession().CreateQuery(hql);
 			q.SetInt32("sectionId", section.Id);
 			return q.List();
