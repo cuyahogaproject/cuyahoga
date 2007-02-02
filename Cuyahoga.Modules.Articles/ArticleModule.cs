@@ -35,6 +35,9 @@ namespace Cuyahoga.Modules.Articles
 		private bool _allowAnonymousComments;
 		private bool _allowSyndication;
 		private bool _showArchive;
+		private bool _showCategory;
+		private bool _showAuthor;
+		private bool _showDateTime;
 		private int _numberOfArticlesInList;
 		private DisplayType _displayType;
 		private SortBy _sortBy;
@@ -108,11 +111,35 @@ namespace Cuyahoga.Modules.Articles
 		}
 
 		/// <summary>
-		/// Show a link to archived articles.
+		/// Show a link to archived articles?
 		/// </summary>
 		public bool ShowArchive
 		{
 			get { return this._showArchive; }
+		}
+
+		/// <summary>
+		/// Show the article category?
+		/// </summary>
+		public bool ShowCategory
+		{
+			get { return _showCategory; }
+		}
+
+		/// <summary>
+		/// Show article author?
+		/// </summary>
+		public bool ShowAuthor
+		{
+			get { return this._showAuthor; }
+		}
+
+		/// <summary>
+		/// Show article date and time?
+		/// </summary>
+		public bool ShowDateTime
+		{
+			get { return _showDateTime;	}
 		}
 
 		#endregion
@@ -139,6 +166,9 @@ namespace Cuyahoga.Modules.Articles
 				this._allowAnonymousComments = Convert.ToBoolean(base.Section.Settings["ALLOW_ANONYMOUS_COMMENTS"]);
 				this._allowSyndication = Convert.ToBoolean(base.Section.Settings["ALLOW_SYNDICATION"]);
 				this._showArchive = Convert.ToBoolean(base.Section.Settings["SHOW_ARCHIVE"]);
+				this._showAuthor = Convert.ToBoolean(base.Section.Settings["SHOW_AUTHOR"]);
+				this._showCategory = Convert.ToBoolean(base.Section.Settings["SHOW_CATEGORY"]);
+				this._showDateTime = Convert.ToBoolean(base.Section.Settings["SHOW_DATETIME"]);
 				this._numberOfArticlesInList = Convert.ToInt32(base.Section.Settings["NUMBER_OF_ARTICLES_IN_LIST"]);
 				this._displayType = (DisplayType)Enum.Parse(typeof(DisplayType), base.Section.Settings["DISPLAY_TYPE"].ToString());
 				this._sortBy = (SortBy)Enum.Parse(typeof(SortBy), base.Section.Settings["SORT_BY"].ToString());
@@ -152,6 +182,9 @@ namespace Cuyahoga.Modules.Articles
 			}
 		}
 
+		/// <summary>
+		/// This module doesn't automatically delete content.
+		/// </summary>
 		public override void DeleteModuleContent()
 		{
 			if (this.GetAllArticles().Count > 0)

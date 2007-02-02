@@ -10,26 +10,25 @@
 							<%# DataBinder.Eval(Container.DataItem, "Title") %>
 						</asp:hyperlink></h4>
 					<asp:panel id="pnlSummary" runat="server" enableviewstate="false" visible="False">
-						<%# DataBinder.Eval(Container.DataItem, "Summary") %>
+						<p><%# DataBinder.Eval(Container.DataItem, "Summary") %></p>
+						<asp:hyperlink id="hplReadMore" runat="server" />
 					</asp:panel>
 					<asp:panel id="pnlContent" runat="server" enableviewstate="false" visible="False">
 							<%# DataBinder.Eval(Container.DataItem, "Content") %>
 					</asp:panel>
-					<div class="articlesub">
-						<%= base.GetText("PUBLISHED") %>
-						<asp:literal id="litDateOnline" runat="server"></asp:literal>
-						<%= base.GetText("BY") %>
+					<asp:panel id="pnlArticleInfo" cssclass="articlesub" visible="False" runat="server">
+						<asp:label id="lblDateOnline" runat="server"></asp:label>
+						<asp:literal id="litAuthor" runat="server"></asp:literal>
 						<asp:hyperlink id="hplAuthor" runat="server"></asp:hyperlink>
-						-
-						<%= base.GetText("CATEGORY") %>
+						<asp:literal id="litCategory" runat="server"></asp:literal>
 						<asp:hyperlink id="hplCategory" runat="server"></asp:hyperlink>
-						-
 						<asp:hyperlink id="hplComments" runat="server"></asp:hyperlink>
-					</div>
+					</asp:panel>
 				</li>
 			</itemtemplate>
 		</asp:repeater></ul>
 		<div class="pager">
 			<cc1:pager id="pgrArticles" runat="server" controltopage="rptArticles" hidewhenonepage="true" onpagechanged="pgrArticles_PageChanged" pagerlinkmode="HyperLinkPathInfo" />
 		</div>
+		<asp:hyperlink id="hplToggleArchive" runat="server" visible="false" />
 </asp:panel>

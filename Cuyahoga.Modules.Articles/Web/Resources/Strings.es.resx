@@ -156,4 +156,13 @@
   <data name="COMMENTREQUIRED" xml:space="preserve">
     <value>El comentario es necesario</value>
   </data>
+  <data name="ARCHIVE" xml:space="preserve">
+    <value>Archivo</value>
+  </data>
+  <data name="CURRENT" xml:space="preserve">
+    <value>Actual</value>
+  </data>
+  <data name="READMORE" xml:space="preserve">
+    <value>Lea más</value>
+  </data>
 </root>

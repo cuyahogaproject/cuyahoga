@@ -3,6 +3,15 @@
 	<div class="articlecontent">
 		<h4><asp:literal id="litTitle" runat="server"></asp:literal></h4>
 		<p><asp:literal id="litContent" runat="server"></asp:literal></p>
+		<asp:panel id="pnlArticleInfo" cssclass="articlesub" visible="False" runat="server">
+			<asp:label id="lblDateOnline" runat="server"></asp:label>
+			<asp:literal id="litAuthor" runat="server"></asp:literal>
+			<asp:hyperlink id="hplAuthor" runat="server"></asp:hyperlink>
+			<asp:literal id="litCategory" runat="server"></asp:literal>
+			<asp:hyperlink id="hplCategory" runat="server"></asp:hyperlink>
+			<asp:hyperlink id="hplComments" runat="server"></asp:hyperlink>
+		</asp:panel>
+		<br />
 		<asp:panel id="pnlComments" runat="server">
 		<h5 id="comments"><%= base.GetText("COMMENTS") %></h5>
 		<ul class="articlecomments">

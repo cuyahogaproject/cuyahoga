@@ -32,6 +32,49 @@ namespace Cuyahoga.Modules.Articles.Web
 				this.litTitle.Text = this._activeArticle.Title;
 				this.litContent.Text = this._activeArticle.Content;
 
+				if (this._module.AllowComments || this._module.ShowAuthor || this._module.ShowCategory || this._module.ShowDateTime)
+				{
+					this.pnlArticleInfo.Visible = true;
+
+					this.lblDateOnline.Text = TimeZoneUtil.AdjustDateToUserTimeZone(this._activeArticle.DateOnline, this.Page.User.Identity).ToString();
+					this.lblDateOnline.Visible = this._module.ShowDateTime;
+
+					this.litAuthor.Text = base.GetText("PUBLISHED") + " " + base.GetText("BY");
+					this.litAuthor.Visible = this._module.ShowAuthor;
+					this.hplAuthor.NavigateUrl = this._module.GetProfileUrl(this._activeArticle.CreatedBy.Id);
+					this.hplAuthor.Text = this._activeArticle.CreatedBy.FullName;
+					this.hplAuthor.Visible = this._module.ShowAuthor;
+
+					this.litCategory.Text = base.GetText("CATEGORY");
+					this.litCategory.Visible = this._module.ShowCategory;
+					if (this._activeArticle.Category != null)
+					{
+						this.hplCategory.NavigateUrl = UrlHelper.GetUrlFromSection(this.Module.Section) +
+							String.Format("/category/{0}", this._activeArticle.Category.Id);
+						this.hplCategory.Text = this._activeArticle.Category.Title;
+					}
+					else
+					{
+						this.hplCategory.Text = String.Empty;
+					}
+					this.hplCategory.Visible = this._module.ShowCategory;
+
+					if (this._module.AllowComments)
+					{
+						this.hplComments.NavigateUrl = UrlHelper.GetUrlFromSection(this._module.Section)
+							+ String.Format("/{0}#comments", this._activeArticle.Id);
+						this.hplComments.Text = base.GetText("COMMENTS") + " " + this._activeArticle.Comments.Count.ToString();
+					}
+					else
+					{
+						this.hplComments.Visible = false;
+					}
+				}
+				else
+				{
+					this.pnlArticleInfo.Visible = false;
+				}
+
 				this.hplBack.NavigateUrl = UrlHelper.GetUrlFromSection(this._module.Section);
 				this.hplBack.Text = base.GetText("BACK");
 				this.btnSaveComment.Text = base.GetText("BTNSAVECOMMENT");
@@ -54,7 +97,6 @@ namespace Cuyahoga.Modules.Articles.Web
 				this.rptComments.ItemDataBound += new RepeaterItemEventHandler(rptComments_ItemDataBound);
 				this.rptComments.DataBind();
 			}
-
 		}
 
 		protected void btnSaveComment_Click(object sender, System.EventArgs e)

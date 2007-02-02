@@ -15,7 +15,7 @@
 		<property name="ClassName" column="classname" type="String" length="255" />
 		<property name="Path" column="path" type="String" length="255" />
 		<property name="EditPath" column="editpath" type="String" length="255" not-null="false" />
-		<bag name="ModuleSettings" table="cuyahoga_modulesetting" lazy="true" cascade="all">
+		<bag name="ModuleSettings" table="cuyahoga_modulesetting" lazy="true" cascade="all" order-by="FriendlyName">
 			<key column="moduletypeid" />
 			<composite-element class="Cuyahoga.Core.Domain.ModuleSetting, Cuyahoga.Core">
 				<parent name="ModuleType" />

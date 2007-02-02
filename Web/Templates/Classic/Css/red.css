@@ -255,6 +255,17 @@ img
 	border-top: dashed 1px #ccc;
 }
 
+.articlesub span
+{
+	margin-right: 6px;
+}
+
+.articlesub a
+{
+	margin-right: 6px;
+}
+
+
 .articlecontent
 {
 	margin-left: 0;

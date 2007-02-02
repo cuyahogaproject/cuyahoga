@@ -21,6 +21,7 @@ namespace Cuyahoga.Modules.Articles.Web
 	public partial class Articles : BaseModuleControl
 	{
 		private ArticleModule _module;
+		private IList _articleList;
 
 		protected void Page_Load(object sender, System.EventArgs e)
 		{
@@ -38,22 +39,55 @@ namespace Cuyahoga.Modules.Articles.Web
 			{
 				BindArticles();
 			}
+
+			SetDisplayTitle();
+
+			BindArchiveLink();
 		}
 
 		private void BindArticles()
 		{
 			// Article list view
-			this.rptArticles.DataSource = this._module.GetArticleList();
+			if (this._articleList == null)
+			{
+				this._articleList = this._module.GetArticleList();
+			}
+			this.rptArticles.DataSource = this._articleList;
 			this.rptArticles.DataBind();
+		}
 
+		private void BindArchiveLink()
+		{
+			if (this._module.ShowArchive)
+			{
+				if (this._module.IsArchive)
+				{
+					this.hplToggleArchive.NavigateUrl = UrlHelper.GetUrlFromSection(this._module.Section);
+					this.hplToggleArchive.Text = base.GetText("CURRENT");
+				}
+				else
+				{
+					this.hplToggleArchive.NavigateUrl = UrlHelper.GetUrlFromSection(this._module.Section) + "/archive";
+					this.hplToggleArchive.Text = base.GetText("ARCHIVE");
+				}
+				this.hplToggleArchive.Visible = true;
+			}
+			else
+			{
+				this.hplToggleArchive.Visible = false;
+			}
+		}
+
+		private void SetDisplayTitle()
+		{
 			if (this._module.CurrentAction == ArticleModuleAction.Category)
 			{
-				if (this.rptArticles.Items.Count > 0)
-				{
-					// HACK: Get the name of the category from the first article in the list.
-					Article firstArticle = ((IList)this.rptArticles.DataSource)[0] as Article;
-					base.Module.DisplayTitle = base.GetText("CATEGORY") + " " + firstArticle.Category.Title;
-				}
+				this._module.DisplayTitle = String.Format("{0} {1}", GetText("CATEGORY"), this._module.GetCategoryById(this._module.CurrentCategoryId).Title);
+			}
+
+			if (this._module.IsArchive)
+			{
+				this._module.DisplayTitle += String.Format(" ({0}) ", GetText("ARCHIVE"));
 			}
 		}
 
@@ -70,45 +104,71 @@ namespace Cuyahoga.Modules.Articles.Web
 			if (e.Item.ItemType == ListItemType.Item || e.Item.ItemType == ListItemType.AlternatingItem)
 			{
 				Article article = e.Item.DataItem as Article;
+				DisplayType displayType = (DisplayType)Enum.Parse(typeof(DisplayType), this._module.Section.Settings["DISPLAY_TYPE"].ToString());
 
 				HyperLink hpl = e.Item.FindControl("hplTitle") as HyperLink;
-				hpl.NavigateUrl = UrlHelper.GetUrlFromSection(this._module.Section) + "/" + article.Id;
+				string articleUrl = UrlHelper.GetUrlFromSection(this._module.Section) + "/" + article.Id;
+				hpl.NavigateUrl = articleUrl;
 
-				Literal litDateOnline = e.Item.FindControl("litDateOnline") as Literal;
-				litDateOnline.Text =
-					TimeZoneUtil.AdjustDateToUserTimeZone(article.DateOnline, this.Page.User.Identity).ToLongDateString();
-				HyperLink hplAuthor = e.Item.FindControl("hplAuthor") as HyperLink;
-				hplAuthor.NavigateUrl = this._module.GetProfileUrl(article.CreatedBy.Id);
-				hplAuthor.Text = article.CreatedBy.FullName;
-
-				HyperLink hplCategory = e.Item.FindControl("hplCategory") as HyperLink;
-				if (article.Category != null)
-				{
-					hplCategory.NavigateUrl = UrlHelper.GetUrlFromSection(this.Module.Section) +
-						String.Format("/category/{0}", article.Category.Id);
-					hplCategory.Text = article.Category.Title;
-				}
-				else
-				{
-					hplCategory.Text = "-";
-				}
-
-				HyperLink hplComments = e.Item.FindControl("hplComments") as HyperLink;
-				if (this._module.AllowComments)
-				{
-					hplComments.NavigateUrl = UrlHelper.GetUrlFromSection(this._module.Section)
-						+ String.Format("/{0}#comments", article.Id);
-					hplComments.Text = base.GetText("COMMENTS") + " " + article.Comments.Count.ToString();
-				}
-				else
-				{
-					hplComments.Visible = false;
-				}
 				Panel pnlSummary = e.Item.FindControl("pnlSummary") as Panel;
-				Panel pnlContent = e.Item.FindControl("pnlContent") as Panel;
-				DisplayType displayType = (DisplayType)Enum.Parse(typeof(DisplayType), this._module.Section.Settings["DISPLAY_TYPE"].ToString());
 				pnlSummary.Visible = (displayType == DisplayType.HeadersAndSummary);
+				HyperLink hplReadMore = e.Item.FindControl("hplReadMore") as HyperLink;
+				hplReadMore.NavigateUrl = articleUrl;
+				hplReadMore.Text = base.GetText("READMORE");
+
+				Panel pnlContent = e.Item.FindControl("pnlContent") as Panel;
 				pnlContent.Visible = (displayType == DisplayType.FullContent);
+
+				Panel pnlArticleInfo = e.Item.FindControl("pnlArticleInfo") as Panel;
+
+				if (this._module.AllowComments || this._module.ShowAuthor || this._module.ShowCategory || this._module.ShowDateTime)
+				{
+					pnlArticleInfo.Visible = true;
+
+					Label lblDateOnline = e.Item.FindControl("lblDateOnline") as Label;
+					lblDateOnline.Text = TimeZoneUtil.AdjustDateToUserTimeZone(article.DateOnline, this.Page.User.Identity).ToString();
+					lblDateOnline.Visible = this._module.ShowDateTime;
+
+					Literal litAuthor = e.Item.FindControl("litAuthor") as Literal;
+					litAuthor.Text = base.GetText("PUBLISHED") + " " + base.GetText("BY");
+					litAuthor.Visible = this._module.ShowAuthor;
+					HyperLink hplAuthor = e.Item.FindControl("hplAuthor") as HyperLink;
+					hplAuthor.NavigateUrl = this._module.GetProfileUrl(article.CreatedBy.Id);
+					hplAuthor.Text = article.CreatedBy.FullName;
+					hplAuthor.Visible = this._module.ShowAuthor;
+
+					Literal litCategory = e.Item.FindControl("litCategory") as Literal;
+					litCategory.Text = base.GetText("CATEGORY");
+					litCategory.Visible = this._module.ShowCategory;
+					HyperLink hplCategory = e.Item.FindControl("hplCategory") as HyperLink;
+					if (article.Category != null)
+					{
+						hplCategory.NavigateUrl = UrlHelper.GetUrlFromSection(this.Module.Section) +
+							String.Format("/category/{0}", article.Category.Id);
+						hplCategory.Text = article.Category.Title;
+					}
+					else
+					{
+						hplCategory.Text = String.Empty;
+					}
+					hplCategory.Visible = this._module.ShowCategory;
+
+					HyperLink hplComments = e.Item.FindControl("hplComments") as HyperLink;
+					if (this._module.AllowComments)
+					{
+						hplComments.NavigateUrl = UrlHelper.GetUrlFromSection(this._module.Section)
+							+ String.Format("/{0}#comments", article.Id);
+						hplComments.Text = base.GetText("COMMENTS") + " " + article.Comments.Count.ToString();
+					}
+					else
+					{
+						hplComments.Visible = false;
+					}
+				}
+				else
+				{
+					pnlArticleInfo.Visible = false;
+				}
 			}
 		}
 	}
