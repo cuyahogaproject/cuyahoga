@@ -133,10 +133,17 @@ namespace Cuyahoga.Modules.Flash
 
 		public SearchContent[] GetAllSearchableContent()
 		{
-			SearchContent[] searchContents = new SearchContent[1];
 			AlternateContent shc = GetContent();
-			searchContents[0] = AlternateContentToSearchContent(shc);
-			return searchContents;
+			if (shc != null)
+			{
+				SearchContent[] searchContents = new SearchContent[1];
+				searchContents[0] = AlternateContentToSearchContent(shc);
+				return searchContents;
+			}
+			else
+			{
+				return new SearchContent[0];
+			}
 		}
 
 		public event IndexEventHandler ContentCreated;

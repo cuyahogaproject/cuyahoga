@@ -357,9 +357,9 @@ namespace Cuyahoga.Web.UI
 			if (section.ViewAllowed(this.User.Identity))
 			{
 				// Create the module that is connected to the section.
-				this._moduleLoader.ModuleAdded += new EventHandler(ModuleLoader_ModuleAdded);
+				this._moduleLoader.NHibernateModuleAdded += new EventHandler(ModuleLoader_ModuleAdded);
 				ModuleBase module = this._moduleLoader.GetModuleFromSection(section);
-				this._moduleLoader.ModuleAdded -= new EventHandler(ModuleLoader_ModuleAdded);
+				this._moduleLoader.NHibernateModuleAdded -= new EventHandler(ModuleLoader_ModuleAdded);
 
 				if (module != null)
 				{

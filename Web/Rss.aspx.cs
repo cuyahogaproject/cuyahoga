@@ -50,7 +50,7 @@ namespace Cuyahoga.Web
 					this._coreRepository = (CoreRepository)HttpContext.Current.Items["CoreRepository"];
 					Section section = (Section)this._coreRepository.GetObjectById(typeof(Section), sectionId);
 
-					this._moduleLoader.ModuleAdded += new EventHandler(ModuleLoader_ModuleAdded);
+					this._moduleLoader.NHibernateModuleAdded += new EventHandler(ModuleLoader_ModuleAdded);
 					ModuleBase module = this._moduleLoader.GetModuleFromSection(section);
 
 					module.ModulePathInfo = pathInfo;

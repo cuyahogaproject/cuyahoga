@@ -78,7 +78,7 @@ namespace Cuyahoga.Web.UI
 				this._node = (Node)base.CoreRepository.GetObjectById(typeof(Node), nodeId);
 				int sectionId = Int32.Parse(Context.Request.QueryString["SectionId"]);
 				this._section = (Section)base.CoreRepository.GetObjectById(typeof(Section), sectionId);
-				this._moduleLoader.ModuleAdded += new EventHandler(ModuleLoader_ModuleAdded);
+				this._moduleLoader.NHibernateModuleAdded += new EventHandler(ModuleLoader_ModuleAdded);
 				this._module = this._moduleLoader.GetModuleFromSection(this._section);
 			}
 			catch (Exception ex)

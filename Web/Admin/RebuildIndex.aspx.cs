@@ -18,6 +18,8 @@ using Cuyahoga.Core.Domain;
 using Cuyahoga.Core.Service;
 using Cuyahoga.Core.Search;
 using Cuyahoga.Web.Components;
+using Cuyahoga.Core.DataAccess;
+using Cuyahoga.Core;
 
 namespace Cuyahoga.Web.Admin
 {
@@ -29,6 +31,7 @@ namespace Cuyahoga.Web.Admin
 		private static readonly ILog log = LogManager.GetLogger(typeof(RebuildIndex));
 
 		private ModuleLoader _moduleLoader;
+		private ISiteStructureDao _siteStructureDao;
 
 		protected System.Web.UI.WebControls.Button btnRebuild;
 		protected System.Web.UI.WebControls.Label lblMessage;
@@ -40,6 +43,14 @@ namespace Cuyahoga.Web.Admin
 		{
 			set { this._moduleLoader = value; }
 		}
+
+		/// <summary>
+		/// Site structure data access component.
+		/// </summary>
+		public ISiteStructureDao SiteStructureDao
+		{
+			set { this._siteStructureDao = value; }
+		}
 	
 		private void Page_Load(object sender, System.EventArgs e)
 		{
@@ -47,11 +58,27 @@ namespace Cuyahoga.Web.Admin
 			if (! this.IsPostBack)
 			{
 				this.btnRebuild.Attributes.Add("onclick", "this.disabled='true';document.getElementById('pleasewait').style.display = 'block';" + GetPostBackEventReference(btnRebuild).ToString());
+				// Make sure all modules are loaded when we enter this page. We can't have a changing
+				// module configuration while rebuilding the full-text index.
+				EnsureModulesAreLoaded();
 			}
 			else
 			{
 				BuildIndex();
 				this.lblMessage.Visible = true;
+			}
+		}
+
+		private void EnsureModulesAreLoaded()
+		{
+			this._moduleLoader.NHibernateModuleAdded += new EventHandler(ModuleLoader_NHibernateModuleAdded);
+			IList currentModuleTypes = this._siteStructureDao.GetAllModuleTypesInUse();
+			foreach (ModuleType moduleType in currentModuleTypes)
+			{
+				// Just load every module. Just by loading it once, we can be sure that we won't
+				// run into strange surprises after pushing the 'Rebuild Index' button becasue
+				// some module weren't loaded or configured.
+				ModuleBase module = this._moduleLoader.GetModuleFromType(moduleType);
 			}
 		}
 
@@ -84,7 +111,6 @@ namespace Cuyahoga.Web.Admin
 				ModuleBase module = null;
 				try
 				{
-					this._moduleLoader.ModuleAdded += new EventHandler(ModuleLoader_ModuleAdded);
 					module = this._moduleLoader.GetModuleFromSection(section);
 				}
 				catch (Exception ex)
@@ -136,11 +162,11 @@ namespace Cuyahoga.Web.Admin
 		#endregion
 
 
-		private void ModuleLoader_ModuleAdded(object sender, EventArgs e)
+		private void ModuleLoader_NHibernateModuleAdded(object sender, EventArgs e)
 		{
-			// TODO
-			throw new Exception("The method or operation is not implemented.");		
+			// Just redirect the page to itself when a new NHibernate module is discovered that is also 
+			// searchable
+			Context.Response.Redirect(Context.Request.RawUrl, false);
 		}
-
 	}
 }

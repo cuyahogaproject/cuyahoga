@@ -212,6 +212,21 @@ namespace Cuyahoga.Core.DataAccess
 			}
 		}
 
+		/// <summary>
+		/// Get all module types that are currently in use (that have related sections) 
+		/// in the Cuyahoga installation.
+		/// </summary>
+		/// <returns></returns>
+		public IList GetAllModuleTypesInUse()
+		{
+			ISession session = this._sessionManager.OpenSession();
+
+			string hql = "select distinct mt from Section s join s.ModuleType mt";
+			IQuery q = session.CreateQuery(hql);
+			return q.List();
+		}
+
+
 		[Transaction(TransactionMode.Requires)]
 		public void SaveSite(Site site)
 		{

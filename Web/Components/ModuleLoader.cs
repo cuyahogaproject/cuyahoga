@@ -22,13 +22,13 @@ namespace Cuyahoga.Web.Components
 		/// <summary>
 		/// Fires when a module was registered for the first time.
 		/// </summary>
-		public event EventHandler ModuleAdded;
+		public event EventHandler NHibernateModuleAdded;
 
 		protected void OnNHibernateModuleAdded()
 		{
-			if (ModuleAdded != null)
+			if (NHibernateModuleAdded != null)
 			{
-				ModuleAdded(this, EventArgs.Empty);
+				NHibernateModuleAdded(this, EventArgs.Empty);
 			}
 		}
 

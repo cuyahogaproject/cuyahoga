@@ -1,6 +1,17 @@
 Cuyahoga release notes
 
 ===========================================================================
+1.0.1 - 2007-01-05
+===========================================================================
+New features
+- SMTP authentication
+
+Bugfixes:
+- Fixed FCKeditor security issue.
+- Fixed deleting of roles.
+- Short description generator now only generates valid characters.
+
+===========================================================================
 1.0.0 - 2005-12-30
 ===========================================================================
 New features:

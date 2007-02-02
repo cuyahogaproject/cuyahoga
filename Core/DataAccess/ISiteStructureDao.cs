@@ -103,6 +103,13 @@ namespace Cuyahoga.Core.DataAccess
 		IList GetSectionsByModuleTypes(IList moduleTypes);
 
 		/// <summary>
+		/// Get all module types that are currently in use (that have related sections) 
+		/// in the Cuyahoga installation.
+		/// </summary>
+		/// <returns></returns>
+		IList GetAllModuleTypesInUse();
+
+		/// <summary>
 		/// Save a site instance.
 		/// </summary>
 		/// <param name="site"></param>
