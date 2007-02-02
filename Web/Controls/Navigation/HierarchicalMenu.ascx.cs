@@ -32,7 +32,10 @@ namespace Cuyahoga.Web.Templates.Controls
 		private void BuildNavigationTree()
 		{
 			HtmlGenericControl mainList = new HtmlGenericControl("ul");
-			mainList.Controls.Add(BuildListItemFromNode(this._page.RootNode));
+			if (this._page.RootNode.ShowInNavigation && this._page.RootNode.ViewAllowed(this._page.CuyahogaUser))
+			{
+				mainList.Controls.Add(BuildListItemFromNode(this._page.RootNode));
+			}
 			foreach (Node node in this._page.RootNode.ChildNodes)
 			{
 				if (node.ShowInNavigation && node.ViewAllowed(this._page.CuyahogaUser))

@@ -28,8 +28,15 @@ namespace Cuyahoga.Web.Templates.Controls
 				{
 					this._page = (PageEngine)this.Page;	
 					// Bind home hyperlink
-					this.hplHome.NavigateUrl = UrlHelper.GetUrlFromNode(this._page.RootNode);
-					this.hplHome.Text = this._page.RootNode.Title;
+					if (this._page.RootNode.ShowInNavigation && this._page.RootNode.ViewAllowed(this._page.CuyahogaUser))
+					{
+						this.hplHome.NavigateUrl = UrlHelper.GetUrlFromNode(this._page.RootNode);
+						this.hplHome.Text = this._page.RootNode.Title;
+					}
+					else
+					{
+						this.hplHome.Visible = false;
+					}
 					// Bind level 1 nodes
 					this.rptNav1.ItemDataBound += new RepeaterItemEventHandler(rptNav1_ItemDataBound);
 					this.rptNav1.DataSource = this._page.RootNode.ChildNodes;
