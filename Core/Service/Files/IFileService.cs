@@ -34,5 +34,12 @@ namespace Cuyahoga.Core.Service.Files
 		/// </summary>
 		/// <param name="filePath">The physical file path</param>
 		void DeleteFile(string filePath);
+
+		/// <summary>
+		/// Check if the given physical directory is writable for the current user.
+		/// </summary>
+		/// <param name="physicalDirectory"></param>
+		/// <returns></returns>
+		bool CheckIfDirectoryIsWritable(string physicalDirectory);
 	}
 }

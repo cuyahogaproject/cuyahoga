@@ -35,6 +35,11 @@ namespace Cuyahoga.Core.Service.Files
 			{
 				throw new ArgumentException("The file already exists", filePath);
 			}
+			string directoryName = Path.GetDirectoryName(filePath);
+			if (!Directory.Exists(directoryName))
+			{
+				throw new DirectoryNotFoundException(String.Format("The physical upload directory {0} for the file does not exist", directoryName));
+			}
 			string tempFilePath = Path.Combine(this._tempDir, Path.GetFileName(filePath));
 
 			FileStream fs = new FileStream(tempFilePath, FileMode.Create, FileAccess.Write);
@@ -51,7 +56,10 @@ namespace Cuyahoga.Core.Service.Files
 		/// <param name="filePath"></param>
 		public void DeleteFile(string filePath)
 		{
-			// TODO; make sure that the file can be deleted, otherwise the commit could go wrong.
+			if (!File.Exists(filePath))
+			{
+				throw new FileNotFoundException("The file was not found so it could not be deleted.", filePath);
+			}
 			this._deletedFiles.Add(filePath);
 		}
 
@@ -87,7 +95,6 @@ namespace Cuyahoga.Core.Service.Files
 				File.Delete(fileToBeDeleted);
 			}
 		}
-
 		#endregion
 	}
 }

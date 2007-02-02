@@ -28,11 +28,11 @@ namespace Cuyahoga.Core.Domain
 		/// </summary>
 		protected ISession NHSession
 		{
-			get 
-			{ 
+			get
+			{
 				if (this._sessionManager != null)
 				{
-					return this._sessionManager.OpenSession(); 
+					return this._sessionManager.OpenSession();
 				}
 				else
 				{
@@ -210,6 +210,15 @@ namespace Cuyahoga.Core.Domain
 			{
 				throw new NullReferenceException("Can't access the section for settings.");
 			}
+		}
+
+		/// <summary>
+		/// Check if the module contains no invalid settings. Override this method in concrete module controllers.
+		/// </summary>
+		public virtual void ValidateSectionSettings()
+		{
+			// Do nothing here
+			return;
 		}
 	}
 }

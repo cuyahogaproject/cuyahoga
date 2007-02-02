@@ -353,6 +353,17 @@ namespace Cuyahoga.Web.Admin
 			}
 		}
 
+		private void ValidateSettings()
+		{
+			if (this._activeSection != null)
+			{
+				// We need to get the module instanse to be able to validate the sections.
+				ModuleBase moduleInstance = this._moduleLoader.GetModuleFromSection(this._activeSection);
+				moduleInstance.ValidateSectionSettings();
+			}
+		}
+
+
 		private void SetRoles()
 		{
 			this._activeSection.SectionPermissions.Clear();
@@ -446,6 +457,9 @@ namespace Cuyahoga.Web.Admin
 
 					// Custom settings
 					SetCustomSettings();
+
+					// Validate settings
+					ValidateSettings();
 
 					// Roles
 					SetRoles();

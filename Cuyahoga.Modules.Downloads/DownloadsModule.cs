@@ -40,19 +40,19 @@ namespace Cuyahoga.Modules.Downloads
 		///	</remarks>
 		public string FileDir
 		{
-			get 
-			{ 
+			get
+			{
 				if (this._physicalDir == null)
 				{
 					this._physicalDir = HttpContext.Current.Server.MapPath("~/files");
-					CheckPhysicalDirectory();
+					CheckPhysicalDirectory(this._physicalDir);
 				}
 				return this._physicalDir;
 			}
-			set 
-			{ 
+			set
+			{
 				this._physicalDir = value;
-				CheckPhysicalDirectory();
+				CheckPhysicalDirectory(this._physicalDir);
 			}
 		}
 
@@ -111,17 +111,35 @@ namespace Cuyahoga.Modules.Downloads
 
 		public override void ReadSectionSettings()
 		{
-			base.ReadSectionSettings ();
+			base.ReadSectionSettings();
 			// Set dynamic module settings
 			string physicalDir = Convert.ToString(base.Section.Settings["PHYSICAL_DIR"]);
 			if (physicalDir != String.Empty)
 			{
 				this._physicalDir = physicalDir;
-				CheckPhysicalDirectory();
 			}
 			this._showPublisher = Convert.ToBoolean(base.Section.Settings["SHOW_PUBLISHER"]);
 			this._showDateModified = Convert.ToBoolean(base.Section.Settings["SHOW_DATE"]);
 			this._showNumberOfDownloads = Convert.ToBoolean(base.Section.Settings["SHOW_NUMBER_OF_DOWNLOADS"]);
+		}
+
+		/// <summary>
+		/// Validate module settings.
+		/// </summary>
+		public override void ValidateSectionSettings()
+		{
+			// Check if the virtual directory exists.
+			// We need to do this based on the section setting because it might be possible that the related section 
+			// isn't saved yet.
+			if (base.Section != null)
+			{
+				string physicalDir = Convert.ToString(base.Section.Settings["PHYSICAL_DIR"]);
+				if (!String.IsNullOrEmpty(physicalDir))
+				{
+					CheckPhysicalDirectory(physicalDir);
+				}
+			}
+			base.ValidateSectionSettings();
 		}
 
 		/// <summary>
@@ -258,15 +276,21 @@ namespace Cuyahoga.Modules.Downloads
 			}
 		}
 
-		private void CheckPhysicalDirectory()
+		private void CheckPhysicalDirectory(string physicalDir)
 		{
 			// Check existence
-			if (! System.IO.Directory.Exists(this._physicalDir))
+			if (!System.IO.Directory.Exists(physicalDir))
 			{
-				throw new Exception(String.Format("The Downloads module didn't find the physical directory {0} on the server.", this._physicalDir));
+				throw new Exception(String.Format("The Downloads module didn't find the physical directory {0} on the server.", physicalDir));
+			}
+
+			// Check if the diretory is writable
+			if (!this._fileService.CheckIfDirectoryIsWritable(physicalDir))
+			{
+				throw new Exception(String.Format("The physical directory {0} is not writable.", physicalDir));
 			}
 		}
-		}
+	}	
 
 	public enum DownloadsModuleActions
 	{

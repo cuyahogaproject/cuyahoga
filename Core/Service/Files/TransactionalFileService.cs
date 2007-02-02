@@ -83,6 +83,34 @@ namespace Cuyahoga.Core.Service.Files
 			}
 		}
 
+		public bool CheckIfDirectoryIsWritable(string physicalDirectory)
+		{
+			// Check if the given directory is writable by creating a dummy file.
+			string fileName = Path.Combine(physicalDirectory, "dummy.txt");
+
+			try
+			{
+				using (StreamWriter sw = new StreamWriter(fileName))
+				{
+					// Add some text to the file.
+					sw.WriteLine("DUMMY");
+					sw.Flush();
+				}
+				File.Delete(fileName);
+				return true;
+			}
+			catch (UnauthorizedAccessException)
+			{
+				log.WarnFormat("Checking access to physical directory {0} resulted in no access.", physicalDirectory);
+				return false;
+			}
+			catch (Exception ex)
+			{
+				log.Error(String.Format("An unexpected error occured while checking write access for the directory {0}.", physicalDirectory), ex);
+				throw;
+			}
+		}
+
 		#endregion
 
 		private ITransaction ObtainCurrentTransaction()
