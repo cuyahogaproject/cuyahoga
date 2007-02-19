@@ -18,6 +18,8 @@
 				}
 				// -->
 			</script>
+			<p>Manage the properties of the node (page). Use the buttons on the bottom
+			of the page to save or delete the page or to add a new child node underneath this node.</p>
 			<div class="group">
 				<h4>General</h4>
 				<table>
@@ -56,15 +58,14 @@
 						<td>Meta description</td>
 						<td>
 							<asp:textbox id="txtMetaDescription" runat="server" maxlength="500" textmode="MultiLine"
-								width="400px" height="70px"></asp:textbox></td>
+								width="400px" height="35px"></asp:textbox></td>
 					</tr>
 					<tr>
 						<td>Meta keywords</td>
 						<td>
 							<asp:textbox id="txtMetaKeywords" runat="server" maxlength="500" textmode="MultiLine"
-								width="400px" height="70px"></asp:textbox></td>
+								width="400px" height="35px"></asp:textbox></td>
 					</tr>
-
 					<tr>
 						<td></td>
 						<td><asp:checkbox id="chkLink" runat="server" autopostback="True" text="The node is a link to an external url"></asp:checkbox><asp:panel id="pnlLink" runat="server" visible="False">

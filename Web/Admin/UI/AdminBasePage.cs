@@ -50,39 +50,35 @@ namespace Cuyahoga.Web.Admin.UI
 		}
 
 		/// <summary>
-		/// Site service (injected).
+		/// Site service
 		/// </summary>
 		public ISiteService SiteService
 		{
 			get { return this._siteService; }
-			set { this._siteService = value; }
 		}
 
 		/// <summary>
-		/// Node Service (injected).
+		/// Node Service
 		/// </summary>
 		public INodeService NodeService
 		{
 			get { return this._nodeService; }
-			set { this._nodeService = value; }
 		}
 
 		/// <summary>
-		/// Section service (injected).
+		/// Section service
 		/// </summary>
 		public ISectionService SectionService
 		{
 			get { return this._sectionService; }
-			set { this._sectionService = value; }
 		}
 
 		/// <summary>
-		/// Moduleloader (injected).
+		/// Moduleloader
 		/// </summary>
 		public ModuleLoader ModuleLoader
 		{
 			get { return this._moduleLoader; }
-			set { this._moduleLoader = value; }
 		}
 
 		/// <summary>
@@ -91,14 +87,19 @@ namespace Cuyahoga.Web.Admin.UI
 		public AdminBasePage()
 		{
 			this._activeNode = null;
+
+			this._siteService = Container.Resolve<ISiteService>();
+			this._nodeService = Container.Resolve<INodeService>();
+			this._sectionService = Container.Resolve<ISectionService>();
+			this._moduleLoader = Container.Resolve<ModuleLoader>();
 		}
 
 		protected override void OnInit(EventArgs e)
 		{
 			// Set template dir, template filename and css.
-			base.TemplateDir = ConfigurationSettings.AppSettings["TemplateDir"];
-			base.TemplateFilename = ConfigurationSettings.AppSettings["DefaultTemplate"];
-			base.Css = ConfigurationSettings.AppSettings["DefaultCss"];
+			base.TemplateDir = ConfigurationManager.AppSettings["TemplateDir"];
+			base.TemplateFilename = ConfigurationManager.AppSettings["DefaultTemplate"];
+			base.Css = ConfigurationManager.AppSettings["DefaultCss"];
 
 			// Try to set active Site, Node and Section.
 			if (Context.Request.QueryString["SectionId"] != null)

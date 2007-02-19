@@ -2,6 +2,7 @@ using Castle.Windsor;
 using Castle.Windsor.Configuration.Interpreters;
 
 using Cuyahoga.Core.Service;
+using Castle.MicroKernel.Releasers;
 
 namespace Cuyahoga.Web.Components
 {
@@ -22,8 +23,6 @@ namespace Cuyahoga.Web.Components
 
 		private void RegisterFacilities()
 		{
-			//AddFacility("nhibernate", new Cuyahoga.Core.Facilities.CuyahogaNHibernateFacility());
-			//AddFacility("autotransaction", new TransactionFacility());
 		}
 
 		private void RegisterServices()

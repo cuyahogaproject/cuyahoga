@@ -47,7 +47,7 @@
 				<include name="**/*.css" />
 				<include name="**/*.xslt" />
 				<include name="**/*.txt" />
-				<exclude name="obj/**" />
+				<exclude name="obj/*.txt" />
 			</fileset>
 		</copy>
 	</target>

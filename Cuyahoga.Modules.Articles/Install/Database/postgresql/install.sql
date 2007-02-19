@@ -54,7 +54,8 @@ CONSTRAINT FK_articlecomment_user_userid FOREIGN KEY (userid) REFERENCES cuyahog
 SELECT setval('cuyahoga_moduletype_moduletypeid_seq', (SELECT max(moduletypeid) FROM cuyahoga_moduletype));
 SELECT setval('cuyahoga_modulesetting_modulesettingid_seq', (SELECT max(modulesettingid) FROM cuyahoga_modulesetting));
 
-INSERT INTO cuyahoga_moduletype (name, assemblyname, classname, path, editpath, inserttimestamp, updatetimestamp) VALUES ('Articles', 'Cuyahoga.Modules', 'Cuyahoga.Modules.Articles.ArticleModule', 'Modules/Articles/Articles.ascx', 'Modules/Articles/AdminArticles.aspx', '2004-10-02 14:36:28.324', '2004-10-02 14:36:28.324');
+INSERT INTO cuyahoga_moduletype (name, assemblyname, classname, path, editpath, inserttimestamp, updatetimestamp) 
+VALUES ('Articles', 'Cuyahoga.Modules.Articles', 'Cuyahoga.Modules.Articles.ArticleModule', 'Modules/Articles/Articles.ascx', 'Modules/Articles/AdminArticles.aspx', '2004-10-02 14:36:28.324', '2004-10-02 14:36:28.324');
 
 INSERT INTO cuyahoga_modulesetting (moduletypeid, name, friendlyname, settingdatatype, iscustomtype, isrequired) 
 VALUES (currval('cuyahoga_moduletype_moduletypeid_seq'), 'ALLOW_COMMENTS', 'Allow comments', 'System.Boolean', false, true);
@@ -72,16 +73,16 @@ INSERT INTO cuyahoga_modulesetting (moduletypeid, name, friendlyname, settingdat
 VALUES (currval('cuyahoga_moduletype_moduletypeid_seq'), 'ALLOW_SYNDICATION', 'Allow syndication', 'System.Boolean', false, true);
 
 INSERT INTO cuyahoga_modulesetting (moduletypeid, name, friendlyname, settingdatatype, iscustomtype, isrequired) 
-VALUES (currval('cuyahoga_moduletype_moduletypeid_seq', 'SHOW_ARCHIVE', 'Show link to archived articles', 'System.Boolean', false, true);
+VALUES (currval('cuyahoga_moduletype_moduletypeid_seq'), 'SHOW_ARCHIVE', 'Show link to archived articles', 'System.Boolean', false, true);
 
 INSERT INTO cuyahoga_modulesetting (moduletypeid, name, friendlyname, settingdatatype, iscustomtype, isrequired) 
-VALUES (currval('cuyahoga_moduletype_moduletypeid_seq', 'SHOW_DATETIME', 'Show publish date and time', 'System.Boolean', false, true);
+VALUES (currval('cuyahoga_moduletype_moduletypeid_seq'), 'SHOW_DATETIME', 'Show publish date and time', 'System.Boolean', false, true);
 
 INSERT INTO cuyahoga_modulesetting (moduletypeid, name, friendlyname, settingdatatype, iscustomtype, isrequired) 
-VALUES (currval('cuyahoga_moduletype_moduletypeid_seq', 'SHOW_CATEGORY', 'Show category', 'System.Boolean', false, true);
+VALUES (currval('cuyahoga_moduletype_moduletypeid_seq'), 'SHOW_CATEGORY', 'Show category', 'System.Boolean', false, true);
 
 INSERT INTO cuyahoga_modulesetting (moduletypeid, name, friendlyname, settingdatatype, iscustomtype, isrequired) 
-VALUES (currval('cuyahoga_moduletype_moduletypeid_seq', 'SHOW_AUTHOR', 'Show author', 'System.Boolean', false, true);
+VALUES (currval('cuyahoga_moduletype_moduletypeid_seq'), 'SHOW_AUTHOR', 'Show author', 'System.Boolean', false, true);
 
 INSERT INTO cuyahoga_modulesetting (moduletypeid, name, friendlyname, settingdatatype, iscustomtype, isrequired) 
 VALUES (currval('cuyahoga_moduletype_moduletypeid_seq'), 'SORT_BY', 'Sort by', 'Cuyahoga.Modules.Articles.SortBy', true, true);

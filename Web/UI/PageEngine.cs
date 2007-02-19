@@ -98,38 +98,6 @@ namespace Cuyahoga.Web.UI
 			get { return this._currentSite; }
 		}
 
-		/// <summary>
-		/// Module loader. The container is responsible for setting this one.
-		/// </summary>
-		public ModuleLoader ModuleLoader
-		{
-			set { this._moduleLoader = value; }
-		}
-
-		/// <summary>
-		/// 
-		/// </summary>
-		public ISiteService SiteService
-		{
-			set { this._siteService = value; }
-		}
-
-		/// <summary>
-		/// 
-		/// </summary>
-		public INodeService NodeService
-		{
-			set { this._nodeService = value; }
-		}
-
-		/// <summary>
-		/// 
-		/// </summary>
-		public ISectionService SectionService
-		{
-			set { this._sectionService = value; }
-		}
-
 		#endregion
 
 		/// <summary>
@@ -143,6 +111,13 @@ namespace Cuyahoga.Web.UI
 			this._shouldLoadContent = true;
 			this._stylesheets = new Hashtable();
 			this._metaTags = new Hashtable();
+
+			// Get services from the container. Ideally, it should be possible to register the aspx page in the container
+			// to automatically resolve dependencies but there were memory issues with registering pages in the container.
+			this._moduleLoader = Container.Resolve<ModuleLoader>();
+			this._nodeService = Container.Resolve<INodeService>();
+			this._siteService = Container.Resolve<ISiteService>();
+			this._sectionService = Container.Resolve<ISectionService>();
 		}
 
 		/// <summary>
@@ -357,9 +332,8 @@ namespace Cuyahoga.Web.UI
 			if (section.ViewAllowed(this.User.Identity))
 			{
 				// Create the module that is connected to the section.
-				this._moduleLoader.NHibernateModuleAdded += new EventHandler(ModuleLoader_ModuleAdded);
 				ModuleBase module = this._moduleLoader.GetModuleFromSection(section);
-				this._moduleLoader.NHibernateModuleAdded -= new EventHandler(ModuleLoader_ModuleAdded);
+				//this._moduleLoader.NHibernateModuleAdded -= new EventHandler(ModuleLoader_ModuleAdded);
 
 				if (module != null)
 				{
@@ -446,19 +420,6 @@ namespace Cuyahoga.Web.UI
 		private void InsertMetaTags()
 		{
 			this.TemplateControl.RenderMetaTags(this._metaTags);
-		}
-
-		private void ModuleLoader_ModuleAdded(object sender, EventArgs e)
-		{
-			// A module was loaded for the first time. We need to reload the page.
-			if (Context.Items["VirtualUrl"] != null)
-			{
-				Context.Response.Redirect(Context.Items["VirtualUrl"].ToString(), true);
-			}
-			else
-			{
-				Context.Response.Redirect(Context.Request.RawUrl, true);
-			}
 		}
 	}
 }

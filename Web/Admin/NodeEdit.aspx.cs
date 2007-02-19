@@ -437,6 +437,7 @@ namespace Cuyahoga.Web.Admin
 				SetTemplate();	
 				// Also save the current node (validate first)
 				this.ActiveNode.Title = this.txtTitle.Text;
+				this.ActiveNode.Culture = this.ddlCultures.SelectedValue;
 				Validate();
 				if (this.IsValid)
 				{

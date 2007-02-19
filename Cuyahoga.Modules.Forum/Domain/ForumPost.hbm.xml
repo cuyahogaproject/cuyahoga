@@ -3,7 +3,7 @@
 	<class name="Cuyahoga.Modules.Forum.Domain.ForumPost, Cuyahoga.Modules.Forum" table="cm_forumposts">
 		<id name="Id" column="postid" type="Int32" unsaved-value="-1">
 			<generator class="native">
-				<param name="sequence">cm_forum_forumpostid_seq</param>
+				<param name="sequence">cm_forumposts_postid_seq</param>
 			</generator>
 		</id>
 

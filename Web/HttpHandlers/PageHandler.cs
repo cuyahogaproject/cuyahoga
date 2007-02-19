@@ -10,6 +10,9 @@ using Castle.MicroKernel;
 using Cuyahoga.Web.Components;
 using Cuyahoga.Web.UI;
 using Cuyahoga.Web.Util;
+using Cuyahoga.Core.Domain;
+using System.Collections.Generic;
+using Castle.Core;
 
 namespace Cuyahoga.Web.HttpHandlers
 {
@@ -19,6 +22,7 @@ namespace Cuyahoga.Web.HttpHandlers
 	public class PageHandler : IHttpHandler, IRequiresSessionState
 	{
 		private static readonly ILog log = LogManager.GetLogger(typeof(PageHandler));
+		//private IWindsorContainer _container;
 
 		#region IHttpHandler Members
 
@@ -41,14 +45,11 @@ namespace Cuyahoga.Web.HttpHandlers
 			string aspxPagePath = rewrittenUrl.Substring(0, rewrittenUrl.IndexOf(".aspx") + 5);
 			IHttpHandler handler = PageParser.GetCompiledPageInstance(aspxPagePath, null, context);
 
-			// Register the page in the container
-			handler = RegisterAspxPage(handler, context);
-
 			// Process the page just like any other aspx page
 			handler.ProcessRequest(context);
 
-			// Remove the page from the container
-			RemoveAspxPage(handler, context);
+			// Release loaded modules. These modules are added to the HttpContext.Items collection by the ModuleLoader.
+			ReleaseModules();
 
 			// Log duration
 			TimeSpan duration = DateTime.Now - startTime;
@@ -65,29 +66,17 @@ namespace Cuyahoga.Web.HttpHandlers
 
 		#endregion
 
-		private IHttpHandler RegisterAspxPage(IHttpHandler handler, HttpContext context)
+		private void ReleaseModules()
 		{
-			if (handler is ICuyahogaPage)
+			List<ModuleBase> loadedModules = HttpContext.Current.Items["LoadedModules"] as List<ModuleBase>;
+			if (loadedModules != null)
 			{
-				string pageKey = Guid.NewGuid().ToString();
 				IWindsorContainer container = ContainerAccessorUtil.GetContainer();
-				container.Kernel.AddComponent(pageKey, handler.GetType());
 
-				if (container.Kernel.HasComponent(handler.GetType()))
+				foreach (ModuleBase module in loadedModules)
 				{
-					IHttpHandler newHandler = (IHttpHandler)container[handler.GetType()];
-					handler = newHandler;
+					container.Release(module);
 				}
-			}
-			return handler;
-		}
-
-		private void RemoveAspxPage(IHttpHandler handler, HttpContext context)
-		{
-			if (handler is ICuyahogaPage)
-			{
-				IWindsorContainer container = (context.ApplicationInstance as IContainerAccessor).Container;
-				container.Release(handler);
 			}
 		}
 	}

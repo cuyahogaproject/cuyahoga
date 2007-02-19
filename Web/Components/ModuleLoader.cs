@@ -7,30 +7,19 @@ using Cuyahoga.Core;
 using Cuyahoga.Core.Domain;
 using Cuyahoga.Core.Service;
 using Cuyahoga.Web.Util;
+using System.Collections.Generic;
+using System.Web;
 
 namespace Cuyahoga.Web.Components
 {
 	/// <summary>
 	/// Responsible for loading module assemblies and registering these in the application.
 	/// </summary>
-	[Transient]
 	public class ModuleLoader
 	{
 		private IKernel _kernel;
 		private SessionFactoryHelper _sessionFactoryHelper;
-
-		/// <summary>
-		/// Fires when a module was registered for the first time.
-		/// </summary>
-		public event EventHandler NHibernateModuleAdded;
-
-		protected void OnNHibernateModuleAdded()
-		{
-			if (NHibernateModuleAdded != null)
-			{
-				NHibernateModuleAdded(this, EventArgs.Empty);
-			}
-		}
+		private bool _redirectSuspended;
 
 		/// <summary>
 		/// Constructor.
@@ -110,7 +99,10 @@ namespace Cuyahoga.Web.Components
 				{
 					// Module needs its NHibernate mappings registered.
 					this._sessionFactoryHelper.AddAssembly(moduleType.Assembly);
-					OnNHibernateModuleAdded();
+					if (! this._redirectSuspended)
+					{
+						RedirectAfterModuleAdded();
+					}
 				}
 			}
 			else
@@ -119,7 +111,45 @@ namespace Cuyahoga.Web.Components
 				module = this._kernel[moduleType] as ModuleBase;
 			}
 
+			// Add module to the list of loaded modules, so the page handler can clean up afterwards.
+			List<ModuleBase> loadedModules = HttpContext.Current.Items["LoadedModules"] as List<ModuleBase>;
+			if (loadedModules != null)
+			{
+				loadedModules.Add(module);
+			}
+
 			return module;
+		}
+
+		/// <summary>
+		/// Suspend redirecting when a new NHibernate module is loaded.
+		/// </summary>
+		public void SuspendRedirect()
+		{
+			this._redirectSuspended = true;
+		}
+
+		/// <summary>
+		/// Resume redirecting when a new NHibernate module is loaded.
+		/// </summary>
+		public void ResumeRedirect()
+		{
+			this._redirectSuspended = false;
+		}
+
+		private void RedirectAfterModuleAdded()
+		{
+			// A module that uses NHibernate was loaded for the first time.
+			// Immediately redirect to the same page.
+			// TODO: handle more elegantly?
+			if (HttpContext.Current.Items["VirtualUrl"] != null)
+			{
+				HttpContext.Current.Response.Redirect(HttpContext.Current.Items["VirtualUrl"].ToString());
+			}
+			else
+			{
+				HttpContext.Current.Response.Redirect(HttpContext.Current.Request.RawUrl);
+			}
 		}
 	}
 }

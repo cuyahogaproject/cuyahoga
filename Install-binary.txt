@@ -1,11 +1,15 @@
 
+**************************************************************
+From version 1.5.0, Cuyahoga requires the .NET 2.0 Framework.
+**************************************************************
+
 Installing Cuyahoga from the binary distribution
 
 1. Requirements
     - IIS 5.0 or higher
-    - The .NET 1.1 or 2.0 runtime environment. Mono users have to use the source distribution.
+    - The 2.0 runtime environment.
     - A database server. Supported databases are
-        - SQL Server/MSDE 2000 and 2005
+        - SQL Server 2000 / SQL Server 2005 / SQL Server Express / MSDE 2000 
         - PostgreSQL 7.4 and higher
         - MySQL 4.0 and higher
         
@@ -13,7 +17,7 @@ Installing Cuyahoga from the binary distribution
 
 3. Create an empty database.
 
-4. Change the connection string in the Web\Config\properties.config (connectionString)
+4. Change the connection string in the Web/Config/properties.config (connectionString)
    to the database that is created in step 3.
 		  
     Example (SQL Server):
@@ -22,8 +26,8 @@ Installing Cuyahoga from the binary distribution
     Example (PostgreSQL):
     <connectionString>server=192.168.0.1;port=5432;database=Cuyahoga;uid=***;pwd=***;</connectionString>
           
-    Make sure that the account that connects to the database has enough permissions to create
-    the database!
+    Make sure that the account that connects to the database for the first time
+    has enough permissions to create the database!
     
 5. Create a website or a virtual directory in IIS and set its home directory to the physical 
     directory where the Cuyahoga files were extracted.
@@ -32,9 +36,9 @@ Installing Cuyahoga from the binary distribution
     directory that is created in the previous step.
 
     At the first visit, the database will be installed automatically, and you'll be asked to set 
-    a password for the administrator (min. 5 characters!). After that there is an option to
-    create a sample site. When everything is finished you can visit the web site adminstration
-    pages. The url of the web site administration is 
+    a password for the administrator (min. 5 characters!).  After that there is a choice to install
+    additional modules and to create a sample site.  When everything is finished you can visit the web 
+    site adminstration pages. The url of the web site administration is 
     http://SERVER_NAME/VIRTUAL_DIRECTORY/Admin/. If you installed Cuyahoga in the cuyahoga 
     virtual directory on your localhost, this url will be http://localhost/cuyahoga/Admin/.
 

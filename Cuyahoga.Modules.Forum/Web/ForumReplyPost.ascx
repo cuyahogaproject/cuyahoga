@@ -35,7 +35,7 @@
 		</tr>
 		<tr>
 			<td valign="top" width="25%">
-				<asp:literal id="ltMessage" runat="server" visible="True">Message</asp:literal>
+				<asp:literal id="ltMessage" runat="server" visible="False" Text="Message"></asp:literal>
 				<asp:panel id="pnlSmily" runat="server">
 					<asp:repeater id="rptSmily" runat="server" enableviewstate="False">
 						<itemtemplate>

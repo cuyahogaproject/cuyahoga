@@ -9,6 +9,7 @@ using log4net;
 
 using Cuyahoga.Core.Domain;
 using Cuyahoga.Core.Service;
+using System.Globalization;
 
 namespace Cuyahoga.Core.Util
 {
@@ -83,7 +84,12 @@ namespace Cuyahoga.Core.Util
 			{
 				IDbCommand cmd = connection.CreateCommand();
 				cmd.Transaction = transaction;
-				string[] sqlCommands = Regex.Split(completeScript, delimiter, RegexOptions.IgnoreCase|RegexOptions.Multiline);
+				string splitRegex = delimiter + @"\s*\n";
+				string[] sqlCommands = Regex.Split(completeScript, splitRegex, RegexOptions.IgnoreCase | RegexOptions.Multiline);
+				// Strip the delimiter from the last command. It might not be caught by the regex.
+				sqlCommands[sqlCommands.Length - 1] = 
+					Regex.Replace(sqlCommands[sqlCommands.Length - 1], delimiter, String.Empty, RegexOptions.IgnoreCase | RegexOptions.Multiline);
+
 				foreach (string sqlCommand in sqlCommands)
 				{
 					if (sqlCommand.Trim().Length > 0)

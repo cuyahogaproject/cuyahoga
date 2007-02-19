@@ -23,7 +23,6 @@ namespace Cuyahoga.Web.Admin
 	{
 		private Section _activeSection = null;
 		private IList _availableModuleTypes;
-		private ModuleLoader _moduleLoader;
 
 		protected System.Web.UI.WebControls.TextBox txtTitle;
 		protected System.Web.UI.WebControls.CheckBox chkShowTitle;
@@ -44,11 +43,6 @@ namespace Cuyahoga.Web.Admin
 		protected System.Web.UI.WebControls.HyperLink hplNewConnection;
 		protected System.Web.UI.WebControls.Repeater rptConnections;
 		protected System.Web.UI.WebControls.PlaceHolder plcCustomSettings;
-
-		public ModuleLoader ModuleLoader
-		{
-			set { this._moduleLoader = value; }
-		}
 	
 		private void Page_Load(object sender, System.EventArgs e)
 		{
@@ -250,7 +244,7 @@ namespace Cuyahoga.Web.Admin
 			// First test if connections are possible
 			if (this._activeSection.ModuleType != null)
 			{
-				ModuleBase moduleInstance = this._moduleLoader.GetModuleFromSection(this._activeSection);
+				ModuleBase moduleInstance = base.ModuleLoader.GetModuleFromSection(this._activeSection);
 				if (moduleInstance is IActionProvider)
 				{
 					IActionProvider actionProvider = (IActionProvider)moduleInstance;
@@ -358,7 +352,10 @@ namespace Cuyahoga.Web.Admin
 			if (this._activeSection != null)
 			{
 				// We need to get the module instanse to be able to validate the sections.
-				ModuleBase moduleInstance = this._moduleLoader.GetModuleFromSection(this._activeSection);
+				// Suspend redirecting because it messes up the process.
+				base.ModuleLoader.SuspendRedirect();
+				ModuleBase moduleInstance = base.ModuleLoader.GetModuleFromSection(this._activeSection);
+				base.ModuleLoader.ResumeRedirect();
 				moduleInstance.ValidateSectionSettings();
 			}
 		}

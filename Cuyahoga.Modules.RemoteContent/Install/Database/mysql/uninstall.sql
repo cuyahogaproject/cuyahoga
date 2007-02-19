@@ -15,6 +15,6 @@ WHERE assemblyname = 'Cuyahoga.Modules.Downloads';
  *  Remove module specific tables
  */
 
-DROP TABLE cm_filerole;
+DROP TABLE cm_feeditem;
 
-DROP TABLE cm_file;
+DROP TABLE cm_feed;

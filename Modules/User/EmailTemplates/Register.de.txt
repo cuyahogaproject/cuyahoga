@@ -1,0 +1,11 @@
+[subject]
+Kontoinformationen $site
+[/subject]
+[body]
+Ihre Registration auf $site.
+
+Benutzername: $username
+Passwort: $password
+
+Viel Spass!
+[/body]

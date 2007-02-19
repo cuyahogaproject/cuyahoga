@@ -30,26 +30,17 @@ namespace Cuyahoga.Web.Admin
 	{
 		private static readonly ILog log = LogManager.GetLogger(typeof(RebuildIndex));
 
-		private ModuleLoader _moduleLoader;
 		private ISiteStructureDao _siteStructureDao;
 
 		protected System.Web.UI.WebControls.Button btnRebuild;
 		protected System.Web.UI.WebControls.Label lblMessage;
 
 		/// <summary>
-		/// Module loader (injected)
+		/// Constructor.
 		/// </summary>
-		public ModuleLoader ModuleLoader
+		public RebuildIndex()
 		{
-			set { this._moduleLoader = value; }
-		}
-
-		/// <summary>
-		/// Site structure data access component.
-		/// </summary>
-		public ISiteStructureDao SiteStructureDao
-		{
-			set { this._siteStructureDao = value; }
+			this._siteStructureDao = Container.Resolve<ISiteStructureDao>();
 		}
 	
 		private void Page_Load(object sender, System.EventArgs e)
@@ -71,14 +62,13 @@ namespace Cuyahoga.Web.Admin
 
 		private void EnsureModulesAreLoaded()
 		{
-			this._moduleLoader.NHibernateModuleAdded += new EventHandler(ModuleLoader_NHibernateModuleAdded);
 			IList currentModuleTypes = this._siteStructureDao.GetAllModuleTypesInUse();
 			foreach (ModuleType moduleType in currentModuleTypes)
 			{
 				// Just load every module. Just by loading it once, we can be sure that we won't
 				// run into strange surprises after pushing the 'Rebuild Index' button becasue
 				// some module weren't loaded or configured.
-				ModuleBase module = this._moduleLoader.GetModuleFromType(moduleType);
+				ModuleBase module = base.ModuleLoader.GetModuleFromType(moduleType);
 			}
 		}
 
@@ -111,7 +101,7 @@ namespace Cuyahoga.Web.Admin
 				ModuleBase module = null;
 				try
 				{
-					module = this._moduleLoader.GetModuleFromSection(section);
+					module = base.ModuleLoader.GetModuleFromSection(section);
 				}
 				catch (Exception ex)
 				{
@@ -161,12 +151,5 @@ namespace Cuyahoga.Web.Admin
 		}
 		#endregion
 
-
-		private void ModuleLoader_NHibernateModuleAdded(object sender, EventArgs e)
-		{
-			// Just redirect the page to itself when a new NHibernate module is discovered that is also 
-			// searchable
-			Context.Response.Redirect(Context.Request.RawUrl, false);
-		}
 	}
 }

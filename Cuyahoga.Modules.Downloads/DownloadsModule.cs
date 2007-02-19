@@ -248,6 +248,19 @@ namespace Cuyahoga.Modules.Downloads
 		}
 
 		/// <summary>
+		/// Increase the number of downloads for the given file.
+		/// </summary>
+		/// <param name="file"></param>
+		public virtual void IncreaseNrOfDownloads(File file)
+		{
+			ISession session = this._sessionManager.OpenSession();
+			// First refresh the file to prevent stale updates because downloads can take a little while.
+			session.Refresh(file);
+			file.NrOfDownloads++;
+			SaveFileInfo(file);
+		}
+
+		/// <summary>
 		/// Parse the pathinfo.
 		/// </summary>
 		protected override void ParsePathInfo()

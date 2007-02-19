@@ -33,7 +33,7 @@
 
 	<target name="build" description="Build ${project::get-name()}" depends="generate-assemblyinfo common.compile-dll" />
 
-	<target name="deploy" description="Deploy ${project::get-name()}">
+	<target name="deploy" description="Deploy ${project::get-name()}" depends="common.init">
 		<!-- Copy FlashModule to the Web dir -->
 		<mkdir dir="${build.dir}/Modules/Flash" />
 		<copy todir="${build.dir}/Modules/Flash">

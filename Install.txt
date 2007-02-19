@@ -2,6 +2,10 @@
 See Install-binary.txt if you're just installing the binaries.
 **************************************************************
 
+**************************************************************
+From version 1.5.0, Cuyahoga requires the .NET 2.0 Framework.
+**************************************************************
+
 Installing Cuyahoga from source.
 
 1. Unzip the files to a local directory.
@@ -16,10 +20,11 @@ Installing Cuyahoga from source.
     There are 2 possible ways to build Cuyahoga: using Visual Studio .NET 2005 (VS.NET) or NAnt.
     
     3a. Building with VS.NET.
-        - Make sure you have installed the Web Application Project model (http://webproject.scottgu.com/)
+        - Make sure that you have VS.NET 2005 SP1 or that you have installed the Web Application
+          Project model (http://webproject.scottgu.com/).
         - Open Cuyahoga.sln with VS.NET.
         - Build Solution.
-        - Change the connection string in the Web\Config\properties.config (connectionString)
+        - Change the connection string in Web/Config/properties.config (connectionString)
           to the database that is created in step 2.
 		  
           Example (SQL Server):
@@ -28,23 +33,23 @@ Installing Cuyahoga from source.
           Example (PostgreSQL):
 		  <connectionString>server=192.168.0.1;port=5432;database=Cuyahoga;uid=***;pwd=***;</connectionString>
           
-          Make sure that the account that connects to the database has enough permissions to create
-          the database!
+          Make sure that the account that connects to the database for the first time has enough 
+          permissions to create the database!
                     
     3b. Building with NAnt.
         - Make sure you have a 0.85 version of NAnt (http://nant.sourceforge.net).
         - Open a command prompt, go to the directory where you extracted the .zip file.
         - Enter 'nant'. This will create a build directory with the compiled binaries and the 
-          libraries (for example 'build/net-1.1.win32/Cuyahoga-1.0.0-debug').
+          libraries (for example 'build/net-2.0/debug').
         - Enter 'nant deploy' to add the other files needed to run Cuyahoga to the build.
         - Create an IIS application that points to the build directory or copy the files in the
           build directory to the root directory of an existing IIS application.
-        - Change the connection string in the Web.config (hibernate.connection.connection_string)
-          to the database that is created in step 2. See 4a for example connection strings.
+        - Change the connection string in the Web/Config/properties.config (connectionString)
+          to the database that is created in step 2. See 3a for example connection strings.
           
     You are now ready to run the application. At the first visit, the database will be installed automatically, 
     and you'll be asked to set a password for the administrator (min. 5 characters!). 
-    After that there is an option to create a sample site. 
+    After that there is a choice to install additional modules and to create a sample site. 
     When everything is finished you can visit the web site adminstration pages. The url of the 
     web site administration is http://SERVER_NAME/VIRTUAL_DIRECTORY/Admin/. 
     If you installed Cuyahoga in the cuyahoga virtual directory on your localhost, this url will be 

@@ -108,6 +108,7 @@
     <Reference Include="System">
       <Name>System</Name>
     </Reference>
+    <Reference Include="System.configuration" />
     <Reference Include="System.Data">
       <Name>System.Data</Name>
     </Reference>
@@ -379,6 +380,7 @@
       <SubType>Form</SubType>
     </Content>
     <Content Include="Admin\Images\doc1.gif" />
+    <Content Include="Admin\Images\doc2-disabled.gif" />
     <Content Include="Admin\Images\doc2.gif" />
     <Content Include="Admin\Images\docs.gif" />
     <Content Include="Admin\Images\downred.gif" />
@@ -386,6 +388,7 @@
     <Content Include="Admin\Images\internet.gif" />
     <Content Include="Admin\Images\leftred.gif" />
     <Content Include="Admin\Images\lock.png" />
+    <Content Include="Admin\Images\modules.gif" />
     <Content Include="Admin\Images\new.gif" />
     <Content Include="Admin\Images\rightred.gif" />
     <Content Include="Admin\Images\search.gif" />
@@ -1074,9 +1077,9 @@
       <DependentUpon>Rss.aspx.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <None Include="Config\facilities.config" />
-    <None Include="Config\properties.config" />
-    <None Include="Config\services.config" />
+    <Content Include="Config\facilities.config" />
+    <Content Include="Config\properties.config" />
+    <Content Include="Config\services.config" />
     <None Include="Cuyahoga.Web.build" />
     <None Include="Install\Core\Database\mssql2000\0.8.2.sql" />
     <None Include="Install\Core\Database\mssql2000\0.9.0.sql" />

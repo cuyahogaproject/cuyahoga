@@ -13,6 +13,7 @@
 			<include name="System.Web.dll" />
 			<include name="System.XML.dll" />
 			<include name="System.Drawing.dll" />
+			<include name="System.Configuration.dll" />
 			<include name="Castle.Core.dll" />
 			<include name="Castle.MicroKernel.dll" />
 			<include name="Castle.Windsor.dll" />
@@ -45,10 +46,10 @@
 				<include name="**/*.txt" />
 				<include name="**/*.html" />
 				<include name="**/*.sql" />
-				<exclude name="UserFiles/Image/*.*" />
-				<exclude name="UserFiles/File/*.*" />
+				<exclude name="Modules/**" />
+				<exclude name="UserFiles/**" />
 				<exclude name="files/*.*" />
-				<exclude name="obj/*.*" />
+				<exclude name="obj/**" />
 				<exclude name="**/log.txt" />
 			</fileset>
 		</copy>

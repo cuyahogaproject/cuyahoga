@@ -15,7 +15,7 @@ namespace Cuyahoga.Core.Service
 	/// <summary>
 	/// Adapter for the Cuyahoga 1.0 CoreRepository that delegates everything to the new services.
 	/// </summary>
-	[Transient]
+	//[Transient]
 	public class CoreRepositoryAdapter : CoreRepository
 	{
 		private static readonly ILog log = LogManager.GetLogger(typeof(CoreRepositoryAdapter));

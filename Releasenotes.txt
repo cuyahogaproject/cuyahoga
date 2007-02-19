@@ -1,9 +1,63 @@
 Cuyahoga release notes
+===========================================================================
+1.5.0 - 2007-02-11
+===========================================================================
+Cuyahoga 1.5.0 is the first release that is completely for the .NET 2.0 
+framework. It contains a major architectural overhaul that forms the
+foundation for the Cuyahoga 2.0 release.
+
+New features:
+- Flash module (contributed by Gabe Varela).
+- Forum module (contributed by Patrick Gahan and Steen Rabol).
+- Sitemap module (in core modules).
+- Meta tags (keywords and description) at site and node level.
+
+Improvements:
+- New foundation also delivers better performance.
+- Articles module supports paging and can show expired (archived) items.
+- Moved Articles and RemoteContent modules to their own projects
+  to allow separate development and faster improvements. (CUY-119)
+- Generated HTML is XHTML 1.0 transitional. (CUY-85)
+- Generic email functionality with templates (User module) (CUY-61)
+- Improved LanguageSwitcher module that has multiple display options
+  (dropdown, text and flag images). (CUY-89)
+- Categories in the Articles module are now linked to a specific site. 
+  (CUY-97)
+- Contributed translations for French, Spanish, Italian and German.
+  (CUY-98, CUY-109, CUY-124)
+- Rebuild NAnt buildscripts. Now every project has its own build scripts.
+  Based on NHibernate/Castle build scripts. (CUY-95, CUY-104)
+- Ability for modules to validate their settings.
+- Cultures in the culture dropdownlists are sorted alphabetically. 
+  (CUY-108)
+- URL rewriting is more efficient now. (CUY-118)
+
+Bugfixes:
+- Issue with page request duration timer. (CUY-70)
+- Menus properly show and hide items. (CUY-73, CUY-115)
+- Wrong casing of column name in Section mapping file. (CUY-74)
+- Invalid short description generated when a page name contains non-
+  alphanumeric characters. (CUY-82)
+- Unable to delete roles. (CUY-83)
+- Downloads module doesn't handle invalid directory settings properly. 
+  (CUY-106)
+- Rebuilding the complete search index failed because some modules were
+  not loaded yet. (CUY-112)
+- Module settings didn't show up in some cases. (CUY-113)
+- Calendar control showed wrong Spanish characters. (CUY-114)
+- Changed datatype for statichtml content to ntext. (CUY-116)
+
+Libraries:
+- Using Castle Windsor IoC container with the NHibernateIntegration and
+  AutomaticTransaction facilities.
+- Upgraded NHibernate to 1.0.4
+- Upgraded Npgsql to 1.0
+- Upgraded FCKeditor to 2.3.2
 
 ===========================================================================
 1.0.1 - 2007-01-05
 ===========================================================================
-New features
+New features:
 - SMTP authentication
 
 Bugfixes:

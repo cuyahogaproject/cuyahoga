@@ -217,47 +217,6 @@ go
 CREATE UNIQUE INDEX IX_sectionrole_roleid_sectionid ON cuyahoga_sectionrole (roleid,sectionid)
 go
 
-CREATE TABLE cuyahoga_contentitem(
-contentitemid bigint identity(1,1) NOT NULL CONSTRAINT PK_contentitem PRIMARY KEY,
-globalid nvarchar(255) NULL,
-title nvarchar(255) NOT NULL,
-description nvarchar(255) NULL,
-version int NOT NULL,
-typeinfo nvarchar(255) NOT NULL,
-createdat datetime NOT NULL DEFAULT current_timestamp,
-modifiedat datetime NULL,
-publishedat datetime NULL,
-createdby int NULL,
-modifiedby int NULL,
-publishedby int NULL,
-sectionid int NULL)
-go
-
- 
-CREATE TABLE cuyahoga_fileresource(
-fileresourceid bigint NOT NULL CONSTRAINT PK_fileresource PRIMARY KEY,
-physicalpath nvarchar(255) NOT NULL,
-length bigint NULL,
-mimetype nvarchar(255) NULL,
-filename nvarchar(255) NULL,
-downloadcount int NULL)
-go
-
-
-CREATE TABLE cuyahoga_fileresourceuserattributes(
-fileresourceuserattributesid int identity(1,1) NOT NULL CONSTRAINT PK_fileresourceuserattributes PRIMARY KEY,
-fileresourceid bigint NOT NULL,
-attributekey nvarchar(50) NOT NULL,
-attributevalue nvarchar(255) NOT NULL)
-go
-
-
-CREATE TABLE cuyahoga_fileresourcerole(
-fileresourceroleid int identity(1,1) NOT NULL CONSTRAINT PK_fileresourcerole PRIMARY KEY,
-fileresourceid bigint NOT NULL,
-roleid int NOT NULL)
-go
-
 
 CREATE TABLE cuyahoga_version(
 versionid int identity(1,1) NOT NULL CONSTRAINT PK_version PRIMARY KEY,
@@ -404,46 +363,6 @@ ADD CONSTRAINT FK_sectionrole_section_sectionid
 FOREIGN KEY (sectionid) REFERENCES cuyahoga_section (sectionid)
 go
 
-ALTER TABLE cuyahoga_contentitem
-ADD CONSTRAINT FK_contentitem_user_createdby 
-FOREIGN KEY (createdby) REFERENCES cuyahoga_user (userid)
-go
-
-ALTER TABLE cuyahoga_contentitem
-ADD CONSTRAINT FK_contentitem_user_modifiedby 
-FOREIGN KEY (modifiedby) REFERENCES cuyahoga_user (userid)
-go
-
-ALTER TABLE cuyahoga_contentitem
-ADD CONSTRAINT FK_contentitem_user_publishedby 
-FOREIGN KEY (publishedby) REFERENCES cuyahoga_user (userid)
-go
-
-ALTER TABLE cuyahoga_contentitem
-ADD CONSTRAINT FK_contentitem_section_sectionid 
-FOREIGN KEY (sectionid) REFERENCES cuyahoga_section (sectionid)
-go
-
-ALTER TABLE cuyahoga_fileresource
-ADD CONSTRAINT FK_fileresource_contentitem_fileresourceid 
-FOREIGN KEY (fileresourceid) REFERENCES cuyahoga_contentitem (contentitemid)
-go
-
-ALTER TABLE cuyahoga_fileresourceuserattributes
-ADD CONSTRAINT FK_fileresourceuserattributes_fileresource_fileresourceid 
-FOREIGN KEY (fileresourceid) REFERENCES cuyahoga_fileresource (fileresourceid)
-go
-
-ALTER TABLE cuyahoga_fileresourcerole
-ADD CONSTRAINT FK_fileresourcerole_fileresource_fileresourceid 
-FOREIGN KEY (fileresourceid) REFERENCES cuyahoga_fileresource (fileresourceid)
-go
-
-ALTER TABLE cuyahoga_fileresourcerole
-ADD CONSTRAINT FK_fileresourcerole_role_roleid 
-FOREIGN KEY (roleid) REFERENCES cuyahoga_role (roleid)
-go
-
 -- DATA
 SET DATEFORMAT ymd
 
@@ -479,5 +398,5 @@ SET IDENTITY_INSERT cuyahoga_template OFF
 GO
 
 
-INSERT INTO cuyahoga_version (assembly, major, minor, patch) VALUES ('Cuyahoga.Core', 1, 0, 0)
+INSERT INTO cuyahoga_version (assembly, major, minor, patch) VALUES ('Cuyahoga.Core', 1, 5, 0)
 GO

@@ -49,19 +49,12 @@ namespace Cuyahoga.Web.Admin
 		protected System.Web.UI.WebControls.TextBox txtMetaKeywords;
 
 		/// <summary>
-		/// Template service (injected).
+		/// Constructor.
 		/// </summary>
-		public ITemplateService TemplateService
+		public SiteEdit()
 		{
-			set { this._templateService = value; }
-		}
-
-		/// <summary>
-		/// User service (injected).
-		/// </summary>
-		public IUserService UserService
-		{
-			set { this._userService = value; }
+			this._templateService = Container.Resolve<ITemplateService>();
+			this._userService = Container.Resolve<IUserService>();
 		}
 	
 		private void Page_Load(object sender, System.EventArgs e)

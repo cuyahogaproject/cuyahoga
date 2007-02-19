@@ -18,6 +18,7 @@ namespace Cuyahoga.Web
 {
 	public class Global : System.Web.HttpApplication, IContainerAccessor
 	{
+		private static ILog log = LogManager.GetLogger(typeof(Global));
 		private static readonly string ERROR_PAGE_LOCATION = "~/Error.aspx";
 		private static CuyahogaContainer _cuyahogaContainer;
 
@@ -38,8 +39,12 @@ namespace Cuyahoga.Web
 		{
 			log4net.Config.XmlConfigurator.Configure();
 			_cuyahogaContainer = new CuyahogaContainer();
+			_cuyahogaContainer.Kernel.ComponentCreated += new Castle.MicroKernel.ComponentInstanceDelegate(Kernel_ComponentCreated);
+			_cuyahogaContainer.Kernel.ComponentDestroyed += new Castle.MicroKernel.ComponentInstanceDelegate(Kernel_ComponentDestroyed);
 			CheckInstaller();
 		}
+
+		
  
 		protected void Session_Start(Object sender, EventArgs e)
 		{
@@ -77,6 +82,8 @@ namespace Cuyahoga.Web
 
 		protected void Application_End(Object sender, EventArgs e)
 		{
+			_cuyahogaContainer.Kernel.ComponentCreated -= new Castle.MicroKernel.ComponentInstanceDelegate(Kernel_ComponentCreated);
+			_cuyahogaContainer.Kernel.ComponentDestroyed -= new Castle.MicroKernel.ComponentInstanceDelegate(Kernel_ComponentDestroyed);
 			_cuyahogaContainer.Dispose();
 		}
 			
@@ -115,6 +122,16 @@ namespace Cuyahoga.Web
 			{
 				throw new Exception("Cuyahoga can't connect to the database. Please check your application settings.");
 			}
+		}
+
+		private void Kernel_ComponentCreated(Castle.Core.ComponentModel model, object instance)
+		{
+			log.Debug("Component created: " + instance.ToString());
+		}
+
+		private void Kernel_ComponentDestroyed(Castle.Core.ComponentModel model, object instance)
+		{
+			log.Debug("Component destroyed: " + instance.ToString());
 		}
 	}
 }

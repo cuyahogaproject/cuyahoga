@@ -150,6 +150,9 @@
     </Content>
     <EmbeddedResource Include="Domain\Category.hbm.xml" />
     <EmbeddedResource Include="Domain\Comment.hbm.xml" />
+    <EmbeddedResource Include="Web\Resources\Strings.de.resx">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
     <Content Include="Web\EditArticle.aspx">
       <SubType>Form</SubType>
     </Content>

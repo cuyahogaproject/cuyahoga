@@ -131,6 +131,11 @@
 		<nant target="deploy">
 			<buildfiles refid="buildfiles.deploy" />
 		</nant>
+		<copy todir="${build.dir}">
+			<fileset>
+				<include name="*.txt" />
+			</fileset>
+		</copy>
 	</target>
 
 	<target name="sdkdoc" depends="init" description="Generates MSDN style documentation">
@@ -198,12 +203,16 @@
 			<fileset>
 				<include name="Cuyahoga.*" />
 				<include name="*.txt" />
+				<include name="*.xml" />
 				<include name="${lib.dir}/**" />
 				<include name="Core/**" />
 				<include name="ServerControls/**" />
 				<include name="Web/**" />
 				<include name="Modules/**" />
 				<include name="Downloads/**" />
+				<include name="Cuyahoga.Modules.Articles/**" />
+				<include name="Cuyahoga.Modules.Downloads/**" />
+				<include name="Cuyahoga.Modules.RemoteContent/**" />
 				<include name="Cuyahoga.Modules.Forum/**" />
 				<include name="Cuyahoga.Modules.Flash/**" />
 				<include name="Tests/**" />
@@ -222,7 +231,7 @@
 				<exclude name="**/obj/**" />
 			</fileset>
 		</copy>
-		<property name="project.zip-path" value="build/${project.name}-${project.version}-src.zip" />
+		<property name="project.zip-path" value="build/${project::get-name()}-${project.major}.${project.minor}.${project.build}-src.zip" />
 		<zip zipfile="${project.zip-path}" includeemptydirs="true">
 			<fileset basedir="${build.dir}/package">
 				<include name="**/*" />
@@ -237,7 +246,7 @@
 				<include name="*.txt" />
 			</fileset>
 		</copy>
-		<property name="project.binary-zip-path" value="build/${project.name}-${project.version}-bin.zip" />
+		<property name="project.binary-zip-path" value="build/${project::get-name()}-${project.major}.${project.minor}.${project.build}-bin.zip" />
 		<zip zipfile="${project.binary-zip-path}" includeemptydirs="true">
 			<fileset basedir="${build.dir}">
 				<include name="**/*" />

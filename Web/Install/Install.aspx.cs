@@ -50,11 +50,11 @@ namespace Cuyahoga.Web.Install
 		protected System.Web.UI.WebControls.Repeater rptModules;
 
 		/// <summary>
-		/// Generic data access object (injected)
+		/// Constructor.
 		/// </summary>
-		public ICommonDao CommonDao
+		public Install()
 		{
-			set { this._commonDao = value; }
+			this._commonDao = Container.Resolve<ICommonDao>();
 		}
 	
 		private void Page_Load(object sender, System.EventArgs e)

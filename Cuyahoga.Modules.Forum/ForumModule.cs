@@ -118,7 +118,7 @@ namespace Cuyahoga.Modules.Forum
             _forumPostSortASC = true;
 
  
-			this._forumthemepath = UrlHelper.GetApplicationPath() + "Modules/Forum/Standard/";
+			this._forumthemepath = UrlHelper.GetApplicationPath() + "Modules/Forum/Images/Standard/";
 		}
 
 		/// <summary>

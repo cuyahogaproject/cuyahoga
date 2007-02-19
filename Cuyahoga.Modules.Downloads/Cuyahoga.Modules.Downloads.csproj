@@ -157,6 +157,9 @@
     <EmbeddedResource Include="Web\EditFile.aspx.resx">
       <DependentUpon>EditFile.aspx.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Web\Resources\Strings.de.resx">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
     <EmbeddedResource Include="Web\Resources\Strings.it.resx">
       <SubType>Designer</SubType>
     </EmbeddedResource>

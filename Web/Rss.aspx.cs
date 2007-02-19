@@ -13,6 +13,7 @@ using Cuyahoga.Core.Util;
 using Cuyahoga.Web.Util;
 using Cuyahoga.Web.Components;
 using Cuyahoga.Web.UI;
+using Cuyahoga.Core.Service.SiteStructure;
 
 namespace Cuyahoga.Web
 {
@@ -21,15 +22,16 @@ namespace Cuyahoga.Web
 	/// </summary>
 	public class Rss : CuyahogaPage
 	{
-		private CoreRepository _coreRepository;
+		private ISectionService _sectionService;
 		private ModuleLoader _moduleLoader;
 
 		/// <summary>
-		/// Module loader (injected)
+		/// Constructor.
 		/// </summary>
-		public ModuleLoader ModuleLoader
+		public Rss()
 		{
-			set { this._moduleLoader = value; }
+			this._sectionService = Container.Resolve<ISectionService>();
+			this._moduleLoader = Container.Resolve<ModuleLoader>();
 		}
 
 		private void Page_Load(object sender, System.EventArgs e)
@@ -47,10 +49,8 @@ namespace Cuyahoga.Web
 				{
 					// Get the data for the RSS feed because it's not in the cache yet.
 					// Use the same cache duration for the RSS feed as the Section.
-					this._coreRepository = (CoreRepository)HttpContext.Current.Items["CoreRepository"];
-					Section section = (Section)this._coreRepository.GetObjectById(typeof(Section), sectionId);
+					Section section = this._sectionService.GetSectionById(sectionId);
 
-					this._moduleLoader.NHibernateModuleAdded += new EventHandler(ModuleLoader_ModuleAdded);
 					ModuleBase module = this._moduleLoader.GetModuleFromSection(section);
 
 					module.ModulePathInfo = pathInfo;
@@ -157,19 +157,6 @@ namespace Cuyahoga.Web
 		}
 		#endregion
 
-		private void ModuleLoader_ModuleAdded(object sender, EventArgs e)
-		{
-			// A module that uses NHibernate was loaded for the first time.
-			// This is handled by a simple reload of the page. 
-			// TODO: handle more elegantly?
-			if (Context.Items["VirtualUrl"] != null)
-			{
-				Context.Response.Redirect(Context.Items["VirtualUrl"].ToString());
-			}
-			else
-			{
-				Context.Response.Redirect(Context.Request.RawUrl);
-			}
-		}
+		
 	}
 }
