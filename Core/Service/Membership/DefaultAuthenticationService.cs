@@ -26,7 +26,7 @@ namespace Cuyahoga.Core.Service.Membership
 		public User AuthenticateUser(string username, string password, string ipAddress)
 		{
 			string hashedPassword = User.HashPassword(password);
-			User user = this._userDao.GetUserByUsernameAndPassword(username, password);
+			User user = this._userDao.GetUserByUsernameAndPassword(username, hashedPassword);
 			if (user != null)
 			{
 				user.LastIp = ipAddress;
