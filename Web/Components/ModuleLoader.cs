@@ -20,6 +20,7 @@ namespace Cuyahoga.Web.Components
 		private IKernel _kernel;
 		private SessionFactoryHelper _sessionFactoryHelper;
 		private bool _redirectSuspended;
+		private System.Threading.ReaderWriterLock _getModulesLock = new System.Threading.ReaderWriterLock();
 
 		/// <summary>
 		/// Constructor.
@@ -50,22 +51,60 @@ namespace Cuyahoga.Web.Components
 		/// <summary>
 		/// Get a module instance of a given type.
 		/// </summary>
-		/// <param name="moduleType"></param>
+		/// <param name="moduleTypeMetaData"></param>
 		/// <returns></returns>
 		public ModuleBase GetModuleFromType(ModuleType moduleTypeMetaData)
 		{
-			string assemblyQualifiedName = moduleTypeMetaData.ClassName + ", " + moduleTypeMetaData.AssemblyName;
-			// First, try to get the CLR module type
-			Type moduleType = Type.GetType(assemblyQualifiedName);
-			if (moduleType == null)
+			_getModulesLock.AcquireReaderLock(-1);
+			try
 			{
-				throw new Exception("Could not find module: " + assemblyQualifiedName);
+				string assemblyQualifiedName = moduleTypeMetaData.ClassName + ", " + moduleTypeMetaData.AssemblyName;
+				// First, try to get the CLR module type
+				Type moduleType = Type.GetType(assemblyQualifiedName);
+				if (moduleType == null)
+				{
+					throw new Exception("Could not find module: " + assemblyQualifiedName);
+				}
+
+				ModuleBase module = null;
+
+				if (!this._kernel.HasComponent(moduleType))
+				{
+					module = AddModuleToContainer(moduleType, moduleTypeMetaData);
+				}
+				else
+				{
+					// Kernel 'knows' the module, return a fresh instance (ModuleBase is transient).
+					module = this._kernel[moduleType] as ModuleBase;
+				}
+
+				// Add module to the list of loaded modules, so the page handler can clean up afterwards.
+				List<ModuleBase> loadedModules = HttpContext.Current.Items["LoadedModules"] as List<ModuleBase>;
+				if (loadedModules != null)
+				{
+					loadedModules.Add(module);
+				}
+
+				return module;
 			}
-
-			ModuleBase module = null;
-
-			if (!this._kernel.HasComponent(moduleType))
+			finally
 			{
+				_getModulesLock.ReleaseReaderLock();
+			}
+		}
+
+		private ModuleBase AddModuleToContainer(Type moduleType, ModuleType moduleTypeMetaData)
+		{
+			_getModulesLock.UpgradeToWriterLock(-1);
+			try
+			{
+				ModuleBase module;
+				//Someone may have snuck and added the module between the time we released the read
+				//lock and acquired the write lock
+				if (this._kernel.HasComponent(moduleType))
+				{
+					return this._kernel[moduleType] as ModuleBase;	
+				}
 				// Module is not registered, do it now.
 
 				// First, register optional module services that the module might depend on.
@@ -83,7 +122,7 @@ namespace Cuyahoga.Web.Components
 						catch (ArgumentException ex)
 						{
 							throw new Exception(String.Format("Unable to load module service {0} with invalid lifestyle {1}."
-								, moduleService.ServiceKey, moduleService.Lifestyle), ex);
+															  , moduleService.ServiceKey, moduleService.Lifestyle), ex);
 						}
 					}
 					this._kernel.AddComponent(moduleService.ServiceKey, serviceType, classType, lifestyle);
@@ -99,26 +138,20 @@ namespace Cuyahoga.Web.Components
 				{
 					// Module needs its NHibernate mappings registered.
 					this._sessionFactoryHelper.AddAssembly(moduleType.Assembly);
-					if (! this._redirectSuspended)
+					if (!this._redirectSuspended)
 					{
 						RedirectAfterModuleAdded();
 					}
 				}
+				return module;
 			}
-			else
+			finally
 			{
-				// Kernel 'knows' the module, return a fresh instance (ModuleBase is transient).
-				module = this._kernel[moduleType] as ModuleBase;
+				if(_getModulesLock.IsReaderLockHeld)
+				{
+					_getModulesLock.ReleaseWriterLock();
+				}
 			}
-
-			// Add module to the list of loaded modules, so the page handler can clean up afterwards.
-			List<ModuleBase> loadedModules = HttpContext.Current.Items["LoadedModules"] as List<ModuleBase>;
-			if (loadedModules != null)
-			{
-				loadedModules.Add(module);
-			}
-
-			return module;
 		}
 
 		/// <summary>
