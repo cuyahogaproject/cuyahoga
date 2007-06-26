@@ -7,11 +7,10 @@
 	
 	<!-- Yet Another Forum.net configuration -->
 	<yafnet>
-		<connstr>data source=(local);initial catalog=Yaf;Integrated Security=SSPI;</connstr>
-		<root>/Cuyahoga/Modules/Yaf/</root>
-		<language>english.xml</language>
-		<theme>standard.xml</theme>
-		<uploaddir>/Cuyahoga/Modules/Yaf/upload/</uploaddir>
+		<connstr>server=(local);database=yafnet;integrated security=SSPI</connstr>
+		<uploaddir>upload/</uploaddir>
 		<!--logtomail>email=;server=;user=;pass=;</logtomail-->
+		<boardid>1</boardid>
+		<!--categoryid>1</categoryid-->
 	</yafnet>
 </configuration>

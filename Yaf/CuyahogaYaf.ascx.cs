@@ -1,15 +1,9 @@
+using System;
+using Cuyahoga.Web.UI;
+using yaf;
+
 namespace Cuyahoga.Modules.YetAnotherForum
 {
-	using System;
-	using System.Data;
-	using System.Drawing;
-	using System.Web;
-	using System.Web.UI.WebControls;
-	using System.Web.UI.HtmlControls;
-
-	using Cuyahoga.Web.UI;
-	using yaf;
-
 	/// <summary>
 	///		Summary description for CuyahogaYaf.
 	/// </summary>
@@ -17,24 +11,22 @@ namespace Cuyahoga.Modules.YetAnotherForum
 	{
 		private CuyahogaYafModule _module;
 
-		protected yaf.Forum Forum1;
+		protected Forum Forum1;
 
-		private void Page_Load(object sender, System.EventArgs e)
+		private void Page_Load(object sender, EventArgs e)
 		{
 			this._module = this.Module as CuyahogaYafModule;
 
 			try 
 			{
-				Forum1.BoardID = Int32.Parse(this._module.Section.Settings["BOARDID"].ToString());
+				Forum1.BoardID = this._module.BoardId;
 
-				if (this._module.Section.Settings["CATEGORYID"] != null
-					|| this._module.Section.Settings["CATEGORYID"].ToString() != String.Empty)
+				if (this._module.CategoryId > -1)
 				{
-					int categoryID = Int32.Parse(this._module.Section.Settings["CATEGORYID"].ToString());
-					Forum1.CategoryID = categoryID;
+					Forum1.CategoryID = this._module.CategoryId;
 				}
 			}
-			catch(Exception)
+			catch (Exception)
 			{
 				Forum1.BoardID = 1;
 			}
