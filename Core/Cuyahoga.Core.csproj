@@ -90,6 +90,10 @@
       <Name>Castle.Services.Transaction</Name>
       <HintPath>..\lib\Castle.Services.Transaction.dll</HintPath>
     </Reference>
+    <Reference Include="Castle.Windsor, Version=1.0.0.2, Culture=neutral, PublicKeyToken=407dd0808d44fbdc, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\lib\Castle.Windsor.dll</HintPath>
+    </Reference>
     <Reference Include="log4net">
       <Name>log4net</Name>
       <HintPath>..\lib\log4net.dll</HintPath>
@@ -351,6 +355,7 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Util\Globalization.cs" />
+    <Compile Include="Util\IoC.cs" />
     <Compile Include="Util\Rss.cs">
       <SubType>Code</SubType>
     </Compile>

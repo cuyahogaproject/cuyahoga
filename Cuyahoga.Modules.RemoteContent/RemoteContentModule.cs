@@ -366,28 +366,35 @@ namespace Cuyahoga.Modules.RemoteContent
 		{
 			try
 			{
-				ModuleLoader moduleLoader = ContainerAccessorUtil.GetContainer()[typeof(ModuleLoader)] as ModuleLoader;
+				ModuleLoader moduleLoader = IoC.Resolve<ModuleLoader>();
+				// Suspend possible redirection of the module loader here because it's possible that there is
+				// no current HttpContext.
+				moduleLoader.SuspendRedirect();
 				RemoteContentModule module = moduleLoader.GetModuleFromSection(this._feed.Section) as RemoteContentModule;
+				moduleLoader.ResumeRedirect();
 				// Use in a different session, otherwise things go wrong because this method might
 				// run in a different thread.
-				ISession session = SessionFactory.GetInstance().GetSession();
-				session.Lock(this._feed, LockMode.None);
-				module.RefreshFeedContents(this._feed);
+				ISessionFactory sessionFactory = IoC.Resolve<ISessionFactory>("nhibernate.factory");
+				using (ISession session = sessionFactory.OpenSession())
+				{
+					session.Lock(this._feed, LockMode.None);
+					module.RefreshFeedContents(this._feed);
 
-				ITransaction tx = session.BeginTransaction();
-				try
-				{
-					session.Update(this._feed);
-					tx.Commit();
-				}
-				catch
-				{
-					tx.Rollback();
-					throw;
-				}
-				finally 
-				{
-					session.Close();
+					ITransaction tx = session.BeginTransaction();
+					try
+					{
+						session.Update(this._feed);
+						tx.Commit();
+					}
+					catch
+					{
+						tx.Rollback();
+						throw;
+					}
+					finally
+					{
+						session.Close();
+					}
 				}
 			}
 			catch (Exception ex)

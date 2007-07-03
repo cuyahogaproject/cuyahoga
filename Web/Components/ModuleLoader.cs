@@ -42,7 +42,10 @@ namespace Cuyahoga.Web.Components
 		{
 			ModuleBase module = GetModuleFromType(section.ModuleType);
 			module.Section = section;
-			module.SectionUrl = UrlHelper.GetUrlFromSection(section);
+			if (HttpContext.Current != null)
+			{
+				module.SectionUrl = UrlHelper.GetUrlFromSection(section);
+			}
 			module.ReadSectionSettings();
 
 			return module;
@@ -76,13 +79,6 @@ namespace Cuyahoga.Web.Components
 				{
 					// Kernel 'knows' the module, return a fresh instance (ModuleBase is transient).
 					module = this._kernel[moduleType] as ModuleBase;
-				}
-
-				// Add module to the list of loaded modules, so the page handler can clean up afterwards.
-				List<ModuleBase> loadedModules = HttpContext.Current.Items["LoadedModules"] as List<ModuleBase>;
-				if (loadedModules != null)
-				{
-					loadedModules.Add(module);
 				}
 
 				return module;
@@ -175,13 +171,16 @@ namespace Cuyahoga.Web.Components
 			// A module that uses NHibernate was loaded for the first time.
 			// Immediately redirect to the same page.
 			// TODO: handle more elegantly?
-			if (HttpContext.Current.Items["VirtualUrl"] != null)
+			if (HttpContext.Current != null)
 			{
-				HttpContext.Current.Response.Redirect(HttpContext.Current.Items["VirtualUrl"].ToString());
-			}
-			else
-			{
-				HttpContext.Current.Response.Redirect(HttpContext.Current.Request.RawUrl);
+				if (HttpContext.Current.Items["VirtualUrl"] != null)
+				{
+					HttpContext.Current.Response.Redirect(HttpContext.Current.Items["VirtualUrl"].ToString());
+				}
+				else
+				{
+					HttpContext.Current.Response.Redirect(HttpContext.Current.Request.RawUrl);
+				}
 			}
 		}
 	}
