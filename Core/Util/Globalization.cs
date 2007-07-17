@@ -1,4 +1,3 @@
-using System;
 using System.Collections;
 using System.Globalization;
 
@@ -18,7 +17,7 @@ namespace Cuyahoga.Core.Util
 			SortedList orderedCultures = new SortedList();
 			foreach (CultureInfo ci in CultureInfo.GetCultures(CultureTypes.SpecificCultures))
 			{
-				orderedCultures.Add(ci.DisplayName, ci.Name);
+				orderedCultures.Add(ci.Name, ci.DisplayName);
 			}
 			return (orderedCultures);
 		}
