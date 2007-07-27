@@ -367,11 +367,7 @@ namespace Cuyahoga.Modules.RemoteContent
 			try
 			{
 				ModuleLoader moduleLoader = IoC.Resolve<ModuleLoader>();
-				// Suspend possible redirection of the module loader here because it's possible that there is
-				// no current HttpContext.
-				moduleLoader.SuspendRedirect();
 				RemoteContentModule module = moduleLoader.GetModuleFromSection(this._feed.Section) as RemoteContentModule;
-				moduleLoader.ResumeRedirect();
 				// Use in a different session, otherwise things go wrong because this method might
 				// run in a different thread.
 				ISessionFactory sessionFactory = IoC.Resolve<ISessionFactory>("nhibernate.factory");

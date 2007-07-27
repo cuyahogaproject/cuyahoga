@@ -136,6 +136,7 @@
     <Compile Include="Communication\IActionProvider.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="DataAccess\CategoryDao.cs" />
     <Compile Include="DataAccess\CommonDao.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -145,6 +146,7 @@
     <Compile Include="DataAccess\FileResourceDao.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="DataAccess\ICategoryDao.cs" />
     <Compile Include="DataAccess\ICommonDao.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -166,6 +168,9 @@
     <Compile Include="DataAccess\UserDao.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Decorators\AbstractDaoDecorator.cs" />
+    <Compile Include="Decorators\SearchDecorator.cs" />
+    <Compile Include="Decorators\VersioningDecorator.cs" />
     <Compile Include="Domain\Category.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -175,6 +180,7 @@
     <Compile Include="Domain\ContentItem.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Domain\ContentItemPermission.cs" />
     <Compile Include="Domain\CustomMenu.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -190,6 +196,7 @@
     <Compile Include="Domain\ModuleBase.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Domain\ModuleContentType.cs" />
     <Compile Include="Domain\ModuleService.cs" />
     <Compile Include="Domain\ModuleSetting.cs">
       <SubType>Code</SubType>
@@ -237,13 +244,7 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Search\IndexBuilder.cs">
-      <SubType>Code</SubType>
-    </Compile>
     <Compile Include="Search\IndexEvent.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Search\IndexQuery.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Search\ISearchable.cs">
@@ -252,18 +253,14 @@
     <Compile Include="Search\SearchContent.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Search\SearchResult.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Search\SearchResultCollection.cs">
-      <SubType>Code</SubType>
-    </Compile>
     <Compile Include="Security\CuyahogaPrincipal.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Service\Content\CategoryService.cs" />
     <Compile Include="Service\Content\ContentItemService.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Service\Content\ICategoryService.cs" />
     <Compile Include="Service\Content\IContentItemService.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -315,12 +312,21 @@
     <Compile Include="Service\Membership\IUserService.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Service\Search\CustomSearchField.cs" />
+    <Compile Include="Service\Search\IndexBuilder.cs" />
+    <Compile Include="Service\Search\IndexQuery.cs" />
+    <Compile Include="Service\Search\ISearchableContent.cs" />
+    <Compile Include="Service\Search\ISearchService.cs" />
+    <Compile Include="Service\Search\SearchResult.cs" />
+    <Compile Include="Service\Search\SearchResultCollection.cs" />
+    <Compile Include="Service\Search\SearchService.cs" />
     <Compile Include="Service\SessionFactory.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Service\SessionFactoryHelper.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Service\SiteStructure\IModuleTypeService.cs" />
     <Compile Include="Service\SiteStructure\INodeService.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -333,6 +339,7 @@
     <Compile Include="Service\SiteStructure\ITemplateService.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Service\SiteStructure\ModuleTypeService.cs" />
     <Compile Include="Service\SiteStructure\NodeService.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -345,6 +352,11 @@
     <Compile Include="Service\SiteStructure\TemplateService.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Service\Versioning\IVersionableContent.cs" />
+    <Compile Include="Service\Versioning\IVersioningService.cs" />
+    <Compile Include="Service\Versioning\VersionEntry.cs" />
+    <Compile Include="Service\Versioning\VersioningInfo.cs" />
+    <Compile Include="Service\Versioning\VersioningService.cs" />
     <Compile Include="Util\Config.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -366,7 +378,6 @@
       <SubType>Code</SubType>
     </Compile>
     <EmbeddedResource Include="Domain\CustomMenu.hbm.xml" />
-    <EmbeddedResource Include="Domain\IContentItem.hbm.xml" />
     <EmbeddedResource Include="Domain\ModuleType.hbm.xml" />
     <EmbeddedResource Include="Domain\Node.hbm.xml" />
     <EmbeddedResource Include="Domain\Role.hbm.xml" />
@@ -375,14 +386,14 @@
     <EmbeddedResource Include="Domain\SiteAlias.hbm.xml" />
     <EmbeddedResource Include="Domain\Template.hbm.xml" />
     <EmbeddedResource Include="Domain\User.hbm.xml" />
-    <Content Include="Domain\FileResource.hbm.xml" />
+    <EmbeddedResource Include="Domain\Category.hbm.xml" />
+    <EmbeddedResource Include="Domain\ContentItem.hbm.xml" />
+    <EmbeddedResource Include="Domain\FileResource.hbm.xml" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Cuyahoga.Core.build" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Service\Search\" />
-    <Folder Include="Service\Versioning\" />
     <Folder Include="Service\Workflow\" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />

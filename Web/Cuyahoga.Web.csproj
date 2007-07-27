@@ -123,6 +123,20 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Admin\Categories.aspx.cs">
+      <DependentUpon>Categories.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Admin\Categories.aspx.designer.cs">
+      <DependentUpon>Categories.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Admin\CategoryEdit.aspx.cs">
+      <DependentUpon>CategoryEdit.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Admin\CategoryEdit.aspx.designer.cs">
+      <DependentUpon>CategoryEdit.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Admin\ConnectionEdit.aspx.cs">
       <DependentUpon>ConnectionEdit.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -360,6 +374,8 @@
     <Compile Include="Util\UrlHelper.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Content Include="Admin\Categories.aspx" />
+    <Content Include="Admin\CategoryEdit.aspx" />
     <Content Include="Admin\ConnectionEdit.aspx">
       <SubType>Form</SubType>
     </Content>
@@ -1119,7 +1135,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="index\" />
-    <Folder Include="log\" />
     <Folder Include="Modules\" />
     <Folder Include="UserFiles\File\" />
     <Folder Include="UserFiles\Image\" />

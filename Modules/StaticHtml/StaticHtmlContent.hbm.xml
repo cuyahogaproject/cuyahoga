@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?> 
-<hibernate-mapping xmlns="urn:nhibernate-mapping-2.0">
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2" default-lazy="false">
 	<class name="Cuyahoga.Modules.StaticHtml.StaticHtmlContent, Cuyahoga.Modules" table="cm_statichtml">
 		<id name="Id" column="statichtmlid" type="Int32" unsaved-value="-1">
 			<generator class="native">

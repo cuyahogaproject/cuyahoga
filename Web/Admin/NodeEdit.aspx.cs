@@ -162,8 +162,8 @@ namespace Cuyahoga.Web.Admin
 		private void BindCultures()
 		{
 			this.ddlCultures.DataSource = Globalization.GetOrderedCultures();
-			this.ddlCultures.DataValueField = "Value";
-			this.ddlCultures.DataTextField = "Key";
+			this.ddlCultures.DataValueField = "Key";
+			this.ddlCultures.DataTextField = "Value";
 			this.ddlCultures.DataBind();
 			if (this.ActiveNode.Culture != null)
 			{

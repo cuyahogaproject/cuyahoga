@@ -127,6 +127,15 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Categories\CategoryControl.ascx.cs">
+      <DependentUpon>CategoryControl.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Categories\CategoryControl.ascx.designer.cs">
+      <DependentUpon>CategoryControl.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Categories\CategoryModule.cs" />
+    <Compile Include="Categories\Resources\Strings.Designer.cs" />
     <Compile Include="LanguageSwitcher\LanguageSwitcher.ascx.designer.cs">
       <DependentUpon>LanguageSwitcher.ascx</DependentUpon>
     </Compile>
@@ -229,6 +238,7 @@
     <Compile Include="User\ViewProfile.ascx.designer.cs">
       <DependentUpon>ViewProfile.ascx</DependentUpon>
     </Compile>
+    <Content Include="Categories\CategoryControl.ascx" />
     <Content Include="LanguageSwitcher\Images\flags\ad.png" />
     <Content Include="LanguageSwitcher\Images\flags\ae.png" />
     <Content Include="LanguageSwitcher\Images\flags\af.png" />
@@ -489,8 +499,14 @@
     <Content Include="User\ViewProfile.ascx">
       <SubType>UserControl</SubType>
     </Content>
+    <EmbeddedResource Include="Categories\Resources\Strings.resx">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
     <EmbeddedResource Include="LanguageSwitcher\LanguageSwitcher.ascx.resx">
       <DependentUpon>LanguageSwitcher.ascx.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Search\Resources\Strings.de.resx">
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Search\Resources\Strings.it.resx">
       <SubType>Designer</SubType>
@@ -505,6 +521,9 @@
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Search\Resources\Strings.resx">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Search\Resources\Strings.sv-SE.resx">
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Search\Search.ascx.resx">
