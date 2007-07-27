@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <root>
   <!-- 
     Microsoft ResX Schema 
@@ -117,28 +117,7 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="SECONDS" xml:space="preserve">
-    <value>seconds</value>
-  </data>
-  <data name="FOR" xml:space="preserve">
-    <value>for</value>
-  </data>
-  <data name="DISPLAYING_RESULTS" xml:space="preserve">
-    <value>Displaying results</value>
-  </data>
-  <data name="OF" xml:space="preserve">
-    <value>of</value>
-  </data>
-  <data name="NOTFOUND" xml:space="preserve">
-    <value>No results found matching your query.</value>
-  </data>
-  <data name="Search:btnSearch" xml:space="preserve">
-    <value>Search</value>
-  </data>
-  <data name="SearchInput:btnSearch" xml:space="preserve">
-    <value>Search</value>
-  </data>
-  <data name="CATEGORY_FILTER" xml:space="preserve">
-    <value>Category filter:</value>
+  <data name="NO_CATEGORIES_TO_DISPLAY" xml:space="preserve">
+    <value>No categories to display...</value>
   </data>
 </root>
