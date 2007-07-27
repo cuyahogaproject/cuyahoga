@@ -282,22 +282,14 @@ namespace Cuyahoga.Web.Admin
 
 		private void SaveSection()
 		{
-			if (this._activeSection.Id > 0)
-			{
-				base.CoreRepository.UpdateObject(this._activeSection);
-			}
-			else
-			{
-				base.CoreRepository.SaveObject(this._activeSection);
-				if (this.ActiveNode != null)
-				{
-					Context.Response.Redirect(String.Format("NodeEdit.aspx?NodeId={0}", this.ActiveNode.Id));
-				}
-				else
-				{
-					Context.Response.Redirect("Sections.aspx");
-				}
-			}
+            if (this._activeSection.Id > 0)
+            {
+                base.CoreRepository.UpdateObject(this._activeSection);
+            }
+            else
+            {
+                base.CoreRepository.SaveObject(this._activeSection);
+            }
 		}
 
 		private void SetCustomSettings()
@@ -353,9 +345,9 @@ namespace Cuyahoga.Web.Admin
 			{
 				// We need to get the module instanse to be able to validate the sections.
 				// Suspend redirecting because it messes up the process.
-				base.ModuleLoader.SuspendRedirect();
+				//base.ModuleLoader.SuspendRedirect();
 				ModuleBase moduleInstance = base.ModuleLoader.GetModuleFromSection(this._activeSection);
-				base.ModuleLoader.ResumeRedirect();
+				//base.ModuleLoader.ResumeRedirect();
 				moduleInstance.ValidateSectionSettings();
 			}
 		}
@@ -477,6 +469,18 @@ namespace Cuyahoga.Web.Admin
 				{
 					this.ShowError(ex.Message);
 				}
+
+                if (!(this._activeSection.Id > 0))
+                {
+                    if (this.ActiveNode != null)
+                    {
+                        Context.Response.Redirect(String.Format("NodeEdit.aspx?NodeId={0}", this.ActiveNode.Id));
+                    }
+                    else
+                    {
+                        Context.Response.Redirect("Sections.aspx");
+                    }
+                }
 
 			}
 		}

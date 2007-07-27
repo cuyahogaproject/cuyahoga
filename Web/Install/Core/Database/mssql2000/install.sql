@@ -1,3 +1,77 @@
+CREATE TABLE cuyahoga_contentitem(
+contentitemid bigint identity(1,1) NOT NULL CONSTRAINT PK_contentitem PRIMARY KEY,
+globalid nvarchar(255) NOT NULL,
+workflowstatus int NOT NULL,
+title nvarchar(255) NOT NULL,
+description nvarchar(255) NULL,
+version int NOT NULL,
+locale nvarchar(5) NULL,
+createdat datetime NOT NULL,
+modifiedat datetime NOT NULL,
+publishedat datetime NULL,
+publisheduntil datetime NULL,
+createdby int NOT NULL,
+modifiedby int NOT NULL,
+publishedby int NULL,
+urlformat nvarchar(255) NOT NULL,
+sectionid int NOT NULL)
+go
+
+CREATE TABLE cuyahoga_contentitemrole(
+contentitemroleid int identity(1,1) NOT NULL CONSTRAINT PK_contentitemrole PRIMARY KEY,
+contentitemid int NOT NULL,
+roleid int NOT NULL,
+viewallowed bit NOT NULL,
+editallowed bit NOT NULL)
+go
+
+CREATE UNIQUE INDEX IX_contentitemrole_roleid_contentitemid ON cuyahoga_contentitemrole (roleid,contentitemid)
+go
+
+
+CREATE TABLE cuyahoga_category(
+categoryid int identity(1,1) NOT NULL CONSTRAINT PK_category PRIMARY KEY,
+path nvarchar(80) NOT NULL,
+categorykey nvarchar(10) NOT NULL,
+categoryname nvarchar(100) NOT NULL,
+description nvarchar(255) NULL,
+parentcategoryid int NULL,
+CONSTRAINT UC_category_catagorykey UNIQUE(categorykey))
+go
+
+
+CREATE TABLE cuyahoga_categorycontentitem(
+categorycontentitemid int identity(1,1) NOT NULL CONSTRAINT PK_categorycontentitem PRIMARY KEY,
+categoryid int NOT NULL,
+contentitemid bigint NOT NULL)
+go
+
+
+CREATE TABLE cuyahoga_fileresource(
+fileresourceid bigint NOT NULL CONSTRAINT PK_fileresource PRIMARY KEY,
+physicalpath nvarchar(255) NOT NULL,
+length bigint NULL,
+mimetype nvarchar(255) NULL,
+filename nvarchar(255) NULL,
+extension nvarchar(10) NULL,
+downloadcount int NULL)
+go
+
+
+CREATE TABLE cuyahoga_fileresourceuserattributes(
+fileresourceuserattributesid int identity(1,1) NOT NULL CONSTRAINT PK_fileresourceuserattributes PRIMARY KEY,
+fileresourceid bigint NOT NULL,
+attributekey nvarchar(50) NOT NULL,
+attributevalue nvarchar(255) NOT NULL)
+go
+
+
+CREATE TABLE cuyahoga_fileresourcerole(
+fileresourceroleid int identity(1,1) NOT NULL CONSTRAINT PK_fileresourcerole PRIMARY KEY,
+fileresourceid bigint NOT NULL,
+roleid int NOT NULL)
+go
+
 
 CREATE TABLE cuyahoga_user(
 userid int identity(1,1) NOT NULL CONSTRAINT PK_user PRIMARY KEY,
@@ -52,6 +126,7 @@ assemblyname nvarchar(100) NULL,
 classname nvarchar(255) NOT NULL,
 path nvarchar(255) NOT NULL,
 editpath nvarchar(255) NULL,
+autoactivate bit NULL,
 inserttimestamp datetime DEFAULT current_timestamp NOT NULL,
 updatetimestamp datetime DEFAULT current_timestamp NOT NULL,
 CONSTRAINT UC_moduletype_classname UNIQUE(classname))
@@ -82,7 +157,6 @@ go
 
 CREATE UNIQUE INDEX IX_moduleservice_moduletypeid_servicekey ON cuyahoga_moduleservice (moduletypeid,servicekey)
 go
-
 
 CREATE TABLE cuyahoga_site(
 siteid int identity(1,1) NOT NULL CONSTRAINT PK_site PRIMARY KEY,
@@ -227,6 +301,61 @@ patch int NOT NULL)
 
 go
 
+ALTER TABLE cuyahoga_contentitem
+ADD CONSTRAINT FK_contentitem_user_createdby 
+FOREIGN KEY (createdby) REFERENCES cuyahoga_user (userid)
+go
+
+ALTER TABLE cuyahoga_contentitem
+ADD CONSTRAINT FK_contentitem_user_modifiedby 
+FOREIGN KEY (modifiedby) REFERENCES cuyahoga_user (userid)
+go
+
+ALTER TABLE cuyahoga_contentitem
+ADD CONSTRAINT FK_contentitem_user_publishedby 
+FOREIGN KEY (publishedby) REFERENCES cuyahoga_user (userid)
+go
+
+ALTER TABLE cuyahoga_contentitem
+ADD CONSTRAINT FK_contentitem_section_sectionid 
+FOREIGN KEY (sectionid) REFERENCES cuyahoga_section (sectionid)
+go
+
+ALTER TABLE cuyahoga_category
+ADD CONSTRAINT FK_category_category_parentcategoryid 
+FOREIGN KEY (parentcategoryid) REFERENCES cuyahoga_category (categoryid)
+go
+
+ALTER TABLE cuyahoga_categorycontentitem
+ADD CONSTRAINT FK_categorycontentitem_contentitem_contentitemid
+FOREIGN KEY (contentitemid) REFERENCES cuyahoga_contentitem (contentitemid)
+go
+
+ALTER TABLE cuyahoga_categorycontentitem
+ADD CONSTRAINT FK_categorycontentitem_category_categoryid
+FOREIGN KEY (categoryid) REFERENCES cuyahoga_category (categoryid)
+go
+
+ALTER TABLE cuyahoga_fileresource
+ADD CONSTRAINT FK_fileresource_contentitem_fileresourceid 
+FOREIGN KEY (fileresourceid) REFERENCES cuyahoga_contentitem (contentitemid)
+go
+
+ALTER TABLE cuyahoga_fileresourceuserattributes
+ADD CONSTRAINT FK_fileresourceuserattributes_fileresource_fileresourceid 
+FOREIGN KEY (fileresourceid) REFERENCES cuyahoga_fileresource (fileresourceid)
+go
+
+ALTER TABLE cuyahoga_fileresourcerole
+ADD CONSTRAINT FK_fileresourcerole_fileresource_fileresourceid 
+FOREIGN KEY (fileresourceid) REFERENCES cuyahoga_fileresource (fileresourceid)
+go
+
+ALTER TABLE cuyahoga_fileresourcerole
+ADD CONSTRAINT FK_fileresourcerole_role_roleid 
+FOREIGN KEY (roleid) REFERENCES cuyahoga_role (roleid)
+go
+
 
 ALTER TABLE cuyahoga_userrole
 ADD CONSTRAINT FK_userrole_role_roleid
@@ -249,7 +378,6 @@ ALTER TABLE cuyahoga_moduleservice
 ADD CONSTRAINT FK_moduleservice_moduletype_moduletypeid
 FOREIGN KEY (moduletypeid) REFERENCES cuyahoga_moduletype (moduletypeid)
 go
-
 
 ALTER TABLE cuyahoga_site
 ADD CONSTRAINT FK_site_role_roleid

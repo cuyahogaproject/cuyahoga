@@ -162,8 +162,8 @@ namespace Cuyahoga.Web.Admin
 		private void BindCultures()
 		{
 			this.ddlCultures.DataSource = Globalization.GetOrderedCultures();
-			this.ddlCultures.DataValueField = "Key";
-			this.ddlCultures.DataTextField = "Value";
+			this.ddlCultures.DataValueField = "Value";
+			this.ddlCultures.DataTextField = "Key";
 			this.ddlCultures.DataBind();
 			if (this.ActiveNode.Culture != null)
 			{
@@ -278,8 +278,16 @@ namespace Cuyahoga.Web.Admin
 				{
 					this.ActiveNode.ParentNode.ChildNodes.Add(this.ActiveNode);
 				}
-				base.CoreRepository.SaveObject(this.ActiveNode);				
-				Context.Response.Redirect(String.Format("NodeEdit.aspx?NodeId={0}&message=Node created sucessfully", this.ActiveNode.Id));
+				base.CoreRepository.SaveObject(this.ActiveNode);
+				//TODO: Move all redirects out of try/catch blocks...
+				try
+				{
+					Context.Response.Redirect(String.Format("NodeEdit.aspx?NodeId={0}&message=Node created sucessfully", this.ActiveNode.Id));
+				}
+				catch (System.Threading.ThreadAbortException ex)
+				{
+					//this will usually happen 
+				}
 			}
 		}
 

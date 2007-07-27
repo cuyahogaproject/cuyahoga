@@ -335,7 +335,8 @@ namespace Cuyahoga.Web.UI
 				ModuleBase module = this._moduleLoader.GetModuleFromSection(section);
 				//this._moduleLoader.NHibernateModuleAdded -= new EventHandler(ModuleLoader_ModuleAdded);
 
-				if (module != null)
+				
+                if (module != null)
 				{
 					if (Context.Request.PathInfo.Length > 0 && section == this._activeSection)
 					{

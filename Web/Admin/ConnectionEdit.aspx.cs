@@ -96,7 +96,7 @@ namespace Cuyahoga.Web.Admin
 				string assemblyQualifiedName = mt.ClassName + ", " + mt.AssemblyName;
 				Type moduleTypeType = Type.GetType(assemblyQualifiedName);
 
-                if (moduleTypeType != null) // throw exception when moduleTypeType == null?
+                if (moduleTypeType != null && base.ModuleLoader.IsModuleActive(mt))
                 {
                     ModuleBase moduleInstance = base.ModuleLoader.GetModuleFromType(mt);
                     if (moduleInstance is IActionConsumer)

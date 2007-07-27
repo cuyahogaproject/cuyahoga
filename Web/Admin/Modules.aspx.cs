@@ -12,8 +12,10 @@ using System.IO;
 using System.Reflection;
 
 using Cuyahoga.Web.Admin.UI;
+using Cuyahoga.Web.Components;
 using Cuyahoga.Core.Domain;
 using Cuyahoga.Core.Service;
+using Cuyahoga.Core.Service.SiteStructure;
 using Cuyahoga.Core.Util;
 
 namespace Cuyahoga.Web.Admin
@@ -24,10 +26,12 @@ namespace Cuyahoga.Web.Admin
 	public class Modules : AdminBasePage
 	{
 		protected System.Web.UI.WebControls.Repeater rptModules;
+        private IModuleTypeService _moduleTypeService;
 	
 		private void Page_Load(object sender, System.EventArgs e)
 		{
 			base.Title = "Modules";
+            this._moduleTypeService = this.Container.Resolve<IModuleTypeService>();
 			if (! this.IsPostBack)
 			{
 				BindModules();
@@ -37,7 +41,7 @@ namespace Cuyahoga.Web.Admin
 		private void BindModules()
 		{
 			// Retrieve the available modules that are installed.
-			IList availableModules = base.CoreRepository.GetAll(typeof(ModuleType), "Name");
+            IList availableModules = this._moduleTypeService.GetAllModuleTypes();
 			// Retrieve the available modules from the filesystem.
 			string moduleRootDir = HttpContext.Current.Server.MapPath("~/Modules");
 			DirectoryInfo[] moduleDirectories = new DirectoryInfo(moduleRootDir).GetDirectories();
@@ -101,15 +105,40 @@ namespace Cuyahoga.Web.Admin
 					moduleAssembly = Assembly.Load(moduleType.AssemblyName);
 				}
 				DatabaseInstaller dbInstaller = new DatabaseInstaller(physicalModuleInstallDirectory, moduleAssembly);
-				LinkButton lbtInstall = e.Item.FindControl("lbtInstall") as LinkButton;
-				lbtInstall.Visible = dbInstaller.CanInstall;
+                bool canInstall = dbInstaller.CanInstall;
+                bool canUpgrade = dbInstaller.CanUpgrade;
+                bool canUninstall = dbInstaller.CanUninstall;
+                LinkButton lbtInstall = e.Item.FindControl("lbtInstall") as LinkButton;
+                lbtInstall.Visible = canInstall;
 				lbtInstall.Attributes.Add("onclick", "return confirm('Install this module?')");
 				LinkButton lbtUpgrade = e.Item.FindControl("lbtUpgrade") as LinkButton;
-				lbtUpgrade.Visible = dbInstaller.CanUpgrade;
+                lbtUpgrade.Visible = canUpgrade;
 				lbtUpgrade.Attributes.Add("onclick", "return confirm('Upgrade this module?')");
 				LinkButton lbtUninstall = e.Item.FindControl("lbtUninstall") as LinkButton;
-				lbtUninstall.Visible = dbInstaller.CanUninstall;
+                lbtUninstall.Visible = canUninstall;
 				lbtUninstall.Attributes.Add("onclick", "return confirm('Uninstall this module?')");
+
+                CheckBox chkBox = e.Item.FindControl("chkBoxActivation") as CheckBox;
+                if (canInstall)
+                {
+                    chkBox.Enabled = false;
+                    chkBox.Checked = moduleType.AutoActivate;
+                }
+				else
+				{
+					chkBox.Enabled = true;
+					chkBox.Checked = moduleType.AutoActivate;
+					if (moduleType.Name != null) chkBox.InputAttributes.Add("moduleTypeId", moduleType.ModuleTypeId.ToString());
+				}
+                Literal litActivationStatus = e.Item.FindControl("litActivationStatus") as Literal;
+                if (this.ModuleLoader.IsModuleActive(moduleType))
+                {
+                    litActivationStatus.Text = "<span style=\"color:green;\">Active</span>";
+                }
+                else
+                {
+                    litActivationStatus.Text = "<span style=\"color:red;\">Not Active</span>";
+                }
 
 				Literal litStatus = e.Item.FindControl("litStatus") as Literal;
 				if (dbInstaller.CurrentVersionInDatabase != null)
@@ -169,5 +198,40 @@ namespace Cuyahoga.Web.Admin
 				ShowError(e.CommandName + ": operation failed for " + moduleName + ".<br/>" + ex.Message);
 			}
 		}
+
+        protected void chkBoxActivation_CheckedChanged(object sender, EventArgs e)
+        {
+            ModuleType mt = null;
+            try
+            {
+                CheckBox box = (CheckBox)sender;
+                if (box.InputAttributes["moduleTypeId"] != null)
+                {
+                    mt = this._moduleTypeService.GetModuleById(int.Parse(box.InputAttributes["moduleTypeId"]));
+                    if (box.Checked)
+                    {
+                        //set activation status
+                        mt.AutoActivate = true;
+                        this._moduleTypeService.SaveOrUpdateModuleType(mt);
+                        //activate now
+                        this.ModuleLoader.ActivateModule(mt);
+                    }
+                    else
+                    {
+                        //set activation status
+                        mt.AutoActivate = false;
+                        this._moduleTypeService.SaveOrUpdateModuleType(mt);
+                    }
+                }
+                this.BindModules();
+            }
+            catch (Exception ex)
+            {
+                if(mt != null) ShowError("Loading failed for " + mt.Name  + ".<br/>" + ex.Message);
+                else ShowError("Loading failed for module.<br/>" + ex.Message);
+            }
+
+       
+        }
 	}
 }

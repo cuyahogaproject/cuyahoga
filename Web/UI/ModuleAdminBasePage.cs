@@ -7,6 +7,7 @@ using Cuyahoga.Core;
 using Cuyahoga.Core.Domain;
 using Cuyahoga.Core.Service;
 using Cuyahoga.Core.Search;
+using Cuyahoga.Core.Service.Search;
 using Cuyahoga.Core.Util;
 using Cuyahoga.Web.Util;
 using Cuyahoga.Web.Components;
@@ -22,6 +23,7 @@ namespace Cuyahoga.Web.UI
 		private Section _section;
 		private ModuleBase _module;
 		private ModuleLoader _moduleLoader;
+        private ISearchService _searchService;
 
 		/// <summary>
 		/// Property Node (Node)
@@ -57,6 +59,7 @@ namespace Cuyahoga.Web.UI
 			this._section = null;
 
 			this._moduleLoader = Container.Resolve<ModuleLoader>();
+            this._searchService = Container.Resolve<ISearchService>();
 		}
 
 		/// <summary>
@@ -127,22 +130,19 @@ namespace Cuyahoga.Web.UI
 
 		private void IndexContent(SearchContent searchContent, IndexAction action)
 		{
-			// Index
-			string indexDir = Context.Server.MapPath(Config.GetConfiguration()["SearchIndexDir"]);
-			IndexBuilder ib = new IndexBuilder(indexDir, false);
 			switch (action)
 			{
 				case IndexAction.Create:
-					ib.AddContent(searchContent);
+                    this._searchService.AddContent(searchContent);
 					break;
 				case IndexAction.Update:
-					ib.UpdateContent(searchContent);
+                    this._searchService.UpdateContent(searchContent);
 					break;
 				case IndexAction.Delete:
-					ib.DeleteContent(searchContent);
+                    this._searchService.DeleteContent(searchContent);
 					break;
 			}
-			ib.Close();
+	
 		}
 
 		private void searchableModule_ContentCreated(object sender, IndexEventArgs e)
