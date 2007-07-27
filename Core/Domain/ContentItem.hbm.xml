@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8" ?> 
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2" assembly="Cuyahoga.Core" namespace="Cuyahoga.Core.Domain">
+  
+	<class name="ContentItem" table="cuyahoga_contentitem">
+		
+		<cache usage="read-write" />
+
+		<id name="Id" column="contentitemid" type="Int64" unsaved-value="-1">
+			<generator class="native">
+				<param name="sequence">cuyahoga_contentitem_contentitemid_seq</param>
+			</generator>
+		</id>
+
+    <property name="GlobalId" column="globalid" type="Guid" not-null="true" />
+    <property name="WorkflowStatus" column="workflowstatus" not-null="true" />
+    <property name="Title" column="title" type="String" length="255" not-null="true" />
+    <property name="Summary" column="description" type="String" length="255" not-null="false" />
+		<property name="Version" column="version" type="Int32" not-null="true" />
+		<property name="Locale" column="locale" type="String" length="5" not-null="false" />
+		<property name="CreatedAt" column="createdat" type="DateTime" not-null="true" />
+		<property name="ModifiedAt" column="modifiedat" type="DateTime" not-null="true" />
+		<property name="PublishedAt" column="publishedat" type="DateTime" not-null="false" />
+    <property name="PublishedUntil" column="publishedUntil" type="DateTime" not-null="false" />
+    <property name="UrlFormat" column="urlformat" type="String" length="255" not-null="true" />
+    <many-to-one name="CreatedBy" class="Cuyahoga.Core.Domain.User, Cuyahoga.Core" column="createdby" not-null="true" />
+    <many-to-one name="ModifiedBy" class="Cuyahoga.Core.Domain.User, Cuyahoga.Core" column="modifiedby" not-null="true" />
+    <many-to-one name="PublishedBy" class="Cuyahoga.Core.Domain.User, Cuyahoga.Core" column="publishedby" not-null="false" />
+    <many-to-one name="Section" class="Cuyahoga.Core.Domain.Section, Cuyahoga.Core" column="sectionid" not-null="true" />
+
+		<bag name="Categories" table="cuyahoga_categorycontentitem" cascade="none" lazy="true" generic="true" inverse="true">
+			<cache usage="read-write" />
+			<key column="contentitemid" />
+			<many-to-many column="categoryid" class="Cuyahoga.Core.Domain.Category, Cuyahoga.Core" />
+		</bag>
+
+    <bag name="ContentItemPermissions" cascade="all" lazy="true" table="cuyahoga_contentitemrole">
+      <cache usage="read-write" />
+      <key column="contentitemid" />
+      <composite-element class="Cuyahoga.Core.Domain.ContentItemPermission, Cuyahoga.Core">
+        <parent name="ContentItem" />
+        <property name="ViewAllowed" column="viewallowed" type="Boolean" />
+        <property name="EditAllowed" column="editallowed" type="Boolean" />
+        <many-to-one name="Role" class="Cuyahoga.Core.Domain.Role, Cuyahoga.Core" column="roleid" cascade="none" />
+      </composite-element>
+    </bag>
+		
+		
+	</class>
+
+  
+  
+</hibernate-mapping>

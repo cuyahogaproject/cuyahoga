@@ -11,8 +11,7 @@ namespace Cuyahoga.Core.Domain
 	public class FileResource : ContentItem
 	{
 		private string name;
-		//is saved in ContentItem.TypeInfo
-		//private string extension;
+		private string extension;
 		private string physicalPath;
 		private long length;
 		private string mimeType;
@@ -20,33 +19,30 @@ namespace Cuyahoga.Core.Domain
 		private IList downloadRoles;
 		private IDictionary userAttributes;
 
-		#region Properties
+        #region Properties
 
-		/// <summary>
+        /// <summary>
 		/// Filename (with extension)
 		/// </summary>
-		public string Name
+		public virtual string Name
 		{
 			get{ return this.name; }
 			set{ this.name = value; }
 		}
 
-		/* Moved to ContentItem.TypeInfo
-		 * 
 		/// <summary>
 		/// Extension of File (.png, .doc, etc.)
 		/// </summary>
-		public string Extension
+		public virtual string Extension
 		{
 			get{ return this.extension; }
 			set{ this.extension = value; }
 		}
-		*/
 
 		/// <summary>
 		/// Absolute Path on Disc (C:\Files\..)
 		/// </summary>
-		public string PhysicalPath
+        public virtual string PhysicalPath
 		{
 			get{ return this.physicalPath; }
 			set{ this.physicalPath = value; }
@@ -55,7 +51,7 @@ namespace Cuyahoga.Core.Domain
 		/// <summary>
 		/// Length of File (Bytes)
 		/// </summary>
-		public long Length
+        public virtual long Length
 		{
 			get{ return this.length; }
 			set{ this.length = value; }
@@ -64,7 +60,7 @@ namespace Cuyahoga.Core.Domain
 		/// <summary>
 		/// Mime Type
 		/// </summary>
-		public string MimeType
+        public virtual string MimeType
 		{
 			get{ return this.mimeType; }
 			set{ this.mimeType = value; }
@@ -73,7 +69,7 @@ namespace Cuyahoga.Core.Domain
 		/// <summary>
 		/// Download Counter
 		/// </summary>
-		public int DownloadCount
+        public virtual int DownloadCount
 		{
 			get{ return this.downloadCount; }
 			set{ this.downloadCount = value; }
@@ -82,7 +78,7 @@ namespace Cuyahoga.Core.Domain
 		/// <summary>
 		/// Predefined Values of Allowed Roles for Download
 		/// </summary>
-		public IList DownloadRoles
+        public virtual IList DownloadRoles
 		{
 			get{ return this.downloadRoles; }
 			set{ this.downloadRoles = value; }
@@ -91,7 +87,7 @@ namespace Cuyahoga.Core.Domain
 		/// <summary>
 		/// Extra Attributes
 		/// </summary>
-		public IDictionary UserAttributes
+        public virtual IDictionary UserAttributes
 		{
 			get{ return this.userAttributes; }
 			set{ this.userAttributes = value; }
@@ -108,26 +104,31 @@ namespace Cuyahoga.Core.Domain
 	
 		#region Methods
 
-		public void SetFileInformation(FileInfo fi)
+		public virtual void SetFileInformation(FileInfo fi)
 		{
 			//set default type
 			this.SetFileInformation(fi, "application/octet-stream");
 		}
 		
-		public void SetFileInformation(FileInfo fi, string mimeType)
+		public virtual void SetFileInformation(FileInfo fi, string mimeType)
 		{
 			this.name = fi.Name;
-			this.typeInfo = fi.Extension;
+			this.extension = fi.Extension;
 			this.physicalPath = fi.FullName;
 			this.mimeType = mimeType;
 			this.length = fi.Length;
 		}
 
-		public void SetFileInformation(System.Web.HttpPostedFile hpf)
+		public virtual void SetFileInformation(System.Web.HttpPostedFile hpf)
 		{
 			FileInfo fi = new FileInfo(hpf.FileName);
 			this.SetFileInformation(fi, hpf.ContentType);
 		}
+
+        public override string ToString()
+        {
+            return this.name;
+        }
 
 		#endregion
 	}

@@ -294,13 +294,13 @@ namespace Cuyahoga.Core.Domain
 		/// <summary>
 		/// This event is raised when ChildNodes are loaded from the database.
 		/// </summary>
-		public event LoadChildrenHandler ChildrenLoaded;
+		public virtual event LoadChildrenHandler ChildrenLoaded;
 
 		/// <summary>
 		/// This event is raised when the state of the node changes.
 		/// </summary>
-		public event UpdateHandler NodeUpdated;
-
+		public virtual event UpdateHandler NodeUpdated;
+         
 		protected void OnChildrenLoaded()
 		{
 			if (ChildrenLoaded != null)

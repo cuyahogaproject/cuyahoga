@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using System.Collections.Generic;
 
 using Castle.Facilities.NHibernateIntegration;
 using Castle.Services.Transaction;
@@ -85,6 +86,45 @@ namespace Cuyahoga.Core.DataAccess
 				return this._commonDao.GetAll(typeof(User), "UserName");
 			}
 		}
+
+        public IList<Section> GetViewableSectionsByUser(User user)
+        {
+
+            string hql = "select s from User u join u.Roles as r, Section s join s.SectionPermissions sp " +
+                        "where u.Id = :userId and r.Id = sp.Role.Id and sp.ViewAllowed = 1";
+            IQuery q = this._sessionManager.OpenSession().CreateQuery(hql);
+            q.SetInt32("userId", user.Id);
+            return q.List<Section>();
+        }
+
+        //TODO: check why this throws an ADO Exeption (NHibernate bug?)
+        //public IList<Section> GetViewableSectionsByRoles(IList<Role> roles)
+        //{
+        //    string hql = "select s from Section s join s.SectionPermissions as sp where sp.Role in :roles and sp.ViewAllowed = 1";
+        //    IQuery q = this._sessionManager.OpenSession().CreateQuery(hql);
+        //    q.SetParameterList("roles", roles);
+        //    return q.List<Section>();
+        //}
+
+        public IList<Section> GetViewableSectionsByAccessLevel(AccessLevel accessLevel)
+        {
+            int permission = (int)accessLevel;
+
+            string hql = "select s from Section s join s.SectionPermissions sp, Role r "+
+                "where r.PermissionLevel = :permission and r.Id = sp.Role.Id and sp.ViewAllowed = 1";
+            IQuery q = this._sessionManager.OpenSession().CreateQuery(hql);
+            q.SetInt32("permission", permission);
+            return q.List<Section>();
+        }
+
+        public IList<Role> GetRolesByAccessLevel(AccessLevel accessLevel)
+        {
+            int permission = (int)accessLevel;
+            string hql = "select r from Role r where r.PermissionLevel = :permission";
+            IQuery q = this._sessionManager.OpenSession().CreateQuery(hql);
+            q.SetInt32("permission", permission);
+            return q.List<Role>();
+        }
 
 		[Transaction(TransactionMode.Requires)]
 		public void SaveOrUpdateUser(User user)

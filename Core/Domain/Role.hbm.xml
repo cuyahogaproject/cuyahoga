@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?> 
-<hibernate-mapping xmlns="urn:nhibernate-mapping-2.0">
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2">
 	<class name="Cuyahoga.Core.Domain.Role, Cuyahoga.Core" table="cuyahoga_role">
 		
 		<cache usage="read-write" />

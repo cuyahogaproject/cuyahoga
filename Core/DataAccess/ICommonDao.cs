@@ -56,6 +56,18 @@ namespace Cuyahoga.Core.DataAccess
 		/// <param name="obj"></param>
 		void SaveOrUpdateObject(object obj);
 
+        /// <summary>
+        /// Explicit update
+        /// </summary>
+        /// <param name="obj"></param>
+        void UpdateObject(object obj);
+
+        /// <summary>
+        /// Explicit save
+        /// </summary>
+        /// <param name="obj"></param>
+        void SaveObject(object obj);
+
 		/// <summary>
 		/// Delete a given object from the database;
 		/// </summary>

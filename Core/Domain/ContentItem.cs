@@ -1,5 +1,5 @@
 using System;
-using System.Collections;
+using System.Collections.Generic;
 
 namespace Cuyahoga.Core.Domain
 {
@@ -10,25 +10,28 @@ namespace Cuyahoga.Core.Domain
 	{
 		protected long id;
 		protected Guid globalId;
+        protected WorkflowStatus workflowStatus;
 		protected string title;
-		protected string description;
+		protected string summary;
 		protected int version;
-		protected string typeInfo;
-		//protected ContentItemClass classification;
+		protected string locale;
 		protected DateTime createdAt;
-		protected DateTime publishedAt;
+		protected DateTime? publishedAt;
+        protected DateTime? publishedUntil;
 		protected DateTime modifiedAt;
 		protected User createdBy;
 		protected User publishedBy;
 		protected User modifiedBy;
+        protected string urlFormat;
 		protected Section section;
-		//protected IList categories;
+		protected IList<Category> categories;
+        protected IList<ContentItemPermission> contentItemPermissions;
 		
 		#region Properties
 		/// <summary>
 		/// Property Id (long)
 		/// </summary>
-		public long Id
+		public virtual long Id
 		{
 			get { return this.id; }
 			set { this.id = value; }
@@ -37,63 +40,61 @@ namespace Cuyahoga.Core.Domain
 		/// <summary>
 		/// Property GlobalId (Guid)
 		/// </summary>
-		public Guid GlobalId
+        public virtual Guid GlobalId
 		{
 			get { return this.globalId; }
 			set { this.globalId = value; }
 		}
 
+        /// <summary>
+        /// Property WorkflowStatus (WorkflowStatus)
+        /// </summary>
+        public virtual WorkflowStatus WorkflowStatus
+        {
+            get { return this.workflowStatus; }
+            set { this.workflowStatus = value; }
+        }
+
 		/// <summary>
 		/// Property Title (string)
 		/// </summary>
-		public string Title
+        public virtual string Title
 		{
 			get { return this.title; }
 			set { this.title = value; }
 		}
 
 		/// <summary>
-		/// Property Description (string)
+		/// Property Summary(string)
 		/// </summary>
-		public string Description
+        public virtual string Summary
 		{
-			get { return this.description; }
-			set { this.description = value; }
+			get { return this.summary; }
+			set { this.summary = value; }
 		}
 
 		/// <summary>
 		/// Property Version (int)
 		/// </summary>
-		public int Version
+        public virtual int Version
 		{
 			get { return this.version; }
 			set { this.version = value; }
 		}
 
 		/// <summary>
-		/// Property TypeInfo (string)
+		/// Property Locale (string)
 		/// </summary>
-		public string TypeInfo
+        public virtual string Locale
 		{
-			get{ return this.typeInfo; }
-			set{ this.typeInfo = value; }
+			get{ return this.locale; }
+			set{ this.locale = value; }
 		}
-
-		/*
-		/// <summary>
-		/// Property Classification (ContentItemClass)
-		/// </summary>
-		public ContentItemClass Classification
-		{
-			get{ return this.classification; }
-			set{ this.classification = value; }
-		}
-		*/
 
 		/// <summary>
 		/// Property CreatedAt (DateTime)
 		/// </summary>
-		public DateTime CreatedAt
+        public virtual DateTime CreatedAt
 		{
 			get { return this.createdAt; }
 			set { this.createdAt = value; }
@@ -102,16 +103,25 @@ namespace Cuyahoga.Core.Domain
 		/// <summary>
 		/// Property PublishedAt (DateTime)
 		/// </summary>
-		public DateTime PublishedAt
+        public virtual DateTime? PublishedAt
 		{
 			get { return this.publishedAt; }
 			set { this.publishedAt = value; }
 		}
 
+        /// <summary>
+        /// Property PublishedUntil (DateTime)
+        /// </summary>
+        public virtual DateTime? PublishedUntil
+        {
+            get { return this.publishedUntil; }
+            set { this.publishedUntil = value; }
+        }
+
 		/// <summary>
 		/// Property ModifiedAt (DateTime)
 		/// </summary>
-		public DateTime ModifiedAt
+        public virtual DateTime ModifiedAt
 		{
 			get { return this.modifiedAt; }
 			set { this.modifiedAt = value; }
@@ -120,7 +130,7 @@ namespace Cuyahoga.Core.Domain
 		/// <summary>
 		/// Property CreatedBy (User)
 		/// </summary>
-		public User CreatedBy
+        public virtual User CreatedBy
 		{
 			get { return this.createdBy; }
 			set { this.createdBy = value; }
@@ -129,7 +139,7 @@ namespace Cuyahoga.Core.Domain
 		/// <summary>
 		/// Property CreatedBy (User)
 		/// </summary>
-		public User PublishedBy
+        public virtual User PublishedBy
 		{
 			get { return this.publishedBy; }
 			set { this.publishedBy = value; }
@@ -138,31 +148,47 @@ namespace Cuyahoga.Core.Domain
 		/// <summary>
 		/// Property ModifiedBy (User)
 		/// </summary>
-		public User ModifiedBy
+        public virtual User ModifiedBy
 		{
 			get { return this.modifiedBy; }
 			set { this.modifiedBy = value; }
 		}
 
+        /// <summary>
+        /// Property UrlFormat (string)
+        /// </summary>
+        public virtual string UrlFormat
+        {
+            get { return this.urlFormat; }
+            set { this.urlFormat = value; }
+        }
+
 		/// <summary>
 		/// Property Section (Section)
 		/// </summary>
-		public Section Section
+        public virtual Section Section
 		{
 			get { return this.section; }
 			set { this.section = value; }
 		}
-
 		
 		/// <summary>
 		/// Property Categories (Category)
 		/// </summary>
-		/*public IList Categories
+		public IList<Category> Categories
 		{
 			get { return this.categories; }
 			set { this.categories = value; }
-		}*/
+		}
 
+        /// <summary>
+        /// Property ContentItemPermissions (ContentItemPermission)
+        /// </summary>
+        public IList<ContentItemPermission> ContentItemPermissions
+        {
+            get { return this.contentItemPermissions; }
+            set { this.contentItemPermissions = value; }
+        }
 
 		#endregion
 
@@ -170,9 +196,12 @@ namespace Cuyahoga.Core.Domain
 		{
 			this.id = -1;
 			this.globalId = Guid.NewGuid();
+            this.workflowStatus = WorkflowStatus.Draft;
 			this.createdAt = DateTime.Now;
+            this.modifiedAt = DateTime.Now;
 			this.version = 1;
-
+            this.categories = new List<Category>();
+            this.contentItemPermissions = new List<ContentItemPermission>();
 		}
 	}
 }

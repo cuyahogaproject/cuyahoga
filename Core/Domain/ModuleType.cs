@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using System.Collections.Generic;
 
 namespace Cuyahoga.Core.Domain
 {
@@ -14,15 +15,17 @@ namespace Cuyahoga.Core.Domain
 		private string _className;
 		private string _path;
 		private string _editPath;
+        private bool _autoActivate;
 		private IList _moduleSettings;
 		private IList _moduleServices;
+        //private IList<ModuleContentType> _moduleContentTypes;
 
 		#region properties
 		
 		/// <summary>
 		/// Property ModuleId (int)
 		/// </summary>
-		public int ModuleTypeId
+        public virtual int ModuleTypeId
 		{
 			get { return this._moduleTypeId; }
 			set { this._moduleTypeId = value; }
@@ -31,7 +34,7 @@ namespace Cuyahoga.Core.Domain
 		/// <summary>
 		/// Property AssemblyName (string)
 		/// </summary>
-		public string AssemblyName
+        public virtual string AssemblyName
 		{
 			get { return this._assemblyName; }
 			set { this._assemblyName = value; }
@@ -40,7 +43,7 @@ namespace Cuyahoga.Core.Domain
 		/// <summary>
 		/// Property ClassName (string)
 		/// </summary>
-		public string ClassName
+		public virtual string ClassName
 		{
 			get { return this._className; }
 			set { this._className = value; }
@@ -49,7 +52,7 @@ namespace Cuyahoga.Core.Domain
 		/// <summary>
 		/// Property Name (string)
 		/// </summary>
-		public string Name
+        public virtual string Name
 		{
 			get { return this._name; }
 			set { this._name = value; }
@@ -58,7 +61,7 @@ namespace Cuyahoga.Core.Domain
 		/// <summary>
 		/// Property Path (string)
 		/// </summary>
-		public string Path
+        public virtual string Path
 		{
 			get { return this._path; }
 			set { this._path = value; }
@@ -67,16 +70,25 @@ namespace Cuyahoga.Core.Domain
 		/// <summary>
 		/// Property EditPath (string)
 		/// </summary>
-		public string EditPath
+        public virtual string EditPath
 		{
 			get { return this._editPath; }
 			set { this._editPath = value; }
 		}
 
+        /// <summary>
+        /// Property AutoActivate (bool)
+        /// </summary>
+        public virtual bool AutoActivate
+        {
+            get { return this._autoActivate; }
+            set { this._autoActivate = value; }
+        }
+
 		/// <summary>
 		/// Property ModuleSettings (IList)
 		/// </summary>
-		public IList ModuleSettings
+        public virtual IList ModuleSettings
 		{
 			get { return this._moduleSettings; }
 			set { this._moduleSettings = value; }
@@ -85,11 +97,20 @@ namespace Cuyahoga.Core.Domain
 		/// <summary>
 		/// List of module-specific services.
 		/// </summary>
-		public IList ModuleServices
+        public virtual IList ModuleServices
 		{
 			get { return this._moduleServices; }
 			set { this._moduleServices = value; }
 		}
+
+        ///// <summary>
+        ///// List of content types the module manages
+        ///// </summary>
+        //public virtual IList<ModuleContentType> ModuleContentTypes
+        //{
+        //    get { return this._moduleContentTypes; }
+        //    set { this._moduleContentTypes = value; }
+        //}
 
 		#endregion
 
@@ -101,6 +122,7 @@ namespace Cuyahoga.Core.Domain
 			this._moduleTypeId = -1;
 			this._moduleSettings = new ArrayList();
 			this._moduleServices = new ArrayList();
+            //this._moduleContentTypes = new List<ModuleContentType>();
 		}
 	}
 }

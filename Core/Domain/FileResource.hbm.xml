@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="utf-8" ?> 
-<hibernate-mapping xmlns="urn:nhibernate-mapping-2.0">
-	<joined-subclass name="Cuyahoga.Core.Domain.FileResource, Cuyahoga.Core" extends="Cuyahoga.Core.Domain.IContentItem, Cuyahoga.Core" table="cuyahoga_fileresource">
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2">
+	<joined-subclass name="Cuyahoga.Core.Domain.FileResource, Cuyahoga.Core" extends="Cuyahoga.Core.Domain.ContentItem, Cuyahoga.Core" table="cuyahoga_fileresource">
 
 		<key column="fileresourceid" />
 		
 		<property name="Name" column="filename" type="String" length="255" not-null="false" />
+    <property name="Extension" column="extension" type="String" length="10" not-null="false" />
 		<property name="PhysicalPath" column="physicalpath" type="String" length="255" not-null="true" />
 		<property name="Length" column="length" type="Int64" not-null="false" />
 		<property name="MimeType" column="mimetype" type="String" length="255" not-null="false" />

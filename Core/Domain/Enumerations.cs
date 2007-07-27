@@ -82,4 +82,29 @@ namespace Cuyahoga.Core.Domain
 		/// </summary>
 		MySQL
 	}
+
+    public enum WorkflowStatus
+    {
+        /// <summary>
+        /// Work in progress
+        /// </summary>
+        Draft,
+        /// <summary>
+        /// Currently being reviewed   
+        /// </summary>
+        Review,
+        /// <summary>
+        /// Approved content (e.g. for publishing)
+        /// </summary>
+        Approved,
+        /// <summary>
+        /// Archived content
+        /// </summary>
+        Archived,
+        /// <summary>
+        /// Locked content (e.g. for exclusive changes)
+        /// </summary>
+        Locked
+    }
+
 }

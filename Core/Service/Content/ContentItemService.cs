@@ -1,99 +1,101 @@
 using System;
-using System.Collections;
+using System.Collections.Generic;
+using System.Text;
 
 using Cuyahoga.Core.Domain;
 using Cuyahoga.Core.DataAccess;
 
 namespace Cuyahoga.Core.Service.Content
 {
-	/// <summary>
-	/// ContentItemService, service facade for content
-	/// </summary>
-	public class ContentItemService : IContentItemService
-				
-	{
-		private IContentItemDao contentItemDao;
-			
-		public ContentItemService(IContentItemDao contentItemDao)
-								
-		{
-			this.contentItemDao = contentItemDao;
-		}
-	 
-		#region IContentItemService Member
-	 
-		public IList FindContentItemsByTitle(string searchString)
-	 		
-		{
-			return this.contentItemDao.FindContentItemsByTitle(searchString);
-		}
-	 
-		public IList FindContentItemsByDescription(string searchString)
-	 		
-		{
-			return this.contentItemDao.FindContentItemsByDescription(searchString);
-		}
-	 
-		public IList FindContentItemsByCreator(User user)
-	 		
-		{
-			return this.contentItemDao.FindContentItemsByCreator(user);
-		}
-	 
-		public IList FindContentItemsByPublisher(User user)
-	 		
-		{
-			return this.contentItemDao.FindContentItemsByPublisher(user);
-		}
-	 
-		public IList FindContentItemsByModifier(User user)
-	 		
-		{
-			return this.contentItemDao.FindContentItemsByModifier(user);
-		}
-	 
-		public IList FindContentItemsBySection(Section section)
-	 		
-		{
-			return this.contentItemDao.FindContentItemsBySection(section);
-		}
-	 
-		public IList FindContentItemsByCreationDate(DateTime date, ContentItemDateFilter filter)
-	 		
-		{
-			return this.contentItemDao.FindContentItemsByCreationDate(date, filter);
-		}
-	 
-		public IList FindContentItemsByCreationDate(DateTime fromDate, DateTime toDate)
-	 		
-		{
-			return this.contentItemDao.FindContentItemsByCreationDate(fromDate, toDate);
-		}
-	 	
-		public IList FindContentItemsByPublicationDate(DateTime date, ContentItemDateFilter filter)
-	 		
-		{
-			return this.contentItemDao.FindContentItemsByPublicationDate(date, filter);
-		}
-	 
-		public IList FindContentItemsByPublicationDate(DateTime fromDate, DateTime toDate)
-	 		
-		{
-			return this.contentItemDao.FindContentItemsByPublicationDate(fromDate, toDate);
-		}
-	 
-		public IList FindContentItemsByModificationDate(DateTime date, ContentItemDateFilter filter)
-	 		
-		{
-			return this.contentItemDao.FindContentItemsByModificationDate(date, filter);
-		}
-	 
-		public IList FindContentItemsByModificationDate(DateTime fromDate, DateTime toDate)
-	 		
-		{
-			return this.contentItemDao.FindContentItemsByModificationDate(fromDate, toDate);
-		}
-	 
-		#endregion
-	}
+    public class ContentItemService<T> : IContentItemService<T> where T: IContentItem
+    {
+        protected IContentItemDao<T> contentItemDao;
+
+        public ContentItemService(IContentItemDao<T> contentItemDao){
+            this.contentItemDao = contentItemDao;
+        }
+
+        public T GetById(long id)
+        {
+            return this.contentItemDao.GetById(id);
+        }
+
+        public T GetById(Guid id)
+        {
+            return this.contentItemDao.GetById(id);
+        }
+
+        public IList<T> GetAll()
+        {
+            return this.contentItemDao.GetAll();
+        }
+
+
+        public T GetUniqueByProperty(string propertyName, object propertyValue)
+        {
+            return this.contentItemDao.GetUniqueByProperty(propertyName, propertyValue);
+        }
+
+        public IList<T> GetByProperty(string propertyName, object propertyValue)
+        {
+            return this.contentItemDao.GetByProperty(propertyName, propertyValue);
+        }
+
+        public IList<T> GetByExample(T exampleInstance, params string[] propertiesToExclude)
+        {
+            return this.GetByExample(exampleInstance, propertiesToExclude);
+        }
+
+        public T GetUniqueByExample(T exampleInstance, params string[] propertiesToExclude)
+        {
+            return this.GetUniqueByExample(exampleInstance, propertiesToExclude);
+        }
+
+        public T Save(T entity)
+        {
+            return this.contentItemDao.Save(entity);
+        }
+
+       public T SaveOrUpdate(T entity)
+        { 
+            return this.contentItemDao.SaveOrUpdate(entity);
+        }
+
+        public void Delete(T entity)
+        {
+            this.contentItemDao.Delete(entity);
+        }
+
+        #region Convenience Methods
+
+        public IList<T> FindContentItemsBySection(Section section)
+        {
+            return this.contentItemDao.GetByProperty("Section", section);
+        }
+
+        public IList<T> FindContentItemsByTitle(string title)
+        {
+            return this.contentItemDao.GetByProperty("Title", title);
+        }
+
+        public IList<T> FindContentItemsByCreator(User user)
+        {
+            return this.contentItemDao.GetByProperty("Creator", user);
+        }
+
+        public IList<T> FindContentItemsByPublisher(User user)
+        {
+            return this.contentItemDao.GetByProperty("Publisher", user);
+        }
+
+        public IList<T> FindContentItemsByModifier(User user)
+        {
+            return this.contentItemDao.GetByProperty("Modifier", user);
+        }
+
+        #endregion
+
+
+
+    }
 }

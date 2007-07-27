@@ -12,7 +12,8 @@ namespace Cuyahoga.Core.Domain
 	/// <summary>
 	/// The base class for all Cuyahoga modules. 
 	/// </summary>
-	[Transient]
+	//[Transient]
+    [PerWebRequest]
 	public abstract class ModuleBase
 	{
 		private Section _section;

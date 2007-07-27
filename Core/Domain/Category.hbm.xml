@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8" ?> 
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2">
+	<class name="Cuyahoga.Core.Domain.Category, Cuyahoga.Core" table="cuyahoga_category">
+		
+		<cache usage="read-write" />
+
+		<id name="Id" column="categoryid" type="Int32" unsaved-value="-1">
+			<generator class="native">
+				<param name="sequence">cuyahoga_category_categoryid_seq</param>
+			</generator>
+		</id>
+    <property name="Path" column="path" type="String" length="80" not-null="true" unique="true" />
+    <property name="Key" column="categorykey" type="String" length="10" />
+    <property name="Name" column="categoryname" type="String" length="100" />
+    <property name="Description" column="description" type="String" length="255" />
+    
+    <many-to-one name="ParentCategory" class="Cuyahoga.Core.Domain.Category, Cuyahoga.Core" column="parentcategoryid" not-null="false" />
+
+		<bag name="ChildCategories" cascade="delete" inverse="true" order-by="path asc" lazy="true" generic="true">
+      <!-- <cache usage="read-write" /> -->
+			<key column="parentcategoryid" />
+			<one-to-many class="Cuyahoga.Core.Domain.Category, Cuyahoga.Core" /> 
+		</bag>
+
+    <bag name="ContentItems" table="cuyahoga_categorycontentitem" lazy="true" generic="true">
+      <cache usage="read-write" />
+      <key column="categoryid" />
+      <many-to-many class="Cuyahoga.Core.Domain.ContentItem, Cuyahoga.Core" column="contentitemid" />
+    </bag>
+		
+	</class>
+</hibernate-mapping>

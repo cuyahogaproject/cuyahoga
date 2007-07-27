@@ -251,7 +251,7 @@ namespace Cuyahoga.Core.Domain
 		/// </summary>
 		/// <param name="accessLevel"></param>
 		/// <returns></returns>
-		public bool HasPermission(AccessLevel permission)
+		public virtual bool HasPermission(AccessLevel permission)
 		{
 			return Array.IndexOf(this.Permissions, permission) > -1;
 		}
@@ -261,7 +261,7 @@ namespace Cuyahoga.Core.Domain
 		/// </summary>
 		/// <param name="node"></param>
 		/// <returns></returns>
-		public bool CanView(Node node)
+		public virtual bool CanView(Node node)
 		{
 			foreach (Permission p in node.NodePermissions)
 			{
@@ -278,7 +278,7 @@ namespace Cuyahoga.Core.Domain
 		/// </summary>
 		/// <param name="section"></param>
 		/// <returns></returns>
-		public bool CanView(Section section)
+		public virtual bool CanView(Section section)
 		{
 			foreach (Permission p in section.SectionPermissions)
 			{
@@ -295,7 +295,7 @@ namespace Cuyahoga.Core.Domain
 		/// </summary>
 		/// <param name="section"></param>
 		/// <returns></returns>
-		public bool CanEdit(Section section)
+		public virtual bool CanEdit(Section section)
 		{
 			foreach (Permission p in section.SectionPermissions)
 			{
@@ -358,7 +358,7 @@ namespace Cuyahoga.Core.Domain
 		/// </summary>
 		/// <param name="roleToCheck"></param>
 		/// <returns></returns>
-		public bool IsInRole(Role roleToCheck)
+		public virtual bool IsInRole(Role roleToCheck)
 		{
 			foreach (Role role in this.Roles)
 			{
@@ -375,7 +375,7 @@ namespace Cuyahoga.Core.Domain
 		/// </summary>
 		/// <param name="roleName"></param>
 		/// <returns></returns>
-		public bool IsInRole(string roleName)
+		public virtual bool IsInRole(string roleName)
 		{
 			foreach (Role role in this.Roles)
 			{

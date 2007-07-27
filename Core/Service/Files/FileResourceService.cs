@@ -95,8 +95,8 @@ namespace Cuyahoga.Core.Service.Files
 				this.FileResourceDao.SaveOrUpdateFileResource(FileResource);
 				string dirName = Path.GetDirectoryName(FileResource.PhysicalPath);
 				// Filename w/o extension
-				string tmpFileName = FileResource.Name.Substring(0, (FileResource.Name.Length - FileResource.TypeInfo.Length));
-				tmpFileName = string.Concat(tmpFileName, ".", FileResource.Id.ToString(), FileResource.TypeInfo);
+				string tmpFileName = FileResource.Name.Substring(0, (FileResource.Name.Length - FileResource.Extension.Length));
+				tmpFileName = string.Concat(tmpFileName, ".", FileResource.Id.ToString(), FileResource.Extension);
 				FileResource.Name = tmpFileName;
 				FileResource.PhysicalPath = Path.Combine(dirName, tmpFileName);
 			}

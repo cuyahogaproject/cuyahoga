@@ -81,6 +81,21 @@ namespace Cuyahoga.Core.DataAccess
 			session.SaveOrUpdate(obj);
 		}
 
+
+        [Transaction(TransactionMode.Requires)]
+        public virtual void SaveObject(object obj)
+        {
+            ISession session = this._sessionManager.OpenSession();
+            session.Save(obj);
+        }
+
+        [Transaction(TransactionMode.Requires)]
+        public virtual void UpdateObject(object obj)
+        {
+            ISession session = this._sessionManager.OpenSession();
+            session.Update(obj);
+        }
+
 		[Transaction(TransactionMode.Requires)]
 		public virtual void DeleteObject(object obj)
 		{

@@ -40,7 +40,7 @@ namespace Cuyahoga.Core.DataAccess
 		{
 			ISession session = this.sessionManager.OpenSession();
 
-			string hql = "from FileResource fi where fi.TypeInfo = :extension";
+			string hql = "from FileResource fi where fi.Extension = :extension";
 			IQuery query = session.CreateQuery(hql);
 			query.SetString("extension", extension);
 			return query.List();
@@ -50,9 +50,6 @@ namespace Cuyahoga.Core.DataAccess
 		public virtual void SaveOrUpdateFileResource(FileResource FileResource)
 		{
 			ISession session = this.sessionManager.OpenSession();
-
-			//session.Evict(FileResource);
-
 			session.SaveOrUpdate(FileResource);
 		}
 
@@ -60,9 +57,6 @@ namespace Cuyahoga.Core.DataAccess
 		public virtual void DeleteFileResource(FileResource FileResource)
 		{
 			ISession session = this.sessionManager.OpenSession();
-
-			//session.Evict(FileResource);
-		
 			session.Delete(FileResource);
 		}
 

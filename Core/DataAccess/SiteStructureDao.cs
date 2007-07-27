@@ -226,7 +226,6 @@ namespace Cuyahoga.Core.DataAccess
 			return q.List();
 		}
 
-
 		[Transaction(TransactionMode.Requires)]
 		public void SaveSite(Site site)
 		{

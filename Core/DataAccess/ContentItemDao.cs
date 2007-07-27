@@ -1,159 +1,149 @@
 using System;
-using System.Collections;
+using System.Collections.Generic;
+using System.Text;
 
-using Castle.Facilities.NHibernateIntegration;
+using Cuyahoga.Core.Domain;
 
 using NHibernate;
 using NHibernate.Expression;
 
-using Cuyahoga.Core.Domain;
+using Castle.Facilities.NHibernateIntegration;
+using Castle.Services.Transaction;
 
 namespace Cuyahoga.Core.DataAccess
 {
-	/// <summary>
-	/// ContentItemDao.
-	/// </summary>
-	public class ContentItemDao: IContentItemDao
-	{
-		private ISessionManager sessionManager;
+    public class ContentItemDao<T> : IContentItemDao<T> where T : IContentItem
+    {
+        protected Type persistentType = typeof(T);
+        protected ISessionManager sessionManager;
 
-		/// <summary>
-		/// Constructor
-		/// </summary>
-		/// <param name="sessionManager"></param>
-		public ContentItemDao(ISessionManager sessionManager)
-		{
-			this.sessionManager = sessionManager;
-		}
+        /// <summary>
+        /// Constructor
+        /// </summary>
+        /// <param name="sessionManager"></param>
+        public ContentItemDao(ISessionManager sessionManager)
+        {
+            this.sessionManager = sessionManager;
+        }
 
-		#region Methods
+        /// <summary>
+        /// Returns a newly created session from the ISessionManager
+        /// </summary>
+        protected ISession GetNewSession()
+        {
+           return this.sessionManager.OpenSession();
+        }
 
-		/// <summary>
-		/// Based on filter get sql (=, &lt;, &gt;)
-		/// </summary>
-		/// <param name="filter"></param>
-		/// <returns></returns>
-		protected virtual string DetermineSqlOperator(ContentItemDateFilter filter)
-		{
-			switch(filter)
-			{
-				case ContentItemDateFilter.Exact: return "=";
-				case ContentItemDateFilter.Prior: return "<";
-				case ContentItemDateFilter.After: return ">";
-				default: return "=";
-			}
-		}
+        /// <summary>
+        /// Loads an instance of type T from the DB based on its ID of type long.
+        /// </summary>
+        public T GetById(long id)
+        {
+            return (T)this.GetNewSession().Load(persistentType, id);
+        }
 
-		protected virtual IList FindContentItemByDate(DateTime date, Cuyahoga.Core.DataAccess.ContentItemDateFilter filter, string propertyName)
-		{
-			string sqlOp = this.DetermineSqlOperator(filter);
-		
-			ISession session = this.sessionManager.OpenSession();
+        /// <summary>
+        /// Loads an instance of type T from the DB based on its ID of type Guid.
+        /// </summary>
+        public T GetById(Guid id)
+        {
+            return (T)this.GetNewSession().Load(persistentType, id);
+        }
 
-			string hql = string.Format("from IContentItem ci where ci.{0} {1} :date ", propertyName, sqlOp);
-			IQuery query = session.CreateQuery(hql);
-			query.SetDateTime("date", date);
-			return query.List();
-		}
+        /// <summary>
+        /// Loads every instance of the requested type with no filtering.
+        /// </summary>
+        public IList<T> GetAll()
+        {
+            return GetByCriteria();
+        }
 
-		protected virtual IList FindContentItemByDateRange(DateTime fromDate, DateTime toDate, string propertyName)
-		{
-			ISession session = this.sessionManager.OpenSession();
+        /// <summary>
+        /// Loads every instance of the requested type using the supplied <see cref="ICriterion" />.
+        /// If no <see cref="ICriterion" /> is supplied, this behaves like <see cref="GetAll" />.
+        /// </summary>
+        public IList<T> GetByCriteria(params ICriterion[] criterion)
+        {
+            ICriteria criteria = this.GetNewSession().CreateCriteria(persistentType);
 
-			string hql = string.Format("from IContentItem ci where ci.{0} >= :fromDate and ci.{0} <= :toDate ", propertyName);
-			IQuery query = session.CreateQuery(hql);
-			query.SetDateTime("fromDate", fromDate);
-			query.SetDateTime("toDate", toDate);
-			return query.List();
-		}
+            foreach (ICriterion criterium in criterion)
+            {
+                criteria.Add(criterium);
+            }
+            return criteria.List<T>();
 
-		protected virtual IList FindContentItemByUser(User user, string propertyName)
-		{
-			ISession session = this.sessionManager.OpenSession();
+        }
 
-			string hql = string.Format("from IContentItem ci where ci.{0}.Id = :userId ", propertyName);
-			IQuery query = session.CreateQuery(hql);
-			query.SetInt32("userId", user.Id);
-			return query.List();
+        public T GetUniqueByProperty(string propertyName, object propertyValue)
+        {
+            ICriteria crit = this.GetNewSession().CreateCriteria(persistentType);
+            crit.Add(Expression.Eq(propertyName, propertyValue));
+            return crit.UniqueResult<T>();
+        }
 
-		}
+        public IList<T> GetByProperty(string propertyName, object propertyValue)
+        {
+            ICriteria crit = this.GetNewSession().CreateCriteria(persistentType);
+            crit.Add(Expression.Eq(propertyName, propertyValue));
+            return crit.List<T>();
+        }
 
-		#endregion
+        protected ICriteria CreateCriteriaByExample(T exampleInstance, params string[] propertiesToExclude)
+        {
+            ICriteria criteria = this.GetNewSession().CreateCriteria(persistentType);
+            Example example = Example.Create(exampleInstance);
+
+            foreach (string propertyToExclude in propertiesToExclude)
+            {
+                example.ExcludeProperty(propertyToExclude);
+            }
+            criteria.Add(example);
+            return criteria;
+        }
+
+        public IList<T> GetByExample(T exampleInstance, params string[] propertiesToExclude)
+        {
+            ICriteria criteria = CreateCriteriaByExample(exampleInstance, propertiesToExclude);
+            return criteria.List<T>();
+        }
+
+        /// <summary>
+        /// Looks for a single instance using the example provided.
+        /// </summary>
+        public T GetUniqueByExample(T exampleInstance, params string[] propertiesToExclude)
+        {
+            ICriteria criteria = CreateCriteriaByExample(exampleInstance, propertiesToExclude);
+            return criteria.UniqueResult<T>();
+        }
+
+        /// <summary>
+        /// For entities that have assigned ID's, you must explicitly call Save to add a new one.
+        /// </summary>
+        [Transaction(TransactionMode.Requires)]
+        public T Save(T entity)
+        {
+            this.GetNewSession().Save(entity);
+            return entity;
+        }
+
+        /// <summary>
+        /// For entities with automatically generated IDs, such as identity, SaveOrUpdate may 
+        /// be called when saving a new entity.  SaveOrUpdate can also be called to _update_ any 
+        /// entity, even if its ID is assigned.
+        /// </summary>
+        [Transaction(TransactionMode.Requires)]
+        public T SaveOrUpdate(T entity)
+        {
+            this.GetNewSession().SaveOrUpdate(entity);
+            return entity;
+        }
+
+        [Transaction(TransactionMode.Requires)]
+        public void Delete(T entity)
+        {
+            this.GetNewSession().Delete(entity);
+        }   
 
 
-		#region IContentItemDao Members
-
-		public IList FindContentItemsByTitle(string searchString)
-		{
-			ISession session = this.sessionManager.OpenSession();
-
-			string hql = "from IContentItem ci where ci.Title like ? order by ci.Title";
-			return session.Find(hql, searchString + "%", NHibernateUtil.String);
-		}
-
-		public IList FindContentItemsByDescription(string searchString)
-		{
-			ISession session = this.sessionManager.OpenSession();
-
-			string hql = "from IContentItem ci where ci.Description like ? order by ci.Title";
-			return session.Find(hql, searchString + "%", NHibernateUtil.String);
-		}
-
-		public IList FindContentItemsByCreator(User user)
-		{
-			return this.FindContentItemByUser(user, "CreatedBy");
-		}
-
-		public IList FindContentItemsByPublisher(User user)
-		{
-			return this.FindContentItemByUser(user, "PublishedBy");
-		}
-
-		public IList FindContentItemsByModifier(User user)
-		{
-			return this.FindContentItemByUser(user, "ModifiedBy");
-		}
-
-		public IList FindContentItemsBySection(Section section)
-		{
-			ISession session = this.sessionManager.OpenSession();
-
-			string hql = "from IContentItem ci where ci.Section.Id = :sectionId";
-			IQuery query = session.CreateQuery(hql);
-			query.SetInt32("sectionId", section.Id);
-			return query.List();
-		}
-
-		public IList FindContentItemsByCreationDate(DateTime date, ContentItemDateFilter filter)
-		{
-			return this.FindContentItemByDate(date, filter, "CreatedAt");
-		}
-
-		public IList FindContentItemsByCreationDate(DateTime fromDate, DateTime toDate)
-		{
-			return this.FindContentItemByDateRange(fromDate, toDate, "CreatedAt");
-		}
-
-		public IList FindContentItemsByPublicationDate(DateTime date, ContentItemDateFilter filter)
-		{
-			return this.FindContentItemByDate(date, filter, "PublishedAt");
-		}
-
-		public IList FindContentItemsByPublicationDate(DateTime fromDate, DateTime toDate)
-		{
-			return this.FindContentItemByDateRange(fromDate, toDate, "PublishedAt");
-		}
-
-		public IList FindContentItemsByModificationDate(DateTime date, Cuyahoga.Core.DataAccess.ContentItemDateFilter filter)
-		{
-			return this.FindContentItemByDate(date, filter, "ModifiedAt");
-		}
-
-		public IList FindContentItemsByModificationDate(DateTime fromDate, DateTime toDate)
-		{
-			return this.FindContentItemByDateRange(fromDate, toDate, "ModifiedAt");
-		}
-
-		#endregion
-	}
+    }
 }
