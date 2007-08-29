@@ -13,7 +13,9 @@ using System.Reflection;
 using Cuyahoga.Core.Domain;
 using Cuyahoga.Core.DataAccess;
 using Cuyahoga.Core.Service;
+
 using Cuyahoga.Web.Util;
+using Cuyahoga.Web.Components;
 using System.IO;
 using Cuyahoga.Web.UI;
 
@@ -25,6 +27,7 @@ namespace Cuyahoga.Web.Install
 	public class Install : CuyahogaPage
 	{
 		private ICommonDao _commonDao;
+        private ModuleLoader _moduleLoader;
 
 		protected System.Web.UI.WebControls.Panel pnlErrors;
 		protected System.Web.UI.WebControls.Panel pnlIntro;
@@ -55,6 +58,7 @@ namespace Cuyahoga.Web.Install
 		public Install()
 		{
 			this._commonDao = Container.Resolve<ICommonDao>();
+            this._moduleLoader = Container.Resolve<ModuleLoader>();
 		}
 	
 		private void Page_Load(object sender, System.EventArgs e)
@@ -167,6 +171,13 @@ namespace Cuyahoga.Web.Install
 			this.pnlMessage.Visible = true;
 			this.pnlErrors.Visible = false;
 		}
+
+        private void FinishInstall()
+        {
+          //upon first install, the registration (on app startup) will have no effect,
+          //so make sure this happens after installation
+          this._moduleLoader.RegisterActivatedModules();
+        }
 
 		#region Site creation code
 
@@ -432,6 +443,9 @@ namespace Cuyahoga.Web.Install
 			try
 			{
 				CreateSite();
+                //at the moment, this is the last step of the installation, so 
+                //call the finishing routine here
+                this.FinishInstall();
 				this.pnlCreateSite.Visible = false;
 				this.pnlFinished.Visible = true;
 			}
@@ -443,6 +457,9 @@ namespace Cuyahoga.Web.Install
 
 		private void btnSkipCreateSite_Click(object sender, System.EventArgs e)
 		{
+            //at the moment, this is the last step of the installation, so 
+            //call the finishing routine here
+            this.FinishInstall();
 			this.pnlCreateSite.Visible = false;
 			this.pnlFinished.Visible = true;
 		}
