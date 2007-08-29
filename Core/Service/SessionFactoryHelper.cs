@@ -30,7 +30,8 @@ namespace Cuyahoga.Core.Service
 		public void AddAssembly(Assembly assembly)
 		{
 			Configuration nhConfiguration = this._kernel[typeof(Configuration)] as Configuration;
-			nhConfiguration.AddAssembly(assembly);
+			//has to have the second argument (true) for skipping ordering
+            nhConfiguration.AddAssembly(assembly, true);
 			ISessionFactory newSessionFactory = nhConfiguration.BuildSessionFactory();
 			ReplaceSessionFactory(newSessionFactory);
 		}
