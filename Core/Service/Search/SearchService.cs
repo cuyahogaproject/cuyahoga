@@ -20,6 +20,18 @@ namespace Cuyahoga.Core.Service.Search
         private IndexBuilder indexBuilder;
         private IUserDao userDao;
 
+        private IndexBuilder IndexBuilder
+        {
+            get
+            {
+                if (this.indexBuilder == null)
+                {
+                    this.indexBuilder = new IndexBuilder(this.physicalIndexDir, this.isRebuildingIndex);
+                }
+                return this.indexBuilder;
+            }
+        }
+
         public SearchService(IUserDao userDao)
         {
             this.userDao = userDao;
@@ -33,96 +45,84 @@ namespace Cuyahoga.Core.Service.Search
 
         public void UpdateContent(SearchContent searchContent)
         {
-            this.indexBuilder = new IndexBuilder(this.physicalIndexDir, this.isRebuildingIndex);
-            this.indexBuilder.UpdateContent(searchContent);
-            if(!this.isRebuildingIndex) this.indexBuilder.Close();
+            this.IndexBuilder.UpdateContent(searchContent);
+            if(!this.isRebuildingIndex) this.IndexBuilder.Close();
         }
 
         public void AddContent(SearchContent searchContent)
-        {
-            this.indexBuilder = new IndexBuilder(this.physicalIndexDir, this.isRebuildingIndex);
-            this.indexBuilder.AddContent(searchContent);
-            if(!this.isRebuildingIndex) this.indexBuilder.Close();
+        {      
+            this.IndexBuilder.AddContent(searchContent);
+            if(!this.isRebuildingIndex) this.IndexBuilder.Close();
         }
 
         public void DeleteContent(SearchContent searchContent)
         {
-            this.indexBuilder = new IndexBuilder(this.physicalIndexDir, this.isRebuildingIndex);
-            this.indexBuilder.DeleteContent(searchContent);
-            if(!this.isRebuildingIndex) this.indexBuilder.Close();
+            this.IndexBuilder.DeleteContent(searchContent);
+            if(!this.isRebuildingIndex) this.IndexBuilder.Close();
         }
 
         public void UpdateContent(IList<SearchContent> searchContents)
         {
-            this.indexBuilder = new IndexBuilder(this.physicalIndexDir, this.isRebuildingIndex);
             foreach (SearchContent searchContent in searchContents)
             {
-                this.indexBuilder.UpdateContent(searchContent);
+                this.IndexBuilder.UpdateContent(searchContent);
             }
-            if(!this.isRebuildingIndex) this.indexBuilder.Close();
+            if(!this.isRebuildingIndex) this.IndexBuilder.Close();
         }
 
         public void AddContent(IList<SearchContent> searchContents)
         {
-            this.indexBuilder = new IndexBuilder(this.physicalIndexDir, this.isRebuildingIndex);
             foreach (SearchContent searchContent in searchContents)
             {
-                this.indexBuilder.AddContent(searchContent);
+                this.IndexBuilder.AddContent(searchContent);
             }
-            if(!this.isRebuildingIndex) this.indexBuilder.Close();
+            if(!this.isRebuildingIndex) this.IndexBuilder.Close();
         }
 
         public void DeleteContent(IList<SearchContent> searchContents)
         {
-            this.indexBuilder = new IndexBuilder(this.physicalIndexDir, this.isRebuildingIndex);
-            this.indexBuilder.DeleteContent(searchContents);
-            if(!this.isRebuildingIndex) this.indexBuilder.Close();
+            this.IndexBuilder.DeleteContent(searchContents);
+            if(!this.isRebuildingIndex) this.IndexBuilder.Close();
         }
 
         public void UpdateContent(IContentItem contentItem)
         {
-            this.indexBuilder = new IndexBuilder(this.physicalIndexDir, this.isRebuildingIndex);
-            this.indexBuilder.UpdateContent(contentItem);
-            if(!this.isRebuildingIndex) this.indexBuilder.Close();
+            this.IndexBuilder.UpdateContent(contentItem);
+            if(!this.isRebuildingIndex) this.IndexBuilder.Close();
         }
 
         public void AddContent(IContentItem contentItem)
         {
-            this.indexBuilder = new IndexBuilder(this.physicalIndexDir, this.isRebuildingIndex);
-            this.indexBuilder.AddContent(contentItem);
-            if(!this.isRebuildingIndex) this.indexBuilder.Close();
+            this.IndexBuilder.AddContent(contentItem);
+            if(!this.isRebuildingIndex) this.IndexBuilder.Close();
         }
 
         public void DeleteContent(IContentItem contentItem)
         {
-            this.indexBuilder = new IndexBuilder(this.physicalIndexDir, this.isRebuildingIndex);
-            this.indexBuilder.DeleteContent(contentItem);
-            if(!this.isRebuildingIndex) this.indexBuilder.Close();
+            this.IndexBuilder.DeleteContent(contentItem);
+            if(!this.isRebuildingIndex) this.IndexBuilder.Close();
         }
 
         public void UpdateContent(IList<IContentItem> contentItems)
         {
-            this.indexBuilder = new IndexBuilder(this.physicalIndexDir, this.isRebuildingIndex);
             foreach (IContentItem contentItem in contentItems)
             {
-                this.indexBuilder.UpdateContent(contentItem);
+                this.IndexBuilder.UpdateContent(contentItem);
             }
-            if(!this.isRebuildingIndex) this.indexBuilder.Close();
+            if(!this.isRebuildingIndex) this.IndexBuilder.Close();
         }
 
         public void AddContent(IList<IContentItem> contentItems)
         {
-            this.indexBuilder = new IndexBuilder(this.physicalIndexDir, this.isRebuildingIndex);
             foreach (IContentItem contentItem in contentItems)
             {
-                this.indexBuilder.AddContent(contentItem);
+                this.IndexBuilder.AddContent(contentItem);
             }
-            if(!this.isRebuildingIndex) this.indexBuilder.Close();
+            if(!this.isRebuildingIndex) this.IndexBuilder.Close();
         }
 
         public void DeleteContent(IList<IContentItem> contentItems)
         {
-            this.indexBuilder = new IndexBuilder(this.physicalIndexDir, this.isRebuildingIndex);
             this.indexBuilder.DeleteContent(contentItems);
             if(!this.isRebuildingIndex) this.indexBuilder.Close();
         }
@@ -132,6 +132,12 @@ namespace Cuyahoga.Core.Service.Search
         {
             //Monitor.Enter(lockObject);
             this.isRebuildingIndex = true;
+            //make sure we are using a new IndexBuilder for the rebuilding
+            if (this.indexBuilder != null)
+            {
+                this.indexBuilder.Close();
+                this.indexBuilder = null;
+            }
         }
 
         public void EndRebuildingIndex()
