@@ -65,7 +65,7 @@ namespace Cuyahoga.Web.Components
         /// <summary>
         /// Get the module instance by its type
         /// </summary>
-        /// <param name="moduleTypeType"></param>
+        /// <param name="moduleType"></param>
         public ModuleBase GetModuleFromType(ModuleType moduleType)
         {
 			string modulekey = string.Concat("module.", moduleType.ClassName);

@@ -1,8 +1,6 @@
 using Castle.Windsor;
 using Castle.Windsor.Configuration.Interpreters;
-
 using Cuyahoga.Core.Service;
-using Castle.MicroKernel.Releasers;
 
 namespace Cuyahoga.Web.Components
 {
@@ -39,7 +37,7 @@ namespace Cuyahoga.Web.Components
 
 		private void ConfigureLegacySessionFactory()
 		{
-			SessionFactoryHelper sessionFactoryHelper = this[typeof(SessionFactoryHelper)] as SessionFactoryHelper;
+			SessionFactoryHelper sessionFactoryHelper = this.Resolve<SessionFactoryHelper>();
 			sessionFactoryHelper.ConfigureLegacySessionFactory();
 		}
 	}

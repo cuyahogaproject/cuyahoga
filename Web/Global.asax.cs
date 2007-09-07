@@ -1,33 +1,28 @@
 using System;
-using System.Collections;
-using System.ComponentModel;
-using System.Web;
-using System.Web.SessionState;
-using System.Text.RegularExpressions;
 using System.Reflection;
-
-using log4net;
+using System.Web;
+using Castle.Core;
+using Castle.MicroKernel;
 using Castle.Windsor;
-
 using Cuyahoga.Core.Service;
 using Cuyahoga.Core.Util;
-using Cuyahoga.Web.Util;
 using Cuyahoga.Web.Components;
+using log4net;
+using log4net.Config;
 
 namespace Cuyahoga.Web
 {
-	public class Global : System.Web.HttpApplication, IContainerAccessor
+	public class Global : HttpApplication, IContainerAccessor
 	{
 		private static ILog log = LogManager.GetLogger(typeof(Global));
 		private static readonly string ERROR_PAGE_LOCATION = "~/Error.aspx";
-		private static CuyahogaContainer _cuyahogaContainer;
 
 		/// <summary>
 		/// Obtain the container.
 		/// </summary>
 		public IWindsorContainer Container
 		{
-			get { return _cuyahogaContainer; }
+			get { return IoC.Container; }
 		}
 
 		public Global()
@@ -37,13 +32,14 @@ namespace Cuyahoga.Web
 		
 		protected void Application_Start(Object sender, EventArgs e)
 		{
-			log4net.Config.XmlConfigurator.Configure();
-			_cuyahogaContainer = new CuyahogaContainer();
-			_cuyahogaContainer.Kernel.ComponentCreated += new Castle.MicroKernel.ComponentInstanceDelegate(Kernel_ComponentCreated);
-			_cuyahogaContainer.Kernel.ComponentDestroyed += new Castle.MicroKernel.ComponentInstanceDelegate(Kernel_ComponentDestroyed);
+			XmlConfigurator.Configure();
+			IWindsorContainer container = new CuyahogaContainer();
+			container.Kernel.ComponentCreated += new ComponentInstanceDelegate(Kernel_ComponentCreated);
+			container.Kernel.ComponentDestroyed += new ComponentInstanceDelegate(Kernel_ComponentDestroyed);
+			IoC.Initialize(container);
 			CheckInstaller();
 
-            ModuleLoader loader = _cuyahogaContainer.Resolve<ModuleLoader>();
+            ModuleLoader loader = Container.Resolve<ModuleLoader>();
             loader.RegisterActivatedModules();
 
             //on app startup re-load the requested page (to avoid conflicts with first-time configured NHibernate modules )
@@ -88,9 +84,9 @@ namespace Cuyahoga.Web
 
 		protected void Application_End(Object sender, EventArgs e)
 		{
-			_cuyahogaContainer.Kernel.ComponentCreated -= new Castle.MicroKernel.ComponentInstanceDelegate(Kernel_ComponentCreated);
-			_cuyahogaContainer.Kernel.ComponentDestroyed -= new Castle.MicroKernel.ComponentInstanceDelegate(Kernel_ComponentDestroyed);
-			_cuyahogaContainer.Dispose();
+			Container.Kernel.ComponentCreated -= new ComponentInstanceDelegate(Kernel_ComponentCreated);
+			Container.Kernel.ComponentDestroyed -= new ComponentInstanceDelegate(Kernel_ComponentDestroyed);
+			Container.Dispose();
 		}
 			
 		#region Web Form Designer generated code
@@ -130,12 +126,12 @@ namespace Cuyahoga.Web
 			}
 		}
 
-		private void Kernel_ComponentCreated(Castle.Core.ComponentModel model, object instance)
+		private void Kernel_ComponentCreated(ComponentModel model, object instance)
 		{
 			log.Debug("Component created: " + instance.ToString());
 		}
 
-		private void Kernel_ComponentDestroyed(Castle.Core.ComponentModel model, object instance)
+		private void Kernel_ComponentDestroyed(ComponentModel model, object instance)
 		{
 			log.Debug("Component destroyed: " + instance.ToString());
 		}

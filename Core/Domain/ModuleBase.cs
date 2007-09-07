@@ -12,8 +12,7 @@ namespace Cuyahoga.Core.Domain
 	/// <summary>
 	/// The base class for all Cuyahoga modules. 
 	/// </summary>
-	//[Transient]
-    [PerWebRequest]
+	[Transient]
 	public abstract class ModuleBase
 	{
 		private Section _section;
@@ -80,8 +79,8 @@ namespace Cuyahoga.Core.Domain
 		public string ModulePathInfo
 		{
 			get { return this._modulePathInfo; }
-			set 
-			{ 
+			set
+			{
 				this._modulePathInfo = value;
 				ParsePathInfo();
 			}
@@ -134,11 +133,11 @@ namespace Cuyahoga.Core.Domain
 		/// </summary>
 		public string DisplayTitle
 		{
-			get 
-			{ 
+			get
+			{
 				if (this._displayTitle != null)
 				{
-					return this._displayTitle; 
+					return this._displayTitle;
 				}
 				else if (this.Section != null)
 				{
@@ -149,9 +148,9 @@ namespace Cuyahoga.Core.Domain
 					return String.Empty;
 				}
 			}
-			set 
-			{ 
-				this._displayTitle = value; 
+			set
+			{
+				this._displayTitle = value;
 			}
 		}
 
@@ -188,7 +187,7 @@ namespace Cuyahoga.Core.Domain
 					pathInfoParamsAsString = this._modulePathInfo;
 				}
 
-				this._moduleParams = pathInfoParamsAsString.Split(new char[] {'/'});
+				this._moduleParams = pathInfoParamsAsString.Split(new char[] { '/' });
 			}
 		}
 
