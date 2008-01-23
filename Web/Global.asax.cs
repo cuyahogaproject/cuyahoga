@@ -36,6 +36,7 @@ namespace Cuyahoga.Web
 			IWindsorContainer container = new CuyahogaContainer();
 			container.Kernel.ComponentCreated += new ComponentInstanceDelegate(Kernel_ComponentCreated);
 			container.Kernel.ComponentDestroyed += new ComponentInstanceDelegate(Kernel_ComponentDestroyed);
+			
 			IoC.Initialize(container);
 			CheckInstaller();
 
