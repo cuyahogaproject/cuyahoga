@@ -8,7 +8,7 @@ using Cuyahoga.Core.Service.Versioning;
 
 namespace Cuyahoga.Core.Decorators
 {
-    class VersioningDecorator<T> : AbstractDaoDecorator<T> where T : IContentItem
+    public class VersioningDecorator<T> : AbstractDaoDecorator<T> where T : IContentItem
     {
         private IVersioningService<T> versioningService;
 

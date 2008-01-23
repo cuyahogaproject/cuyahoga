@@ -48,7 +48,7 @@ namespace Cuyahoga.Core.Service.Search
                 query.Add(multiQuery, BooleanClause.Occur.MUST);
             }
             //add the security constraint - must be satisfied
-            query.Add(this.BuildSecurityQuery(sectionIds, userRoleIds), BooleanClause.Occur.MUST);
+            //query.Add(this.BuildSecurityQuery(sectionIds, userRoleIds), BooleanClause.Occur.MUST);
             //add the category query (if available)
             if (categoryNames != null)
             {

@@ -11,8 +11,8 @@ namespace Cuyahoga.Core.Service.Content
     {
         protected IContentItemDao<T> contentItemDao;
 
-        public ContentItemService(IContentItemDao<T> contentItemDao){
-            this.contentItemDao = contentItemDao;
+        public ContentItemService(/*IContentItemDao<T> contentItemDao*/){
+			this.contentItemDao = Util.IoC.Container.Resolve<IContentItemDao<T>>("core.searchdecorator");
         }
 
         public T GetById(long id)

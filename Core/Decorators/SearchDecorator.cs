@@ -10,7 +10,7 @@ using Cuyahoga.Core.Util;
 
 namespace Cuyahoga.Core.Decorators
 {
-    class SearchDecorator<T> : AbstractDaoDecorator<T> where T : IContentItem
+    public class SearchDecorator<T> : AbstractDaoDecorator<T> where T : IContentItem
     {
         private ISearchService searchService;
 
