@@ -8,27 +8,32 @@ namespace Cuyahoga.Core.Service.Versioning
 {
     public class VersionEntry
     {
-        protected long id;
-		protected string entryType;
+       // protected long id;
+		//protected string entryType;
         protected string entryKey;
         protected string entryValue;
-        protected IList<int> versions;
+		protected int validFromVersion;
+		protected int? validToVersion;
         ContentItem versionedItem;
 		
 		#region Properties
 
-        public virtual long Id
-        {
-            get { return this.id; }
-            set { this.id = value; }
-        }
+		//public virtual long Id
+		//{
+		//    get { return this.id; }
+		//    set { this.id = value; }
+		//}
 
-        public virtual string EntryType
-		{
-			get{ return this.entryType; }
-			set{ this.entryType = value; }
-		}
 
+		//public virtual string EntryType
+		//{
+		//    get{ return this.entryType; }
+		//    set{ this.entryType = value; }
+		//}
+
+		/// <summary>
+		/// The entries key, e.g. Article.Comment[0].Text
+		/// </summary>
         public virtual string EntryKey
         {
             get { return this.entryKey; }
@@ -41,11 +46,17 @@ namespace Cuyahoga.Core.Service.Versioning
             set { this.entryValue = value; }
         }
 
-        public virtual IList<int> Versions
+        public virtual int ValidFromVersion
         {
-            get { return this.versions; }
-            set { this.versions = value; }
+            get { return this.validFromVersion; }
+            set { this.validFromVersion= value; }
         }
+
+		public virtual int ValidToVersion
+		{
+			get { return this.validToVersion; }
+			set { this.validToVersion = value; }
+		}
 
         public virtual ContentItem VersionedItem
         {
