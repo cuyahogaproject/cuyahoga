@@ -355,7 +355,6 @@
     <Compile Include="Service\Versioning\IVersionableContent.cs" />
     <Compile Include="Service\Versioning\IVersioningService.cs" />
     <Compile Include="Service\Versioning\VersionEntry.cs" />
-    <Compile Include="Service\Versioning\VersioningInfo.cs" />
     <Compile Include="Service\Versioning\VersioningService.cs" />
     <Compile Include="Util\Config.cs">
       <SubType>Code</SubType>

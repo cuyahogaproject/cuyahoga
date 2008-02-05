@@ -18,6 +18,6 @@ namespace Cuyahoga.Core.Service.Versioning
 		/// Foo.Bar.Baz
 		/// Where Foo is a property of the object implementing IVersionableContent
 		/// </summary>
-		IList<string> CustomVersioningInfo;
+		IList<string> CustomVersioningInfo { get; set;}
     }
 }

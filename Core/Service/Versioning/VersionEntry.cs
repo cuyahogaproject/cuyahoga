@@ -52,7 +52,7 @@ namespace Cuyahoga.Core.Service.Versioning
             set { this.validFromVersion= value; }
         }
 
-		public virtual int ValidToVersion
+		public virtual int? ValidToVersion
 		{
 			get { return this.validToVersion; }
 			set { this.validToVersion = value; }
