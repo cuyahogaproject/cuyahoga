@@ -21,7 +21,7 @@ namespace Cuyahoga.Modules.Articles.Domain
 		/// <summary>
 		/// Property Id (int)
 		/// </summary>
-		public int Id
+		public virtual int Id
 		{
 			get { return this._id; }
 			set { this._id = value; }
@@ -30,7 +30,7 @@ namespace Cuyahoga.Modules.Articles.Domain
 		/// <summary>
 		/// Property Article (Article)
 		/// </summary>
-		public Article Article
+		public virtual Article Article
 		{
 			get { return this._article; }
 			set { this._article = value; }
@@ -39,7 +39,7 @@ namespace Cuyahoga.Modules.Articles.Domain
 		/// <summary>
 		/// Property User (Cuyahoga.Core.User)
 		/// </summary>
-		public Cuyahoga.Core.Domain.User User
+		public virtual Cuyahoga.Core.Domain.User User
 		{
 			get { return this._user; }
 			set { this._user = value; }
@@ -48,7 +48,7 @@ namespace Cuyahoga.Modules.Articles.Domain
 		/// <summary>
 		/// Property Name (string)
 		/// </summary>
-		public string Name
+		public virtual string Name
 		{
 			get { return this._name; }
 			set { this._name = value; }
@@ -57,7 +57,7 @@ namespace Cuyahoga.Modules.Articles.Domain
 		/// <summary>
 		/// Property Website (string)
 		/// </summary>
-		public string Website
+		public virtual string Website
 		{
 			get { return this._website; }
 			set { this._website = value; }
@@ -66,7 +66,7 @@ namespace Cuyahoga.Modules.Articles.Domain
 		/// <summary>
 		/// Property CommentText (string)
 		/// </summary>
-		public string CommentText
+		public virtual string CommentText
 		{
 			get { return this._commentText; }
 			set { this._commentText = value; }
@@ -75,7 +75,7 @@ namespace Cuyahoga.Modules.Articles.Domain
 		/// <summary>
 		/// Property UserIp (string)
 		/// </summary>
-		public string UserIp
+		public virtual string UserIp
 		{
 			get { return this._userIp; }
 			set { this._userIp = value; }
@@ -84,7 +84,7 @@ namespace Cuyahoga.Modules.Articles.Domain
 		/// <summary>
 		/// Property UpdateTimestamp (DateTime)
 		/// </summary>
-		public DateTime UpdateTimestamp
+		public virtual DateTime UpdateTimestamp
 		{
 			get { return this._updateTimestamp; }
 			set { this._updateTimestamp = value; }

@@ -1,20 +1,24 @@
 ﻿/*
- * FCKeditor - The text editor for internet
- * Copyright (C) 2003-2006 Frederico Caldeira Knabben
- * 
- * Licensed under the terms of the GNU Lesser General Public License:
- * 		http://www.opensource.org/licenses/lgpl-license.php
- * 
- * For further information visit:
- * 		http://www.fckeditor.net/
- * 
- * "Support Open Source software. What about a donation today?"
- * 
- * File Name: ms.js
- * 	Malay language file.
- * 
- * File Authors:
- * 		Fairul Izham Mohd Mokhlas (eg86@hotmail.com)
+ * FCKeditor - The text editor for Internet - http://www.fckeditor.net
+ * Copyright (C) 2003-2007 Frederico Caldeira Knabben
+ *
+ * == BEGIN LICENSE ==
+ *
+ * Licensed under the terms of any of the following licenses at your
+ * choice:
+ *
+ *  - GNU General Public License Version 2 or later (the "GPL")
+ *    http://www.gnu.org/licenses/gpl.html
+ *
+ *  - GNU Lesser General Public License Version 2.1 or later (the "LGPL")
+ *    http://www.gnu.org/licenses/lgpl.html
+ *
+ *  - Mozilla Public License Version 1.1 or later (the "MPL")
+ *    http://www.mozilla.org/MPL/MPL-1.1.html
+ *
+ * == END LICENSE ==
+ *
+ * Malay language file.
  */
 
 var FCKLang =
@@ -41,6 +45,7 @@ InsertLinkLbl		: "Sambungan",
 InsertLink			: "Masukkan/Sunting Sambungan",
 RemoveLink			: "Buang Sambungan",
 Anchor				: "Masukkan/Sunting Pautan",
+AnchorDelete		: "Remove Anchor",	//MISSING
 InsertImageLbl		: "Gambar",
 InsertImage			: "Masukkan/Sunting Gambar",
 InsertFlashLbl		: "Flash",	//MISSING
@@ -66,6 +71,7 @@ RightJustify		: "Jajaran Kanan",
 BlockJustify		: "Jajaran Blok",
 DecreaseIndent		: "Kurangkan Inden",
 IncreaseIndent		: "Tambahkan Inden",
+Blockquote			: "Blockquote",	//MISSING
 Undo				: "Batalkan",
 Redo				: "Ulangkan",
 NumberedListLbl		: "Senarai bernombor",
@@ -99,20 +105,27 @@ SelectionField	: "Field Pilihan",
 ImageButton		: "Butang Bergambar",
 
 FitWindow		: "Maximize the editor size",	//MISSING
+ShowBlocks		: "Show Blocks",	//MISSING
 
 // Context Menu
 EditLink			: "Sunting Sambungan",
 CellCM				: "Cell",	//MISSING
 RowCM				: "Row",	//MISSING
 ColumnCM			: "Column",	//MISSING
-InsertRow			: "Masukkan Baris",
+InsertRowAfter		: "Insert Row After",	//MISSING
+InsertRowBefore		: "Insert Row Before",	//MISSING
 DeleteRows			: "Buangkan Baris",
-InsertColumn		: "Masukkan Lajur",
+InsertColumnAfter	: "Insert Column After",	//MISSING
+InsertColumnBefore	: "Insert Column Before",	//MISSING
 DeleteColumns		: "Buangkan Lajur",
-InsertCell			: "Masukkan Sel",
+InsertCellAfter		: "Insert Cell After",	//MISSING
+InsertCellBefore	: "Insert Cell Before",	//MISSING
 DeleteCells			: "Buangkan Sel-sel",
 MergeCells			: "Cantumkan Sel-sel",
-SplitCell			: "Bahagikan Sel",
+MergeRight			: "Merge Right",	//MISSING
+MergeDown			: "Merge Down",	//MISSING
+HorizontalSplitCell	: "Split Cell Horizontally",	//MISSING
+VerticalSplitCell	: "Split Cell Vertically",	//MISSING
 TableDelete			: "Delete Table",	//MISSING
 CellProperties		: "Ciri-ciri Sel",
 TableProperties		: "Ciri-ciri Jadual",
@@ -225,7 +238,7 @@ DlgLnkURL			: "URL",
 DlgLnkAnchorSel		: "Sila pilih pautan",
 DlgLnkAnchorByName	: "dengan menggunakan nama pautan",
 DlgLnkAnchorById	: "dengan menggunakan ID elemen",
-DlgLnkNoAnchors		: "<Tiada pautan terdapat dalam dokumen ini>",
+DlgLnkNoAnchors		: "(Tiada pautan terdapat dalam dokumen ini)",
 DlgLnkEMail			: "Alamat E-Mail",
 DlgLnkEMailSubject	: "Subjek Mesej",
 DlgLnkEMailBody		: "Isi Kandungan Mesej",
@@ -318,6 +331,9 @@ DlgCellBackColor	: "Warna Latarbelakang",
 DlgCellBorderColor	: "Warna Border",
 DlgCellBtnSelect	: "Pilih...",
 
+// Find and Replace Dialog
+DlgFindAndReplaceTitle	: "Find and Replace",	//MISSING
+
 // Find Dialog
 DlgFindTitle		: "Carian",
 DlgFindFindBtn		: "Cari",
@@ -333,14 +349,14 @@ DlgReplaceReplAllBtn	: "Ganti semua",
 DlgReplaceWordChk		: "Padana Keseluruhan perkataan",
 
 // Paste Operations / Dialog
-PasteErrorPaste	: "Keselamatan perisian browser anda tidak membenarkan operasi tampalan text/imej. Sila gunakan papan kekunci (Ctrl+V).",
 PasteErrorCut	: "Keselamatan perisian browser anda tidak membenarkan operasi suntingan text/imej. Sila gunakan papan kekunci (Ctrl+X).",
 PasteErrorCopy	: "Keselamatan perisian browser anda tidak membenarkan operasi salinan text/imej. Sila gunakan papan kekunci (Ctrl+C).",
 
 PasteAsText		: "Tampal sebagai text biasa",
 PasteFromWord	: "Tampal dari perisian \"Word\"",
 
-DlgPasteMsg2	: "Please paste inside the following box using the keyboard (<STRONG>Ctrl+V</STRONG>) and hit <STRONG>OK</STRONG>.",	//MISSING
+DlgPasteMsg2	: "Please paste inside the following box using the keyboard (<strong>Ctrl+V</strong>) and hit <strong>OK</strong>.",	//MISSING
+DlgPasteSec		: "Because of your browser security settings, the editor is not able to access your clipboard data directly. You are required to paste it again in this window.",	//MISSING
 DlgPasteIgnoreFont		: "Ignore Font Face definitions",	//MISSING
 DlgPasteRemoveStyles	: "Remove Styles definitions",	//MISSING
 DlgPasteCleanBox		: "Clean Up Box",	//MISSING
@@ -496,6 +512,5 @@ DlgAboutAboutTab	: "Tentang",
 DlgAboutBrowserInfoTab	: "Maklumat Perisian Browser",
 DlgAboutLicenseTab	: "License",	//MISSING
 DlgAboutVersion		: "versi",
-DlgAboutLicense		: "Perlesenan dibawah terma GNU Lesser General Public License",
 DlgAboutInfo		: "Untuk maklumat lanjut sila pergi ke"
-}
+};

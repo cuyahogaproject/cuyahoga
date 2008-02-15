@@ -1,20 +1,24 @@
 ﻿/*
- * FCKeditor - The text editor for internet
- * Copyright (C) 2003-2006 Frederico Caldeira Knabben
- * 
- * Licensed under the terms of the GNU Lesser General Public License:
- * 		http://www.opensource.org/licenses/lgpl-license.php
- * 
- * For further information visit:
- * 		http://www.fckeditor.net/
- * 
- * "Support Open Source software. What about a donation today?"
- * 
- * File Name: eo.js
- * 	Esperanto language file.
- * 
- * File Authors:
- * 		Tim Morley (timsk@openoffice.org)
+ * FCKeditor - The text editor for Internet - http://www.fckeditor.net
+ * Copyright (C) 2003-2007 Frederico Caldeira Knabben
+ *
+ * == BEGIN LICENSE ==
+ *
+ * Licensed under the terms of any of the following licenses at your
+ * choice:
+ *
+ *  - GNU General Public License Version 2 or later (the "GPL")
+ *    http://www.gnu.org/licenses/gpl.html
+ *
+ *  - GNU Lesser General Public License Version 2.1 or later (the "LGPL")
+ *    http://www.gnu.org/licenses/lgpl.html
+ *
+ *  - Mozilla Public License Version 1.1 or later (the "MPL")
+ *    http://www.mozilla.org/MPL/MPL-1.1.html
+ *
+ * == END LICENSE ==
+ *
+ * Esperanto language file.
  */
 
 var FCKLang =
@@ -41,6 +45,7 @@ InsertLinkLbl		: "Ligilo",
 InsertLink			: "Enmeti/Ŝanĝi Ligilon",
 RemoveLink			: "Forigi Ligilon",
 Anchor				: "Enmeti/Ŝanĝi Ankron",
+AnchorDelete		: "Remove Anchor",	//MISSING
 InsertImageLbl		: "Bildo",
 InsertImage			: "Enmeti/Ŝanĝi Bildon",
 InsertFlashLbl		: "Flash",	//MISSING
@@ -66,6 +71,7 @@ RightJustify		: "Dekstrigi",
 BlockJustify		: "Ĝisrandigi Ambaŭflanke",
 DecreaseIndent		: "Malpligrandigi Krommarĝenon",
 IncreaseIndent		: "Pligrandigi Krommarĝenon",
+Blockquote			: "Blockquote",	//MISSING
 Undo				: "Malfari",
 Redo				: "Refari",
 NumberedListLbl		: "Numera Listo",
@@ -99,20 +105,27 @@ SelectionField	: "Elekta Kampo",
 ImageButton		: "Bildbutono",
 
 FitWindow		: "Maximize the editor size",	//MISSING
+ShowBlocks		: "Show Blocks",	//MISSING
 
 // Context Menu
 EditLink			: "Modifier Ligilon",
 CellCM				: "Cell",	//MISSING
 RowCM				: "Row",	//MISSING
 ColumnCM			: "Column",	//MISSING
-InsertRow			: "Enmeti Linion",
+InsertRowAfter		: "Insert Row After",	//MISSING
+InsertRowBefore		: "Insert Row Before",	//MISSING
 DeleteRows			: "Forigi Liniojn",
-InsertColumn		: "Enmeti Kolumnon",
+InsertColumnAfter	: "Insert Column After",	//MISSING
+InsertColumnBefore	: "Insert Column Before",	//MISSING
 DeleteColumns		: "Forigi Kolumnojn",
-InsertCell			: "Enmeti Ĉelon",
+InsertCellAfter		: "Insert Cell After",	//MISSING
+InsertCellBefore	: "Insert Cell Before",	//MISSING
 DeleteCells			: "Forigi Ĉelojn",
 MergeCells			: "Kunfandi Ĉelojn",
-SplitCell			: "Dividi Ĉelojn",
+MergeRight			: "Merge Right",	//MISSING
+MergeDown			: "Merge Down",	//MISSING
+HorizontalSplitCell	: "Split Cell Horizontally",	//MISSING
+VerticalSplitCell	: "Split Cell Vertically",	//MISSING
 TableDelete			: "Delete Table",	//MISSING
 CellProperties		: "Atributoj de Ĉelo",
 TableProperties		: "Atributoj de Tabelo",
@@ -318,6 +331,9 @@ DlgCellBackColor	: "Fono",
 DlgCellBorderColor	: "Bordero",
 DlgCellBtnSelect	: "Elekti...",
 
+// Find and Replace Dialog
+DlgFindAndReplaceTitle	: "Find and Replace",	//MISSING
+
 // Find Dialog
 DlgFindTitle		: "Serĉi",
 DlgFindFindBtn		: "Serĉi",
@@ -333,14 +349,14 @@ DlgReplaceReplAllBtn	: "Anstataŭigi Ĉiun",
 DlgReplaceWordChk		: "Tuta Vorto",
 
 // Paste Operations / Dialog
-PasteErrorPaste	: "La sekurecagordo de via TTT-legilo ne permesas, ke la redaktilo faras intergluajn operaciojn. Bonvolu uzi la klavaron por tio (ctrl-V).",
 PasteErrorCut	: "La sekurecagordo de via TTT-legilo ne permesas, ke la redaktilo faras eltondajn operaciojn. Bonvolu uzi la klavaron por tio (ctrl-X).",
 PasteErrorCopy	: "La sekurecagordo de via TTT-legilo ne permesas, ke la redaktilo faras kopiajn operaciojn. Bonvolu uzi la klavaron por tio (ctrl-C).",
 
 PasteAsText		: "Interglui kiel Tekston",
 PasteFromWord	: "Interglui el Word",
 
-DlgPasteMsg2	: "Please paste inside the following box using the keyboard (<STRONG>Ctrl+V</STRONG>) and hit <STRONG>OK</STRONG>.",	//MISSING
+DlgPasteMsg2	: "Please paste inside the following box using the keyboard (<strong>Ctrl+V</strong>) and hit <strong>OK</strong>.",	//MISSING
+DlgPasteSec		: "Because of your browser security settings, the editor is not able to access your clipboard data directly. You are required to paste it again in this window.",	//MISSING
 DlgPasteIgnoreFont		: "Ignore Font Face definitions",	//MISSING
 DlgPasteRemoveStyles	: "Remove Styles definitions",	//MISSING
 DlgPasteCleanBox		: "Clean Up Box",	//MISSING
@@ -486,7 +502,7 @@ DlgDocPreview		: "Aspekto",
 // Templates Dialog
 Templates			: "Templates",	//MISSING
 DlgTemplatesTitle	: "Content Templates",	//MISSING
-DlgTemplatesSelMsg	: "Please select the template to open in the editor<br>(the actual contents will be lost):",	//MISSING
+DlgTemplatesSelMsg	: "Please select the template to open in the editor<br />(the actual contents will be lost):",	//MISSING
 DlgTemplatesLoading	: "Loading templates list. Please wait...",	//MISSING
 DlgTemplatesNoTpl	: "(No templates defined)",	//MISSING
 DlgTemplatesReplace	: "Replace actual contents",	//MISSING
@@ -496,6 +512,5 @@ DlgAboutAboutTab	: "Pri",
 DlgAboutBrowserInfoTab	: "Informoj pri TTT-legilo",
 DlgAboutLicenseTab	: "License",	//MISSING
 DlgAboutVersion		: "versio",
-DlgAboutLicense		: "Disdonata laŭ la GNU Lesser General Public License",
 DlgAboutInfo		: "Por pli da informoj, vizitu"
-}
+};

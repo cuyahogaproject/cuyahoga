@@ -28,16 +28,32 @@ namespace Cuyahoga.Web
 		public Global()
 		{
 			InitializeComponent();
-		}	
-		
+		}
+
 		protected void Application_Start(Object sender, EventArgs e)
 		{
+			// Initialize Cuyahoga environment
+			
+			// Set application level flags.
+			HttpContext.Current.Application.Lock();
+			HttpContext.Current.Application["ModulesLoaded"] = false;
+			HttpContext.Current.Application["IsModuleLoading"] = false;
+			HttpContext.Current.Application["IsInstalling"] = false;
+			HttpContext.Current.Application["IsUpgrading"] = false;
+			HttpContext.Current.Application.UnLock();
+
+			// Initialize log4net 
 			XmlConfigurator.Configure();
+
+			// Initialize Windsor
 			IWindsorContainer container = new CuyahogaContainer();
 			container.Kernel.ComponentCreated += new ComponentInstanceDelegate(Kernel_ComponentCreated);
 			container.Kernel.ComponentDestroyed += new ComponentInstanceDelegate(Kernel_ComponentDestroyed);
-			
+
+			// Inititialize the static Windsor helper class. 
 			IoC.Initialize(container);
+
+			// Check for any new versions
 			CheckInstaller();
 
             ModuleLoader loader = Container.Resolve<ModuleLoader>();
@@ -47,17 +63,23 @@ namespace Cuyahoga.Web
             HttpContext.Current.Response.Redirect(HttpContext.Current.Request.RawUrl);
 		}
 
-		
- 
 		protected void Session_Start(Object sender, EventArgs e)
 		{
-			
+
 		}
-		
-	
+
+
 		protected void Application_BeginRequest(Object sender, EventArgs e)
 		{
-
+			// Load active modules. This can't be done in Application_Start because the Installer might kick in
+			// before modules are loaded.
+			if (! (bool)HttpContext.Current.Application["ModulesLoaded"]
+				&& !(bool)HttpContext.Current.Application["IsModuleLoading"]
+				&& !(bool)HttpContext.Current.Application["IsInstalling"]
+				&& !(bool)HttpContext.Current.Application["IsUpgrading"])
+			{
+				LoadModules();
+			}
 		}
 
 		protected void Application_EndRequest(Object sender, EventArgs e)
@@ -85,18 +107,19 @@ namespace Cuyahoga.Web
 
 		protected void Application_End(Object sender, EventArgs e)
 		{
-			Container.Kernel.ComponentCreated -= new ComponentInstanceDelegate(Kernel_ComponentCreated);
-			Container.Kernel.ComponentDestroyed -= new ComponentInstanceDelegate(Kernel_ComponentDestroyed);
-			Container.Dispose();
+			IWindsorContainer container = IoC.Container;
+			container.Kernel.ComponentCreated -= new ComponentInstanceDelegate(Kernel_ComponentCreated);
+			container.Kernel.ComponentDestroyed -= new ComponentInstanceDelegate(Kernel_ComponentDestroyed);
+			container.Dispose();
 		}
-			
+
 		#region Web Form Designer generated code
 		/// <summary>
 		/// Required method for Designer support - do not modify
 		/// the contents of this method with the code editor.
 		/// </summary>
 		private void InitializeComponent()
-		{    
+		{
 		}
 		#endregion
 
@@ -108,8 +131,6 @@ namespace Cuyahoga.Web
 			{
 				if (dbInstaller.CanUpgrade)
 				{
-					// Set a flag that the application is upgrading. This will redirect visitors to a
-					// maintenance page.
 					HttpContext.Current.Application.Lock();
 					HttpContext.Current.Application["IsUpgrading"] = true;
 					HttpContext.Current.Application.UnLock();
@@ -118,6 +139,9 @@ namespace Cuyahoga.Web
 				}
 				else if (dbInstaller.CanInstall)
 				{
+					HttpContext.Current.Application.Lock();
+					HttpContext.Current.Application["IsInstalling"] = true;
+					HttpContext.Current.Application.UnLock();
 					HttpContext.Current.Response.Redirect("~/Install/Install.aspx");
 				}
 			}
@@ -127,16 +151,42 @@ namespace Cuyahoga.Web
 			}
 		}
 
+		private void LoadModules()
+		{
+			if (log.IsDebugEnabled)
+			{
+				log.Debug("Entering module loading.");
+			}
+			// Load module types into the container.
+			ModuleLoader loader = Container.Resolve<ModuleLoader>();
+			loader.RegisterActivatedModules();
+			
+			if (log.IsDebugEnabled)
+			{
+				log.Debug("Finished module loading. Now redirecting to self.");
+			}
+			// Re-load the requested page (to avoid conflicts with first-time configured NHibernate modules )
+			HttpContext.Current.Response.Redirect(HttpContext.Current.Request.RawUrl);
+
+		}
+
 		private void Kernel_ComponentCreated(ComponentModel model, object instance)
 		{
-			log.Debug("Component created: " + instance.ToString());
+			if (log.IsDebugEnabled)
+			{
+				log.Debug("Component created: " + instance.ToString());
+			}
 		}
 
 		private void Kernel_ComponentDestroyed(ComponentModel model, object instance)
 		{
-			log.Debug("Component destroyed: " + instance.ToString());
+			if (log.IsDebugEnabled)
+			{
+				log.Debug("Component destroyed: " + instance.ToString());
+			}
 		}
 	}
 }
+
 
 

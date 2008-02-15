@@ -58,10 +58,36 @@ namespace Cuyahoga.Web.Admin.Controls
 			{
 				this.plhNodes.Controls.Add(CreateDisplaySite(site));
 				DisplayNodes(site.RootNodes);
+				if (this._page.ActiveNode != null)
+				{
+					this.plhNodes.Controls.Add(new LiteralControl("<br/>"));
+					this.plhNodes.Controls.Add(CreateNewChildNodeControl());
+				}
 				this.plhNodes.Controls.Add(new LiteralControl("<br/>"));
 				this.plhNodes.Controls.Add(CreateNewNodeControl(site));
 				this.plhNodes.Controls.Add(new LiteralControl("<br/>"));
 			}
+		}
+
+		private Control CreateNewChildNodeControl()
+		{
+			HtmlGenericControl container = new HtmlGenericControl("div");
+			if (this._page.ActiveNode != null)
+			{
+				container.Attributes.Add("class", "node");
+				container.Attributes.Add("style", String.Format("padding-left: {0}px", 20));
+				Image img = new Image();
+				img.ImageUrl = "../Images/new.gif";
+				img.ImageAlign = ImageAlign.Left;
+				img.AlternateText = "New child node";
+				container.Controls.Add(img);
+				HyperLink hpl = new HyperLink();
+				hpl.Text = "Add a new node under the active node";
+				hpl.NavigateUrl = String.Format("../NodeEdit.aspx?NodeId=-1&ParentNodeId={0}", this._page.ActiveNode.Id);
+				hpl.CssClass = "nodeLink";
+				container.Controls.Add(hpl);
+			}
+			return container;
 		}
 
 		private void DisplayNodes(IList nodes)

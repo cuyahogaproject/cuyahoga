@@ -2,8 +2,6 @@ using System;
 using System.Collections;
 using System.Security.Principal;
 
-using Nullables;
-
 namespace Cuyahoga.Core.Domain
 {
 	/// <summary>
@@ -20,7 +18,7 @@ namespace Cuyahoga.Core.Domain
 		private string _website;
 		private int _timeZone;
 		private bool _isActive;
-		private NullableDateTime _lastLogin;
+		private DateTime? _lastLogin;
 		private string _lastIp;
 		private bool _isAuthenticated;
 		private IList _roles;
@@ -133,7 +131,7 @@ namespace Cuyahoga.Core.Domain
 		/// <summary>
 		/// Property LastLogin (DateTime)
 		/// </summary>
-		public virtual NullableDateTime LastLogin
+		public virtual DateTime? LastLogin
 		{
 			get { return this._lastLogin; }
 			set { this._lastLogin = value; }
@@ -249,7 +247,7 @@ namespace Cuyahoga.Core.Domain
 		/// <summary>
 		/// Check if the user has the requested access rights.
 		/// </summary>
-		/// <param name="accessLevel"></param>
+		/// <param name="permission"></param>
 		/// <returns></returns>
 		public virtual bool HasPermission(AccessLevel permission)
 		{

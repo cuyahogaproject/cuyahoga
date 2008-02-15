@@ -14,6 +14,7 @@ using Cuyahoga.Core.Domain;
 using Cuyahoga.Core.Service;
 using Cuyahoga.Core.Service.SiteStructure;
 using Cuyahoga.Web.Util;
+using log4net;
 
 
 namespace Cuyahoga.Web.Components
@@ -23,6 +24,7 @@ namespace Cuyahoga.Web.Components
     /// </summary>
     public class ModuleLoader
     {
+    	private static ILog log = LogManager.GetLogger(typeof (ModuleLoader));
         private IKernel _kernel;
         private SessionFactoryHelper _sessionFactoryHelper;
         private IModuleTypeService _moduleServie;
@@ -75,6 +77,10 @@ namespace Cuyahoga.Web.Components
 			}
 			else
 			{
+				if (log.IsDebugEnabled)
+				{
+					log.DebugFormat("Unable to find module with key '{0}' in the container.", modulekey);
+				}
 				return null;
 			}
         }
@@ -94,12 +100,32 @@ namespace Cuyahoga.Web.Components
         /// </summary>
         public void RegisterActivatedModules()
         {
-            //get all installed modules
+			if (log.IsDebugEnabled)
+			{
+				log.Debug("Entering module loading.");
+			}
+			HttpContext.Current.Application.Lock();
+			HttpContext.Current.Application["IsModuleLoading"] = true;
+			HttpContext.Current.Application.UnLock();
+
             IList moduleTypes = this._moduleServie.GetAllModuleTypes();
             foreach (ModuleType mt in moduleTypes)
             {
-                if (mt.AutoActivate) this.ActivateModule(mt);
+                if (mt.AutoActivate)
+                {
+                	ActivateModule(mt);
+                }
             }
+
+			// Let the application know that the modules are loaded.
+			HttpContext.Current.Application.Lock();
+			HttpContext.Current.Application["ModulesLoaded"] = true;
+			HttpContext.Current.Application["IsModuleLoading"] = false;
+			HttpContext.Current.Application.UnLock();
+			if (log.IsDebugEnabled)
+			{
+				log.Debug("Finished module loading.");
+			}
         }
 
         public void ActivateModule(ModuleType moduleType)
@@ -108,6 +134,10 @@ namespace Cuyahoga.Web.Components
             System.Threading.Monitor.Enter(lockObject);
 
             string assemblyQualifiedName = moduleType.ClassName + ", " + moduleType.AssemblyName;
+			if (log.IsDebugEnabled)
+			{
+				log.DebugFormat("Loading module {0}.", assemblyQualifiedName);
+			}
             // First, try to get the CLR module type
             Type moduleTypeType = Type.GetType(assemblyQualifiedName);
             if (moduleTypeType == null)
@@ -120,6 +150,10 @@ namespace Cuyahoga.Web.Components
                 if (this._kernel.HasComponent(moduleTypeType))
                 {
                     // Module is already registered
+					if (log.IsDebugEnabled)
+					{
+						log.DebugFormat("The module with type {0} is already registered in the container.", moduleTypeType.ToString());
+					}
                     return;
                 }
 
@@ -128,7 +162,11 @@ namespace Cuyahoga.Web.Components
                 {
                     Type serviceType = Type.GetType(moduleService.ServiceType);
                     Type classType = Type.GetType(moduleService.ClassType);
-                    LifestyleType lifestyle = LifestyleType.Singleton;
+					if (log.IsDebugEnabled)
+					{
+						log.DebugFormat("Loading module service {0}, (1).", moduleService.ServiceKey, moduleService.ClassType);
+					}
+					LifestyleType lifestyle = LifestyleType.Singleton;
                     if (moduleService.Lifestyle != null)
                     {
                         try
@@ -146,13 +184,21 @@ namespace Cuyahoga.Web.Components
 
                 //Register the module
                 this._kernel.AddComponent("module." + moduleTypeType.FullName, moduleTypeType);
+            //only one thread at a time
+            System.Threading.Monitor.Enter(lockObject);
 
                 //Configure NHibernate mappings and make sure we haven't already added this assembly to the NHibernate config
                 if (typeof(INHibernateModule).IsAssignableFrom(moduleTypeType) && ((HttpContext.Current.Application[moduleType.AssemblyName]) == null))
                 {
+					if (log.IsDebugEnabled)
+					{
+						log.DebugFormat("Adding module assembly {0} to the NHibernate mappings.", moduleTypeType.Assembly.ToString());
+					}
                     this._sessionFactoryHelper.AddAssembly(moduleTypeType.Assembly);
                     //set application variable to remember the configurated assemblies
+					HttpContext.Current.Application.Lock();
                     HttpContext.Current.Application[moduleType.AssemblyName] = moduleType.AssemblyName;
+					HttpContext.Current.Application.UnLock();
                 }
             }
             finally

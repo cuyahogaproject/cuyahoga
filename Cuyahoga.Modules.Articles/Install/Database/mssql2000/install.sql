@@ -107,5 +107,5 @@ VALUES (@moduletypeid, 'articles.articledao', 'Cuyahoga.Modules.Articles.DataAcc
 
 go
 
-INSERT INTO cuyahoga_version (assembly, major, minor, patch) VALUES ('Cuyahoga.Modules.Articles', 1, 5, 0)
+INSERT INTO cuyahoga_version (assembly, major, minor, patch) VALUES ('Cuyahoga.Modules.Articles', 1, 5, 1)
 go

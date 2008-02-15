@@ -20,7 +20,7 @@ namespace Cuyahoga.Modules.StaticHtml
 		/// <summary>
 		/// Property Id (int)
 		/// </summary>
-		public int Id
+		public virtual int Id
 		{
 			get { return this._id; }
 			set { this._id = value; }
@@ -29,7 +29,7 @@ namespace Cuyahoga.Modules.StaticHtml
 		/// <summary>
 		/// Property Title (string)
 		/// </summary>
-		public string Title
+		public virtual string Title
 		{
 			get { return this._title; }
 			set { this._title = value; }
@@ -38,7 +38,7 @@ namespace Cuyahoga.Modules.StaticHtml
 		/// <summary>
 		/// Property Content (string)
 		/// </summary>
-		public string Content
+		public virtual string Content
 		{
 			get { return this._content; }
 			set { this._content = value; }
@@ -47,7 +47,7 @@ namespace Cuyahoga.Modules.StaticHtml
 		/// <summary>
 		/// Property Section (Section)
 		/// </summary>
-		public Section Section
+		public virtual Section Section
 		{
 			get { return this._section; }
 			set { this._section = value; }
@@ -56,7 +56,7 @@ namespace Cuyahoga.Modules.StaticHtml
 		/// <summary>
 		/// Property CreatedBy (User)
 		/// </summary>
-		public Cuyahoga.Core.Domain.User CreatedBy
+		public virtual Cuyahoga.Core.Domain.User CreatedBy
 		{
 			get { return this._createdBy; }
 			set { this._createdBy = value; }
@@ -65,7 +65,7 @@ namespace Cuyahoga.Modules.StaticHtml
 		/// <summary>
 		/// Property ModifiedBy (User)
 		/// </summary>
-		public Cuyahoga.Core.Domain.User ModifiedBy
+		public virtual Cuyahoga.Core.Domain.User ModifiedBy
 		{
 			get { return this._modifiedBy; }
 			set { this._modifiedBy = value; }
@@ -74,7 +74,7 @@ namespace Cuyahoga.Modules.StaticHtml
 		/// <summary>
 		/// Property UpdateTimestamp (DateTime)
 		/// </summary>
-		public DateTime UpdateTimestamp
+		public virtual DateTime UpdateTimestamp
 		{
 			get { return this._updateTimestamp; }
 			set { this._updateTimestamp = value; }

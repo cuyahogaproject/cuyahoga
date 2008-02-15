@@ -1,21 +1,24 @@
 ﻿/*
- * FCKeditor - The text editor for internet
- * Copyright (C) 2003-2006 Frederico Caldeira Knabben
- * 
- * Licensed under the terms of the GNU Lesser General Public License:
- * 		http://www.opensource.org/licenses/lgpl-license.php
- * 
- * For further information visit:
- * 		http://www.fckeditor.net/
- * 
- * "Support Open Source software. What about a donation today?"
- * 
- * File Name: bn.js
- * 	Bengali/Bangla language file.
- * 
- * File Authors:
- * 		Richard Walledge (darkdoctrine@hotmail.com)
- * 		S M Mahbub Murshed (udvranto@yahoo.com)
+ * FCKeditor - The text editor for Internet - http://www.fckeditor.net
+ * Copyright (C) 2003-2007 Frederico Caldeira Knabben
+ *
+ * == BEGIN LICENSE ==
+ *
+ * Licensed under the terms of any of the following licenses at your
+ * choice:
+ *
+ *  - GNU General Public License Version 2 or later (the "GPL")
+ *    http://www.gnu.org/licenses/gpl.html
+ *
+ *  - GNU Lesser General Public License Version 2.1 or later (the "LGPL")
+ *    http://www.gnu.org/licenses/lgpl.html
+ *
+ *  - Mozilla Public License Version 1.1 or later (the "MPL")
+ *    http://www.mozilla.org/MPL/MPL-1.1.html
+ *
+ * == END LICENSE ==
+ *
+ * Bengali/Bangla language file.
  */
 
 var FCKLang =
@@ -42,6 +45,7 @@ InsertLinkLbl		: "লিংকের যুক্ত করার লেবে�
 InsertLink			: "লিংক যুক্ত কর",
 RemoveLink			: "লিংক সরাও",
 Anchor				: "নোঙ্গর",
+AnchorDelete		: "Remove Anchor",	//MISSING
 InsertImageLbl		: "ছবির লেবেল যুক্ত কর",
 InsertImage			: "ছবি যুক্ত কর",
 InsertFlashLbl		: "ফ্লাশ লেবেল যুক্ত কর",
@@ -67,6 +71,7 @@ RightJustify		: "ডান দিকে ঘেঁষা",
 BlockJustify		: "ব্লক জাস্টিফাই",
 DecreaseIndent		: "ইনডেন্ট কমাও",
 IncreaseIndent		: "ইনডেন্ট বাড়াও",
+Blockquote			: "Blockquote",	//MISSING
 Undo				: "আনডু",
 Redo				: "রি-ডু",
 NumberedListLbl		: "সাংখ্যিক লিস্টের লেবেল",
@@ -100,20 +105,27 @@ SelectionField	: "বাছাই ফীল্ড",
 ImageButton		: "ছবির বাটন",
 
 FitWindow		: "উইন্ডো ফিট কর",
+ShowBlocks		: "Show Blocks",	//MISSING
 
 // Context Menu
 EditLink			: "লিংক সম্পাদন",
 CellCM				: "সেল",
 RowCM				: "রো",
 ColumnCM			: "কলাম",
-InsertRow			: "রো যুক্ত কর",
+InsertRowAfter		: "Insert Row After",	//MISSING
+InsertRowBefore		: "Insert Row Before",	//MISSING
 DeleteRows			: "রো মুছে দাও",
-InsertColumn		: "কলাম যুক্ত কর",
+InsertColumnAfter	: "Insert Column After",	//MISSING
+InsertColumnBefore	: "Insert Column Before",	//MISSING
 DeleteColumns		: "কলাম মুছে দাও",
-InsertCell			: "সেল যুক্ত কর",
+InsertCellAfter		: "Insert Cell After",	//MISSING
+InsertCellBefore	: "Insert Cell Before",	//MISSING
 DeleteCells			: "সেল মুছে দাও",
 MergeCells			: "সেল জোড়া দাও",
-SplitCell			: "সেল আলাদা কর",
+MergeRight			: "Merge Right",	//MISSING
+MergeDown			: "Merge Down",	//MISSING
+HorizontalSplitCell	: "Split Cell Horizontally",	//MISSING
+VerticalSplitCell	: "Split Cell Vertically",	//MISSING
 TableDelete			: "টেবিল ডিলীট কর",
 CellProperties		: "সেলের প্রোপার্টিজ",
 TableProperties		: "টেবিল প্রোপার্টি",
@@ -226,7 +238,7 @@ DlgLnkURL			: "URL",
 DlgLnkAnchorSel		: "নোঙর বাছাই",
 DlgLnkAnchorByName	: "নোঙরের নাম দিয়ে",
 DlgLnkAnchorById	: "নোঙরের আইডি দিয়ে",
-DlgLnkNoAnchors		: "<ডকুমেন্টে আর কোন নোঙর নেই>",
+DlgLnkNoAnchors		: "(No anchors available in the document)",	//MISSING
 DlgLnkEMail			: "ইমেইল ঠিকানা",
 DlgLnkEMailSubject	: "মেসেজের বিষয়",
 DlgLnkEMailBody		: "মেসেজের দেহ",
@@ -319,6 +331,9 @@ DlgCellBackColor	: "ব্যাকগ্রাউন্ড রং",
 DlgCellBorderColor	: "বর্ডারের রং",
 DlgCellBtnSelect	: "বাছাই কর",
 
+// Find and Replace Dialog
+DlgFindAndReplaceTitle	: "Find and Replace",	//MISSING
+
 // Find Dialog
 DlgFindTitle		: "খোঁজো",
 DlgFindFindBtn		: "খোঁজো",
@@ -334,7 +349,6 @@ DlgReplaceReplAllBtn	: "সব বদলে দাও",
 DlgReplaceWordChk		: "পুরা শব্দ মেলাও",
 
 // Paste Operations / Dialog
-PasteErrorPaste	: "আপনার ব্রাউজারের সুরক্ষা সেটিংস এডিটরকে অটোমেটিক পেস্ট করার অনুমতি দেয়নি। দয়া করে এই কাজের জন্য কিবোর্ড ব্যবহার করুন (Ctrl+V)।",
 PasteErrorCut	: "আপনার ব্রাউজারের সুরক্ষা সেটিংস এডিটরকে অটোমেটিক কাট করার অনুমতি দেয়নি। দয়া করে এই কাজের জন্য কিবোর্ড ব্যবহার করুন (Ctrl+X)।",
 PasteErrorCopy	: "আপনার ব্রাউজারের সুরক্ষা সেটিংস এডিটরকে অটোমেটিক কপি করার অনুমতি দেয়নি। দয়া করে এই কাজের জন্য কিবোর্ড ব্যবহার করুন (Ctrl+C)।",
 
@@ -342,6 +356,7 @@ PasteAsText		: "সাদা টেক্সট হিসেবে পেস্�
 PasteFromWord	: "ওয়ার্ড থেকে পেস্ট কর",
 
 DlgPasteMsg2	: "অনুগ্রহ করে নীচের বাক্সে কিবোর্ড ব্যবহার করে (<STRONG>Ctrl+V</STRONG>) পেস্ট করুন এবং <STRONG>OK</STRONG> চাপ দিন",
+DlgPasteSec		: "Because of your browser security settings, the editor is not able to access your clipboard data directly. You are required to paste it again in this window.",	//MISSING
 DlgPasteIgnoreFont		: "ফন্ট ফেস ডেফিনেশন ইগনোর করুন",
 DlgPasteRemoveStyles	: "স্টাইল ডেফিনেশন সরিয়ে দিন",
 DlgPasteCleanBox		: "বাক্স পরিষ্কার করুন",
@@ -497,6 +512,5 @@ DlgAboutAboutTab	: "কে বানিয়েছে",
 DlgAboutBrowserInfoTab	: "ব্রাউজারের ব্যাপারে তথ্য",
 DlgAboutLicenseTab	: "লাইসেন্স",
 DlgAboutVersion		: "ভার্সন",
-DlgAboutLicense		: "লাইসেন্স GNU LGPL এর নীতিমালার অধীনে ",
 DlgAboutInfo		: "আরও তথ্যের জন্য যান"
-}
+};

@@ -26,7 +26,7 @@
 						</td>
 					</tr>
 					<tr>
-						<td>Base path</td>
+						<td>Base path (from app root, without beginning '/')</td>
 						<td><asp:textbox id="txtBasePath" runat="server" width="200px"></asp:textbox>
 							<asp:button id="btnVerifyBasePath" runat="server" text="Verify" causesvalidation="False"></asp:button>
 							<asp:requiredfieldvalidator id="rfvBasePath" runat="server" errormessage="Base path is required" cssclass="validator"

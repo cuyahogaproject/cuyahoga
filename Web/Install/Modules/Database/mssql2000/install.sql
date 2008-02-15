@@ -43,6 +43,7 @@ INSERT INTO cuyahoga_moduletype (moduletypeid, name, assemblyname, classname, pa
 INSERT INTO cuyahoga_moduletype (moduletypeid, name, assemblyname, classname, path, editpath, autoactivate, inserttimestamp, updatetimestamp) VALUES (8, 'SearchInput', 'Cuyahoga.Modules', 'Cuyahoga.Modules.Search.SearchInputModule', 'Modules/Search/SearchInput.ascx', NULL, 1, '2005-10-20 14:36:28.324', '2005-10-20 14:36:28.324')
 INSERT INTO cuyahoga_moduletype (moduletypeid, name, assemblyname, classname, path, editpath, autoactivate, inserttimestamp, updatetimestamp) VALUES (9, 'Sitemap', 'Cuyahoga.Modules', 'Cuyahoga.Modules.Sitemap.SitemapModule', 'Modules/Sitemap/SitemapControl.ascx', NULL, 1, '2005-10-20 14:36:28.324', '2005-10-20 14:36:28.324')
 INSERT INTO cuyahoga_moduletype (moduletypeid, name, assemblyname, classname, path, editpath, autoactivate, inserttimestamp, updatetimestamp) VALUES (10, 'Categories', 'Cuyahoga.Modules', 'Cuyahoga.Modules.Categories.CategoryModule', 'Modules/Categories/CategoryControl.ascx', NULL, 1, '2007-06-20 14:36:28.324', '2007-06-20 14:36:28.324')
+
 GO
 
 SET IDENTITY_INSERT cuyahoga_moduletype OFF
@@ -59,6 +60,6 @@ INSERT INTO cuyahoga_modulesetting (moduletypeid, name, friendlyname, settingdat
 INSERT INTO cuyahoga_modulesetting (moduletypeid, name, friendlyname, settingdatatype, iscustomtype, isrequired) VALUES (10, 'ROOT_CATEGORY_KEY', 'Root category key', 'System.String', 0, 1)
 GO
 
-INSERT INTO cuyahoga_version (assembly, major, minor, patch) VALUES ('Cuyahoga.Modules', 1, 5, 0)
+INSERT INTO cuyahoga_version (assembly, major, minor, patch) VALUES ('Cuyahoga.Modules', 1, 5, 1)
 
 GO

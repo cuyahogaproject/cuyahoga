@@ -97,13 +97,13 @@
       <Name>Castle.Windsor</Name>
       <HintPath>..\lib\Castle.Windsor.dll</HintPath>
     </Reference>
+    <Reference Include="FredCK.FCKeditorV2, Version=2.5.2912.21007, Culture=neutral, PublicKeyToken=4f86767c9b519a06, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\lib\FredCK.FCKeditorV2.dll</HintPath>
+    </Reference>
     <Reference Include="log4net">
       <Name>log4net</Name>
       <HintPath>..\lib\log4net.dll</HintPath>
-    </Reference>
-    <Reference Include="Nullables">
-      <Name>Nullables</Name>
-      <HintPath>..\lib\Nullables.dll</HintPath>
     </Reference>
     <Reference Include="System">
       <Name>System</Name>
@@ -531,8 +531,20 @@
     <Content Include="Support\FCKeditor\editor\css\fck_editorarea.css" />
     <Content Include="Support\FCKeditor\editor\css\fck_internal.css" />
     <Content Include="Support\FCKeditor\editor\css\fck_showtableborders_gecko.css" />
+    <Content Include="Support\FCKeditor\editor\css\images\block_address.png" />
+    <Content Include="Support\FCKeditor\editor\css\images\block_blockquote.png" />
+    <Content Include="Support\FCKeditor\editor\css\images\block_div.png" />
+    <Content Include="Support\FCKeditor\editor\css\images\block_h1.png" />
+    <Content Include="Support\FCKeditor\editor\css\images\block_h2.png" />
+    <Content Include="Support\FCKeditor\editor\css\images\block_h3.png" />
+    <Content Include="Support\FCKeditor\editor\css\images\block_h4.png" />
+    <Content Include="Support\FCKeditor\editor\css\images\block_h5.png" />
+    <Content Include="Support\FCKeditor\editor\css\images\block_h6.png" />
+    <Content Include="Support\FCKeditor\editor\css\images\block_p.png" />
+    <Content Include="Support\FCKeditor\editor\css\images\block_pre.png" />
     <Content Include="Support\FCKeditor\editor\css\images\fck_anchor.gif" />
     <Content Include="Support\FCKeditor\editor\css\images\fck_flashlogo.gif" />
+    <Content Include="Support\FCKeditor\editor\css\images\fck_hiddenfield.gif" />
     <Content Include="Support\FCKeditor\editor\css\images\fck_pagebreak.gif" />
     <Content Include="Support\FCKeditor\editor\dialog\common\fcknumericfield.htc" />
     <Content Include="Support\FCKeditor\editor\dialog\common\fck_dialog_common.css" />
@@ -595,6 +607,9 @@
     <Content Include="Support\FCKeditor\editor\dialog\fck_universalkey\fck_universalkey.css" />
     <Content Include="Support\FCKeditor\editor\dialog\fck_universalkey\keyboard_layout.gif" />
     <Content Include="Support\FCKeditor\editor\dialog\fck_universalkey\multihexa.js" />
+    <Content Include="Support\FCKeditor\editor\dtd\fck_dtd_test.html" />
+    <Content Include="Support\FCKeditor\editor\dtd\fck_xhtml10strict.js" />
+    <Content Include="Support\FCKeditor\editor\dtd\fck_xhtml10transitional.js" />
     <Content Include="Support\FCKeditor\editor\fckblank.html" />
     <Content Include="Support\FCKeditor\editor\fckdebug.html" />
     <Content Include="Support\FCKeditor\editor\fckdialog.html" />
@@ -602,8 +617,6 @@
     <Content Include="Support\FCKeditor\editor\fckeditor.original.html" />
     <Content Include="Support\FCKeditor\editor\filemanager\browser\default\browser.css" />
     <Content Include="Support\FCKeditor\editor\filemanager\browser\default\browser.html" />
-    <Content Include="Support\FCKeditor\editor\filemanager\browser\default\connectors\aspx\connector.aspx" />
-    <Content Include="Support\FCKeditor\editor\filemanager\browser\default\connectors\test.html" />
     <Content Include="Support\FCKeditor\editor\filemanager\browser\default\frmactualfolder.html" />
     <Content Include="Support\FCKeditor\editor\filemanager\browser\default\frmcreatefolder.html" />
     <Content Include="Support\FCKeditor\editor\filemanager\browser\default\frmfolders.html" />
@@ -633,6 +646,7 @@
     <Content Include="Support\FCKeditor\editor\filemanager\browser\default\images\icons\32\mdb.gif" />
     <Content Include="Support\FCKeditor\editor\filemanager\browser\default\images\icons\32\mp3.gif" />
     <Content Include="Support\FCKeditor\editor\filemanager\browser\default\images\icons\32\pdf.gif" />
+    <Content Include="Support\FCKeditor\editor\filemanager\browser\default\images\icons\32\png.gif" />
     <Content Include="Support\FCKeditor\editor\filemanager\browser\default\images\icons\32\ppt.gif" />
     <Content Include="Support\FCKeditor\editor\filemanager\browser\default\images\icons\32\rdp.gif" />
     <Content Include="Support\FCKeditor\editor\filemanager\browser\default\images\icons\32\swf.gif" />
@@ -659,6 +673,7 @@
     <Content Include="Support\FCKeditor\editor\filemanager\browser\default\images\icons\mdb.gif" />
     <Content Include="Support\FCKeditor\editor\filemanager\browser\default\images\icons\mp3.gif" />
     <Content Include="Support\FCKeditor\editor\filemanager\browser\default\images\icons\pdf.gif" />
+    <Content Include="Support\FCKeditor\editor\filemanager\browser\default\images\icons\png.gif" />
     <Content Include="Support\FCKeditor\editor\filemanager\browser\default\images\icons\ppt.gif" />
     <Content Include="Support\FCKeditor\editor\filemanager\browser\default\images\icons\rdp.gif" />
     <Content Include="Support\FCKeditor\editor\filemanager\browser\default\images\icons\swf.gif" />
@@ -671,8 +686,9 @@
     <Content Include="Support\FCKeditor\editor\filemanager\browser\default\images\spacer.gif" />
     <Content Include="Support\FCKeditor\editor\filemanager\browser\default\js\common.js" />
     <Content Include="Support\FCKeditor\editor\filemanager\browser\default\js\fckxml.js" />
-    <Content Include="Support\FCKeditor\editor\filemanager\upload\aspx\upload.aspx" />
-    <Content Include="Support\FCKeditor\editor\filemanager\upload\test.html" />
+    <Content Include="Support\FCKeditor\editor\filemanager\connectors\aspx\config.ascx" />
+    <Content Include="Support\FCKeditor\editor\filemanager\connectors\aspx\connector.aspx" />
+    <Content Include="Support\FCKeditor\editor\filemanager\connectors\aspx\upload.aspx" />
     <Content Include="Support\FCKeditor\editor\images\anchor.gif" />
     <Content Include="Support\FCKeditor\editor\images\arrow_ltr.gif" />
     <Content Include="Support\FCKeditor\editor\images\arrow_rtl.gif" />
@@ -701,6 +717,7 @@
     <Content Include="Support\FCKeditor\editor\images\spacer.gif" />
     <Content Include="Support\FCKeditor\editor\js\fckeditorcode_gecko.js" />
     <Content Include="Support\FCKeditor\editor\js\fckeditorcode_ie.js" />
+    <Content Include="Support\FCKeditor\editor\lang\af.js" />
     <Content Include="Support\FCKeditor\editor\lang\ar.js" />
     <Content Include="Support\FCKeditor\editor\lang\bg.js" />
     <Content Include="Support\FCKeditor\editor\lang\bn.js" />
@@ -757,6 +774,10 @@
     <Content Include="Support\FCKeditor\editor\lang\_getfontformat.html" />
     <Content Include="Support\FCKeditor\editor\lang\_translationstatus.txt" />
     <Content Include="Support\FCKeditor\editor\plugins\autogrow\fckplugin.js" />
+    <Content Include="Support\FCKeditor\editor\plugins\bbcode\fckplugin.js" />
+    <Content Include="Support\FCKeditor\editor\plugins\bbcode\_sample\sample.config.js" />
+    <Content Include="Support\FCKeditor\editor\plugins\bbcode\_sample\sample.html" />
+    <Content Include="Support\FCKeditor\editor\plugins\dragresizetable\fckplugin.js" />
     <Content Include="Support\FCKeditor\editor\plugins\placeholder\fckplugin.js" />
     <Content Include="Support\FCKeditor\editor\plugins\placeholder\fck_placeholder.html" />
     <Content Include="Support\FCKeditor\editor\plugins\placeholder\lang\de.js" />
@@ -777,28 +798,6 @@
     <Content Include="Support\FCKeditor\editor\skins\default\images\toolbar.expand.gif" />
     <Content Include="Support\FCKeditor\editor\skins\default\images\toolbar.separator.gif" />
     <Content Include="Support\FCKeditor\editor\skins\default\images\toolbar.start.gif" />
-    <Content Include="Support\FCKeditor\editor\skins\office2003\fck_dialog.css" />
-    <Content Include="Support\FCKeditor\editor\skins\office2003\fck_editor.css" />
-    <Content Include="Support\FCKeditor\editor\skins\office2003\fck_strip.gif" />
-    <Content Include="Support\FCKeditor\editor\skins\office2003\images\toolbar.arrowright.gif" />
-    <Content Include="Support\FCKeditor\editor\skins\office2003\images\toolbar.bg.gif" />
-    <Content Include="Support\FCKeditor\editor\skins\office2003\images\toolbar.buttonarrow.gif" />
-    <Content Include="Support\FCKeditor\editor\skins\office2003\images\toolbar.collapse.gif" />
-    <Content Include="Support\FCKeditor\editor\skins\office2003\images\toolbar.end.gif" />
-    <Content Include="Support\FCKeditor\editor\skins\office2003\images\toolbar.expand.gif" />
-    <Content Include="Support\FCKeditor\editor\skins\office2003\images\toolbar.separator.gif" />
-    <Content Include="Support\FCKeditor\editor\skins\office2003\images\toolbar.start.gif" />
-    <Content Include="Support\FCKeditor\editor\skins\silver\fck_dialog.css" />
-    <Content Include="Support\FCKeditor\editor\skins\silver\fck_editor.css" />
-    <Content Include="Support\FCKeditor\editor\skins\silver\fck_strip.gif" />
-    <Content Include="Support\FCKeditor\editor\skins\silver\images\toolbar.arrowright.gif" />
-    <Content Include="Support\FCKeditor\editor\skins\silver\images\toolbar.buttonarrow.gif" />
-    <Content Include="Support\FCKeditor\editor\skins\silver\images\toolbar.buttonbg.gif" />
-    <Content Include="Support\FCKeditor\editor\skins\silver\images\toolbar.collapse.gif" />
-    <Content Include="Support\FCKeditor\editor\skins\silver\images\toolbar.end.gif" />
-    <Content Include="Support\FCKeditor\editor\skins\silver\images\toolbar.expand.gif" />
-    <Content Include="Support\FCKeditor\editor\skins\silver\images\toolbar.separator.gif" />
-    <Content Include="Support\FCKeditor\editor\skins\silver\images\toolbar.start.gif" />
     <Content Include="Support\FCKeditor\editor\skins\_fckviewstrips.html" />
     <Content Include="Support\FCKeditor\editor\_source\classes\fckcontextmenu.js" />
     <Content Include="Support\FCKeditor\editor\_source\classes\fckeditingarea.js" />
@@ -1061,6 +1060,9 @@
     <EmbeddedResource Include="Controls\Resources\Strings.it.resx">
       <SubType>Designer</SubType>
     </EmbeddedResource>
+    <EmbeddedResource Include="Controls\Resources\Strings.sv.resx">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
     <EmbeddedResource Include="Controls\ViewProfile.ascx.resx">
       <DependentUpon>ViewProfile.ascx.cs</DependentUpon>
     </EmbeddedResource>
@@ -1101,11 +1103,13 @@
     <None Include="Install\Core\Database\mssql2000\0.9.0.sql" />
     <None Include="Install\Core\Database\mssql2000\0.9.1.sql" />
     <None Include="Install\Core\Database\mssql2000\1.0.0.sql" />
+    <None Include="Install\Core\Database\mssql2000\1.5.1.sql" />
     <None Include="Install\Core\Database\mssql2000\install.sql" />
     <None Include="Install\Core\Database\mysql\0.8.2.sql" />
     <None Include="Install\Core\Database\mysql\0.9.0.sql" />
     <None Include="Install\Core\Database\mysql\0.9.1.sql" />
     <None Include="Install\Core\Database\mysql\1.0.0.sql" />
+    <None Include="Install\Core\Database\mysql\1.5.1.sql" />
     <None Include="Install\Core\Database\mysql\install.sql" />
     <None Include="Install\Core\Database\postgresql\0.8.2.sql" />
     <None Include="Install\Core\Database\postgresql\0.9.0.sql" />
@@ -1116,16 +1120,20 @@
     <None Include="Install\Modules\Database\mssql2000\0.9.0.sql" />
     <None Include="Install\Modules\Database\mssql2000\0.9.1.sql" />
     <None Include="Install\Modules\Database\mssql2000\1.0.0.sql" />
+    <None Include="Install\Modules\Database\mssql2000\1.5.1.sql" />
     <None Include="Install\Modules\Database\mssql2000\install.sql" />
     <None Include="Install\Modules\Database\mysql\0.8.2.sql" />
     <None Include="Install\Modules\Database\mysql\0.9.0.sql" />
     <None Include="Install\Modules\Database\mysql\0.9.1.sql" />
     <None Include="Install\Modules\Database\mysql\1.0.0.sql" />
+    <None Include="Install\Modules\Database\mysql\1.5.1.sql" />
     <None Include="Install\Modules\Database\mysql\install.sql" />
     <None Include="Install\Modules\Database\postgresql\0.8.2.sql" />
     <None Include="Install\Modules\Database\postgresql\0.9.0.sql" />
     <None Include="Install\Modules\Database\postgresql\0.9.1.sql" />
     <None Include="Install\Modules\Database\postgresql\1.0.0.sql" />
+    <None Include="Install\Core\Database\postgresql\1.5.1.sql" />
+    <None Include="Install\Modules\Database\postgresql\1.5.1.sql" />
     <None Include="Install\Modules\Database\postgresql\install.sql" />
     <None Include="Install\Web.config" />
     <None Include="Support\FCKeditor\editor\dialog\fck_spellerpages\spellerpages\server-scripts\spellchecker.cfm" />
@@ -1143,8 +1151,7 @@
   <PropertyGroup>
     <PreBuildEvent>
     </PreBuildEvent>
-    <PostBuildEvent>xcopy /s /y "$(SolutionDir)"lib\Nullables.NHibernate.dll "$(TargetDir)"
-xcopy /s /y "$(SolutionDir)"lib\NHibernate.Caches.SysCache.dll "$(TargetDir)"
+    <PostBuildEvent>xcopy /s /y "$(SolutionDir)"lib\NHibernate.Caches.SysCache.dll "$(TargetDir)"
 xcopy /s /y "$(SolutionDir)"lib\Castle.Facilities.AutomaticTransactionManagement.dll "$(TargetDir)"
 xcopy /s /y "$(SolutionDir)"lib\Castle.Facilities.NHibernateIntegration.dll "$(TargetDir)"</PostBuildEvent>
   </PropertyGroup>

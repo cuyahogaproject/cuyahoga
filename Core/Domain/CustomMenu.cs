@@ -28,7 +28,7 @@ namespace Cuyahoga.Core.Domain
 		/// <summary>
 		/// Property Name (string)
 		/// </summary>
-        public virtual string Name
+		public virtual string Name
 		{
 			get { return this._name; }
 			set { this._name = value; }
@@ -37,7 +37,7 @@ namespace Cuyahoga.Core.Domain
 		/// <summary>
 		/// Property Placeholder (string)
 		/// </summary>
-        public virtual string Placeholder
+		public virtual string Placeholder
 		{
 			get { return this._placeholder; }
 			set { this._placeholder = value; }
@@ -46,7 +46,7 @@ namespace Cuyahoga.Core.Domain
 		/// <summary>
 		/// Property RootNode (Node)
 		/// </summary>
-        public virtual Node RootNode
+		public virtual Node RootNode
 		{
 			get { return this._rootNode; }
 			set { this._rootNode = value; }
@@ -55,7 +55,7 @@ namespace Cuyahoga.Core.Domain
 		/// <summary>
 		/// Property Nodes (IList)
 		/// </summary>
-        public virtual IList Nodes
+		public virtual IList Nodes
 		{
 			get { return this._nodes; }
 			set { this._nodes = value; }
@@ -64,7 +64,7 @@ namespace Cuyahoga.Core.Domain
 		/// <summary>
 		/// Property UpdateTimestamp (DateTime)
 		/// </summary>
-        public virtual DateTime UpdateTimestamp
+		public virtual DateTime UpdateTimestamp
 		{
 			get { return this._updateTimestamp; }
 			set { this._updateTimestamp = value; }

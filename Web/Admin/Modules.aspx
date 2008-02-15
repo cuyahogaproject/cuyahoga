@@ -12,7 +12,7 @@
 <body>
     <form id="Form1" method="post" runat="server">
        <p>
-            <em>NOTE: The Auto-Activate setting affects the activation on application startup. However,
+            <em>NOTE: The Load on startup setting affects the activation on application startup. However,
             checking it will try to activate the module immediately</em>
         </p>
         <table class="tbl">
@@ -24,7 +24,7 @@
                         <th>
                             Assembly</th>
                         <th>
-                            Auto-Activate</th>
+                            Load on startup</th>
                             <th>
                             Activation Status
                             </th>

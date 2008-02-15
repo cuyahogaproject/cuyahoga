@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?> 
-<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2" default-lazy="false">
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2">
 	<class name="Cuyahoga.Modules.Downloads.Domain.File, Cuyahoga.Modules.Downloads" table="cm_file">
 
 		<id name="Id" column="fileid" type="Int32" unsaved-value="-1">

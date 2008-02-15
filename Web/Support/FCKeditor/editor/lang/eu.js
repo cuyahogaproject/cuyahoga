@@ -1,21 +1,25 @@
 ﻿/*
- * FCKeditor - The text editor for internet
- * Copyright (C) 2003-2006 Frederico Caldeira Knabben
- * 
- * Licensed under the terms of the GNU Lesser General Public License:
- * 		http://www.opensource.org/licenses/lgpl-license.php
- * 
- * For further information visit:
- * 		http://www.fckeditor.net/
- * 
- * "Support Open Source software. What about a donation today?"
- * 
- * File Name: eu.js
- * 	Basque language file.
- * 	Euskara hizkuntza fitxategia.
- * 
- * File Authors:
- * 		Ibon Igartua (Librezale.org)
+ * FCKeditor - The text editor for Internet - http://www.fckeditor.net
+ * Copyright (C) 2003-2007 Frederico Caldeira Knabben
+ *
+ * == BEGIN LICENSE ==
+ *
+ * Licensed under the terms of any of the following licenses at your
+ * choice:
+ *
+ *  - GNU General Public License Version 2 or later (the "GPL")
+ *    http://www.gnu.org/licenses/gpl.html
+ *
+ *  - GNU Lesser General Public License Version 2.1 or later (the "LGPL")
+ *    http://www.gnu.org/licenses/lgpl.html
+ *
+ *  - Mozilla Public License Version 1.1 or later (the "MPL")
+ *    http://www.mozilla.org/MPL/MPL-1.1.html
+ *
+ * == END LICENSE ==
+ *
+ * Basque language file.
+ * Euskara hizkuntza fitxategia.
  */
 
 var FCKLang =
@@ -42,6 +46,7 @@ InsertLinkLbl		: "Esteka",
 InsertLink			: "Txertatu/Editatu Esteka",
 RemoveLink			: "Kendu Esteka",
 Anchor				: "Aingura",
+AnchorDelete		: "Remove Anchor",	//MISSING
 InsertImageLbl		: "Irudia",
 InsertImage			: "Txertatu/Editatu Irudia",
 InsertFlashLbl		: "Flasha",
@@ -67,6 +72,7 @@ RightJustify		: "Lerrokatu Eskuman",
 BlockJustify		: "Justifikatu",
 DecreaseIndent		: "Txikitu Koska",
 IncreaseIndent		: "Handitu Koska",
+Blockquote			: "Blockquote",	//MISSING
 Undo				: "Desegin",
 Redo				: "Berregin",
 NumberedListLbl		: "Zenbakidun Zerrenda",
@@ -100,20 +106,27 @@ SelectionField	: "Hautespen Eremua",
 ImageButton		: "Irudi Botoia",
 
 FitWindow		: "Maximizatu editorearen tamaina",
+ShowBlocks		: "Show Blocks",	//MISSING
 
 // Context Menu
 EditLink			: "Aldatu Esteka",
 CellCM				: "Gelaxka",
 RowCM				: "Errenkada",
 ColumnCM			: "Zutabea",
-InsertRow			: "Txertatu Errenkada",
+InsertRowAfter		: "Insert Row After",	//MISSING
+InsertRowBefore		: "Insert Row Before",	//MISSING
 DeleteRows			: "Ezabatu Errenkadak",
-InsertColumn		: "Txertatu Zutabea",
+InsertColumnAfter	: "Insert Column After",	//MISSING
+InsertColumnBefore	: "Insert Column Before",	//MISSING
 DeleteColumns		: "Ezabatu Zutabeak",
-InsertCell			: "Txertatu Gelaxka",
+InsertCellAfter		: "Insert Cell After",	//MISSING
+InsertCellBefore	: "Insert Cell Before",	//MISSING
 DeleteCells			: "Kendu Gelaxkak",
 MergeCells			: "Batu Gelaxkak",
-SplitCell			: "Zatitu Gelaxka",
+MergeRight			: "Merge Right",	//MISSING
+MergeDown			: "Merge Down",	//MISSING
+HorizontalSplitCell	: "Split Cell Horizontally",	//MISSING
+VerticalSplitCell	: "Split Cell Vertically",	//MISSING
 TableDelete			: "Ezabatu Taula",
 CellProperties		: "Gelaxkaren Ezaugarriak",
 TableProperties		: "Taularen Ezaugarriak",
@@ -226,7 +239,7 @@ DlgLnkURL			: "URL",
 DlgLnkAnchorSel		: "Aingura bat hautatu",
 DlgLnkAnchorByName	: "Aingura izenagatik",
 DlgLnkAnchorById	: "Elementuaren ID-gatik",
-DlgLnkNoAnchors		: "<Ez daude aingurak eskuragarri dokumentuan>",
+DlgLnkNoAnchors		: "(Ez daude aingurak eskuragarri dokumentuan)",
 DlgLnkEMail			: "ePosta Helbidea",
 DlgLnkEMailSubject	: "Mezuaren Gaia",
 DlgLnkEMailBody		: "Mezuaren Gorputza",
@@ -319,6 +332,9 @@ DlgCellBackColor	: "Atzeko Kolorea",
 DlgCellBorderColor	: "Ertzako Kolorea",
 DlgCellBtnSelect	: "Aukertau...",
 
+// Find and Replace Dialog
+DlgFindAndReplaceTitle	: "Find and Replace",	//MISSING
+
 // Find Dialog
 DlgFindTitle		: "Bilaketa",
 DlgFindFindBtn		: "Bilatu",
@@ -334,7 +350,6 @@ DlgReplaceReplAllBtn	: "Ordeztu Guztiak",
 DlgReplaceWordChk		: "Esaldi osoa bilatu",
 
 // Paste Operations / Dialog
-PasteErrorPaste	: "Zure web nabigatzailearen segurtasun ezarpenak testuak automatikoki itsastea ez dute baimentzen. Mesedez teklatua erabili ezazu (Ctrl+V).",
 PasteErrorCut	: "Zure web nabigatzailearen segurtasun ezarpenak testuak automatikoki moztea ez dute baimentzen. Mesedez teklatua erabili ezazu (Ctrl+X).",
 PasteErrorCopy	: "Zure web nabigatzailearen segurtasun ezarpenak testuak automatikoki kopiatzea ez dute baimentzen. Mesedez teklatua erabili ezazu (Ctrl+C).",
 
@@ -342,6 +357,7 @@ PasteAsText		: "Testu Arrunta bezala Itsatsi",
 PasteFromWord	: "Word-etik itsatsi",
 
 DlgPasteMsg2	: "Mesedez teklatua erabilita (<STRONG>Ctrl+V</STRONG>) ondorego eremuan testua itsatsi eta <STRONG>OK</STRONG> sakatu.",
+DlgPasteSec		: "Because of your browser security settings, the editor is not able to access your clipboard data directly. You are required to paste it again in this window.",	//MISSING
 DlgPasteIgnoreFont		: "Letra Motaren definizioa ezikusi",
 DlgPasteRemoveStyles	: "Estilo definizioak kendu",
 DlgPasteCleanBox		: "Testu-eremua Garbitu",
@@ -497,6 +513,5 @@ DlgAboutAboutTab	: "Honi buruz",
 DlgAboutBrowserInfoTab	: "Nabigatzailearen Informazioa",
 DlgAboutLicenseTab	: "Lizentzia",
 DlgAboutVersion		: "bertsioa",
-DlgAboutLicense		: "GNU Lesser General Public License Lizentziapean",
 DlgAboutInfo		: "Informazio gehiago eskuratzeko hona joan"
-}
+};

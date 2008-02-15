@@ -48,5 +48,5 @@ VALUES (currval('cuyahoga_moduletype_moduletypeid_seq'), 'PHYSICAL_DIR', 'Physic
 INSERT INTO cuyahoga_modulesetting (moduletypeid, name, friendlyname, settingdatatype, iscustomtype, isrequired) 
 VALUES (currval('cuyahoga_moduletype_moduletypeid_seq'), 'SHOW_NUMBER_OF_DOWNLOADS', 'Show number of downloads', 'System.Boolean', false, false);
 
-INSERT INTO cuyahoga_version (assembly, major, minor, patch) VALUES ('Cuyahoga.Modules.Downloads', 1, 5, 0);
+INSERT INTO cuyahoga_version (assembly, major, minor, patch) VALUES ('Cuyahoga.Modules.Downloads', 1, 5, 1);
 

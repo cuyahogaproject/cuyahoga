@@ -54,5 +54,5 @@ VALUES (currval('cuyahoga_moduletype_moduletypeid_seq'), 'SHOW_SOURCES', 'Show f
 INSERT INTO cuyahoga_modulesetting (moduletypeid, name, friendlyname, settingdatatype, iscustomtype, isrequired) 
 VALUES (currval('cuyahoga_moduletype_moduletypeid_seq'), 'SHOW_AUTHORS', 'Show authors', 'System.Boolean', false, true);
 
-INSERT INTO cuyahoga_version (assembly, major, minor, patch) VALUES ('Cuyahoga.Modules.RemoteContent', 1, 5, 0);
+INSERT INTO cuyahoga_version (assembly, major, minor, patch) VALUES ('Cuyahoga.Modules.RemoteContent', 1, 5, 1);
 

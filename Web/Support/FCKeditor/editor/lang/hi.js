@@ -1,20 +1,24 @@
 ﻿/*
- * FCKeditor - The text editor for internet
- * Copyright (C) 2003-2006 Frederico Caldeira Knabben
- * 
- * Licensed under the terms of the GNU Lesser General Public License:
- * 		http://www.opensource.org/licenses/lgpl-license.php
- * 
- * For further information visit:
- * 		http://www.fckeditor.net/
- * 
- * "Support Open Source software. What about a donation today?"
- * 
- * File Name: hi.js
- * 	Hindi language file.
- * 
- * File Authors:
- * 		Utkarshraj Atmaram (utcursch@gmail.com)
+ * FCKeditor - The text editor for Internet - http://www.fckeditor.net
+ * Copyright (C) 2003-2007 Frederico Caldeira Knabben
+ *
+ * == BEGIN LICENSE ==
+ *
+ * Licensed under the terms of any of the following licenses at your
+ * choice:
+ *
+ *  - GNU General Public License Version 2 or later (the "GPL")
+ *    http://www.gnu.org/licenses/gpl.html
+ *
+ *  - GNU Lesser General Public License Version 2.1 or later (the "LGPL")
+ *    http://www.gnu.org/licenses/lgpl.html
+ *
+ *  - Mozilla Public License Version 1.1 or later (the "MPL")
+ *    http://www.mozilla.org/MPL/MPL-1.1.html
+ *
+ * == END LICENSE ==
+ *
+ * Hindi language file.
  */
 
 var FCKLang =
@@ -41,6 +45,7 @@ InsertLinkLbl		: "लिंक",
 InsertLink			: "लिंक इन्सर्ट/संपादन",
 RemoveLink			: "लिंक हटायें",
 Anchor				: "ऐंकर इन्सर्ट/संपादन",
+AnchorDelete		: "ऐंकर हटायें",
 InsertImageLbl		: "तस्वीर",
 InsertImage			: "तस्वीर इन्सर्ट/संपादन",
 InsertFlashLbl		: "फ़्लैश",
@@ -66,6 +71,7 @@ RightJustify		: "दायीं तरफ",
 BlockJustify		: "ब्लॉक जस्टीफ़ाई",
 DecreaseIndent		: "इन्डॅन्ट कम करें",
 IncreaseIndent		: "इन्डॅन्ट बढ़ायें",
+Blockquote			: "ब्लॉक-कोट",
 Undo				: "अन्डू",
 Redo				: "रीडू",
 NumberedListLbl		: "अंकीय सूची",
@@ -99,22 +105,29 @@ SelectionField	: "चुनाव फ़ील्ड",
 ImageButton		: "तस्वीर बटन",
 
 FitWindow		: "एडिटर साइज़ को चरम सीमा तक बढ़ायें",
+ShowBlocks		: "ब्लॉक दिखायें",
 
 // Context Menu
 EditLink			: "लिंक संपादन",
 CellCM				: "खाना",
 RowCM				: "पंक्ति",
 ColumnCM			: "कालम",
-InsertRow			: "पंक्ति इन्सर्ट करें",
+InsertRowAfter		: "बाद में पंक्ति डालें",
+InsertRowBefore		: "पहले पंक्ति डालें",
 DeleteRows			: "पंक्तियाँ डिलीट करें",
-InsertColumn		: "कॉलम इन्सर्ट करें",
-DeleteColumns		: "कॉलम डिलीट करें",
-InsertCell			: "सॅल इन्सर्ट करें",
-DeleteCells			: "सॅल डिलीट करें",
-MergeCells			: "सॅल मिलायें",
-SplitCell			: "सॅल अलग करें",
+InsertColumnAfter	: "बाद में कालम डालें",
+InsertColumnBefore	: "पहले कालम डालें",
+DeleteColumns		: "कालम डिलीट करें",
+InsertCellAfter		: "बाद में सैल डालें",
+InsertCellBefore	: "पहले सैल डालें",
+DeleteCells			: "सैल डिलीट करें",
+MergeCells			: "सैल मिलायें",
+MergeRight			: "बाँया विलय",
+MergeDown			: "नीचे विलय करें",
+HorizontalSplitCell	: "सैल को क्षैतिज स्थिति में विभाजित करें",
+VerticalSplitCell	: "सैल को लम्बाकार में विभाजित करें",
 TableDelete			: "टेबल डिलीट करें",
-CellProperties		: "सॅल प्रॉपर्टीज़",
+CellProperties		: "सैल प्रॉपर्टीज़",
 TableProperties		: "टेबल प्रॉपर्टीज़",
 ImageProperties		: "तस्वीर प्रॉपर्टीज़",
 FlashProperties		: "फ़्लैश प्रॉपर्टीज़",
@@ -225,7 +238,7 @@ DlgLnkURL			: "URL",
 DlgLnkAnchorSel		: "ऐंकर चुनें",
 DlgLnkAnchorByName	: "ऐंकर नाम से",
 DlgLnkAnchorById	: "ऍलीमॅन्ट Id से",
-DlgLnkNoAnchors		: "<डॉक्यूमॅन्ट में ऐंकर्स की संख्या>",
+DlgLnkNoAnchors		: "(डॉक्यूमॅन्ट में ऐंकर्स की संख्या)",
 DlgLnkEMail			: "ई-मेल पता",
 DlgLnkEMailSubject	: "संदेश विषय",
 DlgLnkEMailBody		: "संदेश",
@@ -275,7 +288,7 @@ DlgSpecialCharTitle	: "विशेष करॅक्टर चुनें",
 // Table Dialog
 DlgTableTitle		: "टेबल प्रॉपर्टीज़",
 DlgTableRows		: "पंक्तियाँ",
-DlgTableColumns		: "कॉलम",
+DlgTableColumns		: "कालम",
 DlgTableBorder		: "बॉर्डर साइज़",
 DlgTableAlign		: "ऍलाइन्मॅन्ट",
 DlgTableAlignNotSet	: "<सॅट नहीं>",
@@ -283,18 +296,18 @@ DlgTableAlignLeft	: "दायें",
 DlgTableAlignCenter	: "बीच में",
 DlgTableAlignRight	: "बायें",
 DlgTableWidth		: "चौड़ाई",
-DlgTableWidthPx		: "पिक्सॅल",
+DlgTableWidthPx		: "पिक्सैल",
 DlgTableWidthPc		: "प्रतिशत",
 DlgTableHeight		: "ऊँचाई",
-DlgTableCellSpace	: "सॅल अंतर",
-DlgTableCellPad		: "सॅल पैडिंग",
+DlgTableCellSpace	: "सैल अंतर",
+DlgTableCellPad		: "सैल पैडिंग",
 DlgTableCaption		: "शीर्षक",
 DlgTableSummary		: "सारांश",
 
 // Table Cell Dialog
-DlgCellTitle		: "सॅल प्रॉपर्टीज़",
+DlgCellTitle		: "सैल प्रॉपर्टीज़",
 DlgCellWidth		: "चौड़ाई",
-DlgCellWidthPx		: "पिक्सॅल",
+DlgCellWidthPx		: "पिक्सैल",
 DlgCellWidthPc		: "प्रतिशत",
 DlgCellHeight		: "ऊँचाई",
 DlgCellWordWrap		: "वर्ड रैप",
@@ -313,10 +326,13 @@ DlgCellVerAlignMiddle	: "मध्य",
 DlgCellVerAlignBottom	: "नीचे",
 DlgCellVerAlignBaseline	: "मूलरेखा",
 DlgCellRowSpan		: "पंक्ति स्पैन",
-DlgCellCollSpan		: "कॉलम स्पैन",
+DlgCellCollSpan		: "कालम स्पैन",
 DlgCellBackColor	: "बैक्ग्राउन्ड रंग",
 DlgCellBorderColor	: "बॉर्डर का रंग",
 DlgCellBtnSelect	: "चुनें...",
+
+// Find and Replace Dialog
+DlgFindAndReplaceTitle	: "खोजें और बदलें",
 
 // Find Dialog
 DlgFindTitle		: "खोजें",
@@ -333,7 +349,6 @@ DlgReplaceReplAllBtn	: "सभी रिप्लेस करें",
 DlgReplaceWordChk		: "पूरा शब्द मिलायें",
 
 // Paste Operations / Dialog
-PasteErrorPaste	: "आपके ब्रा‌उज़र की सुरक्षा सॅटिन्ग्स ने पेस्ट करने की अनुमति नहीं प्रदान की है। (Ctrl+V) का प्रयोग करें।",
 PasteErrorCut	: "आपके ब्राउज़र की सुरक्षा सॅटिन्ग्स ने कट करने की अनुमति नहीं प्रदान की है। (Ctrl+X) का प्रयोग करें।",
 PasteErrorCopy	: "आपके ब्राआउज़र की सुरक्षा सॅटिन्ग्स ने कॉपी करने की अनुमति नहीं प्रदान की है। (Ctrl+C) का प्रयोग करें।",
 
@@ -341,12 +356,13 @@ PasteAsText		: "पेस्ट (सादा टॅक्स्ट)",
 PasteFromWord	: "पेस्ट (वर्ड से)",
 
 DlgPasteMsg2	: "Ctrl+V का प्रयोग करके पेस्ट करें और ठीक है करें.",
+DlgPasteSec		: "आपके ब्राउज़र की सुरक्षा आपके ब्राउज़र की सुरKश सैटिंग के कारण, एडिटर आपके क्लिपबोर्ड डेटा को नहीं पा सकता है. आपको उसे इस विन्डो में दोबारा पेस्ट करना होगा.",
 DlgPasteIgnoreFont		: "फ़ॉन्ट परिभाषा निकालें",
 DlgPasteRemoveStyles	: "स्टाइल परिभाषा निकालें",
 DlgPasteCleanBox		: "बॉक्स साफ़ करें",
 
 // Color Picker
-ColorAutomatic	: "ऑटोमैटिक",
+ColorAutomatic	: "स्वचालित",
 ColorMoreColors	: "और रंग...",
 
 // Document Properties
@@ -388,7 +404,7 @@ DlgCheckboxSelected	: "सॅलॅक्टॅड",
 
 // Form Dialog
 DlgFormName		: "नाम",
-DlgFormAction	: "ऍक्शन",
+DlgFormAction	: "क्रिया",
 DlgFormMethod	: "तरीका",
 
 // Select Field Dialog
@@ -409,7 +425,7 @@ DlgSelectBtnDelete	: "डिलीट",
 
 // Textarea Dialog
 DlgTextareaName	: "नाम",
-DlgTextareaCols	: "कॉलम",
+DlgTextareaCols	: "कालम",
 DlgTextareaRows	: "पंक्तियां",
 
 // Text Field Dialog
@@ -496,6 +512,5 @@ DlgAboutAboutTab	: "FCKEditor के बारे में",
 DlgAboutBrowserInfoTab	: "ब्राउज़र के बारे में",
 DlgAboutLicenseTab	: "लाइसैन्स",
 DlgAboutVersion		: "वर्ज़न",
-DlgAboutLicense		: "लाइसेंस :GNU LGPL",
 DlgAboutInfo		: "अधिक जानकारी के लिये यहाँ जायें:"
-}
+};

@@ -7,6 +7,6 @@
 					<li><asp:hyperlink id="hplNav1" runat="server"></asp:hyperlink></li>
 				</itemtemplate>
 			</asp:repeater>
-		<li><asp:hyperlink id="hplAdmin" runat="server" visible="False">Admin</asp:hyperlink></li>
+		<li id="liAdmin" runat="server" visible="false"><asp:hyperlink id="hplAdmin" runat="server" visible="False">Admin</asp:hyperlink></li>
 	</ul>
 </div>

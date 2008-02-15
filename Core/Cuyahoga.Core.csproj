@@ -106,10 +106,6 @@
       <Name>NHibernate</Name>
       <HintPath>..\lib\NHibernate.dll</HintPath>
     </Reference>
-    <Reference Include="Nullables">
-      <Name>Nullables</Name>
-      <HintPath>..\lib\Nullables.dll</HintPath>
-    </Reference>
     <Reference Include="System">
       <Name>System</Name>
     </Reference>

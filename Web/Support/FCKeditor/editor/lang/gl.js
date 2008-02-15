@@ -1,20 +1,24 @@
 ﻿/*
- * FCKeditor - The text editor for internet
- * Copyright (C) 2003-2006 Frederico Caldeira Knabben
- * 
- * Licensed under the terms of the GNU Lesser General Public License:
- * 		http://www.opensource.org/licenses/lgpl-license.php
- * 
- * For further information visit:
- * 		http://www.fckeditor.net/
- * 
- * "Support Open Source software. What about a donation today?"
- * 
- * File Name: gl.js
- * 	Galician language file.
- * 
- * File Authors:
- * 		Fernando Riveiro Lopez
+ * FCKeditor - The text editor for Internet - http://www.fckeditor.net
+ * Copyright (C) 2003-2007 Frederico Caldeira Knabben
+ *
+ * == BEGIN LICENSE ==
+ *
+ * Licensed under the terms of any of the following licenses at your
+ * choice:
+ *
+ *  - GNU General Public License Version 2 or later (the "GPL")
+ *    http://www.gnu.org/licenses/gpl.html
+ *
+ *  - GNU Lesser General Public License Version 2.1 or later (the "LGPL")
+ *    http://www.gnu.org/licenses/lgpl.html
+ *
+ *  - Mozilla Public License Version 1.1 or later (the "MPL")
+ *    http://www.mozilla.org/MPL/MPL-1.1.html
+ *
+ * == END LICENSE ==
+ *
+ * Galician language file.
  */
 
 var FCKLang =
@@ -41,6 +45,7 @@ InsertLinkLbl		: "Ligazón",
 InsertLink			: "Inserir/Editar Ligazón",
 RemoveLink			: "Eliminar Ligazón",
 Anchor				: "Inserir/Editar Referencia",
+AnchorDelete		: "Remove Anchor",	//MISSING
 InsertImageLbl		: "Imaxe",
 InsertImage			: "Inserir/Editar Imaxe",
 InsertFlashLbl		: "Flash",
@@ -66,6 +71,7 @@ RightJustify		: "Aliñar á Dereita",
 BlockJustify		: "Xustificado",
 DecreaseIndent		: "Disminuir Sangría",
 IncreaseIndent		: "Aumentar Sangría",
+Blockquote			: "Blockquote",	//MISSING
 Undo				: "Desfacer",
 Redo				: "Refacer",
 NumberedListLbl		: "Lista Numerada",
@@ -99,20 +105,27 @@ SelectionField	: "Campo de Selección",
 ImageButton		: "Botón de Imaxe",
 
 FitWindow		: "Maximizar o tamaño do editor",
+ShowBlocks		: "Show Blocks",	//MISSING
 
 // Context Menu
 EditLink			: "Editar Ligazón",
 CellCM				: "Cela",
 RowCM				: "Fila",
 ColumnCM			: "Columna",
-InsertRow			: "Inserir Fila",
+InsertRowAfter		: "Insert Row After",	//MISSING
+InsertRowBefore		: "Insert Row Before",	//MISSING
 DeleteRows			: "Borrar Filas",
-InsertColumn		: "Inserir Columna",
+InsertColumnAfter	: "Insert Column After",	//MISSING
+InsertColumnBefore	: "Insert Column Before",	//MISSING
 DeleteColumns		: "Borrar Columnas",
-InsertCell			: "Inserir Cela",
+InsertCellAfter		: "Insert Cell After",	//MISSING
+InsertCellBefore	: "Insert Cell Before",	//MISSING
 DeleteCells			: "Borrar Cela",
 MergeCells			: "Unir Celas",
-SplitCell			: "Partir Celas",
+MergeRight			: "Merge Right",	//MISSING
+MergeDown			: "Merge Down",	//MISSING
+HorizontalSplitCell	: "Split Cell Horizontally",	//MISSING
+VerticalSplitCell	: "Split Cell Vertically",	//MISSING
 TableDelete			: "Borrar Táboa",
 CellProperties		: "Propriedades da Cela",
 TableProperties		: "Propriedades da Táboa",
@@ -225,7 +238,7 @@ DlgLnkURL			: "URL",
 DlgLnkAnchorSel		: "Seleccionar unha Referencia",
 DlgLnkAnchorByName	: "Por Nome de Referencia",
 DlgLnkAnchorById	: "Por Element Id",
-DlgLnkNoAnchors		: "<Non hai referencias disponibles no documento>",
+DlgLnkNoAnchors		: "(Non hai referencias disponibles no documento)",
 DlgLnkEMail			: "Enderezo de E-Mail",
 DlgLnkEMailSubject	: "Asunto do Mensaxe",
 DlgLnkEMailBody		: "Corpo do Mensaxe",
@@ -318,6 +331,9 @@ DlgCellBackColor	: "Color de Fondo",
 DlgCellBorderColor	: "Color de Borde",
 DlgCellBtnSelect	: "Seleccionar...",
 
+// Find and Replace Dialog
+DlgFindAndReplaceTitle	: "Find and Replace",	//MISSING
+
 // Find Dialog
 DlgFindTitle		: "Procurar",
 DlgFindFindBtn		: "Procurar",
@@ -333,7 +349,6 @@ DlgReplaceReplAllBtn	: "Substitiur Todo",
 DlgReplaceWordChk		: "Coincidir con toda a palabra",
 
 // Paste Operations / Dialog
-PasteErrorPaste	: "Os axustes de seguridade do seu navegador non permiten que o editor realice automáticamente as tarefas de pegado. Por favor, use o teclado para iso (Ctrl+V).",
 PasteErrorCut	: "Os axustes de seguridade do seu navegador non permiten que o editor realice automáticamente as tarefas de corte. Por favor, use o teclado para iso (Ctrl+X).",
 PasteErrorCopy	: "Os axustes de seguridade do seu navegador non permiten que o editor realice automáticamente as tarefas de copia. Por favor, use o teclado para iso (Ctrl+C).",
 
@@ -341,6 +356,7 @@ PasteAsText		: "Pegar como texto plano",
 PasteFromWord	: "Pegar dende Word",
 
 DlgPasteMsg2	: "Por favor, pegue dentro do seguinte cadro usando o teclado (<STRONG>Ctrl+V</STRONG>) e pulse <STRONG>OK</STRONG>.",
+DlgPasteSec		: "Because of your browser security settings, the editor is not able to access your clipboard data directly. You are required to paste it again in this window.",	//MISSING
 DlgPasteIgnoreFont		: "Ignorar as definicións de Tipografía",
 DlgPasteRemoveStyles	: "Eliminar as definicións de Estilos",
 DlgPasteCleanBox		: "Limpar o Cadro",
@@ -496,6 +512,5 @@ DlgAboutAboutTab	: "Acerca de",
 DlgAboutBrowserInfoTab	: "Información do Navegador",
 DlgAboutLicenseTab	: "Licencia",
 DlgAboutVersion		: "versión",
-DlgAboutLicense		: "Licencia concedida baixo os termos da GNU Lesser General Public License",
 DlgAboutInfo		: "Para máis información visitar:"
-}
+};

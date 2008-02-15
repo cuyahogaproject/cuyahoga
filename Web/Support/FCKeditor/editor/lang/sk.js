@@ -1,20 +1,24 @@
 ﻿/*
- * FCKeditor - The text editor for internet
- * Copyright (C) 2003-2006 Frederico Caldeira Knabben
- * 
- * Licensed under the terms of the GNU Lesser General Public License:
- * 		http://www.opensource.org/licenses/lgpl-license.php
- * 
- * For further information visit:
- * 		http://www.fckeditor.net/
- * 
- * "Support Open Source software. What about a donation today?"
- * 
- * File Name: sk.js
- * 	Slovak language file.
- * 
- * File Authors:
- * 		Samuel Szabo (samuel@nanete.sk)
+ * FCKeditor - The text editor for Internet - http://www.fckeditor.net
+ * Copyright (C) 2003-2007 Frederico Caldeira Knabben
+ *
+ * == BEGIN LICENSE ==
+ *
+ * Licensed under the terms of any of the following licenses at your
+ * choice:
+ *
+ *  - GNU General Public License Version 2 or later (the "GPL")
+ *    http://www.gnu.org/licenses/gpl.html
+ *
+ *  - GNU Lesser General Public License Version 2.1 or later (the "LGPL")
+ *    http://www.gnu.org/licenses/lgpl.html
+ *
+ *  - Mozilla Public License Version 1.1 or later (the "MPL")
+ *    http://www.mozilla.org/MPL/MPL-1.1.html
+ *
+ * == END LICENSE ==
+ *
+ * Slovak language file.
  */
 
 var FCKLang =
@@ -41,15 +45,16 @@ InsertLinkLbl		: "Odkaz",
 InsertLink			: "Vložiť/zmeniť odkaz",
 RemoveLink			: "Odstrániť odkaz",
 Anchor				: "Vložiť/zmeniť kotvu",
+AnchorDelete		: "Remove Anchor",	//MISSING
 InsertImageLbl		: "Obrázok",
-InsertImage			: "Vložiť/zmeniť obrazok",
+InsertImage			: "Vložiť/zmeniť obrázok",
 InsertFlashLbl		: "Flash",
 InsertFlash			: "Vložiť/zmeniť Flash",
 InsertTableLbl		: "Tabuľka",
 InsertTable			: "Vložiť/zmeniť tabuľku",
 InsertLineLbl		: "Čiara",
-InsertLine			: "Vložiť vodorovnú čiara",
-InsertSpecialCharLbl: "Speciálne znaky",
+InsertLine			: "Vložiť vodorovnú čiaru",
+InsertSpecialCharLbl: "Špeciálne znaky",
 InsertSpecialChar	: "Vložiť špeciálne znaky",
 InsertSmileyLbl		: "Smajlíky",
 InsertSmiley		: "Vložiť smajlíka",
@@ -66,6 +71,7 @@ RightJustify		: "Zarovnať vpravo",
 BlockJustify		: "Zarovnať do bloku",
 DecreaseIndent		: "Zmenšiť odsadenie",
 IncreaseIndent		: "Zväčšiť odsadenie",
+Blockquote			: "Blockquote",	//MISSING
 Undo				: "Späť",
 Redo				: "Znovu",
 NumberedListLbl		: "Číslovanie",
@@ -77,7 +83,7 @@ ShowDetails			: "Zobraziť podrobnosti",
 Style				: "Štýl",
 FontFormat			: "Formát",
 Font				: "Písmo",
-FontSize			: "Veľkost",
+FontSize			: "Veľkosť",
 TextColor			: "Farba textu",
 BGColor				: "Farba pozadia",
 Source				: "Zdroj",
@@ -94,46 +100,53 @@ RadioButton		: "Prepínač",
 TextField		: "Textové pole",
 Textarea		: "Textová oblasť",
 HiddenField		: "Skryté pole",
-Button			: "Tlačítko",
+Button			: "Tlačíidlo",
 SelectionField	: "Rozbaľovací zoznam",
-ImageButton		: "Obrázkové tlačítko",
+ImageButton		: "Obrázkové tlačidlo",
 
-FitWindow		: "Maximize the editor size",	//MISSING
+FitWindow		: "Maximalizovať veľkosť okna editora",
+ShowBlocks		: "Show Blocks",	//MISSING
 
 // Context Menu
 EditLink			: "Zmeniť odkaz",
-CellCM				: "Cell",	//MISSING
-RowCM				: "Row",	//MISSING
-ColumnCM			: "Column",	//MISSING
-InsertRow			: "Vložiť riadok",
-DeleteRows			: "Zmazať riadok",
-InsertColumn		: "Vložiť stĺpec",
+CellCM				: "Bunka",
+RowCM				: "Riadok",
+ColumnCM			: "Stĺpec",
+InsertRowAfter		: "Insert Row After",	//MISSING
+InsertRowBefore		: "Insert Row Before",	//MISSING
+DeleteRows			: "Vymazať riadok",
+InsertColumnAfter	: "Insert Column After",	//MISSING
+InsertColumnBefore	: "Insert Column Before",	//MISSING
 DeleteColumns		: "Zmazať stĺpec",
-InsertCell			: "Vložiť bunku",
-DeleteCells			: "Zmazať bunky",
+InsertCellAfter		: "Insert Cell After",	//MISSING
+InsertCellBefore	: "Insert Cell Before",	//MISSING
+DeleteCells			: "Vymazať bunky",
 MergeCells			: "Zlúčiť bunky",
-SplitCell			: "Rozdeliť bunku",
-TableDelete			: "Zmazať tabuľku",
+MergeRight			: "Merge Right",	//MISSING
+MergeDown			: "Merge Down",	//MISSING
+HorizontalSplitCell	: "Split Cell Horizontally",	//MISSING
+VerticalSplitCell	: "Split Cell Vertically",	//MISSING
+TableDelete			: "Vymazať tabuľku",
 CellProperties		: "Vlastnosti bunky",
 TableProperties		: "Vlastnosti tabuľky",
 ImageProperties		: "Vlastnosti obrázku",
 FlashProperties		: "Vlastnosti Flashu",
 
 AnchorProp			: "Vlastnosti kotvy",
-ButtonProp			: "Vlastnosti tlačítka",
+ButtonProp			: "Vlastnosti tlačidla",
 CheckboxProp		: "Vlastnosti zaškrtávacieho políčka",
 HiddenFieldProp		: "Vlastnosti skrytého poľa",
 RadioButtonProp		: "Vlastnosti prepínača",
-ImageButtonProp		: "Vlastnosti obrázkového tlačítka",
-TextFieldProp		: "Vlastnosti textového pola",
+ImageButtonProp		: "Vlastnosti obrázkového tlačidla",
+TextFieldProp		: "Vlastnosti textového poľa",
 SelectionFieldProp	: "Vlastnosti rozbaľovacieho zoznamu",
-TextareaProp		: "Vlastnosti textové oblasti",
+TextareaProp		: "Vlastnosti textovej oblasti",
 FormProp			: "Vlastnosti formulára",
 
 FontFormats			: "Normálny;Formátovaný;Adresa;Nadpis 1;Nadpis 2;Nadpis 3;Nadpis 4;Nadpis 5;Nadpis 6;Odsek (DIV)",
 
 // Alerts and Messages
-ProcessingXHTML		: "Prebieha spracovanie XHTML. Čakejte prosím...",
+ProcessingXHTML		: "Prebieha spracovanie XHTML. Čakajte prosím...",
 Done				: "Dokončené.",
 PasteWordConfirm	: "Vyzerá to tak, že vkladaný text je kopírovaný z Wordu. Chcete ho pred vložením vyčistiť?",
 NotCompatiblePaste	: "Tento príkaz je dostupný len v prehliadači Internet Explorer verzie 5.5 alebo vyššej. Chcete vložiť text bez vyčistenia?",
@@ -141,7 +154,7 @@ UnknownToolbarItem	: "Neznáma položka panela nástrojov \"%1\"",
 UnknownCommand		: "Neznámy príkaz \"%1\"",
 NotImplemented		: "Príkaz nie je implementovaný",
 UnknownToolbarSet	: "Panel nástrojov \"%1\" neexistuje",
-NoActiveX			: "Bezpečnostné nastavenia Vašeho prehliadača môžu obmedzovať niektoré funkcie editora. Pre ich plnú funkčnosť musíte zapnúť voľbu \"Spúšťať ActiveX moduly a zásuvné moduly\", inak sa môžete stretnúť s chybami a nefunkčnosťou niektorých funkcií.",
+NoActiveX			: "Bezpečnostné nastavenia vášho prehliadača môžu obmedzovať niektoré funkcie editora. Pre ich plnú funkčnosť musíte zapnúť voľbu \"Spúšťať ActiveX moduly a zásuvné moduly\", inak sa môžete stretnúť s chybami a nefunkčnosťou niektorých funkcií.",
 BrowseServerBlocked : "Prehliadač zdrojových prvkov nebolo možné otvoriť. Uistite sa, že máte vypnuté všetky blokovače vyskakujúcich okien.",
 DialogBlocked		: "Dialógové okno nebolo možné otvoriť. Uistite sa, že máte vypnuté všetky blokovače vyskakujúcich okien.",
 
@@ -160,7 +173,7 @@ DlgGenNotSet		: "<nenastavené>",
 DlgGenId			: "Id",
 DlgGenLangDir		: "Orientácia jazyka",
 DlgGenLangDirLtr	: "Zľava doprava (LTR)",
-DlgGenLangDirRtl	: "Zprava doľava (RTL)",
+DlgGenLangDirRtl	: "Sprava doľava (RTL)",
 DlgGenLangCode		: "Kód jazyka",
 DlgGenAccessKey		: "Prístupový kľúč",
 DlgGenName			: "Meno",
@@ -225,7 +238,7 @@ DlgLnkURL			: "URL",
 DlgLnkAnchorSel		: "Vybrať kotvu",
 DlgLnkAnchorByName	: "Podľa mena kotvy",
 DlgLnkAnchorById	: "Podľa Id objektu",
-DlgLnkNoAnchors		: "<V stránke nie je definovaná žiadna kotva>",
+DlgLnkNoAnchors		: "(V stránke nie je definovaná žiadna kotva)",
 DlgLnkEMail			: "E-Mailová adresa",
 DlgLnkEMailSubject	: "Predmet správy",
 DlgLnkEMailBody		: "Telo správy",
@@ -258,7 +271,7 @@ DlgLnkPopTop		: "Horný okraj",
 DlnLnkMsgNoUrl		: "Zadajte prosím URL odkazu",
 DlnLnkMsgNoEMail	: "Zadajte prosím e-mailovú adresu",
 DlnLnkMsgNoAnchor	: "Vyberte prosím kotvu",
-DlnLnkMsgInvPopName	: "The popup name must begin with an alphabetic character and must not contain spaces",	//MISSING
+DlnLnkMsgInvPopName	: "Názov vyskakovacieho okna sa musá začínať písmenom a nemôže obsahovať medzery",
 
 // Color Dialog
 DlgColorTitle		: "Výber farby",
@@ -270,7 +283,7 @@ DlgColorSelected	: "Vybraná",
 DlgSmileyTitle		: "Vkladanie smajlíkov",
 
 // Special Character Dialog
-DlgSpecialCharTitle	: "Výber speciálneho znaku",
+DlgSpecialCharTitle	: "Výber špeciálneho znaku",
 
 // Table Dialog
 DlgTableTitle		: "Vlastnosti tabuľky",
@@ -306,7 +319,7 @@ DlgCellHorAlignNotSet	: "<nenastavené>",
 DlgCellHorAlignLeft	: "Vľavo",
 DlgCellHorAlignCenter	: "Na stred",
 DlgCellHorAlignRight: "Vpravo",
-DlgCellVerAlign		: "Zvyslé zarovnanie",
+DlgCellVerAlign		: "Zvislé zarovnanie",
 DlgCellVerAlignNotSet	: "<nenastavené>",
 DlgCellVerAlignTop	: "Nahor",
 DlgCellVerAlignMiddle	: "Doprostred",
@@ -317,6 +330,9 @@ DlgCellCollSpan		: "Zlúčené stĺpce",
 DlgCellBackColor	: "Farba pozadia",
 DlgCellBorderColor	: "Farba ohraničenia",
 DlgCellBtnSelect	: "Výber...",
+
+// Find and Replace Dialog
+DlgFindAndReplaceTitle	: "Find and Replace",	//MISSING
 
 // Find Dialog
 DlgFindTitle		: "Hľadať",
@@ -333,14 +349,14 @@ DlgReplaceReplAllBtn	: "Nahradiť všetko",
 DlgReplaceWordChk		: "Len celé slová",
 
 // Paste Operations / Dialog
-PasteErrorPaste	: "Bezpečnostné nastavenie Vášho prohehliadača nedovoľujú editoru spustiť funkciu pre vloženie textu zo schránky. Prosím vložte text zo schránky pomocou klávesnice (Ctrl+V).",
-PasteErrorCut	: "Bezpečnostné nastavenie Vášho prohehliadača nedovoľujú editoru spustiť funkciu pre vystrihnutie zvoleného textu do schránky. Prosím vystrihnite zvolený text do schránky pomocou klávesnice (Ctrl+X).",
-PasteErrorCopy	: "Bezpečnostné nastavenie Vášho prohehliadača nedovoľujú editoru spustiť funkciu pre kopírovánie zvoleného textu do schránky. Prosím skopírujte zvolený text do schránky pomocou klávesnice (Ctrl+C).",
+PasteErrorCut	: "Bezpečnostné nastavenie Vášho prehliadača nedovoľujú editoru spustiť funkciu pre vystrihnutie zvoleného textu do schránky. Prosím vystrihnite zvolený text do schránky pomocou klávesnice (Ctrl+X).",
+PasteErrorCopy	: "Bezpečnostné nastavenie Vášho prehliadača nedovoľujú editoru spustiť funkciu pre kopírovanie zvoleného textu do schránky. Prosím skopírujte zvolený text do schránky pomocou klávesnice (Ctrl+C).",
 
 PasteAsText		: "Vložiť ako čistý text",
 PasteFromWord	: "Vložiť text z Wordu",
 
-DlgPasteMsg2	: "Do nasledujúceho boxu vložte obsah schránky použitím klávesnice (<STRONG>Ctrl+V</STRONG>) a stlačte <STRONG>OK</STRONG>.",
+DlgPasteMsg2	: "Prosím vložte nasledovný rámček použitím klávesnice (<STRONG>Ctrl+V</STRONG>) a stlačte <STRONG>OK</STRONG>.",
+DlgPasteSec		: "Because of your browser security settings, the editor is not able to access your clipboard data directly. You are required to paste it again in this window.",	//MISSING
 DlgPasteIgnoreFont		: "Ignorovať nastavenia typu písma",
 DlgPasteRemoveStyles	: "Odstrániť formátovanie",
 DlgPasteCleanBox		: "Vyčistiť schránku",
@@ -367,7 +383,7 @@ DlgSpellBtnReplaceAll	: "Prepísat všetko",
 DlgSpellBtnUndo			: "Späť",
 DlgSpellNoSuggestions	: "- Žiadny návrh -",
 DlgSpellProgress		: "Prebieha kontrola pravopisu...",
-DlgSpellNoMispell		: "Kontrola pravopisu dokončená: bez chyb",
+DlgSpellNoMispell		: "Kontrola pravopisu dokončená: bez chýb",
 DlgSpellNoChanges		: "Kontrola pravopisu dokončená: žiadne slová nezmenené",
 DlgSpellOneChange		: "Kontrola pravopisu dokončená: zmenené jedno slovo",
 DlgSpellManyChanges		: "Kontrola pravopisu dokončená: zmenených %1 slov",
@@ -377,9 +393,9 @@ IeSpellDownload			: "Kontrola pravopisu nie je naištalovaná. Chcete ju hneď s
 // Button Dialog
 DlgButtonText		: "Text",
 DlgButtonType		: "Typ",
-DlgButtonTypeBtn	: "Button",	//MISSING
-DlgButtonTypeSbm	: "Submit",	//MISSING
-DlgButtonTypeRst	: "Reset",	//MISSING
+DlgButtonTypeBtn	: "Tlačidlo",
+DlgButtonTypeSbm	: "Odoslať",
+DlgButtonTypeRst	: "Vymazať",
 
 // Checkbox and Radio Button Dialogs
 DlgCheckboxName		: "Názov",
@@ -402,8 +418,8 @@ DlgSelectOpText		: "Text",
 DlgSelectOpValue	: "Hodnota",
 DlgSelectBtnAdd		: "Pridať",
 DlgSelectBtnModify	: "Zmeniť",
-DlgSelectBtnUp		: "Nahor",
-DlgSelectBtnDown	: "Dolu",
+DlgSelectBtnUp		: "Hore",
+DlgSelectBtnDown	: "Dole",
 DlgSelectBtnSetValue : "Nastaviť ako vybranú hodnotu",
 DlgSelectBtnDelete	: "Zmazať",
 
@@ -428,7 +444,7 @@ DlgHiddenValue	: "Hodnota",
 // Bulleted List Dialog
 BulletedListProp	: "Vlastnosti odrážok",
 NumberedListProp	: "Vlastnosti číslovania",
-DlgLstStart			: "Start",	//MISSING
+DlgLstStart			: "Štart",
 DlgLstType			: "Typ",
 DlgLstTypeCircle	: "Krúžok",
 DlgLstTypeDisc		: "Disk",
@@ -448,18 +464,18 @@ DlgDocMetaTab		: "Meta Data",
 DlgDocPageTitle		: "Titulok",
 DlgDocLangDir		: "Orientácie jazyka",
 DlgDocLangDirLTR	: "Zľava doprava (LTR)",
-DlgDocLangDirRTL	: "Zprava doľava (RTL)",
+DlgDocLangDirRTL	: "Sprava doľava (RTL)",
 DlgDocLangCode		: "Kód jazyka",
 DlgDocCharSet		: "Kódová stránka",
-DlgDocCharSetCE		: "Central European",	//MISSING
-DlgDocCharSetCT		: "Chinese Traditional (Big5)",	//MISSING
-DlgDocCharSetCR		: "Cyrillic",	//MISSING
-DlgDocCharSetGR		: "Greek",	//MISSING
-DlgDocCharSetJP		: "Japanese",	//MISSING
-DlgDocCharSetKR		: "Korean",	//MISSING
-DlgDocCharSetTR		: "Turkish",	//MISSING
-DlgDocCharSetUN		: "Unicode (UTF-8)",	//MISSING
-DlgDocCharSetWE		: "Western European",	//MISSING
+DlgDocCharSetCE		: "Stredoeurópske",
+DlgDocCharSetCT		: "Čínština tradičná (Big5)",
+DlgDocCharSetCR		: "Cyrillika",
+DlgDocCharSetGR		: "Gréčtina",
+DlgDocCharSetJP		: "Japončina",
+DlgDocCharSetKR		: "Korejčina",
+DlgDocCharSetTR		: "Turečtina",
+DlgDocCharSetUN		: "Unicode (UTF-8)",
+DlgDocCharSetWE		: "Západná európa",
 DlgDocCharSetOther	: "Iná kódová stránka",
 
 DlgDocDocType		: "Typ záhlavia dokumentu",
@@ -486,16 +502,15 @@ DlgDocPreview		: "Náhľad",
 // Templates Dialog
 Templates			: "Šablóny",
 DlgTemplatesTitle	: "Šablóny obsahu",
-DlgTemplatesSelMsg	: "Prosím vyberte šablóny ma otvorenie v editore<br>(terajší obsah bude stratený):",
+DlgTemplatesSelMsg	: "Prosím vyberte šablóny na otvorenie v editore<br>(súšasný obsah bude stratený):",
 DlgTemplatesLoading	: "Nahrávam zoznam šablón. Čakajte prosím...",
 DlgTemplatesNoTpl	: "(žiadne šablóny nenájdené)",
-DlgTemplatesReplace	: "Replace actual contents",	//MISSING
+DlgTemplatesReplace	: "Nahradiť aktuálny obsah",
 
 // About Dialog
 DlgAboutAboutTab	: "O aplikáci",
 DlgAboutBrowserInfoTab	: "Informácie o prehliadači",
-DlgAboutLicenseTab	: "License",	//MISSING
-DlgAboutVersion		: "verzie",
-DlgAboutLicense		: "Licencované pod pravidlami GNU Lesser General Public License",
+DlgAboutLicenseTab	: "Licencia",
+DlgAboutVersion		: "verzia",
 DlgAboutInfo		: "Viac informácií získate na"
-}
+};

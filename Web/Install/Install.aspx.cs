@@ -1,23 +1,15 @@
 using System;
 using System.Collections;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Web;
-using System.Web.SessionState;
-using System.Web.UI;
-using System.Web.UI.WebControls;
-using System.Web.UI.HtmlControls;
-using System.Reflection;
-
-using Cuyahoga.Core.Domain;
-using Cuyahoga.Core.DataAccess;
-using Cuyahoga.Core.Service;
-
-using Cuyahoga.Web.Util;
-using Cuyahoga.Web.Components;
 using System.IO;
+using System.Reflection;
+using System.Web;
+using System.Web.UI.WebControls;
+using Cuyahoga.Core.DataAccess;
+using Cuyahoga.Core.Domain;
+using Cuyahoga.Core.Service;
+using Cuyahoga.Web.Components;
 using Cuyahoga.Web.UI;
+using Cuyahoga.Web.Util;
 
 namespace Cuyahoga.Web.Install
 {
@@ -29,28 +21,28 @@ namespace Cuyahoga.Web.Install
 		private ICommonDao _commonDao;
         private ModuleLoader _moduleLoader;
 
-		protected System.Web.UI.WebControls.Panel pnlErrors;
-		protected System.Web.UI.WebControls.Panel pnlIntro;
-		protected System.Web.UI.WebControls.Panel pnlAdmin;
-		protected System.Web.UI.WebControls.Panel pnlModules;
-		protected System.Web.UI.WebControls.HyperLink hplContinue;
-		protected System.Web.UI.WebControls.Label lblError;
-		protected System.Web.UI.WebControls.Button btnInstallDatabase;
-		protected System.Web.UI.WebControls.TextBox txtPassword;
-		protected System.Web.UI.WebControls.Button btnAdmin;
-		protected System.Web.UI.WebControls.RequiredFieldValidator rfvPassword;
-		protected System.Web.UI.WebControls.Label lblCoreAssembly;
-		protected System.Web.UI.WebControls.Label lblModulesAssembly;
-		protected System.Web.UI.WebControls.TextBox txtConfirmPassword;
-		protected System.Web.UI.WebControls.CompareValidator cpvPassword;
-		protected System.Web.UI.WebControls.RequiredFieldValidator rfvConfirmPassword;
-		protected System.Web.UI.WebControls.Label lblMessage;
-		protected System.Web.UI.WebControls.Panel pnlMessage;
-		protected System.Web.UI.WebControls.Panel pnlCreateSite;
-		protected System.Web.UI.WebControls.Button btnCreateSite;
-		protected System.Web.UI.WebControls.Button btnSkipCreateSite;
-		protected System.Web.UI.WebControls.Panel pnlFinished;
-		protected System.Web.UI.WebControls.Repeater rptModules;
+		protected Panel pnlErrors;
+		protected Panel pnlIntro;
+		protected Panel pnlAdmin;
+		protected Panel pnlModules;
+		protected HyperLink hplContinue;
+		protected Label lblError;
+		protected Button btnInstallDatabase;
+		protected TextBox txtPassword;
+		protected Button btnAdmin;
+		protected RequiredFieldValidator rfvPassword;
+		protected Label lblCoreAssembly;
+		protected Label lblModulesAssembly;
+		protected TextBox txtConfirmPassword;
+		protected CompareValidator cpvPassword;
+		protected RequiredFieldValidator rfvConfirmPassword;
+		protected Label lblMessage;
+		protected Panel pnlMessage;
+		protected Panel pnlCreateSite;
+		protected Button btnCreateSite;
+		protected Button btnSkipCreateSite;
+		protected Panel pnlFinished;
+		protected Repeater rptModules;
 
 		/// <summary>
 		/// Constructor.
@@ -61,7 +53,7 @@ namespace Cuyahoga.Web.Install
             this._moduleLoader = Container.Resolve<ModuleLoader>();
 		}
 	
-		private void Page_Load(object sender, System.EventArgs e)
+		private void Page_Load(object sender, EventArgs e)
 		{
 			this.pnlErrors.Visible = false;
 
@@ -91,7 +83,7 @@ namespace Cuyahoga.Web.Install
 					else
 					{
 						// Check if we perhaps need to add an admin
-						if (this._commonDao.GetAll(typeof(Cuyahoga.Core.Domain.User)).Count == 0)
+						if (this._commonDao.GetAll(typeof(User)).Count == 0)
 						{
 							this.pnlAdmin.Visible = true;
 						}
@@ -150,7 +142,7 @@ namespace Cuyahoga.Web.Install
 				CheckBox chkInstall = ri.FindControl("chkInstall") as CheckBox;
 				if (chkInstall != null && chkInstall.Checked)
 				{
-					Literal litModuleName = ri.FindControl("litModuleName") as Literal;
+					Literal litModuleName = (Literal) ri.FindControl("litModuleName");
 					string moduleName = litModuleName.Text;
 					DatabaseInstaller moduleInstaller = new DatabaseInstaller(Path.Combine(Server.MapPath("~/Modules/" + moduleName), "Install"), null);
 					moduleInstaller.Install();
@@ -183,7 +175,7 @@ namespace Cuyahoga.Web.Install
 
 		private void CreateSite()
 		{
-			Cuyahoga.Core.Domain.User adminUser = this._commonDao.GetObjectById(typeof(Cuyahoga.Core.Domain.User), 1) as Cuyahoga.Core.Domain.User;
+			User adminUser = (User) this._commonDao.GetObjectById(typeof(User), 1);
 			Template defaultTemplate = this._commonDao.GetObjectByDescription(typeof(Template), "Name", "Another Red") as Template;
 			Role defaultAuthenticatedRole = this._commonDao.GetObjectByDescription(typeof(Role), "Name", "Authenticated user") as Role;
 
@@ -337,9 +329,17 @@ namespace Cuyahoga.Web.Install
 			this._commonDao.SaveOrUpdateObject(loginSection);
 		}
 
+		private void RemoveInstallLock()
+		{
+			HttpContext.Current.Application.Lock();
+			HttpContext.Current.Application["IsInstalling"] = false;
+			HttpContext.Current.Application.UnLock();
+		}
+
 		#endregion
 
 		#region Web Form Designer generated code
+
 		override protected void OnInit(EventArgs e)
 		{
 			//
@@ -348,7 +348,7 @@ namespace Cuyahoga.Web.Install
 			InitializeComponent();
 			base.OnInit(e);
 		}
-		
+
 		/// <summary>
 		/// Required method for Designer support - do not modify
 		/// the contents of this method with the code editor.
@@ -364,7 +364,7 @@ namespace Cuyahoga.Web.Install
 		}
 		#endregion
 
-		private void btnInstallDatabase_Click(object sender, System.EventArgs e)
+		private void btnInstallDatabase_Click(object sender, EventArgs e)
 		{	
 			DatabaseInstaller dbInstaller = new DatabaseInstaller(Server.MapPath("~/Install/Core"), Assembly.Load("Cuyahoga.Core"));
 			DatabaseInstaller modulesDbInstaller = new DatabaseInstaller(Server.MapPath("~/Install/Modules"), Assembly.Load("Cuyahoga.Modules"));
@@ -404,21 +404,21 @@ namespace Cuyahoga.Web.Install
 			this.pnlAdmin.Visible = true;
 		}
 
-		private void btnAdmin_Click(object sender, System.EventArgs e)
+		private void btnAdmin_Click(object sender, EventArgs e)
 		{
 			if (this.IsValid)
 			{
 				// Only create an admin if there are really NO users.
-				if (this._commonDao.GetAll(typeof(Cuyahoga.Core.Domain.User)).Count > 0)
+				if (this._commonDao.GetAll(typeof(User)).Count > 0)
 				{
 					ShowError("There is already a user in the database. For security reasons Cuyahoga won't add a new user!");
 				}
 				else
 				{
-					Cuyahoga.Core.Domain.User newAdmin = new Cuyahoga.Core.Domain.User();
+					User newAdmin = new User();
 					newAdmin.UserName = "admin";
 					newAdmin.Email = "webmaster@yourdomain.com";
-					newAdmin.Password = Cuyahoga.Core.Domain.User.HashPassword(this.txtPassword.Text);
+					newAdmin.Password = Core.Domain.User.HashPassword(this.txtPassword.Text);
 					newAdmin.IsActive = true;
 					newAdmin.TimeZone = 0;
 
@@ -438,7 +438,7 @@ namespace Cuyahoga.Web.Install
 			}
 		}
 
-		private void btnCreateSite_Click(object sender, System.EventArgs e)
+		private void btnCreateSite_Click(object sender, EventArgs e)
 		{
 			try
 			{
@@ -448,6 +448,7 @@ namespace Cuyahoga.Web.Install
                 this.FinishInstall();
 				this.pnlCreateSite.Visible = false;
 				this.pnlFinished.Visible = true;
+				RemoveInstallLock();
 			}
 			catch (Exception ex)
 			{
@@ -455,13 +456,14 @@ namespace Cuyahoga.Web.Install
 			}
 		}
 
-		private void btnSkipCreateSite_Click(object sender, System.EventArgs e)
+		private void btnSkipCreateSite_Click(object sender, EventArgs e)
 		{
             //at the moment, this is the last step of the installation, so 
             //call the finishing routine here
             this.FinishInstall();
 			this.pnlCreateSite.Visible = false;
 			this.pnlFinished.Visible = true;
+			RemoveInstallLock();
 		}
 
 		

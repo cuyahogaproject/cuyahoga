@@ -26,7 +26,9 @@ versions:<br/>
 <asp:button id="btnUpgradeDatabase" runat="server" text="Upgrade database"></asp:button>
 				</asp:panel>
 				<asp:panel id="pnlFinished" cssclass="group" runat="server" visible="False">
-<h4>Finished</h4>Cuyahoga is upgraded successfully!<br/><br/>
+<h4>Finished</h4>Cuyahoga is upgraded successfully!<br />
+It's highly recommended to visit the module administration page to check if there are updates for existing modules.<br/><br/>
+<asp:hyperlink id="hplModules" runat="server" navigateurl="~/Admin/Modules.aspx">Upgrade modules or check module status</asp:hyperlink><br/>
 <asp:hyperlink id="hplSite" runat="server" navigateurl="~/Default.aspx">View the site</asp:hyperlink><br/>
 <asp:hyperlink id="hplAdmin" runat="server" navigateurl="~/Admin">Go to
 					to the site administration</asp:hyperlink>

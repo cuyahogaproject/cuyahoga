@@ -91,10 +91,6 @@
       <Name>NHibernate</Name>
       <HintPath>..\lib\NHibernate.dll</HintPath>
     </Reference>
-    <Reference Include="Nullables">
-      <Name>Nullables</Name>
-      <HintPath>..\lib\Nullables.dll</HintPath>
-    </Reference>
     <Reference Include="System">
       <Name>System</Name>
     </Reference>
@@ -523,7 +519,7 @@
     <EmbeddedResource Include="Search\Resources\Strings.resx">
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="Search\Resources\Strings.sv-SE.resx">
+    <EmbeddedResource Include="Search\Resources\Strings.sv.resx">
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Search\Search.ascx.resx">
@@ -561,6 +557,9 @@
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="User\Resources\Strings.it.resx">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="User\Resources\Strings.sv.resx">
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="User\User.ascx.resx">

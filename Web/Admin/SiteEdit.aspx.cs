@@ -1,21 +1,13 @@
 using System;
 using System.Collections;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Web;
-using System.Web.SessionState;
-using System.Web.UI;
 using System.Web.UI.WebControls;
-using System.Web.UI.HtmlControls;
-using System.Globalization;
-
 using Cuyahoga.Core.Domain;
-using Cuyahoga.Core.Service.SiteStructure;
 using Cuyahoga.Core.Service.Membership;
-using Cuyahoga.Web.UI;
-using Cuyahoga.Web.Admin.UI;
+using Cuyahoga.Core.Service.SiteStructure;
 using Cuyahoga.Core.Util;
+using Cuyahoga.Web.Admin.UI;
+using Cuyahoga.Web.UI;
+using Cuyahoga.Web.Util;
 
 namespace Cuyahoga.Web.Admin
 {
@@ -28,25 +20,25 @@ namespace Cuyahoga.Web.Admin
 		private ITemplateService _templateService;
 		private IUserService _userService;
 
-		protected System.Web.UI.WebControls.TextBox txtName;
-		protected System.Web.UI.WebControls.RequiredFieldValidator rfvName;
-		protected System.Web.UI.WebControls.TextBox txtSiteUrl;
-		protected System.Web.UI.WebControls.DropDownList ddlTemplates;
-		protected System.Web.UI.WebControls.DropDownList ddlCultures;
-		protected System.Web.UI.WebControls.Button btnSave;
-		protected System.Web.UI.WebControls.Button btnCancel;
-		protected System.Web.UI.WebControls.Button btnDelete;
-		protected System.Web.UI.WebControls.DropDownList ddlPlaceholders;
-		protected System.Web.UI.WebControls.DropDownList ddlRoles;
-		protected System.Web.UI.WebControls.TextBox txtWebmasterEmail;
-		protected System.Web.UI.WebControls.RequiredFieldValidator rfvWebmasterEmail;
-		protected System.Web.UI.WebControls.HyperLink hplNewAlias;
-		protected System.Web.UI.WebControls.Panel pnlAliases;
-		protected System.Web.UI.WebControls.Repeater rptAliases;
-		protected System.Web.UI.WebControls.CheckBox chkUseFriendlyUrls;
-		protected System.Web.UI.WebControls.RequiredFieldValidator rfvSiteUrl;
-		protected System.Web.UI.WebControls.TextBox txtMetaDescription;
-		protected System.Web.UI.WebControls.TextBox txtMetaKeywords;
+		protected TextBox txtName;
+		protected RequiredFieldValidator rfvName;
+		protected TextBox txtSiteUrl;
+		protected DropDownList ddlTemplates;
+		protected DropDownList ddlCultures;
+		protected Button btnSave;
+		protected Button btnCancel;
+		protected Button btnDelete;
+		protected DropDownList ddlPlaceholders;
+		protected DropDownList ddlRoles;
+		protected TextBox txtWebmasterEmail;
+		protected RequiredFieldValidator rfvWebmasterEmail;
+		protected HyperLink hplNewAlias;
+		protected Panel pnlAliases;
+		protected Repeater rptAliases;
+		protected CheckBox chkUseFriendlyUrls;
+		protected RequiredFieldValidator rfvSiteUrl;
+		protected TextBox txtMetaDescription;
+		protected TextBox txtMetaKeywords;
 
 		/// <summary>
 		/// Constructor.
@@ -57,7 +49,7 @@ namespace Cuyahoga.Web.Admin
 			this._userService = Container.Resolve<IUserService>();
 		}
 	
-		private void Page_Load(object sender, System.EventArgs e)
+		private void Page_Load(object sender, EventArgs e)
 		{
 			base.Title = "Edit site";
 			
@@ -132,7 +124,7 @@ namespace Cuyahoga.Web.Admin
 				{
 					Template template = this._templateService.GetTemplateById(Int32.Parse(this.ddlTemplates.SelectedValue));
 					// Read template control and get the containers (placeholders)
-					string templatePath = Util.UrlHelper.GetApplicationPath() + template.Path;
+					string templatePath = UrlHelper.GetApplicationPath() + template.Path;
 					BaseTemplate templateControl = (BaseTemplate)this.LoadControl(templatePath);
 					this.ddlPlaceholders.DataSource = templateControl.Containers;
 					this.ddlPlaceholders.DataValueField = "Key";
@@ -157,12 +149,16 @@ namespace Cuyahoga.Web.Admin
 		private void BindCultures()
 		{
 			this.ddlCultures.DataSource = Globalization.GetOrderedCultures();
-			this.ddlCultures.DataValueField = "Value";
-			this.ddlCultures.DataTextField = "Key";
+			this.ddlCultures.DataValueField = "Key";
+			this.ddlCultures.DataTextField = "Value";
 			this.ddlCultures.DataBind();
 			if (this._activeSite.DefaultCulture != null)
 			{
-				ddlCultures.Items.FindByValue(this._activeSite.DefaultCulture).Selected = true;
+				ListItem li = ddlCultures.Items.FindByValue(this._activeSite.DefaultCulture);
+				if (li != null)
+				{
+					ddlCultures.Items.FindByValue(this._activeSite.DefaultCulture).Selected = true;
+				}
 			}
 		}
 
@@ -211,7 +207,7 @@ namespace Cuyahoga.Web.Admin
 		}
 		#endregion
 
-		private void btnSave_Click(object sender, System.EventArgs e)
+		private void btnSave_Click(object sender, EventArgs e)
 		{
 			if (this.IsValid)
 			{
@@ -257,12 +253,12 @@ namespace Cuyahoga.Web.Admin
 			}
 		}
 
-		private void btnCancel_Click(object sender, System.EventArgs e)
+		private void btnCancel_Click(object sender, EventArgs e)
 		{
 			Response.Redirect("Default.aspx");
 		}
 
-		private void btnDelete_Click(object sender, System.EventArgs e)
+		private void btnDelete_Click(object sender, EventArgs e)
 		{
 			try
 			{
@@ -275,12 +271,12 @@ namespace Cuyahoga.Web.Admin
 			}
 		}
 
-		private void ddlTemplates_SelectedIndexChanged(object sender, System.EventArgs e)
+		private void ddlTemplates_SelectedIndexChanged(object sender, EventArgs e)
 		{
 			BindPlaceholders();
 		}
 
-		private void rptAliases_ItemDataBound(object sender, System.Web.UI.WebControls.RepeaterItemEventArgs e)
+		private void rptAliases_ItemDataBound(object sender, RepeaterItemEventArgs e)
 		{
 			SiteAlias sa = (SiteAlias)e.Item.DataItem;
 			HyperLink hplEdit = e.Item.FindControl("hplEdit") as HyperLink;

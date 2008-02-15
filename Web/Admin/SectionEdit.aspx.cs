@@ -1,50 +1,45 @@
 using System;
 using System.Collections;
-using System.ComponentModel;
-using System.Drawing;
-using System.Web;
-using System.Web.SessionState;
 using System.Web.UI;
-using System.Web.UI.WebControls;
 using System.Web.UI.HtmlControls;
-
-using Cuyahoga.Core.Domain;
+using System.Web.UI.WebControls;
 using Cuyahoga.Core.Communication;
-using Cuyahoga.Web.UI;
+using Cuyahoga.Core.Domain;
 using Cuyahoga.Web.Admin.UI;
-using Cuyahoga.Web.Components;
+using Cuyahoga.Web.UI;
+using Cuyahoga.Web.Util;
 
 namespace Cuyahoga.Web.Admin
 {
 	/// <summary>
 	/// Summary description for SectionEdit.
 	/// </summary>
-	public class SectionEdit : Cuyahoga.Web.Admin.UI.AdminBasePage
+	public class SectionEdit : AdminBasePage
 	{
 		private Section _activeSection = null;
 		private IList _availableModuleTypes;
 
-		protected System.Web.UI.WebControls.TextBox txtTitle;
-		protected System.Web.UI.WebControls.CheckBox chkShowTitle;
-		protected System.Web.UI.WebControls.DropDownList ddlModule;
-		protected System.Web.UI.WebControls.Label lblModule;
-		protected System.Web.UI.WebControls.DropDownList ddlPlaceholder;
-		protected System.Web.UI.WebControls.TextBox txtCacheDuration;
-		protected System.Web.UI.WebControls.Button btnSave;
-		protected System.Web.UI.WebControls.HyperLink hplLookup;
-		protected System.Web.UI.WebControls.RequiredFieldValidator rfvTitle;
-		protected System.Web.UI.WebControls.RequiredFieldValidator rfvCache;
-		protected System.Web.UI.WebControls.CompareValidator cpvCache;
-		protected System.Web.UI.WebControls.Repeater rptRoles;
-		protected System.Web.UI.WebControls.Panel pnlCustomSettings;
-		protected System.Web.UI.WebControls.Repeater rptCustomSettings;
-		protected System.Web.UI.WebControls.Button btnBack;
-		protected System.Web.UI.WebControls.Panel pnlConnections;
-		protected System.Web.UI.WebControls.HyperLink hplNewConnection;
-		protected System.Web.UI.WebControls.Repeater rptConnections;
-		protected System.Web.UI.WebControls.PlaceHolder plcCustomSettings;
+		protected TextBox txtTitle;
+		protected CheckBox chkShowTitle;
+		protected DropDownList ddlModule;
+		protected Label lblModule;
+		protected DropDownList ddlPlaceholder;
+		protected TextBox txtCacheDuration;
+		protected Button btnSave;
+		protected HyperLink hplLookup;
+		protected RequiredFieldValidator rfvTitle;
+		protected RequiredFieldValidator rfvCache;
+		protected CompareValidator cpvCache;
+		protected Repeater rptRoles;
+		protected Panel pnlCustomSettings;
+		protected Repeater rptCustomSettings;
+		protected Button btnBack;
+		protected Panel pnlConnections;
+		protected HyperLink hplNewConnection;
+		protected Repeater rptConnections;
+		protected PlaceHolder plcCustomSettings;
 	
-		private void Page_Load(object sender, System.EventArgs e)
+		private void Page_Load(object sender, EventArgs e)
 		{
 			this.Title = "Edit section";
 
@@ -174,7 +169,7 @@ namespace Cuyahoga.Web.Admin
 					try
 					{
 						// Read template control and get the containers (placeholders)
-						string templatePath = Util.UrlHelper.GetApplicationPath() + this.ActiveNode.Template.Path;
+						string templatePath = UrlHelper.GetApplicationPath() + this.ActiveNode.Template.Path;
 						BaseTemplate template = (BaseTemplate)this.LoadControl(templatePath);
 						this.ddlPlaceholder.DataSource = template.Containers;
 						this.ddlPlaceholder.DataValueField = "Key";
@@ -343,11 +338,7 @@ namespace Cuyahoga.Web.Admin
 		{
 			if (this._activeSection != null)
 			{
-				// We need to get the module instanse to be able to validate the sections.
-				// Suspend redirecting because it messes up the process.
-				//base.ModuleLoader.SuspendRedirect();
 				ModuleBase moduleInstance = base.ModuleLoader.GetModuleFromSection(this._activeSection);
-				//base.ModuleLoader.ResumeRedirect();
 				moduleInstance.ValidateSectionSettings();
 			}
 		}
@@ -401,7 +392,7 @@ namespace Cuyahoga.Web.Admin
 		}
 		#endregion
 
-		private void btnBack_Click(object sender, System.EventArgs e)
+		private void btnBack_Click(object sender, EventArgs e)
 		{
 			if (this.ActiveNode != null)
 			{
@@ -413,7 +404,7 @@ namespace Cuyahoga.Web.Admin
 			}
 		}
 
-		private void btnSave_Click(object sender, System.EventArgs e)
+		private void btnSave_Click(object sender, EventArgs e)
 		{
 			if (this.IsValid)
 			{
@@ -506,7 +497,7 @@ namespace Cuyahoga.Web.Admin
 			}
 		}
 
-		private void rptConnections_ItemCommand(object source, System.Web.UI.WebControls.RepeaterCommandEventArgs e)
+		private void rptConnections_ItemCommand(object source, RepeaterCommandEventArgs e)
 		{
 			if (e.CommandName == "DeleteConnection")
 			{

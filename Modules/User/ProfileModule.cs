@@ -35,7 +35,8 @@ namespace Cuyahoga.Modules.User
 		/// <summary>
 		/// Default constructor.
 		/// </summary>
-		/// <param name="section"></param>
+		/// <param name="emailService"></param>
+		/// <param name="userService"></param>
 		public ProfileModule(IUserService userService, IEmailService emailService)
 		{
 			this._userService = userService;

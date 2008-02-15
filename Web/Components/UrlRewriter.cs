@@ -37,7 +37,7 @@ namespace Cuyahoga.Web.Components
 		{
 			string rewrittenUrl = urlToRewrite;
 
-			NameValueCollection mappings = (NameValueCollection)ConfigurationSettings.GetConfig("UrlMappings");
+			NameValueCollection mappings = (NameValueCollection)ConfigurationManager.GetSection("UrlMappings");
 			for (int i = 0; i < mappings.Count; i++)
 			{
 				string matchExpression = UrlHelper.GetApplicationPath() + mappings.GetKey(i);

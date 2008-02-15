@@ -1,23 +1,17 @@
 using System;
 using System.Collections;
-using System.Xml;
-using System.Xml.XPath;
-using System.Net;
-using System.Web;
-using System.Text;
 using System.IO;
+using System.Net;
 using System.Threading;
-
-using NHibernate;
-using log4net;
-
+using System.Xml;
 using Cuyahoga.Core;
 using Cuyahoga.Core.Domain;
-using Cuyahoga.Core.Service;
 using Cuyahoga.Core.Util;
-using Cuyahoga.Web.Util;
-using Cuyahoga.Web.Components;
 using Cuyahoga.Modules.RemoteContent.Domain;
+using Cuyahoga.Modules.RemoteContent.Util;
+using Cuyahoga.Web.Components;
+using log4net;
+using NHibernate;
 
 namespace Cuyahoga.Modules.RemoteContent
 {
@@ -36,7 +30,7 @@ namespace Cuyahoga.Modules.RemoteContent
 		private bool _showAuthors;
 
 		/// <summary>
-		/// Default constructor. Registers the module classes in the current SessionFactory.
+		/// Default constructor.
 		/// </summary>
 		public RemoteContentModule()
 		{
@@ -246,7 +240,7 @@ namespace Cuyahoga.Modules.RemoteContent
 
 					if (xmlItem.SelectSingleNode("pubDate") != null)
 					{
-						feedItem.PubDate = Util.RFC2822Date.Parse(xmlItem.SelectSingleNode("pubDate").InnerText);
+						feedItem.PubDate = RFC2822Date.Parse(xmlItem.SelectSingleNode("pubDate").InnerText);
 					}
 					else
 					{
@@ -295,9 +289,10 @@ namespace Cuyahoga.Modules.RemoteContent
 					// The feed is kind of locked now (with the updatetimestamp). Plenty
 					// of time now to refresh the feeds.
 					base.NHSession.Evict(feed);
-					FeedFetcher ff = new FeedFetcher(feed);
+					
 					if (this._backgroundRefresh)
 					{
+						FeedFetcher ff = new FeedFetcher(feed, null);
 						// Fire a separate to refresh the feed so the visitor doesn't have to wait.
 						Thread t = new Thread(new ThreadStart(ff.FetchFeed));
 						t.Priority = ThreadPriority.BelowNormal; // No need to rush here
@@ -305,6 +300,7 @@ namespace Cuyahoga.Modules.RemoteContent
 					}
 					else
 					{
+						FeedFetcher ff = new FeedFetcher(feed, base.NHSession);
 						ff.FetchFeed();
 					}
 				}
@@ -314,7 +310,8 @@ namespace Cuyahoga.Modules.RemoteContent
 		/// <summary>
 		/// Create a Feed object from XML content.
 		/// </summary>
-		/// <param name="xmlContent"></param>
+		/// <param name="doc"></param>
+		/// <param name="feedUrl"></param>
 		/// <returns></returns>
 		private Feed XmlContentToFeed(XmlDocument doc, string feedUrl)
 		{
@@ -326,7 +323,7 @@ namespace Cuyahoga.Modules.RemoteContent
 
 		private XmlDocument GetFeedXml(string feedUrl)
 		{
-			WebRequest wr = System.Net.WebRequest.Create(feedUrl);
+			WebRequest wr = WebRequest.Create(feedUrl);
 			WebResponse response = wr.GetResponse();
 			Stream receiveStream = response.GetResponseStream();
 			XmlTextReader reader  = new XmlTextReader(receiveStream);
@@ -349,14 +346,17 @@ namespace Cuyahoga.Modules.RemoteContent
 	{
 		private static readonly ILog log = LogManager.GetLogger(typeof(FeedFetcher));
 		private Feed _feed;
+		private ISession _session;
 
 		/// <summary>
 		/// Default constructor.
 		/// </summary>
 		/// <param name="feed"></param>
-		public FeedFetcher(Feed feed)
+		/// <param name="session"></param>
+		public FeedFetcher(Feed feed, ISession session)
 		{
 			this._feed = feed;
+			this._session = session;
 		}
 
 		/// <summary>
@@ -368,34 +368,45 @@ namespace Cuyahoga.Modules.RemoteContent
 			{
 				ModuleLoader moduleLoader = IoC.Resolve<ModuleLoader>();
 				RemoteContentModule module = moduleLoader.GetModuleFromSection(this._feed.Section) as RemoteContentModule;
-				// Use in a different session, otherwise things go wrong because this method might
-				// run in a different thread.
-				ISessionFactory sessionFactory = IoC.Resolve<ISessionFactory>("nhibernate.factory");
-				using (ISession session = sessionFactory.OpenSession())
-				{
-					session.Lock(this._feed, LockMode.None);
-					module.RefreshFeedContents(this._feed);
 
-					ITransaction tx = session.BeginTransaction();
-					try
+				if (this._session == null)
+				{
+					// Use in a different session, otherwise things go wrong because this method might
+					// run in a different thread.
+					ISessionFactory sessionFactory = IoC.Resolve<ISessionFactory>("nhibernate.factory");
+					using (ISession session = sessionFactory.OpenSession())
 					{
-						session.Update(this._feed);
-						tx.Commit();
-					}
-					catch
-					{
-						tx.Rollback();
-						throw;
-					}
-					finally
-					{
+						UpdateFeed(session, module, this._feed);
 						session.Close();
 					}
+				}
+				else
+				{
+					UpdateFeed(this._session, module, this._feed);
 				}
 			}
 			catch (Exception ex)
 			{
-				log.Error(ex.Message);
+				log.Error(ex.Message, ex);
+			}
+		}
+
+		private void UpdateFeed(ISession session, RemoteContentModule module, Feed feed)
+		{
+			using (ITransaction tx = session.BeginTransaction())
+			{
+				try
+				{
+					session.Lock(feed, LockMode.None);
+					module.RefreshFeedContents(feed);
+					session.Update(feed);
+					tx.Commit();
+				}
+				catch
+				{
+					tx.Rollback();
+					throw;
+				}
 			}
 		}
 	}

@@ -1,47 +1,37 @@
 using System;
-using System.Collections;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
+using System.Reflection;
 using System.Web;
-using System.Web.SessionState;
 using System.Web.UI;
 using System.Web.UI.WebControls;
-using System.Web.UI.HtmlControls;
-using System.Reflection;
-
 using Cuyahoga.Core;
-using Cuyahoga.Core.Service;
 using Cuyahoga.Core.Domain;
+using Cuyahoga.Core.Service;
 
 namespace Cuyahoga.Web.Install
 {
 	/// <summary>
 	/// Summary description for Upgrade.
 	/// </summary>
-	public class Upgrade : System.Web.UI.Page
+	public class Upgrade : Page
 	{
-		private CoreRepository _coreRepository;
-
-		protected System.Web.UI.WebControls.Label lblError;
-		protected System.Web.UI.WebControls.Panel pnlErrors;
-		protected System.Web.UI.WebControls.Label lblCoreAssemblyCurrent;
-		protected System.Web.UI.WebControls.Label lblModulesAssemblyCurrent;
-		protected System.Web.UI.WebControls.Label lblCoreAssemblyNew;
-		protected System.Web.UI.WebControls.Label lblModulesAssemblyNew;
-		protected System.Web.UI.WebControls.Button btnUpgradeDatabase;
-		protected System.Web.UI.WebControls.HyperLink hplSite;
-		protected System.Web.UI.WebControls.HyperLink hplAdmin;
-		protected System.Web.UI.WebControls.Panel pnlFinished;
-		protected System.Web.UI.WebControls.Panel pnlIntro;
+		protected Label lblError;
+		protected Panel pnlErrors;
+		protected Label lblCoreAssemblyCurrent;
+		protected Label lblModulesAssemblyCurrent;
+		protected Label lblCoreAssemblyNew;
+		protected Label lblModulesAssemblyNew;
+		protected Button btnUpgradeDatabase;
+		protected HyperLink hplSite;
+		protected HyperLink hplAdmin;
+		protected Panel pnlFinished;
+		protected Panel pnlIntro;
 	
-		private void Page_Load(object sender, System.EventArgs e)
+		private void Page_Load(object sender, EventArgs e)
 		{
-			this._coreRepository = (CoreRepository)HttpContext.Current.Items["CoreRepository"];
 			this.pnlErrors.Visible = false;
 
 			// Check security first
-			Cuyahoga.Core.Domain.User cuyahogaUser = this.User.Identity as Cuyahoga.Core.Domain.User;
+			User cuyahogaUser = (User) this.User.Identity;
 			if (! cuyahogaUser.HasPermission(AccessLevel.Administrator))
 			{
 				throw new AccessForbiddenException("Upgrade not allowed for the current user");
@@ -117,7 +107,7 @@ namespace Cuyahoga.Web.Install
 		}
 		#endregion
 
-		private void btnUpgradeDatabase_Click(object sender, System.EventArgs e)
+		private void btnUpgradeDatabase_Click(object sender, EventArgs e)
 		{
 			DatabaseInstaller dbInstaller = new DatabaseInstaller(Server.MapPath("~/Install/Core"), Assembly.Load("Cuyahoga.Core"));
 			DatabaseInstaller modulesDbInstaller = new DatabaseInstaller(Server.MapPath("~/Install/Modules"), Assembly.Load("Cuyahoga.Modules"));

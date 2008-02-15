@@ -286,35 +286,6 @@ namespace Cuyahoga.Core.Domain
 	
 		#endregion
 
-		#region events
-
-		public delegate void LoadChildrenHandler(object sender);
-		public delegate void UpdateHandler(object sender);
-
-		/// <summary>
-		/// This event is raised when ChildNodes are loaded from the database.
-		/// </summary>
-		public virtual event LoadChildrenHandler ChildrenLoaded;
-
-		/// <summary>
-		/// This event is raised when the state of the node changes.
-		/// </summary>
-		public virtual event UpdateHandler NodeUpdated;
-         
-		protected void OnChildrenLoaded()
-		{
-			if (ChildrenLoaded != null)
-				ChildrenLoaded(this);
-		}
-
-		protected void OnUpdate()
-		{
-			if (NodeUpdated != null)
-				NodeUpdated(this);
-		}
-
-		#endregion
-
 		#region constructors and initialization
 
 		/// <summary>
@@ -406,8 +377,6 @@ namespace Cuyahoga.Core.Domain
 		public virtual void ResetSections()
 		{
 			this._sections = null;
-			// Notify
-			OnUpdate();
 		}
 
 		/// <summary>

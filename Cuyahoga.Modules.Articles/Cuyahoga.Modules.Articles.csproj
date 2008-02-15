@@ -153,10 +153,16 @@
     <EmbeddedResource Include="Web\Resources\Strings.de.resx">
       <SubType>Designer</SubType>
     </EmbeddedResource>
+    <EmbeddedResource Include="Web\Resources\Strings.sv.resx">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
     <Content Include="Web\EditArticle.aspx">
       <SubType>Form</SubType>
     </Content>
     <None Include="Cuyahoga.Modules.Articles.build" />
+    <None Include="Install\Database\mssql2000\1.5.1.sql" />
+    <None Include="Install\Database\mysql\1.5.1.sql" />
+    <None Include="Install\Database\postgresql\1.5.1.sql" />
     <None Include="Install\Database\postgresql\uninstall.sql" />
     <None Include="Install\Database\postgresql\install.sql" />
     <None Include="Install\Database\mysql\uninstall.sql" />

@@ -1,48 +1,39 @@
 using System;
 using System.Collections;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Web;
-using System.Web.SessionState;
-using System.Web.UI;
-using System.Web.UI.WebControls;
-using System.Web.UI.HtmlControls;
 using System.IO;
-
+using System.Web.UI.WebControls;
 using Cuyahoga.Core.Domain;
-using Cuyahoga.Core.Service;
-using Cuyahoga.Core.Util;
-using Cuyahoga.Web.Util;
+using Cuyahoga.Web.Admin.UI;
 using Cuyahoga.Web.UI;
+using Cuyahoga.Web.Util;
 
 namespace Cuyahoga.Web.Admin
 {
 	/// <summary>
 	/// Summary description for TemplateEdit.
 	/// </summary>
-	public class TemplateEdit : Cuyahoga.Web.Admin.UI.AdminBasePage
+	public class TemplateEdit : AdminBasePage
 	{
 		private Template _activeTemplate;
 
-		protected System.Web.UI.WebControls.TextBox txtName;
-		protected System.Web.UI.WebControls.RequiredFieldValidator rfvName;
-		protected System.Web.UI.WebControls.TextBox txtPath;
-		protected System.Web.UI.WebControls.RequiredFieldValidator rfvPath;
-		protected System.Web.UI.WebControls.Button btnSave;
-		protected System.Web.UI.WebControls.DropDownList ddlCss;
-		protected System.Web.UI.WebControls.TextBox txtBasePath;
-		protected System.Web.UI.WebControls.RequiredFieldValidator rfvBasePath;
-		protected System.Web.UI.WebControls.DropDownList ddlTemplateControls;
-		protected System.Web.UI.WebControls.Button btnBack;
-		protected System.Web.UI.WebControls.Button btnVerifyBasePath;
-		protected System.Web.UI.WebControls.Label lblTemplateControlWarning;
-		protected System.Web.UI.WebControls.Label lblCssWarning;
-		protected System.Web.UI.WebControls.Panel pnlPlaceholders;
-		protected System.Web.UI.WebControls.Repeater rptPlaceholders;
-		protected System.Web.UI.WebControls.Button btnDelete;
+		protected TextBox txtName;
+		protected RequiredFieldValidator rfvName;
+		protected TextBox txtPath;
+		protected RequiredFieldValidator rfvPath;
+		protected Button btnSave;
+		protected DropDownList ddlCss;
+		protected TextBox txtBasePath;
+		protected RequiredFieldValidator rfvBasePath;
+		protected DropDownList ddlTemplateControls;
+		protected Button btnBack;
+		protected Button btnVerifyBasePath;
+		protected Label lblTemplateControlWarning;
+		protected Label lblCssWarning;
+		protected Panel pnlPlaceholders;
+		protected Repeater rptPlaceholders;
+		protected Button btnDelete;
 	
-		private void Page_Load(object sender, System.EventArgs e)
+		private void Page_Load(object sender, EventArgs e)
 		{
 			this.Title = "Edit template";
 
@@ -148,10 +139,17 @@ namespace Cuyahoga.Web.Admin
 		private void BindPlaceholders()
 		{
 			// Load template control first.
-			BaseTemplate templateControl = (BaseTemplate)this.Page.LoadControl(Util.UrlHelper.GetApplicationPath() 
-				+ this._activeTemplate.Path);
-			this.rptPlaceholders.DataSource = templateControl.Containers;
-			this.rptPlaceholders.DataBind();
+			string templateControlPath = UrlHelper.GetApplicationPath() + this._activeTemplate.Path;
+			if (File.Exists(Server.MapPath(templateControlPath)))
+			{
+				BaseTemplate templateControl = (BaseTemplate) this.Page.LoadControl(templateControlPath);
+				this.rptPlaceholders.DataSource = templateControl.Containers;
+				this.rptPlaceholders.DataBind();
+			}
+			else
+			{
+				ShowError("Unable to load the template control " + templateControlPath);
+			}
 		}
 
 		private void CheckBasePath()
@@ -224,19 +222,26 @@ namespace Cuyahoga.Web.Admin
 		}
 		#endregion
 
-		private void btnSave_Click(object sender, System.EventArgs e)
+		private void btnSave_Click(object sender, EventArgs e)
 		{
 			if (this.IsValid)
 			{
-				this._activeTemplate.Name = this.txtName.Text;
-				this._activeTemplate.BasePath = this.txtBasePath.Text;
-				this._activeTemplate.TemplateControl = this.ddlTemplateControls.SelectedValue;
-				this._activeTemplate.Css = this.ddlCss.SelectedValue;
-				SaveTemplate();
+				if (this.ddlTemplateControls.SelectedIndex == -1 || this.ddlCss.SelectedIndex == -1)
+				{
+					ShowError("No template control or css selected.");
+				}
+				else
+				{
+					this._activeTemplate.Name = this.txtName.Text;
+					this._activeTemplate.BasePath = this.txtBasePath.Text;
+					this._activeTemplate.TemplateControl = this.ddlTemplateControls.SelectedValue;
+					this._activeTemplate.Css = this.ddlCss.SelectedValue;
+					SaveTemplate();
+				}
 			}	
 		}
 
-		private void btnDelete_Click(object sender, System.EventArgs e)
+		private void btnDelete_Click(object sender, EventArgs e)
 		{
 			if (this._activeTemplate.Id > 0)
 			{
@@ -252,18 +257,18 @@ namespace Cuyahoga.Web.Admin
 			}
 		}
 
-		private void btnCancel_Click(object sender, System.EventArgs e)
+		private void btnCancel_Click(object sender, EventArgs e)
 		{
 			Context.Response.Redirect("Templates.aspx");
 		}
 
-		private void btnVerifyBasePath_Click(object sender, System.EventArgs e)
+		private void btnVerifyBasePath_Click(object sender, EventArgs e)
 		{
 			this._activeTemplate.BasePath = this.txtBasePath.Text;
 			CheckBasePath();
 		}
 
-		private void rptPlaceholders_ItemDataBound(object sender, System.Web.UI.WebControls.RepeaterItemEventArgs e)
+		private void rptPlaceholders_ItemDataBound(object sender, RepeaterItemEventArgs e)
 		{
 			if (e.Item.ItemType == ListItemType.Item || e.Item.ItemType == ListItemType.AlternatingItem)
 			{
@@ -299,7 +304,7 @@ namespace Cuyahoga.Web.Admin
 			}
 		}
 
-		private void rptPlaceholders_ItemCommand(object source, System.Web.UI.WebControls.RepeaterCommandEventArgs e)
+		private void rptPlaceholders_ItemCommand(object source, RepeaterCommandEventArgs e)
 		{
 			if (e.CommandName == "detach")
 			{

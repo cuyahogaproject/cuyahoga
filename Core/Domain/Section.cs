@@ -357,6 +357,7 @@ namespace Cuyahoga.Core.Domain
 		/// </summary>
 		/// <param name="oldPlaceholderId"></param>
 		/// <param name="oldPosition"></param>
+		/// <param name="resetSections"></param>
 		public virtual void ChangeAndUpdatePositionsAfterPlaceholderChange(string oldPlaceholderId, int oldPosition, bool resetSections)
 		{
 			if (this.Node != null)

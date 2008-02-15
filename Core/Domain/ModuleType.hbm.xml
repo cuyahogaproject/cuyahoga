@@ -2,22 +2,21 @@
 <hibernate-mapping xmlns="urn:nhibernate-mapping-2.2">
 	<class name="Cuyahoga.Core.Domain.ModuleType, Cuyahoga.Core" table="cuyahoga_moduletype">
 	
-		<!--<cache usage="read-only" />-->
 		<cache usage="read-write" />
-
+		
 		<id name="ModuleTypeId" column="moduletypeid" type="Int32" unsaved-value="-1">
 			<generator class="native">
 				<param name="sequence">cm_module_moduletypeid_seq</param>
 			</generator>
 		</id>
 		
-		<property name="Name" column="name" type="String" length="100" />
-		<property name="AssemblyName" column="assemblyname" type="String" length="100" />
-		<property name="ClassName" column="classname" type="String" length="255" />
-		<property name="Path" column="path" type="String" length="255" />
-		<property name="EditPath" column="editpath" type="String" length="255" not-null="false" />
-    <property name="AutoActivate" column="autoactivate" type="Boolean" />
-    <bag name="ModuleSettings" table="cuyahoga_modulesetting" lazy="true" cascade="all" order-by="FriendlyName">
+		<property name="Name" column="name" type="String" length="100" not-null="true" />
+		<property name="AssemblyName" column="assemblyname" type="String" length="100" not-null="true" />
+		<property name="ClassName" column="classname" type="String" length="255" not-null="true" />
+		<property name="Path" column="path" type="String" length="255" not-null="true" />
+		<property name="EditPath" column="editpath" type="String" length="255" />
+		<property name="AutoActivate" column="autoactivate" type="Boolean" not-null="true" />
+		<bag name="ModuleSettings" table="cuyahoga_modulesetting" lazy="true" cascade="all" order-by="FriendlyName">
 			<key column="moduletypeid" />
 			<composite-element class="Cuyahoga.Core.Domain.ModuleSetting, Cuyahoga.Core">
 				<parent name="ModuleType" />
@@ -38,15 +37,5 @@
 				<property name="Lifestyle" column="lifestyle" type="string" length="10" />
 			</composite-element>
 		</bag>
-    <!-- 
-    <bag name="ModuleContentTypes" table="cuyahoga_modulecontenttype" generic="true" lazy="true" cascade="all">
-      <key column="moduletypeid"></key>
-      <composite-element class="Cuyahoga.Core.Domain.ModuleContentType, Cuyahoga.Core">
-        <property name="ContentType" column="contenttype" type="string" length="255"></property>
-        <property name="IsVisible" column="isvisible" type="Boolean"></property>
-        <property name="IsTypeNameLocalized" column="istypenamelocalized" type="Boolean"></property>
-      </composite-element>
-    </bag>
-    -->
 	</class>
 </hibernate-mapping>

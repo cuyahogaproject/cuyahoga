@@ -57,6 +57,7 @@ path VARCHAR(255) NOT NULL,
 editpath VARCHAR(255),
 inserttimestamp TIMESTAMP NOT NULL,
 updatetimestamp DATETIME NOT NULL,
+autoactivate TINYINT NOT NULL DEFAULT 1,
 PRIMARY KEY (moduletypeid),
 UNIQUE UC_moduletype_classname (classname));
 
@@ -254,4 +255,4 @@ INSERT INTO cuyahoga_template (templateid, name, basepath, templatecontrol, css,
 INSERT INTO cuyahoga_template (templateid, name, basepath, templatecontrol, css, inserttimestamp, updatetimestamp) VALUES (3, 'Cuyahoga New', 'Templates/Default', 'CuyahogaNew.ascx', 'red-new.css', '2004-01-26 21:52:52.365', '2004-01-26 21:52:52.365');
 INSERT INTO cuyahoga_template (templateid, name, basepath, templatecontrol, css, inserttimestamp, updatetimestamp) VALUES (4, 'Another Red', 'Templates/AnotherRed', 'Cuyahoga.ascx', 'red.css', '2004-01-26 21:52:52.365', '2004-01-26 21:52:52.365');
 
-INSERT INTO cuyahoga_version (assembly, major, minor, patch) VALUES ('Cuyahoga.Core', 1, 5, 0);
+INSERT INTO cuyahoga_version (assembly, major, minor, patch) VALUES ('Cuyahoga.Core', 1, 5, 1);

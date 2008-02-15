@@ -1,20 +1,9 @@
 using System;
 using System.Collections;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Web;
-using System.Web.SessionState;
-using System.Web.UI;
 using System.Web.UI.WebControls;
-using System.Web.UI.HtmlControls;
-
-using log4net;
-
 using Cuyahoga.Core.Domain;
-using Cuyahoga.Core.Service;
 using Cuyahoga.Web.Admin.UI;
-using Cuyahoga.Web.Util;
+using log4net;
 
 namespace Cuyahoga.Web.Admin
 {
@@ -25,10 +14,10 @@ namespace Cuyahoga.Web.Admin
 	{
 		private static readonly ILog log = LogManager.GetLogger(typeof(Sections));
 
-		protected System.Web.UI.WebControls.Repeater rptSections;
-		protected System.Web.UI.WebControls.Button btnNew;
+		protected Repeater rptSections;
+		protected Button btnNew;
 	
-		private void Page_Load(object sender, System.EventArgs e)
+		private void Page_Load(object sender, EventArgs e)
 		{
 			this.Title = "Sections";
 			if (! this.IsPostBack)
@@ -67,12 +56,12 @@ namespace Cuyahoga.Web.Admin
 		}
 		#endregion
 
-		private void btnNew_Click(object sender, System.EventArgs e)
+		private void btnNew_Click(object sender, EventArgs e)
 		{
 			Context.Response.Redirect("SectionEdit.aspx?SectionId=-1");
 		}
 
-		private void rptSections_ItemDataBound(object sender, System.Web.UI.WebControls.RepeaterItemEventArgs e)
+		private void rptSections_ItemDataBound(object sender, RepeaterItemEventArgs e)
 		{
 			Section section = e.Item.DataItem as Section;
 			if (section != null)
@@ -106,7 +95,7 @@ namespace Cuyahoga.Web.Admin
 			}
 		}
 
-		private void rptSections_ItemCommand(object source, System.Web.UI.WebControls.RepeaterCommandEventArgs e)
+		private void rptSections_ItemCommand(object source, RepeaterCommandEventArgs e)
 		{
 			int sectionId = Int32.Parse(e.CommandArgument.ToString());
 			Section section = (Section)base.CoreRepository.GetObjectById(typeof(Section), sectionId);
@@ -118,6 +107,24 @@ namespace Cuyahoga.Web.Admin
 					// First tell the module to remove its content.
 					ModuleBase module = this.ModuleLoader.GetModuleFromSection(section);
 					module.DeleteModuleContent();
+
+					// Remove from all template sections
+					IList templates = this.CoreRepository.GetTemplatesBySection(section);
+					foreach (Template template in templates)
+					{
+						string attachedPlaceholderId = null;
+						foreach (DictionaryEntry entry in template.Sections)
+						{
+							if (entry.Value == section)
+							{
+								attachedPlaceholderId = entry.Key.ToString();
+								break;
+							}
+						}
+						template.Sections.Remove(attachedPlaceholderId);
+						base.CoreRepository.UpdateObject(template);
+					} 
+
 					// Now delete the Section.
 					base.CoreRepository.DeleteObject(section);
 				}

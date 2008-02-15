@@ -45,7 +45,7 @@
 					</tr>
 				</table>
 			</div>
-			<asp:panel id="pnlCustomSettings" cssclass="group" runat="server">
+			<asp:panel id="pnlCustomSettings" cssclass="group" runat="server" enableviewstate="false">
 				<h4>Custom settings</h4>
 				<table>
 					<asp:placeholder id="plcCustomSettings" runat="server" />

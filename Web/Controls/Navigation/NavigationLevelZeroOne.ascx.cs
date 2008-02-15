@@ -1,26 +1,24 @@
+using System;
+using System.Web.UI;
+using System.Web.UI.WebControls;
+using Cuyahoga.Core.Domain;
+using Cuyahoga.Web.UI;
+using Cuyahoga.Web.Util;
+
 namespace Cuyahoga.Web.Templates.Controls
 {
-	using System;
-	using System.Drawing;
-	using System.Web;
-	using System.Web.UI.WebControls;
-	using System.Web.UI.HtmlControls;
-
-	using Cuyahoga.Core.Domain;
-	using Cuyahoga.Web.UI;
-	using Cuyahoga.Web.Util;
-
 	/// <summary>
 	///		Summary description for NavigationLevelZeroOne.
 	/// </summary>
-	public class NavigationLevelZeroOne : System.Web.UI.UserControl
+	public class NavigationLevelZeroOne : UserControl
 	{
-		private Cuyahoga.Web.UI.PageEngine _page;
-		protected System.Web.UI.WebControls.HyperLink hplHome;
-		protected System.Web.UI.WebControls.HyperLink hplAdmin;
-		protected System.Web.UI.WebControls.Repeater rptNav1;
+		private PageEngine _page;
+		protected HyperLink hplHome;
+		protected HyperLink hplAdmin;
+		protected Repeater rptNav1;
+		protected System.Web.UI.HtmlControls.HtmlGenericControl liAdmin;
 
-		private void Page_Load(object sender, System.EventArgs e)
+		private void Page_Load(object sender, EventArgs e)
 		{
 			try
 			{
@@ -44,6 +42,8 @@ namespace Cuyahoga.Web.Templates.Controls
 					
 					if (this._page.CuyahogaUser != null)
 					{
+						// show <li> tag for Admin link
+						this.liAdmin.Visible = this._page.CuyahogaUser.HasPermission(AccessLevel.Administrator);
 						this.hplAdmin.NavigateUrl = this._page.ResolveUrl("~/Admin");
 						this.hplAdmin.Visible = this._page.CuyahogaUser.HasPermission(AccessLevel.Administrator);
 					}

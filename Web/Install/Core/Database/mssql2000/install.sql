@@ -126,7 +126,7 @@ assemblyname nvarchar(100) NULL,
 classname nvarchar(255) NOT NULL,
 path nvarchar(255) NOT NULL,
 editpath nvarchar(255) NULL,
-autoactivate bit NULL,
+autoactivate bit NOT NULL DEFAULT 1,
 inserttimestamp datetime DEFAULT current_timestamp NOT NULL,
 updatetimestamp datetime DEFAULT current_timestamp NOT NULL,
 CONSTRAINT UC_moduletype_classname UNIQUE(classname))
@@ -526,5 +526,5 @@ SET IDENTITY_INSERT cuyahoga_template OFF
 GO
 
 
-INSERT INTO cuyahoga_version (assembly, major, minor, patch) VALUES ('Cuyahoga.Core', 1, 5, 0)
+INSERT INTO cuyahoga_version (assembly, major, minor, patch) VALUES ('Cuyahoga.Core', 1, 5, 1)
 GO

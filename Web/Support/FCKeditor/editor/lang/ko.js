@@ -1,21 +1,24 @@
 ﻿/*
- * FCKeditor - The text editor for internet
- * Copyright (C) 2003-2006 Frederico Caldeira Knabben
- * 
- * Licensed under the terms of the GNU Lesser General Public License:
- * 		http://www.opensource.org/licenses/lgpl-license.php
- * 
- * For further information visit:
- * 		http://www.fckeditor.net/
- * 
- * "Support Open Source software. What about a donation today?"
- * 
- * File Name: ko.js
- * 	Korean language file.
- * 
- * File Authors:
- * 		Taehwan Kwag (thkwag@nate.com)
- * 		Hyung-chae, Kim (chaeya@gmail.com)
+ * FCKeditor - The text editor for Internet - http://www.fckeditor.net
+ * Copyright (C) 2003-2007 Frederico Caldeira Knabben
+ *
+ * == BEGIN LICENSE ==
+ *
+ * Licensed under the terms of any of the following licenses at your
+ * choice:
+ *
+ *  - GNU General Public License Version 2 or later (the "GPL")
+ *    http://www.gnu.org/licenses/gpl.html
+ *
+ *  - GNU Lesser General Public License Version 2.1 or later (the "LGPL")
+ *    http://www.gnu.org/licenses/lgpl.html
+ *
+ *  - Mozilla Public License Version 1.1 or later (the "MPL")
+ *    http://www.mozilla.org/MPL/MPL-1.1.html
+ *
+ * == END LICENSE ==
+ *
+ * Korean language file.
  */
 
 var FCKLang =
@@ -42,6 +45,7 @@ InsertLinkLbl		: "링크",
 InsertLink			: "링크 삽입/변경",
 RemoveLink			: "링크 삭제",
 Anchor				: "책갈피 삽입/변경",
+AnchorDelete		: "Remove Anchor",	//MISSING
 InsertImageLbl		: "이미지",
 InsertImage			: "이미지 삽입/변경",
 InsertFlashLbl		: "플래쉬",
@@ -67,6 +71,7 @@ RightJustify		: "오른쪽 정렬",
 BlockJustify		: "양쪽 맞춤",
 DecreaseIndent		: "내어쓰기",
 IncreaseIndent		: "들여쓰기",
+Blockquote			: "Blockquote",	//MISSING
 Undo				: "취소",
 Redo				: "재실행",
 NumberedListLbl		: "순서있는 목록",
@@ -100,20 +105,27 @@ SelectionField	: "펼침목록",
 ImageButton		: "이미지버튼",
 
 FitWindow		: "Maximize the editor size",	//MISSING
+ShowBlocks		: "Show Blocks",	//MISSING
 
 // Context Menu
 EditLink			: "링크 수정",
 CellCM				: "Cell",	//MISSING
 RowCM				: "Row",	//MISSING
 ColumnCM			: "Column",	//MISSING
-InsertRow			: "가로줄 삽입",
+InsertRowAfter		: "Insert Row After",	//MISSING
+InsertRowBefore		: "Insert Row Before",	//MISSING
 DeleteRows			: "가로줄 삭제",
-InsertColumn		: "세로줄 삽입",
+InsertColumnAfter	: "Insert Column After",	//MISSING
+InsertColumnBefore	: "Insert Column Before",	//MISSING
 DeleteColumns		: "세로줄 삭제",
-InsertCell			: "셀 삽입",
+InsertCellAfter		: "Insert Cell After",	//MISSING
+InsertCellBefore	: "Insert Cell Before",	//MISSING
 DeleteCells			: "셀 삭제",
 MergeCells			: "셀 합치기",
-SplitCell			: "셀 나누기",
+MergeRight			: "Merge Right",	//MISSING
+MergeDown			: "Merge Down",	//MISSING
+HorizontalSplitCell	: "Split Cell Horizontally",	//MISSING
+VerticalSplitCell	: "Split Cell Vertically",	//MISSING
 TableDelete			: "Delete Table",	//MISSING
 CellProperties		: "셀 속성",
 TableProperties		: "표 속성",
@@ -226,7 +238,7 @@ DlgLnkURL			: "URL",
 DlgLnkAnchorSel		: "책갈피 선택",
 DlgLnkAnchorByName	: "책갈피 이름",
 DlgLnkAnchorById	: "책갈피 ID",
-DlgLnkNoAnchors		: "<문서에 책갈피가 없습니다.>",
+DlgLnkNoAnchors		: "(문서에 책갈피가 없습니다.)",
 DlgLnkEMail			: "이메일 주소",
 DlgLnkEMailSubject	: "제목",
 DlgLnkEMailBody		: "내용",
@@ -319,6 +331,9 @@ DlgCellBackColor	: "배경 색상",
 DlgCellBorderColor	: "테두리 색상",
 DlgCellBtnSelect	: "선택",
 
+// Find and Replace Dialog
+DlgFindAndReplaceTitle	: "Find and Replace",	//MISSING
+
 // Find Dialog
 DlgFindTitle		: "찾기",
 DlgFindFindBtn		: "찾기",
@@ -334,7 +349,6 @@ DlgReplaceReplAllBtn	: "모두 바꾸기",
 DlgReplaceWordChk		: "온전한 단어",
 
 // Paste Operations / Dialog
-PasteErrorPaste	: "브라우저의 보안설정때문에 붙여넣기 기능을 실행할 수 없습니다. 키보드 명령을 사용하십시요. (Ctrl+V).",
 PasteErrorCut	: "브라우저의 보안설정때문에 잘라내기 기능을 실행할 수 없습니다. 키보드 명령을 사용하십시요. (Ctrl+X).",
 PasteErrorCopy	: "브라우저의 보안설정때문에 복사하기 기능을 실행할 수 없습니다. 키보드 명령을 사용하십시요.  (Ctrl+C).",
 
@@ -342,6 +356,7 @@ PasteAsText		: "텍스트로 붙여넣기",
 PasteFromWord	: "MS Word 형식에서 붙여넣기",
 
 DlgPasteMsg2	: "키보드의 (<STRONG>Ctrl+V</STRONG>) 를 이용해서 상자안에 붙여넣고 <STRONG>OK</STRONG> 를 누르세요.",
+DlgPasteSec		: "Because of your browser security settings, the editor is not able to access your clipboard data directly. You are required to paste it again in this window.",	//MISSING
 DlgPasteIgnoreFont		: "폰트 설정 무시",
 DlgPasteRemoveStyles	: "스타일 정의 제거",
 DlgPasteCleanBox		: "글상자 제거",
@@ -497,6 +512,5 @@ DlgAboutAboutTab	: "About",
 DlgAboutBrowserInfoTab	: "브라우저 정보",
 DlgAboutLicenseTab	: "License",	//MISSING
 DlgAboutVersion		: "버전",
-DlgAboutLicense		: "Licensed under the terms of the GNU Lesser General Public License",
 DlgAboutInfo		: "For further information go to"
-}
+};

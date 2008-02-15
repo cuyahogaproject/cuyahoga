@@ -1,20 +1,24 @@
 ﻿/*
- * FCKeditor - The text editor for internet
- * Copyright (C) 2003-2006 Frederico Caldeira Knabben
- * 
- * Licensed under the terms of the GNU Lesser General Public License:
- * 		http://www.opensource.org/licenses/lgpl-license.php
- * 
- * For further information visit:
- * 		http://www.fckeditor.net/
- * 
- * "Support Open Source software. What about a donation today?"
- * 
- * File Name: en.js
- * 	English language file.
- * 
- * File Authors:
- * 		Frederico Caldeira Knabben (fredck@fckeditor.net)
+ * FCKeditor - The text editor for Internet - http://www.fckeditor.net
+ * Copyright (C) 2003-2007 Frederico Caldeira Knabben
+ *
+ * == BEGIN LICENSE ==
+ *
+ * Licensed under the terms of any of the following licenses at your
+ * choice:
+ *
+ *  - GNU General Public License Version 2 or later (the "GPL")
+ *    http://www.gnu.org/licenses/gpl.html
+ *
+ *  - GNU Lesser General Public License Version 2.1 or later (the "LGPL")
+ *    http://www.gnu.org/licenses/lgpl.html
+ *
+ *  - Mozilla Public License Version 1.1 or later (the "MPL")
+ *    http://www.mozilla.org/MPL/MPL-1.1.html
+ *
+ * == END LICENSE ==
+ *
+ * English language file.
  */
 
 var FCKLang =
@@ -41,6 +45,7 @@ InsertLinkLbl		: "Link",
 InsertLink			: "Insert/Edit Link",
 RemoveLink			: "Remove Link",
 Anchor				: "Insert/Edit Anchor",
+AnchorDelete		: "Remove Anchor",
 InsertImageLbl		: "Image",
 InsertImage			: "Insert/Edit Image",
 InsertFlashLbl		: "Flash",
@@ -66,6 +71,7 @@ RightJustify		: "Right Justify",
 BlockJustify		: "Block Justify",
 DecreaseIndent		: "Decrease Indent",
 IncreaseIndent		: "Increase Indent",
+Blockquote			: "Blockquote",
 Undo				: "Undo",
 Redo				: "Redo",
 NumberedListLbl		: "Numbered List",
@@ -99,20 +105,27 @@ SelectionField	: "Selection Field",
 ImageButton		: "Image Button",
 
 FitWindow		: "Maximize the editor size",
+ShowBlocks		: "Show Blocks",
 
 // Context Menu
 EditLink			: "Edit Link",
 CellCM				: "Cell",
 RowCM				: "Row",
 ColumnCM			: "Column",
-InsertRow			: "Insert Row",
+InsertRowAfter		: "Insert Row After",
+InsertRowBefore		: "Insert Row Before",
 DeleteRows			: "Delete Rows",
-InsertColumn		: "Insert Column",
+InsertColumnAfter	: "Insert Column After",
+InsertColumnBefore	: "Insert Column Before",
 DeleteColumns		: "Delete Columns",
-InsertCell			: "Insert Cell",
+InsertCellAfter		: "Insert Cell After",
+InsertCellBefore	: "Insert Cell Before",
 DeleteCells			: "Delete Cells",
 MergeCells			: "Merge Cells",
-SplitCell			: "Split Cell",
+MergeRight			: "Merge Right",
+MergeDown			: "Merge Down",
+HorizontalSplitCell	: "Split Cell Horizontally",
+VerticalSplitCell	: "Split Cell Vertically",
 TableDelete			: "Delete Table",
 CellProperties		: "Cell Properties",
 TableProperties		: "Table Properties",
@@ -225,7 +238,7 @@ DlgLnkURL			: "URL",
 DlgLnkAnchorSel		: "Select an Anchor",
 DlgLnkAnchorByName	: "By Anchor Name",
 DlgLnkAnchorById	: "By Element Id",
-DlgLnkNoAnchors		: "<No anchors available in the document>",
+DlgLnkNoAnchors		: "(No anchors available in the document)",
 DlgLnkEMail			: "E-Mail Address",
 DlgLnkEMailSubject	: "Message Subject",
 DlgLnkEMailBody		: "Message Body",
@@ -318,6 +331,9 @@ DlgCellBackColor	: "Background Color",
 DlgCellBorderColor	: "Border Color",
 DlgCellBtnSelect	: "Select...",
 
+// Find and Replace Dialog
+DlgFindAndReplaceTitle	: "Find and Replace",
+
 // Find Dialog
 DlgFindTitle		: "Find",
 DlgFindFindBtn		: "Find",
@@ -333,14 +349,14 @@ DlgReplaceReplAllBtn	: "Replace All",
 DlgReplaceWordChk		: "Match whole word",
 
 // Paste Operations / Dialog
-PasteErrorPaste	: "Your browser security settings don't permit the editor to automatically execute pasting operations. Please use the keyboard for that (Ctrl+V).",
 PasteErrorCut	: "Your browser security settings don't permit the editor to automatically execute cutting operations. Please use the keyboard for that (Ctrl+X).",
 PasteErrorCopy	: "Your browser security settings don't permit the editor to automatically execute copying operations. Please use the keyboard for that (Ctrl+C).",
 
 PasteAsText		: "Paste as Plain Text",
 PasteFromWord	: "Paste from Word",
 
-DlgPasteMsg2	: "Please paste inside the following box using the keyboard (<STRONG>Ctrl+V</STRONG>) and hit <STRONG>OK</STRONG>.",
+DlgPasteMsg2	: "Please paste inside the following box using the keyboard (<strong>Ctrl+V</strong>) and hit <strong>OK</strong>.",
+DlgPasteSec		: "Because of your browser security settings, the editor is not able to access your clipboard data directly. You are required to paste it again in this window.",
 DlgPasteIgnoreFont		: "Ignore Font Face definitions",
 DlgPasteRemoveStyles	: "Remove Styles definitions",
 DlgPasteCleanBox		: "Clean Up Box",
@@ -486,7 +502,7 @@ DlgDocPreview		: "Preview",
 // Templates Dialog
 Templates			: "Templates",
 DlgTemplatesTitle	: "Content Templates",
-DlgTemplatesSelMsg	: "Please select the template to open in the editor<br>(the actual contents will be lost):",
+DlgTemplatesSelMsg	: "Please select the template to open in the editor<br />(the actual contents will be lost):",
 DlgTemplatesLoading	: "Loading templates list. Please wait...",
 DlgTemplatesNoTpl	: "(No templates defined)",
 DlgTemplatesReplace	: "Replace actual contents",
@@ -496,6 +512,5 @@ DlgAboutAboutTab	: "About",
 DlgAboutBrowserInfoTab	: "Browser Info",
 DlgAboutLicenseTab	: "License",
 DlgAboutVersion		: "version",
-DlgAboutLicense		: "Licensed under the terms of the GNU Lesser General Public License",
 DlgAboutInfo		: "For further information go to"
-}
+};

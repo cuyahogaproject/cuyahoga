@@ -32,7 +32,7 @@ namespace Cuyahoga.Modules.Articles.Domain
 		/// <summary>
 		/// Property Id (int)
 		/// </summary>
-		public int Id
+		public virtual int Id
 		{
 			get { return this._id; }
 			set { this._id = value; }
@@ -41,7 +41,7 @@ namespace Cuyahoga.Modules.Articles.Domain
 		/// <summary>
 		/// Property Title (string)
 		/// </summary>
-		public string Title
+		public virtual string Title
 		{
 			get { return this._title; }
 			set { this._title = value; }
@@ -50,7 +50,7 @@ namespace Cuyahoga.Modules.Articles.Domain
 		/// <summary>
 		/// Property Summary (string)
 		/// </summary>
-		public string Summary
+		public virtual string Summary
 		{
 			get { return this._summary; }
 			set { this._summary = value; }
@@ -59,7 +59,7 @@ namespace Cuyahoga.Modules.Articles.Domain
 		/// <summary>
 		/// Property Content (string)
 		/// </summary>
-		public string Content
+		public virtual string Content
 		{
 			get { return this._content; }
 			set { this._content = value; }
@@ -68,7 +68,7 @@ namespace Cuyahoga.Modules.Articles.Domain
 		/// <summary>
 		/// Property DateOnline (DateTime)
 		/// </summary>
-		public DateTime DateOnline
+		public virtual DateTime DateOnline
 		{
 			get { return this._dateOnline; }
 			set { this._dateOnline = value; }
@@ -77,7 +77,7 @@ namespace Cuyahoga.Modules.Articles.Domain
 		/// <summary>
 		/// Property DateOffline (DateTime)
 		/// </summary>
-		public DateTime DateOffline
+		public virtual DateTime DateOffline
 		{
 			get { return this._dateOffline; }
 			set { this._dateOffline = value; }
@@ -86,7 +86,7 @@ namespace Cuyahoga.Modules.Articles.Domain
 		/// <summary>
 		/// Property DateCreated (DateTime)
 		/// </summary>
-		public DateTime DateCreated
+		public virtual DateTime DateCreated
 		{
 			get { return this._dateCreated; }
 			set { this._dateCreated = value; }
@@ -95,7 +95,7 @@ namespace Cuyahoga.Modules.Articles.Domain
 		/// <summary>
 		/// Property DateModified (DateTime)
 		/// </summary>
-		public DateTime DateModified
+		public virtual DateTime DateModified
 		{
 			get { return this._dateModified; }
 			set { this._dateModified = value; }
@@ -103,7 +103,7 @@ namespace Cuyahoga.Modules.Articles.Domain
 		/// <summary>
 		/// Property Syndicate (bool)
 		/// </summary>
-		public bool Syndicate
+		public virtual bool Syndicate
 		{
 			get { return this._syndicate; }
 			set { this._syndicate = value; }
@@ -112,7 +112,7 @@ namespace Cuyahoga.Modules.Articles.Domain
 		/// <summary>
 		/// Property Section (Section)
 		/// </summary>
-		public Section Section
+		public virtual Section Section
 		{
 			get { return this._section; }
 			set { this._section = value; }
@@ -121,7 +121,7 @@ namespace Cuyahoga.Modules.Articles.Domain
 		/// <summary>
 		/// Property CreatedBy (User)
 		/// </summary>
-		public Cuyahoga.Core.Domain.User CreatedBy
+		public virtual Cuyahoga.Core.Domain.User CreatedBy
 		{
 			get { return this._createdBy; }
 			set { this._createdBy = value; }
@@ -130,7 +130,7 @@ namespace Cuyahoga.Modules.Articles.Domain
 		/// <summary>
 		/// Property CreatedById (int)
 		/// </summary>
-		public int CreatedById
+		public virtual int CreatedById
 		{
 			get { return this._createdById; }
 			set { this._createdById = value; }
@@ -139,7 +139,7 @@ namespace Cuyahoga.Modules.Articles.Domain
 		/// <summary>
 		/// Property ModifiedBy (User)
 		/// </summary>
-		public Cuyahoga.Core.Domain.User ModifiedBy
+		public virtual Cuyahoga.Core.Domain.User ModifiedBy
 		{
 			get { return this._modifiedBy; }
 			set { this._modifiedBy = value; }
@@ -148,7 +148,7 @@ namespace Cuyahoga.Modules.Articles.Domain
 		/// <summary>
 		/// Property ModifiedById (int)
 		/// </summary>
-		public int ModifiedById
+		public virtual int ModifiedById
 		{
 			get { return this._modifiedById; }
 			set { this._modifiedById = value; }
@@ -157,7 +157,7 @@ namespace Cuyahoga.Modules.Articles.Domain
 		/// <summary>
 		/// Property Category (Category)
 		/// </summary>
-		public Category Category
+		public virtual Category Category
 		{
 			get { return this._category; }
 			set { this._category = value; }
@@ -166,7 +166,7 @@ namespace Cuyahoga.Modules.Articles.Domain
 		/// <summary>
 		/// Property Comments (IList)
 		/// </summary>
-		public IList Comments
+		public virtual IList Comments
 		{
 			get { return this._comments; }
 			set { this._comments = value; }

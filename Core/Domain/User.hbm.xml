@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8" ?> 
 <hibernate-mapping xmlns="urn:nhibernate-mapping-2.2">
-	<class name="Cuyahoga.Core.Domain.User, Cuyahoga.Core" table="cuyahoga_user"
-		proxy="Cuyahoga.Core.Domain.User, Cuyahoga.Core">
+	<class name="Cuyahoga.Core.Domain.User, Cuyahoga.Core" table="cuyahoga_user">
 
 		<cache usage="read-write" />
 		
@@ -21,7 +20,7 @@
 		<property name="Website" column="website" type="String" length="100" />
 		<property name="TimeZone" column="timezone" type="Int32" />
 		<property name="IsActive" column="isactive" type="Boolean" length="100" />
-		<property name="LastLogin" column="lastlogin" type="Nullables.NHibernate.NullableDateTimeType, Nullables.NHibernate" />
+		<property name="LastLogin" column="lastlogin" type="DateTime" />
 		<property name="LastIp" column="lastip" type="String" length="40" />
 		<property name="InsertTimestamp" column="inserttimestamp" type="DateTime" />
 		

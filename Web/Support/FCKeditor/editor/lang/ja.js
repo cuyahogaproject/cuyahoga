@@ -1,20 +1,24 @@
 ﻿/*
- * FCKeditor - The text editor for internet
- * Copyright (C) 2003-2006 Frederico Caldeira Knabben
- * 
- * Licensed under the terms of the GNU Lesser General Public License:
- * 		http://www.opensource.org/licenses/lgpl-license.php
- * 
- * For further information visit:
- * 		http://www.fckeditor.net/
- * 
- * "Support Open Source software. What about a donation today?"
- * 
- * File Name: ja.js
- * 	Japanese language file.
- * 
- * File Authors:
- * 		Takashi Yamaguchi (jack@omakase.net)
+ * FCKeditor - The text editor for Internet - http://www.fckeditor.net
+ * Copyright (C) 2003-2007 Frederico Caldeira Knabben
+ *
+ * == BEGIN LICENSE ==
+ *
+ * Licensed under the terms of any of the following licenses at your
+ * choice:
+ *
+ *  - GNU General Public License Version 2 or later (the "GPL")
+ *    http://www.gnu.org/licenses/gpl.html
+ *
+ *  - GNU Lesser General Public License Version 2.1 or later (the "LGPL")
+ *    http://www.gnu.org/licenses/lgpl.html
+ *
+ *  - Mozilla Public License Version 1.1 or later (the "MPL")
+ *    http://www.mozilla.org/MPL/MPL-1.1.html
+ *
+ * == END LICENSE ==
+ *
+ * Japanese language file.
  */
 
 var FCKLang =
@@ -41,6 +45,7 @@ InsertLinkLbl		: "リンク",
 InsertLink			: "リンク挿入/編集",
 RemoveLink			: "リンク削除",
 Anchor				: "アンカー挿入/編集",
+AnchorDelete		: "アンカー削除",
 InsertImageLbl		: "イメージ",
 InsertImage			: "イメージ挿入/編集",
 InsertFlashLbl		: "Flash",
@@ -66,6 +71,7 @@ RightJustify		: "右揃え",
 BlockJustify		: "両端揃え",
 DecreaseIndent		: "インデント解除",
 IncreaseIndent		: "インデント",
+Blockquote			: "ブロック引用",
 Undo				: "元に戻す",
 Redo				: "やり直し",
 NumberedListLbl		: "段落番号",
@@ -99,20 +105,27 @@ SelectionField	: "選択フィールド",
 ImageButton		: "画像ボタン",
 
 FitWindow		: "エディタサイズを最大にします",
+ShowBlocks		: "ブロック表示",
 
 // Context Menu
 EditLink			: "リンク編集",
 CellCM				: "セル",
 RowCM				: "行",
 ColumnCM			: "カラム",
-InsertRow			: "行挿入",
+InsertRowAfter		: "列の後に挿入",
+InsertRowBefore		: "列の前に挿入",
 DeleteRows			: "行削除",
-InsertColumn		: "列挿入",
+InsertColumnAfter	: "カラムの後に挿入",
+InsertColumnBefore	: "カラムの前に挿入",
 DeleteColumns		: "列削除",
-InsertCell			: "セル挿入",
+InsertCellAfter		: "セルの後に挿入",
+InsertCellBefore	: "セルの前に挿入",
 DeleteCells			: "セル削除",
 MergeCells			: "セル結合",
-SplitCell			: "セル分割",
+MergeRight			: "右に結合",
+MergeDown			: "下に結合",
+HorizontalSplitCell	: "セルを水平方向分割",
+VerticalSplitCell	: "セルを垂直方向に分割",
 TableDelete			: "テーブル削除",
 CellProperties		: "セル プロパティ",
 TableProperties		: "テーブル プロパティ",
@@ -225,7 +238,7 @@ DlgLnkURL			: "URL",
 DlgLnkAnchorSel		: "アンカーを選択",
 DlgLnkAnchorByName	: "アンカー名",
 DlgLnkAnchorById	: "エレメントID",
-DlgLnkNoAnchors		: "<ドキュメントにおいて利用可能なアンカーはありません。>",
+DlgLnkNoAnchors		: "(ドキュメントにおいて利用可能なアンカーはありません。)",
 DlgLnkEMail			: "E-Mail アドレス",
 DlgLnkEMailSubject	: "件名",
 DlgLnkEMailBody		: "本文",
@@ -318,6 +331,9 @@ DlgCellBackColor	: "背景色",
 DlgCellBorderColor	: "ボーダーカラー",
 DlgCellBtnSelect	: "選択...",
 
+// Find and Replace Dialog
+DlgFindAndReplaceTitle	: "検索して置換",
+
 // Find Dialog
 DlgFindTitle		: "検索",
 DlgFindFindBtn		: "検索",
@@ -333,7 +349,6 @@ DlgReplaceReplAllBtn	: "すべて置換え",
 DlgReplaceWordChk		: "単語単位で一致",
 
 // Paste Operations / Dialog
-PasteErrorPaste	: "ブラウザーのセキュリティ設定によりエディタの貼り付け操作が自動で実行することができません。実行するには手動でキーボードの(Ctrl+V)を使用してください。",
 PasteErrorCut	: "ブラウザーのセキュリティ設定によりエディタの切り取り操作が自動で実行することができません。実行するには手動でキーボードの(Ctrl+X)を使用してください。",
 PasteErrorCopy	: "ブラウザーのセキュリティ設定によりエディタのコピー操作が自動で実行することができません。実行するには手動でキーボードの(Ctrl+C)を使用してください。",
 
@@ -341,6 +356,7 @@ PasteAsText		: "プレーンテキスト貼り付け",
 PasteFromWord	: "ワード文章から貼り付け",
 
 DlgPasteMsg2	: "キーボード(<STRONG>Ctrl+V</STRONG>)を使用して、次の入力エリア内で貼って、<STRONG>OK</STRONG>を押してください。",
+DlgPasteSec		: "ブラウザのセキュリティ設定により、エディタはクリップボード・データに直接アクセスすることができません。このウィンドウは貼り付け操作を行う度に表示されます。",
 DlgPasteIgnoreFont		: "FontタグのFace属性を無視します。",
 DlgPasteRemoveStyles	: "スタイル定義を削除します。",
 DlgPasteCleanBox		: "入力エリアクリア",
@@ -496,6 +512,5 @@ DlgAboutAboutTab	: "バージョン情報",
 DlgAboutBrowserInfoTab	: "ブラウザ情報",
 DlgAboutLicenseTab	: "ライセンス",
 DlgAboutVersion		: "バージョン",
-DlgAboutLicense		: "Licensed under the terms of the GNU Lesser General Public License",
 DlgAboutInfo		: "より詳しい情報はこちらで"
-}
+};

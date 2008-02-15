@@ -58,7 +58,7 @@ namespace Cuyahoga.Web.UI
 		/// </summary>
 		public Hashtable Containers
 		{
-			get 
+			get
 			{
 				Hashtable tbl = new Hashtable();
 				foreach (Control ctrl in this.Form.Controls)
@@ -66,6 +66,17 @@ namespace Cuyahoga.Web.UI
 					if (ctrl is PlaceHolder)
 					{
 						tbl.Add(ctrl.ID, ctrl);
+					}
+					// Also check for user controls with content placeholders.
+					else if (ctrl is UserControl)
+					{
+						foreach (Control ctrl2 in ctrl.Controls)
+						{
+							if (ctrl2 is PlaceHolder)
+							{
+								tbl.Add(ctrl2.ID, ctrl2);
+							}
+						}
 					}
 				}
 				return tbl;

@@ -1,21 +1,24 @@
 ﻿/*
- * FCKeditor - The text editor for internet
- * Copyright (C) 2003-2006 Frederico Caldeira Knabben
- * 
- * Licensed under the terms of the GNU Lesser General Public License:
- * 		http://www.opensource.org/licenses/lgpl-license.php
- * 
- * For further information visit:
- * 		http://www.fckeditor.net/
- * 
- * "Support Open Source software. What about a donation today?"
- * 
- * File Name: ar.js
- * 	Arabic language file.
- * 
- * File Authors:
- * 		Abdul-Aziz Abdul-Kareem Al-Oraij (http://aziz.oraij.com)
- * 		Abu Faisal (http://www.24at24.com)
+ * FCKeditor - The text editor for Internet - http://www.fckeditor.net
+ * Copyright (C) 2003-2007 Frederico Caldeira Knabben
+ *
+ * == BEGIN LICENSE ==
+ *
+ * Licensed under the terms of any of the following licenses at your
+ * choice:
+ *
+ *  - GNU General Public License Version 2 or later (the "GPL")
+ *    http://www.gnu.org/licenses/gpl.html
+ *
+ *  - GNU Lesser General Public License Version 2.1 or later (the "LGPL")
+ *    http://www.gnu.org/licenses/lgpl.html
+ *
+ *  - Mozilla Public License Version 1.1 or later (the "MPL")
+ *    http://www.mozilla.org/MPL/MPL-1.1.html
+ *
+ * == END LICENSE ==
+ *
+ * Arabic language file.
  */
 
 var FCKLang =
@@ -42,6 +45,7 @@ InsertLinkLbl		: "رابط",
 InsertLink			: "إدراج/تحرير رابط",
 RemoveLink			: "إزالة رابط",
 Anchor				: "إدراج/تحرير إشارة مرجعية",
+AnchorDelete		: "إزالة إشارة مرجعية",
 InsertImageLbl		: "صورة",
 InsertImage			: "إدراج/تحرير صورة",
 InsertFlashLbl		: "فلاش",
@@ -67,6 +71,7 @@ RightJustify		: "محاذاة إلى اليمين",
 BlockJustify		: "ضبط",
 DecreaseIndent		: "إنقاص المسافة البادئة",
 IncreaseIndent		: "زيادة المسافة البادئة",
+Blockquote			: "اقتباس",
 Undo				: "تراجع",
 Redo				: "إعادة",
 NumberedListLbl		: "تعداد رقمي",
@@ -100,20 +105,27 @@ SelectionField	: "قائمة منسدلة",
 ImageButton		: "زر صورة",
 
 FitWindow		: "تكبير حجم المحرر",
+ShowBlocks		: "مخطط تفصيلي",
 
 // Context Menu
 EditLink			: "تحرير رابط",
 CellCM				: "خلية",
 RowCM				: "صف",
 ColumnCM			: "عمود",
-InsertRow			: "إدراج صف",
+InsertRowAfter		: "إدراج صف بعد",
+InsertRowBefore		: "إدراج صف قبل",
 DeleteRows			: "حذف صفوف",
-InsertColumn		: "إدراج عمود",
+InsertColumnAfter	: "إدراج عمود بعد",
+InsertColumnBefore	: "إدراج عمود قبل",
 DeleteColumns		: "حذف أعمدة",
-InsertCell			: "إدراج خلية",
+InsertCellAfter		: "إدراج خلية بعد",
+InsertCellBefore	: "إدراج خلية قبل",
 DeleteCells			: "حذف خلايا",
 MergeCells			: "دمج خلايا",
-SplitCell			: "تقسيم خلية",
+MergeRight			: "دمج لليمين",
+MergeDown			: "دمج للأسفل",
+HorizontalSplitCell	: "تقسيم الخلية أفقياً",
+VerticalSplitCell	: "تقسيم الخلية عمودياً",
 TableDelete			: "حذف الجدول",
 CellProperties		: "خصائص الخلية",
 TableProperties		: "خصائص الجدول",
@@ -226,7 +238,7 @@ DlgLnkURL			: "الموقع",
 DlgLnkAnchorSel		: "اختر علامة مرجعية",
 DlgLnkAnchorByName	: "حسب اسم العلامة",
 DlgLnkAnchorById	: "حسب تعريف العنصر",
-DlgLnkNoAnchors		: "<لا يوجد علامات مرجعية في هذا المستند>",
+DlgLnkNoAnchors		: "(لا يوجد علامات مرجعية في هذا المستند)",
 DlgLnkEMail			: "عنوان بريد إلكتروني",
 DlgLnkEMailSubject	: "موضوع الرسالة",
 DlgLnkEMailBody		: "محتوى الرسالة",
@@ -259,7 +271,7 @@ DlgLnkPopTop		: "التمركز للأعلى",
 DlnLnkMsgNoUrl		: "فضلاً أدخل عنوان الموقع الذي يشير إليه الرابط",
 DlnLnkMsgNoEMail	: "فضلاً أدخل عنوان البريد الإلكتروني",
 DlnLnkMsgNoAnchor	: "فضلاً حدد العلامة المرجعية المرغوبة",
-DlnLnkMsgInvPopName	: "The popup name must begin with an alphabetic character and must not contain spaces",	//MISSING
+DlnLnkMsgInvPopName	: "اسم النافذة المنبثقة يجب أن يبدأ بحرف أبجدي دون مسافات",
 
 // Color Dialog
 DlgColorTitle		: "اختر لوناً",
@@ -319,6 +331,9 @@ DlgCellBackColor	: "لون الخلفية",
 DlgCellBorderColor	: "لون الحدود",
 DlgCellBtnSelect	: "حدّد...",
 
+// Find and Replace Dialog
+DlgFindAndReplaceTitle	: "بحث واستبدال",
+
 // Find Dialog
 DlgFindTitle		: "بحث",
 DlgFindFindBtn		: "ابحث",
@@ -334,7 +349,6 @@ DlgReplaceReplAllBtn	: "إستبدال الكل",
 DlgReplaceWordChk		: "الكلمة بالكامل فقط",
 
 // Paste Operations / Dialog
-PasteErrorPaste	: "الإعدادات الأمنية للمتصفح الذي تستخدمه تمنع اللصق التلقائي. فضلاً إستخدم لوحة المفاتيح لفعل ذلك (Ctrl+V).",
 PasteErrorCut	: "الإعدادات الأمنية للمتصفح الذي تستخدمه تمنع القص التلقائي. فضلاً إستخدم لوحة المفاتيح لفعل ذلك (Ctrl+X).",
 PasteErrorCopy	: "الإعدادات الأمنية للمتصفح الذي تستخدمه تمنع النسخ التلقائي. فضلاً إستخدم لوحة المفاتيح لفعل ذلك (Ctrl+C).",
 
@@ -342,6 +356,7 @@ PasteAsText		: "لصق كنص بسيط",
 PasteFromWord	: "لصق من وورد",
 
 DlgPasteMsg2	: "الصق داخل الصندوق بإستخدام زرّي (<STRONG>Ctrl+V</STRONG>) في لوحة المفاتيح، ثم اضغط زر  <STRONG>موافق</STRONG>.",
+DlgPasteSec		: "نظراً لإعدادات الأمان الخاصة بمتصفحك، لن يتمكن هذا المحرر من الوصول لمحتوى حافظتك، لذا وجب عليك لصق المحتوى مرة أخرى في هذه النافذة.",
 DlgPasteIgnoreFont		: "تجاهل تعريفات أسماء الخطوط",
 DlgPasteRemoveStyles	: "إزالة تعريفات الأنماط",
 DlgPasteCleanBox		: "نظّف محتوى الصندوق",
@@ -378,9 +393,9 @@ IeSpellDownload			: "المدقق الإملائي (الإنجليزي) غير �
 // Button Dialog
 DlgButtonText		: "القيمة/التسمية",
 DlgButtonType		: "نوع الزر",
-DlgButtonTypeBtn	: "Button",	//MISSING
-DlgButtonTypeSbm	: "Submit",	//MISSING
-DlgButtonTypeRst	: "Reset",	//MISSING
+DlgButtonTypeBtn	: "زر",
+DlgButtonTypeSbm	: "إرسال",
+DlgButtonTypeRst	: "إعادة تعيين",
 
 // Checkbox and Radio Button Dialogs
 DlgCheckboxName		: "الاسم",
@@ -429,7 +444,7 @@ DlgHiddenValue	: "القيمة",
 // Bulleted List Dialog
 BulletedListProp	: "خصائص التعداد النقطي",
 NumberedListProp	: "خصائص التعداد الرقمي",
-DlgLstStart			: "Start",	//MISSING
+DlgLstStart			: "البدء عند",
 DlgLstType			: "النوع",
 DlgLstTypeCircle	: "دائرة",
 DlgLstTypeDisc		: "قرص",
@@ -452,16 +467,16 @@ DlgDocLangDirLTR	: "اليسار لليمين (LTR)",
 DlgDocLangDirRTL	: "اليمين لليسار (RTL)",
 DlgDocLangCode		: "رمز اللغة",
 DlgDocCharSet		: "ترميز الحروف",
-DlgDocCharSetCE		: "Central European",	//MISSING
-DlgDocCharSetCT		: "Chinese Traditional (Big5)",	//MISSING
-DlgDocCharSetCR		: "Cyrillic",	//MISSING
-DlgDocCharSetGR		: "Greek",	//MISSING
-DlgDocCharSetJP		: "Japanese",	//MISSING
-DlgDocCharSetKR		: "Korean",	//MISSING
-DlgDocCharSetTR		: "Turkish",	//MISSING
-DlgDocCharSetUN		: "Unicode (UTF-8)",	//MISSING
-DlgDocCharSetWE		: "Western European",	//MISSING
-DlgDocCharSetOther	: "ترميز حروف آخر",
+DlgDocCharSetCE		: "أوروبا الوسطى",
+DlgDocCharSetCT		: "الصينية التقليدية (Big5)",
+DlgDocCharSetCR		: "السيريلية",
+DlgDocCharSetGR		: "اليونانية",
+DlgDocCharSetJP		: "اليابانية",
+DlgDocCharSetKR		: "الكورية",
+DlgDocCharSetTR		: "التركية",
+DlgDocCharSetUN		: "Unicode (UTF-8)",
+DlgDocCharSetWE		: "أوروبا الغربية",
+DlgDocCharSetOther	: "ترميز آخر",
 
 DlgDocDocType		: "ترويسة نوع  الصفحة",
 DlgDocDocTypeOther	: "ترويسة نوع  صفحة أخرى",
@@ -490,13 +505,12 @@ DlgTemplatesTitle	: "قوالب المحتوى",
 DlgTemplatesSelMsg	: "اختر القالب الذي تود وضعه في المحرر <br>(سيتم فقدان المحتوى الحالي):",
 DlgTemplatesLoading	: "جاري تحميل قائمة القوالب، الرجاء الإنتظار...",
 DlgTemplatesNoTpl	: "(لم يتم تعريف أي قالب)",
-DlgTemplatesReplace	: "Replace actual contents",	//MISSING
+DlgTemplatesReplace	: "استبدال المحتوى",
 
 // About Dialog
 DlgAboutAboutTab	: "نبذة",
 DlgAboutBrowserInfoTab	: "معلومات متصفحك",
 DlgAboutLicenseTab	: "الترخيص",
 DlgAboutVersion		: "الإصدار",
-DlgAboutLicense		: "مرخّص بحسب قانون  GNU LGPL",
 DlgAboutInfo		: "لمزيد من المعلومات تفضل بزيارة"
-}
+};

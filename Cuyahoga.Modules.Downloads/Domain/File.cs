@@ -28,7 +28,7 @@ namespace Cuyahoga.Modules.Downloads.Domain
 		/// <summary>
 		/// Property Id (int)
 		/// </summary>
-		public int Id
+		public virtual int Id
 		{
 			get { return this._id; }
 			set { this._id = value; }
@@ -37,7 +37,7 @@ namespace Cuyahoga.Modules.Downloads.Domain
 		/// <summary>
 		/// Property FilePath (string)
 		/// </summary>
-		public string FilePath
+		public virtual string FilePath
 		{
 			get { return this._filePath; }
 			set { this._filePath = value; }
@@ -46,7 +46,7 @@ namespace Cuyahoga.Modules.Downloads.Domain
 		/// <summary>
 		/// Property Title (string)
 		/// </summary>
-		public string Title
+		public virtual string Title
 		{
 			get { return this._title; }
 			set { this._title = value; }
@@ -55,7 +55,7 @@ namespace Cuyahoga.Modules.Downloads.Domain
 		/// <summary>
 		/// The title that is shown.
 		/// </summary>
-		public string DisplayTitle
+		public virtual string DisplayTitle
 		{
 			get 
 			{
@@ -73,7 +73,7 @@ namespace Cuyahoga.Modules.Downloads.Domain
 		/// <summary>
 		/// Property Size (int)
 		/// </summary>
-		public int Size
+		public virtual int Size
 		{
 			get { return this._size; }
 			set { this._size = value; }
@@ -82,7 +82,7 @@ namespace Cuyahoga.Modules.Downloads.Domain
 		/// <summary>
 		/// Property NrOfDownloads (int)
 		/// </summary>
-		public int NrOfDownloads
+		public virtual int NrOfDownloads
 		{
 			get { return this._nrOfDownloads; }
 			set { this._nrOfDownloads = value; }
@@ -91,7 +91,7 @@ namespace Cuyahoga.Modules.Downloads.Domain
 		/// <summary>
 		/// Property ContentType (string)
 		/// </summary>
-		public string ContentType
+		public virtual string ContentType
 		{
 			get { return this._contentType; }
 			set { this._contentType = value; }
@@ -100,7 +100,7 @@ namespace Cuyahoga.Modules.Downloads.Domain
 		/// <summary>
 		/// Property DatePublished (DateTime)
 		/// </summary>
-		public DateTime DatePublished
+		public virtual DateTime DatePublished
 		{
 			get { return this._datePublished; }
 			set { this._datePublished = value; }
@@ -109,7 +109,7 @@ namespace Cuyahoga.Modules.Downloads.Domain
 		/// <summary>
 		/// Property Section (Section)
 		/// </summary>
-		public Section Section
+		public virtual Section Section
 		{
 			get { return this._section; }
 			set { this._section = value; }
@@ -118,7 +118,7 @@ namespace Cuyahoga.Modules.Downloads.Domain
 		/// <summary>
 		/// Property Publisher (User)
 		/// </summary>
-		public User Publisher
+		public virtual User Publisher
 		{
 			get { return this._publisher; }
 			set { this._publisher = value; }
@@ -127,7 +127,7 @@ namespace Cuyahoga.Modules.Downloads.Domain
 		/// <summary>
 		/// Property Roles (IList)
 		/// </summary>
-		public IList AllowedRoles
+		public virtual IList AllowedRoles
 		{
 			get { return this._allowedRoles; }
 			set { this._allowedRoles = value; }
@@ -136,7 +136,7 @@ namespace Cuyahoga.Modules.Downloads.Domain
 		/// <summary>
 		/// 
 		/// </summary>
-		public DateTime UpdateTimestamp
+		public virtual DateTime UpdateTimestamp
 		{
 			get { return this._updateTimestamp; }
 			set { this._updateTimestamp = value; }
@@ -159,7 +159,7 @@ namespace Cuyahoga.Modules.Downloads.Domain
 		/// </summary>
 		/// <param name="roleToCheck"></param>
 		/// <returns></returns>
-		public bool IsDownloadAllowed(Role roleToCheck)
+		public virtual bool IsDownloadAllowed(Role roleToCheck)
 		{
 			foreach (Role role in this._allowedRoles)
 			{
@@ -176,7 +176,7 @@ namespace Cuyahoga.Modules.Downloads.Domain
 		/// </summary>
 		/// <param name="userToCheck"></param>
 		/// <returns></returns>
-		public bool IsDownloadAllowed(IIdentity userToCheck)
+		public virtual bool IsDownloadAllowed(IIdentity userToCheck)
 		{
 			User cuyahogaUser = userToCheck as User;
 			if (cuyahogaUser == null)
@@ -200,7 +200,7 @@ namespace Cuyahoga.Modules.Downloads.Domain
 		/// Check if download of the file is allowed for anonymous users.
 		/// </summary>
 		/// <returns></returns>
-		public bool IsAnonymousDownloadAllowed()
+		public virtual bool IsAnonymousDownloadAllowed()
 		{
 			foreach (Role role in this._allowedRoles)
 			{

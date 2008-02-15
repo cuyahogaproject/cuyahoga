@@ -1,21 +1,24 @@
 ﻿/*
- * FCKeditor - The text editor for internet
- * Copyright (C) 2003-2006 Frederico Caldeira Knabben
- * 
- * Licensed under the terms of the GNU Lesser General Public License:
- * 		http://www.opensource.org/licenses/lgpl-license.php
- * 
- * For further information visit:
- * 		http://www.fckeditor.net/
- * 
- * "Support Open Source software. What about a donation today?"
- * 
- * File Name: lv.js
- * 	Latvian language file.
- * 
- * File Authors:
- * 		Jānis Kļaviņš (janis@4id.lv)
- * 		Slowmo (slowmo@inbox.lv)
+ * FCKeditor - The text editor for Internet - http://www.fckeditor.net
+ * Copyright (C) 2003-2007 Frederico Caldeira Knabben
+ *
+ * == BEGIN LICENSE ==
+ *
+ * Licensed under the terms of any of the following licenses at your
+ * choice:
+ *
+ *  - GNU General Public License Version 2 or later (the "GPL")
+ *    http://www.gnu.org/licenses/gpl.html
+ *
+ *  - GNU Lesser General Public License Version 2.1 or later (the "LGPL")
+ *    http://www.gnu.org/licenses/lgpl.html
+ *
+ *  - Mozilla Public License Version 1.1 or later (the "MPL")
+ *    http://www.mozilla.org/MPL/MPL-1.1.html
+ *
+ * == END LICENSE ==
+ *
+ * Latvian language file.
  */
 
 var FCKLang =
@@ -42,6 +45,7 @@ InsertLinkLbl		: "Hipersaite",
 InsertLink			: "Ievietot/Labot hipersaiti",
 RemoveLink			: "Noņemt hipersaiti",
 Anchor				: "Ievietot/Labot iezīmi",
+AnchorDelete		: "Remove Anchor",	//MISSING
 InsertImageLbl		: "Attēls",
 InsertImage			: "Ievietot/Labot Attēlu",
 InsertFlashLbl		: "Flash",
@@ -67,6 +71,7 @@ RightJustify		: "Izlīdzināt pa labi",
 BlockJustify		: "Izlīdzināt malas",
 DecreaseIndent		: "Samazināt atkāpi",
 IncreaseIndent		: "Palielināt atkāpi",
+Blockquote			: "Blockquote",	//MISSING
 Undo				: "Atcelt",
 Redo				: "Atkārtot",
 NumberedListLbl		: "Numurēts saraksts",
@@ -100,20 +105,27 @@ SelectionField	: "Iezīmēšanas lauks",
 ImageButton		: "Attēlpoga",
 
 FitWindow		: "Maksimizēt redaktora izmēru",
+ShowBlocks		: "Show Blocks",	//MISSING
 
 // Context Menu
 EditLink			: "Labot hipersaiti",
 CellCM				: "Šūna",
 RowCM				: "Rinda",
 ColumnCM			: "Kolonna",
-InsertRow			: "Ievietot rindu",
+InsertRowAfter		: "Insert Row After",	//MISSING
+InsertRowBefore		: "Insert Row Before",	//MISSING
 DeleteRows			: "Dzēst rindas",
-InsertColumn		: "Ievietot kolonnu",
+InsertColumnAfter	: "Insert Column After",	//MISSING
+InsertColumnBefore	: "Insert Column Before",	//MISSING
 DeleteColumns		: "Dzēst kolonnas",
-InsertCell			: "Ievietot rūtiņu",
+InsertCellAfter		: "Insert Cell After",	//MISSING
+InsertCellBefore	: "Insert Cell Before",	//MISSING
 DeleteCells			: "Dzēst rūtiņas",
 MergeCells			: "Apvienot rūtiņas",
-SplitCell			: "Sadalīt rūtiņu",
+MergeRight			: "Merge Right",	//MISSING
+MergeDown			: "Merge Down",	//MISSING
+HorizontalSplitCell	: "Split Cell Horizontally",	//MISSING
+VerticalSplitCell	: "Split Cell Vertically",	//MISSING
 TableDelete			: "Dzēst tabulu",
 CellProperties		: "Rūtiņas īpašības",
 TableProperties		: "Tabulas īpašības",
@@ -226,7 +238,7 @@ DlgLnkURL			: "URL",
 DlgLnkAnchorSel		: "Izvēlēties iezīmi",
 DlgLnkAnchorByName	: "Pēc iezīmes nosaukuma",
 DlgLnkAnchorById	: "Pēc elementa ID",
-DlgLnkNoAnchors		: "<Šajā dokumentā nav iezīmju>",
+DlgLnkNoAnchors		: "(Šajā dokumentā nav iezīmju)",
 DlgLnkEMail			: "E-pasta adrese",
 DlgLnkEMailSubject	: "Ziņas tēma",
 DlgLnkEMailBody		: "Ziņas saturs",
@@ -319,6 +331,9 @@ DlgCellBackColor	: "Fona krāsa",
 DlgCellBorderColor	: "Rāmja krāsa",
 DlgCellBtnSelect	: "Iezīmē...",
 
+// Find and Replace Dialog
+DlgFindAndReplaceTitle	: "Find and Replace",	//MISSING
+
 // Find Dialog
 DlgFindTitle		: "Meklētājs",
 DlgFindFindBtn		: "Meklēt",
@@ -334,7 +349,6 @@ DlgReplaceReplAllBtn	: "Aizvietot visu",
 DlgReplaceWordChk		: "Jāsakrīt pilnībā",
 
 // Paste Operations / Dialog
-PasteErrorPaste	: "Jūsu pārlūkprogrammas drošības iestatījumi nepieļauj editoram automātiski veikt ievietošanas darbību. Lūdzu, izmantojiet (Ctrl+V), lai veiktu šo darbību.",
 PasteErrorCut	: "Jūsu pārlūkprogrammas drošības iestatījumi nepieļauj editoram automātiski veikt izgriešanas darbību.  Lūdzu, izmantojiet (Ctrl+X, lai veiktu šo darbību.",
 PasteErrorCopy	: "Jūsu pārlūkprogrammas drošības iestatījumi nepieļauj editoram automātiski veikt kopēšanas darbību.  Lūdzu, izmantojiet (Ctrl+C), lai veiktu šo darbību.",
 
@@ -342,6 +356,7 @@ PasteAsText		: "Ievietot kā vienkāršu tekstu",
 PasteFromWord	: "Ievietot no Worda",
 
 DlgPasteMsg2	: "Lūdzu, ievietojiet tekstu šajā laukumā, izmantojot klaviatūru (<STRONG>Ctrl+V</STRONG>) un apstipriniet ar <STRONG>Darīts!</STRONG>.",
+DlgPasteSec		: "Because of your browser security settings, the editor is not able to access your clipboard data directly. You are required to paste it again in this window.",	//MISSING
 DlgPasteIgnoreFont		: "Ignorēt iepriekš norādītos fontus",
 DlgPasteRemoveStyles	: "Noņemt norādītos stilus",
 DlgPasteCleanBox		: "Apstrādāt laukuma saturu",
@@ -497,6 +512,5 @@ DlgAboutAboutTab	: "Par",
 DlgAboutBrowserInfoTab	: "Informācija par pārlūkprogrammu",
 DlgAboutLicenseTab	: "Licence",
 DlgAboutVersion		: "versija",
-DlgAboutLicense		: "Programmatūra lietojama saskaņā ar GNU Lesser General Public License",
 DlgAboutInfo		: "Papildus informācija ir pieejama"
-}
+};

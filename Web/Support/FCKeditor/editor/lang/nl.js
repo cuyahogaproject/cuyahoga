@@ -1,21 +1,24 @@
 ﻿/*
- * FCKeditor - The text editor for internet
- * Copyright (C) 2003-2006 Frederico Caldeira Knabben
- * 
- * Licensed under the terms of the GNU Lesser General Public License:
- * 		http://www.opensource.org/licenses/lgpl-license.php
- * 
- * For further information visit:
- * 		http://www.fckeditor.net/
- * 
- * "Support Open Source software. What about a donation today?"
- * 
- * File Name: nl.js
- * 	Dutch language file.
- * 
- * File Authors:
- * 		Bram Crins (bcrins@realdesign.nl)
- * 		Aaron van Geffen (aaron@aaronweb.net)
+ * FCKeditor - The text editor for Internet - http://www.fckeditor.net
+ * Copyright (C) 2003-2007 Frederico Caldeira Knabben
+ *
+ * == BEGIN LICENSE ==
+ *
+ * Licensed under the terms of any of the following licenses at your
+ * choice:
+ *
+ *  - GNU General Public License Version 2 or later (the "GPL")
+ *    http://www.gnu.org/licenses/gpl.html
+ *
+ *  - GNU Lesser General Public License Version 2.1 or later (the "LGPL")
+ *    http://www.gnu.org/licenses/lgpl.html
+ *
+ *  - Mozilla Public License Version 1.1 or later (the "MPL")
+ *    http://www.mozilla.org/MPL/MPL-1.1.html
+ *
+ * == END LICENSE ==
+ *
+ * Dutch language file.
  */
 
 var FCKLang =
@@ -39,17 +42,18 @@ Print				: "Printen",
 SelectAll			: "Alles selecteren",
 RemoveFormat		: "Opmaak verwijderen",
 InsertLinkLbl		: "Link",
-InsertLink			: "Invoegen/Wijzigen link",
-RemoveLink			: "Verwijderen link",
+InsertLink			: "Link invoegen/wijzigen",
+RemoveLink			: "Link verwijderen",
 Anchor				: "Interne link",
+AnchorDelete		: "Anker verwijderen",
 InsertImageLbl		: "Afbeelding",
-InsertImage			: "Invoegen/Wijzigen afbeelding",
+InsertImage			: "Afbeelding invoegen/wijzigen",
 InsertFlashLbl		: "Flash",
-InsertFlash			: "Invoegen/Wijzigen Flash",
+InsertFlash			: "Flash invoegen/wijzigen",
 InsertTableLbl		: "Tabel",
-InsertTable			: "Invoegen/Wijzigen tabel",
+InsertTable			: "Tabel invoegen/wijzigen",
 InsertLineLbl		: "Lijn",
-InsertLine			: "Invoegen horizontale lijn",
+InsertLine			: "Horizontale lijn invoegen",
 InsertSpecialCharLbl: "Speciale tekens",
 InsertSpecialChar	: "Speciaal teken invoegen",
 InsertSmileyLbl		: "Smiley",
@@ -65,14 +69,15 @@ LeftJustify			: "Links uitlijnen",
 CenterJustify		: "Centreren",
 RightJustify		: "Rechts uitlijnen",
 BlockJustify		: "Uitvullen",
-DecreaseIndent		: "Oplopenend",
-IncreaseIndent		: "Aflopend",
+DecreaseIndent		: "Inspringen verkleinen",
+IncreaseIndent		: "Inspringen vergroten",
+Blockquote			: "Citaatblok",
 Undo				: "Ongedaan maken",
-Redo				: "Opnieuw",
+Redo				: "Opnieuw uitvoeren",
 NumberedListLbl		: "Genummerde lijst",
-NumberedList		: "Invoegen/Verwijderen genummerde lijst",
+NumberedList		: "Genummerde lijst invoegen/verwijderen",
 BulletedListLbl		: "Opsomming",
-BulletedList		: "Invoegen/Verwijderen opsomming",
+BulletedList		: "Opsomming invoegen/verwijderen",
 ShowTableBorders	: "Randen tabel weergeven",
 ShowDetails			: "Details weergeven",
 Style				: "Stijl",
@@ -100,20 +105,27 @@ SelectionField	: "Selectieveld",
 ImageButton		: "Afbeeldingsknop",
 
 FitWindow		: "De editor maximaliseren",
+ShowBlocks		: "Toon blokken",
 
 // Context Menu
 EditLink			: "Link wijzigen",
 CellCM				: "Cel",
 RowCM				: "Rij",
 ColumnCM			: "Kolom",
-InsertRow			: "Rij invoegen",
+InsertRowAfter		: "Voeg rij in achter",
+InsertRowBefore		: "Voeg rij in voor",
 DeleteRows			: "Rijen verwijderen",
-InsertColumn		: "Kolom invoegen",
+InsertColumnAfter	: "Voeg kolom in achter",
+InsertColumnBefore	: "Voeg kolom in voor",
 DeleteColumns		: "Kolommen verwijderen",
-InsertCell			: "Cel",
+InsertCellAfter		: "Voeg cel in achter",
+InsertCellBefore	: "Voeg cel in voor",
 DeleteCells			: "Cellen verwijderen",
 MergeCells			: "Cellen samenvoegen",
-SplitCell			: "Cellen splitsen",
+MergeRight			: "Voeg samen naar rechts",
+MergeDown			: "Voeg samen naar beneden",
+HorizontalSplitCell	: "Splits cellen horizontaal",
+VerticalSplitCell	: "Splits cellen verticaal",
 TableDelete			: "Tabel verwijderen",
 CellProperties		: "Eigenschappen cel",
 TableProperties		: "Eigenschappen tabel",
@@ -134,7 +146,7 @@ FormProp			: "Eigenschappen formulier",
 FontFormats			: "Normaal;Met opmaak;Adres;Kop 1;Kop 2;Kop 3;Kop 4;Kop 5;Kop 6;Normaal (DIV)",
 
 // Alerts and Messages
-ProcessingXHTML		: "Verwerken XHTML. Even geduld aub...",
+ProcessingXHTML		: "Bezig met verwerken XHTML. Even geduld aub...",
 Done				: "Klaar",
 PasteWordConfirm	: "De tekst die je plakte lijkt gekopieerd uit te zijn Word. Wil je de tekst opschonen voordat deze geplakt wordt?",
 NotCompatiblePaste	: "Deze opdracht is beschikbaar voor Internet Explorer versie 5.5 of hoger. Wil je plakken zonder op te schonen?",
@@ -162,7 +174,7 @@ DlgGenId			: "Kenmerk",
 DlgGenLangDir		: "Schrijfrichting",
 DlgGenLangDirLtr	: "Links naar rechts (LTR)",
 DlgGenLangDirRtl	: "Rechts naar links (RTL)",
-DlgGenLangCode		: "Codetaal",
+DlgGenLangCode		: "Taalcode",
 DlgGenAccessKey		: "Toegangstoets",
 DlgGenName			: "Naam",
 DlgGenTabIndex		: "Tabvolgorde",
@@ -226,7 +238,7 @@ DlgLnkURL			: "URL",
 DlgLnkAnchorSel		: "Kies een interne link",
 DlgLnkAnchorByName	: "Op naam interne link",
 DlgLnkAnchorById	: "Op kenmerk interne link",
-DlgLnkNoAnchors		: "<Geen interne links in document gevonden.>",
+DlgLnkNoAnchors		: "(Geen interne links in document gevonden)",
 DlgLnkEMail			: "E-mailadres",
 DlgLnkEMailSubject	: "Onderwerp bericht",
 DlgLnkEMailBody		: "Inhoud bericht",
@@ -319,6 +331,9 @@ DlgCellBackColor	: "Achtergrondkleur",
 DlgCellBorderColor	: "Randkleur",
 DlgCellBtnSelect	: "Selecteren...",
 
+// Find and Replace Dialog
+DlgFindAndReplaceTitle	: "Zoeken en vervangen",
+
 // Find Dialog
 DlgFindTitle		: "Zoeken",
 DlgFindFindBtn		: "Zoeken",
@@ -334,14 +349,14 @@ DlgReplaceReplAllBtn	: "Alles vervangen",
 DlgReplaceWordChk		: "Hele woord moet voorkomen",
 
 // Paste Operations / Dialog
-PasteErrorPaste	: "De beveiligingsinstelling van de browser verhinderen het automatisch plakken. Gebruik de sneltoets Ctrl+V van het toetsenbord.",
 PasteErrorCut	: "De beveiligingsinstelling van de browser verhinderen het automatisch knippen. Gebruik de sneltoets Ctrl+X van het toetsenbord.",
 PasteErrorCopy	: "De beveiligingsinstelling van de browser verhinderen het automatisch kopiëren. Gebruik de sneltoets Ctrl+C van het toetsenbord.",
 
 PasteAsText		: "Plakken als platte tekst",
 PasteFromWord	: "Plakken als Word-gegevens",
 
-DlgPasteMsg2	: "Plak de tekst in het volgende vak gebruik makend van je toetstenbord (<STRONG>Ctrl+V</STRONG>) en klik op <STRONG>OK</STRONG>.",
+DlgPasteMsg2	: "Plak de tekst in het volgende vak gebruik makend van je toetstenbord (<strong>Ctrl+V</strong>) en klik op <strong>OK</strong>.",
+DlgPasteSec		: "Door de beveiligingsinstellingen van uw browser is het niet mogelijk om direct vanuit het klembord in de editor te plakken. Middels opnieuw plakken in dit venster kunt u de tekst alsnog plakken in de editor.",
 DlgPasteIgnoreFont		: "Negeer \"Font Face\"-definities",
 DlgPasteRemoveStyles	: "Verwijder \"Style\"-definities",
 DlgPasteCleanBox		: "Vak opschonen",
@@ -497,6 +512,5 @@ DlgAboutAboutTab	: "Over",
 DlgAboutBrowserInfoTab	: "Browserinformatie",
 DlgAboutLicenseTab	: "Licentie",
 DlgAboutVersion		: "Versie",
-DlgAboutLicense		: "Gelicenceerd onder de condities van het GNU Lesser General Public License",
 DlgAboutInfo		: "Voor meer informatie ga naar "
-}
+};

@@ -16,10 +16,10 @@
 			<include name="Castle.Facilities.NHibernateIntegration.dll" />
 			<include name="Castle.MicroKernel.dll" />
 			<include name="Castle.Services.Transaction.dll" />
+			<include name="Castle.Windsor.dll" />
 			<include name="NHibernate.dll" />
 			<include name="log4net.dll" />
 			<include name="Lucene.Net.dll" />
-			<include name="Nullables.dll" />
 		</assemblyfileset>
 		<resourcefileset id="project.resources" basedir="Domain" prefix="${project::get-name()}.Domain" dynamicprefix="true">
 			<include name="*.hbm.xml" />

@@ -26,7 +26,7 @@ namespace Cuyahoga.Core.Domain
 		/// <summary>
 		/// Property Site (Site)
 		/// </summary>
-        public virtual Site Site
+		public virtual Site Site
 		{
 			get { return this._site; }
 			set { this._site = value; }
@@ -35,7 +35,7 @@ namespace Cuyahoga.Core.Domain
 		/// <summary>
 		/// Optional entry point.
 		/// </summary>
-        public virtual Node EntryNode
+		public virtual Node EntryNode
 		{
 			get { return this._entryNode; }
 			set { this._entryNode = value; }
@@ -44,7 +44,7 @@ namespace Cuyahoga.Core.Domain
 		/// <summary>
 		/// Property Url (string)
 		/// </summary>
-        public virtual string Url
+		public virtual string Url
 		{
 			get { return this._url; }
 			set { this._url = value; }
@@ -53,7 +53,7 @@ namespace Cuyahoga.Core.Domain
 		/// <summary>
 		/// Property UpdateTimestamp (DateTime)
 		/// </summary>
-        public virtual DateTime UpdateTimestamp
+		public virtual DateTime UpdateTimestamp
 		{
 			get { return this._updateTimestamp; }
 			set { this._updateTimestamp = value; }
