@@ -23,7 +23,7 @@ namespace Cuyahoga.Modules.StaticHtml
 	
 		protected void Page_Load(object sender, System.EventArgs e)
 		{
-			this.fckEditor.BasePath = this.Page.ResolveUrl("~/Support/FCKEditor/");
+			this.fckEditor.BasePath = this.Page.ResolveUrl("~/Support/FCKeditor/");
 			this._module = base.Module as StaticHtmlModule;
 
 			if (! this.IsPostBack)

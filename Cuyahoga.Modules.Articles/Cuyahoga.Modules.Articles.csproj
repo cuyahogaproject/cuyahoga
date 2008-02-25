@@ -161,8 +161,11 @@
     </Content>
     <None Include="Cuyahoga.Modules.Articles.build" />
     <None Include="Install\Database\mssql2000\1.5.1.sql" />
+    <None Include="Install\Database\mssql2000\1.5.2.sql" />
     <None Include="Install\Database\mysql\1.5.1.sql" />
+    <None Include="Install\Database\mysql\1.5.2.sql" />
     <None Include="Install\Database\postgresql\1.5.1.sql" />
+    <None Include="Install\Database\postgresql\1.5.2.sql" />
     <None Include="Install\Database\postgresql\uninstall.sql" />
     <None Include="Install\Database\postgresql\install.sql" />
     <None Include="Install\Database\mysql\uninstall.sql" />

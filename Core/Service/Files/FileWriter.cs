@@ -11,7 +11,6 @@ namespace Cuyahoga.Core.Service.Files
 	/// </summary>
 	public class FileWriter : IResource
 	{
-		// TODO: make temp dir configurable
 		private string _tempDir = Environment.GetEnvironmentVariable("TEMP");
 
 		private IList _createdFiles = new ArrayList();
@@ -20,8 +19,12 @@ namespace Cuyahoga.Core.Service.Files
 		/// <summary>
 		/// Contructor.
 		/// </summary>
-		public FileWriter()
+		public FileWriter(string tempDir)
 		{	
+			if (! String.IsNullOrEmpty(tempDir))
+			{
+				this._tempDir = tempDir;
+			}
 		}
 
 		/// <summary>

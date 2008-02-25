@@ -13,8 +13,16 @@ namespace Cuyahoga.Core.Service.Files
 	public class TransactionalFileService : IFileService
 	{
 		private static readonly ILog log = LogManager.GetLogger(typeof(TransactionalFileService));
-
+		private string _tempDir;
 		private IKernel _kernel;
+		
+		/// <summary>
+		/// Physical path for temporary file storage
+		/// </summary>
+		public string TempDir
+		{
+			set { this._tempDir = value; }
+		}
 
 		/// <summary>
 		/// Constructor.
@@ -52,7 +60,7 @@ namespace Cuyahoga.Core.Service.Files
 			if (transaction != null)
 			{
 				// We're participating in a transaction, use the FileWriter to write the file.
-				FileWriter fileWriter = new FileWriter();
+				FileWriter fileWriter = new FileWriter(this._tempDir);
 				transaction.Enlist(fileWriter);
 				fileWriter.CreateFromStream(filePath, fileContents);
 			}
@@ -72,7 +80,7 @@ namespace Cuyahoga.Core.Service.Files
 			if (transaction != null)
 			{
 				// We're participating in a transaction, use the FileWriter to delete the file.
-				FileWriter fileWriter = new FileWriter();
+				FileWriter fileWriter = new FileWriter(this._tempDir);
 				transaction.Enlist(fileWriter);
 				fileWriter.DeleteFile(filePath);
 			}

@@ -180,7 +180,7 @@ namespace Cuyahoga.Modules.Downloads.Web
 				catch (Exception ex)
 				{
 					// Something went wrong
-					ShowError("Error saving the file: " + ex.Message);
+					ShowError("Error saving the file: " + fullFilePath + " " + ex.ToString());
 				}
 			}
 		}

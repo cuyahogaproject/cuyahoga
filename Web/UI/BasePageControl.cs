@@ -13,9 +13,9 @@ namespace Cuyahoga.Web.UI
 		/// </summary>
 		protected System.Web.UI.WebControls.Literal PageTitle;
 		/// <summary>
-		/// Template controls that inherit from BasePageControl must have a HtmlGenericControl control id="CssStyleSheet"
+		/// Template controls that inherit from BasePageControl must have a HtmlControl control id="CssStyleSheet"
 		/// </summary>
-		protected System.Web.UI.HtmlControls.HtmlGenericControl CssStyleSheet;
+		protected System.Web.UI.HtmlControls.HtmlControl CssStyleSheet;
 		/// <summary>
 		/// Template controls that inherit from BasePageControl must have a PlaceHolder control id="PageContent"
 		/// </summary>

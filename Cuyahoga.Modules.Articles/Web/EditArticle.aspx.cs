@@ -32,7 +32,7 @@ namespace Cuyahoga.Modules.Articles.Web
 
 		protected void Page_Load(object sender, System.EventArgs e)
 		{
-			this.fckContent.BasePath = this.Page.ResolveUrl("~/Support/FCKEditor/");
+			this.fckContent.BasePath = this.Page.ResolveUrl("~/Support/FCKeditor/");
 			this._articleModule = base.Module as ArticleModule;
 			this.btnCancel.Attributes.Add("onclick", String.Format("document.location.href='AdminArticles.aspx{0}'", base.GetBaseQueryString()));
 
@@ -131,7 +131,6 @@ namespace Cuyahoga.Modules.Articles.Web
 					this._article.DateOffline = new DateTime(2199, 1, 1);
 				}
 				this._article.ModifiedBy = (Cuyahoga.Core.Domain.User)this.User.Identity;
-				this._article.DateModified = DateTime.Now;
 				this._articleModule.SaveArticle(this._article);
 				Response.Redirect(String.Format("AdminArticles.aspx{0}", base.GetBaseQueryString()));
 			}

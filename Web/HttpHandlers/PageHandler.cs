@@ -43,7 +43,7 @@ namespace Cuyahoga.Web.HttpHandlers
 
 			// Obtain the handler for the current page
 			string aspxPagePath = rewrittenUrl.Substring(0, rewrittenUrl.IndexOf(".aspx") + 5);
-			IHttpHandler handler = PageParser.GetCompiledPageInstance(aspxPagePath, null, context);
+			IHttpHandler handler = PageParser.GetCompiledPageInstance(aspxPagePath, context.Server.MapPath(aspxPagePath), context);
 
 			// Process the page just like any other aspx page
 			handler.ProcessRequest(context);
