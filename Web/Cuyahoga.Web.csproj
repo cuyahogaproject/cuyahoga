@@ -74,6 +74,9 @@
     <DebugType>none</DebugType>
     <ErrorReport>prompt</ErrorReport>
   </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Core|AnyCPU' ">
+    <OutputPath>bin\</OutputPath>
+  </PropertyGroup>
   <ItemGroup>
     <ProjectReference Include="..\Core\Cuyahoga.Core.csproj">
       <Name>Cuyahoga.Core</Name>
@@ -92,6 +95,10 @@
     <Reference Include="Castle.MicroKernel">
       <Name>Castle.MicroKernel</Name>
       <HintPath>..\lib\Castle.MicroKernel.dll</HintPath>
+    </Reference>
+    <Reference Include="Castle.MonoRail.Framework, Version=1.0.0.0, Culture=neutral, PublicKeyToken=407dd0808d44fbdc, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\lib\Castle.MonoRail.Framework.dll</HintPath>
     </Reference>
     <Reference Include="Castle.Windsor">
       <Name>Castle.Windsor</Name>
@@ -239,6 +246,52 @@
       <DependentUpon>Users.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
+    <Compile Include="App_GlobalResources\Cuyahoga.Web.Controls.Resources.Strings.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Cuyahoga.Web.Controls.Resources.Strings.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\Cuyahoga.Web.Controls.Resources.Strings.it.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Cuyahoga.Web.Controls.Resources.Strings.it.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\Cuyahoga.Web.Controls.Resources.Strings.nl.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Cuyahoga.Web.Controls.Resources.Strings.nl.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\Cuyahoga.Web.Controls.Resources.Strings.sv-SE.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Cuyahoga.Web.Controls.Resources.Strings.sv-SE.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\Cuyahoga.Web.Manager.GlobalResources.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Cuyahoga.Web.Manager.GlobalResources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\Cuyahoga.Web.Manager.GlobalResources.nl.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Cuyahoga.Web.Manager.GlobalResources.nl.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Components\CuyahogaContext.cs" />
+    <Compile Include="Components\ICuyahogaContext.cs" />
+    <Compile Include="Components\MonoRail\GlobalResourceFacade.cs" />
+    <Compile Include="Components\MonoRail\GlobalResourceFactory.cs" />
+    <Compile Include="Components\MonoRail\MessageType.cs" />
+    <Compile Include="Manager\Controllers\BaseController.cs" />
+    <Compile Include="Manager\Controllers\DashboardController.cs" />
+    <Compile Include="Manager\Controllers\FilesController.cs" />
+    <Compile Include="Manager\Controllers\LoginController.cs" />
+    <Compile Include="Manager\Controllers\PagesController.cs" />
+    <Compile Include="Manager\Controllers\SecureController.cs" />
+    <Compile Include="Manager\Filters\AuthenticationFilter.cs" />
+    <Compile Include="Manager\ViewComponents\HeaderComponent.cs" />
+    <Compile Include="Manager\ViewComponents\MainMenuComponent.cs" />
+    <Compile Include="Manager\ViewComponents\MessagesComponent.cs" />
+    <Compile Include="Manager\ViewComponents\RightsComponent.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -500,6 +553,7 @@
     <Content Include="Global.asax" />
     <Content Include="Images\feed-icon.png" />
     <Content Include="Install\Core\Database\mssql2000\1.5.0.sql" />
+    <Content Include="Install\Core\Database\mssql2000\2.0.0.sql" />
     <Content Include="Install\Core\Database\mysql\1.5.0.sql" />
     <Content Include="Install\Core\Database\postgresql\1.5.0.sql" />
     <Content Include="Install\Install.aspx">
@@ -518,6 +572,14 @@
     <Content Include="Login.aspx">
       <SubType>Form</SubType>
     </Content>
+    <Content Include="Manager\Content\Css\Login.css" />
+    <Content Include="Manager\Content\Css\Manager.css" />
+    <Content Include="Manager\Content\Images\cancel.png" />
+    <Content Include="Manager\Content\Images\cuyahoga-logo.png" />
+    <Content Include="Manager\Content\Images\error.png" />
+    <Content Include="Manager\Content\Images\exclamation.png" />
+    <Content Include="Manager\Content\Images\information.png" />
+    <Content Include="Manager\Default.aspx" />
     <Content Include="Profile.aspx">
       <SubType>Form</SubType>
     </Content>
@@ -1027,6 +1089,36 @@
     <EmbeddedResource Include="Admin\Users.aspx.resx">
       <DependentUpon>Users.aspx.cs</DependentUpon>
     </EmbeddedResource>
+    <Content Include="App_GlobalResources\Cuyahoga.Web.Controls.Resources.Strings.it.resx">
+      <SubType>Designer</SubType>
+      <Generator>GlobalResourceProxyGenerator</Generator>
+      <LastGenOutput>Cuyahoga.Web.Controls.Resources.Strings.it.designer.cs</LastGenOutput>
+    </Content>
+    <Content Include="App_GlobalResources\Cuyahoga.Web.Controls.Resources.Strings.nl.resx">
+      <SubType>Designer</SubType>
+      <Generator>GlobalResourceProxyGenerator</Generator>
+      <LastGenOutput>Cuyahoga.Web.Controls.Resources.Strings.nl.designer.cs</LastGenOutput>
+    </Content>
+    <Content Include="App_GlobalResources\Cuyahoga.Web.Controls.Resources.Strings.resx">
+      <SubType>Designer</SubType>
+      <Generator>GlobalResourceProxyGenerator</Generator>
+      <LastGenOutput>Cuyahoga.Web.Controls.Resources.Strings.designer.cs</LastGenOutput>
+    </Content>
+    <Content Include="App_GlobalResources\Cuyahoga.Web.Controls.Resources.Strings.sv-SE.resx">
+      <Generator>GlobalResourceProxyGenerator</Generator>
+      <LastGenOutput>Cuyahoga.Web.Controls.Resources.Strings.sv-SE.designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="App_GlobalResources\Cuyahoga.Web.Manager.GlobalResources.resx">
+      <SubType>Designer</SubType>
+      <Generator>GlobalResourceProxyGenerator</Generator>
+      <LastGenOutput>Cuyahoga.Web.Manager.GlobalResources.designer.cs</LastGenOutput>
+    </Content>
+    <Content Include="App_GlobalResources\Cuyahoga.Web.Manager.GlobalResources.nl.resx">
+      <SubType>Designer</SubType>
+      <Generator>GlobalResourceProxyGenerator</Generator>
+      <LastGenOutput>Cuyahoga.Web.Manager.GlobalResources.nl.designer.cs</LastGenOutput>
+    </Content>
     <EmbeddedResource Include="Controls\EditProfile.ascx.resx">
       <DependentUpon>EditProfile.ascx.cs</DependentUpon>
     </EmbeddedResource>
@@ -1050,18 +1142,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Controls\ResetPassword.ascx.resx">
       <DependentUpon>ResetPassword.ascx.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Controls\Resources\Strings.nl.resx">
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Controls\Resources\Strings.resx">
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Controls\Resources\Strings.it.resx">
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Controls\Resources\Strings.sv.resx">
-      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Controls\ViewProfile.ascx.resx">
       <DependentUpon>ViewProfile.ascx.cs</DependentUpon>
@@ -1098,6 +1178,9 @@
     <Content Include="Config\facilities.config" />
     <Content Include="Config\properties.config" />
     <Content Include="Config\services.config" />
+    <Content Include="Config\controllers.config" />
+    <Content Include="Config\components.config" />
+    <Content Include="Config\logging.config" />
     <None Include="Cuyahoga.Web.build" />
     <None Include="Install\Core\Database\mssql2000\0.8.2.sql" />
     <None Include="Install\Core\Database\mssql2000\0.9.0.sql" />
@@ -1142,12 +1225,26 @@
     <None Include="Install\Modules\Database\postgresql\1.5.2.sql" />
     <None Include="Install\Modules\Database\postgresql\install.sql" />
     <None Include="Install\Web.config" />
+    <None Include="Manager\Views\Components\HeaderComponent\Header.vm" />
+    <None Include="Manager\Views\Components\MainMenuComponent\MainMenu.vm" />
+    <None Include="Manager\Views\Components\MessagesComponent\Error.vm" />
+    <None Include="Manager\Views\Components\MessagesComponent\Exception.vm" />
+    <None Include="Manager\Views\Components\MessagesComponent\Message.vm" />
+    <None Include="Manager\Views\Layouts\Simple.vm" />
+    <None Include="Manager\Views\Manager\Dashboard\Index.vm" />
+    <None Include="Manager\Views\Layouts\Default.vm" />
+    <None Include="Manager\Views\Manager\Files\Index.vm" />
+    <None Include="Manager\Views\Manager\Login\Index.vm" />
+    <None Include="Manager\Views\Manager\Pages\Index.vm" />
+    <None Include="Manager\Views\Rescues\GenericError.vm" />
+    <None Include="Manager\Views\Rescues\SecurityError.vm" />
     <None Include="Support\FCKeditor\editor\dialog\fck_spellerpages\spellerpages\server-scripts\spellchecker.cfm" />
     <None Include="Support\FCKeditor\editor\dialog\fck_spellerpages\spellerpages\server-scripts\spellchecker.php" />
     <None Include="Support\FCKeditor\editor\dialog\fck_spellerpages\spellerpages\server-scripts\spellchecker.pl" />
     <Content Include="Support\FCKeditor\editor\filemanager\Web.config" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="Controls\Resources\" />
     <Folder Include="index\" />
     <Folder Include="Modules\" />
     <Folder Include="UserFiles\File\" />
@@ -1159,7 +1256,14 @@
     </PreBuildEvent>
     <PostBuildEvent>xcopy /s /y "$(SolutionDir)"lib\NHibernate.Caches.SysCache.dll "$(TargetDir)"
 xcopy /s /y "$(SolutionDir)"lib\Castle.Facilities.AutomaticTransactionManagement.dll "$(TargetDir)"
-xcopy /s /y "$(SolutionDir)"lib\Castle.Facilities.NHibernateIntegration.dll "$(TargetDir)"</PostBuildEvent>
+xcopy /s /y "$(SolutionDir)"lib\Castle.Facilities.NHibernateIntegration.dll "$(TargetDir)"
+xcopy /s /y "$(SolutionDir)"lib\Castle.MonoRail.Framework.Views.NVelocity.dll "$(TargetDir)"
+xcopy /s /y "$(SolutionDir)"lib\Castle.MonoRail.WindsorExtension.dll "$(TargetDir)"
+xcopy /s /y "$(SolutionDir)"lib\Castle.Components.Validator.dll "$(TargetDir)"
+xcopy /s /y "$(SolutionDir)"lib\Castle.Components.Common.EmailSender.dll "$(TargetDir)"
+xcopy /s /y "$(SolutionDir)"lib\Castle.Facilities.Logging.dll "$(TargetDir)"
+xcopy /s /y "$(SolutionDir)"lib\Castle.Services.Logging.Log4netIntegration.dll "$(TargetDir)"
+xcopy /s /y "$(SolutionDir)"lib\NVelocity.dll "$(TargetDir)"</PostBuildEvent>
   </PropertyGroup>
   <ProjectExtensions>
     <VisualStudio>

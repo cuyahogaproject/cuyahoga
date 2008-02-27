@@ -1,0 +1,32 @@
+<div id="mainmenu">
+	<div id="mainmenu-standard">
+		#foreach($menuitem in $standardmenuitems)
+		#beforeall
+		<ul>
+		#each
+		#if($menuitem.IsSelected)
+		<li class="selected">
+		#else
+		<li>
+		#end
+		<a href="$menuitem.Url">$menuitem.Text</a></li>	
+		#afterall
+		</ul>	
+		#end
+	</div>
+	<div id="mainmenu-options">	
+		#foreach($menuitem in $optionalmenuitems)
+		#beforeall
+		<ul>
+		#each
+		#if($menuitem.IsSelected)
+		<li class="selected">
+		#else
+		<li>
+		#end
+		<a href="$menuitem.Url">$menuitem.Text</a></li>	
+		#afterall
+		</ul>	
+		#end
+	</div>
+</div>

@@ -1,6 +1,6 @@
 using System;
 using System.Collections;
-
+using System.Collections.Generic;
 using NHibernate;
 using NHibernate.Expression;
 using Castle.Facilities.NHibernateIntegration;
@@ -72,6 +72,37 @@ namespace Cuyahoga.Core.DataAccess
 				}
 			}
 			return crit.List();
+		}
+
+		/// <summary>
+		/// Get all objects of T.
+		/// </summary>
+		/// <typeparam name="T"></typeparam>
+		/// <returns></returns>
+		public IList<T> GetAll<T>()
+		{
+			return GetAll<T>(null);
+		}
+
+		/// <summary>
+		/// Get all objects of T.
+		/// </summary>
+		/// <param name="sortProperties"></param>
+		/// <typeparam name="T"></typeparam>
+		/// <returns></returns>
+		public IList<T> GetAll<T>(params string[] sortProperties)
+		{
+			ISession session = this._sessionManager.OpenSession();
+
+			ICriteria crit = session.CreateCriteria(typeof(T));
+			if (sortProperties != null)
+			{
+				foreach (string sortProperty in sortProperties)
+				{
+					crit.AddOrder(Order.Asc(sortProperty));
+				}
+			}
+			return crit.List<T>();
 		}
 
 		[Transaction(TransactionMode.Requires)]

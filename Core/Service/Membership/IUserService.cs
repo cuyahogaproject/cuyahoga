@@ -1,6 +1,5 @@
-using System;
 using System.Collections;
-
+using System.Collections.Generic;
 using Cuyahoga.Core.Domain;
 
 namespace Cuyahoga.Core.Service.Membership
@@ -56,7 +55,8 @@ namespace Cuyahoga.Core.Service.Membership
 		/// <summary>
 		/// Reset the password of the user with the given username and email address.
 		/// </summary>
-		/// <param name="user"></param>
+		/// <param name="username"></param>
+		/// <param name="email"></param>
 		/// <returns>The new password</returns>
 		string ResetPassword(string username, string email);
 
@@ -72,5 +72,18 @@ namespace Cuyahoga.Core.Service.Membership
 		/// <param name="roleId"></param>
 		/// <returns></returns>
 		Role GetRoleById(int roleId);
+
+		/// <summary>
+		/// Get all available rights.
+		/// </summary>
+		/// <returns></returns>
+		IList<Right> GetAllRights();
+
+		/// <summary>
+		/// Get a Right by id.
+		/// </summary>
+		/// <param name="rightId"></param>
+		/// <returns></returns>
+		Right GetRightById(int rightId);
 	}
 }

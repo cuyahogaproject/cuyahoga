@@ -1,5 +1,5 @@
 using System;
-
+using System.Security.Authentication;
 using Cuyahoga.Core.DataAccess;
 using Cuyahoga.Core.Domain;
 
@@ -25,15 +25,28 @@ namespace Cuyahoga.Core.Service.Membership
 
 		public User AuthenticateUser(string username, string password, string ipAddress)
 		{
-			string hashedPassword = User.HashPassword(password);
-			User user = this._userDao.GetUserByUsernameAndPassword(username, hashedPassword);
-			if (user != null)
+			if (String.IsNullOrEmpty(username) || String.IsNullOrEmpty(password))
 			{
+				throw new AuthenticationException("EmptyUsernameOrPassword");
+			}
+			try
+			{
+				string hashedPassword = User.HashPassword(password);
+				User user = this._userDao.GetUserByUsernameAndPassword(username, hashedPassword);
+				if (user == null)
+				{
+					throw new AuthenticationException("InvalidUsernamePassword");
+				}
 				user.LastIp = ipAddress;
 				user.LastLogin = DateTime.Now;
 				this._userDao.SaveOrUpdateUser(user);
+				user.IsAuthenticated = true;
+				return user;
 			}
-			return user;
+			catch (Exception ex)
+			{
+				throw new AuthenticationException("AuthenticationException", ex);
+			}
 		}
 
 		#endregion

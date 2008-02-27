@@ -71,7 +71,7 @@ namespace Cuyahoga.Web.Controls
 				// Check if username already exists.
 				if (this._page.CoreRepository.FindUsersByUsername(this.txtUsername.Text).Count > 0)
 				{
-					this.lblError.Text = String.Format(GetText("USEREXISTS"), this.txtUsername.Text);
+					this.lblError.Text = String.Format(GetTextFromFile("USEREXISTS"), this.txtUsername.Text);
 					this.lblError.Visible = true;
 				}
 				else
@@ -88,8 +88,8 @@ namespace Cuyahoga.Web.Controls
 					this._page.CoreRepository.SaveObject(user);
 					
 					// Send email
-					string subject = GetText("REGISTEREMAILSUBJECT").Replace("{site}", site.Name);
-					string body = GetText("REGISTEREMAILBODY");
+					string subject = GetTextFromFile("REGISTEREMAILSUBJECT").Replace("{site}", site.Name);
+					string body = GetTextFromFile("REGISTEREMAILBODY");
 					body = body.Replace("{site}", site.Name + " (" + site.SiteUrl + ")");
 					body = body.Replace("{username}", user.UserName);
 					body = body.Replace("{password}", newPassword);
@@ -97,13 +97,13 @@ namespace Cuyahoga.Web.Controls
 					{
 						Util.Email.Send(user.Email, site.WebmasterEmail, subject, body);
 						this.pnlConfirmation.Visible = true;
-						this.lblConfirmation.Text = String.Format(GetText("REGISTERCONFIRMATION"), user.Email);
+						this.lblConfirmation.Text = String.Format(GetTextFromFile("REGISTERCONFIRMATION"), user.Email);
 					}
 					catch
 					{
 						// delete user when sending email fails.
 						this._page.CoreRepository.DeleteObject(user);
-						this.lblError.Text = GetText("REGISTEREMAILERROR");
+						this.lblError.Text = GetTextFromFile("REGISTEREMAILERROR");
 						this.lblError.Visible = true;
 					}					
 					this.pnlRegister.Visible = false;

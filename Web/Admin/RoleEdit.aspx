@@ -21,8 +21,8 @@
 						</td>
 					</tr>
 					<tr>
-						<td>Permissions</td>
-						<td><asp:checkboxlist id="cblRoles" runat="server" repeatlayout="Flow"></asp:checkboxlist>
+						<td>Rights</td>
+						<td><asp:checkboxlist id="cblRights" runat="server" repeatlayout="Flow"></asp:checkboxlist>
 
 						</td>
 					</tr>

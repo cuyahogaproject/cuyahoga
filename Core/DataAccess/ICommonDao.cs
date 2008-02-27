@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using System.Collections.Generic;
 
 namespace Cuyahoga.Core.DataAccess
 {
@@ -43,12 +44,27 @@ namespace Cuyahoga.Core.DataAccess
 		IList GetAll(Type type);
 
 		/// <summary>
+		/// Get all objects of T.
+		/// </summary>
+		/// <typeparam name="T"></typeparam>
+		/// <returns></returns>
+		IList<T> GetAll<T>();
+
+		/// <summary>
 		/// Get all objects of a given type sorted on the given properties (ascending).
 		/// </summary>
 		/// <param name="type"></param>
 		/// <param name="sortProperties"></param>
 		/// <returns></returns>
 		IList GetAll(Type type, params string[] sortProperties);
+
+		/// <summary>
+		/// Get all objects of T sorted on the given properties (ascending).
+		/// </summary>
+		/// <typeparam name="T"></typeparam>
+		/// <param name="sortProperties"></param>
+		/// <returns></returns>
+		IList<T> GetAll<T>(params string[] sortProperties);
 
 		/// <summary>
 		/// Save or update a given object in the database.

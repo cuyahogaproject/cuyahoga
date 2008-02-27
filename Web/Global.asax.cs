@@ -1,4 +1,5 @@
 using System;
+using System.IO;
 using System.Reflection;
 using System.Web;
 using Castle.Core;
@@ -32,6 +33,9 @@ namespace Cuyahoga.Web
 
 		protected void Application_Start(Object sender, EventArgs e)
 		{
+			// Initialize log4net 
+			XmlConfigurator.ConfigureAndWatch(new FileInfo(Server.MapPath("~/") + "config/logging.config"));
+
 			// Initialize Cuyahoga environment
 			
 			// Set application level flags.
@@ -42,9 +46,6 @@ namespace Cuyahoga.Web
 			HttpContext.Current.Application["IsUpgrading"] = false;
 			HttpContext.Current.Application.UnLock();
 
-			// Initialize log4net 
-			XmlConfigurator.Configure();
-
 			// Initialize Windsor
 			IWindsorContainer container = new CuyahogaContainer();
 			container.Kernel.ComponentCreated += new ComponentInstanceDelegate(Kernel_ComponentCreated);
@@ -53,13 +54,16 @@ namespace Cuyahoga.Web
 			// Inititialize the static Windsor helper class. 
 			IoC.Initialize(container);
 
+			// Add ICuyahogaContext to the container.
+			container.AddComponentWithLifestyle("cuyahoga.context", typeof(ICuyahogaContext), typeof(CuyahogaContext), LifestyleType.PerWebRequest);
+
 			// Check for any new versions
 			CheckInstaller();
 
             ModuleLoader loader = Container.Resolve<ModuleLoader>();
             loader.RegisterActivatedModules();
 
-            //on app startup re-load the requested page (to avoid conflicts with first-time configured NHibernate modules )
+            // On app startup re-load the requested page (to avoid conflicts with first-time configured NHibernate modules )
             HttpContext.Current.Response.Redirect(HttpContext.Current.Request.RawUrl);
 		}
 
@@ -71,6 +75,10 @@ namespace Cuyahoga.Web
 
 		protected void Application_BeginRequest(Object sender, EventArgs e)
 		{
+			// Initialize CuyahogaContext.
+			ICuyahogaContext cuyahogaContext = Container.Resolve<ICuyahogaContext>();
+			cuyahogaContext.Initialize(HttpContext.Current);
+
 			// Load active modules. This can't be done in Application_Start because the Installer might kick in
 			// before modules are loaded.
 			if (! (bool)HttpContext.Current.Application["ModulesLoaded"]
@@ -121,6 +129,7 @@ namespace Cuyahoga.Web
 		private void InitializeComponent()
 		{
 		}
+
 		#endregion
 
 		private void CheckInstaller()

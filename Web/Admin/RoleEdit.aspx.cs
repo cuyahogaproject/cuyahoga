@@ -1,36 +1,31 @@
 using System;
-using System.Collections;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Web;
-using System.Web.SessionState;
-using System.Web.UI;
 using System.Web.UI.WebControls;
-using System.Web.UI.HtmlControls;
-
 using Cuyahoga.Core.Domain;
-using Cuyahoga.Core.Service;
+using Cuyahoga.Core.Service.Membership;
 using Cuyahoga.Core.Util;
+using Cuyahoga.Web.Admin.UI;
 
 namespace Cuyahoga.Web.Admin
 {
 	/// <summary>
 	/// Summary description for RoleEdit.
 	/// </summary>
-	public class RoleEdit : Cuyahoga.Web.Admin.UI.AdminBasePage
+	public class RoleEdit : AdminBasePage
 	{
 		private Role _activeRole;
+		private IUserService _userService;
 
-		protected System.Web.UI.WebControls.TextBox txtName;
-		protected System.Web.UI.WebControls.RequiredFieldValidator rfvName;
-		protected System.Web.UI.WebControls.CheckBoxList cblRoles;
-		protected System.Web.UI.WebControls.Button btnCancel;
-		protected System.Web.UI.WebControls.Button btnDelete;
-		protected System.Web.UI.WebControls.Button btnSave;
+		protected TextBox txtName;
+		protected RequiredFieldValidator rfvName;
+		protected CheckBoxList cblRights;
+		protected Button btnCancel;
+		protected Button btnDelete;
+		protected Button btnSave;
 
-		private void Page_Load(object sender, System.EventArgs e)
+		private void Page_Load(object sender, EventArgs e)
 		{
+			this._userService = IoC.Resolve<IUserService>();
+
 			this.Title = "Edit role";
 
 			if (Context.Request.QueryString["RoleId"] != null)
@@ -48,7 +43,7 @@ namespace Cuyahoga.Web.Admin
 				if (! this.IsPostBack)
 				{
 					BindRoleControls();
-					BindPermissions();
+					BindRights();
 				}
 			}	
 		}
@@ -60,33 +55,29 @@ namespace Cuyahoga.Web.Admin
 			this.btnDelete.Attributes.Add("onclick", "return confirm(\"Ary you sure?\")");
 		}
 
-		private void BindPermissions()
+		private void BindRights()
 		{
-			this.cblRoles.DataSource = Enum.GetValues(typeof(AccessLevel));
-			this.cblRoles.DataBind();
-			if (this._activeRole.Permissions != null)
+			this.cblRights.DataSource = this._userService.GetAllRights();
+			this.cblRights.DataValueField = "Id";
+			this.cblRights.DataTextField = "Name";
+			this.cblRights.DataBind();
+			foreach (Right right in this._activeRole.Rights)
 			{
-				foreach (AccessLevel accessLevel in this._activeRole.Permissions)
-				{
-					ListItem li = cblRoles.Items.FindByText(accessLevel.ToString());
-					li.Selected = true;
-				}
+				ListItem li = cblRights.Items.FindByValue(right.Id.ToString());
+				li.Selected = true;
 			}
 		}
 
 		private void SetPermissions()
 		{
-			int tmpLevel = 0;
-			foreach (ListItem li in this.cblRoles.Items)
+			this._activeRole.Rights.Clear();
+			foreach (ListItem listItem in this.cblRights.Items)
 			{
-				if (li.Selected)
+				if (listItem.Selected)
 				{
-					tmpLevel += (int)(AccessLevel)Enum.Parse(typeof(AccessLevel), li.Text, true);
+					int rightId = Int32.Parse(listItem.Value);
+					this._activeRole.Rights.Add(this._userService.GetRightById(rightId));
 				}
-			}
-			if (tmpLevel > 0)
-			{
-				this._activeRole.PermissionLevel = (int)tmpLevel;
 			}
 		}
 
@@ -135,20 +126,20 @@ namespace Cuyahoga.Web.Admin
 		}
 		#endregion
 
-		private void btnCancel_Click(object sender, System.EventArgs e)
+		private void btnCancel_Click(object sender, EventArgs e)
 		{
 			Context.Response.Redirect("Roles.aspx");
 		}
 
-		private void btnSave_Click(object sender, System.EventArgs e)
+		private void btnSave_Click(object sender, EventArgs e)
 		{
 			if (this.IsValid)
 			{
 				this._activeRole.Name = txtName.Text;
 				SetPermissions();
-				if (this._activeRole.PermissionLevel == -1)
+				if (this._activeRole.Rights.Count == 0)
 				{
-					ShowError("Please select one or more Permission(s)");
+					ShowError("Please select one or more Right(s)");
 				}
 				else
 				{
@@ -157,7 +148,7 @@ namespace Cuyahoga.Web.Admin
 			}	
 		}
 
-		private void btnDelete_Click(object sender, System.EventArgs e)
+		private void btnDelete_Click(object sender, EventArgs e)
 		{
 			if (this._activeRole.Id > 0)
 			{

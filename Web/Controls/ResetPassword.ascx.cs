@@ -72,7 +72,7 @@ namespace Cuyahoga.Web.Controls
 				User user = this._page.CoreRepository.GetUserByUsernameAndEmail(this.txtUsername.Text, this.txtEmail.Text);
 				if (user == null)
 				{
-					this.lblError.Text = GetText("RESETUSERERROR");
+					this.lblError.Text = GetTextFromFile("RESETUSERERROR");
 					this.lblError.Visible = true;
 				}
 				else
@@ -84,8 +84,8 @@ namespace Cuyahoga.Web.Controls
 					this._page.CoreRepository.SaveObject(user);
 					
 					// Send email
-					string subject = GetText("RESETEMAILSUBJECT").Replace("{site}", site.Name);
-					string body = GetText("RESETEMAILBODY");
+					string subject = GetTextFromFile("RESETEMAILSUBJECT").Replace("{site}", site.Name);
+					string body = GetTextFromFile("RESETEMAILBODY");
 					body = body.Replace("{username}", user.UserName);
 					body = body.Replace("{password}", newPassword);
 					try
@@ -94,13 +94,13 @@ namespace Cuyahoga.Web.Controls
 					}
 					catch
 					{
-						this.lblError.Text = GetText("RESETEMAILERROR");
+						this.lblError.Text = GetTextFromFile("RESETEMAILERROR");
 						this.lblError.Visible = true;
 					}
 
 					this.pnlReset.Visible = false;
 					this.pnlConfirmation.Visible = true;
-					this.lblConfirmation.Text = String.Format(GetText("RESETCONFIRMATION"), user.Email);
+					this.lblConfirmation.Text = String.Format(GetTextFromFile("RESETCONFIRMATION"), user.Email);
 				}
 			}
 		}

@@ -45,7 +45,7 @@ namespace Cuyahoga.Web.Controls
 		{
 			if (! Context.User.Identity.IsAuthenticated)
 			{
-				ShowMessage(base.GetText("NOTAUTHENTICATED"));
+				ShowMessage(base.GetTextFromFile("NOTAUTHENTICATED"));
 			}
 			else
 			{
@@ -134,7 +134,7 @@ namespace Cuyahoga.Web.Controls
 					this._page.CoreRepository.UpdateObject(currentUser);
 					// Remove old user from the cache
 					HttpContext.Current.Cache.Remove(USER_CACHE_PREFIX + currentUser.Id.ToString());
-					ShowMessage(GetText("EDITPROFILECONFIRMATION"));
+					ShowMessage(GetTextFromFile("EDITPROFILECONFIRMATION"));
 				}
 				catch (Exception ex)
 				{
@@ -152,19 +152,19 @@ namespace Cuyahoga.Web.Controls
 				if (! User.ValidatePassword(this.txtNewPassword.Text) 
 					|| ! User.ValidatePassword(this.txtCurrentPassword.Text))
 				{
-					ShowError(GetText("INVALIDPASSWORD"));
+					ShowError(GetTextFromFile("INVALIDPASSWORD"));
 					return;
 				}
 				// Check current password.
 				if (currentUser.Password != User.HashPassword(this.txtCurrentPassword.Text))
 				{
-					ShowError(GetText("EDITPASSWORDCURRENTERROR"));
+					ShowError(GetTextFromFile("EDITPASSWORDCURRENTERROR"));
 					return;
 				}
 				// Check if confirmation password is the same as the new password.
 				if (this.txtNewPassword.Text != this.txtNewPasswordConfirmation.Text)
 				{
-					ShowError(GetText("EDITPASSWORDCONFIRMERROR"));
+					ShowError(GetTextFromFile("EDITPASSWORDCONFIRMERROR"));
 					return;
 				}
 				currentUser.Password = User.HashPassword(this.txtNewPassword.Text);
@@ -172,7 +172,7 @@ namespace Cuyahoga.Web.Controls
 				this._page.CoreRepository.UpdateObject(currentUser);
 				// Remove old user from the cache
 				HttpContext.Current.Cache.Remove(USER_CACHE_PREFIX + currentUser.Id.ToString());
-				ShowMessage(GetText("EDITPASSWORDCONFIRMATION"));
+				ShowMessage(GetTextFromFile("EDITPASSWORDCONFIRMATION"));
 			}
 			catch (Exception ex)
 			{

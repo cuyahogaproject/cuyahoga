@@ -14,15 +14,14 @@ namespace Cuyahoga.Web.UI
 	/// </summary>
 	public class LocalizedUserControl : UserControl
 	{
+		private string _baseName;
 		private ResourceManager _resMan;
-		private CultureInfo _currentUICulture;
 
 		public LocalizedUserControl()
 		{
 			// Base name of the resources consists of Namespace.Resources.Strings
-			string baseName = this.GetType().BaseType.Namespace + ".Resources.Strings";
-			this._resMan = new ResourceManager(baseName, this.GetType().BaseType.Assembly);
-			this._currentUICulture = Thread.CurrentThread.CurrentUICulture;
+			this._baseName = this.GetType().BaseType.Namespace + ".Resources.Strings";
+			this._resMan = new ResourceManager(this._baseName, this.GetType().BaseType.Assembly);
 		}
 
 		/// <summary>
@@ -32,7 +31,49 @@ namespace Cuyahoga.Web.UI
 		/// <returns></returns>
 		protected virtual string GetText(string key)
 		{
-			return this._resMan.GetString(key, this._currentUICulture);
+			string localizedText;
+			CultureInfo currentUICulture = Thread.CurrentThread.CurrentUICulture;
+
+			// Try to get text from assembly
+			try
+			{
+				localizedText = this._resMan.GetString(key, currentUICulture);
+			}
+			catch (MissingManifestResourceException)
+			{
+				localizedText = key + " [error retrieving value]";
+			}
+
+			
+			return localizedText;
+		}
+
+		/// <summary>
+		/// Get a localized text string from a resource file (in App_GlobalResources) for the given key.
+		/// </summary>
+		/// <param name="key"></param>
+		/// <returns></returns>
+		protected virtual string GetTextFromFile(string key)
+		{
+			string localizedText;
+			CultureInfo currentUICulture = Thread.CurrentThread.CurrentUICulture;
+			if (HttpContext.Current != null)
+			{
+				try
+				{
+					object resource = HttpContext.GetGlobalResourceObject(this._baseName, key, currentUICulture);
+					localizedText = (string) resource;
+				}
+				catch (MissingManifestResourceException)
+				{
+					localizedText = key + " [error retrieving value]";
+				}
+			}
+			else
+			{
+				throw new Exception("Unable to get text from resource file because there is no HttpContext available");
+			}
+			return localizedText;
 		}
 
 		/// <summary>
@@ -71,9 +112,9 @@ namespace Cuyahoga.Web.UI
 					}
 				}
 
-				if (! String.IsNullOrEmpty(localizedText))
+				if (!String.IsNullOrEmpty(localizedText))
 				{
-					if ((childControl is Label) && ! (childControl is BaseValidator))
+					if ((childControl is Label) && !(childControl is BaseValidator))
 					{
 						Label label = (Label)childControl;
 						label.Text = localizedText;

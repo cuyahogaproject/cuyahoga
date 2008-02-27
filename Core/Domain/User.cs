@@ -1,5 +1,7 @@
 using System;
 using System.Collections;
+using System.Collections.Generic;
+using System.Security;
 using System.Security.Principal;
 
 namespace Cuyahoga.Core.Domain
@@ -7,7 +9,7 @@ namespace Cuyahoga.Core.Domain
 	/// <summary>
 	/// Summary description for User.
 	/// </summary>
-	public class User : IIdentity
+	public class User : IPrincipal, IIdentity
 	{
 		private int _id;
 		private string _userName;
@@ -22,7 +24,7 @@ namespace Cuyahoga.Core.Domain
 		private string _lastIp;
 		private bool _isAuthenticated;
 		private IList _roles;
-		private AccessLevel[] _permissions;
+		private IList<Right> _rights;
 		private DateTime _insertTimestamp;
 		private DateTime _updateTimestamp;
 
@@ -206,26 +208,27 @@ namespace Cuyahoga.Core.Domain
 		}
 
 		/// <summary>
-		/// 
+		/// All rights that this user has.
 		/// </summary>
-		public virtual AccessLevel[] Permissions
+		public virtual IList<Right> Rights
 		{
-			get 
+			get
 			{
-				if (this._permissions.Length == 0)
+				if (this._rights == null)
 				{
-					ArrayList permissions = new ArrayList();
-					foreach (Role role in this.Roles)
+					this._rights = new List<Right>();
+					foreach (Role role in this._roles)
 					{
-						foreach (AccessLevel permission in role.Permissions)
+						foreach (Right right in role.Rights)
 						{
-							if (permissions.IndexOf(permission) == -1)
-								permissions.Add(permission);
+							if (! this._rights.Contains(right))
+							{
+								this._rights.Add(right);
+							}
 						}
 					}
-					this._permissions = (AccessLevel[])permissions.ToArray(typeof(AccessLevel));
 				}
-				return this._permissions;
+				return this._rights;
 			}
 		}
 
@@ -238,7 +241,7 @@ namespace Cuyahoga.Core.Domain
 		{
 			this._id = -1;
 			this._isAuthenticated = false;
-			this._permissions = new AccessLevel[0];
+			this._rights = null;
 			this._roles = new ArrayList();
 			// Default to now, otherwise NHibernate tries to insert a NULL.
 			this._insertTimestamp = DateTime.Now;
@@ -249,9 +252,27 @@ namespace Cuyahoga.Core.Domain
 		/// </summary>
 		/// <param name="permission"></param>
 		/// <returns></returns>
+		[Obsolete("Replaced by HasRight().")]
 		public virtual bool HasPermission(AccessLevel permission)
 		{
-			return Array.IndexOf(this.Permissions, permission) > -1;
+			return HasRight(permission.ToString());
+		}
+
+		/// <summary>
+		/// Check if the role has the requested access right.
+		/// </summary>
+		/// <param name="rightName"></param>
+		/// <returns></returns>
+		public virtual bool HasRight(string rightName)
+		{
+			foreach (Right right in this.Rights)
+			{
+				if (right.Name.Equals(rightName, StringComparison.InvariantCultureIgnoreCase))
+				{
+					return true;
+				}
+			}
+			return false;
 		}
 
 		/// <summary>
@@ -318,7 +339,7 @@ namespace Cuyahoga.Core.Domain
 			}
 			else
 			{
-				throw new ArgumentException("Invalid password");
+				throw new SecurityException("InvalidPassword");
 			}
 		}
 
@@ -383,6 +404,14 @@ namespace Cuyahoga.Core.Domain
 				}
 			}
 			return false;
+		}
+
+		/// <summary>
+		/// Identity of the 
+		/// </summary>
+		public virtual IIdentity Identity
+		{
+			get { return this; }
 		}
 	}
 }

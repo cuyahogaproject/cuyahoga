@@ -74,6 +74,9 @@
     <DebugType>none</DebugType>
     <ErrorReport>prompt</ErrorReport>
   </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Core|AnyCPU' ">
+    <OutputPath>bin\</OutputPath>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="Castle.Facilities.NHibernateIntegration">
       <Name>Castle.Facilities.NHibernateIntegration</Name>

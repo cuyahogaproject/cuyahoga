@@ -1,6 +1,6 @@
 using System;
 using System.Collections;
-
+using System.Collections.Generic;
 using Cuyahoga.Core.Domain;
 using Cuyahoga.Core.DataAccess;
 
@@ -18,6 +18,7 @@ namespace Cuyahoga.Core.Service.Membership
 		/// Constructor.
 		/// </summary>
 		/// <param name="userDao"></param>
+		/// <param name="commonDao"></param>
 		public DefaultUserService(IUserDao userDao, ICommonDao commonDao)
 		{
 			this._userDao = userDao;
@@ -85,6 +86,21 @@ namespace Cuyahoga.Core.Service.Membership
 		public Role GetRoleById(int roleId)
 		{
 			return (Role)this._commonDao.GetObjectById(typeof(Role), roleId);
+		}
+
+
+		/// <summary>
+		/// Get all available rights.
+		/// </summary>
+		/// <returns></returns>
+		public IList<Right> GetAllRights()
+		{
+			return this._commonDao.GetAll<Right>("Name");
+		}
+
+		public Right GetRightById(int rightId)
+		{
+			return (Right)this._commonDao.GetObjectById(typeof (Right), rightId);
 		}
 
 		#endregion

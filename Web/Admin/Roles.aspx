@@ -16,7 +16,7 @@
 						<tr>
 						    <th></th>
 							<th>Rolename</th>
-							<th>Permissionlevel(s)</th>
+							<th>Right(s)</th>
 							<th>Last update</th>
 							<th></th>
 						</tr>
@@ -25,7 +25,7 @@
 						<tr>
 						    <td><asp:Image Width="14" Height="12" ImageAlign="Middle" runat="server" ID="imgRole" /></td>
 							<td><%# DataBinder.Eval(Container.DataItem, "Name") %></td>
-							<td><asp:label id="lblPermissions" runat="server"></asp:label></td>
+							<td><asp:label id="lblRights" runat="server"></asp:label></td>
 							<td><asp:label id="lblLastUpdate" runat="server"></asp:label></td>
 							<td>
 								<asp:hyperlink id="hplEdit" runat="server">Edit</asp:hyperlink>

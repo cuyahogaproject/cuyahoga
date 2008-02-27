@@ -1,0 +1,23 @@
+#capturefor(stylesheets)
+<link rel="stylesheet" type="text/css" href="$siteroot/Manager/Content/Css/Login.css" />
+#end
+
+<div id="loginpanel">
+<h1>$globaltext.LoginPageTitle</h1>
+<form id="loginform" action="login.ashx" method="post">
+$Form.HiddenField("returnUrl")
+<fieldset>
+<ol>
+	<li>
+	$Form.LabelFor("username", $globaltext.UsernameLabel)
+	$Form.TextField("username")
+	</li>
+	<li>
+	$Form.LabelFor("password", $globaltext.PasswordLabel)
+	$Form.PasswordField("password")
+	</li>
+</ol>
+</fieldset>
+<input type="submit" id="btnSubmit" value="$globaltext.LoginButtonLabel" />
+</form>
+</div>

@@ -28,6 +28,7 @@ namespace Cuyahoga.Core.Domain
 	/// <summary>
 	/// 
 	/// </summary>
+	[Obsolete("Replaced by the Right class. These values are also stored in the database for compatibility.")]
 	[Flags]
 	public enum AccessLevel
 	{

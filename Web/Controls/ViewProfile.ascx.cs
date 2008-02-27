@@ -43,7 +43,7 @@ namespace Cuyahoga.Web.Controls
 				try
 				{
 					User user = (User)page.CoreRepository.GetObjectById(typeof(User), this._userId);
-					this.litTitle.Text = String.Format(GetText("VIEWPROFILETITLE"), user.UserName);
+					this.litTitle.Text = String.Format(GetTextFromFile("VIEWPROFILETITLE"), user.UserName);
 					BindUser(user);
 					if (! this.IsPostBack)
 					{
@@ -53,7 +53,7 @@ namespace Cuyahoga.Web.Controls
 				}
 				catch
 				{
-					this.lblError.Text = String.Format(GetText("USERNOTFOUND"), this._userId.ToString());
+					this.lblError.Text = String.Format(GetTextFromFile("USERNOTFOUND"), this._userId.ToString());
 					this.lblError.Visible = true;
 				}
 			}

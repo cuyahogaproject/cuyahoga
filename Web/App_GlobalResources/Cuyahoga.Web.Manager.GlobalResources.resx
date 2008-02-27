@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <root>
   <!-- 
     Microsoft ResX Schema 
@@ -117,138 +117,52 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="USERNOTFOUND" xml:space="preserve">
-    <value>Användaren med ID {0} återfanns inte.</value>
+  <data name="ActionNotAllowedException" xml:space="preserve">
+    <value>You are not allowed to perform the requested action.</value>
   </data>
-  <data name="CURRENTPASSWORD" xml:space="preserve">
-    <value>Nuvarande lösenord</value>
+  <data name="AuthenticationException" xml:space="preserve">
+    <value>An error occured while authenticating the user.</value>
   </data>
-  <data name="EDITPASSWORDCONFIRMATION" xml:space="preserve">
-    <value>Lösenordet uppdaterades.</value>
+  <data name="CancelLabel" xml:space="preserve">
+    <value>Cancel</value>
   </data>
-  <data name="EDITPASSWORDCONFIRMERROR" xml:space="preserve">
-    <value>Lösenordet för att bekräfta måste vara samma som det nya lösenordet.</value>
+  <data name="EmptyUsernameOrPassword" xml:space="preserve">
+    <value>The username or password may not be empty.</value>
   </data>
-  <data name="EDITPASSWORDCURRENTERROR" xml:space="preserve">
-    <value>Lösenordet är inte det samma som det befintliga lösenordet.</value>
+  <data name="InvalidPassword" xml:space="preserve">
+    <value>Invalid password. Make sure it has at least 5 characters.</value>
   </data>
-  <data name="EDITPROFILECONFIRMATION" xml:space="preserve">
-    <value>Användarinformationen uppdaterades.</value>
+  <data name="InvalidUsernamePassword" xml:space="preserve">
+    <value>Invalid username-password combination.</value>
   </data>
-  <data name="EDITPROFILEINFO" xml:space="preserve">
-    <value>Uppdatera din användarinformation. Observera att din e-postadress inte kommer att visas för andra.</value>
+  <data name="LoginButtonLabel" xml:space="preserve">
+    <value>Login</value>
   </data>
-  <data name="EDITPROFILETITLE" xml:space="preserve">
-    <value>Uppdatera användarinformation</value>
+  <data name="LoginPageTitle" xml:space="preserve">
+    <value>Login</value>
   </data>
-  <data name="EMAIL" xml:space="preserve">
-    <value>E-post</value>
+  <data name="ManagerMenuDashboard" xml:space="preserve">
+    <value>Dashboard</value>
   </data>
-  <data name="EMAILINVALID" xml:space="preserve">
-    <value>Felaktig e-postadress</value>
+  <data name="ManagerMenuFiles" xml:space="preserve">
+    <value>Files</value>
   </data>
-  <data name="EMAILREQUIRED" xml:space="preserve">
-    <value>E-postadress krävs</value>
+  <data name="ManagerMenuPages" xml:space="preserve">
+    <value>Pages</value>
   </data>
-  <data name="FIRSTNAME" xml:space="preserve">
-    <value>Förnamn</value>
+  <data name="ManagerMenuServer" xml:space="preserve">
+    <value>Server settings</value>
   </data>
-  <data name="INVALIDPASSWORD" xml:space="preserve">
-    <value>Du skrev ett felaktigt lösenord. Lösenordet måste vara minst fem tecken långt.</value>
+  <data name="ManagerMenuSite" xml:space="preserve">
+    <value>Site settings</value>
   </data>
-  <data name="LASTLOGINON" xml:space="preserve">
-    <value>Senast inloggad</value>
+  <data name="ManagerMenuUsers" xml:space="preserve">
+    <value>Users and roles</value>
   </data>
-  <data name="LASTNAME" xml:space="preserve">
-    <value>Efternamn</value>
+  <data name="PasswordLabel" xml:space="preserve">
+    <value>Password</value>
   </data>
-  <data name="NEWPASSWORD" xml:space="preserve">
-    <value>Nytt lösenord</value>
-  </data>
-  <data name="NEWPASSWORDCONFIRMATION" xml:space="preserve">
-    <value>Nytt lösenord (bekräfta)</value>
-  </data>
-  <data name="NOTAUTHENTICATED" xml:space="preserve">
-    <value>Du måste vara inloggad för att utföra detta.</value>
-  </data>
-  <data name="REGISTER" xml:space="preserve">
-    <value>Registrera</value>
-  </data>
-  <data name="REGISTERCONFIRMATION" xml:space="preserve">
-    <value>Tack för att du registrerade dig på sajten. Lösenordet skickas med e-post till {0}.</value>
-  </data>
-  <data name="REGISTEREDON" xml:space="preserve">
-    <value>Registrerad</value>
-  </data>
-  <data name="REGISTEREMAILBODY" xml:space="preserve">
-    <value>Din användarinformation för {site}.
-
-Användare: {username}
-Lösenord: {password}
-
-Lycka till!</value>
-  </data>
-  <data name="REGISTEREMAILERROR" xml:space="preserve">
-    <value>Registering av din användarinformation misslyckades på grund av att ett fel uppstod när användarinformationen skickades. Var snäll försök senare.</value>
-  </data>
-  <data name="REGISTEREMAILSUBJECT" xml:space="preserve">
-    <value>{site} användarinformation.</value>
-  </data>
-  <data name="REGISTERINFO" xml:space="preserve">
-    <value>Var snäll och ange önskat användarnamn och din e-postadress. Ett nytt lösenord kommer att skapas och kommer att skickas till dig.</value>
-  </data>
-  <data name="REGISTERTITLE" xml:space="preserve">
-    <value>Registrera ny användare</value>
-  </data>
-  <data name="RESET" xml:space="preserve">
-    <value>Återställ lösenord</value>
-  </data>
-  <data name="RESETCONFIRMATION" xml:space="preserve">
-    <value>E-post med ett nytt lösenord skickades till {0}.</value>
-  </data>
-  <data name="RESETEMAILBODY" xml:space="preserve">
-    <value>Your updated login information:
-
-Username: {username}
-Password: {password}</value>
-  </data>
-  <data name="RESETEMAILERROR" xml:space="preserve">
-    <value>Återställningen av ditt lösenord misslyckades på grund av att ett fel uppstod när användarinformationen skickades. Var snäll försök senare.</value>
-  </data>
-  <data name="RESETEMAILSUBJECT" xml:space="preserve">
-    <value>{site} uppdaterad användarinformation.</value>
-  </data>
-  <data name="RESETINFO" xml:space="preserve">
-    <value>Var snäll och ange ditt användarnamn och din e-postadress. Ett nytt lösenord kommer att skapas och kommer att skickas till dig.</value>
-  </data>
-  <data name="RESETTITLE" xml:space="preserve">
-    <value>Återställ lösenord</value>
-  </data>
-  <data name="RESETUSERERROR" xml:space="preserve">
-    <value>Ingen användare med det användarnamnet och den e-postadressen återfanns.</value>
-  </data>
-  <data name="SAVEPASSWORD" xml:space="preserve">
-    <value>Spara nytt lösenord</value>
-  </data>
-  <data name="SAVEPROFILE" xml:space="preserve">
-    <value>Spara användarinformationen</value>
-  </data>
-  <data name="USEREXISTS" xml:space="preserve">
-    <value>Användarnamnet {0} finns redan. Var snäll och välj ett annat användarnamn.</value>
-  </data>
-  <data name="USERNAME" xml:space="preserve">
-    <value>Användare</value>
-  </data>
-  <data name="USERNAMEREQUIRED" xml:space="preserve">
-    <value>Användarnamnet krävs</value>
-  </data>
-  <data name="VIEWPROFILETITLE" xml:space="preserve">
-    <value>Användarprofil för {0}</value>
-  </data>
-  <data name="WEBSITE" xml:space="preserve">
-    <value>Webbsajt</value>
-  </data>
-  <data name="TIMEZONE" xml:space="preserve">
-    <value>Tidszon</value>
+  <data name="UsernameLabel" xml:space="preserve">
+    <value>Username</value>
   </data>
 </root>

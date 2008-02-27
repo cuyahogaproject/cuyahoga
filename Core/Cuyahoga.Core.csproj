@@ -73,6 +73,9 @@
     <DebugType>none</DebugType>
     <ErrorReport>prompt</ErrorReport>
   </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Core|AnyCPU' ">
+    <OutputPath>bin\Core\</OutputPath>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="Castle.Core, Version=1.0.0.0, Culture=neutral, PublicKeyToken=407dd0808d44fbdc, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -209,6 +212,7 @@
     <Compile Include="Domain\Permission.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Domain\Right.cs" />
     <Compile Include="Domain\Role.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -247,9 +251,6 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Search\SearchContent.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Security\CuyahogaPrincipal.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Service\Content\CategoryService.cs" />
@@ -296,6 +297,7 @@
     <Compile Include="Service\Files\TransactionalFileService.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Service\Membership\CuyahogaPermissionAttribute.cs" />
     <Compile Include="Service\Membership\DefaultAuthenticationService.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -387,6 +389,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Cuyahoga.Core.build" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Domain\Right.hbm.xml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Service\Workflow\" />

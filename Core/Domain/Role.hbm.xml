@@ -12,7 +12,13 @@
 		<timestamp name="UpdateTimestamp" column="updatetimestamp" />
 
 		<property name="Name" column="name" type="String" length="50" />
-		<property name="PermissionLevel" column="permissionlevel" type="Int32" />		
+		<property name="PermissionLevel" column="permissionlevel" type="Int32" />
+
+		<bag name="Rights" cascade="none" lazy="true" table="cuyahoga_roleright">
+			<cache usage="read-write" />
+			<key column="roleid" />
+			<many-to-many class="Cuyahoga.Core.Domain.Right, Cuyahoga.Core" column="rightid" />
+		</bag>
 		
 	</class>
 </hibernate-mapping>

@@ -1,27 +1,19 @@
 using System;
-using System.Collections;
-using System.ComponentModel;
-using System.Data;
-using System.Web;
-using System.Web.SessionState;
-using System.Web.UI;
 using System.Web.UI.WebControls;
-using System.Web.UI.HtmlControls;
-
 using Cuyahoga.Core.Domain;
-using Cuyahoga.Core.Service;
+using Cuyahoga.Web.Admin.UI;
 
 namespace Cuyahoga.Web.Admin
 {
 	/// <summary>
 	/// Summary description for Roles.
 	/// </summary>
-	public class Roles : Cuyahoga.Web.Admin.UI.AdminBasePage
+	public class Roles : AdminBasePage
 	{
-		protected System.Web.UI.WebControls.Button btnNew;
-		protected System.Web.UI.WebControls.Repeater rptRoles;
+		protected Button btnNew;
+		protected Repeater rptRoles;
 	
-		private void Page_Load(object sender, System.EventArgs e)
+		private void Page_Load(object sender, EventArgs e)
 		{
 			this.Title = "Roles";
 			if (! this.IsPostBack)
@@ -59,7 +51,7 @@ namespace Cuyahoga.Web.Admin
 		}
 		#endregion
 
-		private void rptRoles_ItemDataBound(object sender, System.Web.UI.WebControls.RepeaterItemEventArgs e)
+		private void rptRoles_ItemDataBound(object sender, RepeaterItemEventArgs e)
 		{
 			Role role = e.Item.DataItem as Role;
 			if (role != null)
@@ -79,15 +71,15 @@ namespace Cuyahoga.Web.Admin
                     hplEdit.NavigateUrl = String.Format("~/Admin/RoleEdit.aspx?RoleId={0}", role.Id);
                 }
                     // Permissions
-                    Label lblPermissions = (Label)e.Item.FindControl("lblPermissions");
-                    lblPermissions.Text = role.PermissionsString;
+                    Label lblRights = (Label)e.Item.FindControl("lblRights");
+                    lblRights.Text = role.RightsString;
                     // Last update
                     Label lblLastUpdate = (Label)e.Item.FindControl("lblLastUpdate");
                     lblLastUpdate.Text = role.UpdateTimestamp.ToString();
 			}
 		}
 
-		private void btnNew_Click(object sender, System.EventArgs e)
+		private void btnNew_Click(object sender, EventArgs e)
 		{
 			Context.Response.Redirect("RoleEdit.aspx?RoleId=-1");
 		}

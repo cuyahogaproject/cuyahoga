@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Text;
 using System.Collections;
 
@@ -13,6 +14,7 @@ namespace Cuyahoga.Core.Domain
 		private string _name;
 		private int _permissionLevel;
 		private AccessLevel[] _permissions;
+		private IList<Right> _rights;
 		private DateTime _updateTimestamp;
 
 		/// <summary>
@@ -37,6 +39,7 @@ namespace Cuyahoga.Core.Domain
 		/// Property PermissionLevel (int). When set, the integer value is translated to a list of 
 		/// AccessLevel enums (Permissions).
 		/// </summary>
+		[Obsolete("PermissionLevel is deprecated and replaced by the Rights collection.")]
 		public virtual int PermissionLevel
 		{
 			get { return this._permissionLevel; }
@@ -50,14 +53,27 @@ namespace Cuyahoga.Core.Domain
 		/// <summary>
 		/// Gets a list of translated AccessLevel enums of the Role.
 		/// </summary>
+		[Obsolete("AccessLevel is deprecated and replaced by the Rights collection.")]
 		public virtual AccessLevel[] Permissions
 		{
 			get { return this._permissions; }
 		}
 
-		public virtual string PermissionsString
+		/// <summary>
+		/// Gets or sets a list of access rights.
+		/// </summary>
+		public virtual IList<Right> Rights
 		{
-			get { return GetPermissionsAsString(); }
+			get { return _rights; }
+			set { _rights = value; }
+		}
+
+		/// <summary>
+		/// 
+		/// </summary>
+		public virtual string RightsString
+		{
+			get { return GetRightsAsString(); }
 		}
 
 		/// <summary>
@@ -77,16 +93,35 @@ namespace Cuyahoga.Core.Domain
 			this._id = -1;
 			this._name = null;
 			this._permissionLevel = -1;
+			this._rights = new List<Right>();
 		}
 
 		/// <summary>
 		/// Check if the role has the requested access rights.
 		/// </summary>
-		/// <param name="accessLevel"></param>
+		/// <param name="permission"></param>
 		/// <returns></returns>
+		[Obsolete("Replaced by HasRight().")]
 		public virtual bool HasPermission(AccessLevel permission)
 		{
-			return Array.IndexOf(this.Permissions, permission) > -1;
+			return HasRight(permission.ToString());
+		}
+
+		/// <summary>
+		/// Check if the role has the requested access right.
+		/// </summary>
+		/// <param name="rightName"></param>
+		/// <returns></returns>
+		public virtual bool HasRight(string rightName)
+		{
+			foreach (Right right in _rights)
+			{
+				if (right.Name.Equals(rightName, StringComparison.InvariantCultureIgnoreCase))
+				{
+					return true;
+				}
+			}
+			return false;
 		}
 
 		private void TranslatePermissionLevelToAccessLevels()
@@ -104,15 +139,15 @@ namespace Cuyahoga.Core.Domain
 			this._permissions = (AccessLevel[])permissions.ToArray(typeof(AccessLevel));
 		}
 
-		private string GetPermissionsAsString()
+		private string GetRightsAsString()
 		{
 			StringBuilder sb = new StringBuilder();
 
-			for (int i = 0; i < this._permissions.Length; i++)
+			for (int i = 0; i < this._rights.Count; i++)
 			{
-				AccessLevel accessLevel = this._permissions[i];
-				sb.Append(accessLevel.ToString());
-				if (i < this._permissions.Length - 1)
+				Right right = this._rights[i];
+				sb.Append(right.Name);
+				if (i < this._rights.Count - 1)
 				{
 					sb.Append(", ");
 				}
