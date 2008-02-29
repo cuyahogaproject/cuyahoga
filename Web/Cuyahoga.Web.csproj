@@ -1178,8 +1178,6 @@
     <Content Include="Config\facilities.config" />
     <Content Include="Config\properties.config" />
     <Content Include="Config\services.config" />
-    <Content Include="Config\controllers.config" />
-    <Content Include="Config\components.config" />
     <Content Include="Config\logging.config" />
     <None Include="Cuyahoga.Web.build" />
     <None Include="Install\Core\Database\mssql2000\0.8.2.sql" />

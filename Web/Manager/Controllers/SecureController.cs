@@ -39,6 +39,7 @@ namespace Cuyahoga.Web.Manager.Controllers
 		protected override void InvokeMethod(MethodInfo method, IRequest request, System.Collections.IDictionary actionArgs)
 		{
 			string actionName = method.Name;
+			// TODO: cache attributes to avoid costly calls to GetCustomAttributes.
 			object[] attributes = method.GetCustomAttributes(typeof(CuyahogaPermissionAttribute), true);
 			if (attributes.Length > 0)
 			{
