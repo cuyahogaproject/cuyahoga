@@ -292,6 +292,7 @@
     <Compile Include="Manager\ViewComponents\MainMenuComponent.cs" />
     <Compile Include="Manager\ViewComponents\MessagesComponent.cs" />
     <Compile Include="Manager\ViewComponents\RightsComponent.cs" />
+    <Compile Include="Manager\ViewComponents\SiteChooserComponent.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -579,6 +580,7 @@
     <Content Include="Manager\Content\Images\error.png" />
     <Content Include="Manager\Content\Images\exclamation.png" />
     <Content Include="Manager\Content\Images\information.png" />
+    <Content Include="Manager\Content\Images\world_go.png" />
     <Content Include="Manager\Default.aspx" />
     <Content Include="Profile.aspx">
       <SubType>Form</SubType>
@@ -1228,6 +1230,7 @@
     <None Include="Manager\Views\Components\MessagesComponent\Error.vm" />
     <None Include="Manager\Views\Components\MessagesComponent\Exception.vm" />
     <None Include="Manager\Views\Components\MessagesComponent\Message.vm" />
+    <None Include="Manager\Views\Components\SiteChooserComponent\SiteChooser.vm" />
     <None Include="Manager\Views\Layouts\Simple.vm" />
     <None Include="Manager\Views\Manager\Dashboard\Index.vm" />
     <None Include="Manager\Views\Layouts\Default.vm" />
@@ -1267,12 +1270,11 @@ xcopy /s /y "$(SolutionDir)"lib\NVelocity.dll "$(TargetDir)"</PostBuildEvent>
     <VisualStudio>
       <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
         <WebProjectProperties>
-          <UseIIS>False</UseIIS>
+          <UseIIS>True</UseIIS>
           <AutoAssignPort>False</AutoAssignPort>
           <DevelopmentServerPort>8080</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>
-          </IISUrl>
+          <IISUrl>http://localhost/cuyahoga</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
         </WebProjectProperties>
       </FlavorProperties>

@@ -16,6 +16,11 @@ namespace Cuyahoga.Web.Components
 		User CurrentUser { get; }
 
 		/// <summary>
+		/// The current Cuyahoga site.
+		/// </summary>
+		Site CurrentSite { get; }
+
+		/// <summary>
 		/// Initialize the CuyahogaContext.
 		/// </summary>
 		/// <param name="underlyingContext"></param>
@@ -26,5 +31,11 @@ namespace Cuyahoga.Web.Components
 		/// </summary>
 		/// <param name="user"></param>
 		void SetUser(User user);
+
+		/// <summary>
+		/// Set the Cuyahoga site for the current context.
+		/// </summary>
+		/// <param name="site"></param>
+		void SetSite(Site site);
 	}
 }

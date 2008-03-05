@@ -73,7 +73,7 @@ a
 {
 	margin: 0 0 0 180px;
 	font-weight: bold;
-	padding-top: 17px;
+	padding-top: 10px;
 	
 }
 
@@ -87,6 +87,13 @@ a
 	margin-top: 10px;
 	float: right;
 	width: 200px;
+}
+
+#sitechooser
+{
+	position: absolute;
+	top: 10px;
+	left: 450px;
 }
 
 #mainmenu

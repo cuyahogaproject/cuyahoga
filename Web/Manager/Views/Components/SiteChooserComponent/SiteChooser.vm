@@ -1,0 +1,7 @@
+<div id="sitechooser">
+<form id="frmSiteChooser" action="$Url.For("%{controller='dashboard', action='setsite'}")" method="post">
+$globaltext.SiteLabel:
+$Form.Select("siteid", $controller.cuyahogacontext.CurrentSite.Id, $availablesites, "%{value='Id', text='Name'}") 
+<input type="image" src="$siteroot/Manager/Content/Images/world_go.png" value="Go" style="vertical-align:middle;" />
+</form>
+</div>

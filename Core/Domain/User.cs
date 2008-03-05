@@ -259,7 +259,7 @@ namespace Cuyahoga.Core.Domain
 		}
 
 		/// <summary>
-		/// Check if the role has the requested access right.
+		/// Check if the user has the requested access right.
 		/// </summary>
 		/// <param name="rightName"></param>
 		/// <returns></returns>
@@ -268,6 +268,24 @@ namespace Cuyahoga.Core.Domain
 			foreach (Right right in this.Rights)
 			{
 				if (right.Name.Equals(rightName, StringComparison.InvariantCultureIgnoreCase))
+				{
+					return true;
+				}
+			}
+			return false;
+		}
+
+		/// <summary>
+		/// Check if the user has the requested access right for a given site.
+		/// </summary>
+		/// <param name="rightName"></param>
+		/// <param name="site"></param>
+		/// <returns></returns>
+		public virtual bool HasRight(string rightName, Site site)
+		{
+			foreach (Role role in site.Roles)
+			{
+				if (IsInRole(role) && role.HasRight(rightName))
 				{
 					return true;
 				}

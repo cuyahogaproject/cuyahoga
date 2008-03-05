@@ -1,10 +1,8 @@
-using Castle.MonoRail.Framework;
 using Cuyahoga.Core.Service.Membership;
-using Cuyahoga.Web.Manager.Filters;
 
 namespace Cuyahoga.Web.Manager.Controllers
 {
-	[CuyahogaPermission(RequiredRights = "Administrator")]
+	[CuyahogaPermission(RequiredRights = Rights.ManagePages)]
 	public class PagesController : SecureController
 	{
 		public void Index()

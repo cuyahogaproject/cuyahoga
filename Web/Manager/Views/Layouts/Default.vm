@@ -9,6 +9,7 @@
 	</head>
 	<body>
 		#component(HeaderComponent)
+		#component(SiteChooserComponent)
 		#component(MainMenuComponent)
 		#component(MessagesComponent)
 		<div id="taskarea">

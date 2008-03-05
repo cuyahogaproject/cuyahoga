@@ -15,16 +15,6 @@ namespace Cuyahoga.Web.Manager.Controllers
 	[Rescue("SecurityError", typeof(SecurityException))]
 	public abstract class SecureController : BaseController
 	{
-		private ICuyahogaContext _cuyahogaContext;
-
-		/// <summary>
-		/// Sets the Cuyahoga context.
-		/// </summary>
-		public ICuyahogaContext CuyahogaContext
-		{
-			set { this._cuyahogaContext = value; }
-		}
-
 		/// <summary>
 		/// The Cuyahoga user that executes the request.
 		/// </summary>
@@ -32,7 +22,7 @@ namespace Cuyahoga.Web.Manager.Controllers
 		{
 			get
 			{
-				return this._cuyahogaContext.CurrentUser;
+				return CuyahogaContext.CurrentUser;
 			}
 		}
 

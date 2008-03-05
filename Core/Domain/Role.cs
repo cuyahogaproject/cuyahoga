@@ -13,6 +13,7 @@ namespace Cuyahoga.Core.Domain
 		private int _id;
 		private string _name;
 		private int _permissionLevel;
+		private bool _isGlobal;
 		private AccessLevel[] _permissions;
 		private IList<Right> _rights;
 		private DateTime _updateTimestamp;
@@ -48,6 +49,15 @@ namespace Cuyahoga.Core.Domain
 				this._permissionLevel = value; 
 				TranslatePermissionLevelToAccessLevels();
 			}
+		}
+
+		/// <summary>
+		/// Indicates if the role is global for all sites within the Cuyahoga installation.
+		/// </summary>
+		public virtual bool IsGlobal
+		{
+			get { return _isGlobal; }
+			set { _isGlobal = value; }
 		}
 
 		/// <summary>

@@ -1,17 +1,17 @@
-<?xml version="1.0" encoding="utf-8" ?> 
+<?xml version="1.0" encoding="utf-8" ?>
 <hibernate-mapping xmlns="urn:nhibernate-mapping-2.2">
 	<class name="Cuyahoga.Core.Domain.Site, Cuyahoga.Core" table="cuyahoga_site">
-		
+
 		<cache usage="read-write" />
-		
+
 		<id name="Id" column="siteid" type="Int32" unsaved-value="-1">
 			<generator class="native">
 				<param name="sequence">cuyahoga_site_siteid_seq</param>
 			</generator>
 		</id>
-		
+
 		<timestamp name="UpdateTimestamp" column="updatetimestamp" />
-		
+
 		<property name="Name" column="name" type="String" length="100" />
 		<property name="SiteUrl" column="homeurl" type="String" length="100" />
 		<property name="DefaultCulture" column="defaultculture" type="String" length="8" />
@@ -20,13 +20,18 @@
 		<property name="UseFriendlyUrls" column="usefriendlyurls" type="Boolean" />
 		<property name="MetaKeywords" column="metakeywords" type="String" length="500" />
 		<property name="MetaDescription" column="metadescription" type="String" length="500" />
-		
+
 		<many-to-one name="DefaultTemplate" class="Cuyahoga.Core.Domain.Template, Cuyahoga.Core" column="templateid" not-null="false" outer-join="false" />
 		<many-to-one name="DefaultRole" class="Cuyahoga.Core.Domain.Role, Cuyahoga.Core" column="roleid" not-null="true" outer-join="true" />
-		
+
 		<bag name="RootNodes" cascade="none" where="parentnodeid is null" order-by="position asc" lazy="true">
 			<key column="siteid" />
-			<one-to-many class="Cuyahoga.Core.Domain.Node, Cuyahoga.Core" /> 
+			<one-to-many class="Cuyahoga.Core.Domain.Node, Cuyahoga.Core" />
+		</bag>
+
+		<bag name="Roles" cascade="none" table="cuyahoga_siterole" lazy="true">
+			<key column="siteid" />
+			<many-to-many class="Cuyahoga.Core.Domain.Role, Cuyahoga.Core" column="roleid" />
 		</bag>
 	</class>
 </hibernate-mapping>

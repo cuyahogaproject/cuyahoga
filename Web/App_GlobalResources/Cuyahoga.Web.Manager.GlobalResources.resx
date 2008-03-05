@@ -162,6 +162,9 @@
   <data name="PasswordLabel" xml:space="preserve">
     <value>Password</value>
   </data>
+  <data name="SiteLabel" xml:space="preserve">
+    <value>Site</value>
+  </data>
   <data name="UsernameLabel" xml:space="preserve">
     <value>Username</value>
   </data>

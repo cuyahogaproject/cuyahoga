@@ -47,28 +47,37 @@ namespace Cuyahoga.Web
 			HttpContext.Current.Application["IsUpgrading"] = false;
 			HttpContext.Current.Application.UnLock();
 
-			// Initialize Windsor
-			IWindsorContainer container = new CuyahogaContainer();
-			container.Kernel.ComponentCreated += new ComponentInstanceDelegate(Kernel_ComponentCreated);
-			container.Kernel.ComponentDestroyed += new ComponentInstanceDelegate(Kernel_ComponentDestroyed);
+			try
+			{
+				// Initialize Windsor
+				IWindsorContainer container = new CuyahogaContainer();
+				container.Kernel.ComponentCreated += new ComponentInstanceDelegate(Kernel_ComponentCreated);
+				container.Kernel.ComponentDestroyed += new ComponentInstanceDelegate(Kernel_ComponentDestroyed);
 
-			// Inititialize the static Windsor helper class. 
-			IoC.Initialize(container);
+				// Inititialize the static Windsor helper class. 
+				IoC.Initialize(container);
 
-			// Add ICuyahogaContext to the container.
-			container.AddComponentWithLifestyle("cuyahoga.context", typeof(ICuyahogaContext), typeof(CuyahogaContext), LifestyleType.PerWebRequest);
+				// Add ICuyahogaContext to the container.
+				container.AddComponentWithLifestyle("cuyahoga.context", typeof (ICuyahogaContext), typeof (CuyahogaContext),
+				                                    LifestyleType.PerWebRequest);
 
-			// Check for any new versions
-			CheckInstaller();
+				// Check for any new versions
+				CheckInstaller();
 
-			// Register MonoRail components
-			RegisterMonoRailComponents();
+				// Register MonoRail components
+				RegisterMonoRailComponents();
 
-			// Register modules
-            ModuleLoader loader = Container.Resolve<ModuleLoader>();
-            loader.RegisterActivatedModules();
+				// Register modules
+				ModuleLoader loader = Container.Resolve<ModuleLoader>();
+				loader.RegisterActivatedModules();
+			}
+			catch (Exception ex)
+			{
+				log.Error("Error initializing application.", ex);
+				throw;
+			}
 
-            // On app startup re-load the requested page (to avoid conflicts with first-time configured NHibernate modules )
+			// On app startup re-load the requested page (to avoid conflicts with first-time configured NHibernate modules )
             HttpContext.Current.Response.Redirect(HttpContext.Current.Request.RawUrl);
 		}
 

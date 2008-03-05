@@ -36,7 +36,17 @@ namespace Cuyahoga.Core.Service.SiteStructure
 
 		public Site GetSiteBySiteUrl(string siteUrl)
 		{
-			return this._siteStructureDao.GetSiteBySiteUrl(siteUrl);
+			Site site = this._siteStructureDao.GetSiteBySiteUrl(siteUrl);
+			// Try to resolve the site via SiteAlias
+			if (site == null)
+			{
+				SiteAlias sa = this._siteStructureDao.GetSiteAliasByUrl(siteUrl);
+				if (sa != null)
+				{
+					site = sa.Site;
+				}
+			}
+			return site;
 		}
 
 		public SiteAlias GetSiteAliasById(int siteAliasId)

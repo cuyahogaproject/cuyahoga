@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using Castle.MonoRail.Framework;
 using Cuyahoga.Core.Domain;
+using Cuyahoga.Core.Service.Membership;
 using Cuyahoga.Web.Components;
 using Resources.Cuyahoga.Web.Manager;
 
@@ -26,25 +27,31 @@ namespace Cuyahoga.Web.Manager.ViewComponents
 				standardMenuItems.Add(
 					new MainMenuItem(urlBuilder.BuildUrl(RailsContext.UrlInfo, "dashboard", "index")
 					, GlobalResources.ManagerMenuDashboard, CheckInPath("dashboard")));
-				standardMenuItems.Add(
-					new MainMenuItem(urlBuilder.BuildUrl(RailsContext.UrlInfo, "pages", "index")
-					, GlobalResources.ManagerMenuPages, CheckInPath("pages")));
+				if (user.HasRight(Rights.ManagePages))
+				{
+					standardMenuItems.Add(
+						new MainMenuItem(urlBuilder.BuildUrl(RailsContext.UrlInfo, "pages", "index")
+						                 , GlobalResources.ManagerMenuPages, CheckInPath("pages")));
+				}
+				if (user.HasRight(Rights.ManageFiles))
+				{
 				standardMenuItems.Add(
 					new MainMenuItem(urlBuilder.BuildUrl(RailsContext.UrlInfo, "files", "index")
 					, GlobalResources.ManagerMenuFiles, CheckInPath("files")));
-				if (user.HasRight("Manage Users"))
+				}
+				if (user.HasRight(Rights.ManageUsers))
 				{
 					optionalMenuItems.Add(
 						new MainMenuItem(urlBuilder.BuildUrl(RailsContext.UrlInfo, "users", "index")
 						, GlobalResources.ManagerMenuUsers, CheckInPath("users")));
 				}
-				if (user.HasRight("Manage Site"))
+				if (user.HasRight(Rights.ManageSite))
 				{
 					optionalMenuItems.Add(
 						new MainMenuItem(urlBuilder.BuildUrl(RailsContext.UrlInfo, "site", "index")
 						, GlobalResources.ManagerMenuSite, CheckInPath("site")));
 				}
-				if (user.HasRight("Manage Server"))
+				if (user.HasRight(Rights.ManageServer))
 				{
 					optionalMenuItems.Add(
 						new MainMenuItem(urlBuilder.BuildUrl(RailsContext.UrlInfo, "server", "index")

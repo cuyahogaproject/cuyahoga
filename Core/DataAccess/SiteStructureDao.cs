@@ -47,7 +47,7 @@ namespace Cuyahoga.Core.DataAccess
 			ISession session = this._sessionManager.OpenSession();
 
 			// The query is case insensitive.
-			string hql = "from SiteAlias sa where lower(sa.Url) = :url1 or lower(sa.Url) = :url2";
+			string hql = "from SiteAlias sa join fetch sa.Site join fetch sa.EntryNode where lower(sa.Url) = :url1 or lower(sa.Url) = :url2";
 			IQuery q = session.CreateQuery(hql);
 			q.SetString("url1", url.ToLower());
 			q.SetString("url2", url.ToLower() + "/"); // Also allow trailing slashes

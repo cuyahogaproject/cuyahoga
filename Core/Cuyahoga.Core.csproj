@@ -310,6 +310,7 @@
     <Compile Include="Service\Membership\IUserService.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Service\Membership\Rights.cs" />
     <Compile Include="Service\Search\CustomSearchField.cs" />
     <Compile Include="Service\Search\IndexBuilder.cs" />
     <Compile Include="Service\Search\IndexQuery.cs" />

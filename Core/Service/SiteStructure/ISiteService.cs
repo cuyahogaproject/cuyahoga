@@ -18,7 +18,7 @@ namespace Cuyahoga.Core.Service.SiteStructure
 		Site GetSiteById(int siteId);
 
 		/// <summary>
-		/// Get a single site by root url.
+		/// Get a single site by root url. Also searches aliases to find the site.
 		/// </summary>
 		/// <param name="siteUrl"></param>
 		/// <returns></returns>

@@ -90,16 +90,15 @@ updatetimestamp datetime DEFAULT current_timestamp NOT NULL,
 CONSTRAINT UC_user_username UNIQUE(username))
 go
 
-
 CREATE TABLE cuyahoga_role(
 roleid int identity(1,1) NOT NULL CONSTRAINT PK_role PRIMARY KEY,
 name nvarchar(50) NOT NULL,
 permissionlevel int DEFAULT 1 NOT NULL,
+isglobal bit NOT NULL DEFAULT 1,
 inserttimestamp datetime DEFAULT current_timestamp NOT NULL,
 updatetimestamp datetime DEFAULT current_timestamp NOT NULL,
 CONSTRAINT UC_role_name UNIQUE(name))
 go
-
 
 CREATE TABLE cuyahoga_userrole(
 userroleid int identity(1,1) NOT NULL CONSTRAINT PK_userrole PRIMARY KEY,
@@ -188,6 +187,11 @@ updatetimestamp datetime DEFAULT current_timestamp NOT NULL,
 CONSTRAINT UC_site_name UNIQUE(name))
 go
 
+CREATE TABLE cuyahoga_siterole(
+siteid int NOT NULL,
+roleid int NOT NULL,
+CONSTRAINT PK_siterole PRIMARY KEY (siteid, roleid))
+go
 
 CREATE TABLE cuyahoga_node(
 nodeid int identity(1,1) NOT NULL CONSTRAINT PK_node PRIMARY KEY,
@@ -411,6 +415,15 @@ ADD CONSTRAINT FK_site_template_templateid
 FOREIGN KEY (templateid) REFERENCES cuyahoga_template (templateid)
 go
 
+ALTER TABLE cuyahoga_siterole
+	ADD CONSTRAINT FK_siterole_site_siteid 
+		FOREIGN KEY (siteid) REFERENCES cuyahoga_site (siteid)
+go
+
+ALTER TABLE cuyahoga_siterole
+	ADD CONSTRAINT FK_siterole_role_roleid 
+		FOREIGN KEY (roleid) REFERENCES cuyahoga_role (roleid)
+go
 
 ALTER TABLE cuyahoga_node
 ADD CONSTRAINT FK_node_node_parentnodeid 
@@ -540,7 +553,13 @@ INSERT INTO cuyahoga_right (rightid, name, description) VALUES (1, 'Anonymous', 
 INSERT INTO cuyahoga_right (rightid, name, description) VALUES (2, 'Authenticated', 'Legacy right, migrated from AccessLevel.Authenticated')
 INSERT INTO cuyahoga_right (rightid, name, description) VALUES (3, 'Editor', 'Legacy right, migrated from AccessLevel.Editor')
 INSERT INTO cuyahoga_right (rightid, name, description) VALUES (4, 'Administrator', 'Legacy right, migrated from AccessLevel.Administrator')
-
+INSERT INTO cuyahoga_right (rightid, name, description) VALUES (5, 'Manage Pages', 'Create, edit, move and delete pages')
+INSERT INTO cuyahoga_right (rightid, name, description) VALUES (6, 'Manage Files', 'Manage files')
+INSERT INTO cuyahoga_right (rightid, name, description) VALUES (7, 'Manage Users', 'Manage users and roles')
+INSERT INTO cuyahoga_right (rightid, name, description) VALUES (8, 'Manage Site', 'Manage site properties')
+INSERT INTO cuyahoga_right (rightid, name, description) VALUES (9, 'Manage Server', 'Manage server properties')
+INSERT INTO cuyahoga_right (rightid, name, description) VALUES (10, 'Global Permissions', 'Manage permissions that are shared across sites')
+INSERT INTO cuyahoga_right (rightid, name, description) VALUES (11, 'Access Admin', 'Access site administration')
 GO
 
 SET IDENTITY_INSERT cuyahoga_right OFF
@@ -551,9 +570,19 @@ INSERT INTO cuyahoga_roleright(roleid, rightid) VALUES (1, 1)
 INSERT INTO cuyahoga_roleright(roleid, rightid) VALUES (1, 2)
 INSERT INTO cuyahoga_roleright(roleid, rightid) VALUES (1, 3)
 INSERT INTO cuyahoga_roleright(roleid, rightid) VALUES (1, 4)
+INSERT INTO cuyahoga_roleright(roleid, rightid) VALUES (1, 5)
+INSERT INTO cuyahoga_roleright(roleid, rightid) VALUES (1, 6)
+INSERT INTO cuyahoga_roleright(roleid, rightid) VALUES (1, 7)
+INSERT INTO cuyahoga_roleright(roleid, rightid) VALUES (1, 8)
+INSERT INTO cuyahoga_roleright(roleid, rightid) VALUES (1, 9)
+INSERT INTO cuyahoga_roleright(roleid, rightid) VALUES (1, 10)
+INSERT INTO cuyahoga_roleright(roleid, rightid) VALUES (1, 11)
 INSERT INTO cuyahoga_roleright(roleid, rightid) VALUES (2, 1)
 INSERT INTO cuyahoga_roleright(roleid, rightid) VALUES (2, 2)
 INSERT INTO cuyahoga_roleright(roleid, rightid) VALUES (2, 3)
+INSERT INTO cuyahoga_roleright(roleid, rightid) VALUES (2, 5)
+INSERT INTO cuyahoga_roleright(roleid, rightid) VALUES (2, 6)
+INSERT INTO cuyahoga_roleright(roleid, rightid) VALUES (2, 11)
 INSERT INTO cuyahoga_roleright(roleid, rightid) VALUES (3, 1)
 INSERT INTO cuyahoga_roleright(roleid, rightid) VALUES (3, 2)
 INSERT INTO cuyahoga_roleright(roleid, rightid) VALUES (4, 1)
@@ -576,5 +605,5 @@ SET IDENTITY_INSERT cuyahoga_template OFF
 GO
 
 
-INSERT INTO cuyahoga_version (assembly, major, minor, patch) VALUES ('Cuyahoga.Core', 1, 5, 2)
+INSERT INTO cuyahoga_version (assembly, major, minor, patch) VALUES ('Cuyahoga.Core', 2, 0, 0)
 GO

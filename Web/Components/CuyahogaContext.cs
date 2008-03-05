@@ -11,6 +11,7 @@ namespace Cuyahoga.Web.Components
 	public class CuyahogaContext : ICuyahogaContext
 	{
 		private HttpContext _httpContext;
+		private Site _currentSite;
 
 		/// <summary>
 		/// The underlying ASP.NET context.
@@ -33,6 +34,14 @@ namespace Cuyahoga.Web.Components
 		public User CurrentUser
 		{
 			get { return this.HttpContext.User as User; }
+		}
+
+		/// <summary>
+		/// The current Cuyahoga site.
+		/// </summary>
+		public Site CurrentSite
+		{
+			get { return _currentSite; }
 		}
 
 		/// <summary>
@@ -59,6 +68,15 @@ namespace Cuyahoga.Web.Components
 		{
 			this.HttpContext.User = user;
 			Thread.CurrentPrincipal = user;
+		}
+
+		/// <summary>
+		/// Set the Cuyahoga site for the current context.
+		/// </summary>
+		/// <param name="site"></param>
+		public void SetSite(Site site)
+		{
+			this._currentSite = site;
 		}
 	}
 }

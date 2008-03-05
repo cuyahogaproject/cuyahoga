@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using System.Collections.Generic;
 
 namespace Cuyahoga.Core.Domain
 {
@@ -20,6 +21,7 @@ namespace Cuyahoga.Core.Domain
 		private string _metaDescription;
 		private Role _defaultRole;
 		private IList _rootNodes;
+		private IList<Role> _roles;
 		private DateTime _updateTimestamp;
 
 		#region properties
@@ -133,6 +135,15 @@ namespace Cuyahoga.Core.Domain
 		}
 
 		/// <summary>
+		/// The roles that are associated with this site.
+		/// </summary>
+		public virtual IList<Role> Roles
+		{
+			get { return _roles; }
+			set { _roles = value; }
+		}
+
+		/// <summary>
 		/// Property UpdateTimestamp (DateTime)
 		/// </summary>
 		public virtual DateTime UpdateTimestamp
@@ -146,6 +157,8 @@ namespace Cuyahoga.Core.Domain
 		public Site()
 		{
 			this._id = -1;
+			this._rootNodes = new ArrayList();
+			this._roles = new List<Role>();
 		}
 	}
 }
