@@ -1,9 +1,6 @@
-<h1>Dashboard</h1>
+<h1>$globaltext.DashboardPageTitle</h1>
 
 #capturefor(taskarea)
-<h2>Tasks</h2>
-<ul>
-	<li>Create a new page</li>
-	<li>Add a new user</li>
-</ul>
+<h2>$globaltext.TasksLabel</h2>
+
 #end

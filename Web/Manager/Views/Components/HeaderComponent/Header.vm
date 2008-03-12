@@ -2,9 +2,9 @@
 	<img src="$siteRoot/Manager/Content/Images/cuyahoga-logo.png" width="172" height="60" alt="Cuyahoga logo" />
 	#if ($controller.CurrentUser.IsAuthenticated)
 	<div id="userinfo">
-		logged in as $controller.CurrentUser.FullName<br />
-		<a href="$UrlHelper.For("%{area='manager', controller='login' action='logout'}")">logout</a>
+		$globaltext.LoggedInAsLabel $controller.CurrentUser.FullName<br />
+		<a href="$UrlHelper.For("%{area='manager', controller='login' action='logout'}")">$globaltext.LogoutButtonLabel</a>
 	</div>
 	#end
-	<p>Cuyahoga Site Manager</p>
+	<p>$globaltext.CuyahogaSiteManagerLabel</p>
 </div>

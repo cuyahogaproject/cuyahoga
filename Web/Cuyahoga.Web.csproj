@@ -276,6 +276,16 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Cuyahoga.Web.Manager.GlobalResources.nl.resx</DependentUpon>
     </Compile>
+    <Compile Include="App_GlobalResources\Cuyahoga.Web.Manager.JsValidationMessages.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Cuyahoga.Web.Manager.JsValidationMessages.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\Cuyahoga.Web.Manager.JsValidationMessages.nl.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Cuyahoga.Web.Manager.JsValidationMessages.nl.resx</DependentUpon>
+    </Compile>
     <Compile Include="Components\CuyahogaContext.cs" />
     <Compile Include="Components\ICuyahogaContext.cs" />
     <Compile Include="Components\MonoRail\GlobalResourceFacade.cs" />
@@ -287,6 +297,8 @@
     <Compile Include="Manager\Controllers\LoginController.cs" />
     <Compile Include="Manager\Controllers\PagesController.cs" />
     <Compile Include="Manager\Controllers\SecureController.cs" />
+    <Compile Include="Manager\Controllers\SiteController.cs" />
+    <Compile Include="Manager\Controllers\UsersController.cs" />
     <Compile Include="Manager\Filters\AuthenticationFilter.cs" />
     <Compile Include="Manager\ViewComponents\HeaderComponent.cs" />
     <Compile Include="Manager\ViewComponents\MainMenuComponent.cs" />
@@ -570,10 +582,13 @@
       <SubType>Form</SubType>
     </Content>
     <Content Include="js\DefaultButton.js" />
+    <Content Include="Manager\Content\Scripts\jquery.js" />
+    <Content Include="Manager\Content\Scripts\jquery.form.js" />
+    <Content Include="Manager\Content\Scripts\jquery.metadata.js" />
+    <Content Include="Manager\Content\Scripts\jquery.validate.js" />
     <Content Include="Login.aspx">
       <SubType>Form</SubType>
     </Content>
-    <Content Include="Manager\Content\Css\Login.css" />
     <Content Include="Manager\Content\Css\Manager.css" />
     <Content Include="Manager\Content\Images\cancel.png" />
     <Content Include="Manager\Content\Images\cuyahoga-logo.png" />
@@ -1121,6 +1136,16 @@
       <Generator>GlobalResourceProxyGenerator</Generator>
       <LastGenOutput>Cuyahoga.Web.Manager.GlobalResources.nl.designer.cs</LastGenOutput>
     </Content>
+    <Content Include="App_GlobalResources\Cuyahoga.Web.Manager.JsValidationMessages.resx">
+      <SubType>Designer</SubType>
+      <Generator>GlobalResourceProxyGenerator</Generator>
+      <LastGenOutput>Cuyahoga.Web.Manager.JsValidationMessages.Designer.cs</LastGenOutput>
+    </Content>
+    <Content Include="App_GlobalResources\Cuyahoga.Web.Manager.JsValidationMessages.nl.resx">
+      <SubType>Designer</SubType>
+      <Generator>GlobalResourceProxyGenerator</Generator>
+      <LastGenOutput>Cuyahoga.Web.Manager.JsValidationMessages.nl.designer.cs</LastGenOutput>
+    </Content>
     <EmbeddedResource Include="Controls\EditProfile.ascx.resx">
       <DependentUpon>EditProfile.ascx.cs</DependentUpon>
     </EmbeddedResource>
@@ -1237,6 +1262,8 @@
     <None Include="Manager\Views\Manager\Files\Index.vm" />
     <None Include="Manager\Views\Manager\Login\Index.vm" />
     <None Include="Manager\Views\Manager\Pages\Index.vm" />
+    <None Include="Manager\Views\Manager\Site\Index.vm" />
+    <None Include="Manager\Views\Manager\Users\Index.vm" />
     <None Include="Manager\Views\Rescues\GenericError.vm" />
     <None Include="Manager\Views\Rescues\SecurityError.vm" />
     <None Include="Support\FCKeditor\editor\dialog\fck_spellerpages\spellerpages\server-scripts\spellchecker.cfm" />

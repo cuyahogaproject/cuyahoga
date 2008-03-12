@@ -1,0 +1,8 @@
+<h1>$globaltext.ManageUsersPageTitle</h1>
+#capturefor(taskarea)
+<h2>$globaltext.TasksLabel</h2>
+<ul>
+	<li>Create user</li>
+	<li>Manage roles</li>
+</ul>
+#end

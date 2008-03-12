@@ -88,6 +88,24 @@ namespace Resources.Cuyahoga.Web.Manager {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Cuyahoga Site Manager.
+        /// </summary>
+        internal static string CuyahogaSiteManagerLabel {
+            get {
+                return ResourceManager.GetString("CuyahogaSiteManagerLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Dashboard.
+        /// </summary>
+        internal static string DashboardPageTitle {
+            get {
+                return ResourceManager.GetString("DashboardPageTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to The username or password may not be empty..
         /// </summary>
         internal static string EmptyUsernameOrPassword {
@@ -115,6 +133,15 @@ namespace Resources.Cuyahoga.Web.Manager {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Logged in as.
+        /// </summary>
+        internal static string LoggedInAsLabel {
+            get {
+                return ResourceManager.GetString("LoggedInAsLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Login.
         /// </summary>
         internal static string LoginButtonLabel {
@@ -129,6 +156,33 @@ namespace Resources.Cuyahoga.Web.Manager {
         internal static string LoginPageTitle {
             get {
                 return ResourceManager.GetString("LoginPageTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Logout.
+        /// </summary>
+        internal static string LogoutButtonLabel {
+            get {
+                return ResourceManager.GetString("LogoutButtonLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Manage files.
+        /// </summary>
+        internal static string ManageFilesPageTitle {
+            get {
+                return ResourceManager.GetString("ManageFilesPageTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Manage pages and sections.
+        /// </summary>
+        internal static string ManagePagesPageTitle {
+            get {
+                return ResourceManager.GetString("ManagePagesPageTitle", resourceCulture);
             }
         }
         
@@ -187,6 +241,24 @@ namespace Resources.Cuyahoga.Web.Manager {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Manage site.
+        /// </summary>
+        internal static string ManageSitePageTitle {
+            get {
+                return ResourceManager.GetString("ManageSitePageTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Manage users and roles.
+        /// </summary>
+        internal static string ManageUsersPageTitle {
+            get {
+                return ResourceManager.GetString("ManageUsersPageTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Password.
         /// </summary>
         internal static string PasswordLabel {
@@ -201,6 +273,15 @@ namespace Resources.Cuyahoga.Web.Manager {
         internal static string SiteLabel {
             get {
                 return ResourceManager.GetString("SiteLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Tasks.
+        /// </summary>
+        internal static string TasksLabel {
+            get {
+                return ResourceManager.GetString("TasksLabel", resourceCulture);
             }
         }
         

@@ -1,5 +1,50 @@
+#capturefor(javascripts)
+<script type="text/javascript">
+	$(document).ready(function() {
+		$("#loginform").validate({
+			messages: {
+				username: {
+					required: "$validatormessages.UsernameRequired"
+				},
+				password: {
+					required: "$validatormessages.PasswordRequired",
+					minlength: jQuery.format("$validatormessages.PasswordMinLength")
+				}
+			}
+		});
+	});
+</script>
+#end
+
 #capturefor(stylesheets)
-<link rel="stylesheet" type="text/css" href="$siteroot/Manager/Content/Css/Login.css" />
+<style type="text/css">
+#loginpanel
+{
+	width: 350px;
+	height: 180px;
+	background-color: #fff;
+	margin-top: 100px;
+	margin-left: auto;
+	margin-right: auto;
+	padding: 10px;
+	border-top: 1px solid #ccc;
+	border-left: 1px solid #ccc;
+	border-bottom: 1px solid #ccc;
+	border-right: 8px solid #ccc;	
+}
+
+label 
+{  
+	width: 100px;  
+}
+
+label.error
+{
+	margin-left: 110px;
+}
+
+
+</style>
 #end
 
 <div id="loginpanel">
@@ -10,14 +55,14 @@ $Form.HiddenField("returnUrl")
 <ol>
 	<li>
 	$Form.LabelFor("username", $globaltext.UsernameLabel)
-	$Form.TextField("username")
+	$Form.TextField("username", "%{class='required'}")
 	</li>
 	<li>
 	$Form.LabelFor("password", $globaltext.PasswordLabel)
-	$Form.PasswordField("password")
+	$Form.PasswordField("password", "%{class='{required:true, minlength:5}'}")
 	</li>
 </ol>
 </fieldset>
-<input type="submit" id="btnSubmit" value="$globaltext.LoginButtonLabel" />
+<input type="submit" id="btnSubmit" value="$globaltext.LoginButtonLabel" class="submit" />
 </form>
 </div>

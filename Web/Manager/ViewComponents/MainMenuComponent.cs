@@ -55,7 +55,7 @@ namespace Cuyahoga.Web.Manager.ViewComponents
 				{
 					optionalMenuItems.Add(
 						new MainMenuItem(urlBuilder.BuildUrl(RailsContext.UrlInfo, "server", "index")
-						, GlobalResources.ManagerMenuServer, CheckInPath("site")));
+						, GlobalResources.ManagerMenuServer, CheckInPath("server")));
 				}
 			}
 			PropertyBag["standardmenuitems"] = standardMenuItems;

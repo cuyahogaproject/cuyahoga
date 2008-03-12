@@ -8,6 +8,7 @@ namespace Cuyahoga.Web.Manager.Controllers
 {
 	[Layout("Default"), Rescue("GenericError")]
 	[Resource("globaltext", "Cuyahoga.Web.Manager.GlobalResources")]
+	[Resource("validatormessages", "Cuyahoga.Web.Manager.JsValidationMessages")]
 	[ControllerDetails(Area = "Manager")]
 	public abstract class BaseController : SmartDispatcherController
 	{

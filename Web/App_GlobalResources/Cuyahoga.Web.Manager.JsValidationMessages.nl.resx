@@ -117,82 +117,13 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="ActionNotAllowedException" xml:space="preserve">
-    <value>You are not allowed to perform the requested action.</value>
+  <data name="PasswordMinLength" xml:space="preserve">
+    <value>Het wachtwoord moet tenminste {0} tekens bevatten</value>
   </data>
-  <data name="AuthenticationException" xml:space="preserve">
-    <value>An error occured while authenticating the user.</value>
+  <data name="PasswordRequired" xml:space="preserve">
+    <value>Voer een wachtwoord in</value>
   </data>
-  <data name="CancelLabel" xml:space="preserve">
-    <value>Cancel</value>
-  </data>
-  <data name="CuyahogaSiteManagerLabel" xml:space="preserve">
-    <value>Cuyahoga Site Manager</value>
-  </data>
-  <data name="DashboardPageTitle" xml:space="preserve">
-    <value>Dashboard</value>
-  </data>
-  <data name="EmptyUsernameOrPassword" xml:space="preserve">
-    <value>The username or password may not be empty.</value>
-  </data>
-  <data name="InvalidPassword" xml:space="preserve">
-    <value>Invalid password. Make sure it has at least 5 characters.</value>
-  </data>
-  <data name="InvalidUsernamePassword" xml:space="preserve">
-    <value>Invalid username-password combination.</value>
-  </data>
-  <data name="LoggedInAsLabel" xml:space="preserve">
-    <value>Logged in as</value>
-  </data>
-  <data name="LoginButtonLabel" xml:space="preserve">
-    <value>Login</value>
-  </data>
-  <data name="LoginPageTitle" xml:space="preserve">
-    <value>Login</value>
-  </data>
-  <data name="LogoutButtonLabel" xml:space="preserve">
-    <value>Logout</value>
-  </data>
-  <data name="ManageFilesPageTitle" xml:space="preserve">
-    <value>Manage files</value>
-  </data>
-  <data name="ManagePagesPageTitle" xml:space="preserve">
-    <value>Manage pages and sections</value>
-  </data>
-  <data name="ManagerMenuDashboard" xml:space="preserve">
-    <value>Dashboard</value>
-  </data>
-  <data name="ManagerMenuFiles" xml:space="preserve">
-    <value>Files</value>
-  </data>
-  <data name="ManagerMenuPages" xml:space="preserve">
-    <value>Pages</value>
-  </data>
-  <data name="ManagerMenuServer" xml:space="preserve">
-    <value>Server settings</value>
-  </data>
-  <data name="ManagerMenuSite" xml:space="preserve">
-    <value>Site settings</value>
-  </data>
-  <data name="ManagerMenuUsers" xml:space="preserve">
-    <value>Users and roles</value>
-  </data>
-  <data name="ManageSitePageTitle" xml:space="preserve">
-    <value>Manage site</value>
-  </data>
-  <data name="ManageUsersPageTitle" xml:space="preserve">
-    <value>Manage users and roles</value>
-  </data>
-  <data name="PasswordLabel" xml:space="preserve">
-    <value>Password</value>
-  </data>
-  <data name="SiteLabel" xml:space="preserve">
-    <value>Site</value>
-  </data>
-  <data name="TasksLabel" xml:space="preserve">
-    <value>Tasks</value>
-  </data>
-  <data name="UsernameLabel" xml:space="preserve">
-    <value>Username</value>
+  <data name="UsernameRequired" xml:space="preserve">
+    <value>Voer een gebruikersnaam in</value>
   </data>
 </root>

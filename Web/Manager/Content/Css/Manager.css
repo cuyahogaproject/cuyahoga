@@ -54,8 +54,23 @@ fieldset li
 label 
 {  
 	float: left;
-	width: 120px;  
 	margin-right: 10px;
+}
+
+label.error
+{
+	color: #c00;
+	width: auto;
+}
+
+input, select, textarea
+{
+	font-size: 90%;
+}
+
+input.error
+{
+	border: 2px solid #c00;
 }
 
 a
