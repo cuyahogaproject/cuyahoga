@@ -276,15 +276,15 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Cuyahoga.Web.Manager.GlobalResources.nl.resx</DependentUpon>
     </Compile>
-    <Compile Include="App_GlobalResources\Cuyahoga.Web.Manager.JsValidationMessages.Designer.cs">
+    <Compile Include="App_GlobalResources\Cuyahoga.Web.Manager.ValidationMessages.designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>Cuyahoga.Web.Manager.JsValidationMessages.resx</DependentUpon>
+      <DependentUpon>Cuyahoga.Web.Manager.ValidationMessages.resx</DependentUpon>
     </Compile>
-    <Compile Include="App_GlobalResources\Cuyahoga.Web.Manager.JsValidationMessages.nl.designer.cs">
+    <Compile Include="App_GlobalResources\Cuyahoga.Web.Manager.ValidationMessages.nl.designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>Cuyahoga.Web.Manager.JsValidationMessages.nl.resx</DependentUpon>
+      <DependentUpon>Cuyahoga.Web.Manager.ValidationMessages.nl.resx</DependentUpon>
     </Compile>
     <Compile Include="Components\CuyahogaContext.cs" />
     <Compile Include="Components\ICuyahogaContext.cs" />
@@ -1136,15 +1136,15 @@
       <Generator>GlobalResourceProxyGenerator</Generator>
       <LastGenOutput>Cuyahoga.Web.Manager.GlobalResources.nl.designer.cs</LastGenOutput>
     </Content>
-    <Content Include="App_GlobalResources\Cuyahoga.Web.Manager.JsValidationMessages.resx">
+    <Content Include="App_GlobalResources\Cuyahoga.Web.Manager.ValidationMessages.resx">
       <SubType>Designer</SubType>
       <Generator>GlobalResourceProxyGenerator</Generator>
-      <LastGenOutput>Cuyahoga.Web.Manager.JsValidationMessages.Designer.cs</LastGenOutput>
+      <LastGenOutput>Cuyahoga.Web.Manager.ValidationMessages.designer.cs</LastGenOutput>
     </Content>
-    <Content Include="App_GlobalResources\Cuyahoga.Web.Manager.JsValidationMessages.nl.resx">
+    <Content Include="App_GlobalResources\Cuyahoga.Web.Manager.ValidationMessages.nl.resx">
       <SubType>Designer</SubType>
       <Generator>GlobalResourceProxyGenerator</Generator>
-      <LastGenOutput>Cuyahoga.Web.Manager.JsValidationMessages.nl.designer.cs</LastGenOutput>
+      <LastGenOutput>Cuyahoga.Web.Manager.ValidationMessages.nl.designer.cs</LastGenOutput>
     </Content>
     <EmbeddedResource Include="Controls\EditProfile.ascx.resx">
       <DependentUpon>EditProfile.ascx.cs</DependentUpon>

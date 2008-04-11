@@ -117,13 +117,43 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="PasswordMinLength" xml:space="preserve">
-    <value>The password must contain at least {0} characters</value>
+  <data name="EmailValidatorEmail" xml:space="preserve">
+    <value>Invalid e-mail address</value>
   </data>
-  <data name="PasswordRequired" xml:space="preserve">
-    <value>Please enter a password</value>
+  <data name="EmailValidatorLength" xml:space="preserve">
+    <value>E-mail address must be between 1 and 100 characters</value>
   </data>
-  <data name="UsernameRequired" xml:space="preserve">
-    <value>Please enter a username</value>
+  <data name="EmailValidatorNonEmpty" xml:space="preserve">
+    <value>E-mail address may not be empty</value>
+  </data>
+  <data name="FirstNameValidatorLength" xml:space="preserve">
+    <value>The firstname must be between 1 and 100 characters</value>
+  </data>
+  <data name="LastNameValidatorLength" xml:space="preserve">
+    <value>The lastname must be between 1 and 100 characters</value>
+  </data>
+  <data name="PasswordConfirmationValidatorNonEmpty" xml:space="preserve">
+    <value>The password confirmation may not be empty</value>
+  </data>
+  <data name="PasswordValidatorLength" xml:space="preserve">
+    <value>The password must contain at least 5 characters</value>
+  </data>
+  <data name="PasswordValidatorNonEmpty" xml:space="preserve">
+    <value>The password may not be empty</value>
+  </data>
+  <data name="PasswordValidatorSameAs" xml:space="preserve">
+    <value>The password must be the same as the confirmation password</value>
+  </data>
+  <data name="RolesValidatorNotEmpty" xml:space="preserve">
+    <value>A user must at least have one role</value>
+  </data>
+  <data name="UserNameValidatorLength" xml:space="preserve">
+    <value>The username must be between 1 and 50 characters</value>
+  </data>
+  <data name="UserNameValidatorNonEmpty" xml:space="preserve">
+    <value>The username may not be empty</value>
+  </data>
+  <data name="WebsiteValidatorLength" xml:space="preserve">
+    <value>The website url must be between 1 and 100 characters</value>
   </data>
 </root>

@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Security;
 using System.Security.Principal;
+using Castle.Components.Validator;
 
 namespace Cuyahoga.Core.Domain
 {
@@ -14,6 +15,7 @@ namespace Cuyahoga.Core.Domain
 		private int _id;
 		private string _userName;
 		private string _password;
+		private string _passwordConfirmation;
 		private string _firstName;
 		private string _lastName;
 		private string _email;
@@ -41,6 +43,8 @@ namespace Cuyahoga.Core.Domain
         /// <summary>
         /// Property UserName (string)
         /// </summary>
+		[ValidateNonEmpty("UserNameValidatorNonEmpty")]
+		[ValidateLength(1, 50, "UserNameValidatorLength")]
         public virtual string UserName
         {
         	get { return this._userName; }
@@ -50,6 +54,9 @@ namespace Cuyahoga.Core.Domain
 		/// <summary>
 		/// Property Password (string). Internally the MD5 hash of the password is used.
 		/// </summary>
+		[ValidateNonEmpty("PasswordValidatorNonEmpty", RunWhen = RunWhen.Custom)]
+		[ValidateLength(5, 100, "PasswordValidatorLength")]
+		[ValidateSameAs("PasswordConfirmation", "PasswordValidatorSameAs", RunWhen = RunWhen.Custom)]
 		public virtual string Password
 		{
 			get { return this._password; }
@@ -57,8 +64,19 @@ namespace Cuyahoga.Core.Domain
 		}
 
 		/// <summary>
+		/// Password confirmation.
+		/// </summary>
+		[ValidateNonEmpty("PasswordConfirmationValidatorNonEmpty", RunWhen = RunWhen.Custom)]
+		public virtual string PasswordConfirmation
+		{
+			get { return _passwordConfirmation; }
+			set { _passwordConfirmation = value; }
+		}
+
+		/// <summary>
 		/// Property FirstName (string)
 		/// </summary>
+		[ValidateLength(1, 100, "FirstNameValidatorLength")]
 		public virtual string FirstName
 		{
 			get { return this._firstName; }
@@ -68,6 +86,7 @@ namespace Cuyahoga.Core.Domain
 		/// <summary>
 		/// Property LastName (string)
 		/// </summary>
+		[ValidateLength(1, 100, "LastNameValidatorLength")]
 		public virtual string LastName
 		{
 			get { return this._lastName; }
@@ -97,6 +116,9 @@ namespace Cuyahoga.Core.Domain
 		/// <summary>
 		/// Property Email (string)
 		/// </summary>
+		[ValidateNonEmpty("EmailValidatorNonEmpty")]
+		[ValidateLength(1, 100, "EmailValidatorLength")]
+		[ValidateEmail("EmailValidatorEmail")]
 		public virtual string Email
 		{
 			get { return this._email; }
@@ -106,6 +128,7 @@ namespace Cuyahoga.Core.Domain
 		/// <summary>
 		/// Property Website (string)
 		/// </summary>
+		[ValidateLength(1, 100, "WebsiteValidatorLength")]
 		public virtual string Website
 		{
 			get { return this._website; }
@@ -151,6 +174,7 @@ namespace Cuyahoga.Core.Domain
 		/// <summary>
 		/// Property Roles (IList)
 		/// </summary>
+		[ValidateCollectionNotEmpty("RolesValidatorNotEmpty")]
 		public virtual IList Roles
 		{
 			get { return this._roles; }

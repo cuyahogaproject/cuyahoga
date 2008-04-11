@@ -4,11 +4,11 @@
 		$("#loginform").validate({
 			messages: {
 				username: {
-					required: "$validatormessages.UsernameRequired"
+					required: "$validatormessages.UserNameValidatorNonEmpty"
 				},
 				password: {
-					required: "$validatormessages.PasswordRequired",
-					minlength: jQuery.format("$validatormessages.PasswordMinLength")
+					required: "$validatormessages.PasswordValidatorNonEmpty",
+					minlength: "$validatormessages.PasswordValidatorLength"
 				}
 			}
 		});
@@ -49,7 +49,7 @@ label.error
 
 <div id="loginpanel">
 <h1>$globaltext.LoginPageTitle</h1>
-<form id="loginform" action="login.ashx" method="post">
+<form id="loginform" action="$Url.For("%{action='Login'}")" method="post">
 $Form.HiddenField("returnUrl")
 <fieldset>
 <ol>
