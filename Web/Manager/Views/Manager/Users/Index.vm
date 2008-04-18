@@ -6,3 +6,55 @@
 	<li>Manage roles</li>
 </ul>
 #end
+
+<form id="userfilterform" action="$Url.For("%{action='filter'}")" method="get">
+	<label for="username">Username</label>
+	<input type="text" id="username" name="username" value="$!username" />
+	<label for="role">Role</label>
+	<select id="role" name="roleid">
+		<option value="0">All</option>
+		#foreach($role in $roles)
+			<option value="$role.Id" #if ($role.Id == $roleid) selected #end>$role.Name</option>
+		#end
+	</select>
+	<label for="isactive">Active</label>
+	<select id="isactive" name="isactive">
+		<option value="">All</option>
+		<option value="true" #if ($isactive == 'true') selected #end>Yes</option>
+		<option value="false" #if ($isactive == 'false') selected #end>No</option>
+	</select>
+	<input type="submit" id="submitbutton" name="submitbutton" value="Filter" />
+</form>
+<br>
+#foreach($user in $users)
+#beforeall
+<table class="grid">
+	<thead>
+		<tr>
+			<th>Username</th>
+			<th>Email</th>
+			<th>Active</th>
+			<th>Last login</th>
+			<th>Last login from</th>
+			<th>&nbsp;</th>
+		</tr>
+	</thead>
+	<tbody>
+#before
+		<tr>
+#each
+			<td>$user.UserName</td>
+			<td>$user.Email</td>	
+			<td>$user.IsActive</td>
+			<td>$!user.LastLogin</td>
+			<td>$!user.LastIp</td>
+			<td></td>
+#after
+		</tr>
+#afterall
+	</tbody>
+</table>
+#component(DiggStylePagination with "page=$users")
+#nodata
+	No user(s) found.
+#end

@@ -67,6 +67,14 @@ namespace Cuyahoga.Core.DataAccess
 		IList<T> GetAll<T>(params string[] sortProperties);
 
 		/// <summary>
+		/// Get all objects of T for the given id's.
+		/// </summary>
+		/// <typeparam name="T"></typeparam>
+		/// <param name="ids"></param>
+		/// <returns></returns>
+		IList<T> GetByIds<T>(int[] ids);
+
+		/// <summary>
 		/// Save or update a given object in the database.
 		/// </summary>
 		/// <param name="obj"></param>

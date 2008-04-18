@@ -105,6 +105,21 @@ namespace Cuyahoga.Core.DataAccess
 			return crit.List<T>();
 		}
 
+		/// <summary>
+		/// Get all objects of T for the given id's.
+		/// </summary>
+		/// <typeparam name="T"></typeparam>
+		/// <param name="ids"></param>
+		/// <returns></returns>
+		public IList<T> GetByIds<T>(int[] ids)
+		{
+			ISession session = this._sessionManager.OpenSession();
+
+			ICriteria crit = session.CreateCriteria(typeof(T))
+				.Add(Expression.In("Id", ids));
+			return crit.List<T>();
+		}
+
 		[Transaction(TransactionMode.Requires)]
 		public virtual void SaveOrUpdateObject(object obj)
 		{

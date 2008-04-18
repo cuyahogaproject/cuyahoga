@@ -9,7 +9,7 @@ body
 
 h1
 {
-	margin: 1px;
+	margin-top: 3px;
 	color: #333;
 	font-size: 150%;
 	font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
@@ -17,9 +17,9 @@ h1
 
 h2
 {
-	margin: 1px;
+	margin-top: 3px;
 	color: #333;
-	font-size: 140%;
+	font-size: 130%;
 	font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
 }
 
@@ -51,7 +51,7 @@ fieldset li
 	width: 100%; 
 }
 
-label 
+fieldset label 
 {  
 	float: left;
 	margin-right: 10px;
@@ -220,4 +220,27 @@ a
 	padding: 10px 10px 10px 30px;
 	border: 1px solid #c00;
 	background: #fcc url(../Images/exclamation.png) no-repeat 8px 11px;
+}
+
+table.grid
+{	
+	color: #333333;
+	border-collapse: collapse;
+}
+
+table.grid th
+{
+	color: #333333;
+	background-color: #eee;
+	font-weight: bold;
+	border-right: solid 1px #fff;
+	border-bottom: solid 1px #ccc;
+	padding: 4px;
+}
+
+table.grid td
+{
+	border-bottom: 1px solid #eee;
+	padding: 4px;
+
 }
