@@ -7,12 +7,12 @@
 </ul>
 #end
 
-<form id="userfilterform" action="$Url.For("%{action='filter'}")" method="get">
+<form id="userfilterform" action="$Url.For("%{action='index'}")" method="get">
 	<label for="username">Username</label>
 	<input type="text" id="username" name="username" value="$!username" />
 	<label for="role">Role</label>
 	<select id="role" name="roleid">
-		<option value="0">All</option>
+		<option value="">All</option>
 		#foreach($role in $roles)
 			<option value="$role.Id" #if ($role.Id == $roleid) selected #end>$role.Name</option>
 		#end
@@ -54,7 +54,7 @@
 #afterall
 	</tbody>
 </table>
-#component(DiggStylePagination with "page=$users")
+#component(DiggStylePagination with "page=$users" "url=$pageurl")
 #nodata
 	No user(s) found.
 #end

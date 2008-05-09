@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Cuyahoga.Core.Domain;
 using Cuyahoga.Core.DataAccess;
+using Cuyahoga.Core.Util;
 
 namespace Cuyahoga.Core.Service.Membership
 {
@@ -30,6 +31,24 @@ namespace Cuyahoga.Core.Service.Membership
 		public IList FindUsersByUsername(string searchString)
 		{
 			return this._userDao.FindUsersByUsername(searchString);
+		}
+
+		/// <summary>
+		/// Find users and return paged results.
+		/// </summary>
+		/// <param name="username"></param>
+		/// <param name="roleId"></param>
+		/// <param name="isActive"></param>
+		/// <param name="pageSize"></param>
+		/// <param name="pageNumber"></param>
+		/// <returns></returns>
+		public PagedResultSet<User> FindUsers(string username, int? roleId, bool? isActive, int pageSize, int? pageNumber)
+		{
+			if (! pageNumber.HasValue)
+			{
+				pageNumber = 1;
+			}
+			return this._userDao.FindUsers(username, roleId, isActive, pageSize, pageNumber.Value);
 		}
 
 		public User GetUserById(int userId)

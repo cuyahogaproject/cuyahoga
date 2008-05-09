@@ -370,6 +370,7 @@
     </Compile>
     <Compile Include="Util\Globalization.cs" />
     <Compile Include="Util\IoC.cs" />
+    <Compile Include="Util\PagedResultSet.cs" />
     <Compile Include="Util\Rss.cs">
       <SubType>Code</SubType>
     </Compile>

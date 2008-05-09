@@ -114,7 +114,6 @@ namespace Cuyahoga.Core.DataAccess
 		public IList<T> GetByIds<T>(int[] ids)
 		{
 			ISession session = this._sessionManager.OpenSession();
-
 			ICriteria crit = session.CreateCriteria(typeof(T))
 				.Add(Expression.In("Id", ids));
 			return crit.List<T>();

@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 
 using Cuyahoga.Core.Domain;
+using Cuyahoga.Core.Util;
 
 namespace Cuyahoga.Core.DataAccess
 {
@@ -34,6 +35,17 @@ namespace Cuyahoga.Core.DataAccess
 		/// <param name="searchString"></param>
 		/// <returns></returns>
 		IList FindUsersByUsername(string searchString);
+
+		/// <summary>
+		/// Find users and return paged results.
+		/// </summary>
+		/// <param name="username"></param>
+		/// <param name="roleId"></param>
+		/// <param name="isActive"></param>
+		/// <param name="pageSize"></param>
+		/// <param name="pageNumber"></param>
+		/// <returns></returns>
+		PagedResultSet<User> FindUsers(string username, int? roleId, bool? isActive, int pageSize, int pageNumber);
 
         /// <summary>
         /// Get all sections that the supplied user has read access to
