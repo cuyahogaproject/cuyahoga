@@ -67,37 +67,37 @@ namespace Cuyahoga.Web.Components
 		{
 			// Check for any new versions
 			CheckInstaller();
-
-			// Register modules
-			ModuleLoader loader = IoC.Resolve<ModuleLoader>();
-			loader.RegisterActivatedModules();
 		}
 
 		private static void CheckInstaller()
 		{
-			// Check version and redirect to install pages if neccessary.
-			DatabaseInstaller dbInstaller = new DatabaseInstaller(HttpContext.Current.Server.MapPath("~/Install/Core"), Assembly.Load("Cuyahoga.Core"));
-			if (dbInstaller.TestDatabaseConnection())
+			if (!HttpContext.Current.Request.RawUrl.Contains("Install"))
 			{
-				if (dbInstaller.CanUpgrade)
+				// Check version and redirect to install pages if neccessary.
+				DatabaseInstaller dbInstaller = new DatabaseInstaller(HttpContext.Current.Server.MapPath("~/Install/Core"),
+				                                                      Assembly.Load("Cuyahoga.Core"));
+				if (dbInstaller.TestDatabaseConnection())
 				{
-					HttpContext.Current.Application.Lock();
-					HttpContext.Current.Application["IsUpgrading"] = true;
-					HttpContext.Current.Application.UnLock();
+					if (dbInstaller.CanUpgrade)
+					{
+						HttpContext.Current.Application.Lock();
+						HttpContext.Current.Application["IsUpgrading"] = true;
+						HttpContext.Current.Application.UnLock();
 
-					HttpContext.Current.Response.Redirect("~/Install/Upgrade.aspx");
+						HttpContext.Current.Response.Redirect("~/Install/Upgrade.aspx");
+					}
+					else if (dbInstaller.CanInstall)
+					{
+						HttpContext.Current.Application.Lock();
+						HttpContext.Current.Application["IsInstalling"] = true;
+						HttpContext.Current.Application.UnLock();
+						HttpContext.Current.Response.Redirect("~/Install/Install.aspx");
+					}
 				}
-				else if (dbInstaller.CanInstall)
+				else
 				{
-					HttpContext.Current.Application.Lock();
-					HttpContext.Current.Application["IsInstalling"] = true;
-					HttpContext.Current.Application.UnLock();
-					HttpContext.Current.Response.Redirect("~/Install/Install.aspx");
+					throw new Exception("Cuyahoga can't connect to the database. Please check your application settings.");
 				}
-			}
-			else
-			{
-				throw new Exception("Cuyahoga can't connect to the database. Please check your application settings.");
 			}
 		}
 

@@ -63,9 +63,16 @@ namespace Cuyahoga.Web
 				HttpContext.Current.Application.Lock();
 				HttpContext.Current.Application["IsFirstRequest"] = false;
 				HttpContext.Current.Application.UnLock();
+			}
 
-				// Re-load the requested page (to avoid conflicts with first-time configured NHibernate modules )
-				HttpContext.Current.Response.Redirect(HttpContext.Current.Request.RawUrl);
+			// Load active modules. This can't be done in Application_Start because the Installer might kick in
+			// before modules are loaded.
+			if (!(bool)HttpContext.Current.Application["ModulesLoaded"]
+				&& !(bool)HttpContext.Current.Application["IsModuleLoading"]
+				&& !(bool)HttpContext.Current.Application["IsInstalling"]
+				&& !(bool)HttpContext.Current.Application["IsUpgrading"])
+			{
+				LoadModules();
 			}
 		}
 
@@ -104,6 +111,25 @@ namespace Cuyahoga.Web
 			//routes.CreateArea("root", "Cuyahoga.Web.Controllers",
 			//    routes.MapRoute(null, "{controller}/{action}", new { controller = "Home", action = "Index" })
 			//);
+		}
+
+		private void LoadModules()
+		{
+			if (log.IsDebugEnabled)
+			{
+				log.Debug("Entering module loading.");
+			}
+			// Load module types into the container.
+			ModuleLoader loader = Container.Resolve<ModuleLoader>();
+			loader.RegisterActivatedModules();
+
+			if (log.IsDebugEnabled)
+			{
+				log.Debug("Finished module loading. Now redirecting to self.");
+			}
+			// Re-load the requested page (to avoid conflicts with first-time configured NHibernate modules )
+			HttpContext.Current.Response.Redirect(HttpContext.Current.Request.RawUrl);
+
 		}
 
 		private void Kernel_ComponentCreated(ComponentModel model, object instance)

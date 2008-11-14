@@ -145,7 +145,6 @@
   <ItemGroup>
     <Compile Include="Categories\CategoryControl.ascx.cs">
       <DependentUpon>CategoryControl.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="Categories\CategoryControl.ascx.designer.cs">
       <DependentUpon>CategoryControl.ascx</DependentUpon>
@@ -160,21 +159,18 @@
     </Compile>
     <Compile Include="LanguageSwitcher\LanguageSwitcher.ascx.cs">
       <DependentUpon>LanguageSwitcher.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="LanguageSwitcher\LanguageSwitcherModule.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Search\Search.ascx.cs">
       <DependentUpon>Search.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="Search\Search.ascx.designer.cs">
       <DependentUpon>Search.ascx</DependentUpon>
     </Compile>
     <Compile Include="Search\SearchInput.ascx.cs">
       <DependentUpon>SearchInput.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="Search\SearchInput.ascx.designer.cs">
       <DependentUpon>SearchInput.ascx</DependentUpon>
@@ -188,21 +184,18 @@
     <Compile Include="Sitemap\SitemapModule.cs" />
     <Compile Include="Sitemap\SitemapControl.ascx.cs">
       <DependentUpon>SitemapControl.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="Sitemap\SitemapControl.ascx.designer.cs">
       <DependentUpon>SitemapControl.ascx</DependentUpon>
     </Compile>
     <Compile Include="StaticHtml\EditHtml.aspx.cs">
       <DependentUpon>EditHtml.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="StaticHtml\EditHtml.aspx.designer.cs">
       <DependentUpon>EditHtml.aspx</DependentUpon>
     </Compile>
     <Compile Include="StaticHtml\StaticHtml.ascx.cs">
       <DependentUpon>StaticHtml.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="StaticHtml\StaticHtml.ascx.designer.cs">
       <DependentUpon>StaticHtml.ascx</DependentUpon>
@@ -215,7 +208,6 @@
     </Compile>
     <Compile Include="User\EditProfile.ascx.cs">
       <DependentUpon>EditProfile.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="User\EditProfile.ascx.designer.cs">
       <DependentUpon>EditProfile.ascx</DependentUpon>
@@ -225,21 +217,18 @@
     </Compile>
     <Compile Include="User\Register.ascx.cs">
       <DependentUpon>Register.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="User\Register.ascx.designer.cs">
       <DependentUpon>Register.ascx</DependentUpon>
     </Compile>
     <Compile Include="User\ResetPassword.ascx.cs">
       <DependentUpon>ResetPassword.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="User\ResetPassword.ascx.designer.cs">
       <DependentUpon>ResetPassword.ascx</DependentUpon>
     </Compile>
     <Compile Include="User\User.ascx.cs">
       <DependentUpon>User.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="User\User.ascx.designer.cs">
       <DependentUpon>User.ascx</DependentUpon>
@@ -249,7 +238,6 @@
     </Compile>
     <Compile Include="User\ViewProfile.ascx.cs">
       <DependentUpon>ViewProfile.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="User\ViewProfile.ascx.designer.cs">
       <DependentUpon>ViewProfile.ascx</DependentUpon>

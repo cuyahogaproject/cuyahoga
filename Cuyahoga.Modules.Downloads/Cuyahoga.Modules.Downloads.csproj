@@ -157,15 +157,12 @@
     </Compile>
     <Compile Include="Web\Downloads.ascx.cs">
       <DependentUpon>Downloads.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="Web\EditDownloads.aspx.cs">
       <DependentUpon>EditDownloads.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="Web\EditFile.aspx.cs">
       <DependentUpon>EditFile.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <EmbeddedResource Include="Domain\File.hbm.xml" />
     <EmbeddedResource Include="Web\Downloads.ascx.resx">

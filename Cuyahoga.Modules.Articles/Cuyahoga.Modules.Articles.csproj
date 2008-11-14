@@ -88,14 +88,12 @@
     <Compile Include="DataAccess\IArticleDao.cs" />
     <Compile Include="Web\AdminArticles.aspx.cs">
       <DependentUpon>AdminArticles.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="Web\AdminArticles.aspx.designer.cs">
       <DependentUpon>AdminArticles.aspx</DependentUpon>
     </Compile>
     <Compile Include="Web\AdminComments.aspx.cs">
       <DependentUpon>AdminComments.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="Web\AdminComments.aspx.designer.cs">
       <DependentUpon>AdminComments.aspx</DependentUpon>
@@ -104,14 +102,12 @@
     <Compile Include="ArticleModule.cs" />
     <Compile Include="Web\ArticleDetails.ascx.cs">
       <DependentUpon>ArticleDetails.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="Web\ArticleDetails.ascx.designer.cs">
       <DependentUpon>ArticleDetails.ascx</DependentUpon>
     </Compile>
     <Compile Include="Web\Articles.ascx.cs">
       <DependentUpon>Articles.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="Web\Articles.ascx.designer.cs">
       <DependentUpon>Articles.ascx</DependentUpon>
@@ -120,7 +116,6 @@
     <Compile Include="Domain\Comment.cs" />
     <Compile Include="Web\EditArticle.aspx.cs">
       <DependentUpon>EditArticle.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="Web\EditArticle.aspx.designer.cs">
       <DependentUpon>EditArticle.aspx</DependentUpon>
