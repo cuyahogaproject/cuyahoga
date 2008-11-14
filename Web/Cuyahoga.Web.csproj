@@ -96,10 +96,6 @@
       <Name>Castle.MicroKernel</Name>
       <HintPath>..\lib\Castle.MicroKernel.dll</HintPath>
     </Reference>
-    <Reference Include="Castle.MonoRail.Framework, Version=1.0.0.0, Culture=neutral, PublicKeyToken=407dd0808d44fbdc, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\lib\Castle.MonoRail.Framework.dll</HintPath>
-    </Reference>
     <Reference Include="Castle.Windsor">
       <Name>Castle.Windsor</Name>
       <HintPath>..\lib\Castle.Windsor.dll</HintPath>
@@ -288,23 +284,6 @@
     </Compile>
     <Compile Include="Components\CuyahogaContext.cs" />
     <Compile Include="Components\ICuyahogaContext.cs" />
-    <Compile Include="Components\MonoRail\GlobalResourceFacade.cs" />
-    <Compile Include="Components\MonoRail\GlobalResourceFactory.cs" />
-    <Compile Include="Components\MonoRail\MessageType.cs" />
-    <Compile Include="Manager\Controllers\BaseController.cs" />
-    <Compile Include="Manager\Controllers\DashboardController.cs" />
-    <Compile Include="Manager\Controllers\FilesController.cs" />
-    <Compile Include="Manager\Controllers\LoginController.cs" />
-    <Compile Include="Manager\Controllers\PagesController.cs" />
-    <Compile Include="Manager\Controllers\SecureController.cs" />
-    <Compile Include="Manager\Controllers\SiteController.cs" />
-    <Compile Include="Manager\Controllers\UsersController.cs" />
-    <Compile Include="Manager\Filters\AuthenticationFilter.cs" />
-    <Compile Include="Manager\ViewComponents\HeaderComponent.cs" />
-    <Compile Include="Manager\ViewComponents\MainMenuComponent.cs" />
-    <Compile Include="Manager\ViewComponents\MessagesComponent.cs" />
-    <Compile Include="Manager\ViewComponents\RightsComponent.cs" />
-    <Compile Include="Manager\ViewComponents\SiteChooserComponent.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -582,21 +561,9 @@
       <SubType>Form</SubType>
     </Content>
     <Content Include="js\DefaultButton.js" />
-    <Content Include="Manager\Content\Scripts\jquery.js" />
-    <Content Include="Manager\Content\Scripts\jquery.form.js" />
-    <Content Include="Manager\Content\Scripts\jquery.metadata.js" />
-    <Content Include="Manager\Content\Scripts\jquery.validate.js" />
     <Content Include="Login.aspx">
       <SubType>Form</SubType>
     </Content>
-    <Content Include="Manager\Content\Css\Manager.css" />
-    <Content Include="Manager\Content\Images\cancel.png" />
-    <Content Include="Manager\Content\Images\cuyahoga-logo.png" />
-    <Content Include="Manager\Content\Images\error.png" />
-    <Content Include="Manager\Content\Images\exclamation.png" />
-    <Content Include="Manager\Content\Images\information.png" />
-    <Content Include="Manager\Content\Images\world_go.png" />
-    <Content Include="Manager\Default.aspx" />
     <Content Include="Profile.aspx">
       <SubType>Form</SubType>
     </Content>
@@ -1250,22 +1217,6 @@
     <None Include="Install\Modules\Database\postgresql\1.5.2.sql" />
     <None Include="Install\Modules\Database\postgresql\install.sql" />
     <None Include="Install\Web.config" />
-    <None Include="Manager\Views\Components\HeaderComponent\Header.vm" />
-    <None Include="Manager\Views\Components\MainMenuComponent\MainMenu.vm" />
-    <None Include="Manager\Views\Components\MessagesComponent\Error.vm" />
-    <None Include="Manager\Views\Components\MessagesComponent\Exception.vm" />
-    <None Include="Manager\Views\Components\MessagesComponent\Message.vm" />
-    <None Include="Manager\Views\Components\SiteChooserComponent\SiteChooser.vm" />
-    <None Include="Manager\Views\Layouts\Simple.vm" />
-    <None Include="Manager\Views\Manager\Dashboard\Index.vm" />
-    <None Include="Manager\Views\Layouts\Default.vm" />
-    <None Include="Manager\Views\Manager\Files\Index.vm" />
-    <None Include="Manager\Views\Manager\Login\Index.vm" />
-    <None Include="Manager\Views\Manager\Pages\Index.vm" />
-    <None Include="Manager\Views\Manager\Site\Index.vm" />
-    <None Include="Manager\Views\Manager\Users\Index.vm" />
-    <None Include="Manager\Views\Rescues\GenericError.vm" />
-    <None Include="Manager\Views\Rescues\SecurityError.vm" />
     <None Include="Support\FCKeditor\editor\dialog\fck_spellerpages\spellerpages\server-scripts\spellchecker.cfm" />
     <None Include="Support\FCKeditor\editor\dialog\fck_spellerpages\spellerpages\server-scripts\spellchecker.php" />
     <None Include="Support\FCKeditor\editor\dialog\fck_spellerpages\spellerpages\server-scripts\spellchecker.pl" />
@@ -1274,6 +1225,7 @@
   <ItemGroup>
     <Folder Include="Controls\Resources\" />
     <Folder Include="index\" />
+    <Folder Include="Manager\" />
     <Folder Include="Modules\" />
     <Folder Include="UserFiles\File\" />
     <Folder Include="UserFiles\Image\" />
@@ -1297,7 +1249,7 @@ xcopy /s /y "$(SolutionDir)"lib\NVelocity.dll "$(TargetDir)"</PostBuildEvent>
     <VisualStudio>
       <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
         <WebProjectProperties>
-          <UseIIS>True</UseIIS>
+          <UseIIS>False</UseIIS>
           <AutoAssignPort>False</AutoAssignPort>
           <DevelopmentServerPort>8080</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>

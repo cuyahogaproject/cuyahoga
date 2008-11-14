@@ -4,7 +4,6 @@ using System.Reflection;
 using System.Web;
 using Castle.Core;
 using Castle.MicroKernel;
-using Castle.MonoRail.Framework;
 using Castle.Windsor;
 using Cuyahoga.Core.Service;
 using Cuyahoga.Core.Util;
@@ -64,9 +63,6 @@ namespace Cuyahoga.Web
 				// Check for any new versions
 				CheckInstaller();
 
-				// Register MonoRail components
-				RegisterMonoRailComponents();
-
 				// Register modules
 				ModuleLoader loader = Container.Resolve<ModuleLoader>();
 				loader.RegisterActivatedModules();
@@ -79,22 +75,6 @@ namespace Cuyahoga.Web
 
 			// On app startup re-load the requested page (to avoid conflicts with first-time configured NHibernate modules )
             HttpContext.Current.Response.Redirect(HttpContext.Current.Request.RawUrl);
-		}
-
-		private void RegisterMonoRailComponents()
-		{
-			// Auto-register all MonoRail components like controllers, viewcomponents and filters.
-			Type[] cuyahogaWebTypes = this.GetType().BaseType.Assembly.GetTypes();
-			foreach (Type type in cuyahogaWebTypes)
-			{
-				if (! type.IsAbstract
-					&& (typeof(Controller).IsAssignableFrom(type)
-						|| typeof(ViewComponent).IsAssignableFrom(type)
-						|| typeof(IFilter).IsAssignableFrom(type)))
-				{
-					Container.AddComponentWithLifestyle(type.Name, type, LifestyleType.Transient);
-				}
-			}			
 		}
 
 		protected void Session_Start(Object sender, EventArgs e)

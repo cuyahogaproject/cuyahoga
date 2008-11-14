@@ -1,6 +1,0 @@
-<p class="exceptionbox">
-$exceptionmessage
-#if($innerexceptionmessage)
-<br>$innerexceptionmessage
-#end
-</p>

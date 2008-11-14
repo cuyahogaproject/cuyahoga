@@ -1,6 +1,0 @@
-<h1>$globaltext.DashboardPageTitle</h1>
-
-#capturefor(taskarea)
-<h2>$globaltext.TasksLabel</h2>
-
-#end

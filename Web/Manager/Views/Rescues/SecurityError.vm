@@ -1,5 +1,0 @@
-#* 
-HACK: Setting the $exception variable will allow the MessageComponent (from the Default layout) 
-	  to display a nice localized error message. 
-*#
-#set($exception = $context.LastException)
