@@ -1,7 +1,7 @@
-﻿<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+﻿<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="3.5">
   <PropertyGroup>
     <ProjectType>Local</ProjectType>
-    <ProductVersion>8.0.50727</ProductVersion>
+    <ProductVersion>9.0.21022</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{7069F87A-95E1-4E61-B5FD-E0892E6F821F}</ProjectGuid>
     <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
@@ -27,6 +27,8 @@
     </FileUpgradeFlags>
     <UpgradeBackupLocation>
     </UpgradeBackupLocation>
+    <OldToolsVersion>2.0</OldToolsVersion>
+    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <OutputPath>bin\Debug\</OutputPath>
@@ -97,8 +99,14 @@
     <Reference Include="System">
       <Name>System</Name>
     </Reference>
+    <Reference Include="System.Core, Version=3.5.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
     <Reference Include="System.Data">
       <Name>System.Data</Name>
+    </Reference>
+    <Reference Include="System.Data.DataSetExtensions, Version=3.5.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
     </Reference>
     <Reference Include="System.Drawing">
       <Name>System.Drawing</Name>
@@ -106,8 +114,17 @@
     <Reference Include="System.Web">
       <Name>System.Web</Name>
     </Reference>
+    <Reference Include="System.Web.Extensions, Version=3.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Web.Extensions.Design, Version=3.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
     <Reference Include="System.Xml">
       <Name>System.XML</Name>
+    </Reference>
+    <Reference Include="System.Xml.Linq, Version=3.5.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
     </Reference>
     <ProjectReference Include="..\Core\Cuyahoga.Core.csproj">
       <Name>Cuyahoga.Core</Name>
@@ -503,6 +520,7 @@
     </EmbeddedResource>
     <EmbeddedResource Include="LanguageSwitcher\LanguageSwitcher.ascx.resx">
       <DependentUpon>LanguageSwitcher.ascx.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Search\Resources\Strings.de.resx">
       <SubType>Designer</SubType>
@@ -527,25 +545,32 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Search\Search.ascx.resx">
       <DependentUpon>Search.ascx.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Search\SearchInput.ascx.resx">
       <DependentUpon>SearchInput.ascx.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="StaticHtml\EditHtml.aspx.resx">
       <DependentUpon>EditHtml.aspx.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="StaticHtml\StaticHtml.ascx.resx">
       <DependentUpon>StaticHtml.ascx.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="StaticHtml\StaticHtmlContent.hbm.xml" />
     <EmbeddedResource Include="User\EditProfile.ascx.resx">
       <DependentUpon>EditProfile.ascx.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="User\Register.ascx.resx">
       <DependentUpon>Register.ascx.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="User\ResetPassword.ascx.resx">
       <DependentUpon>ResetPassword.ascx.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="User\Resources\Strings.es.resx">
       <SubType>Designer</SubType>
@@ -567,14 +592,17 @@
     </EmbeddedResource>
     <EmbeddedResource Include="User\User.ascx.resx">
       <DependentUpon>User.ascx.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="User\ViewProfile.ascx.resx">
       <DependentUpon>ViewProfile.ascx.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <None Include="Cuyahoga.Modules.build" />
     <None Include="LanguageSwitcher\Images\flags\flag.tar.gz" />
+    <Content Include="web.config" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
@@ -593,11 +621,12 @@ xcopy /s /y "$(TargetDir)"FredCK.FCKeditorV2.dll "$(SolutionDir)"Web\bin</PostBu
         <WebProjectProperties>
           <UseIIS>False</UseIIS>
           <AutoAssignPort>True</AutoAssignPort>
-          <DevelopmentServerPort>0</DevelopmentServerPort>
+          <DevelopmentServerPort>1189</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
           <IISUrl>
           </IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
+          <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
         </WebProjectProperties>
       </FlavorProperties>
     </VisualStudio>

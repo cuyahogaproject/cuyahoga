@@ -1,0 +1,252 @@
+﻿<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <ProjectType>Local</ProjectType>
+    <ProductVersion>8.0.50727</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{A613CF88-E66F-492B-9FD3-259BA3BD7310}</ProjectGuid>
+    <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ApplicationIcon>
+    </ApplicationIcon>
+    <AssemblyKeyContainerName>
+    </AssemblyKeyContainerName>
+    <AssemblyName>Cuyahoga.Modules.Downloads</AssemblyName>
+    <AssemblyOriginatorKeyFile>
+    </AssemblyOriginatorKeyFile>
+    <DefaultClientScript>JScript</DefaultClientScript>
+    <DefaultHTMLPageLayout>Grid</DefaultHTMLPageLayout>
+    <DefaultTargetSchema>IE50</DefaultTargetSchema>
+    <DelaySign>false</DelaySign>
+    <OutputType>Library</OutputType>
+    <RootNamespace>Cuyahoga.Modules.Downloads</RootNamespace>
+    <RunPostBuildEvent>OnBuildSuccess</RunPostBuildEvent>
+    <StartupObject>
+    </StartupObject>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
+    <UpgradeBackupLocation>
+    </UpgradeBackupLocation>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <OutputPath>bin\Debug\</OutputPath>
+    <AllowUnsafeBlocks>false</AllowUnsafeBlocks>
+    <BaseAddress>285212672</BaseAddress>
+    <CheckForOverflowUnderflow>false</CheckForOverflowUnderflow>
+    <ConfigurationOverrideFile>
+    </ConfigurationOverrideFile>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DocumentationFile>
+    </DocumentationFile>
+    <DebugSymbols>true</DebugSymbols>
+    <FileAlignment>4096</FileAlignment>
+    <NoStdLib>false</NoStdLib>
+    <NoWarn>
+    </NoWarn>
+    <Optimize>false</Optimize>
+    <RegisterForComInterop>false</RegisterForComInterop>
+    <RemoveIntegerChecks>false</RemoveIntegerChecks>
+    <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
+    <WarningLevel>4</WarningLevel>
+    <DebugType>full</DebugType>
+    <ErrorReport>prompt</ErrorReport>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <OutputPath>bin\Release\</OutputPath>
+    <AllowUnsafeBlocks>false</AllowUnsafeBlocks>
+    <BaseAddress>285212672</BaseAddress>
+    <CheckForOverflowUnderflow>false</CheckForOverflowUnderflow>
+    <ConfigurationOverrideFile>
+    </ConfigurationOverrideFile>
+    <DefineConstants>TRACE</DefineConstants>
+    <DocumentationFile>
+    </DocumentationFile>
+    <DebugSymbols>false</DebugSymbols>
+    <FileAlignment>4096</FileAlignment>
+    <NoStdLib>false</NoStdLib>
+    <NoWarn>
+    </NoWarn>
+    <Optimize>true</Optimize>
+    <RegisterForComInterop>false</RegisterForComInterop>
+    <RemoveIntegerChecks>false</RemoveIntegerChecks>
+    <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
+    <WarningLevel>4</WarningLevel>
+    <DebugType>none</DebugType>
+    <ErrorReport>prompt</ErrorReport>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Core|AnyCPU' ">
+    <OutputPath>bin\</OutputPath>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Castle.Facilities.NHibernateIntegration">
+      <Name>Castle.Facilities.NHibernateIntegration</Name>
+      <HintPath>..\lib\Castle.Facilities.NHibernateIntegration.dll</HintPath>
+    </Reference>
+    <Reference Include="Castle.Services.Transaction">
+      <Name>Castle.Services.Transaction</Name>
+      <HintPath>..\lib\Castle.Services.Transaction.dll</HintPath>
+    </Reference>
+    <Reference Include="log4net">
+      <Name>log4net</Name>
+      <HintPath>..\lib\log4net.dll</HintPath>
+    </Reference>
+    <Reference Include="NHibernate">
+      <Name>NHibernate</Name>
+      <HintPath>..\lib\NHibernate.dll</HintPath>
+    </Reference>
+    <Reference Include="System">
+      <Name>System</Name>
+    </Reference>
+    <Reference Include="System.Data">
+      <Name>System.Data</Name>
+    </Reference>
+    <Reference Include="System.Drawing">
+      <Name>System.Drawing</Name>
+    </Reference>
+    <Reference Include="System.Web">
+      <Name>System.Web</Name>
+    </Reference>
+    <Reference Include="System.Xml">
+      <Name>System.XML</Name>
+    </Reference>
+    <ProjectReference Include="..\Core\Cuyahoga.Core.csproj">
+      <Name>Cuyahoga.Core</Name>
+      <Project>{723B7D30-6472-4B96-8D09-4F094C96650E}</Project>
+      <Package>{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</Package>
+    </ProjectReference>
+    <ProjectReference Include="..\ServerControls\Cuyahoga.ServerControls.csproj">
+      <Name>Cuyahoga.ServerControls</Name>
+      <Project>{C64DAA00-AAB1-4AC7-ADE2-119B53B9666A}</Project>
+      <Package>{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</Package>
+    </ProjectReference>
+    <ProjectReference Include="..\Web\Cuyahoga.Web.csproj">
+      <Name>Cuyahoga.Web</Name>
+      <Project>{DD158F08-6E8F-4234-B3F6-A5402C8E34CC}</Project>
+      <Package>{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</Package>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Properties\AssemblyInfo.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Domain\File.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="DownloadsModule.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Util\FileTypesMap.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Web\Downloads.ascx.cs">
+      <DependentUpon>Downloads.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Web\EditDownloads.aspx.cs">
+      <DependentUpon>EditDownloads.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Web\EditFile.aspx.cs">
+      <DependentUpon>EditFile.aspx</DependentUpon>
+    </Compile>
+    <EmbeddedResource Include="Domain\File.hbm.xml" />
+    <EmbeddedResource Include="Web\Downloads.ascx.resx">
+      <DependentUpon>Downloads.ascx.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Web\EditDownloads.aspx.resx">
+      <DependentUpon>EditDownloads.aspx.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Web\EditFile.aspx.resx">
+      <DependentUpon>EditFile.aspx.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Web\Resources\Strings.de.resx">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Web\Resources\Strings.it.resx">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Web\Resources\Strings.nl.resx">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Web\Resources\Strings.resx">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Web\Resources\Strings.sv.resx">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <None Include="Cuyahoga.Modules.Downloads.build" />
+    <None Include="Install\Database\mssql2000\0.8.2.sql" />
+    <None Include="Install\Database\mssql2000\0.9.0.sql" />
+    <None Include="Install\Database\mssql2000\1.5.1.sql" />
+    <None Include="Install\Database\mssql2000\1.5.2.sql" />
+    <None Include="Install\Database\mssql2000\install.sql" />
+    <None Include="Install\Database\mssql2000\uninstall.sql" />
+    <None Include="Install\Database\mysql\0.8.2.sql" />
+    <None Include="Install\Database\mysql\0.9.0.sql" />
+    <None Include="Install\Database\mysql\1.5.1.sql" />
+    <None Include="Install\Database\mysql\1.5.2.sql" />
+    <None Include="Install\Database\mysql\install.sql" />
+    <None Include="Install\Database\mysql\uninstall.sql" />
+    <None Include="Install\Database\postgresql\0.8.2.sql" />
+    <None Include="Install\Database\postgresql\0.9.0.sql" />
+    <None Include="Install\Database\postgresql\1.5.1.sql" />
+    <None Include="Install\Database\postgresql\1.5.2.sql" />
+    <None Include="Install\Database\postgresql\install.sql" />
+    <None Include="Install\Database\postgresql\uninstall.sql" />
+    <Content Include="Install\Database\mssql2000\1.0.0.sql" />
+    <Content Include="Install\Database\mssql2000\1.5.0.sql" />
+    <Content Include="Install\Database\mysql\1.0.0.sql" />
+    <Content Include="Install\Database\mysql\1.5.0.sql" />
+    <Content Include="Install\Database\postgresql\1.0.0.sql" />
+    <Content Include="Install\Database\postgresql\1.5.0.sql" />
+    <Content Include="Web\Downloads.ascx">
+      <SubType>UserControl</SubType>
+    </Content>
+    <Content Include="Web\EditDownloads.aspx">
+      <SubType>Form</SubType>
+    </Content>
+    <Content Include="Web\EditFile.aspx">
+      <SubType>Form</SubType>
+    </Content>
+    <Content Include="Web\Images\bmp.gif" />
+    <Content Include="Web\Images\chm.gif" />
+    <Content Include="Web\Images\cs.gif" />
+    <Content Include="Web\Images\doc.gif" />
+    <Content Include="Web\Images\exe.gif" />
+    <Content Include="Web\Images\file.gif" />
+    <Content Include="Web\Images\gif.gif" />
+    <Content Include="Web\Images\htm.gif" />
+    <Content Include="Web\Images\jpg.gif" />
+    <Content Include="Web\Images\mdb.gif" />
+    <Content Include="Web\Images\mpg.gif" />
+    <Content Include="Web\Images\pdf.gif" />
+    <Content Include="Web\Images\ppt.gif" />
+    <Content Include="Web\Images\txt.gif" />
+    <Content Include="Web\Images\wav.gif" />
+    <Content Include="Web\Images\xls.gif" />
+    <Content Include="Web\Images\xml.gif" />
+    <Content Include="Web\Images\zip.gif" />
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PreBuildEvent>
+    </PreBuildEvent>
+    <PostBuildEvent>xcopy /s /y "$(ProjectDir)"Web\*.as?x "$(SolutionDir)"Web\Modules\Downloads\
+xcopy /s /y "$(ProjectDir)"Web\*.gif "$(SolutionDir)"Web\Modules\Downloads\
+xcopy /s /y "$(ProjectDir)"Install\Database\*.sql "$(SolutionDir)"Web\Modules\Downloads\Install\Database\
+xcopy /s /y "$(TargetDir)"Cuyahoga.Modules.Downloads*.dll "$(SolutionDir)"Web\bin\</PostBuildEvent>
+  </PropertyGroup>
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
+        <WebProjectProperties>
+          <UseIIS>False</UseIIS>
+          <AutoAssignPort>True</AutoAssignPort>
+          <DevelopmentServerPort>0</DevelopmentServerPort>
+          <DevelopmentServerVPath>/</DevelopmentServerVPath>
+          <IISUrl>
+          </IISUrl>
+          <NTLMAuthentication>False</NTLMAuthentication>
+        </WebProjectProperties>
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+</Project>

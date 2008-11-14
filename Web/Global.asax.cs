@@ -1,13 +1,13 @@
 using System;
 using System.IO;
-using System.Reflection;
 using System.Web;
+using System.Web.Mvc;
+using System.Web.Routing;
 using Castle.Core;
-using Castle.MicroKernel;
 using Castle.Windsor;
-using Cuyahoga.Core.Service;
 using Cuyahoga.Core.Util;
 using Cuyahoga.Web.Components;
+using Cuyahoga.Web.Mvc.Areas;
 using log4net;
 using log4net.Config;
 
@@ -15,7 +15,7 @@ namespace Cuyahoga.Web
 {
 	public class Global : HttpApplication, IContainerAccessor
 	{
-		private static ILog log = LogManager.GetLogger(typeof(Global));
+		private static readonly ILog log = LogManager.GetLogger(typeof(Global));
 		private static readonly string ERROR_PAGE_LOCATION = "~/Error.aspx";
 
 		/// <summary>
@@ -26,91 +26,50 @@ namespace Cuyahoga.Web
 			get { return IoC.Container; }
 		}
 
-		public Global()
-		{
-			InitializeComponent();
-		}
-
 		protected void Application_Start(Object sender, EventArgs e)
 		{
 			// Initialize log4net 
-			XmlConfigurator.ConfigureAndWatch(new FileInfo(Server.MapPath("~/") + "config/logging.config"));
-
-			// Initialize Cuyahoga environment
+			XmlConfigurator.ConfigureAndWatch(new FileInfo(Server.MapPath("~/") + "config/logging.config")); 
 			
 			// Set application level flags.
+			// TODO: get rid of application variables.
 			HttpContext.Current.Application.Lock();
+			HttpContext.Current.Application["IsFirstRequest"] = true;
 			HttpContext.Current.Application["ModulesLoaded"] = false;
 			HttpContext.Current.Application["IsModuleLoading"] = false;
 			HttpContext.Current.Application["IsInstalling"] = false;
 			HttpContext.Current.Application["IsUpgrading"] = false;
 			HttpContext.Current.Application.UnLock();
 
-			try
-			{
-				// Initialize Windsor
-				IWindsorContainer container = new CuyahogaContainer();
-				container.Kernel.ComponentCreated += new ComponentInstanceDelegate(Kernel_ComponentCreated);
-				container.Kernel.ComponentDestroyed += new ComponentInstanceDelegate(Kernel_ComponentDestroyed);
+			// Initialize container
+			Bootstrapper.InitializeContainer();
 
-				// Inititialize the static Windsor helper class. 
-				IoC.Initialize(container);
+			// View engine
+			ViewEngines.Engines.Clear();
+			ViewEngines.Engines.Add(new AreaViewEngine());
 
-				// Add ICuyahogaContext to the container.
-				container.AddComponentWithLifestyle("cuyahoga.context", typeof (ICuyahogaContext), typeof (CuyahogaContext),
-				                                    LifestyleType.PerWebRequest);
-
-				// Check for any new versions
-				CheckInstaller();
-
-				// Register modules
-				ModuleLoader loader = Container.Resolve<ModuleLoader>();
-				loader.RegisterActivatedModules();
-			}
-			catch (Exception ex)
-			{
-				log.Error("Error initializing application.", ex);
-				throw;
-			}
-
-			// On app startup re-load the requested page (to avoid conflicts with first-time configured NHibernate modules )
-            HttpContext.Current.Response.Redirect(HttpContext.Current.Request.RawUrl);
+			// Routes
+			RegisterRoutes(RouteTable.Routes);
 		}
 
-		protected void Session_Start(Object sender, EventArgs e)
+		protected void Application_BeginRequest(object sender, EventArgs e)
 		{
-
-		}
-
-
-		protected void Application_BeginRequest(Object sender, EventArgs e)
-		{
-			// Initialize CuyahogaContext.
-			ICuyahogaContext cuyahogaContext = Container.Resolve<ICuyahogaContext>();
-			cuyahogaContext.Initialize(HttpContext.Current);
-
-			// Load active modules. This can't be done in Application_Start because the Installer might kick in
-			// before modules are loaded.
-			if (! (bool)HttpContext.Current.Application["ModulesLoaded"]
-				&& !(bool)HttpContext.Current.Application["IsModuleLoading"]
-				&& !(bool)HttpContext.Current.Application["IsInstalling"]
-				&& !(bool)HttpContext.Current.Application["IsUpgrading"])
+			// Bootstrap Cuyahoga at the first request. We can't do this in Application_Start because
+			// we need the HttpContext.Response object to perform redirect. In IIS 7 integrated mode, the 
+			// Response isn't available in Application_Start.
+			if ((bool)HttpContext.Current.Application["IsFirstRequest"])
 			{
-				LoadModules();
+				Bootstrapper.InitializeCuyahoga();
+				HttpContext.Current.Application.Lock();
+				HttpContext.Current.Application["IsFirstRequest"] = false;
+				HttpContext.Current.Application.UnLock();
+
+				// Re-load the requested page (to avoid conflicts with first-time configured NHibernate modules )
+				HttpContext.Current.Response.Redirect(HttpContext.Current.Request.RawUrl);
 			}
 		}
 
-		protected void Application_EndRequest(Object sender, EventArgs e)
-		{
-
-		}
-
-		protected void Application_AuthenticateRequest(Object sender, EventArgs e)
-		{
-
-		}
-
-		protected void Application_Error(Object sender, EventArgs e)
+		protected void Application_Error(object sender, EventArgs e)
 		{
 			if (Context != null && Context.IsCustomErrorEnabled)
 			{
@@ -118,75 +77,33 @@ namespace Cuyahoga.Web
 			}
 		}
 
-		protected void Session_End(Object sender, EventArgs e)
+		protected void Application_End(object sender, EventArgs e)
 		{
-
+			Container.Dispose();
 		}
 
-		protected void Application_End(Object sender, EventArgs e)
+		public static void RegisterRoutes(RouteCollection routes)
 		{
-			IWindsorContainer container = IoC.Container;
-			container.Kernel.ComponentCreated -= new ComponentInstanceDelegate(Kernel_ComponentCreated);
-			container.Kernel.ComponentDestroyed -= new ComponentInstanceDelegate(Kernel_ComponentDestroyed);
-			container.Dispose();
-		}
+			routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
+			routes.IgnoreRoute("{*allaspx}", new { allaspx = @".*\.aspx(/.*)?" });
+			routes.IgnoreRoute("{*allashx}", new { allashx = @".*\.ashx(/.*)?" });
+			routes.IgnoreRoute("{*favicon}", new { favicon = @"(.*/)?favicon.ico(/.*)?" });
+			//routes.MapRoute(
+			//    "Default",                                              // Route name
+			//    "{controller}/{action}/{id}",                           // URL with parameters
+			//    new { controller = "Home", action = "Index", id = "" }  // Parameter defaults
+			//);
 
-		#region Web Form Designer generated code
-		/// <summary>
-		/// Required method for Designer support - do not modify
-		/// the contents of this method with the code editor.
-		/// </summary>
-		private void InitializeComponent()
-		{
-		}
+			// Routing config for the manager area
+			routes.CreateArea("manager", "Cuyahoga.Web.Manager.Controllers",
+				routes.MapRoute(null, "manager/{controller}/{action}/{id}", new { action = "Index", controller = "Dashboard", id = "" }),
+				routes.MapRoute(null, "Login", new { action = "Index", controller = "Login" }) // Also put the login functionality in the manager area.
+			);
 
-		#endregion
-
-		private void CheckInstaller()
-		{
-			// Check version and redirect to install pages if neccessary.
-			DatabaseInstaller dbInstaller = new DatabaseInstaller(HttpContext.Current.Server.MapPath("~/Install/Core"), Assembly.Load("Cuyahoga.Core"));
-			if (dbInstaller.TestDatabaseConnection())
-			{
-				if (dbInstaller.CanUpgrade)
-				{
-					HttpContext.Current.Application.Lock();
-					HttpContext.Current.Application["IsUpgrading"] = true;
-					HttpContext.Current.Application.UnLock();
-
-					HttpContext.Current.Response.Redirect("~/Install/Upgrade.aspx");
-				}
-				else if (dbInstaller.CanInstall)
-				{
-					HttpContext.Current.Application.Lock();
-					HttpContext.Current.Application["IsInstalling"] = true;
-					HttpContext.Current.Application.UnLock();
-					HttpContext.Current.Response.Redirect("~/Install/Install.aspx");
-				}
-			}
-			else
-			{
-				throw new Exception("Cuyahoga can't connect to the database. Please check your application settings.");
-			}
-		}
-
-		private void LoadModules()
-		{
-			if (log.IsDebugEnabled)
-			{
-				log.Debug("Entering module loading.");
-			}
-			// Load module types into the container.
-			ModuleLoader loader = Container.Resolve<ModuleLoader>();
-			loader.RegisterActivatedModules();
-			
-			if (log.IsDebugEnabled)
-			{
-				log.Debug("Finished module loading. Now redirecting to self.");
-			}
-			// Re-load the requested page (to avoid conflicts with first-time configured NHibernate modules )
-			HttpContext.Current.Response.Redirect(HttpContext.Current.Request.RawUrl);
-
+			// Routing config for the root area (not currently used)
+			//routes.CreateArea("root", "Cuyahoga.Web.Controllers",
+			//    routes.MapRoute(null, "{controller}/{action}", new { controller = "Home", action = "Index" })
+			//);
 		}
 
 		private void Kernel_ComponentCreated(ComponentModel model, object instance)

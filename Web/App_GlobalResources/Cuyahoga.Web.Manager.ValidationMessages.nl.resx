@@ -117,13 +117,43 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="PasswordMinLength" xml:space="preserve">
-    <value>Het wachtwoord moet tenminste {0} tekens bevatten</value>
+  <data name="EmailValidatorEmail" xml:space="preserve">
+    <value>Ongelig e-mailadres</value>
   </data>
-  <data name="PasswordRequired" xml:space="preserve">
-    <value>Voer een wachtwoord in</value>
+  <data name="EmailValidatorLength" xml:space="preserve">
+    <value>E-mailadres moet tussen de 1 en 100 tekens bevatten</value>
   </data>
-  <data name="UsernameRequired" xml:space="preserve">
-    <value>Voer een gebruikersnaam in</value>
+  <data name="EmailValidatorNonEmpty" xml:space="preserve">
+    <value>E-mailadres is verplicht</value>
+  </data>
+  <data name="FirstNameValidatorLength" xml:space="preserve">
+    <value>Voornaam moet tussen de 1 en 100 tekens bevatten</value>
+  </data>
+  <data name="LastNameValidatorLength" xml:space="preserve">
+    <value>Achternaam moet tussen de 1 en 100 tekens bevatten</value>
+  </data>
+  <data name="PasswordConfirmationValidatorNonEmpty" xml:space="preserve">
+    <value>Bevestiging wachtwoord is verplicht</value>
+  </data>
+  <data name="PasswordValidatorLength" xml:space="preserve">
+    <value>Wachtwoord moet minimaal 5 tekens bevatten</value>
+  </data>
+  <data name="PasswordValidatorNonEmpty" xml:space="preserve">
+    <value>Wachtwoord is verplicht</value>
+  </data>
+  <data name="PasswordValidatorSameAs" xml:space="preserve">
+    <value>Wachtwoord en bevestiging wachtwoord moeten gelijk zijn</value>
+  </data>
+  <data name="RolesValidatorNotEmpty" xml:space="preserve">
+    <value>Een gebruiker moet tenminste 1 rol hebben</value>
+  </data>
+  <data name="UserNameValidatorLength" xml:space="preserve">
+    <value>Gebruikersnaam moet tussen de 1 en 100 tekens bevatten</value>
+  </data>
+  <data name="UserNameValidatorNonEmpty" xml:space="preserve">
+    <value>Gebruikersnaam is verplicht</value>
+  </data>
+  <data name="WebsiteValidatorLength" xml:space="preserve">
+    <value>Website url moet tussen de 1 en 100 tekens bevatten</value>
   </data>
 </root>

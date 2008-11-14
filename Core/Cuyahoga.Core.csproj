@@ -1,7 +1,7 @@
-﻿<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+﻿<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="3.5">
   <PropertyGroup>
     <ProjectType>Local</ProjectType>
-    <ProductVersion>8.0.50727</ProductVersion>
+    <ProductVersion>9.0.21022</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{723B7D30-6472-4B96-8D09-4F094C96650E}</ProjectGuid>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
@@ -26,6 +26,23 @@
     </FileUpgradeFlags>
     <UpgradeBackupLocation>
     </UpgradeBackupLocation>
+    <OldToolsVersion>2.0</OldToolsVersion>
+    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+    <PublishUrl>http://localhost/Cuyahoga.Core/</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Web</InstallFrom>
+    <UpdateEnabled>true</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <IsWebBootstrapper>true</IsWebBootstrapper>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <OutputPath>bin\Debug\</OutputPath>
@@ -115,6 +132,9 @@
     </Reference>
     <Reference Include="System">
       <Name>System</Name>
+    </Reference>
+    <Reference Include="System.Core">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
     </Reference>
     <Reference Include="System.Data">
       <Name>System.Data</Name>
@@ -241,6 +261,7 @@
     <Compile Include="Exceptions.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="ICuyahogaContext.cs" />
     <Compile Include="INHibernateModule.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -380,6 +401,14 @@
     <Compile Include="Util\TimeZoneUtil.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Validation\CachedLocalizedValidatorRegistry.cs" />
+    <Compile Include="Util\CommonUtils.cs" />
+    <Compile Include="Validation\IBrowserValidatorProvider.cs" />
+    <Compile Include="Validation\ILocalizedValidatorRegistry.cs" />
+    <Compile Include="Validation\ValidationEngine.cs" />
+    <Compile Include="Validation\ValidationEngineAccessor.cs" />
+    <Compile Include="Validation\ValidationError.cs" />
+    <Compile Include="Validation\ValidationException.cs" />
     <EmbeddedResource Include="Domain\CustomMenu.hbm.xml" />
     <EmbeddedResource Include="Domain\ModuleType.hbm.xml" />
     <EmbeddedResource Include="Domain\Node.hbm.xml" />
@@ -398,6 +427,23 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Domain\Right.hbm.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.2.0">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 2.0 %28x86%29</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.0">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.0 %28x86%29</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Service\Workflow\" />

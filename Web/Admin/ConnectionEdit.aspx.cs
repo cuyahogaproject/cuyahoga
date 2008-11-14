@@ -13,6 +13,7 @@ using Cuyahoga.Core.Domain;
 using Cuyahoga.Core.Communication;
 
 using Cuyahoga.Web.Components;
+using Action=Cuyahoga.Core.Communication.Action;
 
 namespace Cuyahoga.Web.Admin
 {

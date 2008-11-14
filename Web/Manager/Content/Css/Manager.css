@@ -1,0 +1,296 @@
+body
+{
+	margin: 0;
+	padding: 0;
+	background: #eee;
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: small;
+}
+
+h1
+{
+	margin: 5px 0px 10px 0px;
+	color: #333;
+	font-size: 150%;
+	font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+}
+
+h2
+{
+	margin: 5px 0px;
+	color: #333;
+	font-size: 130%;
+	font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+}
+
+fieldset 
+{  
+	margin: 5px 0 5px 0;  
+	padding: 0;
+	border-style: none;
+}
+
+legend 
+{  
+	margin-left: 10px;  
+}
+
+fieldset ol 
+{  
+	list-style: none;
+	padding: 0;
+	margin: 0;
+}
+
+fieldset li 
+{  
+	margin-left: 2px;
+	padding: 3px;
+	float: left;  
+	clear: left;  
+	width: 100%; 
+}
+
+label 
+{  
+	float: left;
+	width: 120px;  
+	margin-right: 10px;
+}
+
+label.error
+{
+	margin-left: 130px;
+	font-style: italic;
+	color: #f00;
+	width: auto;
+	display: inline;
+}
+
+input.error
+{
+	border: 1px solid #f00;
+}
+
+fieldset fieldset 
+{  
+	margin-bottom: -30px;  
+}
+
+fieldset fieldset legend 
+{  
+	margin-left: 0;  
+	padding: 0;
+}
+
+fieldset fieldset ol 
+{  
+	position: relative;  
+	top: -20px;  
+	margin: 0 0 0 130px;  
+	padding: 0;
+}
+
+fieldset fieldset label 
+{  
+	float: none;  
+	width: auto;  
+	margin-right: auto;
+}
+
+a
+{
+	color: #369;
+}
+
+#header
+{
+	background-color: #def;
+	height: 60px;
+}
+
+#header p
+{
+	margin: 0 0 0 180px;
+	font-weight: bold;
+	padding-top: 17px;
+	
+}
+
+#header img
+{
+	float: left;
+}
+
+#sitechooser
+{
+	position: absolute;
+	top: 10px;
+	left: 450px;
+}
+
+#userinfo
+{
+	margin-top: 10px;
+	float: right;
+	width: 200px;
+}
+
+#mainmenu
+{
+	background-color: #def;
+	padding: 5px 10px 0px 10px;
+	height: 24px;
+	border-bottom: 1px solid #ccc;
+}
+
+#mainmenu-options
+{
+	float: right;
+}
+
+#mainmenu ul
+{
+	margin: 0;
+	padding: 0;
+	list-style-type: none;
+}
+
+#mainmenu li
+{
+	float: left;
+	margin-right: 4px;
+	border-top: 1px solid #ccc;
+	border-left: 1px solid #ccc;
+	border-right: 1px solid #ccc;
+	background-color: #369;
+}
+
+#mainmenu li.selected
+{
+	background-color: #eee;
+}
+
+#mainmenu a
+{
+	display: block;
+	padding: 4px 10px;
+	color: #fff;
+	text-decoration: none;
+	font-weight: bold;
+}
+
+#mainmenu a:hover
+{
+	background-color: #69c;
+}
+
+#mainmenu li.selected a
+{
+	color: #000;
+}
+
+#mainmenu li.selected a:hover
+{
+	background-color: #ddd;
+}
+
+#contentarea
+{
+	width: 70%;
+	background-color: #fff;
+	margin-top: 10px;
+	margin-left: 10px;
+	margin-bottom: 10px;
+	border-top: 1px solid #ccc;
+	border-left: 1px solid #ccc;
+	border-bottom: 1px solid #ccc;
+	border-right: 8px solid #ccc;
+	min-height: 500px;
+	padding: 10px;
+}
+
+#taskarea
+{
+	width: 22%;
+	float: right;
+	margin-top: 10px;
+	margin-left: 10px;
+	margin-bottom: 10px;
+	padding: 10px;
+}
+
+#loginpanel
+{
+	width: 350px;
+	height: 180px;
+	background-color: #fff;
+	margin-top: 100px;
+	margin-left: auto;
+	margin-right: auto;
+	padding: 10px;
+	border-top: 1px solid #ccc;
+	border-left: 1px solid #ccc;
+	border-bottom: 1px solid #ccc;
+	border-right: 8px solid #ccc;	
+}
+
+.messagebox
+{
+	color: #060;
+	margin: 10px;
+	padding: 10px 10px 10px 30px;
+	border: 1px solid #090;
+	background: #cfc url(../Images/information.png) no-repeat 8px 11px;
+}
+
+.errorbox
+{
+	color: #c00;
+	margin: 10px;
+	padding: 10px 10px 10px 30px;
+	border: 1px solid #c00;
+	background: #fcc url(../Images/exclamation.png) no-repeat 8px 11px;
+}
+
+.exceptionbox
+{
+	color: #c00;
+	margin: 10px;
+	padding: 10px 10px 10px 30px;
+	border: 1px solid #c00;
+	background: #fcc url(../Images/exclamation.png) no-repeat 8px 11px;
+}
+
+table.grid
+{	
+	color: #333333;
+	border-collapse: collapse;
+}
+
+table.grid th
+{
+	color: #333333;
+	background-color: #eee;
+	font-weight: bold;
+	border-right: solid 1px #fff;
+	border-bottom: solid 1px #ccc;
+	padding: 4px;
+}
+
+table.grid td
+{
+	border-bottom: 1px solid #eee;
+	padding: 4px;
+
+}
+
+table.grid td form
+{
+	display: inline;
+}
+
+table.grid tr.selected
+{
+	background-color: #eee;
+}

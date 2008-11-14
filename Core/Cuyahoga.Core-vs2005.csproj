@@ -1,0 +1,412 @@
+﻿<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <ProjectType>Local</ProjectType>
+    <ProductVersion>8.0.50727</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{723B7D30-6472-4B96-8D09-4F094C96650E}</ProjectGuid>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ApplicationIcon>
+    </ApplicationIcon>
+    <AssemblyKeyContainerName>
+    </AssemblyKeyContainerName>
+    <AssemblyName>Cuyahoga.Core</AssemblyName>
+    <AssemblyOriginatorKeyFile>
+    </AssemblyOriginatorKeyFile>
+    <DefaultClientScript>JScript</DefaultClientScript>
+    <DefaultHTMLPageLayout>Grid</DefaultHTMLPageLayout>
+    <DefaultTargetSchema>IE50</DefaultTargetSchema>
+    <DelaySign>false</DelaySign>
+    <OutputType>Library</OutputType>
+    <RootNamespace>Cuyahoga.Core</RootNamespace>
+    <RunPostBuildEvent>OnBuildSuccess</RunPostBuildEvent>
+    <StartupObject>
+    </StartupObject>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
+    <UpgradeBackupLocation>
+    </UpgradeBackupLocation>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <OutputPath>bin\Debug\</OutputPath>
+    <AllowUnsafeBlocks>false</AllowUnsafeBlocks>
+    <BaseAddress>285212672</BaseAddress>
+    <CheckForOverflowUnderflow>false</CheckForOverflowUnderflow>
+    <ConfigurationOverrideFile>
+    </ConfigurationOverrideFile>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DocumentationFile>
+    </DocumentationFile>
+    <DebugSymbols>true</DebugSymbols>
+    <FileAlignment>4096</FileAlignment>
+    <NoStdLib>false</NoStdLib>
+    <NoWarn>
+    </NoWarn>
+    <Optimize>false</Optimize>
+    <RegisterForComInterop>false</RegisterForComInterop>
+    <RemoveIntegerChecks>false</RemoveIntegerChecks>
+    <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
+    <WarningLevel>4</WarningLevel>
+    <DebugType>full</DebugType>
+    <ErrorReport>prompt</ErrorReport>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <OutputPath>bin\Release\</OutputPath>
+    <AllowUnsafeBlocks>false</AllowUnsafeBlocks>
+    <BaseAddress>285212672</BaseAddress>
+    <CheckForOverflowUnderflow>false</CheckForOverflowUnderflow>
+    <ConfigurationOverrideFile>
+    </ConfigurationOverrideFile>
+    <DefineConstants>TRACE</DefineConstants>
+    <DocumentationFile>
+    </DocumentationFile>
+    <DebugSymbols>false</DebugSymbols>
+    <FileAlignment>4096</FileAlignment>
+    <NoStdLib>false</NoStdLib>
+    <NoWarn>
+    </NoWarn>
+    <Optimize>true</Optimize>
+    <RegisterForComInterop>false</RegisterForComInterop>
+    <RemoveIntegerChecks>false</RemoveIntegerChecks>
+    <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
+    <WarningLevel>4</WarningLevel>
+    <DebugType>none</DebugType>
+    <ErrorReport>prompt</ErrorReport>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Core|AnyCPU' ">
+    <OutputPath>bin\Core\</OutputPath>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Castle.Components.Validator, Version=1.0.3.0, Culture=neutral, PublicKeyToken=407dd0808d44fbdc, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\lib\Castle.Components.Validator.dll</HintPath>
+    </Reference>
+    <Reference Include="Castle.Core, Version=1.0.0.0, Culture=neutral, PublicKeyToken=407dd0808d44fbdc, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\lib\Castle.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Castle.Facilities.NHibernateIntegration">
+      <Name>Castle.Facilities.NHibernateIntegration</Name>
+      <HintPath>..\lib\Castle.Facilities.NHibernateIntegration.dll</HintPath>
+    </Reference>
+    <Reference Include="Castle.MicroKernel">
+      <Name>Castle.MicroKernel</Name>
+      <HintPath>..\lib\Castle.MicroKernel.dll</HintPath>
+    </Reference>
+    <Reference Include="Castle.Services.Transaction">
+      <Name>Castle.Services.Transaction</Name>
+      <HintPath>..\lib\Castle.Services.Transaction.dll</HintPath>
+    </Reference>
+    <Reference Include="Castle.Windsor, Version=1.0.0.2, Culture=neutral, PublicKeyToken=407dd0808d44fbdc, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\lib\Castle.Windsor.dll</HintPath>
+    </Reference>
+    <Reference Include="log4net">
+      <Name>log4net</Name>
+      <HintPath>..\lib\log4net.dll</HintPath>
+    </Reference>
+    <Reference Include="Lucene.Net">
+      <Name>Lucene.Net</Name>
+      <HintPath>..\lib\Lucene.Net.dll</HintPath>
+    </Reference>
+    <Reference Include="NHibernate">
+      <Name>NHibernate</Name>
+      <HintPath>..\lib\NHibernate.dll</HintPath>
+    </Reference>
+    <Reference Include="System">
+      <Name>System</Name>
+    </Reference>
+    <Reference Include="System.Data">
+      <Name>System.Data</Name>
+    </Reference>
+    <Reference Include="System.Web">
+      <Name>System.Web</Name>
+    </Reference>
+    <Reference Include="System.Xml">
+      <Name>System.XML</Name>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Communication\Action.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Communication\ActionCollection.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Communication\IActionConsumer.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Communication\IActionProvider.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="DataAccess\CategoryDao.cs" />
+    <Compile Include="DataAccess\CommonDao.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="DataAccess\ContentItemDao.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="DataAccess\FileResourceDao.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="DataAccess\ICategoryDao.cs" />
+    <Compile Include="DataAccess\ICommonDao.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="DataAccess\IContentItemDao.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="DataAccess\IFileResourceDao.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="DataAccess\ISiteStructureDao.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="DataAccess\IUserDao.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="DataAccess\SiteStructureDao.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="DataAccess\UserDao.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Decorators\AbstractDaoDecorator.cs" />
+    <Compile Include="Decorators\SearchDecorator.cs" />
+    <Compile Include="Decorators\VersioningDecorator.cs" />
+    <Compile Include="Domain\Category.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Domain\CategorySystem.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Domain\ContentItem.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Domain\ContentItemPermission.cs" />
+    <Compile Include="Domain\CustomMenu.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Domain\Enumerations.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Domain\FileResource.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Domain\IContentItem.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Domain\ModuleBase.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Domain\ModuleContentType.cs" />
+    <Compile Include="Domain\ModuleService.cs" />
+    <Compile Include="Domain\ModuleSetting.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Domain\ModuleType.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Domain\Node.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Domain\NodePermission.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Domain\Permission.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Domain\Right.cs" />
+    <Compile Include="Domain\Role.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Domain\Section.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Domain\SectionPermission.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Domain\Site.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Domain\SiteAlias.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Domain\Template.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Domain\User.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Exceptions.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="INHibernateModule.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="ISyndicatable.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Search\IndexEvent.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Search\ISearchable.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Search\SearchContent.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Service\Content\CategoryService.cs" />
+    <Compile Include="Service\Content\ContentItemService.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Service\Content\ICategoryService.cs" />
+    <Compile Include="Service\Content\IContentItemService.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Service\CoreRepository.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Service\CoreRepositoryAdapter.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Service\DatabaseInstaller.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Service\Email\DefaultEmailService.cs" />
+    <Compile Include="Service\Email\IEmailSender.cs" />
+    <Compile Include="Service\Email\IEmailService.cs" />
+    <Compile Include="Service\Email\IEmailTemplateEngine.cs" />
+    <Compile Include="Service\Email\SimpleEmailTemplateEngine.cs" />
+    <Compile Include="Service\Email\SmtpNet2EmailSender.cs" />
+    <Compile Include="Service\Files\FileResourceService.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Service\Files\FileTransactionManager.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Service\Files\FileWriter.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Service\Files\IFileResourceService.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Service\Files\IFileService.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Service\Files\StreamUtil.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Service\Files\TransactionalFileService.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Service\Membership\CuyahogaPermissionAttribute.cs" />
+    <Compile Include="Service\Membership\DefaultAuthenticationService.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Service\Membership\DefaultUserService.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Service\Membership\IAuthenticationService.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Service\Membership\IUserService.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Service\Membership\Rights.cs" />
+    <Compile Include="Service\Search\CustomSearchField.cs" />
+    <Compile Include="Service\Search\IndexBuilder.cs" />
+    <Compile Include="Service\Search\IndexQuery.cs" />
+    <Compile Include="Service\Search\ISearchableContent.cs" />
+    <Compile Include="Service\Search\ISearchService.cs" />
+    <Compile Include="Service\Search\SearchResult.cs" />
+    <Compile Include="Service\Search\SearchResultCollection.cs" />
+    <Compile Include="Service\Search\SearchService.cs" />
+    <Compile Include="Service\SessionFactory.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Service\SessionFactoryHelper.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Service\SiteStructure\IModuleTypeService.cs" />
+    <Compile Include="Service\SiteStructure\INodeService.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Service\SiteStructure\ISectionService.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Service\SiteStructure\ISiteService.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Service\SiteStructure\ITemplateService.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Service\SiteStructure\ModuleTypeService.cs" />
+    <Compile Include="Service\SiteStructure\NodeService.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Service\SiteStructure\SectionService.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Service\SiteStructure\SiteService.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Service\SiteStructure\TemplateService.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Service\Versioning\IVersionableContent.cs" />
+    <Compile Include="Service\Versioning\IVersioningService.cs" />
+    <Compile Include="Service\Versioning\VersionEntry.cs" />
+    <Compile Include="Service\Versioning\VersioningService.cs" />
+    <Compile Include="Util\Config.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Util\DatabaseUtil.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Util\Encryption.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Util\Globalization.cs" />
+    <Compile Include="Util\IoC.cs" />
+    <Compile Include="Util\PagedResultSet.cs" />
+    <Compile Include="Util\Rss.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Util\Text.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Util\TimeZoneUtil.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <EmbeddedResource Include="Domain\CustomMenu.hbm.xml" />
+    <EmbeddedResource Include="Domain\ModuleType.hbm.xml" />
+    <EmbeddedResource Include="Domain\Node.hbm.xml" />
+    <EmbeddedResource Include="Domain\Role.hbm.xml" />
+    <EmbeddedResource Include="Domain\Section.hbm.xml" />
+    <EmbeddedResource Include="Domain\Site.hbm.xml" />
+    <EmbeddedResource Include="Domain\SiteAlias.hbm.xml" />
+    <EmbeddedResource Include="Domain\Template.hbm.xml" />
+    <EmbeddedResource Include="Domain\User.hbm.xml" />
+    <EmbeddedResource Include="Domain\Category.hbm.xml" />
+    <EmbeddedResource Include="Domain\ContentItem.hbm.xml" />
+    <EmbeddedResource Include="Domain\FileResource.hbm.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Cuyahoga.Core.build" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Domain\Right.hbm.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Service\Workflow\" />
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PreBuildEvent>
+    </PreBuildEvent>
+    <PostBuildEvent>
+    </PostBuildEvent>
+  </PropertyGroup>
+</Project>

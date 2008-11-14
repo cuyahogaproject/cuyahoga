@@ -1,7 +1,9 @@
 using System;
 using System.Threading;
 using System.Web;
+using Cuyahoga.Core;
 using Cuyahoga.Core.Domain;
+using Cuyahoga.Core.Util;
 
 namespace Cuyahoga.Web.Components
 {
@@ -10,30 +12,15 @@ namespace Cuyahoga.Web.Components
 	/// </summary>
 	public class CuyahogaContext : ICuyahogaContext
 	{
-		private HttpContext _httpContext;
 		private Site _currentSite;
-
-		/// <summary>
-		/// The underlying ASP.NET context.
-		/// </summary>
-		public HttpContext HttpContext
-		{
-			get
-			{
-				if (this._httpContext == null)
-				{
-					throw new InvalidOperationException("The underlying HttpContext is null. Make sure to call Initialize() before doing things with CuyahogaContext.");
-				}
-				return _httpContext;
-			}
-		}
+		private User _currentUser;
 
 		/// <summary>
 		/// The Cuyahoga user for the current request.
 		/// </summary>
 		public User CurrentUser
 		{
-			get { return this.HttpContext.User as User; }
+			get { return this._currentUser; }
 		}
 
 		/// <summary>
@@ -45,19 +32,22 @@ namespace Cuyahoga.Web.Components
 		}
 
 		/// <summary>
+		/// Gets the current ICuyahoga context.
+		/// <remarks>
+		/// This property is just for convenience. Only use it from places where the context can't be injected via IoC.
+		/// TODO: We need to do something about the IoC dependency here.
+		/// </remarks>
+		/// </summary>
+		public static ICuyahogaContext Current
+		{
+			get { return IoC.Resolve<ICuyahogaContext>(); }
+		}
+
+		/// <summary>
 		/// Creates an instance of the CuyahogaContext class.
 		/// </summary>
 		public CuyahogaContext()
 		{
-		}
-
-		/// <summary>
-		/// Initialize the CuyahogaContext.
-		/// </summary>
-		/// <param name="underlyingContext"></param>
-		public void Initialize(HttpContext underlyingContext)
-		{
-			this._httpContext = underlyingContext;
 		}
 
 		/// <summary>
@@ -66,7 +56,8 @@ namespace Cuyahoga.Web.Components
 		/// <param name="user"></param>
 		public void SetUser(User user)
 		{
-			this.HttpContext.User = user;
+			this._currentUser = user;
+			HttpContext.Current.User = user;
 			Thread.CurrentPrincipal = user;
 		}
 

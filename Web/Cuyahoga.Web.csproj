@@ -1,10 +1,10 @@
-﻿<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+﻿<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="3.5">
   <PropertyGroup>
     <ProjectType>Local</ProjectType>
-    <ProductVersion>8.0.50727</ProductVersion>
+    <ProductVersion>9.0.21022</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{DD158F08-6E8F-4234-B3F6-A5402C8E34CC}</ProjectGuid>
-    <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
+    <ProjectTypeGuids>{603c0e0b-db56-11dc-be95-000d561079b0};{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ApplicationIcon>
@@ -27,6 +27,8 @@
     </FileUpgradeFlags>
     <UpgradeBackupLocation>
     </UpgradeBackupLocation>
+    <OldToolsVersion>3.5</OldToolsVersion>
+    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <OutputPath>bin\</OutputPath>
@@ -83,11 +85,19 @@
       <Project>{723B7D30-6472-4B96-8D09-4F094C96650E}</Project>
       <Package>{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</Package>
     </ProjectReference>
+    <ProjectReference Include="..\Cuyahoga.Web.Mvc\Cuyahoga.Web.Mvc.csproj">
+      <Project>{216D2C63-CD7A-4601-ABB2-A2C9C461F7FD}</Project>
+      <Name>Cuyahoga.Web.Mvc</Name>
+    </ProjectReference>
     <ProjectReference Include="..\ServerControls\Cuyahoga.ServerControls.csproj">
       <Name>Cuyahoga.ServerControls</Name>
       <Project>{C64DAA00-AAB1-4AC7-ADE2-119B53B9666A}</Project>
       <Package>{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</Package>
     </ProjectReference>
+    <Reference Include="Castle.Components.Validator, Version=1.0.3.0, Culture=neutral, PublicKeyToken=407dd0808d44fbdc, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\lib\Castle.Components.Validator.dll</HintPath>
+    </Reference>
     <Reference Include="Castle.Core, Version=1.0.0.0, Culture=neutral, PublicKeyToken=407dd0808d44fbdc, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\lib\Castle.Core.dll</HintPath>
@@ -108,12 +118,22 @@
       <Name>log4net</Name>
       <HintPath>..\lib\log4net.dll</HintPath>
     </Reference>
+    <Reference Include="MvcContrib.Castle, Version=0.0.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\lib\MvcContrib.Castle.dll</HintPath>
+    </Reference>
     <Reference Include="System">
       <Name>System</Name>
     </Reference>
     <Reference Include="System.configuration" />
+    <Reference Include="System.Core, Version=3.5.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
     <Reference Include="System.Data">
       <Name>System.Data</Name>
+    </Reference>
+    <Reference Include="System.Data.DataSetExtensions, Version=3.5.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
     </Reference>
     <Reference Include="System.Drawing">
       <Name>System.Drawing</Name>
@@ -121,8 +141,32 @@
     <Reference Include="System.Web">
       <Name>System.Web</Name>
     </Reference>
+    <Reference Include="System.Web.Abstractions, Version=3.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\lib\System.Web.Abstractions.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Web.Extensions, Version=3.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Web.Extensions.Design, Version=3.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Web.Mvc, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\lib\System.Web.Mvc.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Web.Routing, Version=3.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\lib\System.Web.Routing.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System.Xml">
       <Name>System.XML</Name>
+    </Reference>
+    <Reference Include="System.Xml.Linq, Version=3.5.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
     </Reference>
   </ItemGroup>
   <ItemGroup>
@@ -282,8 +326,127 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Cuyahoga.Web.Manager.ValidationMessages.nl.resx</DependentUpon>
     </Compile>
+    <Compile Include="Components\Bootstrapper.cs" />
     <Compile Include="Components\CuyahogaContext.cs" />
-    <Compile Include="Components\ICuyahogaContext.cs" />
+    <Compile Include="Manager\Controllers\DashboardController.cs" />
+    <Compile Include="Manager\Controllers\BaseController.cs" />
+    <Compile Include="Manager\Controllers\FilesController.cs" />
+    <Compile Include="Manager\Controllers\LoginController.cs" />
+    <Compile Include="Manager\Controllers\PagesController.cs" />
+    <Compile Include="Manager\Controllers\SecureController.cs" />
+    <Compile Include="Manager\Controllers\ServerController.cs" />
+    <Compile Include="Manager\Controllers\SiteController.cs" />
+    <Compile Include="Manager\Controllers\UsersController.cs" />
+    <Compile Include="Manager\Default.aspx.cs">
+      <DependentUpon>Default.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Manager\Default.aspx.designer.cs">
+      <DependentUpon>Default.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Manager\Filters\ExceptionFilter.cs" />
+    <Compile Include="Manager\Filters\PermissionFilter.cs" />
+    <Compile Include="Manager\Model\ViewModels\LoginViewData.cs" />
+    <Compile Include="Manager\Model\ViewModels\MainMenuViewData.cs" />
+    <Compile Include="Manager\Model\ViewModels\MessageViewData.cs" />
+    <Compile Include="Manager\Views\Dashboard\Index.aspx.cs">
+      <DependentUpon>Index.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Manager\Views\Dashboard\Index.aspx.designer.cs">
+      <DependentUpon>Index.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Manager\Views\Files\Index.aspx.cs">
+      <DependentUpon>Index.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Manager\Views\Files\Index.aspx.designer.cs">
+      <DependentUpon>Index.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Manager\Views\Login\Index.aspx.cs">
+      <DependentUpon>Index.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Manager\Views\Login\Index.aspx.designer.cs">
+      <DependentUpon>Index.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Manager\Views\Pages\Index.aspx.cs">
+      <DependentUpon>Index.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Manager\Views\Pages\Index.aspx.designer.cs">
+      <DependentUpon>Index.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Manager\Views\Server\Index.aspx.cs">
+      <DependentUpon>Index.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Manager\Views\Server\Index.aspx.designer.cs">
+      <DependentUpon>Index.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Manager\Views\Shared\Admin.Master.cs">
+      <DependentUpon>Admin.Master</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Manager\Views\Shared\Admin.Master.designer.cs">
+      <DependentUpon>Admin.Master</DependentUpon>
+    </Compile>
+    <Compile Include="Manager\Views\Shared\Default.Master.cs">
+      <DependentUpon>Default.Master</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Manager\Views\Shared\Default.Master.designer.cs">
+      <DependentUpon>Default.Master</DependentUpon>
+    </Compile>
+    <Compile Include="Manager\Views\Shared\Error.aspx.cs">
+      <DependentUpon>Error.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Manager\Views\Shared\Error.aspx.designer.cs">
+      <DependentUpon>Error.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Manager\Views\Shared\Header.ascx.cs">
+      <DependentUpon>Header.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Manager\Views\Shared\Header.ascx.designer.cs">
+      <DependentUpon>Header.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Manager\Views\Shared\MainMenu.ascx.cs">
+      <DependentUpon>MainMenu.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Manager\Views\Shared\MainMenu.ascx.designer.cs">
+      <DependentUpon>MainMenu.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Manager\Views\Shared\Messages.ascx.cs">
+      <DependentUpon>Messages.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Manager\Views\Shared\Messages.ascx.designer.cs">
+      <DependentUpon>Messages.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Manager\Views\Shared\SiteChooser.ascx.cs">
+      <DependentUpon>SiteChooser.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Manager\Views\Shared\SiteChooser.ascx.designer.cs">
+      <DependentUpon>SiteChooser.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Manager\Views\Site\Index.aspx.cs">
+      <DependentUpon>Index.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Manager\Views\Site\Index.aspx.designer.cs">
+      <DependentUpon>Index.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Manager\Views\Users\Index.aspx.cs">
+      <DependentUpon>Index.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Manager\Views\Users\Index.aspx.designer.cs">
+      <DependentUpon>Index.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -511,6 +674,21 @@
       <SubType>Form</SubType>
     </Content>
     <Content Include="Admin\Web.config" />
+    <Content Include="Manager\Content\Css\flora.datepicker.css" />
+    <Content Include="Manager\Content\Css\Manager.css" />
+    <Content Include="Manager\Content\Css\thickbox.css" />
+    <Content Include="Manager\Content\Images\cancel.png" />
+    <Content Include="Manager\Content\Images\cuyahoga-logo.png" />
+    <Content Include="Manager\Content\Images\error.png" />
+    <Content Include="Manager\Content\Images\exclamation.png" />
+    <Content Include="Manager\Content\Images\information.png" />
+    <Content Include="Manager\Content\Images\world_go.png" />
+    <Content Include="Manager\Default.aspx" />
+    <Content Include="Manager\Scripts\jquery-1.2.6.min.js" />
+    <Content Include="Manager\Scripts\jquery.validate.min.js" />
+    <Content Include="Manager\Scripts\thickbox.js" />
+    <Content Include="Manager\Scripts\ui.core.min.js" />
+    <Content Include="Manager\Scripts\ui.datepicker.min.js" />
     <Content Include="Controls\EditProfile.ascx">
       <SubType>UserControl</SubType>
     </Content>
@@ -564,6 +742,18 @@
     <Content Include="Login.aspx">
       <SubType>Form</SubType>
     </Content>
+    <Content Include="Manager\Views\Dashboard\Index.aspx" />
+    <Content Include="Manager\Views\Files\Index.aspx" />
+    <Content Include="Manager\Views\Login\Index.aspx" />
+    <Content Include="Manager\Views\Pages\Index.aspx" />
+    <Content Include="Manager\Views\Server\Index.aspx" />
+    <Content Include="Manager\Views\Shared\Error.aspx" />
+    <Content Include="Manager\Views\Shared\Header.ascx" />
+    <Content Include="Manager\Views\Shared\MainMenu.ascx" />
+    <Content Include="Manager\Views\Shared\Messages.ascx" />
+    <Content Include="Manager\Views\Shared\SiteChooser.ascx" />
+    <Content Include="Manager\Views\Site\Index.aspx" />
+    <Content Include="Manager\Views\Users\Index.aspx" />
     <Content Include="Profile.aspx">
       <SubType>Form</SubType>
     </Content>
@@ -1003,75 +1193,99 @@
     <Content Include="Web.config" />
     <EmbeddedResource Include="Admin\ConnectionEdit.aspx.resx">
       <DependentUpon>ConnectionEdit.aspx.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Admin\Controls\AdminTemplate.ascx.resx">
       <DependentUpon>AdminTemplate.ascx.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Admin\Controls\Footer.ascx.resx">
       <DependentUpon>Footer.ascx.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Admin\Controls\Header.ascx.resx">
       <DependentUpon>Header.ascx.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Admin\Controls\Navigation.ascx.resx">
       <DependentUpon>Navigation.ascx.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Admin\Default.aspx.resx">
       <DependentUpon>Default.aspx.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Admin\MenuEdit.aspx.resx">
       <DependentUpon>MenuEdit.aspx.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Admin\Modules.aspx.resx">
       <DependentUpon>Modules.aspx.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Admin\NodeEdit.aspx.resx">
       <DependentUpon>NodeEdit.aspx.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Admin\RebuildIndex.aspx.resx">
       <DependentUpon>RebuildIndex.aspx.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Admin\RoleEdit.aspx.resx">
       <DependentUpon>RoleEdit.aspx.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Admin\Roles.aspx.resx">
       <DependentUpon>Roles.aspx.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Admin\SectionAttachNode.aspx.resx">
       <DependentUpon>SectionAttachNode.aspx.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Admin\SectionAttachTemplate.aspx.resx">
       <DependentUpon>SectionAttachTemplate.aspx.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Admin\SectionEdit.aspx.resx">
       <DependentUpon>SectionEdit.aspx.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Admin\Sections.aspx.resx">
       <DependentUpon>Sections.aspx.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Admin\SiteAliasEdit.aspx.resx">
       <DependentUpon>SiteAliasEdit.aspx.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Admin\SiteEdit.aspx.resx">
       <DependentUpon>SiteEdit.aspx.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Admin\TemplateEdit.aspx.resx">
       <DependentUpon>TemplateEdit.aspx.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Admin\TemplatePreview.aspx.resx">
       <DependentUpon>TemplatePreview.aspx.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Admin\Templates.aspx.resx">
       <DependentUpon>Templates.aspx.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Admin\TemplateSection.aspx.resx">
       <DependentUpon>TemplateSection.aspx.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Admin\UserEdit.aspx.resx">
       <DependentUpon>UserEdit.aspx.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Admin\Users.aspx.resx">
       <DependentUpon>Users.aspx.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <Content Include="App_GlobalResources\Cuyahoga.Web.Controls.Resources.Strings.it.resx">
       <SubType>Designer</SubType>
@@ -1115,30 +1329,39 @@
     </Content>
     <EmbeddedResource Include="Controls\EditProfile.ascx.resx">
       <DependentUpon>EditProfile.ascx.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Controls\ModuleAdminHeader.ascx.resx">
       <DependentUpon>ModuleAdminHeader.ascx.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Controls\ModuleAdminTemplate.ascx.resx">
       <DependentUpon>ModuleAdminTemplate.ascx.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Controls\Navigation\HierarchicalMenu.ascx.resx">
       <DependentUpon>HierarchicalMenu.ascx.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Controls\Navigation\NavigationLevelTwo.ascx.resx">
       <DependentUpon>NavigationLevelTwo.ascx.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Controls\Navigation\NavigationLevelZeroOne.ascx.resx">
       <DependentUpon>NavigationLevelZeroOne.ascx.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Controls\Register.ascx.resx">
       <DependentUpon>Register.ascx.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Controls\ResetPassword.ascx.resx">
       <DependentUpon>ResetPassword.ascx.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Controls\ViewProfile.ascx.resx">
       <DependentUpon>ViewProfile.ascx.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Error.aspx.resx">
       <DependentUpon>Error.aspx.cs</DependentUpon>
@@ -1150,12 +1373,15 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Install\Install.aspx.resx">
       <DependentUpon>Install.aspx.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Install\Sorry.aspx.resx">
       <DependentUpon>Sorry.aspx.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Install\Upgrade.aspx.resx">
       <DependentUpon>Upgrade.aspx.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Login.aspx.resx">
       <DependentUpon>Login.aspx.cs</DependentUpon>
@@ -1217,6 +1443,8 @@
     <None Include="Install\Modules\Database\postgresql\1.5.2.sql" />
     <None Include="Install\Modules\Database\postgresql\install.sql" />
     <None Include="Install\Web.config" />
+    <Content Include="Manager\Views\Shared\Default.Master" />
+    <Content Include="Manager\Views\Shared\Admin.Master" />
     <None Include="Support\FCKeditor\editor\dialog\fck_spellerpages\spellerpages\server-scripts\spellchecker.cfm" />
     <None Include="Support\FCKeditor\editor\dialog\fck_spellerpages\spellerpages\server-scripts\spellchecker.php" />
     <None Include="Support\FCKeditor\editor\dialog\fck_spellerpages\spellerpages\server-scripts\spellchecker.pl" />
@@ -1225,7 +1453,6 @@
   <ItemGroup>
     <Folder Include="Controls\Resources\" />
     <Folder Include="index\" />
-    <Folder Include="Manager\" />
     <Folder Include="Modules\" />
     <Folder Include="UserFiles\File\" />
     <Folder Include="UserFiles\Image\" />
@@ -1237,13 +1464,10 @@
     <PostBuildEvent>xcopy /s /y "$(SolutionDir)"lib\NHibernate.Caches.SysCache.dll "$(TargetDir)"
 xcopy /s /y "$(SolutionDir)"lib\Castle.Facilities.AutomaticTransactionManagement.dll "$(TargetDir)"
 xcopy /s /y "$(SolutionDir)"lib\Castle.Facilities.NHibernateIntegration.dll "$(TargetDir)"
-xcopy /s /y "$(SolutionDir)"lib\Castle.MonoRail.Framework.Views.NVelocity.dll "$(TargetDir)"
-xcopy /s /y "$(SolutionDir)"lib\Castle.MonoRail.WindsorExtension.dll "$(TargetDir)"
 xcopy /s /y "$(SolutionDir)"lib\Castle.Components.Validator.dll "$(TargetDir)"
 xcopy /s /y "$(SolutionDir)"lib\Castle.Components.Common.EmailSender.dll "$(TargetDir)"
 xcopy /s /y "$(SolutionDir)"lib\Castle.Facilities.Logging.dll "$(TargetDir)"
-xcopy /s /y "$(SolutionDir)"lib\Castle.Services.Logging.Log4netIntegration.dll "$(TargetDir)"
-xcopy /s /y "$(SolutionDir)"lib\NVelocity.dll "$(TargetDir)"</PostBuildEvent>
+xcopy /s /y "$(SolutionDir)"lib\Castle.Services.Logging.Log4netIntegration.dll "$(TargetDir)"</PostBuildEvent>
   </PropertyGroup>
   <ProjectExtensions>
     <VisualStudio>
@@ -1255,6 +1479,7 @@ xcopy /s /y "$(SolutionDir)"lib\NVelocity.dll "$(TargetDir)"</PostBuildEvent>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
           <IISUrl>http://localhost/cuyahoga</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
+          <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
         </WebProjectProperties>
       </FlavorProperties>
     </VisualStudio>

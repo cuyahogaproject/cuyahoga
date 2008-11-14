@@ -1,0 +1,29 @@
+﻿<%@ Import Namespace="Cuyahoga.Web.Mvc.Partials"%>
+<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="Admin.Master.cs" Inherits="Cuyahoga.Web.Manager.Views.Shared.Admin" %>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+		<title>Cuyahoga Manager :: <%= Html.Encode(ViewData["Title"]) %></title>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<link rel="stylesheet" type="text/css" href="<%= Url.Content("~/Manager/Content/Css/Manager.css") %>" />
+		<asp:ContentPlaceHolder id="cphHead" runat="server">
+		</asp:ContentPlaceHolder>
+		<script type="text/javascript" src="<%= Url.Content("~/Manager/Scripts/jquery-1.2.6.min.js") %>"></script>
+		<script type="text/javascript" src="<%= Url.Content("~/Manager/Scripts/jquery.validate.min.js") %>"></script>
+	</head>
+	<body>
+		<% Html.RenderPartial("Header"); %>
+		<% Html.RenderPartialRequest("SiteChooser"); %>
+		<% Html.RenderPartial("MainMenu", ViewData["MainMenuViewData"]); %>
+		<% Html.RenderPartial("Messages", ViewData["Messages"]); %>
+		<div id="taskarea">
+			<asp:ContentPlaceHolder id="cphTasks" runat="server">
+			</asp:ContentPlaceHolder>
+		</div>
+		<div id="contentarea">
+			<h1><%= Html.Encode(ViewData["Title"]) %></h1> 
+			<asp:ContentPlaceHolder id="cphMain" runat="server">
+			</asp:ContentPlaceHolder>
+		</div>
+	</body>
+</html>

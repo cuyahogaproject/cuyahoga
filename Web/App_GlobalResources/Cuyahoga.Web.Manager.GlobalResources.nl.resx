@@ -135,11 +135,17 @@
   <data name="InvalidUsernamePassword" xml:space="preserve">
     <value>Ongeldige gebruikersnaam-wachtwoord combinatie.</value>
   </data>
+  <data name="LoggedInAsLabel" xml:space="preserve">
+    <value>Ingelogd als</value>
+  </data>
   <data name="LoginButtonLabel" xml:space="preserve">
     <value>Login</value>
   </data>
   <data name="LoginPageTitle" xml:space="preserve">
     <value>Login</value>
+  </data>
+  <data name="LogoutButtonLabel" xml:space="preserve">
+    <value>Log uit</value>
   </data>
   <data name="ManagerMenuDashboard" xml:space="preserve">
     <value>Dashboard</value>
@@ -164,5 +170,8 @@
   </data>
   <data name="UsernameLabel" xml:space="preserve">
     <value>Gebruikersnaam</value>
+  </data>
+  <data name="UserNullException" xml:space="preserve">
+    <value>De huidige gebruiker is geen officieel ingelogde Cuyahoga gebruiker </value>
   </data>
 </root>

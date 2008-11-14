@@ -2,6 +2,7 @@ using System;
 using System.Web;
 using System.Web.Security;
 using Cuyahoga.Core.Service.Membership;
+using Cuyahoga.Web.Components;
 using log4net;
 
 using Cuyahoga.Core;
@@ -17,17 +18,17 @@ namespace Cuyahoga.Web.HttpModules
 	public class AuthenticationModule : IHttpModule
 	{
 		private static readonly ILog log = LogManager.GetLogger(typeof(AuthenticationModule));
-		private readonly IAuthenticationService authenticationService;
-		private readonly IUserService userService;
+		private IAuthenticationService authenticationService;
+		private IUserService userService;
 
 		public AuthenticationModule()
 		{
-			this.authenticationService = IoC.Resolve<IAuthenticationService>();
-			this.userService = IoC.Resolve<IUserService>();
 		}
 
 		public void Init(HttpApplication context)
 		{
+			this.authenticationService = IoC.Resolve<IAuthenticationService>();
+			this.userService = IoC.Resolve<IUserService>();
 			context.AuthenticateRequest += new EventHandler(Context_AuthenticateRequest);
 		}
 
@@ -92,11 +93,11 @@ namespace Cuyahoga.Web.HttpModules
 			if (app.Context.User != null && app.Context.User.Identity.IsAuthenticated)
 			{
 				// There is a logged-in user with a standard Forms Identity. Replace it with
-				// the cached Cuyahoga identity (the User class implements IIdentity). 				
+				// Cuyahoga identity (the User class implements IIdentity). 				
 				int userId = Int32.Parse(app.Context.User.Identity.Name);
 				User cuyahogaUser = userService.GetUserById(userId);
 				cuyahogaUser.IsAuthenticated = true;
-				app.Context.User = cuyahogaUser;
+				CuyahogaContext.Current.SetUser(cuyahogaUser);
 			}
 		}
 	}

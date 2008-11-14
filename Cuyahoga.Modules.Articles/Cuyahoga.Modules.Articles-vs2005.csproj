@@ -1,0 +1,217 @@
+﻿<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.50727</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{9DCEC808-4FB7-47B1-ACAC-2016762BEE37}</ProjectGuid>
+    <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Cuyahoga.Modules.Articles</RootNamespace>
+    <AssemblyName>Cuyahoga.Modules.Articles</AssemblyName>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Core|AnyCPU' ">
+    <OutputPath>bin\</OutputPath>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Castle.Core, Version=1.0.0.0, Culture=neutral, PublicKeyToken=407dd0808d44fbdc, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\lib\Castle.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Castle.Facilities.AutomaticTransactionManagement, Version=1.0.0.0, Culture=neutral, PublicKeyToken=407dd0808d44fbdc, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\lib\Castle.Facilities.AutomaticTransactionManagement.dll</HintPath>
+    </Reference>
+    <Reference Include="Castle.Facilities.NHibernateIntegration, Version=1.0.0.0, Culture=neutral, PublicKeyToken=407dd0808d44fbdc, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\lib\Castle.Facilities.NHibernateIntegration.dll</HintPath>
+    </Reference>
+    <Reference Include="Castle.Services.Transaction, Version=0.1.0.0, Culture=neutral, PublicKeyToken=407dd0808d44fbdc, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\lib\Castle.Services.Transaction.dll</HintPath>
+    </Reference>
+    <Reference Include="FredCK.FCKeditorV2, Version=2.2.2106.29420, Culture=neutral, PublicKeyToken=4f86767c9b519a06">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\lib\FredCK.FCKeditorV2.dll</HintPath>
+    </Reference>
+    <Reference Include="NHibernate, Version=1.0.3.0, Culture=neutral, PublicKeyToken=154fdcb44c4484fc">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\lib\NHibernate.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="DataAccess\ArticleDao.cs" />
+    <Compile Include="DataAccess\IArticleDao.cs" />
+    <Compile Include="Web\AdminArticles.aspx.cs">
+      <DependentUpon>AdminArticles.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Web\AdminArticles.aspx.designer.cs">
+      <DependentUpon>AdminArticles.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Web\AdminComments.aspx.cs">
+      <DependentUpon>AdminComments.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Web\AdminComments.aspx.designer.cs">
+      <DependentUpon>AdminComments.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Domain\Article.cs" />
+    <Compile Include="ArticleModule.cs" />
+    <Compile Include="Web\ArticleDetails.ascx.cs">
+      <DependentUpon>ArticleDetails.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Web\ArticleDetails.ascx.designer.cs">
+      <DependentUpon>ArticleDetails.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Web\Articles.ascx.cs">
+      <DependentUpon>Articles.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Web\Articles.ascx.designer.cs">
+      <DependentUpon>Articles.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Domain\Category.cs" />
+    <Compile Include="Domain\Comment.cs" />
+    <Compile Include="Web\EditArticle.aspx.cs">
+      <DependentUpon>EditArticle.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Web\EditArticle.aspx.designer.cs">
+      <DependentUpon>EditArticle.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Web\AdminArticles.aspx.resx">
+      <DependentUpon>AdminArticles.aspx.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Web\AdminComments.aspx.resx">
+      <DependentUpon>AdminComments.aspx.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Web\EditArticle.aspx.resx">
+      <DependentUpon>EditArticle.aspx.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Web\Resources\Strings.es.resx">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Web\Resources\Strings.fr.resx">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Web\Resources\Strings.it.resx">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Web\Resources\Strings.nl.resx">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Web\Resources\Strings.resx">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Web\AdminArticles.aspx">
+      <SubType>Form</SubType>
+    </Content>
+    <Content Include="Web\AdminComments.aspx">
+      <SubType>Form</SubType>
+    </Content>
+    <EmbeddedResource Include="Domain\Article.hbm.xml" />
+    <EmbeddedResource Include="Web\Articles.ascx.resx">
+      <DependentUpon>Articles.ascx.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <Content Include="Web\ArticleDetails.ascx" />
+    <Content Include="Web\Articles.ascx">
+      <SubType>UserControl</SubType>
+    </Content>
+    <EmbeddedResource Include="Domain\Category.hbm.xml" />
+    <EmbeddedResource Include="Domain\Comment.hbm.xml" />
+    <EmbeddedResource Include="Web\Resources\Strings.de.resx">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Web\Resources\Strings.sv.resx">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <Content Include="Web\EditArticle.aspx">
+      <SubType>Form</SubType>
+    </Content>
+    <None Include="Cuyahoga.Modules.Articles.build" />
+    <None Include="Install\Database\mssql2000\1.5.1.sql" />
+    <None Include="Install\Database\mssql2000\1.5.2.sql" />
+    <None Include="Install\Database\mysql\1.5.1.sql" />
+    <None Include="Install\Database\mysql\1.5.2.sql" />
+    <None Include="Install\Database\postgresql\1.5.1.sql" />
+    <None Include="Install\Database\postgresql\1.5.2.sql" />
+    <None Include="Install\Database\postgresql\uninstall.sql" />
+    <None Include="Install\Database\postgresql\install.sql" />
+    <None Include="Install\Database\mysql\uninstall.sql" />
+    <None Include="Install\Database\mysql\install.sql" />
+    <None Include="Install\Database\mssql2000\uninstall.sql" />
+    <None Include="Install\Database\mssql2000\install.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Core\Cuyahoga.Core.csproj">
+      <Project>{723B7D30-6472-4B96-8D09-4F094C96650E}</Project>
+      <Name>Cuyahoga.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ServerControls\Cuyahoga.ServerControls.csproj">
+      <Project>{C64DAA00-AAB1-4AC7-ADE2-119B53B9666A}</Project>
+      <Name>Cuyahoga.ServerControls</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Web\Cuyahoga.Web.csproj">
+      <Project>{DD158F08-6E8F-4234-B3F6-A5402C8E34CC}</Project>
+      <Name>Cuyahoga.Web</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(MSBuildExtensionsPath)\Microsoft\VisualStudio\v8.0\WebApplications\Microsoft.WebApplication.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
+        <WebProjectProperties>
+          <UseIIS>False</UseIIS>
+          <AutoAssignPort>True</AutoAssignPort>
+          <DevelopmentServerPort>0</DevelopmentServerPort>
+          <DevelopmentServerVPath>/</DevelopmentServerVPath>
+          <IISUrl>
+          </IISUrl>
+          <NTLMAuthentication>False</NTLMAuthentication>
+        </WebProjectProperties>
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+  <PropertyGroup>
+    <PostBuildEvent>xcopy /s /y "$(ProjectDir)"Web\*.as?x "$(SolutionDir)"Web\Modules\Articles\
+xcopy /s /y "$(ProjectDir)"Install\Database\*.sql "$(SolutionDir)"Web\Modules\Articles\Install\Database\
+xcopy /s /y "$(TargetDir)"Cuyahoga.Modules.Articles*.dll "$(SolutionDir)"Web\bin\</PostBuildEvent>
+  </PropertyGroup>
+</Project>

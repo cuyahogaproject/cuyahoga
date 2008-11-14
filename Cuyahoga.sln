@@ -1,46 +1,6 @@
-Microsoft Visual Studio Solution File, Format Version 9.00
-# Visual Studio 2005
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cuyahoga.Web", "Web\Cuyahoga.Web.csproj", "{DD158F08-6E8F-4234-B3F6-A5402C8E34CC}"
-	ProjectSection(WebsiteProperties) = preProject
-		Debug.AspNetCompiler.Debug = "True"
-		Release.AspNetCompiler.Debug = "False"
-	EndProjectSection
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cuyahoga.Core", "Core\Cuyahoga.Core.csproj", "{723B7D30-6472-4B96-8D09-4F094C96650E}"
-	ProjectSection(WebsiteProperties) = preProject
-		Debug.AspNetCompiler.Debug = "True"
-		Release.AspNetCompiler.Debug = "False"
-	EndProjectSection
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cuyahoga.Modules", "Modules\Cuyahoga.Modules.csproj", "{7069F87A-95E1-4E61-B5FD-E0892E6F821F}"
-	ProjectSection(WebsiteProperties) = preProject
-		Debug.AspNetCompiler.Debug = "True"
-		Release.AspNetCompiler.Debug = "False"
-	EndProjectSection
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cuyahoga.ServerControls", "ServerControls\Cuyahoga.ServerControls.csproj", "{C64DAA00-AAB1-4AC7-ADE2-119B53B9666A}"
-	ProjectSection(WebsiteProperties) = preProject
-		Debug.AspNetCompiler.Debug = "True"
-		Release.AspNetCompiler.Debug = "False"
-	EndProjectSection
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cuyahoga.Tests", "Tests\Cuyahoga.Tests.csproj", "{E737CCAD-734D-4E61-8576-A42E4E803FA2}"
-	ProjectSection(WebsiteProperties) = preProject
-		Debug.AspNetCompiler.Debug = "True"
-		Release.AspNetCompiler.Debug = "False"
-	EndProjectSection
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cuyahoga.Modules.Downloads", "Cuyahoga.Modules.Downloads\Cuyahoga.Modules.Downloads.csproj", "{A613CF88-E66F-492B-9FD3-259BA3BD7310}"
-	ProjectSection(WebsiteProperties) = preProject
-		Debug.AspNetCompiler.Debug = "True"
-		Release.AspNetCompiler.Debug = "False"
-	EndProjectSection
-EndProject
+Microsoft Visual Studio Solution File, Format Version 10.00
+# Visual Studio 2008
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{B64CE28C-13A9-4445-8699-F38B3AA0D928}"
-	ProjectSection(WebsiteProperties) = preProject
-		Debug.AspNetCompiler.Debug = "True"
-		Release.AspNetCompiler.Debug = "False"
-	EndProjectSection
 	ProjectSection(SolutionItems) = preProject
 		Install-binary.txt = Install-binary.txt
 		Install.txt = Install.txt
@@ -50,27 +10,29 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "NAnt build files", "NAnt build files", "{B72EB6E1-28A4-49CD-98A8-367C2984FC5F}"
-	ProjectSection(WebsiteProperties) = preProject
-		Debug.AspNetCompiler.Debug = "True"
-		Release.AspNetCompiler.Debug = "False"
-	EndProjectSection
 	ProjectSection(SolutionItems) = preProject
 		common-project.xml = common-project.xml
 		common.xml = common.xml
 		Cuyahoga.build = Cuyahoga.build
 	EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cuyahoga.Web", "Web\Cuyahoga.Web.csproj", "{DD158F08-6E8F-4234-B3F6-A5402C8E34CC}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cuyahoga.Core", "Core\Cuyahoga.Core.csproj", "{723B7D30-6472-4B96-8D09-4F094C96650E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cuyahoga.Modules", "Modules\Cuyahoga.Modules.csproj", "{7069F87A-95E1-4E61-B5FD-E0892E6F821F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cuyahoga.ServerControls", "ServerControls\Cuyahoga.ServerControls.csproj", "{C64DAA00-AAB1-4AC7-ADE2-119B53B9666A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cuyahoga.Tests", "Tests\Cuyahoga.Tests.csproj", "{E737CCAD-734D-4E61-8576-A42E4E803FA2}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cuyahoga.Modules.Downloads", "Cuyahoga.Modules.Downloads\Cuyahoga.Modules.Downloads.csproj", "{A613CF88-E66F-492B-9FD3-259BA3BD7310}"
+EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cuyahoga.Modules.Articles", "Cuyahoga.Modules.Articles\Cuyahoga.Modules.Articles.csproj", "{9DCEC808-4FB7-47B1-ACAC-2016762BEE37}"
-	ProjectSection(WebsiteProperties) = preProject
-		Debug.AspNetCompiler.Debug = "True"
-		Release.AspNetCompiler.Debug = "False"
-	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cuyahoga.Modules.RemoteContent", "Cuyahoga.Modules.RemoteContent\Cuyahoga.Modules.RemoteContent.csproj", "{6F05541C-E08B-4806-8F3C-E06958CF3CCB}"
-	ProjectSection(WebsiteProperties) = preProject
-		Debug.AspNetCompiler.Debug = "True"
-		Release.AspNetCompiler.Debug = "False"
-	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cuyahoga.Web.Mvc", "Cuyahoga.Web.Mvc\Cuyahoga.Web.Mvc.csproj", "{216D2C63-CD7A-4601-ABB2-A2C9C461F7FD}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -119,6 +81,12 @@ Global
 		{6F05541C-E08B-4806-8F3C-E06958CF3CCB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{6F05541C-E08B-4806-8F3C-E06958CF3CCB}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6F05541C-E08B-4806-8F3C-E06958CF3CCB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{216D2C63-CD7A-4601-ABB2-A2C9C461F7FD}.Core|Any CPU.ActiveCfg = Release|Any CPU
+		{216D2C63-CD7A-4601-ABB2-A2C9C461F7FD}.Core|Any CPU.Build.0 = Release|Any CPU
+		{216D2C63-CD7A-4601-ABB2-A2C9C461F7FD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{216D2C63-CD7A-4601-ABB2-A2C9C461F7FD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{216D2C63-CD7A-4601-ABB2-A2C9C461F7FD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{216D2C63-CD7A-4601-ABB2-A2C9C461F7FD}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -195,4 +195,7 @@
   <data name="UsernameLabel" xml:space="preserve">
     <value>Username</value>
   </data>
+  <data name="UserNullException" xml:space="preserve">
+    <value>The current user is not a valid authenticated Cuyahoga user</value>
+  </data>
 </root>

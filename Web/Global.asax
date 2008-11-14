@@ -1,1 +1,1 @@
-<%@ Application Codebehind="Global.asax.cs" Inherits="Cuyahoga.Web.Global" %>
+<%@ Application Codebehind="Global.asax.cs" Inherits="Cuyahoga.Web.Global" %> 
