@@ -118,7 +118,6 @@
     <None Include="Install\Database\postgresql\1.5.1.sql" />
     <None Include="Install\Database\postgresql\install.sql" />
     <None Include="Install\Database\postgresql\uninstall.sql" />
-    <Content Include="web.config" />
     <Content Include="Web\RemoteContent.ascx">
       <SubType>UserControl</SubType>
     </Content>

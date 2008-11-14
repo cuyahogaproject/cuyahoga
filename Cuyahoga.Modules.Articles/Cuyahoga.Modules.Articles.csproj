@@ -196,7 +196,6 @@
     <None Include="Install\Database\mysql\install.sql" />
     <None Include="Install\Database\mssql2000\uninstall.sql" />
     <None Include="Install\Database\mssql2000\install.sql" />
-    <Content Include="web.config" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Core\Cuyahoga.Core.csproj">

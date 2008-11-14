@@ -602,7 +602,6 @@
   <ItemGroup>
     <None Include="Cuyahoga.Modules.build" />
     <None Include="LanguageSwitcher\Images\flags\flag.tar.gz" />
-    <Content Include="web.config" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
