@@ -19,6 +19,11 @@
 			<key column="roleid" />
 			<many-to-many class="Cuyahoga.Core.Domain.Right, Cuyahoga.Core" column="rightid" />
 		</bag>
+
+		<bag name="Sites" cascade="none" lazy="true" table="cuyahoga_siterole">
+			<key column="roleid" />
+			<many-to-many class="Cuyahoga.Core.Domain.Site, Cuyahoga.Core" column="siteid" />
+		</bag>
 		
 	</class>
 </hibernate-mapping>

@@ -88,6 +88,15 @@ namespace Resources.Cuyahoga.Web.Manager {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Create user.
+        /// </summary>
+        internal static string CreateUserLabel {
+            get {
+                return ResourceManager.GetString("CreateUserLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Cuyahoga Site Manager.
         /// </summary>
         internal static string CuyahogaSiteManagerLabel {
@@ -106,11 +115,38 @@ namespace Resources.Cuyahoga.Web.Manager {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Edit.
+        /// </summary>
+        internal static string EditLabel {
+            get {
+                return ResourceManager.GetString("EditLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to E-mail.
+        /// </summary>
+        internal static string EmailLabel {
+            get {
+                return ResourceManager.GetString("EmailLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to The username or password may not be empty..
         /// </summary>
         internal static string EmptyUsernameOrPassword {
             get {
                 return ResourceManager.GetString("EmptyUsernameOrPassword", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Filter.
+        /// </summary>
+        internal static string FilterButtonLabel {
+            get {
+                return ResourceManager.GetString("FilterButtonLabel", resourceCulture);
             }
         }
         
@@ -129,6 +165,33 @@ namespace Resources.Cuyahoga.Web.Manager {
         internal static string InvalidUsernamePassword {
             get {
                 return ResourceManager.GetString("InvalidUsernamePassword", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Active.
+        /// </summary>
+        internal static string IsActiveLabel {
+            get {
+                return ResourceManager.GetString("IsActiveLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Last login from.
+        /// </summary>
+        internal static string LastLoginfromLabel {
+            get {
+                return ResourceManager.GetString("LastLoginfromLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Last login.
+        /// </summary>
+        internal static string LastLoginLabel {
+            get {
+                return ResourceManager.GetString("LastLoginLabel", resourceCulture);
             }
         }
         
@@ -241,6 +304,15 @@ namespace Resources.Cuyahoga.Web.Manager {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Manage roles.
+        /// </summary>
+        internal static string ManageRolesLabel {
+            get {
+                return ResourceManager.GetString("ManageRolesLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Manage site.
         /// </summary>
         internal static string ManageSitePageTitle {
@@ -259,11 +331,47 @@ namespace Resources.Cuyahoga.Web.Manager {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to No.
+        /// </summary>
+        internal static string No {
+            get {
+                return ResourceManager.GetString("No", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to No user(s) found.
+        /// </summary>
+        internal static string NoUsersFound {
+            get {
+                return ResourceManager.GetString("NoUsersFound", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to All.
+        /// </summary>
+        internal static string OptionAll {
+            get {
+                return ResourceManager.GetString("OptionAll", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Password.
         /// </summary>
         internal static string PasswordLabel {
             get {
                 return ResourceManager.GetString("PasswordLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Role.
+        /// </summary>
+        internal static string RoleLabel {
+            get {
+                return ResourceManager.GetString("RoleLabel", resourceCulture);
             }
         }
         
@@ -300,6 +408,15 @@ namespace Resources.Cuyahoga.Web.Manager {
         internal static string UserNullException {
             get {
                 return ResourceManager.GetString("UserNullException", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Yes.
+        /// </summary>
+        internal static string Yes {
+            get {
+                return ResourceManager.GetString("Yes", resourceCulture);
             }
         }
     }

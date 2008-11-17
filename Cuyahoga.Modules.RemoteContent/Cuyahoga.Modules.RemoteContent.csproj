@@ -74,12 +74,14 @@
   <ItemGroup>
     <Compile Include="Web\AdminRemoteContent.aspx.cs">
       <DependentUpon>AdminRemoteContent.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="Web\AdminRemoteContent.aspx.designer.cs">
       <DependentUpon>AdminRemoteContent.aspx</DependentUpon>
     </Compile>
     <Compile Include="Web\EditFeed.aspx.cs">
       <DependentUpon>EditFeed.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="Web\EditFeed.aspx.designer.cs">
       <DependentUpon>EditFeed.aspx</DependentUpon>
@@ -89,6 +91,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Web\RemoteContent.ascx.cs">
       <DependentUpon>RemoteContent.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="Web\RemoteContent.ascx.designer.cs">
       <DependentUpon>RemoteContent.ascx</DependentUpon>

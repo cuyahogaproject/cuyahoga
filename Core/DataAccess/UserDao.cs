@@ -88,6 +88,50 @@ namespace Cuyahoga.Core.DataAccess
 			}
 		}
 
+		public IList<User> FindUsers(string username, int? roleId, bool? isActive, int? siteId, int pageSize, int pageNumber, out int totalCount)
+		{
+			ISession session = this._sessionManager.OpenSession();
+			ICriteria userCriteria = session.CreateCriteria(typeof(User));
+			ICriteria countCriteria = session.CreateCriteria(typeof(User));
+
+			if (!String.IsNullOrEmpty(username))
+			{
+				userCriteria.Add(Expression.InsensitiveLike("UserName", username, MatchMode.Start));
+				countCriteria.Add(Expression.InsensitiveLike("UserName", username, MatchMode.Start));
+			}
+			if (roleId.HasValue)
+			{
+				userCriteria.CreateCriteria("Roles", "r1").Add(Expression.Eq("r1.Id", roleId));
+				countCriteria.CreateCriteria("Roles", "r1").Add(Expression.Eq("r1.Id", roleId));
+			}
+			if (isActive.HasValue)
+			{
+				userCriteria.Add(Expression.Eq("IsActive", isActive));
+				countCriteria.Add(Expression.Eq("IsActive", isActive));
+			}
+			// Filter users that are related to the given site. Don't do this when already filtering on a role
+			// We'd like to do this, but NHibernate criteria doesn't seem to allow to create (sub)criteria on the same 
+			// property twice.
+			if (siteId.HasValue && ! roleId.HasValue)
+			{
+				DetachedCriteria roleIdsForSite = DetachedCriteria.For(typeof (Role), "roleSub")
+					.SetProjection(Projections.Property("roleSub.Id"))
+					.CreateCriteria("Sites", "site")
+					.Add(Expression.Eq("site.Id", siteId.Value));
+
+				userCriteria.CreateCriteria("Roles", "r2").Add(Subqueries.PropertyIn("r2.Id", roleIdsForSite));
+				countCriteria.CreateCriteria("Roles", "r2").Add(Subqueries.PropertyIn("r2.Id", roleIdsForSite));
+			}
+			userCriteria.SetFirstResult((pageNumber - 1) * pageSize);
+			userCriteria.SetMaxResults(pageSize);
+			countCriteria.SetProjection(Projections.RowCount());
+
+			totalCount = (int) countCriteria.UniqueResult();
+
+			return userCriteria.List<User>();
+		}
+
+
 		/// <summary>
 		/// Find users and return paged results.
 		/// </summary>

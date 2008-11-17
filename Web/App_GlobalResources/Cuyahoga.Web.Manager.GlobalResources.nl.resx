@@ -174,4 +174,43 @@
   <data name="UserNullException" xml:space="preserve">
     <value>De huidige gebruiker is geen officieel ingelogde Cuyahoga gebruiker </value>
   </data>
+  <data name="CreateUserLabel" xml:space="preserve">
+    <value>Nieuwe gebruiker</value>
+  </data>
+  <data name="ManageRolesLabel" xml:space="preserve">
+    <value>Beheer rollen</value>
+  </data>
+  <data name="RoleLabel" xml:space="preserve">
+    <value>Rol</value>
+  </data>
+  <data name="EditLabel" xml:space="preserve">
+    <value>Wijzig</value>
+  </data>
+  <data name="EmailLabel" xml:space="preserve">
+    <value>E-mail</value>
+  </data>
+  <data name="FilterButtonLabel" xml:space="preserve">
+    <value>Filter</value>
+  </data>
+  <data name="IsActiveLabel" xml:space="preserve">
+    <value>Actief</value>
+  </data>
+  <data name="LastLoginfromLabel" xml:space="preserve">
+    <value>Laatste login vanaf</value>
+  </data>
+  <data name="LastLoginLabel" xml:space="preserve">
+    <value>Laatste login</value>
+  </data>
+  <data name="No" xml:space="preserve">
+    <value>Nee</value>
+  </data>
+  <data name="NoUsersFound" xml:space="preserve">
+    <value>Geen gebruiker(s) gevonden</value>
+  </data>
+  <data name="OptionAll" xml:space="preserve">
+    <value>Alle</value>
+  </data>
+  <data name="Yes" xml:space="preserve">
+    <value>Ja</value>
+  </data>
 </root>

@@ -65,6 +65,10 @@
     <Compile Include="Areas\RouteCollectionExtensions.cs" />
     <Compile Include="Areas\AreaViewEngine.cs" />
     <Compile Include="MessageType.cs" />
+    <Compile Include="Paging\IPagedList.cs" />
+    <Compile Include="Paging\PagedList.cs" />
+    <Compile Include="Paging\Pager.cs" />
+    <Compile Include="Paging\PagingExtensions.cs" />
     <Compile Include="Partials\PartialRequest.cs" />
     <Compile Include="Partials\PartialRequestExtensions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -76,9 +80,6 @@
       <Project>{723B7D30-6472-4B96-8D09-4F094C96650E}</Project>
       <Name>Cuyahoga.Core</Name>
     </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Paging\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

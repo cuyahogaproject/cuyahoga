@@ -159,31 +159,31 @@ namespace Cuyahoga.Web.Manager.Controllers
 				mainMenuViewData.AddStandardMenuItem(
 					new MenuItem(this.Url.Action("Index", "Dashboard")
 					, GlobalResources.ManagerMenuDashboard, CheckInPath("Dashboard")));
-				if (user.HasRight(Rights.ManagePages))
+				if (user.HasRight(Rights.ManagePages, CuyahogaContext.CurrentSite))
 				{
 					mainMenuViewData.AddStandardMenuItem(
 						new MenuItem(Url.Action("Index", "Pages")
 						, GlobalResources.ManagerMenuPages, CheckInPath("Pages")));
 				}
-				if (user.HasRight(Rights.ManageFiles))
+				if (user.HasRight(Rights.ManageFiles, CuyahogaContext.CurrentSite))
 				{
 					mainMenuViewData.AddStandardMenuItem(
 						new MenuItem(Url.Action("Index", "Files")
 						, GlobalResources.ManagerMenuFiles, CheckInPath("Files")));
 				}
-				if (user.HasRight(Rights.ManageUsers))
+				if (user.HasRight(Rights.ManageUsers, CuyahogaContext.CurrentSite))
 				{
 					mainMenuViewData.AddOptionalMenuItem(
 						new MenuItem(Url.Action("Index", "Users")
 						, GlobalResources.ManagerMenuUsers, CheckInPath("Users")));
 				}
-				if (user.HasRight(Rights.ManageSite))
+				if (user.HasRight(Rights.ManageSite, CuyahogaContext.CurrentSite))
 				{
 					mainMenuViewData.AddOptionalMenuItem(
 						new MenuItem(Url.Action("Index", "Site")
 						, GlobalResources.ManagerMenuSite, CheckInPath("Site")));
 				}
-				if (user.HasRight(Rights.ManageServer))
+				if (user.HasRight(Rights.ManageServer, CuyahogaContext.CurrentSite))
 				{
 					mainMenuViewData.AddOptionalMenuItem(
 						new MenuItem(Url.Action("Index", "Server")

@@ -198,4 +198,43 @@
   <data name="UserNullException" xml:space="preserve">
     <value>The current user is not a valid authenticated Cuyahoga user</value>
   </data>
+  <data name="CreateUserLabel" xml:space="preserve">
+    <value>Create user</value>
+  </data>
+  <data name="ManageRolesLabel" xml:space="preserve">
+    <value>Manage roles</value>
+  </data>
+  <data name="EditLabel" xml:space="preserve">
+    <value>Edit</value>
+  </data>
+  <data name="EmailLabel" xml:space="preserve">
+    <value>E-mail</value>
+  </data>
+  <data name="FilterButtonLabel" xml:space="preserve">
+    <value>Filter</value>
+  </data>
+  <data name="IsActiveLabel" xml:space="preserve">
+    <value>Active</value>
+  </data>
+  <data name="LastLoginfromLabel" xml:space="preserve">
+    <value>Last login from</value>
+  </data>
+  <data name="LastLoginLabel" xml:space="preserve">
+    <value>Last login</value>
+  </data>
+  <data name="No" xml:space="preserve">
+    <value>No</value>
+  </data>
+  <data name="NoUsersFound" xml:space="preserve">
+    <value>No user(s) found</value>
+  </data>
+  <data name="OptionAll" xml:space="preserve">
+    <value>All</value>
+  </data>
+  <data name="RoleLabel" xml:space="preserve">
+    <value>Role</value>
+  </data>
+  <data name="Yes" xml:space="preserve">
+    <value>Yes</value>
+  </data>
 </root>

@@ -18,15 +18,18 @@ namespace Cuyahoga.Core.Service.Membership
 		IList FindUsersByUsername(string searchString);
 
 		/// <summary>
-		/// Find users and return paged results.
+		/// Find users and return a sliced list based on the paging parameters
 		/// </summary>
-		/// <param name="username"></param>
-		/// <param name="roleId"></param>
-		/// <param name="isActive"></param>
-		/// <param name="pageSize"></param>
-		/// <param name="pageNumber"></param>
-		/// <returns></returns>
-		PagedResultSet<User> FindUsers(string username, int? roleId, bool? isActive, int pageSize, int? pageNumber);
+		/// <param name="username">Username</param>
+		/// <param name="roleId">Role to filter</param>
+		/// <param name="isActive">Filter on active or inactive users</param>
+		/// <param name="siteId">Filter on users for a given site</param>
+		/// <param name="pageSize">Max number of users to return</param>
+		/// <param name="pageNumber">Current page number</param>
+		/// <param name="totalCount">The total number of users found</param>
+		/// <returns>A list of users that match the given criteria</returns>
+		IList<User> FindUsers(string username, int? roleId, bool? isActive, int? siteId, int pageSize, int? pageNumber,
+		                      out int totalCount);
 
 		/// <summary>
 		/// Get a user by ID.

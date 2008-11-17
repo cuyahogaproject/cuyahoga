@@ -33,22 +33,13 @@ namespace Cuyahoga.Core.Service.Membership
 			return this._userDao.FindUsersByUsername(searchString);
 		}
 
-		/// <summary>
-		/// Find users and return paged results.
-		/// </summary>
-		/// <param name="username"></param>
-		/// <param name="roleId"></param>
-		/// <param name="isActive"></param>
-		/// <param name="pageSize"></param>
-		/// <param name="pageNumber"></param>
-		/// <returns></returns>
-		public PagedResultSet<User> FindUsers(string username, int? roleId, bool? isActive, int pageSize, int? pageNumber)
+		public IList<User> FindUsers(string username, int? roleId, bool? isActive, int? siteId, int pageSize, int? pageNumber, out int totalCount)
 		{
-			if (! pageNumber.HasValue)
+			if (!pageNumber.HasValue)
 			{
 				pageNumber = 1;
 			}
-			return this._userDao.FindUsers(username, roleId, isActive, pageSize, pageNumber.Value);
+			return this._userDao.FindUsers(username, roleId, isActive, siteId, pageSize, pageNumber.Value, out totalCount);
 		}
 
 		public User GetUserById(int userId)

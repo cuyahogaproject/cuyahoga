@@ -16,6 +16,7 @@ namespace Cuyahoga.Core.Domain
 		private bool _isGlobal;
 		private AccessLevel[] _permissions;
 		private IList<Right> _rights;
+		private IList<Site> _sites;
 		private DateTime _updateTimestamp;
 
 		/// <summary>
@@ -79,6 +80,15 @@ namespace Cuyahoga.Core.Domain
 		}
 
 		/// <summary>
+		/// Gets or sets a list of related sites.
+		/// </summary>
+		public virtual IList<Site> Sites
+		{
+			get { return _sites; }
+			set { _sites = value; }
+		}
+
+		/// <summary>
 		/// 
 		/// </summary>
 		public virtual string RightsString
@@ -104,6 +114,7 @@ namespace Cuyahoga.Core.Domain
 			this._name = null;
 			this._permissionLevel = -1;
 			this._rights = new List<Right>();
+			this._sites = new List<Site>();
 		}
 
 		/// <summary>

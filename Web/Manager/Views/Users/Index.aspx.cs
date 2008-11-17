@@ -1,13 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.Mvc;
+﻿using System.Web.Mvc;
+using Cuyahoga.Core.Domain;
+using Cuyahoga.Web.Mvc.Paging;
 
 
 namespace Cuyahoga.Web.Manager.Views.Users
 {
-	public partial class Index : ViewPage
+	public partial class Index : ViewPage<IPagedList<User>>
 	{
 	}
 }
