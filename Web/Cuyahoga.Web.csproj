@@ -440,12 +440,26 @@
     <Compile Include="Manager\Views\Site\Index.aspx.designer.cs">
       <DependentUpon>Index.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Manager\Views\Users\Edit.aspx.cs">
+      <DependentUpon>Edit.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Manager\Views\Users\Edit.aspx.designer.cs">
+      <DependentUpon>Edit.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Manager\Views\Users\Index.aspx.cs">
       <DependentUpon>Index.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="Manager\Views\Users\Index.aspx.designer.cs">
       <DependentUpon>Index.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Manager\Views\Users\Roles.aspx.cs">
+      <DependentUpon>Roles.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Manager\Views\Users\Roles.aspx.designer.cs">
+      <DependentUpon>Roles.aspx</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
@@ -753,7 +767,9 @@
     <Content Include="Manager\Views\Shared\Messages.ascx" />
     <Content Include="Manager\Views\Shared\SiteChooser.ascx" />
     <Content Include="Manager\Views\Site\Index.aspx" />
+    <Content Include="Manager\Views\Users\Edit.aspx" />
     <Content Include="Manager\Views\Users\Index.aspx" />
+    <Content Include="Manager\Views\Users\Roles.aspx" />
     <Content Include="Profile.aspx">
       <SubType>Form</SubType>
     </Content>

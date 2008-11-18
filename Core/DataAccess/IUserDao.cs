@@ -75,6 +75,13 @@ namespace Cuyahoga.Core.DataAccess
         IList<Role> GetRolesByAccessLevel(AccessLevel accessLevel);
 
 		/// <summary>
+		/// Get all roles for the given site.
+		/// </summary>
+		/// <param name="site"></param>
+		/// <returns></returns>
+		IList<Role> GetAllRolesBySite(Site site);
+
+		/// <summary>
 		/// Save or update a user.
 		/// </summary>
 		/// <param name="user"></param>
@@ -85,6 +92,5 @@ namespace Cuyahoga.Core.DataAccess
 		/// </summary>
 		/// <param name="user"></param>
 		void DeleteUser(User user);
-
 	}
 }

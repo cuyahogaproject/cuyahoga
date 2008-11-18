@@ -88,6 +88,15 @@ namespace Resources.Cuyahoga.Web.Manager {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Confirm password.
+        /// </summary>
+        internal static string ConfirmPasswordLabel {
+            get {
+                return ResourceManager.GetString("ConfirmPasswordLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Create user.
         /// </summary>
         internal static string CreateUserLabel {
@@ -124,6 +133,15 @@ namespace Resources.Cuyahoga.Web.Manager {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Edit user.
+        /// </summary>
+        internal static string EditUserPageTitle {
+            get {
+                return ResourceManager.GetString("EditUserPageTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to E-mail.
         /// </summary>
         internal static string EmailLabel {
@@ -147,6 +165,33 @@ namespace Resources.Cuyahoga.Web.Manager {
         internal static string FilterButtonLabel {
             get {
                 return ResourceManager.GetString("FilterButtonLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to First name.
+        /// </summary>
+        internal static string FirstNameLabel {
+            get {
+                return ResourceManager.GetString("FirstNameLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to General.
+        /// </summary>
+        internal static string GeneralLabel {
+            get {
+                return ResourceManager.GetString("GeneralLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Search across all sites.
+        /// </summary>
+        internal static string GlobalSearchLabel {
+            get {
+                return ResourceManager.GetString("GlobalSearchLabel", resourceCulture);
             }
         }
         
@@ -192,6 +237,15 @@ namespace Resources.Cuyahoga.Web.Manager {
         internal static string LastLoginLabel {
             get {
                 return ResourceManager.GetString("LastLoginLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Last name.
+        /// </summary>
+        internal static string LastNameLabel {
+            get {
+                return ResourceManager.GetString("LastNameLabel", resourceCulture);
             }
         }
         
@@ -313,6 +367,15 @@ namespace Resources.Cuyahoga.Web.Manager {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Manage roles.
+        /// </summary>
+        internal static string ManageRolesPageTitle {
+            get {
+                return ResourceManager.GetString("ManageRolesPageTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Manage site.
         /// </summary>
         internal static string ManageSitePageTitle {
@@ -327,6 +390,15 @@ namespace Resources.Cuyahoga.Web.Manager {
         internal static string ManageUsersPageTitle {
             get {
                 return ResourceManager.GetString("ManageUsersPageTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Add new user.
+        /// </summary>
+        internal static string NewUserPageTitle {
+            get {
+                return ResourceManager.GetString("NewUserPageTitle", resourceCulture);
             }
         }
         
@@ -358,6 +430,15 @@ namespace Resources.Cuyahoga.Web.Manager {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to or.
+        /// </summary>
+        internal static string Or {
+            get {
+                return ResourceManager.GetString("Or", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Password.
         /// </summary>
         internal static string PasswordLabel {
@@ -372,6 +453,24 @@ namespace Resources.Cuyahoga.Web.Manager {
         internal static string RoleLabel {
             get {
                 return ResourceManager.GetString("RoleLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Roles.
+        /// </summary>
+        internal static string RolesLabel {
+            get {
+                return ResourceManager.GetString("RolesLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Save.
+        /// </summary>
+        internal static string SaveButtonLabel {
+            get {
+                return ResourceManager.GetString("SaveButtonLabel", resourceCulture);
             }
         }
         
@@ -394,6 +493,15 @@ namespace Resources.Cuyahoga.Web.Manager {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Time zone.
+        /// </summary>
+        internal static string TimeZoneLabel {
+            get {
+                return ResourceManager.GetString("TimeZoneLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Username.
         /// </summary>
         internal static string UsernameLabel {
@@ -408,6 +516,15 @@ namespace Resources.Cuyahoga.Web.Manager {
         internal static string UserNullException {
             get {
                 return ResourceManager.GetString("UserNullException", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Web site.
+        /// </summary>
+        internal static string WebsiteLabel {
+            get {
+                return ResourceManager.GetString("WebsiteLabel", resourceCulture);
             }
         }
         

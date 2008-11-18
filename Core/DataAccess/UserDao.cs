@@ -208,6 +208,16 @@ namespace Cuyahoga.Core.DataAccess
             return q.List<Role>();
         }
 
+		public IList<Role> GetAllRolesBySite(Site site)
+		{
+			ISession session = this._sessionManager.OpenSession();
+			ICriteria crit = session.CreateCriteria(typeof (Role))
+				.AddOrder(Order.Asc("Name"))
+				.CreateCriteria("Sites")
+				.Add(Expression.Eq("Id", site.Id));
+			return crit.List<Role>();
+		}
+
 		[Transaction(TransactionMode.Requires)]
 		public void SaveOrUpdateUser(User user)
 		{

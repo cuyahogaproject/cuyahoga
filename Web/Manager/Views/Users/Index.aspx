@@ -5,8 +5,8 @@
 <asp:Content ID="Content2" ContentPlaceHolderID="cphTasks" runat="server">
 	<h2><%= GlobalResources.TasksLabel %></h2>
 	<ul>
-		<li><%= GlobalResources.CreateUserLabel %></li>
-		<li><%= GlobalResources.ManageRolesLabel %></li>
+		<li><%= Html.ActionLink(GlobalResources.CreateUserLabel, "New", "Users") %></li>
+		<li><%= Html.ActionLink(GlobalResources.ManageRolesLabel, "Roles", "Users") %></li>
 	</ul>
 </asp:Content>
 <asp:Content ID="Content3" ContentPlaceHolderID="cphMain" runat="server">
@@ -17,6 +17,9 @@
 		<%= Html.DropDownList(GlobalResources.OptionAll, "roleid", ViewData["roles"] as SelectList) %>
 		<label for="isactive"><%= GlobalResources.IsActiveLabel %></label>
 		<%= Html.DropDownList(GlobalResources.OptionAll, "isactive", ViewData["isactiveoptions"] as SelectList) %>
+		<% if ((bool)ViewData["globalsearchallowed"]) { %>
+			<%= Html.CheckBox("globalsearch", (bool?)ViewData["globalsearch"])%><label for="globalsearch"><%= GlobalResources.GlobalSearchLabel %></label>
+		<% } %>
 		<input type="submit" value="<%= GlobalResources.FilterButtonLabel %>" />
 	<% } %>
 	<br />
@@ -46,7 +49,7 @@
 			</tbody>
 		</table>
 		<div class="pager">
-			<%= Html.Pager(ViewData.Model.PageSize, ViewData.Model.PageNumber, ViewData.Model.TotalItemCount, new { username = ViewData["username"], roleid = ViewData["roleid"], isactive = ViewData["isactive"] } )%>
+			<%= Html.Pager(ViewData.Model.PageSize, ViewData.Model.PageNumber, ViewData.Model.TotalItemCount, new { username = ViewData["username"], roleid = ViewData["roleid"], isactive = ViewData["isactive"], globalsearch = ViewData["globalsearch"] } )%>
 		</div>
 	<% } else { %>
 		<%= GlobalResources.NoUsersFound %>

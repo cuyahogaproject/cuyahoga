@@ -237,4 +237,43 @@
   <data name="Yes" xml:space="preserve">
     <value>Yes</value>
   </data>
+  <data name="GlobalSearchLabel" xml:space="preserve">
+    <value>Search across all sites</value>
+  </data>
+  <data name="ConfirmPasswordLabel" xml:space="preserve">
+    <value>Confirm password</value>
+  </data>
+  <data name="EditUserPageTitle" xml:space="preserve">
+    <value>Edit user</value>
+  </data>
+  <data name="FirstNameLabel" xml:space="preserve">
+    <value>First name</value>
+  </data>
+  <data name="GeneralLabel" xml:space="preserve">
+    <value>General</value>
+  </data>
+  <data name="LastNameLabel" xml:space="preserve">
+    <value>Last name</value>
+  </data>
+  <data name="ManageRolesPageTitle" xml:space="preserve">
+    <value>Manage roles</value>
+  </data>
+  <data name="NewUserPageTitle" xml:space="preserve">
+    <value>Add new user</value>
+  </data>
+  <data name="Or" xml:space="preserve">
+    <value>or</value>
+  </data>
+  <data name="RolesLabel" xml:space="preserve">
+    <value>Roles</value>
+  </data>
+  <data name="SaveButtonLabel" xml:space="preserve">
+    <value>Save</value>
+  </data>
+  <data name="TimeZoneLabel" xml:space="preserve">
+    <value>Time zone</value>
+  </data>
+  <data name="WebsiteLabel" xml:space="preserve">
+    <value>Web site</value>
+  </data>
 </root>

@@ -1,6 +1,8 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Security;
+using System.Threading;
 using Cuyahoga.Core.Domain;
 using Cuyahoga.Core.DataAccess;
 using Cuyahoga.Core.Util;
@@ -33,8 +35,23 @@ namespace Cuyahoga.Core.Service.Membership
 			return this._userDao.FindUsersByUsername(searchString);
 		}
 
-		public IList<User> FindUsers(string username, int? roleId, bool? isActive, int? siteId, int pageSize, int? pageNumber, out int totalCount)
-		{
+		public IList<User> FindUsers(string username, int? roleId, bool? isActive, Site site, int pageSize, int? pageNumber, out int totalCount)
+		{ 
+			int? siteId = null;
+			// When site is null, the user needs to have permissions to perform a global search across all sites.
+			if (site == null)
+			{
+				User currentUser = Thread.CurrentPrincipal as User;
+				if (currentUser == null || ! currentUser.HasRight(Rights.GlobalPermissions))
+				{
+					throw new SecurityException("ActionNotAllowedException");
+				}
+			}
+			else
+			{
+				siteId = site.Id;
+			}
+
 			if (!pageNumber.HasValue)
 			{
 				pageNumber = 1;
@@ -91,6 +108,11 @@ namespace Cuyahoga.Core.Service.Membership
 		public IList GetAllRoles()
 		{
 			return this._commonDao.GetAll(typeof(Role));
+		}
+
+		public IList<Role> GetAllRolesBySite(Site site)
+		{
+			return this._userDao.GetAllRolesBySite(site);
 		}
 
 		public Role GetRoleById(int roleId)

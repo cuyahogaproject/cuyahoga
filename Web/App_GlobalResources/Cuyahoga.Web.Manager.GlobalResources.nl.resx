@@ -213,4 +213,49 @@
   <data name="Yes" xml:space="preserve">
     <value>Ja</value>
   </data>
+  <data name="GlobalSearchLabel" xml:space="preserve">
+    <value>Zoek in alle sites</value>
+  </data>
+  <data name="ManageUsersPageTitle" xml:space="preserve">
+    <value>Beheer gebruikers en rollen</value>
+  </data>
+  <data name="TasksLabel" xml:space="preserve">
+    <value>Taken</value>
+  </data>
+  <data name="ConfirmPasswordLabel" xml:space="preserve">
+    <value>Bevestig wachtwoord</value>
+  </data>
+  <data name="EditUserPageTitle" xml:space="preserve">
+    <value>Wijzig gebruiker</value>
+  </data>
+  <data name="FirstNameLabel" xml:space="preserve">
+    <value>Voornaam</value>
+  </data>
+  <data name="GeneralLabel" xml:space="preserve">
+    <value>Algemeen</value>
+  </data>
+  <data name="LastNameLabel" xml:space="preserve">
+    <value>Achternaam</value>
+  </data>
+  <data name="ManageRolesPageTitle" xml:space="preserve">
+    <value>Beheer rollen</value>
+  </data>
+  <data name="NewUserPageTitle" xml:space="preserve">
+    <value>Nieuwe gebruiker</value>
+  </data>
+  <data name="Or" xml:space="preserve">
+    <value>of</value>
+  </data>
+  <data name="RolesLabel" xml:space="preserve">
+    <value>Rollen</value>
+  </data>
+  <data name="SaveButtonLabel" xml:space="preserve">
+    <value>Opslaan</value>
+  </data>
+  <data name="TimeZoneLabel" xml:space="preserve">
+    <value>Tijdzone</value>
+  </data>
+  <data name="WebsiteLabel" xml:space="preserve">
+    <value>Website</value>
+  </data>
 </root>

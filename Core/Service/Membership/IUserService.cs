@@ -23,12 +23,12 @@ namespace Cuyahoga.Core.Service.Membership
 		/// <param name="username">Username</param>
 		/// <param name="roleId">Role to filter</param>
 		/// <param name="isActive">Filter on active or inactive users</param>
-		/// <param name="siteId">Filter on users for a given site</param>
+		/// <param name="site">Filter on users for a given site</param>
 		/// <param name="pageSize">Max number of users to return</param>
 		/// <param name="pageNumber">Current page number</param>
 		/// <param name="totalCount">The total number of users found</param>
 		/// <returns>A list of users that match the given criteria</returns>
-		IList<User> FindUsers(string username, int? roleId, bool? isActive, int? siteId, int pageSize, int? pageNumber,
+		IList<User> FindUsers(string username, int? roleId, bool? isActive, Site site, int pageSize, int? pageNumber,
 		                      out int totalCount);
 
 		/// <summary>
@@ -80,6 +80,13 @@ namespace Cuyahoga.Core.Service.Membership
 		/// </summary>
 		/// <returns></returns>
 		IList GetAllRoles();
+
+		/// <summary>
+		/// Get all roles for a given site.
+		/// </summary>
+		/// <param name="site"></param>
+		/// <returns></returns>
+		IList<Role> GetAllRolesBySite(Site site);
 
 		/// <summary>
 		/// Get a single role by id.

@@ -265,6 +265,8 @@ namespace Cuyahoga.Core.Domain
 		{
 			this._id = -1;
 			this._isAuthenticated = false;
+			this._isActive = true;
+			this._timeZone = 0;
 			this._rights = null;
 			this._roles = new ArrayList();
 			// Default to now, otherwise NHibernate tries to insert a NULL.
