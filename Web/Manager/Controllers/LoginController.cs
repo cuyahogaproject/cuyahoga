@@ -23,7 +23,6 @@ namespace Cuyahoga.Web.Manager.Controllers
 			this._authenticationService = authenticationService;
 		}
 
-		[AcceptVerbs("GET")]
 		public ActionResult Index(string returnUrl)
 		{
 			ViewData["Title"] = GlobalResources.LoginPageTitle;

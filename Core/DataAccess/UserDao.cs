@@ -92,7 +92,7 @@ namespace Cuyahoga.Core.DataAccess
 		{
 			ISession session = this._sessionManager.OpenSession();
 			ICriteria userCriteria = session.CreateCriteria(typeof(User));
-			ICriteria countCriteria = session.CreateCriteria(typeof(User));
+			ICriteria countCriteria = session.CreateCriteria(typeof(User), "userCount");
 
 			if (!String.IsNullOrEmpty(username))
 			{
@@ -110,22 +110,26 @@ namespace Cuyahoga.Core.DataAccess
 				countCriteria.Add(Expression.Eq("IsActive", isActive));
 			}
 			// Filter users that are related to the given site. Don't do this when already filtering on a role
-			// We'd like to do this, but NHibernate criteria doesn't seem to allow to create (sub)criteria on the same 
-			// property twice.
 			if (siteId.HasValue && ! roleId.HasValue)
 			{
-				DetachedCriteria roleIdsForSite = DetachedCriteria.For(typeof (Role), "roleSub")
-					.SetProjection(Projections.Property("roleSub.Id"))
+				// We need two subqueries to traverse two many-many relations. Directly creating 
+				// criteria on the collection properties results in a cartesian product.
+				DetachedCriteria roleIdsForSite = DetachedCriteria.For(typeof (Role))
+					.SetProjection(Projections.Property("Id"))
 					.CreateCriteria("Sites", "site")
 					.Add(Expression.Eq("site.Id", siteId.Value));
-
-				userCriteria.CreateCriteria("Roles", "r2").Add(Subqueries.PropertyIn("r2.Id", roleIdsForSite));
-				countCriteria.CreateCriteria("Roles", "r2").Add(Subqueries.PropertyIn("r2.Id", roleIdsForSite));
+				DetachedCriteria userIdsForRoles = DetachedCriteria.For(typeof(User))
+					.SetProjection(Projections.Distinct(Projections.Property("Id")))
+					.CreateCriteria("Roles")
+						.Add(Subqueries.PropertyIn("Id", roleIdsForSite));
+				userCriteria.Add(Subqueries.PropertyIn("Id", userIdsForRoles));
+				countCriteria.Add(Subqueries.PropertyIn("Id", userIdsForRoles));		
 			}
+
 			userCriteria.SetFirstResult((pageNumber - 1) * pageSize);
 			userCriteria.SetMaxResults(pageSize);
-			countCriteria.SetProjection(Projections.RowCount());
 
+			countCriteria.SetProjection(Projections.RowCount());
 			totalCount = (int) countCriteria.UniqueResult();
 
 			return userCriteria.List<User>();

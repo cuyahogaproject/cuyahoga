@@ -276,4 +276,28 @@
   <data name="WebsiteLabel" xml:space="preserve">
     <value>Web site</value>
   </data>
+  <data name="ChangePasswordLabel" xml:space="preserve">
+    <value>Change password</value>
+  </data>
+  <data name="PasswordChangedMessage" xml:space="preserve">
+    <value>The password is changed successfully.</value>
+  </data>
+  <data name="AreYouSure" xml:space="preserve">
+    <value>Are you sure?</value>
+  </data>
+  <data name="DeleteButtonLabel" xml:space="preserve">
+    <value>Delete</value>
+  </data>
+  <data name="UserDeletedMessage" xml:space="preserve">
+    <value>The user {0} is deleted successfully.</value>
+  </data>
+  <data name="DeleteYourselfNotAllowedException" xml:space="preserve">
+    <value>You can't delete yourself.</value>
+  </data>
+  <data name="UserCreatedMessage" xml:space="preserve">
+    <value>The user {0} is created successfully.</value>
+  </data>
+  <data name="UserUpdatedMessage" xml:space="preserve">
+    <value>The user {0} is updated successfully.</value>
+  </data>
 </root>

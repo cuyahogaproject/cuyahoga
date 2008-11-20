@@ -16,12 +16,17 @@
 		border-right: 8px solid #ccc;	
 	}
 
-	label 
+	fieldset label 
 	{  
 		width: 100px;  
 	}
+	
+	fieldset li
+	{
+		border: none;
+	}
 
-	label.error
+	fieldset label.error
 	{
 		margin-left: 110px;
 	}

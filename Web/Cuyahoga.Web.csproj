@@ -440,12 +440,12 @@
     <Compile Include="Manager\Views\Site\Index.aspx.designer.cs">
       <DependentUpon>Index.aspx</DependentUpon>
     </Compile>
-    <Compile Include="Manager\Views\Users\Edit.aspx.cs">
-      <DependentUpon>Edit.aspx</DependentUpon>
+    <Compile Include="Manager\Views\Users\EditUser.aspx.cs">
+      <DependentUpon>EditUser.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Manager\Views\Users\Edit.aspx.designer.cs">
-      <DependentUpon>Edit.aspx</DependentUpon>
+    <Compile Include="Manager\Views\Users\EditUser.aspx.designer.cs">
+      <DependentUpon>EditUser.aspx</DependentUpon>
     </Compile>
     <Compile Include="Manager\Views\Users\Index.aspx.cs">
       <DependentUpon>Index.aspx</DependentUpon>
@@ -454,12 +454,33 @@
     <Compile Include="Manager\Views\Users\Index.aspx.designer.cs">
       <DependentUpon>Index.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Manager\Views\Users\NewUser.aspx.cs">
+      <DependentUpon>NewUser.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Manager\Views\Users\NewUser.aspx.designer.cs">
+      <DependentUpon>NewUser.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Manager\Views\Users\Roles.aspx.cs">
       <DependentUpon>Roles.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="Manager\Views\Users\Roles.aspx.designer.cs">
       <DependentUpon>Roles.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Manager\Views\Users\RoleSelector.ascx.cs">
+      <DependentUpon>RoleSelector.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Manager\Views\Users\RoleSelector.ascx.designer.cs">
+      <DependentUpon>RoleSelector.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Manager\Views\Users\SharedUserFormElements.ascx.cs">
+      <DependentUpon>SharedUserFormElements.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Manager\Views\Users\SharedUserFormElements.ascx.designer.cs">
+      <DependentUpon>SharedUserFormElements.ascx</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
@@ -692,6 +713,7 @@
     <Content Include="Manager\Content\Css\Manager.css" />
     <Content Include="Manager\Content\Css\thickbox.css" />
     <Content Include="Manager\Content\Images\cancel.png" />
+    <Content Include="Manager\Content\Images\cross.gif" />
     <Content Include="Manager\Content\Images\cuyahoga-logo.png" />
     <Content Include="Manager\Content\Images\error.png" />
     <Content Include="Manager\Content\Images\exclamation.png" />
@@ -767,9 +789,12 @@
     <Content Include="Manager\Views\Shared\Messages.ascx" />
     <Content Include="Manager\Views\Shared\SiteChooser.ascx" />
     <Content Include="Manager\Views\Site\Index.aspx" />
-    <Content Include="Manager\Views\Users\Edit.aspx" />
+    <Content Include="Manager\Views\Users\EditUser.aspx" />
     <Content Include="Manager\Views\Users\Index.aspx" />
+    <Content Include="Manager\Views\Users\NewUser.aspx" />
     <Content Include="Manager\Views\Users\Roles.aspx" />
+    <Content Include="Manager\Views\Users\RoleSelector.ascx" />
+    <Content Include="Manager\Views\Users\SharedUserFormElements.ascx" />
     <Content Include="Profile.aspx">
       <SubType>Form</SubType>
     </Content>

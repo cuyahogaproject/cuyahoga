@@ -24,6 +24,19 @@
 			<h1><%= Html.Encode(ViewData["Title"]) %></h1> 
 			<asp:ContentPlaceHolder id="cphMain" runat="server">
 			</asp:ContentPlaceHolder>
+			<script type="text/javascript">
+				/* Common js functionality. Requires jquery 1.2.x */
+				$(document).ready(function() {
+	
+					// Attach a delete event handler to all a tags that have the deletelink class.
+					$('a.deletelink').click(function() {
+						if (confirm('<%= GlobalResources.AreYouSure %>')) {
+							$(this).parents('form').submit();
+						}
+					});
+							
+				});
+			</script>
 		</div>
 	</body>
 </html>

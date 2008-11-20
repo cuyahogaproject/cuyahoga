@@ -1,5 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Web.Mvc;
+using Castle.Components.Validator;
 using Cuyahoga.Core.DataAccess;
 using Cuyahoga.Core.Domain;
 using Cuyahoga.Core.Service.Membership;
@@ -7,29 +9,26 @@ using Cuyahoga.Core.Util;
 using Cuyahoga.Web.Manager.Filters;
 using Cuyahoga.Web.Mvc.Paging;
 using Resources.Cuyahoga.Web.Manager;
+using CuyahogaUser = Cuyahoga.Core.Domain.User;
 
 namespace Cuyahoga.Web.Manager.Controllers
 {
 	[PermissionFilter(RequiredRights = Rights.ManageUsers)]
 	public class UsersController : SecureController
 	{
-		private readonly ICommonDao _commonDao;
 		private readonly IUserService _userService;
 		private const int pageSize = 20;
 
-		public UsersController(ICommonDao commonDao, IUserService userService)
+		public UsersController(IUserService userService)
 		{
-			this._commonDao = commonDao;
 			this._userService = userService;
 		}
 
-		[AcceptVerbs(HttpVerbs.Get)]
 		public ActionResult Index(int? page)
 		{
 			return Browse(null, null, null, null, page);
 		}
 
-		[AcceptVerbs(HttpVerbs.Get)]
 		public ActionResult Browse(string username, int? roleId, bool? isActive, bool? globalSearch, int? page)
 		{
 			ViewData["Title"] = GlobalResources.ManageUsersPageTitle;
@@ -49,27 +48,135 @@ namespace Cuyahoga.Web.Manager.Controllers
 			return View("Index", new PagedList<User>(users, page.HasValue ? page.Value -1 : 0, pageSize, totalCount));
 		}
 
-		[AcceptVerbs(HttpVerbs.Get)]
 		public ActionResult New()
 		{
 			ViewData["Title"] = GlobalResources.NewUserPageTitle;
 			ViewData["Roles"] = this._userService.GetAllRolesBySite(CuyahogaContext.CurrentSite);
 			User user = new User();
 			ViewData["TimeZones"] = new SelectList(TimeZoneUtil.GetTimeZones(), "Key", "Value", user.TimeZone);
-			return View("Edit", user);
+			return View("NewUser", user);
 		}
 
-		[AcceptVerbs(HttpVerbs.Get)]
 		public ActionResult Edit(int id)
 		{
 			ViewData["Title"] = GlobalResources.EditUserPageTitle;
 			ViewData["Roles"] = this._userService.GetAllRolesBySite(CuyahogaContext.CurrentSite);
 			User user = this._userService.GetUserById(id);
 			ViewData["TimeZones"] = new SelectList(TimeZoneUtil.GetTimeZones(), "Key", "Value", user.TimeZone);
-			return View("Edit", user);
+			return View("EditUser", user);
 		}
 
-		[AcceptVerbs(HttpVerbs.Get)]
+		[AcceptVerbs(HttpVerbs.Post)]
+		public ActionResult Create(int[] roleIds)
+		{
+			User newUser = new User();
+			try
+			{
+				UpdateModel(newUser, new []{ "UserName", "FirstName", "LastName", "Email", "Website", "IsActive", "TimeZone"});
+				newUser.Password = CuyahogaUser.HashPassword(Request.Form["Password"]);
+				newUser.PasswordConfirmation = CuyahogaUser.HashPassword(Request.Form["PasswordConfirmation"]);
+				if (roleIds.Length > 0)
+				{
+					IList<Role> roles = this._userService.GetRolesByIds(roleIds);
+					foreach (Role role in roles)
+					{
+						newUser.Roles.Add(role);
+					}
+				}
+
+				if (ValidateModel(newUser))
+				{
+					this._userService.CreateUser(newUser);
+					ShowMessage(String.Format(GlobalResources.UserCreatedMessage, newUser.UserName), true);
+					return RedirectToAction("Index");
+				}
+			}
+			catch (Exception ex)
+			{
+				ShowException(ex);
+			}
+			ViewData["Title"] = GlobalResources.NewUserPageTitle;
+			ViewData["Roles"] = this._userService.GetAllRolesBySite(CuyahogaContext.CurrentSite);
+			ViewData["TimeZones"] = new SelectList(TimeZoneUtil.GetTimeZones(), "Key", "Value", newUser.TimeZone);
+			return View("NewUser", newUser);
+		}
+
+		[AcceptVerbs(HttpVerbs.Post)]
+		public ActionResult Update(int id, int[] roleIds)
+		{
+			User user = this._userService.GetUserById(id);
+			user.Roles.Clear();
+			try
+			{
+				UpdateModel(user, new[] { "UserName", "FirstName", "LastName", "Email", "Website", "IsActive", "TimeZone" });
+				
+				if (roleIds.Length > 0)
+				{
+					IList<Role> roles = this._userService.GetRolesByIds(roleIds);
+					foreach (Role role in roles)
+					{
+						user.Roles.Add(role);
+					}
+				}
+
+				if (ValidateModel(user, new[] { "FirstName", "LastName", "Email", "Website", "Roles" }))
+				{
+					this._userService.UpdateUser(user);
+					ShowMessage(String.Format(GlobalResources.UserUpdatedMessage, user.UserName), true);
+					return RedirectToAction("Index");
+				}
+			}
+			catch (Exception ex)
+			{
+				ShowException(ex);
+			}
+			ViewData["Title"] = GlobalResources.EditUserPageTitle;
+			ViewData["Roles"] = this._userService.GetAllRolesBySite(CuyahogaContext.CurrentSite);
+			ViewData["TimeZones"] = new SelectList(TimeZoneUtil.GetTimeZones(), "Key", "Value", user.TimeZone);
+			return View("EditUser", user);
+		}
+
+		[AcceptVerbs(HttpVerbs.Post)]
+		public ActionResult ChangePassword(int id, string password, string passwordConfirmation)
+		{
+			User user = this._userService.GetUserById(id);
+			try
+			{
+				user.Password = CuyahogaUser.HashPassword(password);
+				user.PasswordConfirmation = CuyahogaUser.HashPassword(passwordConfirmation);
+
+				if (ValidateModel(user, new[] { "Password", "PasswordConfirmation" }))
+				{
+					this._userService.UpdateUser(user);
+					ShowMessage(GlobalResources.PasswordChangedMessage);
+				}
+			}
+			catch (Exception ex)
+			{
+				ShowException(ex);
+			}
+			ViewData["Title"] = GlobalResources.EditUserPageTitle;
+			ViewData["Roles"] = this._userService.GetAllRolesBySite(CuyahogaContext.CurrentSite);
+			ViewData["TimeZones"] = new SelectList(TimeZoneUtil.GetTimeZones(), "Key", "Value", user.TimeZone);
+			return View("EditUser", user);
+		}
+
+		[AcceptVerbs(HttpVerbs.Post)]
+		public ActionResult Delete(int id)
+		{
+			User user = this._userService.GetUserById(id);
+			try
+			{
+				this._userService.DeleteUser(user);
+				ShowMessage(String.Format(GlobalResources.UserDeletedMessage, user.UserName), true);
+			}
+			catch(Exception ex)
+			{
+				ShowException(ex, true);
+			}
+			return RedirectToAction("Index");
+		}
+
 		public ActionResult Roles()
 		{
 			ViewData["Title"] = GlobalResources.ManageRolesPageTitle;

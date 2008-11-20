@@ -420,9 +420,11 @@ namespace Cuyahoga.Web.Mvc.Validation
 
 		static string GetPrefixedFieldld(string target, string field)
 		{
-			string[] parts = target.Split('_');
+			//string[] parts = target.Split('_');
 
-			return string.Join("_", parts, 0, parts.Length - 1) + "_" + field;
+			//return string.Join("_", parts, 0, parts.Length - 1) + "_" + field;
+			// TODO: make this work with prefixes
+			return field;
 		}
 
 		static string GetPrefixJQuerySelector(string target)

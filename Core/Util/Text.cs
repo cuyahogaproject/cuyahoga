@@ -59,5 +59,29 @@ namespace Cuyahoga.Core.Util
 				return stringThatNeedsTrailingSlash;
 			}
 		}
+
+		public static int[] ExtractIntegersFromCommaSeparatedString(string values)
+		{
+			if (String.IsNullOrEmpty(values))
+			{
+				throw new ArgumentException("Values may not be null or empty", "values");
+			}
+			string[] valueArray = values.Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries);
+			if (valueArray.Length > 0)
+			{
+				int[] integerValues = new int[valueArray.Length];
+				int i = 0;
+				foreach (string stringValue in valueArray)
+				{
+					integerValues[i] = Int32.Parse(stringValue);
+					i++;
+				}
+				return integerValues;
+			}
+			else
+			{
+				return new int[0];
+			}
+		}
 	}
 }

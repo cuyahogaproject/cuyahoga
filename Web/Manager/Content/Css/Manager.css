@@ -70,7 +70,7 @@ fieldset label.error
 	display: inline;
 }
 
-input.error
+input.error, .input-validation-error
 {
 	border: 1px solid #f00;
 }
@@ -105,6 +105,12 @@ fieldset fieldset label
 a
 {
 	color: #369;
+	text-decoration: none;
+}
+
+a:hover
+{
+	text-decoration: underline;
 }
 
 #header
@@ -335,4 +341,9 @@ table.grid tr.selected
 	padding:3px 5px;
 	text-align:center;
 	text-decoration:none;
+}
+
+.validation-summary-errors
+{
+	color: #f00;
 }

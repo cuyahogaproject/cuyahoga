@@ -54,9 +54,9 @@ namespace Cuyahoga.Core.Domain
 		/// <summary>
 		/// Property Password (string). Internally the MD5 hash of the password is used.
 		/// </summary>
-		[ValidateNonEmpty("PasswordValidatorNonEmpty", RunWhen = RunWhen.Custom)]
-		[ValidateLength(5, 100, "PasswordValidatorLength")]
-		[ValidateSameAs("PasswordConfirmation", "PasswordValidatorSameAs", RunWhen = RunWhen.Custom)]
+		[ValidateNonEmpty("PasswordValidatorNonEmpty")]
+		[ValidateLength(5, 50, "PasswordValidatorLength")]
+		[ValidateSameAs("PasswordConfirmation", "PasswordValidatorSameAs")]
 		public virtual string Password
 		{
 			get { return this._password; }
@@ -66,7 +66,9 @@ namespace Cuyahoga.Core.Domain
 		/// <summary>
 		/// Password confirmation.
 		/// </summary>
-		[ValidateNonEmpty("PasswordConfirmationValidatorNonEmpty", RunWhen = RunWhen.Custom)]
+		[ValidateNonEmpty("PasswordConfirmationValidatorNonEmpty")]
+		[ValidateLength(5, 50, "PasswordValidatorLength")]
+		[ValidateSameAs("Password", "PasswordValidatorSameAs")]
 		public virtual string PasswordConfirmation
 		{
 			get { return _passwordConfirmation; }
@@ -101,8 +103,8 @@ namespace Cuyahoga.Core.Domain
 		{
 			get 
 			{ 
-				if (this._firstName != null && this._firstName != String.Empty 
-					&& this._lastName != null && this._lastName != String.Empty)
+				if (!string.IsNullOrEmpty(this._firstName) 
+					&& !string.IsNullOrEmpty(this._lastName))
 				{
 					return this._firstName + " " + this._lastName; 
 				}

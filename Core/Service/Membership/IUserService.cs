@@ -56,6 +56,12 @@ namespace Cuyahoga.Core.Service.Membership
 		string CreateUser(string username, string email, Site site);
 
 		/// <summary>
+		/// Create a new user.
+		/// </summary>
+		/// <param name="user"></param>
+		void CreateUser(User user);
+
+		/// <summary>
 		/// Update an existing user.
 		/// </summary>
 		/// <param name="user"></param>
@@ -94,6 +100,13 @@ namespace Cuyahoga.Core.Service.Membership
 		/// <param name="roleId"></param>
 		/// <returns></returns>
 		Role GetRoleById(int roleId);
+
+		/// <summary>
+		/// Get roles for the given id's.
+		/// </summary>
+		/// <param name="roleIds"></param>
+		/// <returns></returns>
+		IList<Role> GetRolesByIds(int[] roleIds);
 
 		/// <summary>
 		/// Get all available rights.

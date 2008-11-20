@@ -70,6 +70,15 @@ namespace Resources.Cuyahoga.Web.Manager {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Are you sure?.
+        /// </summary>
+        internal static string AreYouSure {
+            get {
+                return ResourceManager.GetString("AreYouSure", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to An error occured while authenticating the user..
         /// </summary>
         internal static string AuthenticationException {
@@ -84,6 +93,15 @@ namespace Resources.Cuyahoga.Web.Manager {
         internal static string CancelLabel {
             get {
                 return ResourceManager.GetString("CancelLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Change password.
+        /// </summary>
+        internal static string ChangePasswordLabel {
+            get {
+                return ResourceManager.GetString("ChangePasswordLabel", resourceCulture);
             }
         }
         
@@ -120,6 +138,24 @@ namespace Resources.Cuyahoga.Web.Manager {
         internal static string DashboardPageTitle {
             get {
                 return ResourceManager.GetString("DashboardPageTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Delete.
+        /// </summary>
+        internal static string DeleteButtonLabel {
+            get {
+                return ResourceManager.GetString("DeleteButtonLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to You can&apos;t delete yourself..
+        /// </summary>
+        internal static string DeleteYourselfNotAllowedException {
+            get {
+                return ResourceManager.GetString("DeleteYourselfNotAllowedException", resourceCulture);
             }
         }
         
@@ -439,6 +475,15 @@ namespace Resources.Cuyahoga.Web.Manager {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to The password is changed successfully..
+        /// </summary>
+        internal static string PasswordChangedMessage {
+            get {
+                return ResourceManager.GetString("PasswordChangedMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Password.
         /// </summary>
         internal static string PasswordLabel {
@@ -502,6 +547,24 @@ namespace Resources.Cuyahoga.Web.Manager {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to The user {0} is created successfully..
+        /// </summary>
+        internal static string UserCreatedMessage {
+            get {
+                return ResourceManager.GetString("UserCreatedMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The user {0} is deleted successfully..
+        /// </summary>
+        internal static string UserDeletedMessage {
+            get {
+                return ResourceManager.GetString("UserDeletedMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Username.
         /// </summary>
         internal static string UsernameLabel {
@@ -516,6 +579,15 @@ namespace Resources.Cuyahoga.Web.Manager {
         internal static string UserNullException {
             get {
                 return ResourceManager.GetString("UserNullException", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The user {0} is updated successfully..
+        /// </summary>
+        internal static string UserUpdatedMessage {
+            get {
+                return ResourceManager.GetString("UserUpdatedMessage", resourceCulture);
             }
         }
         

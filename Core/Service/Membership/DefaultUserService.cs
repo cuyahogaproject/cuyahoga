@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Security;
 using System.Threading;
+using Castle.Services.Transaction;
 using Cuyahoga.Core.Domain;
 using Cuyahoga.Core.DataAccess;
 using Cuyahoga.Core.Util;
@@ -12,6 +13,7 @@ namespace Cuyahoga.Core.Service.Membership
 	/// <summary>
 	/// Provides functionality for user management based on Cuyahoga's internal database.
 	/// </summary>
+	[Transactional]
 	public class DefaultUserService : IUserService
 	{
 		private IUserDao _userDao;
@@ -69,6 +71,7 @@ namespace Cuyahoga.Core.Service.Membership
 			return this._userDao.GetUserByUsernameAndEmail(username, email);
 		}
 
+		[Transaction(TransactionMode.RequiresNew)]
 		public string CreateUser(string username, string email, Site currentSite)
 		{
 			User user = new User();
@@ -83,13 +86,26 @@ namespace Cuyahoga.Core.Service.Membership
 			return newPassword;
 		}
 
+		[Transaction(TransactionMode.RequiresNew)]
+		public void CreateUser(User user)
+		{
+			this._commonDao.SaveObject(user);
+		}
+
+		[Transaction(TransactionMode.RequiresNew)]
 		public void UpdateUser(User user)
 		{
 			this._commonDao.SaveOrUpdateObject(user);
 		}
 
+		[Transaction(TransactionMode.RequiresNew)]
 		public void DeleteUser(User user)
 		{
+			User currentUser = Thread.CurrentPrincipal as User;
+			if (currentUser != null && currentUser.Id == user.Id)
+			{
+				throw new DeleteForbiddenException("DeleteYourselfNotAllowedException");
+			}
 			this._commonDao.DeleteObject(user);
 		}
 
@@ -120,6 +136,10 @@ namespace Cuyahoga.Core.Service.Membership
 			return (Role)this._commonDao.GetObjectById(typeof(Role), roleId);
 		}
 
+		public IList<Role> GetRolesByIds(int[] roleIds)
+		{
+			return this._commonDao.GetByIds<Role>(roleIds);
+		}
 
 		/// <summary>
 		/// Get all available rights.

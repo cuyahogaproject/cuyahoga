@@ -403,8 +403,10 @@
     </Compile>
     <Compile Include="Validation\CachedLocalizedValidatorRegistry.cs" />
     <Compile Include="Util\CommonUtils.cs" />
+    <Compile Include="Validation\CastleModelValidator.cs" />
     <Compile Include="Validation\IBrowserValidatorProvider.cs" />
     <Compile Include="Validation\ILocalizedValidatorRegistry.cs" />
+    <Compile Include="Validation\IModelValidator.cs" />
     <Compile Include="Validation\ValidationEngine.cs" />
     <Compile Include="Validation\ValidationEngineAccessor.cs" />
     <Compile Include="Validation\ValidationError.cs" />

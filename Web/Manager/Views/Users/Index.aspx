@@ -43,7 +43,12 @@
 						<td><%= user.IsActive %></td>
 						<td><%= user.LastLogin %></td>
 						<td><%= user.LastIp %></td>
-						<td><%= Html.ActionLink(GlobalResources.EditLabel, "Edit", new { id = user.Id }) %></td>
+						<td>
+							<%= Html.ActionLink(GlobalResources.EditLabel, "Edit", new { id = user.Id }) %>
+							<% using (Html.BeginForm("Delete", "Users", new { id = user.Id }, FormMethod.Post)) { %>
+								<a href="#" class="deletelink"><%= GlobalResources.DeleteButtonLabel %></a>
+							<% } %>
+						</td>
 					</tr>
 				<% } %>
 			</tbody>

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Security;
 using System.Threading;
 using System.Web.Mvc;
@@ -8,6 +9,7 @@ using Cuyahoga.Core;
 using Cuyahoga.Core.Domain;
 using Cuyahoga.Core.Service.Membership;
 using Cuyahoga.Core.Service.SiteStructure;
+using Cuyahoga.Core.Validation;
 using Cuyahoga.Web.Manager.Filters;
 using Cuyahoga.Web.Manager.Model.ViewModels;
 using Cuyahoga.Web.Mvc;
@@ -25,9 +27,9 @@ namespace Cuyahoga.Web.Manager.Controllers
 	{
 		private ICuyahogaContext _cuyahogaContext;
 		private ISiteService _siteService;
-		private IValidatorRunner _validatorRunner;
 		private ILogger _logger = NullLogger.Instance;
 		private MessageViewData _messageViewData;
+		private IModelValidator _modelValidator;
 
 		/// <summary>
 		/// Get or sets the Cuyahoga context.
@@ -46,21 +48,13 @@ namespace Cuyahoga.Web.Manager.Controllers
 			protected get { return this._siteService; }
 			set { this._siteService = value; }
 		}
-
+		
 		/// <summary>
-		/// Sets the Validator registry.
+		/// Sets the ModelValidator.
 		/// </summary>
-		public IValidatorRegistry ValidatorRegistry
+		public IModelValidator ModelValidator
 		{
-			set { this._validatorRunner = new ValidatorRunner(value); }
-		}
-
-		/// <summary>
-		/// The validator runner.
-		/// </summary>
-		public IValidatorRunner ValidatorRunner
-		{
-			get { return this._validatorRunner; }
+			set { this._modelValidator = value; }
 		}
 
 		/// <summary>
@@ -72,45 +66,38 @@ namespace Cuyahoga.Web.Manager.Controllers
 			set { this._logger = value; }
 		}
 
+		/// <summary>
+		/// Validates the given object. If invalid, the errors are added to the ModelState.
+		/// </summary>
+		/// <param name="objectToValidate">The object to validate</param>
+		/// <returns>True if the object is valid</returns>
 		protected virtual bool ValidateModel(object objectToValidate)
 		{
-			if (! ValidatorRunner.IsValid(objectToValidate))
+			return ValidateModel(objectToValidate, null);
+		}
+
+		/// <summary>
+		/// Validates the given object. If invalid, the errors are added to the ModelState.
+		/// </summary>
+		/// <param name="objectToValidate">The object to validate</param>
+		/// <param name="includeProperties">Properties to check</param>
+		/// <returns>True if the object is valid</returns>
+		protected virtual bool ValidateModel(object objectToValidate, string[] includeProperties)
+		{
+			if (! this._modelValidator.IsValid(objectToValidate, includeProperties))
 			{
-				ErrorSummary errorSummary = ValidatorRunner.GetErrorSummary(objectToValidate);
-				if (errorSummary.HasError)
+				IDictionary<string, string[]> errorsForProperties = this._modelValidator.GetErrors();
+				foreach (KeyValuePair<string, string[]> errorsForProperty in errorsForProperties)
 				{
-					foreach (string property in errorSummary.InvalidProperties)
+					string propertyName = errorsForProperty.Key;
+					foreach (string errorMessage in errorsForProperty.Value)
 					{
-						var errorsForProperty = errorSummary.GetErrorsForProperty(property);
-						foreach (var error in errorsForProperty)
-						{
-							ViewData.ModelState.AddModelError(property, error);
-						}
+						ViewData.ModelState.AddModelError(propertyName, errorMessage);
 					}
 				}
 				return false;
 			}
 			return true;
-		}
-
-		protected virtual void ShowMessage(string message)
-		{
-			RegisterMessage(MessageType.Message, message);
-		}
-
-		protected virtual void ShowError(string error)
-		{
-			RegisterMessage(MessageType.Error, error);
-		}
-
-		protected virtual void ShowException(Exception exception)
-		{
-			RegisterMessage(MessageType.Exception, exception.Message);
-			while (exception.InnerException != null)
-			{
-				exception = exception.InnerException;
-				RegisterMessage(MessageType.Exception, exception.Message);
-			}
 		}
 
 		protected override void OnActionExecuting(ActionExecutingContext filterContext)
@@ -119,6 +106,41 @@ namespace Cuyahoga.Web.Manager.Controllers
 			InitMessageViewData();
 			InitMenuViewData();
 			base.OnActionExecuting(filterContext);
+		}
+
+		protected virtual void ShowMessage(string message)
+		{
+			ShowMessage(message, false);
+		}
+
+		protected virtual void ShowMessage(string message, bool persistForNextRequest)
+		{
+			RegisterMessage(MessageType.Message, message, persistForNextRequest);
+		}
+
+		protected virtual void ShowError(string error)
+		{
+			ShowError(error, false);
+		}
+
+		protected virtual void ShowError(string error, bool persistForNextRequest)
+		{
+			RegisterMessage(MessageType.Error, error, persistForNextRequest);
+		}
+
+		protected virtual void ShowException(Exception exception)
+		{
+			ShowException(exception, false);
+		}
+
+		protected virtual void ShowException(Exception exception, bool persistForNextRequest)
+		{
+			RegisterMessage(MessageType.Exception, exception.Message, persistForNextRequest);
+			while (exception.InnerException != null)
+			{
+				exception = exception.InnerException;
+				RegisterMessage(MessageType.Exception, exception.Message, persistForNextRequest);
+			}
 		}
 
 		private void SetCurrentSite()
@@ -139,14 +161,34 @@ namespace Cuyahoga.Web.Manager.Controllers
 
 		private void InitMessageViewData()
 		{
-			this._messageViewData = new MessageViewData();
+			if (TempData.ContainsKey("Messages"))
+			{
+				this._messageViewData = new MessageViewData((MessageViewData)TempData["Messages"]);
+			}
+			else
+			{
+				this._messageViewData = new MessageViewData();
+			}
 			ViewData["Messages"] = this._messageViewData;
 		}
 
-		private void RegisterMessage(string messageType, string message)
+		private void RegisterMessage(string messageType, string message, bool persistForNextRequest)
 		{
 			string localizedMessage = GlobalResources.ResourceManager.GetString(message, Thread.CurrentThread.CurrentUICulture);
-			this._messageViewData.AddMessage(messageType, localizedMessage ?? message);
+			this._messageViewData.AddMessage(messageType, localizedMessage ?? message, persistForNextRequest);
+			if (persistForNextRequest)
+			{
+				// Just persist the messages directly.
+				PersistMessages();
+			}
+		}
+
+		private void PersistMessages()
+		{
+			if (this._messageViewData.HasFlashMessages)
+			{
+				TempData["Messages"] = this._messageViewData.GetFlashMessages();
+			}
 		}
 
 		private void InitMenuViewData()

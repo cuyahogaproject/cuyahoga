@@ -172,7 +172,7 @@
     <value>Gebruikersnaam</value>
   </data>
   <data name="UserNullException" xml:space="preserve">
-    <value>De huidige gebruiker is geen officieel ingelogde Cuyahoga gebruiker </value>
+    <value>De huidige gebruiker is geen officieel ingelogde Cuyahoga gebruiker.</value>
   </data>
   <data name="CreateUserLabel" xml:space="preserve">
     <value>Nieuwe gebruiker</value>
@@ -184,7 +184,7 @@
     <value>Rol</value>
   </data>
   <data name="EditLabel" xml:space="preserve">
-    <value>Wijzig</value>
+    <value>Wijzigen</value>
   </data>
   <data name="EmailLabel" xml:space="preserve">
     <value>E-mail</value>
@@ -205,7 +205,7 @@
     <value>Nee</value>
   </data>
   <data name="NoUsersFound" xml:space="preserve">
-    <value>Geen gebruiker(s) gevonden</value>
+    <value>Geen gebruiker(s) gevonden.</value>
   </data>
   <data name="OptionAll" xml:space="preserve">
     <value>Alle</value>
@@ -257,5 +257,29 @@
   </data>
   <data name="WebsiteLabel" xml:space="preserve">
     <value>Website</value>
+  </data>
+  <data name="ChangePasswordLabel" xml:space="preserve">
+    <value>Verander wachtwoord</value>
+  </data>
+  <data name="PasswordChangedMessage" xml:space="preserve">
+    <value>Het wachtwoord is gewijzigd.</value>
+  </data>
+  <data name="AreYouSure" xml:space="preserve">
+    <value>Zeker weten?</value>
+  </data>
+  <data name="DeleteButtonLabel" xml:space="preserve">
+    <value>Verwijderen</value>
+  </data>
+  <data name="UserDeletedMessage" xml:space="preserve">
+    <value>De gebruiker {0} is verwijderd.</value>
+  </data>
+  <data name="DeleteYourselfNotAllowedException" xml:space="preserve">
+    <value>Je kunt jezelf niet verwijderen.</value>
+  </data>
+  <data name="UserCreatedMessage" xml:space="preserve">
+    <value>De gebruiker {0} is aangemaakt.</value>
+  </data>
+  <data name="UserUpdatedMessage" xml:space="preserve">
+    <value>De gebruiker {0} is gewijzigd.</value>
   </data>
 </root>

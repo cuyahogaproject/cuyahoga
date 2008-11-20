@@ -12,7 +12,7 @@ namespace Cuyahoga.Web.Manager.Views.Users
 {
 
 
-	public partial class Edit
+	public partial class RoleSelector
 	{
 	}
 }
