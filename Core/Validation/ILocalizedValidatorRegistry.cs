@@ -15,5 +15,12 @@ namespace Cuyahoga.Core.Validation
 		{
 			get; set;
 		}
+
+		/// <summary>
+		/// Get a localized error message from the given message.
+		/// </summary>
+		/// <param name="originalMessage">The original message. This would probably be a resource key.</param>
+		/// <returns>The translated message, or the original if no translation was found.</returns>
+		string TranslateErrorMessage(string originalMessage);
 	}
 }

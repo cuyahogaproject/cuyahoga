@@ -35,7 +35,6 @@
 <asp:Content ID="Content2" ContentPlaceHolderID="cphMain" runat="server">
 	<div id="loginpanel">
 		<h1><%= GlobalResources.LoginPageTitle %></h1>
-		 
 		<% using (Html.BeginForm("Login", "Login", FormMethod.Post, new { id = "loginform" })) { %>
 			<%= Html.Hidden("ReturnUrl", ViewData["ReturnUrl"]) %>
 			<fieldset>
@@ -50,7 +49,7 @@
 				</li>
 			</ol>
 			</fieldset>
-			<%= Html.ClientSideValidation(ViewData.Model, "loginform") %>
+			<%--<%= Html.ClientSideValidation(ViewData.Model, "loginform") %>--%>
 			<input type="submit" value="Login" />
 		<% } %>
 	</div>

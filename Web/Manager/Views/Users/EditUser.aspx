@@ -5,7 +5,6 @@
 <asp:Content ID="Content2" ContentPlaceHolderID="cphTasks" runat="server">
 </asp:Content>
 <asp:Content ID="Content3" ContentPlaceHolderID="cphMain" runat="server">
-	<%= Html.ValidationSummary() %>	
 	<% using(Html.BeginForm("Update", "Users", new { id = ViewData.Model.Id }, FormMethod.Post, new { id = "userform" })) { %>
 		<fieldset>
 			<legend><%=GlobalResources.GeneralLabel%></legend>

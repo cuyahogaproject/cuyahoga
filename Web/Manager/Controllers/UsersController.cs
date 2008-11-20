@@ -1,11 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Web.Mvc;
-using Castle.Components.Validator;
-using Cuyahoga.Core.DataAccess;
 using Cuyahoga.Core.Domain;
 using Cuyahoga.Core.Service.Membership;
 using Cuyahoga.Core.Util;
+using Cuyahoga.Core.Validation;
 using Cuyahoga.Web.Manager.Filters;
 using Cuyahoga.Web.Mvc.Paging;
 using Resources.Cuyahoga.Web.Manager;
@@ -19,7 +18,7 @@ namespace Cuyahoga.Web.Manager.Controllers
 		private readonly IUserService _userService;
 		private const int pageSize = 20;
 
-		public UsersController(IUserService userService)
+		public UsersController(IUserService userService, UserModelValidator userModelValidator) : base(userModelValidator)
 		{
 			this._userService = userService;
 		}

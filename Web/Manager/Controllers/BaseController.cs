@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Security;
+using System.Text;
 using System.Threading;
 using System.Web.Mvc;
-using Castle.Components.Validator;
 using Castle.Core.Logging;
 using Cuyahoga.Core;
 using Cuyahoga.Core.Domain;
@@ -29,7 +29,7 @@ namespace Cuyahoga.Web.Manager.Controllers
 		private ISiteService _siteService;
 		private ILogger _logger = NullLogger.Instance;
 		private MessageViewData _messageViewData;
-		private IModelValidator _modelValidator;
+		private readonly IModelValidator _modelValidator;
 
 		/// <summary>
 		/// Get or sets the Cuyahoga context.
@@ -48,14 +48,6 @@ namespace Cuyahoga.Web.Manager.Controllers
 			protected get { return this._siteService; }
 			set { this._siteService = value; }
 		}
-		
-		/// <summary>
-		/// Sets the ModelValidator.
-		/// </summary>
-		public IModelValidator ModelValidator
-		{
-			set { this._modelValidator = value; }
-		}
 
 		/// <summary>
 		/// Gets or sets the logger.
@@ -64,6 +56,22 @@ namespace Cuyahoga.Web.Manager.Controllers
 		{
 			get { return this._logger; }
 			set { this._logger = value; }
+		}
+
+		/// <summary>
+		/// Empty default constructor.
+		/// </summary>
+		public BaseController()
+		{
+		}
+
+		/// <summary>
+		/// Constructor that accepts an <see cref="IModelValidator"></see>.
+		/// </summary>
+		/// <param name="modelValidator"></param>
+		public BaseController(IModelValidator modelValidator)
+		{
+			this._modelValidator = modelValidator;
 		}
 
 		/// <summary>
@@ -84,10 +92,14 @@ namespace Cuyahoga.Web.Manager.Controllers
 		/// <returns>True if the object is valid</returns>
 		protected virtual bool ValidateModel(object objectToValidate, string[] includeProperties)
 		{
+			if (this._modelValidator == null)
+			{
+				throw new InvalidOperationException("A call to Validate() was made while there is no IModelValidator attached to the controller. You have to supply an IModelValidator in the constructor of the controller.");
+			}
 			if (! this._modelValidator.IsValid(objectToValidate, includeProperties))
 			{
-				IDictionary<string, string[]> errorsForProperties = this._modelValidator.GetErrors();
-				foreach (KeyValuePair<string, string[]> errorsForProperty in errorsForProperties)
+				IDictionary<string, ICollection<string>> errorsForProperties = this._modelValidator.GetErrors();
+				foreach (KeyValuePair<string, ICollection<string>> errorsForProperty in errorsForProperties)
 				{
 					string propertyName = errorsForProperty.Key;
 					foreach (string errorMessage in errorsForProperty.Value)
@@ -106,6 +118,34 @@ namespace Cuyahoga.Web.Manager.Controllers
 			InitMessageViewData();
 			InitMenuViewData();
 			base.OnActionExecuting(filterContext);
+		}
+
+		protected override void  OnActionExecuted(ActionExecutedContext filterContext)
+		{
+			DisplayModelStateErrors();
+ 			base.OnActionExecuted(filterContext);
+		}
+
+		private void DisplayModelStateErrors()
+		{
+			// Show the ModelState errors in the standard Cuyahoga errorbox.
+			if (! ViewData.ModelState.IsValid)
+			{
+				string generalMessage = GlobalResources.ModelValidationErrorMessage;
+				TagBuilder errorList = new TagBuilder("ul");
+				StringBuilder errorSummary = new StringBuilder();
+				foreach (KeyValuePair<string, ModelState> modelStateKvp in ViewData.ModelState)
+				{
+					foreach (ModelError modelError in modelStateKvp.Value.Errors)
+					{
+						TagBuilder listItem = new TagBuilder("li");
+						listItem.SetInnerText(modelError.ErrorMessage);
+						errorSummary.AppendLine(listItem.ToString(TagRenderMode.Normal));
+					}
+				}
+				errorList.InnerHtml = errorSummary.ToString();
+				RegisterMessage(MessageType.Error, generalMessage + errorList.ToString(TagRenderMode.Normal), false);
+			}
 		}
 
 		protected virtual void ShowMessage(string message)

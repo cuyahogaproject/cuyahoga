@@ -261,6 +261,11 @@ a:hover
 	background: #fcc url(../Images/exclamation.png) no-repeat 8px 11px;
 }
 
+.errorbox ul
+{
+	margin: 7px 0 0 0;
+}
+
 .exceptionbox
 {
 	color: #c00;

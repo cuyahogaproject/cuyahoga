@@ -7,10 +7,10 @@ namespace Cuyahoga.Core.Validation
 {
 	public class ValidationEngine
 	{
-		private IValidatorRegistry _validatorRegistry;
+		private ILocalizedValidatorRegistry _validatorRegistry;
 		private IBrowserValidatorProvider _browserValidatorProvider;
 
-		public ValidationEngine(IValidatorRegistry validatorRegistry, IBrowserValidatorProvider browserValidatorProvider)
+		public ValidationEngine(ILocalizedValidatorRegistry validatorRegistry, IBrowserValidatorProvider browserValidatorProvider)
 		{
 			_validatorRegistry = validatorRegistry;
 			_browserValidatorProvider = browserValidatorProvider;

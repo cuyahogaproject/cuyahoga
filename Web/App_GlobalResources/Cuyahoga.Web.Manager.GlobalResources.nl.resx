@@ -282,4 +282,7 @@
   <data name="UserUpdatedMessage" xml:space="preserve">
     <value>De gebruiker {0} is gewijzigd.</value>
   </data>
+  <data name="ModelValidationErrorMessage" xml:space="preserve">
+    <value>Er zijn 1 of meerdere fouten opgetreden:</value>
+  </data>
 </root>

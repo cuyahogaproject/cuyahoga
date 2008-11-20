@@ -4,6 +4,7 @@ using System.Web.Mvc;
 using System.Web.Security;
 using Cuyahoga.Core.Domain;
 using Cuyahoga.Core.Service.Membership;
+using Cuyahoga.Core.Validation;
 using Cuyahoga.Web.Manager.Controllers;
 using Resources.Cuyahoga.Web.Manager;
 using LoginViewData=Cuyahoga.Web.Manager.Model.ViewModels.LoginViewData;
@@ -18,7 +19,8 @@ namespace Cuyahoga.Web.Manager.Controllers
 		/// Create and initialize an instance of the LoginController class.
 		/// </summary>
 		/// <param name="authenticationService"></param>
-		public LoginController(IAuthenticationService authenticationService)
+		/// <param name="modelValidator"></param>
+		public LoginController(IAuthenticationService authenticationService, IModelValidator<LoginViewData> modelValidator) : base(modelValidator)
 		{
 			this._authenticationService = authenticationService;
 		}

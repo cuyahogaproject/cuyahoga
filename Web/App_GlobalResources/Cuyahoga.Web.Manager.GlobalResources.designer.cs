@@ -430,6 +430,15 @@ namespace Resources.Cuyahoga.Web.Manager {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Some errors have occured:.
+        /// </summary>
+        internal static string ModelValidationErrorMessage {
+            get {
+                return ResourceManager.GetString("ModelValidationErrorMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Add new user.
         /// </summary>
         internal static string NewUserPageTitle {

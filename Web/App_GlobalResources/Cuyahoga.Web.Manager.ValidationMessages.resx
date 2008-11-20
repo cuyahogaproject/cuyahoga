@@ -153,6 +153,9 @@
   <data name="UserNameValidatorNonEmpty" xml:space="preserve">
     <value>The username may not be empty</value>
   </data>
+  <data name="UserNameValidatorNotUnique" xml:space="preserve">
+    <value>A user with this username already exists</value>
+  </data>
   <data name="WebsiteValidatorLength" xml:space="preserve">
     <value>The website url must be between 1 and 100 characters</value>
   </data>
