@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using Cuyahoga.Core.Domain;
 using Cuyahoga.Core.Service.Membership;
 
-namespace Cuyahoga.Core.Validation
+namespace Cuyahoga.Core.Validation.ModelValidators
 {
 	public class UserModelValidator : CastleModelValidator<User>
 	{
@@ -20,7 +20,7 @@ namespace Cuyahoga.Core.Validation
 
 			// Check username uniqueness.
 			if (ShouldValidateProperty("UserName", includeProperties)
-				&& ! String.IsNullOrEmpty(objectToValidate.UserName))
+			    && ! String.IsNullOrEmpty(objectToValidate.UserName))
 			{
 				if (this._userService.FindUsersByUsername(objectToValidate.UserName).Count > 0)
 				{

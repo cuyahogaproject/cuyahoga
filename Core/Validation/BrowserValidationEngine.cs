@@ -5,12 +5,12 @@ using Cuyahoga.Core.Validation;
 
 namespace Cuyahoga.Core.Validation
 {
-	public class ValidationEngine
+	public class BrowserValidationEngine
 	{
 		private ILocalizedValidatorRegistry _validatorRegistry;
 		private IBrowserValidatorProvider _browserValidatorProvider;
 
-		public ValidationEngine(ILocalizedValidatorRegistry validatorRegistry, IBrowserValidatorProvider browserValidatorProvider)
+		public BrowserValidationEngine(ILocalizedValidatorRegistry validatorRegistry, IBrowserValidatorProvider browserValidatorProvider)
 		{
 			_validatorRegistry = validatorRegistry;
 			_browserValidatorProvider = browserValidatorProvider;

@@ -5,21 +5,21 @@ namespace Cuyahoga.Core.Validation
 	public class ValidationEngineAccessor
 	{
 		private static ValidationEngineAccessor _instance = new ValidationEngineAccessor();
-		private ValidationEngine _validationEngine;
+		private BrowserValidationEngine _browserValidationEngine;
 
 		public static ValidationEngineAccessor Current
 		{
 			get { return _instance; }
 		}
 
-		public ValidationEngine ValidationEngine
+		public BrowserValidationEngine BrowserValidationEngine
 		{
-			get { return _validationEngine; }
+			get { return _browserValidationEngine; }
 		}
 
-		public void SetValidationEngine(ValidationEngine validationEngine)
+		public void SetValidationEngine(BrowserValidationEngine browserValidationEngine)
 		{
-			_validationEngine = validationEngine;
+			_browserValidationEngine = browserValidationEngine;
 		}
 	}
 }

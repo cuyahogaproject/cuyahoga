@@ -407,11 +407,9 @@
     <Compile Include="Validation\IBrowserValidatorProvider.cs" />
     <Compile Include="Validation\ILocalizedValidatorRegistry.cs" />
     <Compile Include="Validation\IModelValidator.cs" />
-    <Compile Include="Validation\UserModelValidator.cs" />
-    <Compile Include="Validation\ValidationEngine.cs" />
+    <Compile Include="Validation\ModelValidators\UserModelValidator.cs" />
+    <Compile Include="Validation\BrowserValidationEngine.cs" />
     <Compile Include="Validation\ValidationEngineAccessor.cs" />
-    <Compile Include="Validation\ValidationError.cs" />
-    <Compile Include="Validation\ValidationException.cs" />
     <EmbeddedResource Include="Domain\CustomMenu.hbm.xml" />
     <EmbeddedResource Include="Domain\ModuleType.hbm.xml" />
     <EmbeddedResource Include="Domain\Node.hbm.xml" />

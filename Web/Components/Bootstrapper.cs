@@ -2,13 +2,13 @@
 using System.Reflection;
 using System.Web;
 using System.Web.Mvc;
-using Castle.Components.Validator;
 using Castle.Core;
 using Castle.Windsor;
 using Cuyahoga.Core;
 using Cuyahoga.Core.Service;
 using Cuyahoga.Core.Util;
 using Cuyahoga.Core.Validation;
+using Cuyahoga.Core.Validation.ModelValidators;
 using Cuyahoga.Web.Mvc.Validation;
 using log4net;
 using MvcContrib.Castle;
@@ -118,11 +118,11 @@ namespace Cuyahoga.Web.Components
 			container.AddComponent("validatorregistry", typeof(ILocalizedValidatorRegistry), typeof(CachedLocalizedValidatorRegistry));
 			container.AddComponentWithLifestyle("modelvalidator", typeof(IModelValidator<>), typeof(CastleModelValidator<>), LifestyleType.Transient);
 			container.AddComponentWithLifestyle("usermodelvalidator", typeof(UserModelValidator), LifestyleType.Transient);
-			container.AddComponent("validationengine", typeof(ValidationEngine));
+			container.AddComponent("validationengine", typeof(BrowserValidationEngine));
 			container.Kernel.AddComponentInstance("validationresources", Resources.Cuyahoga.Web.Manager.ValidationMessages.ResourceManager);
 
 			// Set validation engine to accessor.
-			ValidationEngineAccessor.Current.SetValidationEngine(container.Resolve<ValidationEngine>());
+			ValidationEngineAccessor.Current.SetValidationEngine(container.Resolve<BrowserValidationEngine>());
 		}
 	}
 }

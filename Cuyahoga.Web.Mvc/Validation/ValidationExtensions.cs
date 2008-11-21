@@ -27,8 +27,8 @@ namespace Cuyahoga.Web.Mvc
 		public static string ClientSideValidation(this HtmlHelper html, object modelToValidate, string formId
 		                                          , Func<string, string> propertyNameToElementId)
 		{
-			ValidationEngine validationEngine = ValidationEngineAccessor.Current.ValidationEngine;
-			return validationEngine.GenerateClientScript(modelToValidate, formId, propertyNameToElementId);
+			BrowserValidationEngine browserValidationEngine = ValidationEngineAccessor.Current.BrowserValidationEngine;
+			return browserValidationEngine.GenerateClientScript(modelToValidate, formId, propertyNameToElementId);
 		}
 	}
 }
