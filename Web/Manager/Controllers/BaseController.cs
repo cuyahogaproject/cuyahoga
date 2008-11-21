@@ -29,7 +29,7 @@ namespace Cuyahoga.Web.Manager.Controllers
 		private ISiteService _siteService;
 		private ILogger _logger = NullLogger.Instance;
 		private MessageViewData _messageViewData;
-		private readonly IModelValidator _modelValidator;
+		private IModelValidator _modelValidator;
 
 		/// <summary>
 		/// Get or sets the Cuyahoga context.
@@ -59,17 +59,14 @@ namespace Cuyahoga.Web.Manager.Controllers
 		}
 
 		/// <summary>
-		/// Empty default constructor.
-		/// </summary>
-		public BaseController()
-		{
-		}
-
-		/// <summary>
-		/// Constructor that accepts an <see cref="IModelValidator"></see>.
+		/// Sets the model validator.
 		/// </summary>
 		/// <param name="modelValidator"></param>
-		public BaseController(IModelValidator modelValidator)
+		/// <remarks>
+		/// We could include this dependency as a constructor parameter, but this forces inheritors to also include this parameter.
+		/// This way, inheriting controller need to explicitly set the validator.
+		/// </remarks>
+		protected void SetModelValidator(IModelValidator modelValidator)
 		{
 			this._modelValidator = modelValidator;
 		}
@@ -218,7 +215,7 @@ namespace Cuyahoga.Web.Manager.Controllers
 			this._messageViewData.AddMessage(messageType, localizedMessage ?? message, persistForNextRequest);
 			if (persistForNextRequest)
 			{
-				// Just persist the messages directly.
+				// Just persist all messages directly. Not very subtle, but this also works in situations where exceptions occur.
 				PersistMessages();
 			}
 		}

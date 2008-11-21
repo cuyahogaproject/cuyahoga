@@ -18,9 +18,10 @@ namespace Cuyahoga.Web.Manager.Controllers
 		private readonly IUserService _userService;
 		private const int pageSize = 20;
 
-		public UsersController(IUserService userService, UserModelValidator userModelValidator) : base(userModelValidator)
+		public UsersController(IUserService userService, UserModelValidator userModelValidator)
 		{
 			this._userService = userService;
+			SetModelValidator(userModelValidator);
 		}
 
 		public ActionResult Index(int? page)

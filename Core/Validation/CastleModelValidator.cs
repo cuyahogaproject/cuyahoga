@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using Castle.Components.Validator;
 using Cuyahoga.Core.Validation;
@@ -7,23 +8,29 @@ namespace Cuyahoga.Core.Validation
 {
 	public class CastleModelValidator<T> : IModelValidator<T> where T : class
 	{
-		private readonly ILocalizedValidatorRegistry _validatorRegistry;
-		private readonly IValidatorRunner _validatorRunner;
+		private ILocalizedValidatorRegistry _validatorRegistry;
+		private IValidatorRunner _validatorRunner;
 		private IDictionary<string, ICollection<string>> _errors = new Dictionary<string, ICollection<string>>();
 
 		/// <summary>
 		/// Creates a new instance of the <see cref="CastleModelValidator{T}"/> class.
 		/// </summary>
-		/// <param name="validatorRegistry"></param>
-		public CastleModelValidator(ILocalizedValidatorRegistry validatorRegistry)
+		public CastleModelValidator()
 		{
-			this._validatorRegistry = validatorRegistry;
-			this._validatorRunner = new ValidatorRunner(validatorRegistry);
 		}
 
-		protected IValidatorRegistry ValidatorRegistry
+		/// <summary>
+		/// Gets or sets the ValidatorRegistry. We have chosen setter injection so that inheritors 
+		/// aren't bothered with a ILocalizedValidatorRegistry in the constructor.
+		/// </summary>
+		public ILocalizedValidatorRegistry ValidatorRegistry
 		{
-			get { return this._validatorRegistry; }
+			protected get { return this._validatorRegistry; }
+			set
+			{
+				this._validatorRegistry = value;
+				this._validatorRunner = new ValidatorRunner(this._validatorRegistry);
+			}
 		}
 
 		/// <summary>
@@ -51,8 +58,18 @@ namespace Cuyahoga.Core.Validation
 			return this._errors.Count == 0;
 		}
 
+		/// <summary>
+		/// Performs the actual validation. Override this one to perform custom validation.
+		/// </summary>
+		/// <param name="objectToValidate"></param>
+		/// <param name="includeProperties"></param>
 		protected virtual void PerformValidation(T objectToValidate, ICollection<string> includeProperties)
 		{
+			// Check the validatorrunner.
+			if (this._validatorRunner == null)
+			{
+				throw new InvalidOperationException("Unable to validate the object, because there is no ValidationRunner available.");
+			}
 			if (!this._validatorRunner.IsValid(objectToValidate))
 			{
 				// Check if the error properties match any of the given properties. If not return true (invalid object, but
@@ -60,7 +77,6 @@ namespace Cuyahoga.Core.Validation
 				ErrorSummary errorSummary = this._validatorRunner.GetErrorSummary(objectToValidate);
 				if (errorSummary.HasError)
 				{
-					//bool hasErrorWeCareAbout = false;
 					foreach (string property in errorSummary.InvalidProperties)
 					{
 						if ((includeProperties == null || includeProperties.Count == 0) || includeProperties.Contains(property))
@@ -73,9 +89,21 @@ namespace Cuyahoga.Core.Validation
 							}
 						}
 					}
-					//return !hasErrorWeCareAbout;
 				}
 			}
+		}
+
+		/// <summary>
+		/// Checks if a given property should be validated.
+		/// </summary>
+		/// <param name="propertyName">The name of the property</param>
+		/// <param name="includeProperties">The list of the properties to validate. If null or empty, we'll assume that all properties need to be checked</param>
+		/// <returns></returns>
+		protected bool ShouldValidateProperty(string propertyName, ICollection<string> includeProperties)
+		{
+			return 
+				(includeProperties == null || includeProperties.Count == 0) 
+				|| includeProperties.Contains(propertyName);
 		}
 
 		/// <summary>
@@ -90,7 +118,7 @@ namespace Cuyahoga.Core.Validation
 			{
 				this._errors.Add(property, new List<string>());
 			}
-			if (requiresTranslation)
+			if (requiresTranslation && this._validatorRegistry != null)
 			{
 				errorMessage = this._validatorRegistry.TranslateErrorMessage(errorMessage);
 			}

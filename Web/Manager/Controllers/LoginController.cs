@@ -6,8 +6,8 @@ using Cuyahoga.Core.Domain;
 using Cuyahoga.Core.Service.Membership;
 using Cuyahoga.Core.Validation;
 using Cuyahoga.Web.Manager.Controllers;
+using Cuyahoga.Web.Manager.Model.ViewModels;
 using Resources.Cuyahoga.Web.Manager;
-using LoginViewData=Cuyahoga.Web.Manager.Model.ViewModels.LoginViewData;
 
 namespace Cuyahoga.Web.Manager.Controllers
 {
@@ -20,9 +20,10 @@ namespace Cuyahoga.Web.Manager.Controllers
 		/// </summary>
 		/// <param name="authenticationService"></param>
 		/// <param name="modelValidator"></param>
-		public LoginController(IAuthenticationService authenticationService, IModelValidator<LoginViewData> modelValidator) : base(modelValidator)
+		public LoginController(IAuthenticationService authenticationService, IModelValidator<LoginViewData> modelValidator)
 		{
 			this._authenticationService = authenticationService;
+			SetModelValidator(modelValidator);
 		}
 
 		public ActionResult Index(string returnUrl)

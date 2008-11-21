@@ -9,7 +9,7 @@ namespace Cuyahoga.Core.Validation
 	{
 		private readonly IUserService _userService;
 
-		public UserModelValidator(IUserService userService, ILocalizedValidatorRegistry validatorRegistry) : base(validatorRegistry)
+		public UserModelValidator(IUserService userService)
 		{
 			_userService = userService;
 		}
@@ -19,8 +19,7 @@ namespace Cuyahoga.Core.Validation
 			base.PerformValidation(objectToValidate, includeProperties);
 
 			// Check username uniqueness.
-			if ((includeProperties == null || includeProperties.Count == 0) 
-				|| includeProperties.Contains("UserName")
+			if (ShouldValidateProperty("UserName", includeProperties)
 				&& ! String.IsNullOrEmpty(objectToValidate.UserName))
 			{
 				if (this._userService.FindUsersByUsername(objectToValidate.UserName).Count > 0)
