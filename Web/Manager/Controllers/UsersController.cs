@@ -21,7 +21,7 @@ namespace Cuyahoga.Web.Manager.Controllers
 		public UsersController(IUserService userService, UserModelValidator userModelValidator)
 		{
 			this._userService = userService;
-			SetModelValidator(userModelValidator);
+			this.ModelValidator = userModelValidator;
 		}
 
 		public ActionResult Index(int? page)

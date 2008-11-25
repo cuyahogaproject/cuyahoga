@@ -23,7 +23,7 @@ namespace Cuyahoga.Web.Manager.Controllers
 		public LoginController(IAuthenticationService authenticationService, IModelValidator<LoginViewData> modelValidator)
 		{
 			this._authenticationService = authenticationService;
-			SetModelValidator(modelValidator);
+			this.ModelValidator = modelValidator;
 		}
 
 		public ActionResult Index(string returnUrl)

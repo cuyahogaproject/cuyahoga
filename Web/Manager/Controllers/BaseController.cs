@@ -61,14 +61,13 @@ namespace Cuyahoga.Web.Manager.Controllers
 		/// <summary>
 		/// Sets the model validator.
 		/// </summary>
-		/// <param name="modelValidator"></param>
 		/// <remarks>
 		/// We could include this dependency as a constructor parameter, but this forces inheritors to also include this parameter.
-		/// This way, inheriting controller need to explicitly set the validator.
+		/// This way, inheriting controllers need to explicitly set the validator.
 		/// </remarks>
-		protected void SetModelValidator(IModelValidator modelValidator)
+		protected IModelValidator ModelValidator
 		{
-			this._modelValidator = modelValidator;
+			set { this._modelValidator = value; }
 		}
 
 		/// <summary>
