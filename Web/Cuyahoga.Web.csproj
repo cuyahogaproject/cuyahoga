@@ -345,7 +345,9 @@
       <DependentUpon>Default.aspx</DependentUpon>
     </Compile>
     <Compile Include="Manager\Filters\ExceptionFilter.cs" />
+    <Compile Include="Manager\Filters\MenuDataFilter.cs" />
     <Compile Include="Manager\Filters\PermissionFilter.cs" />
+    <Compile Include="Manager\Filters\SiteFilter.cs" />
     <Compile Include="Manager\Model\ViewModels\LoginViewData.cs" />
     <Compile Include="Manager\Model\ViewModels\MainMenuViewData.cs" />
     <Compile Include="Manager\Model\ViewModels\MessageViewData.cs" />

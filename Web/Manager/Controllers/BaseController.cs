@@ -6,27 +6,23 @@ using System.Threading;
 using System.Web.Mvc;
 using Castle.Core.Logging;
 using Cuyahoga.Core;
-using Cuyahoga.Core.Domain;
-using Cuyahoga.Core.Service.Membership;
-using Cuyahoga.Core.Service.SiteStructure;
 using Cuyahoga.Core.Validation;
 using Cuyahoga.Web.Manager.Filters;
 using Cuyahoga.Web.Manager.Model.ViewModels;
 using Cuyahoga.Web.Mvc;
-using Cuyahoga.Web.Mvc.Partials;
 using Resources.Cuyahoga.Web.Manager;
-using UrlHelper = Cuyahoga.Web.Util.UrlHelper;
 
 namespace Cuyahoga.Web.Manager.Controllers
 {
 	/// <summary>
 	/// Base class for all controllers.
 	/// </summary>
+	[SiteFilter(Order = 1)]
+	[MenuDataFilter(Order = 2)]
 	[ExceptionFilter(ExceptionType = typeof(SecurityException))]
 	public abstract class BaseController : Controller
 	{
 		private ICuyahogaContext _cuyahogaContext;
-		private ISiteService _siteService;
 		private ILogger _logger = NullLogger.Instance;
 		private MessageViewData _messageViewData;
 		private IModelValidator _modelValidator;
@@ -38,15 +34,6 @@ namespace Cuyahoga.Web.Manager.Controllers
 		{
 			get { return this._cuyahogaContext; }
 			set { this._cuyahogaContext = value; }
-		}
-
-		/// <summary>
-		/// Sets the SiteService.
-		/// </summary>
-		public ISiteService SiteService
-		{
-			protected get { return this._siteService; }
-			set { this._siteService = value; }
 		}
 
 		/// <summary>
@@ -110,9 +97,7 @@ namespace Cuyahoga.Web.Manager.Controllers
 
 		protected override void OnActionExecuting(ActionExecutingContext filterContext)
 		{
-			SetCurrentSite();
 			InitMessageViewData();
-			InitMenuViewData();
 			base.OnActionExecuting(filterContext);
 		}
 
@@ -179,22 +164,6 @@ namespace Cuyahoga.Web.Manager.Controllers
 			}
 		}
 
-		private void SetCurrentSite()
-		{
-			if (this._siteService == null)
-			{
-				throw new InvalidOperationException("Unable to set the current site because the SiteService is unavailable");
-			}
-			this._cuyahogaContext.SetSite(this._siteService.GetSiteBySiteUrl(UrlHelper.GetSiteUrl()));
-			// Also register partial request for the site chooser component.
-			ViewData["SiteChooser"] = new PartialRequest(new
-			{
-				area ="Manager",
-				controller = "Dashboard",
-				action = "SiteChooser"
-			});
-		}
-
 		private void InitMessageViewData()
 		{
 			if (TempData.ContainsKey("Messages"))
@@ -225,55 +194,6 @@ namespace Cuyahoga.Web.Manager.Controllers
 			{
 				TempData["Messages"] = this._messageViewData.GetFlashMessages();
 			}
-		}
-
-		private void InitMenuViewData()
-		{
-			// TODO: extract this to some external component
-			MainMenuViewData mainMenuViewData = new MainMenuViewData();
-			User user = this._cuyahogaContext.CurrentUser;
-			if (user != null && user.IsAuthenticated)
-			{
-				mainMenuViewData.AddStandardMenuItem(
-					new MenuItem(this.Url.Action("Index", "Dashboard")
-					, GlobalResources.ManagerMenuDashboard, CheckInPath("Dashboard")));
-				if (user.HasRight(Rights.ManagePages, CuyahogaContext.CurrentSite))
-				{
-					mainMenuViewData.AddStandardMenuItem(
-						new MenuItem(Url.Action("Index", "Pages")
-						, GlobalResources.ManagerMenuPages, CheckInPath("Pages")));
-				}
-				if (user.HasRight(Rights.ManageFiles, CuyahogaContext.CurrentSite))
-				{
-					mainMenuViewData.AddStandardMenuItem(
-						new MenuItem(Url.Action("Index", "Files")
-						, GlobalResources.ManagerMenuFiles, CheckInPath("Files")));
-				}
-				if (user.HasRight(Rights.ManageUsers, CuyahogaContext.CurrentSite))
-				{
-					mainMenuViewData.AddOptionalMenuItem(
-						new MenuItem(Url.Action("Index", "Users")
-						, GlobalResources.ManagerMenuUsers, CheckInPath("Users")));
-				}
-				if (user.HasRight(Rights.ManageSite, CuyahogaContext.CurrentSite))
-				{
-					mainMenuViewData.AddOptionalMenuItem(
-						new MenuItem(Url.Action("Index", "Site")
-						, GlobalResources.ManagerMenuSite, CheckInPath("Site")));
-				}
-				if (user.HasRight(Rights.ManageServer, CuyahogaContext.CurrentSite))
-				{
-					mainMenuViewData.AddOptionalMenuItem(
-						new MenuItem(Url.Action("Index", "Server")
-						, GlobalResources.ManagerMenuServer, CheckInPath("Server")));
-				}
-			}
-			ViewData.Add("MainMenuViewData", mainMenuViewData);
-		}
-
-		private bool CheckInPath(string controllerName)
-		{
-			return this.RouteData.Values["controller"].ToString().ToLower().Contains(controllerName.ToLower());
 		}
 	}
 }

@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Web.Mvc;
 using Cuyahoga.Core.Domain;
 using Cuyahoga.Core.Service.Membership;
+using Cuyahoga.Core.Service.SiteStructure;
 using Cuyahoga.Web.Manager.Filters;
 using Resources.Cuyahoga.Web.Manager;
 
@@ -12,6 +13,13 @@ namespace Cuyahoga.Web.Manager.Controllers
 	[PermissionFilter(RequiredRights = Rights.AccessAdmin)]
 	public class DashboardController : SecureController
 	{
+		private readonly ISiteService _siteService;
+
+		public DashboardController(ISiteService siteService)
+		{
+			_siteService = siteService;
+		}
+
 		public ActionResult Index()
 		{
 			ViewData["Title"] = GlobalResources.DashboardPageTitle;
@@ -25,7 +33,7 @@ namespace Cuyahoga.Web.Manager.Controllers
 		public ActionResult SiteChooser()
 		{
 			List<Site> availableSites = new List<Site>();
-			IList allSites = this.SiteService.GetAllSites();
+			IList allSites = this._siteService.GetAllSites();
 			foreach (Site site in allSites)
 			{
 				if (this.CuyahogaContext.CurrentUser.HasRight(Rights.AccessAdmin, site))
@@ -43,7 +51,7 @@ namespace Cuyahoga.Web.Manager.Controllers
 		/// <param name="siteId"></param>
 		public ActionResult SetSite(int siteId)
 		{
-			Site site = this.SiteService.GetSiteById(siteId);
+			Site site = this._siteService.GetSiteById(siteId);
 			string dashBoardUrl = Url.Action("Index", "Dashboard");
 			if (HttpContext.Request.ApplicationPath.Length > 1)
 			{
