@@ -13,6 +13,7 @@
 
 		<property name="Name" column="name" type="String" length="50" />
 		<property name="PermissionLevel" column="permissionlevel" type="Int32" />
+		<property name="IsGlobal" column="isglobal" type="Boolean" not-null="true" />
 
 		<bag name="Rights" cascade="none" lazy="true" table="cuyahoga_roleright">
 			<cache usage="read-write" />

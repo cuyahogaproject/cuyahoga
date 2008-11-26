@@ -1,13 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+﻿using System.Collections.Generic;
 using System.Web.Mvc;
+using Cuyahoga.Core.Domain;
 
 
 namespace Cuyahoga.Web.Manager.Views.Users
 {
-	public partial class Roles : ViewPage
+	public partial class Roles : ViewPage<ICollection<Role>>
 	{
 	}
 }

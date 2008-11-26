@@ -49,7 +49,7 @@
 				</li>
 			</ol>
 			</fieldset>
-			<%--<%= Html.ClientSideValidation(ViewData.Model, "loginform") %>--%>
+			<%= Html.ClientSideValidation(ViewData.Model, "loginform") %>
 			<input type="submit" value="Login" />
 		<% } %>
 	</div>

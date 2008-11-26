@@ -155,6 +155,61 @@ namespace Cuyahoga.Core.Service.Membership
 			return (Right)this._commonDao.GetObjectById(typeof (Right), rightId);
 		}
 
+		public IList<Right> GetRightsByIds(int[] rightIds)
+		{
+			return this._commonDao.GetByIds<Right>(rightIds);
+		}
+
+		[Transaction(TransactionMode.RequiresNew)]
+		public void CreateRole(Role role, Site currentSite)
+		{
+			ConnectRoleToSites(role, currentSite);
+			this._commonDao.SaveObject(role);
+		}
+
+		[Transaction(TransactionMode.RequiresNew)]
+		public void UpdateRole(Role role, Site currentSite)
+		{
+			ConnectRoleToSites(role, currentSite);
+			this._commonDao.SaveOrUpdateObject(role);
+		}
+
+		[Transaction(TransactionMode.RequiresNew)]
+		public void DeleteRole(Role role)
+		{
+			this._commonDao.DeleteObject(role);
+		}
+
 		#endregion
+
+		private void ConnectRoleToSites(Role role, Site currentSite)
+		{
+			role.Sites.Clear();
+			// If role is global, it has to be connected to all sites
+			if (role.IsGlobal)
+			{
+				// First check if the user is allowed to connect to all sites.
+				CheckGlobalRole(role);
+			
+				IList<Site> allSites = this._commonDao.GetAll<Site>();
+				foreach (Site site in allSites)
+				{
+					role.Sites.Add(site);
+				}
+			}
+			else
+			{
+				role.Sites.Add(currentSite);
+			}
+		}
+
+		private void CheckGlobalRole(Role role)
+		{
+			User currentUser = Thread.CurrentPrincipal as User;
+			if (currentUser == null || (!currentUser.HasRight(Rights.GlobalPermissions) && role.IsGlobal))
+			{
+				throw new SecurityException("Tried to set a role to global without enough permissions.");
+			}
+		}
 	}
 }

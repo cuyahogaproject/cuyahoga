@@ -118,6 +118,7 @@ namespace Cuyahoga.Web.Components
 			container.AddComponent("validatorregistry", typeof(ILocalizedValidatorRegistry), typeof(CachedLocalizedValidatorRegistry));
 			container.AddComponentWithLifestyle("modelvalidator", typeof(IModelValidator<>), typeof(CastleModelValidator<>), LifestyleType.Transient);
 			container.AddComponentWithLifestyle("usermodelvalidator", typeof(UserModelValidator), LifestyleType.Transient);
+			container.AddComponentWithLifestyle("rolemodelvalidator", typeof(RoleModelValidator), LifestyleType.Transient);
 			container.AddComponent("validationengine", typeof(BrowserValidationEngine));
 			container.Kernel.AddComponentInstance("validationresources", Resources.Cuyahoga.Web.Manager.ValidationMessages.ResourceManager);
 

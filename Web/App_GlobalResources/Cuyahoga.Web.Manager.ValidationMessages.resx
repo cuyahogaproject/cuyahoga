@@ -144,6 +144,15 @@
   <data name="PasswordValidatorSameAs" xml:space="preserve">
     <value>The password must be the same as the confirmation password</value>
   </data>
+  <data name="RoleNameValidatorLength" xml:space="preserve">
+    <value>The name must be between 1 and 50 characters</value>
+  </data>
+  <data name="RoleNameValidatorNonEmpty" xml:space="preserve">
+    <value>The role name may not be empty</value>
+  </data>
+  <data name="RoleNameValidatorNotUnique" xml:space="preserve">
+    <value>A role with this name already exists (possibly in another site)</value>
+  </data>
   <data name="RolesValidatorNotEmpty" xml:space="preserve">
     <value>A user must at least have one role</value>
   </data>

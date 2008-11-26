@@ -79,7 +79,7 @@ namespace Cuyahoga.Core.Validation
 				{
 					foreach (string property in errorSummary.InvalidProperties)
 					{
-						if ((includeProperties == null || includeProperties.Count == 0) || includeProperties.Contains(property))
+						if (ShouldValidateProperty(property, includeProperties))
 						{
 							//hasErrorWeCareAbout = true;
 							string[] errorsForProperty = errorSummary.GetErrorsForProperty(property);

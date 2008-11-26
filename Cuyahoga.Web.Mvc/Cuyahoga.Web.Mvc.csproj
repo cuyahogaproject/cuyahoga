@@ -64,6 +64,7 @@
   <ItemGroup>
     <Compile Include="Areas\RouteCollectionExtensions.cs" />
     <Compile Include="Areas\AreaViewEngine.cs" />
+    <Compile Include="Helpers\PermissionExtensions.cs" />
     <Compile Include="MessageType.cs" />
     <Compile Include="Paging\IPagedList.cs" />
     <Compile Include="Paging\PagedList.cs" />

@@ -144,6 +144,15 @@
   <data name="PasswordValidatorSameAs" xml:space="preserve">
     <value>Wachtwoord en bevestiging wachtwoord moeten gelijk zijn</value>
   </data>
+  <data name="RoleNameValidatorLength" xml:space="preserve">
+    <value>Naam moet tussen de 1 en 50 tekens bevatten</value>
+  </data>
+  <data name="RoleNameValidatorNonEmpty" xml:space="preserve">
+    <value>Naam is verplicht</value>
+  </data>
+  <data name="RoleNameValidatorNotUnique" xml:space="preserve">
+    <value>Een rol met deze naam bestaat al (mogelijk in een andere site)</value>
+  </data>
   <data name="RolesValidatorNotEmpty" xml:space="preserve">
     <value>Een gebruiker moet tenminste 1 rol hebben</value>
   </data>

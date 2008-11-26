@@ -16,12 +16,14 @@ namespace Cuyahoga.Web.Manager.Controllers
 	public class UsersController : SecureController
 	{
 		private readonly IUserService _userService;
+		private readonly RoleModelValidator _roleModelValidator;
 		private const int pageSize = 20;
 
-		public UsersController(IUserService userService, UserModelValidator userModelValidator)
+		public UsersController(IUserService userService, UserModelValidator userModelValidator, RoleModelValidator roleModelValidator)
 		{
 			this._userService = userService;
 			this.ModelValidator = userModelValidator;
+			this._roleModelValidator = roleModelValidator;
 		}
 
 		public ActionResult Index(int? page)
@@ -34,7 +36,7 @@ namespace Cuyahoga.Web.Manager.Controllers
 			ViewData["Title"] = GlobalResources.ManageUsersPageTitle;
 
 			ViewData["username"] = username;
-			ViewData["roles"] = new SelectList(_userService.GetAllRoles(), "Id", "Name", roleId);
+			ViewData["roles"] = new SelectList(this._userService.GetAllRolesBySite(CuyahogaContext.CurrentSite), "Id", "Name", roleId);
 			ViewData["roleid"] = roleId;
 			IDictionary<bool, string> isActiveOptions = new Dictionary<bool, string>() { { true, GlobalResources.Yes }, { false, GlobalResources.No } };
 			ViewData["isactiveoptions"] = new SelectList(isActiveOptions, "Key", "Value", isActive);
@@ -180,7 +182,106 @@ namespace Cuyahoga.Web.Manager.Controllers
 		public ActionResult Roles()
 		{
 			ViewData["Title"] = GlobalResources.ManageRolesPageTitle;
-			return View("Roles");
+			IList<Role> roles = this._userService.GetAllRolesBySite(CuyahogaContext.CurrentSite);
+			return View("Roles", roles);
+		}
+
+		public ActionResult NewRole()
+		{
+			ViewData["Title"] = GlobalResources.NewRolePageTitle;
+			ViewData["Rights"] = this._userService.GetAllRights();
+			Role role = new Role();
+			return View(role);
+		}
+
+		public ActionResult EditRole(int id)
+		{
+			ViewData["Title"] = GlobalResources.EditRolePageTitle;
+			ViewData["Rights"] = this._userService.GetAllRights();
+			Role role = this._userService.GetRoleById(id);
+			return View(role);
+		}
+
+		[AcceptVerbs(HttpVerbs.Post)]
+		public ActionResult CreateRole(int[] rightIds)
+		{
+			Role newRole = new Role();
+			try
+			{
+				UpdateModel(newRole, new[] { "Name", "IsGlobal" });
+				if (rightIds.Length > 0)
+				{
+					IList<Right> rights = this._userService.GetRightsByIds(rightIds);
+					foreach (Right right in rights)
+					{
+						newRole.Rights.Add(right);
+					}
+				}
+
+				if (ValidateModel(newRole, this._roleModelValidator, new [] { "Name" }))
+				{
+					this._userService.CreateRole(newRole, CuyahogaContext.CurrentSite);
+					ShowMessage(String.Format(GlobalResources.RoleCreatedMessage, newRole.Name), true);
+					return RedirectToAction("roles");
+				}
+			}
+			catch (Exception ex)
+			{
+				ShowException(ex);
+			}
+			ViewData["Title"] = GlobalResources.NewRolePageTitle;
+			ViewData["Rights"] = this._userService.GetAllRights();
+			return View("NewRole", newRole);
+		}
+
+		[AcceptVerbs(HttpVerbs.Post)]
+		public ActionResult UpdateRole(int id, int[] rightIds)
+		{
+			Role role = this._userService.GetRoleById(id);
+			role.Rights.Clear();
+			try
+			{
+				UpdateModel(role, new[] { "Name", "IsGlobal" });
+
+				if (rightIds.Length > 0)
+				{
+					IList<Right> rights = this._userService.GetRightsByIds(rightIds);
+					foreach (Right right in rights)
+					{
+						role.Rights.Add(right);
+					}
+				}
+
+				if (ValidateModel(role, this._roleModelValidator, new[] { "Name" }))
+				{
+					this._userService.UpdateRole(role, CuyahogaContext.CurrentSite);
+					ShowMessage(String.Format(GlobalResources.RoleUpdatedMessage, role.Name), true);
+					return RedirectToAction("Roles");
+				}
+			}
+			catch (Exception ex)
+			{
+				ShowException(ex);
+			}
+			ViewData["Title"] = GlobalResources.EditRolePageTitle;
+			ViewData["Rights"] = this._userService.GetAllRights();
+			return View("EditRole", role);
+		}
+
+		[AcceptVerbs(HttpVerbs.Post)]
+		public ActionResult DeleteRole(int id)
+		{
+			Role role = this._userService.GetRoleById(id);
+			try
+			{
+				this._userService.DeleteRole(role);
+				ShowMessage(String.Format(GlobalResources.RoleDeletedMessage, role.Name), true);
+			}
+			catch (Exception ex)
+			{
+				ShowException(ex, true);
+			}
+			return RedirectToAction("Roles");
 		}
 	}
 }

@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using System.Collections.Generic;
 using System.IO;
 using System.Reflection;
 using System.Web;
@@ -178,6 +179,7 @@ namespace Cuyahoga.Web.Install
 			User adminUser = (User) this._commonDao.GetObjectById(typeof(User), 1);
 			Template defaultTemplate = this._commonDao.GetObjectByDescription(typeof(Template), "Name", "Another Red") as Template;
 			Role defaultAuthenticatedRole = this._commonDao.GetObjectByDescription(typeof(Role), "Name", "Authenticated user") as Role;
+			IList<Role> roles = this._commonDao.GetAll<Role>();
 
 			// Site
 			Site site = new Site();
@@ -189,6 +191,13 @@ namespace Cuyahoga.Web.Install
 			site.DefaultTemplate = defaultTemplate;
 			site.DefaultPlaceholder = "maincontent";
 			site.DefaultRole = defaultAuthenticatedRole;
+			foreach (Role role in roles)
+			{
+				if (role.IsGlobal)
+				{
+					site.Roles.Add(role);
+				}
+			}
 			this._commonDao.SaveOrUpdateObject(site);
 
 			// Root node

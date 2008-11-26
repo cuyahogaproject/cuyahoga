@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Collections;
+using Castle.Components.Validator;
 
 namespace Cuyahoga.Core.Domain
 {
@@ -31,6 +32,8 @@ namespace Cuyahoga.Core.Domain
 		/// <summary>
 		/// Property Name (string)
 		/// </summary>
+		[ValidateNonEmpty("RoleNameValidatorNonEmpty")]
+		[ValidateLength(1, 50, "RoleNameValidatorLength")]
 		public virtual string Name
 		{
 			get { return this._name; }

@@ -442,6 +442,13 @@
     <Compile Include="Manager\Views\Site\Index.aspx.designer.cs">
       <DependentUpon>Index.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Manager\Views\Users\EditRole.aspx.cs">
+      <DependentUpon>EditRole.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Manager\Views\Users\EditRole.aspx.designer.cs">
+      <DependentUpon>EditRole.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Manager\Views\Users\EditUser.aspx.cs">
       <DependentUpon>EditUser.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -456,12 +463,26 @@
     <Compile Include="Manager\Views\Users\Index.aspx.designer.cs">
       <DependentUpon>Index.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Manager\Views\Users\NewRole.aspx.cs">
+      <DependentUpon>NewRole.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Manager\Views\Users\NewRole.aspx.designer.cs">
+      <DependentUpon>NewRole.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Manager\Views\Users\NewUser.aspx.cs">
       <DependentUpon>NewUser.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="Manager\Views\Users\NewUser.aspx.designer.cs">
       <DependentUpon>NewUser.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Manager\Views\Users\RightsSelector.ascx.cs">
+      <DependentUpon>RightsSelector.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Manager\Views\Users\RightsSelector.ascx.designer.cs">
+      <DependentUpon>RightsSelector.ascx</DependentUpon>
     </Compile>
     <Compile Include="Manager\Views\Users\Roles.aspx.cs">
       <DependentUpon>Roles.aspx</DependentUpon>
@@ -791,9 +812,12 @@
     <Content Include="Manager\Views\Shared\Messages.ascx" />
     <Content Include="Manager\Views\Shared\SiteChooser.ascx" />
     <Content Include="Manager\Views\Site\Index.aspx" />
+    <Content Include="Manager\Views\Users\EditRole.aspx" />
     <Content Include="Manager\Views\Users\EditUser.aspx" />
     <Content Include="Manager\Views\Users\Index.aspx" />
+    <Content Include="Manager\Views\Users\NewRole.aspx" />
     <Content Include="Manager\Views\Users\NewUser.aspx" />
+    <Content Include="Manager\Views\Users\RightsSelector.ascx" />
     <Content Include="Manager\Views\Users\Roles.aspx" />
     <Content Include="Manager\Views\Users\RoleSelector.ascx" />
     <Content Include="Manager\Views\Users\SharedUserFormElements.ascx" />

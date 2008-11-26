@@ -285,4 +285,34 @@
   <data name="ModelValidationErrorMessage" xml:space="preserve">
     <value>Er zijn 1 of meerdere fouten opgetreden:</value>
   </data>
+  <data name="CreateRoleLabel" xml:space="preserve">
+    <value>Nieuwe rol</value>
+  </data>
+  <data name="EditRolePageTitle" xml:space="preserve">
+    <value>Wijzig rol</value>
+  </data>
+  <data name="IsGlobalLabel" xml:space="preserve">
+    <value>Globaal</value>
+  </data>
+  <data name="NameLabel" xml:space="preserve">
+    <value>Naam</value>
+  </data>
+  <data name="NewRolePageTitle" xml:space="preserve">
+    <value>Nieuwe rol</value>
+  </data>
+  <data name="NoRolesFound" xml:space="preserve">
+    <value>Geen rol(len) gevonden</value>
+  </data>
+  <data name="RightsLabel" xml:space="preserve">
+    <value>Rechten</value>
+  </data>
+  <data name="RoleCreatedMessage" xml:space="preserve">
+    <value>De rol {0} is aangemaakt.</value>
+  </data>
+  <data name="RoleDeletedMessage" xml:space="preserve">
+    <value>De rol {0} is verwijderd.</value>
+  </data>
+  <data name="RoleUpdatedMessage" xml:space="preserve">
+    <value>De rol {0} is gewijzigd.</value>
+  </data>
 </root>

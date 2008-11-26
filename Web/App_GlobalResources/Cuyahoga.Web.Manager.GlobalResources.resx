@@ -238,7 +238,7 @@
     <value>Yes</value>
   </data>
   <data name="GlobalSearchLabel" xml:space="preserve">
-    <value>Search across all sites</value>
+    <value>Search in all sites</value>
   </data>
   <data name="ConfirmPasswordLabel" xml:space="preserve">
     <value>Confirm password</value>
@@ -302,5 +302,35 @@
   </data>
   <data name="ModelValidationErrorMessage" xml:space="preserve">
     <value>Some errors have occured:</value>
+  </data>
+  <data name="CreateRoleLabel" xml:space="preserve">
+    <value>Create new role</value>
+  </data>
+  <data name="EditRolePageTitle" xml:space="preserve">
+    <value>Edit role</value>
+  </data>
+  <data name="IsGlobalLabel" xml:space="preserve">
+    <value>Is global</value>
+  </data>
+  <data name="NameLabel" xml:space="preserve">
+    <value>Name</value>
+  </data>
+  <data name="NewRolePageTitle" xml:space="preserve">
+    <value>Create a new role</value>
+  </data>
+  <data name="NoRolesFound" xml:space="preserve">
+    <value>No role(s) found</value>
+  </data>
+  <data name="RightsLabel" xml:space="preserve">
+    <value>Rights</value>
+  </data>
+  <data name="RoleCreatedMessage" xml:space="preserve">
+    <value>The role {0} is created successfully.</value>
+  </data>
+  <data name="RoleDeletedMessage" xml:space="preserve">
+    <value>The role {0} is deleted successfully.</value>
+  </data>
+  <data name="RoleUpdatedMessage" xml:space="preserve">
+    <value>The role {0} is updated successfully.</value>
   </data>
 </root>

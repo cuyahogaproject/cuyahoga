@@ -120,5 +120,32 @@ namespace Cuyahoga.Core.Service.Membership
 		/// <param name="rightId"></param>
 		/// <returns></returns>
 		Right GetRightById(int rightId);
+
+		/// <summary>
+		/// Get rights for the give id's.
+		/// </summary>
+		/// <param name="rightIds"></param>
+		/// <returns></returns>
+		IList<Right> GetRightsByIds(int[] rightIds);
+
+		/// <summary>
+		/// Create a new role.
+		/// </summary>
+		/// <param name="role"></param>
+		/// <param name="currentSite"></param>
+		void CreateRole(Role role, Site currentSite);
+
+		/// <summary>
+		/// Update a role.
+		/// </summary>
+		/// <param name="role"></param>
+		/// <param name="site"></param>
+		void UpdateRole(Role role, Site site);
+
+		/// <summary>
+		/// Delete a role.
+		/// </summary>
+		/// <param name="role"></param>
+		void DeleteRole(Role role);
 	}
 }

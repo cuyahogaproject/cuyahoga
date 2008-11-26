@@ -534,10 +534,10 @@ SET IDENTITY_INSERT cuyahoga_role ON
 
 GO
 
-INSERT INTO cuyahoga_role (roleid, name, inserttimestamp, updatetimestamp, permissionlevel) VALUES (3, 'Authenticated user', '2004-01-04 16:34:50.271', '2004-06-25 00:59:02.822', 2)
-INSERT INTO cuyahoga_role (roleid, name, inserttimestamp, updatetimestamp, permissionlevel) VALUES (2, 'Editor', '2004-01-04 16:34:25.669', '2004-06-25 00:59:08.256', 6)
-INSERT INTO cuyahoga_role (roleid, name, inserttimestamp, updatetimestamp, permissionlevel) VALUES (1, 'Administrator', '2004-01-04 16:33:42.255', '2004-09-19 17:08:47.248', 14)
-INSERT INTO cuyahoga_role (roleid, name, inserttimestamp, updatetimestamp, permissionlevel) VALUES (4, 'Anonymous user', '2004-01-04 16:35:10.766', '2004-07-16 21:18:09.017', 1)
+INSERT INTO cuyahoga_role (roleid, name, inserttimestamp, updatetimestamp, permissionlevel, isglobal) VALUES (3, 'Authenticated user', '2004-01-04 16:34:50.271', '2004-06-25 00:59:02.822', 2, 1)
+INSERT INTO cuyahoga_role (roleid, name, inserttimestamp, updatetimestamp, permissionlevel, isglobal) VALUES (2, 'Editor', '2004-01-04 16:34:25.669', '2004-06-25 00:59:08.256', 6, 1)
+INSERT INTO cuyahoga_role (roleid, name, inserttimestamp, updatetimestamp, permissionlevel, isglobal) VALUES (1, 'Administrator', '2004-01-04 16:33:42.255', '2004-09-19 17:08:47.248', 14, 1)
+INSERT INTO cuyahoga_role (roleid, name, inserttimestamp, updatetimestamp, permissionlevel, isglobal) VALUES (4, 'Anonymous user', '2004-01-04 16:35:10.766', '2004-07-16 21:18:09.017', 1, 1)
 
 GO
 
@@ -560,10 +560,6 @@ INSERT INTO cuyahoga_right (rightid, name, description) VALUES (8, 'Manage Site'
 INSERT INTO cuyahoga_right (rightid, name, description) VALUES (9, 'Manage Server', 'Manage server properties')
 INSERT INTO cuyahoga_right (rightid, name, description) VALUES (10, 'Global Permissions', 'Manage permissions that are shared across sites')
 INSERT INTO cuyahoga_right (rightid, name, description) VALUES (11, 'Access Admin', 'Access site administration')
-GO
-
-SET IDENTITY_INSERT cuyahoga_right OFF
-
 GO
 
 INSERT INTO cuyahoga_roleright(roleid, rightid) VALUES (1, 1)

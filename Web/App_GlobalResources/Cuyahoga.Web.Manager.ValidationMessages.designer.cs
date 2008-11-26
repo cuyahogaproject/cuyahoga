@@ -142,6 +142,33 @@ namespace Resources.Cuyahoga.Web.Manager {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to The name must be between 1 and 50 characters.
+        /// </summary>
+        internal static string RoleNameValidatorLength {
+            get {
+                return ResourceManager.GetString("RoleNameValidatorLength", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The role name may not be empty.
+        /// </summary>
+        internal static string RoleNameValidatorNonEmpty {
+            get {
+                return ResourceManager.GetString("RoleNameValidatorNonEmpty", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to A role with this name already exists (possibly in another site).
+        /// </summary>
+        internal static string RoleNameValidatorNotUnique {
+            get {
+                return ResourceManager.GetString("RoleNameValidatorNotUnique", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to A user must at least have one role.
         /// </summary>
         internal static string RolesValidatorNotEmpty {

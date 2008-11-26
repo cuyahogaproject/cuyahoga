@@ -115,6 +115,15 @@ namespace Resources.Cuyahoga.Web.Manager {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Create new role.
+        /// </summary>
+        internal static string CreateRoleLabel {
+            get {
+                return ResourceManager.GetString("CreateRoleLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Create user.
         /// </summary>
         internal static string CreateUserLabel {
@@ -165,6 +174,15 @@ namespace Resources.Cuyahoga.Web.Manager {
         internal static string EditLabel {
             get {
                 return ResourceManager.GetString("EditLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Edit role.
+        /// </summary>
+        internal static string EditRolePageTitle {
+            get {
+                return ResourceManager.GetString("EditRolePageTitle", resourceCulture);
             }
         }
         
@@ -223,7 +241,7 @@ namespace Resources.Cuyahoga.Web.Manager {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Search across all sites.
+        ///   Looks up a localized string similar to Search in all sites.
         /// </summary>
         internal static string GlobalSearchLabel {
             get {
@@ -255,6 +273,15 @@ namespace Resources.Cuyahoga.Web.Manager {
         internal static string IsActiveLabel {
             get {
                 return ResourceManager.GetString("IsActiveLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Is global.
+        /// </summary>
+        internal static string IsGlobalLabel {
+            get {
+                return ResourceManager.GetString("IsGlobalLabel", resourceCulture);
             }
         }
         
@@ -439,6 +466,24 @@ namespace Resources.Cuyahoga.Web.Manager {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Name.
+        /// </summary>
+        internal static string NameLabel {
+            get {
+                return ResourceManager.GetString("NameLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Create a new role.
+        /// </summary>
+        internal static string NewRolePageTitle {
+            get {
+                return ResourceManager.GetString("NewRolePageTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Add new user.
         /// </summary>
         internal static string NewUserPageTitle {
@@ -453,6 +498,15 @@ namespace Resources.Cuyahoga.Web.Manager {
         internal static string No {
             get {
                 return ResourceManager.GetString("No", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to No role(s) found.
+        /// </summary>
+        internal static string NoRolesFound {
+            get {
+                return ResourceManager.GetString("NoRolesFound", resourceCulture);
             }
         }
         
@@ -502,6 +556,33 @@ namespace Resources.Cuyahoga.Web.Manager {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Rights.
+        /// </summary>
+        internal static string RightsLabel {
+            get {
+                return ResourceManager.GetString("RightsLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The role {0} is created successfully..
+        /// </summary>
+        internal static string RoleCreatedMessage {
+            get {
+                return ResourceManager.GetString("RoleCreatedMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The role {0} is deleted successfully..
+        /// </summary>
+        internal static string RoleDeletedMessage {
+            get {
+                return ResourceManager.GetString("RoleDeletedMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Role.
         /// </summary>
         internal static string RoleLabel {
@@ -516,6 +597,15 @@ namespace Resources.Cuyahoga.Web.Manager {
         internal static string RolesLabel {
             get {
                 return ResourceManager.GetString("RolesLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The role {0} is updated successfully..
+        /// </summary>
+        internal static string RoleUpdatedMessage {
+            get {
+                return ResourceManager.GetString("RoleUpdatedMessage", resourceCulture);
             }
         }
         

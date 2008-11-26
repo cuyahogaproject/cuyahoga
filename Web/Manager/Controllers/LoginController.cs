@@ -39,7 +39,7 @@ namespace Cuyahoga.Web.Manager.Controllers
 			var loginUser = new LoginViewData();
 			try
 			{
-				if (TryUpdateModel(loginUser, new[] { "Username", "Password" }) && ValidateModel(loginUser))
+				if (TryUpdateModel(loginUser) && ValidateModel(loginUser))
 				{
 					User user = this._authenticationService.AuthenticateUser(loginUser.Username, loginUser.Password, Request.UserHostAddress);
 

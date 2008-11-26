@@ -57,6 +57,18 @@ namespace Cuyahoga.Web.Manager.Controllers
 			set { this._modelValidator = value; }
 		}
 
+		protected override void OnActionExecuting(ActionExecutingContext filterContext)
+		{
+			InitMessageViewData();
+			base.OnActionExecuting(filterContext);
+		}
+
+		protected override void  OnActionExecuted(ActionExecutedContext filterContext)
+		{
+			DisplayModelStateErrors();
+			base.OnActionExecuted(filterContext);
+		}
+
 		/// <summary>
 		/// Validates the given object. If invalid, the errors are added to the ModelState.
 		/// </summary>
@@ -64,7 +76,7 @@ namespace Cuyahoga.Web.Manager.Controllers
 		/// <returns>True if the object is valid</returns>
 		protected virtual bool ValidateModel(object objectToValidate)
 		{
-			return ValidateModel(objectToValidate, null);
+			return ValidateModel(objectToValidate, null, null);
 		}
 
 		/// <summary>
@@ -75,13 +87,28 @@ namespace Cuyahoga.Web.Manager.Controllers
 		/// <returns>True if the object is valid</returns>
 		protected virtual bool ValidateModel(object objectToValidate, string[] includeProperties)
 		{
-			if (this._modelValidator == null)
+			return ValidateModel(objectToValidate, null, includeProperties);
+		}
+
+		/// <summary>
+		/// Validates the given object. If invalid, the errors are added to the ModelState.
+		/// </summary>
+		/// <param name="objectToValidate">The object to validate</param>
+		/// <param name="modelValidator">A specific model validator</param>
+		/// <param name="includeProperties">Properties to check</param>
+		/// <returns>True if the object is valid</returns>
+		protected virtual bool ValidateModel(object objectToValidate, IModelValidator modelValidator, string[] includeProperties)
+		{
+			if (modelValidator == null && this._modelValidator == null)
 			{
-				throw new InvalidOperationException("A call to Validate() was made while there is no IModelValidator attached to the controller. You have to supply an IModelValidator in the constructor of the controller.");
+				throw new InvalidOperationException("A call to Validate() was made while there is no IModelValidator available to perform validation.");
 			}
-			if (! this._modelValidator.IsValid(objectToValidate, includeProperties))
+			// if a specific modelvalidator is passed, use that one, otherwise use the modelvalidator of the controller.
+			IModelValidator modelValidatorToUse = modelValidator ?? this._modelValidator;
+
+			if (!modelValidatorToUse.IsValid(objectToValidate, includeProperties))
 			{
-				IDictionary<string, ICollection<string>> errorsForProperties = this._modelValidator.GetErrors();
+				IDictionary<string, ICollection<string>> errorsForProperties = modelValidatorToUse.GetErrors();
 				foreach (KeyValuePair<string, ICollection<string>> errorsForProperty in errorsForProperties)
 				{
 					string propertyName = errorsForProperty.Key;
@@ -93,18 +120,6 @@ namespace Cuyahoga.Web.Manager.Controllers
 				return false;
 			}
 			return true;
-		}
-
-		protected override void OnActionExecuting(ActionExecutingContext filterContext)
-		{
-			InitMessageViewData();
-			base.OnActionExecuting(filterContext);
-		}
-
-		protected override void  OnActionExecuted(ActionExecutedContext filterContext)
-		{
-			DisplayModelStateErrors();
- 			base.OnActionExecuted(filterContext);
 		}
 
 		private void DisplayModelStateErrors()
