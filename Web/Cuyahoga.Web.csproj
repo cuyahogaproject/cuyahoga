@@ -744,6 +744,7 @@
     <Content Include="Manager\Content\Images\world_go.png" />
     <Content Include="Manager\Default.aspx" />
     <Content Include="Manager\Scripts\jquery-1.2.6.min.js" />
+    <Content Include="Manager\Scripts\jquery.validate.js" />
     <Content Include="Manager\Scripts\jquery.validate.min.js" />
     <Content Include="Manager\Scripts\thickbox.js" />
     <Content Include="Manager\Scripts\ui.core.min.js" />
@@ -1433,6 +1434,7 @@
     <None Include="Install\Web.config" />
     <Content Include="Manager\Views\Shared\Default.Master" />
     <Content Include="Manager\Views\Shared\Admin.Master" />
+    <None Include="Manager\Controllers\Validation.cd" />
     <None Include="Support\FCKeditor\editor\dialog\fck_spellerpages\spellerpages\server-scripts\spellchecker.cfm" />
     <None Include="Support\FCKeditor\editor\dialog\fck_spellerpages\spellerpages\server-scripts\spellchecker.php" />
     <None Include="Support\FCKeditor\editor\dialog\fck_spellerpages\spellerpages\server-scripts\spellchecker.pl" />

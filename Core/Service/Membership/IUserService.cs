@@ -39,6 +39,13 @@ namespace Cuyahoga.Core.Service.Membership
 		User GetUserById(int userId);
 
 		/// <summary>
+		/// Get a user by username.
+		/// </summary>
+		/// <param name="userName"></param>
+		/// <returns></returns>
+		User GetUserByUserName(string userName);
+
+		/// <summary>
 		/// Get a user by username and email.
 		/// </summary>
 		/// <param name="username"></param>

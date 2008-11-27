@@ -1,6 +1,6 @@
 ﻿<%@ Import Namespace="Cuyahoga.Core.Domain"%>
 <%@ Control Language="C#" AutoEventWireup="true" CodeBehind="RoleSelector.ascx.cs" Inherits="Cuyahoga.Web.Manager.Views.Users.RoleSelector" %>
-<fieldset>
+<fieldset style="border:none">
 	<li>
 	<fieldset>  
 		<legend><%= GlobalResources.RolesLabel %></legend>  

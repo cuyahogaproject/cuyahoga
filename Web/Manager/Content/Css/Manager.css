@@ -28,12 +28,17 @@ fieldset
 	margin: 5px 0 5px 0;  
 	padding: 0;
 	border-style: none;
+	border-top: 1px solid #ddd;
 }
 
 fieldset legend 
 {
 	font-weight: bold;
-	margin: 5px 10px;
+	color: #333;
+	margin: 3px 10px;
+	border: 1px solid #ccc;
+	padding: 1px 5px;
+	background-color: #eee;
 }
 
 fieldset ol 
@@ -78,13 +83,16 @@ input.error, .input-validation-error
 fieldset fieldset 
 {  
 	margin-top: 0px;
-	margin-bottom: -15px;  
+	margin-bottom: -15px; 
+	border-style: none; 
 }
 
 fieldset fieldset legend 
 {  
 	padding: 0;
 	font-weight: normal;
+	border: none;
+	background-color: inherit;
 }
 
 fieldset fieldset ol 

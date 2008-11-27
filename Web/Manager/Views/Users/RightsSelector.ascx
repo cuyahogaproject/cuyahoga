@@ -1,6 +1,6 @@
 ﻿<%@ Import Namespace="Cuyahoga.Core.Domain"%>
 <%@ Control Language="C#" AutoEventWireup="true" CodeBehind="RightsSelector.ascx.cs" Inherits="Cuyahoga.Web.Manager.Views.Users.RightsSelector" %>
-<fieldset>
+<fieldset style="border:none">
 	<li>
 	<fieldset>  
 		<legend><%= GlobalResources.RightsLabel %></legend>  

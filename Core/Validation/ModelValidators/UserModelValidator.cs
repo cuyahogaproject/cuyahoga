@@ -22,7 +22,7 @@ namespace Cuyahoga.Core.Validation.ModelValidators
 			if (ShouldValidateProperty("UserName", includeProperties)
 			    && ! String.IsNullOrEmpty(objectToValidate.UserName))
 			{
-				if (this._userService.FindUsersByUsername(objectToValidate.UserName).Count > 0)
+				if (this._userService.GetUserByUserName(objectToValidate.UserName) != null)
 				{
 					AddError("UserName", "UserNameValidatorNotUnique", true);
 				}

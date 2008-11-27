@@ -16,6 +16,11 @@
 		border-right: 8px solid #ccc;	
 	}
 
+	fieldset
+	{
+		border: none;
+	}
+
 	fieldset label 
 	{  
 		width: 100px;  

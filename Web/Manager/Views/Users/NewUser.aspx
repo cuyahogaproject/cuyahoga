@@ -33,5 +33,21 @@
 		<%= GlobalResources.Or %>
 		<%= Html.ActionLink(GlobalResources.CancelLabel, "Index", "Users") %>
 		<%= Html.ClientSideValidation(ViewData.Model, "userform") %>
+		
+		<script type="text/javascript">
+			// Add the ajax validator for the username.
+			$(document).ready(function() { 
+				$("#UserName").rules("add", { 
+					remote : {
+						url : '<%= Url.Action("CheckUsernameAvailability") %>',
+						type : "POST"
+					},
+					messages : { 
+						remote : '<%= ValidationMessages.UserNameValidatorNotUnique %>'
+					} 
+				}); 
+			});
+		</script>
+
 	<% } %>
 </asp:Content>

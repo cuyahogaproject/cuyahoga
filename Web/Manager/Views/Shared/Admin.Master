@@ -9,7 +9,7 @@
 		<asp:ContentPlaceHolder id="cphHead" runat="server">
 		</asp:ContentPlaceHolder>
 		<script type="text/javascript" src="<%= Url.Content("~/Manager/Scripts/jquery-1.2.6.min.js") %>"></script>
-		<script type="text/javascript" src="<%= Url.Content("~/Manager/Scripts/jquery.validate.min.js") %>"></script>
+		<script type="text/javascript" src="<%= Url.Content("~/Manager/Scripts/jquery.validate.js") %>"></script>
 	</head>
 	<body>
 		<% Html.RenderPartial("Header"); %>

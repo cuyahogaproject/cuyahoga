@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Web.Mvc;
 using Cuyahoga.Core.Domain;
@@ -177,6 +178,18 @@ namespace Cuyahoga.Web.Manager.Controllers
 				ShowException(ex, true);
 			}
 			return RedirectToAction("Index");
+		}
+
+		[AcceptVerbs(HttpVerbs.Post)]
+		public ActionResult CheckUsernameAvailability(string userName)
+		{
+			bool userExists = false;
+			if (! String.IsNullOrEmpty(userName) && userName.Length > 3)
+			{
+				User user = this._userService.GetUserByUserName(userName);
+				userExists = user != null;
+			}
+			return Json(!userExists);
 		}
 
 		public ActionResult Roles()

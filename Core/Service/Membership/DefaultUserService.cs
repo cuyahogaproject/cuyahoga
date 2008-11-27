@@ -66,6 +66,11 @@ namespace Cuyahoga.Core.Service.Membership
 			return this._commonDao.GetObjectById(typeof(User), userId, true) as User;
 		}
 
+		public User GetUserByUserName(string userName)
+		{
+			return this._commonDao.GetObjectByDescription(typeof(User), "UserName", userName) as User;
+		}
+
 		public User GetUserByUsernameAndEmail(string username, string email)
 		{
 			return this._userDao.GetUserByUsernameAndEmail(username, email);
