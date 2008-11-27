@@ -308,6 +308,11 @@ table.grid tr.selected
 	background-color: #eee;
 }
 
+table.grid td a
+{
+	margin-right: 5px;
+}
+
 /* Pager */
 .pager 
 {

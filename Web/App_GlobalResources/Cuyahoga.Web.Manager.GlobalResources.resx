@@ -333,4 +333,7 @@
   <data name="RoleUpdatedMessage" xml:space="preserve">
     <value>The role {0} is updated successfully.</value>
   </data>
+  <data name="UsersLabel" xml:space="preserve">
+    <value>Users</value>
+  </data>
 </root>

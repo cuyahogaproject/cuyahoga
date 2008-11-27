@@ -26,7 +26,8 @@
 						<td><%= role.Name %></td>
 						<td><%= role.RightsString %></td>	
 						<td><%= role.IsGlobal %></td>
-						<td>
+						<td style="white-space:nowrap">
+							<%= Html.ActionLink(GlobalResources.UsersLabel, "Browse", new { roleid = role.Id } ) %>
 							<% if (! role.IsGlobal || Html.HasRight(User, Rights.GlobalPermissions)) { %>
 								<%= Html.ActionLink(GlobalResources.EditLabel, "EditRole", new { id = role.Id }) %>
 								<% using (Html.BeginForm("DeleteRole", "Users", new { id = role.Id }, FormMethod.Post)) { %>

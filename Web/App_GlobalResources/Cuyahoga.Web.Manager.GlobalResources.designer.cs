@@ -682,6 +682,15 @@ namespace Resources.Cuyahoga.Web.Manager {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Users.
+        /// </summary>
+        internal static string UsersLabel {
+            get {
+                return ResourceManager.GetString("UsersLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to The user {0} is updated successfully..
         /// </summary>
         internal static string UserUpdatedMessage {

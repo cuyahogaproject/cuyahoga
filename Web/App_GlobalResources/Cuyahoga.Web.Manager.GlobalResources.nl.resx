@@ -315,4 +315,7 @@
   <data name="RoleUpdatedMessage" xml:space="preserve">
     <value>De rol {0} is gewijzigd.</value>
   </data>
+  <data name="UsersLabel" xml:space="preserve">
+    <value>Gebruikers</value>
+  </data>
 </root>
