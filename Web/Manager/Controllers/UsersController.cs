@@ -10,6 +10,7 @@ using Cuyahoga.Web.Manager.Filters;
 using Cuyahoga.Web.Mvc.Paging;
 using Resources.Cuyahoga.Web.Manager;
 using CuyahogaUser = Cuyahoga.Core.Domain.User;
+using CuyahogaSite = Cuyahoga.Core.Domain.Site;
 
 namespace Cuyahoga.Web.Manager.Controllers
 {
@@ -46,7 +47,7 @@ namespace Cuyahoga.Web.Manager.Controllers
 			ViewData["globalsearch"] = globalSearch;
 
 			int totalCount;
-			Site siteToFilter = globalSearch.HasValue && globalSearch.Value == true ? null : CuyahogaContext.CurrentSite;
+			CuyahogaSite siteToFilter = globalSearch.HasValue && globalSearch.Value == true ? null : CuyahogaContext.CurrentSite;
 			IList<User> users = _userService.FindUsers(username, roleId, isActive, siteToFilter, pageSize, page, out totalCount);
 			return View("Index", new PagedList<User>(users, page.HasValue ? page.Value -1 : 0, pageSize, totalCount));
 		}

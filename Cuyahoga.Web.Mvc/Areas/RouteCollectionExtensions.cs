@@ -1,4 +1,6 @@
-﻿using System.Web.Routing;
+﻿using System.Collections.Generic;
+using System.Web;
+using System.Web.Routing;
 
 namespace Cuyahoga.Web.Mvc.Areas
 {
@@ -12,7 +14,7 @@ namespace Cuyahoga.Web.Mvc.Areas
 		/// <param name="controllersNamespace"></param>
 		/// <param name="routeEntries"></param>
 		/// <remarks>Thanks to Steve Sanderson, http://blog.codeville.net/2008/11/05/app-areas-in-aspnet-mvc-take-2/</remarks>
-		public static void CreateArea(this RouteCollection routes, string areaName, string controllersNamespace, params Route[] routeEntries)
+		public static Route[] CreateArea(this RouteCollection routes, string areaName, string controllersNamespace, params Route[] routeEntries)
 		{
 			foreach (var route in routeEntries)
 			{
@@ -23,12 +25,13 @@ namespace Cuyahoga.Web.Mvc.Areas
 				route.Constraints.Add("area", areaName);
 				route.Defaults.Add("area", areaName);
 				route.DataTokens.Add("namespaces", new string[] { controllersNamespace });
-
+				
 				if (!routes.Contains(route)) // To support "new Route()" in addition to "routes.MapRoute()"
 				{
 					routes.Add(route);
 				}
 			}
+			return routeEntries;
 		}
 	}
 }

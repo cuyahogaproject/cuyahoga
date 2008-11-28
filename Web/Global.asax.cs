@@ -50,6 +50,8 @@ namespace Cuyahoga.Web
 
 			// Routes
 			RegisterRoutes(RouteTable.Routes);
+			//RouteHelper.RouteDebugger.RewriteRoutesForTesting(RouteTable.Routes);
+
 		}
 
 		protected void Application_BeginRequest(object sender, EventArgs e)
@@ -100,9 +102,10 @@ namespace Cuyahoga.Web
 			//    "{controller}/{action}/{id}",                           // URL with parameters
 			//    new { controller = "Home", action = "Index", id = "" }  // Parameter defaults
 			//);
-
-			// Routing config for the manager area
 			routes.CreateArea("manager", "Cuyahoga.Web.Manager.Controllers",
+				//routes.MapRoute(null, "manager/{subarea}/{controller}/{action}/{id}"
+				//    , new { action = "Index", controller = "Dummy", id = "", subarea = "" }
+				//    , new { subarea = "Dashboard|Pages|Files|Users|Site|Server", controller = @"^(?!\Dummy|Dashboard|Pages|Files|Users|Site|Server).*$" }),
 				routes.MapRoute(null, "manager/{controller}/{action}/{id}", new { action = "Index", controller = "Dashboard", id = "" }),
 				routes.MapRoute(null, "Login", new { action = "Index", controller = "Login" }) // Also put the login functionality in the manager area.
 			);

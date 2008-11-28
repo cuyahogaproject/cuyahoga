@@ -7,6 +7,7 @@ using Cuyahoga.Core.Service.Membership;
 using Cuyahoga.Core.Service.SiteStructure;
 using Cuyahoga.Web.Manager.Filters;
 using Resources.Cuyahoga.Web.Manager;
+using CuyahogaSite = Cuyahoga.Core.Domain.Site;
 
 namespace Cuyahoga.Web.Manager.Controllers
 {
@@ -32,9 +33,9 @@ namespace Cuyahoga.Web.Manager.Controllers
 		/// <returns></returns>
 		public ActionResult SiteChooser()
 		{
-			List<Site> availableSites = new List<Site>();
+			List<CuyahogaSite> availableSites = new List<CuyahogaSite>();
 			IList allSites = this._siteService.GetAllSites();
-			foreach (Site site in allSites)
+			foreach (CuyahogaSite site in allSites)
 			{
 				if (this.CuyahogaContext.CurrentUser.HasRight(Rights.AccessAdmin, site))
 				{
@@ -51,7 +52,7 @@ namespace Cuyahoga.Web.Manager.Controllers
 		/// <param name="siteId"></param>
 		public ActionResult SetSite(int siteId)
 		{
-			Site site = this._siteService.GetSiteById(siteId);
+			CuyahogaSite site = this._siteService.GetSiteById(siteId);
 			string dashBoardUrl = Url.Action("Index", "Dashboard");
 			if (HttpContext.Request.ApplicationPath.Length > 1)
 			{

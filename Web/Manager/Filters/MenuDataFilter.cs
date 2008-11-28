@@ -84,7 +84,16 @@ namespace Cuyahoga.Web.Manager.Filters
 
 		private bool CheckInPath(RouteData routeData, string controllerName)
 		{
-			return routeData.Values["controller"].ToString().ToLower().Contains(controllerName.ToLower());
+			bool isInPath = routeData.Values["controller"].ToString().ToLower().Contains(controllerName.ToLower());
+			if (! isInPath)
+			{
+				// also check if we have a subarea with the controller name
+				if (routeData.Values.ContainsKey("subarea"))
+				{
+					isInPath = routeData.Values["subarea"].ToString().ToLower().Contains(controllerName.ToLower());
+				}
+			}
+			return isInPath;
 		}
 	}
 }

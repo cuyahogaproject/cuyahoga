@@ -122,6 +122,10 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\lib\MvcContrib.Castle.dll</HintPath>
     </Reference>
+    <Reference Include="RouteHelper.RouteDebugger, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\lib\RouteHelper.RouteDebugger.dll</HintPath>
+    </Reference>
     <Reference Include="System">
       <Name>System</Name>
     </Reference>
@@ -336,6 +340,7 @@
     <Compile Include="Manager\Controllers\SecureController.cs" />
     <Compile Include="Manager\Controllers\ServerController.cs" />
     <Compile Include="Manager\Controllers\SiteController.cs" />
+    <Compile Include="Manager\Controllers\TemplateController.cs" />
     <Compile Include="Manager\Controllers\UsersController.cs" />
     <Compile Include="Manager\Default.aspx.cs">
       <DependentUpon>Default.aspx</DependentUpon>
@@ -440,6 +445,13 @@
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="Manager\Views\Site\Index.aspx.designer.cs">
+      <DependentUpon>Index.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Manager\Views\Template\Index.aspx.cs">
+      <DependentUpon>Index.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Manager\Views\Template\Index.aspx.designer.cs">
       <DependentUpon>Index.aspx</DependentUpon>
     </Compile>
     <Compile Include="Manager\Views\Users\EditRole.aspx.cs">
@@ -813,6 +825,7 @@
     <Content Include="Manager\Views\Shared\Messages.ascx" />
     <Content Include="Manager\Views\Shared\SiteChooser.ascx" />
     <Content Include="Manager\Views\Site\Index.aspx" />
+    <Content Include="Manager\Views\Template\Index.aspx" />
     <Content Include="Manager\Views\Users\EditRole.aspx" />
     <Content Include="Manager\Views\Users\EditUser.aspx" />
     <Content Include="Manager\Views\Users\Index.aspx" />
@@ -828,6 +841,24 @@
     <Content Include="Rss.aspx">
       <SubType>Form</SubType>
     </Content>
+    <Content Include="SiteData\1\Templates\AnotherRed\Css\red.css" />
+    <Content Include="SiteData\1\Templates\AnotherRed\Cuyahoga.ascx" />
+    <Content Include="SiteData\1\Templates\AnotherRed\Images\bg-body.gif" />
+    <Content Include="SiteData\1\Templates\AnotherRed\Images\shadow-bottom.gif" />
+    <Content Include="SiteData\1\Templates\AnotherRed\Images\shadow-left.gif" />
+    <Content Include="SiteData\1\Templates\AnotherRed\Images\shadow-right.gif" />
+    <Content Include="SiteData\1\Templates\AnotherRed\Images\shadow-top-left.gif" />
+    <Content Include="SiteData\1\Templates\AnotherRed\Images\shadow-top-right.gif" />
+    <Content Include="SiteData\1\Templates\Classic\Css\red.css" />
+    <Content Include="SiteData\1\Templates\Classic\CuyahogaHome.ascx">
+      <SubType>UserControl</SubType>
+    </Content>
+    <Content Include="SiteData\1\Templates\Classic\CuyahogaStandard.ascx">
+      <SubType>UserControl</SubType>
+    </Content>
+    <Content Include="SiteData\1\Templates\Classic\Images\bg-header.gif" />
+    <Content Include="SiteData\1\Templates\Classic\Images\bg.gif" />
+    <Content Include="SiteData\1\Templates\Classic\Images\bgitem.gif" />
     <Content Include="Support\FCKeditor\editor\css\behaviors\disablehandles.htc" />
     <Content Include="Support\FCKeditor\editor\css\behaviors\hiddenfield.gif" />
     <Content Include="Support\FCKeditor\editor\css\behaviors\hiddenfield.htc" />
@@ -1443,6 +1474,8 @@
   <ItemGroup>
     <Folder Include="index\" />
     <Folder Include="Modules\" />
+    <Folder Include="SiteData\1\index\" />
+    <Folder Include="SiteData\1\UserFiles\" />
     <Folder Include="UserFiles\File\" />
     <Folder Include="UserFiles\Image\" />
   </ItemGroup>
