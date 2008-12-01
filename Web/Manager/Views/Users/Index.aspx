@@ -6,7 +6,6 @@
 	<h2><%= GlobalResources.TasksLabel %></h2>
 	<ul>
 		<li><%= Html.ActionLink(GlobalResources.CreateUserLabel, "New", "Users") %></li>
-		<li><%= Html.ActionLink(GlobalResources.ManageRolesLabel, "Roles", "Users") %></li>
 	</ul>
 </asp:Content>
 <asp:Content ID="Content3" ContentPlaceHolderID="cphMain" runat="server">

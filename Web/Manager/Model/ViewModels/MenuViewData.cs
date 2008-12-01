@@ -2,10 +2,11 @@
 
 namespace Cuyahoga.Web.Manager.Model.ViewModels
 {
-	public class MainMenuViewData
+	public class MenuViewData
 	{
 		private IList<MenuItem> _standardMainMenuItems = new List<MenuItem>();
 		private IList<MenuItem> _optionalMainMenuItems = new List<MenuItem>();
+		private IList<MenuItem> _subMenuItems = new List<MenuItem>();
 
 		public IList<MenuItem> StandardMainMenuItems
 		{
@@ -17,6 +18,11 @@ namespace Cuyahoga.Web.Manager.Model.ViewModels
 			get { return _optionalMainMenuItems; }
 		}
 
+		public IList<MenuItem> SubMenuItems
+		{
+			get { return _subMenuItems; }
+		}
+
 		public void AddStandardMenuItem(MenuItem menuItem)
 		{
 			_standardMainMenuItems.Add(menuItem);
@@ -25,6 +31,11 @@ namespace Cuyahoga.Web.Manager.Model.ViewModels
 		public void AddOptionalMenuItem(MenuItem menuItem)
 		{
 			_optionalMainMenuItems.Add(menuItem);
+		}
+
+		public void AddSubMenuItem(MenuItem menuItem)
+		{
+			_subMenuItems.Add(menuItem);
 		}
 	}
 

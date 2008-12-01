@@ -198,7 +198,8 @@ a:hover
 	font-weight: bold;
 }
 
-#mainmenu a:hover
+#mainmenu a:hover,
+#submenu a:hover
 {
 	background-color: #69c;
 }
@@ -208,16 +209,52 @@ a:hover
 	color: #000;
 }
 
-#mainmenu li.selected a:hover
+#mainmenu li.selected a:hover,
+#submenu li.selected a:hover
 {
 	background-color: #ddd;
 }
 
+#submenu ul
+{
+	list-style: none;
+	margin: 0;
+	padding: 0;
+}
+
+#submenu li
+{
+	background-color: #369;
+	margin: 0;
+	text-indent: 20px;
+	border-bottom: 1px solid #fff;
+	border-right: 1px solid #fff;
+}
+
+#submenu li.selected
+{
+	background-color: #ccc;
+}
+
+#submenu a
+{
+	display: block;
+	padding: 6px 7px;
+	color: #fff;
+	text-decoration: none;
+	font-size: 100%;
+	font-weight: bold;
+}
+
+#submenu li.selected a
+{
+	color: #333;
+}
+
 #contentarea
 {
-	width: 70%;
 	background-color: #fff;
-	margin: 10px;
+	margin: 10px 240px 10px 10px;
 	border-top: 1px solid #ccc;
 	border-left: 1px solid #ccc;
 	border-bottom: 1px solid #ccc;
@@ -226,14 +263,18 @@ a:hover
 	padding: 10px;
 }
 
-#taskarea
+#subcontentarea
 {
-	width: 22%;
+	width: 230px;
 	float: right;
 	margin-top: 10px;
-	margin-left: 10px;
 	margin-bottom: 10px;
-	padding: 10px;
+	margin-right: 10px;
+}
+
+#taskarea
+{
+	margin-left: 10px;
 }
 
 #loginpanel
@@ -339,7 +380,7 @@ table.grid td a
 
 .pager .current 
 {
-	background-color:#06c;
+	background-color:#369;
 	border:1px solid #009;
 	color:#fff;
 	font-weight:bold;

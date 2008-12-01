@@ -45,13 +45,14 @@ namespace Cuyahoga.Web.Manager.Filters
 
 		private void InitMenuViewData(ActionExecutingContext filterContext)
 		{
-			MainMenuViewData mainMenuViewData = new MainMenuViewData();
+			MenuViewData menuViewData = new MenuViewData();
 			User user = this._cuyahogaContext.CurrentUser;
 			if (user != null && user.IsAuthenticated)
 			{
 				var nodes = this._sitemapProvider.GetMvcChildNodes(this._sitemapProvider.RootNode);
 				var currentNode = this._sitemapProvider.CurrentNode;
 
+				// mainmenu
 				foreach (MvcSiteMapNode node in nodes)
 				{
 					if (this._sitemapProvider.IsAccessibleToUser(filterContext.HttpContext, node, this._cuyahogaContext.CurrentSite))
@@ -62,16 +63,34 @@ namespace Cuyahoga.Web.Manager.Filters
 						bool isSystem = Convert.ToBoolean(node["system"]);
 						if (isSystem)
 						{
-							mainMenuViewData.AddOptionalMenuItem(menuItem);
+							menuViewData.AddOptionalMenuItem(menuItem);
 						}
 						else
 						{
-							mainMenuViewData.AddStandardMenuItem(menuItem);
+							menuViewData.AddStandardMenuItem(menuItem);
+						}
+					}
+					// submenu
+					if (node.HasChildNodes && CheckInPath(node, currentNode, filterContext.RouteData))
+					{
+						foreach (SiteMapNode childNode in node.ChildNodes)
+						{
+							MvcSiteMapNode mvcChildNode = childNode as MvcSiteMapNode;
+							if (mvcChildNode != null)
+							{
+								if (this._sitemapProvider.IsAccessibleToUser(filterContext.HttpContext, mvcChildNode, this._cuyahogaContext.CurrentSite))
+								{
+									MenuItem menuItem = new MenuItem(VirtualPathUtility.ToAbsolute(mvcChildNode.Url)
+										, GlobalResources.ResourceManager.GetString(mvcChildNode.ResourceKey, Thread.CurrentThread.CurrentUICulture)
+										, CheckInPath(mvcChildNode, currentNode, filterContext.RouteData));
+									menuViewData.AddSubMenuItem(menuItem);
+								}
+							}
 						}
 					}
 				}
 			}
-			filterContext.Controller.ViewData.Add("MainMenuViewData", mainMenuViewData);
+			filterContext.Controller.ViewData.Add("MenuViewData", menuViewData);
 		}
 
 		private bool CheckInPath(MvcSiteMapNode node, SiteMapNode currentNode, RouteData currentRouteData)
@@ -81,9 +100,11 @@ namespace Cuyahoga.Web.Manager.Filters
 			{
 				return currentMvcNode.Key == node.Key || currentMvcNode.IsDescendantOf(node);
 			}
+			// We might have some unmapped actions. Check routedata if the node is in the path. Only check top-level nodes.
 			if (currentRouteData != null)
 			{
-				return node.Controller == currentRouteData.Values["controller"].ToString();
+				return node.Controller == currentRouteData.Values["controller"].ToString()
+					&& node.ParentNode == this._sitemapProvider.RootNode;
 			}
 			return false;
 		}

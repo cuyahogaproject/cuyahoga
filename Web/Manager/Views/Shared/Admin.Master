@@ -14,11 +14,14 @@
 	<body>
 		<% Html.RenderPartial("Header"); %>
 		<% Html.RenderPartialRequest("SiteChooser"); %>
-		<% Html.RenderPartial("MainMenu", ViewData["MainMenuViewData"]); %>
+		<% Html.RenderPartial("MainMenu", ViewData["MenuViewData"]); %>
 		<% Html.RenderPartial("Messages", ViewData["Messages"]); %>
-		<div id="taskarea">
-			<asp:ContentPlaceHolder id="cphTasks" runat="server">
-			</asp:ContentPlaceHolder>
+		<div id="subcontentarea">
+			<% Html.RenderPartial("SubMenu", ViewData["MenuViewData"]); %>
+			<div id="taskarea">
+				<asp:ContentPlaceHolder id="cphTasks" runat="server">
+				</asp:ContentPlaceHolder>
+			</div>
 		</div>
 		<div id="contentarea">
 			<h1><%= Html.Encode(ViewData["Title"]) %></h1> 

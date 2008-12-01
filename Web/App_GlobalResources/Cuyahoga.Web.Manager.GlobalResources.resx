@@ -181,7 +181,7 @@
     <value>Manage site</value>
   </data>
   <data name="ManageUsersPageTitle" xml:space="preserve">
-    <value>Manage users and roles</value>
+    <value>Manage users</value>
   </data>
   <data name="PasswordLabel" xml:space="preserve">
     <value>Password</value>
@@ -200,9 +200,6 @@
   </data>
   <data name="CreateUserLabel" xml:space="preserve">
     <value>Create user</value>
-  </data>
-  <data name="ManageRolesLabel" xml:space="preserve">
-    <value>Manage roles</value>
   </data>
   <data name="EditLabel" xml:space="preserve">
     <value>Edit</value>
@@ -337,9 +334,9 @@
     <value>Users</value>
   </data>
   <data name="ManagerMenuRoles" xml:space="preserve">
-    <value>Roles</value>
+    <value>Manage roles</value>
   </data>
   <data name="ManagerMenuTemplates" xml:space="preserve">
-    <value>Templates</value>
+    <value>Manage templates</value>
   </data>
 </root>

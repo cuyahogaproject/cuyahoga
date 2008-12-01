@@ -177,9 +177,6 @@
   <data name="CreateUserLabel" xml:space="preserve">
     <value>Nieuwe gebruiker</value>
   </data>
-  <data name="ManageRolesLabel" xml:space="preserve">
-    <value>Beheer rollen</value>
-  </data>
   <data name="RoleLabel" xml:space="preserve">
     <value>Rol</value>
   </data>
@@ -217,7 +214,7 @@
     <value>Zoek in alle sites</value>
   </data>
   <data name="ManageUsersPageTitle" xml:space="preserve">
-    <value>Beheer gebruikers en rollen</value>
+    <value>Beheer gebruikers</value>
   </data>
   <data name="TasksLabel" xml:space="preserve">
     <value>Taken</value>
@@ -319,7 +316,7 @@
     <value>Gebruikers</value>
   </data>
   <data name="ManagerMenuRoles" xml:space="preserve">
-    <value>Roles</value>
+    <value>Beheer rollen</value>
   </data>
   <data name="ManagerMenuTemplates" xml:space="preserve">
     <value>Templates</value>

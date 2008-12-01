@@ -2,7 +2,7 @@
 
 namespace Cuyahoga.Web.Manager.Views.Shared
 {
-	public partial class MainMenu : System.Web.Mvc.ViewUserControl<MenuViewData>
+	public partial class SubMenu : System.Web.Mvc.ViewUserControl<MenuViewData>
 	{
 	}
 }
