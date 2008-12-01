@@ -6,7 +6,7 @@ using Cuyahoga.Core.Domain;
 using Cuyahoga.Core.Service.Membership;
 using Cuyahoga.Core.Util;
 using Cuyahoga.Core.Validation.ModelValidators;
-using Cuyahoga.Web.Manager.Filters;
+using Cuyahoga.Web.Mvc.Filters;
 using Cuyahoga.Web.Mvc.Paging;
 using Resources.Cuyahoga.Web.Manager;
 using CuyahogaUser = Cuyahoga.Core.Domain.User;

@@ -351,7 +351,6 @@
     </Compile>
     <Compile Include="Manager\Filters\ExceptionFilter.cs" />
     <Compile Include="Manager\Filters\MenuDataFilter.cs" />
-    <Compile Include="Manager\Filters\PermissionFilter.cs" />
     <Compile Include="Manager\Filters\SiteFilter.cs" />
     <Compile Include="Manager\Model\ViewModels\LoginViewData.cs" />
     <Compile Include="Manager\Model\ViewModels\MainMenuViewData.cs" />
@@ -1466,6 +1465,7 @@
     <Content Include="Manager\Views\Shared\Default.Master" />
     <Content Include="Manager\Views\Shared\Admin.Master" />
     <None Include="Manager\Controllers\Validation.cd" />
+    <Content Include="Manager\Web.sitemap" />
     <None Include="Support\FCKeditor\editor\dialog\fck_spellerpages\spellerpages\server-scripts\spellchecker.cfm" />
     <None Include="Support\FCKeditor\editor\dialog\fck_spellerpages\spellerpages\server-scripts\spellchecker.php" />
     <None Include="Support\FCKeditor\editor\dialog\fck_spellerpages\spellerpages\server-scripts\spellchecker.pl" />

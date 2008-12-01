@@ -5,7 +5,7 @@ using System.Web.Mvc;
 using Cuyahoga.Core.Domain;
 using Cuyahoga.Core.Service.Membership;
 using Cuyahoga.Core.Service.SiteStructure;
-using Cuyahoga.Web.Manager.Filters;
+using Cuyahoga.Web.Mvc.Filters;
 using Resources.Cuyahoga.Web.Manager;
 using CuyahogaSite = Cuyahoga.Core.Domain.Site;
 

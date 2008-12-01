@@ -3,7 +3,7 @@ using System.Security;
 using System.Web.Mvc;
 using Cuyahoga.Core.Domain;
 
-namespace Cuyahoga.Web.Manager.Filters
+namespace Cuyahoga.Web.Mvc.Filters
 {
 	[AttributeUsage(AttributeTargets.Class | AttributeTargets.Method, Inherited = true, AllowMultiple = false)]
 	public class PermissionFilterAttribute : FilterAttribute, IAuthorizationFilter

@@ -336,4 +336,10 @@
   <data name="UsersLabel" xml:space="preserve">
     <value>Users</value>
   </data>
+  <data name="ManagerMenuRoles" xml:space="preserve">
+    <value>Roles</value>
+  </data>
+  <data name="ManagerMenuTemplates" xml:space="preserve">
+    <value>Templates</value>
+  </data>
 </root>

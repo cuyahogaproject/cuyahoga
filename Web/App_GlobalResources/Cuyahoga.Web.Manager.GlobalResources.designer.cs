@@ -394,6 +394,15 @@ namespace Resources.Cuyahoga.Web.Manager {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Roles.
+        /// </summary>
+        internal static string ManagerMenuRoles {
+            get {
+                return ResourceManager.GetString("ManagerMenuRoles", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Server settings.
         /// </summary>
         internal static string ManagerMenuServer {
@@ -408,6 +417,15 @@ namespace Resources.Cuyahoga.Web.Manager {
         internal static string ManagerMenuSite {
             get {
                 return ResourceManager.GetString("ManagerMenuSite", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Templates.
+        /// </summary>
+        internal static string ManagerMenuTemplates {
+            get {
+                return ResourceManager.GetString("ManagerMenuTemplates", resourceCulture);
             }
         }
         

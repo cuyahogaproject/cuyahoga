@@ -1,6 +1,6 @@
 ﻿using System.Web.Mvc;
 using Cuyahoga.Core.Service.Membership;
-using Cuyahoga.Web.Manager.Filters;
+using Cuyahoga.Web.Mvc.Filters;
 
 namespace Cuyahoga.Web.Manager.Controllers
 {

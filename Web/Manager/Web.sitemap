@@ -1,0 +1,15 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<siteMap>
+	<siteMapNode id="Root" url="~/Default.aspx" >
+		<mvcSiteMapNode id="Dashboard" title="Dashboard" controller="Dashboard" action="Index" resourceKey="ManagerMenuDashboard" />
+		<mvcSiteMapNode id="Pages" title="Pages" controller="Pages" resourceKey="ManagerMenuPages" />
+		<mvcSiteMapNode id="Files" title="Files" controller="Files" resourceKey="ManagerMenuFiles" />
+		<mvcSiteMapNode id="Users" title="Users and roles" controller="Users" resourceKey="ManagerMenuUsers" system="true">
+			<mvcSiteMapNode id="Roles" title="Roles" controller="Users" action="Roles" resourceKey="ManagerMenuRoles" system="true"/>
+		</mvcSiteMapNode>
+		<mvcSiteMapNode id="Site" title="Site" controller="Site" resourceKey="ManagerMenuSite" system="true">
+			<mvcSiteMapNode id="Templates" title="Templates" controller="Template" resourceKey="ManagerMenuTemplates" system="true"/>
+		</mvcSiteMapNode>
+		<mvcSiteMapNode id="Server" title="Server" controller="Server" resourceKey="ManagerMenuServer" system="true" />
+	</siteMapNode>
+</siteMap>

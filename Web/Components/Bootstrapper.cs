@@ -9,6 +9,7 @@ using Cuyahoga.Core.Service;
 using Cuyahoga.Core.Util;
 using Cuyahoga.Core.Validation;
 using Cuyahoga.Core.Validation.ModelValidators;
+using Cuyahoga.Web.Mvc.Sitemap;
 using Cuyahoga.Web.Mvc.Validation;
 using log4net;
 using MvcContrib.Castle;
@@ -110,6 +111,8 @@ namespace Cuyahoga.Web.Components
 					container.Kernel.AddComponent(type.Name.ToLower(), type, LifestyleType.Transient);
 				}
 			}
+			// Register MVC sitemap provider
+			container.AddComponent("managersitemapprovider", typeof(IMvcSitemapProvider), typeof(MvcSitemapProvider));
 		}
 
 		private static void RegisterValidatorComponents(IWindsorContainer container)

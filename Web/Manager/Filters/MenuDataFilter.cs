@@ -1,10 +1,13 @@
-﻿using System.Web.Mvc;
+﻿using System;
+using System.Threading;
+using System.Web;
+using System.Web.Mvc;
 using System.Web.Routing;
 using Cuyahoga.Core;
 using Cuyahoga.Core.Domain;
-using Cuyahoga.Core.Service.Membership;
 using Cuyahoga.Core.Util;
 using Cuyahoga.Web.Manager.Model.ViewModels;
+using Cuyahoga.Web.Mvc.Sitemap;
 using Resources.Cuyahoga.Web.Manager;
 
 namespace Cuyahoga.Web.Manager.Filters
@@ -12,6 +15,7 @@ namespace Cuyahoga.Web.Manager.Filters
 	public class MenuDataFilter : ActionFilterAttribute
 	{
 		private readonly ICuyahogaContext _cuyahogaContext;
+		private readonly IMvcSitemapProvider _sitemapProvider;
 
 		/// <summary>
 		/// Creates a new instance of the <see cref="MenuDataFilter"></see> class.
@@ -20,16 +24,18 @@ namespace Cuyahoga.Web.Manager.Filters
 		/// Lookup components via the static IoC resolver. It would be great if we could do this via dependency injection
 		/// but filters cannot be managed via the container in the current version of ASP.NET MVC. 
 		/// </remarks>
-		public MenuDataFilter() : this(IoC.Resolve<ICuyahogaContext>())
+		public MenuDataFilter() : this(IoC.Resolve<ICuyahogaContext>(), IoC.Resolve<IMvcSitemapProvider>())
 		{}
 
 		/// <summary>
 		/// Creates a new instance of the <see cref="MenuDataFilter"></see> class.
 		/// </summary>
 		/// <param name="cuyahogaContext"></param>
-		public MenuDataFilter(ICuyahogaContext cuyahogaContext)
+		/// <param name="sitemapProvider"></param>
+		public MenuDataFilter(ICuyahogaContext cuyahogaContext, IMvcSitemapProvider sitemapProvider)
 		{
 			_cuyahogaContext = cuyahogaContext;
+			_sitemapProvider = sitemapProvider;
 		}
 
 		public override void OnActionExecuting(ActionExecutingContext filterContext)
@@ -39,61 +45,47 @@ namespace Cuyahoga.Web.Manager.Filters
 
 		private void InitMenuViewData(ActionExecutingContext filterContext)
 		{
-			UrlHelper urlHelper = new UrlHelper(filterContext);
-
 			MainMenuViewData mainMenuViewData = new MainMenuViewData();
 			User user = this._cuyahogaContext.CurrentUser;
 			if (user != null && user.IsAuthenticated)
 			{
-				mainMenuViewData.AddStandardMenuItem(
-					new MenuItem(urlHelper.Action("Index", "Dashboard")
-					, GlobalResources.ManagerMenuDashboard, CheckInPath(filterContext.RouteData, "Dashboard")));
-				if (user.HasRight(Rights.ManagePages, this._cuyahogaContext.CurrentSite))
+				var nodes = this._sitemapProvider.GetMvcChildNodes(this._sitemapProvider.RootNode);
+				var currentNode = this._sitemapProvider.CurrentNode;
+
+				foreach (MvcSiteMapNode node in nodes)
 				{
-					mainMenuViewData.AddStandardMenuItem(
-						new MenuItem(urlHelper.Action("Index", "Pages")
-						, GlobalResources.ManagerMenuPages, CheckInPath(filterContext.RouteData, "Pages")));
-				}
-				if (user.HasRight(Rights.ManageFiles, this._cuyahogaContext.CurrentSite))
-				{
-					mainMenuViewData.AddStandardMenuItem(
-						new MenuItem(urlHelper.Action("Index", "Files")
-						, GlobalResources.ManagerMenuFiles, CheckInPath(filterContext.RouteData, "Files")));
-				}
-				if (user.HasRight(Rights.ManageUsers, this._cuyahogaContext.CurrentSite))
-				{
-					mainMenuViewData.AddOptionalMenuItem(
-						new MenuItem(urlHelper.Action("Index", "Users")
-						, GlobalResources.ManagerMenuUsers, CheckInPath(filterContext.RouteData, "Users")));
-				}
-				if (user.HasRight(Rights.ManageSite, this._cuyahogaContext.CurrentSite))
-				{
-					mainMenuViewData.AddOptionalMenuItem(
-						new MenuItem(urlHelper.Action("Index", "Site")
-						, GlobalResources.ManagerMenuSite, CheckInPath(filterContext.RouteData, "Site")));
-				}
-				if (user.HasRight(Rights.ManageServer, this._cuyahogaContext.CurrentSite))
-				{
-					mainMenuViewData.AddOptionalMenuItem(
-						new MenuItem(urlHelper.Action("Index", "Server")
-						, GlobalResources.ManagerMenuServer, CheckInPath(filterContext.RouteData, "Server")));
+					if (this._sitemapProvider.IsAccessibleToUser(filterContext.HttpContext, node, this._cuyahogaContext.CurrentSite))
+					{
+						MenuItem menuItem = new MenuItem(VirtualPathUtility.ToAbsolute(node.Url)
+							, GlobalResources.ResourceManager.GetString(node.ResourceKey, Thread.CurrentThread.CurrentUICulture)
+							, CheckInPath(node, currentNode, filterContext.RouteData));
+						bool isSystem = Convert.ToBoolean(node["system"]);
+						if (isSystem)
+						{
+							mainMenuViewData.AddOptionalMenuItem(menuItem);
+						}
+						else
+						{
+							mainMenuViewData.AddStandardMenuItem(menuItem);
+						}
+					}
 				}
 			}
 			filterContext.Controller.ViewData.Add("MainMenuViewData", mainMenuViewData);
 		}
 
-		private bool CheckInPath(RouteData routeData, string controllerName)
+		private bool CheckInPath(MvcSiteMapNode node, SiteMapNode currentNode, RouteData currentRouteData)
 		{
-			bool isInPath = routeData.Values["controller"].ToString().ToLower().Contains(controllerName.ToLower());
-			if (! isInPath)
+			MvcSiteMapNode currentMvcNode = currentNode as MvcSiteMapNode;
+			if (currentMvcNode != null)
 			{
-				// also check if we have a subarea with the controller name
-				if (routeData.Values.ContainsKey("subarea"))
-				{
-					isInPath = routeData.Values["subarea"].ToString().ToLower().Contains(controllerName.ToLower());
-				}
+				return currentMvcNode.Key == node.Key || currentMvcNode.IsDescendantOf(node);
 			}
-			return isInPath;
+			if (currentRouteData != null)
+			{
+				return node.Controller == currentRouteData.Values["controller"].ToString();
+			}
+			return false;
 		}
 	}
 }
