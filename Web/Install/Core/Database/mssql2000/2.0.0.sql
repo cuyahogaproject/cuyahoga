@@ -36,6 +36,44 @@ FROM cuyahoga_site, cuyahoga_role
 
 go
 
+-- Template per site
+ALTER TABLE cuyahoga_template
+	ADD siteid int NULL
+go
+
+ALTER TABLE cuyahoga_template
+	ADD CONSTRAINT FK_template_site_siteid
+		FOREIGN KEY(siteid) REFERENCES cuyahoga_site(siteid)
+go
+
+-- Migrate templates to all existing sites
+INSERT INTO cuyahoga_template([name], basepath, templatecontrol, css, siteid)
+SELECT t.name, t.basepath, t.templatecontrol, t.css, s.siteid 
+FROM cuyahoga_template t, cuyahoga_site s
+
+go
+
+-- Also link all sections that are connected to a template to the new templates
+INSERT INTO cuyahoga_templatesection(templateid, sectionId, placeholder)
+SELECT t2.templateid, ts.sectionid, ts.placeholder
+FROM cuyahoga_template t1, cuyahoga_templatesection ts, cuyahoga_template t2
+WHERE t1.[name] = t2.[name] 
+	AND t1.templateid = ts.templateid 
+	AND t2.siteid IS NOT NULL
+	
+go
+
+-- Migrate templateid's of the nodes to link to the templates that belong to the site (match by template name)
+UPDATE cuyahoga_node
+	SET templateid = t2.templateid
+FROM cuyahoga_node n, cuyahoga_template t1, cuyahoga_template t2
+WHERE
+	t1.templateid = n.templateid 
+	AND t2.siteid = n.siteid
+	AND t2.[name] = t1.[name]
+	
+go 
+	
 -- Rights 
 CREATE TABLE cuyahoga_right(
 rightid int identity(1,1) NOT NULL CONSTRAINT PK_right PRIMARY KEY,

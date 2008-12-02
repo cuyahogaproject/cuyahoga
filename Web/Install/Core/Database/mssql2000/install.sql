@@ -122,6 +122,7 @@ go
 
 CREATE TABLE cuyahoga_template(
 templateid int identity(1,1) NOT NULL CONSTRAINT PK_template PRIMARY KEY,
+siteid int NULL,
 name nvarchar(100) NOT NULL,
 basepath nvarchar(100) NOT NULL,
 templatecontrol nvarchar(50) NOT NULL,
@@ -493,6 +494,11 @@ go
 ALTER TABLE cuyahoga_sectionconnection
 ADD CONSTRAINT FK_sectionconnection_section_sectionidto
 FOREIGN KEY (sectionidto) REFERENCES cuyahoga_section (sectionid)
+go
+
+ALTER TABLE cuyahoga_template
+ADD CONSTRAINT FK_template_site_siteid
+FOREIGN KEY(siteid) REFERENCES cuyahoga_site(siteid)
 go
 
 ALTER TABLE cuyahoga_templatesection
