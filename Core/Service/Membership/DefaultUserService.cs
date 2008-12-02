@@ -169,6 +169,7 @@ namespace Cuyahoga.Core.Service.Membership
 		public void CreateRole(Role role, Site currentSite)
 		{
 			ConnectRoleToSites(role, currentSite);
+			CheckRightsForRoleAndSite(role, currentSite);
 			this._commonDao.SaveObject(role);
 		}
 
@@ -214,6 +215,19 @@ namespace Cuyahoga.Core.Service.Membership
 			if (currentUser == null || (!currentUser.HasRight(Rights.GlobalPermissions) && role.IsGlobal))
 			{
 				throw new SecurityException("Tried to set a role to global without enough permissions.");
+			}
+		}
+
+		private void CheckRightsForRoleAndSite(Role role, Site currentSite)
+		{
+			// Make sure that the role hasn't any rights that the user doesn't have for the current site.
+			User currentUser = (User)Thread.CurrentPrincipal;
+			foreach (Right right in role.Rights)
+			{
+				if (! currentUser.HasRight(right.Name, currentSite))
+				{
+					throw new SecurityException("You can not assign rights to a role that you don't have yourself.");
+				}
 			}
 		}
 	}
