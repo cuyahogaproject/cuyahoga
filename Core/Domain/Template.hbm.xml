@@ -15,6 +15,8 @@
 		<property name="BasePath" column="basepath" type="String" length="100" />
 		<property name="TemplateControl" column="templatecontrol" type="String" length="50" />
 		<property name="Css" column="css" type="String" length="100" />
+
+		<many-to-one name="Site" class="Cuyahoga.Core.Domain.Site, Cuyahoga.Core" column="siteid" cascade="none" />
 		
 		<map name="Sections" table="cuyahoga_templatesection" lazy="true">
 			<cache usage="read-write" />

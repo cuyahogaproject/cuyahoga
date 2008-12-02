@@ -22,6 +22,7 @@ namespace Cuyahoga.Core.Domain
 		private Role _defaultRole;
 		private IList _rootNodes;
 		private IList<Role> _roles;
+		private IList<Template> _templates;
 		private DateTime _updateTimestamp;
 
 		#region properties
@@ -141,6 +142,15 @@ namespace Cuyahoga.Core.Domain
 		{
 			get { return _roles; }
 			set { _roles = value; }
+		}
+
+		/// <summary>
+		/// The templates that are related to the site.
+		/// </summary>
+		public virtual IList<Template> Templates
+		{
+			get { return _templates; }
+			set { _templates = value; }
 		}
 
 		/// <summary>

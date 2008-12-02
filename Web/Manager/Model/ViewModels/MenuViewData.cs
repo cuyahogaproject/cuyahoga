@@ -44,6 +44,7 @@ namespace Cuyahoga.Web.Manager.Model.ViewModels
 		private string _url;
 		private string _text;
 		private bool _isSelected;
+		private string _iconUrl;
 
 		public string Url
 		{
@@ -60,11 +61,17 @@ namespace Cuyahoga.Web.Manager.Model.ViewModels
 			get { return _isSelected; }
 		}
 
-		public MenuItem(string url, string text, bool isSelected)
+		public string IconUrl
+		{
+			get { return _iconUrl; }
+		}
+
+		public MenuItem(string url, string text, bool isSelected, string iconUrl)
 		{
 			this._url = url;
 			this._text = text;
 			this._isSelected = isSelected;
+			this._iconUrl = iconUrl;
 		}
 	}
 }

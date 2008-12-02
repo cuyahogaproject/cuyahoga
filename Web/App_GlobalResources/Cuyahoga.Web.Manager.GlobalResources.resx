@@ -337,6 +337,9 @@
     <value>Manage roles</value>
   </data>
   <data name="ManagerMenuTemplates" xml:space="preserve">
+    <value>Templates</value>
+  </data>
+  <data name="ManageTemplatesPageTitle" xml:space="preserve">
     <value>Manage templates</value>
   </data>
 </root>

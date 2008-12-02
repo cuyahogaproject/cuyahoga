@@ -4,13 +4,7 @@
 	<div id="mainmenu-standard">
 		<ul>
 		<% foreach(var menuItem in ViewData.Model.StandardMainMenuItems) {  %>
-			<% if (menuItem.IsSelected) { %>
-			<li class="selected">
-			<% } else { %>
-			<li>
-			<% } %>
-				<a href="<%= menuItem.Url %>"><%= menuItem.Text %></a>
-			</li>
+			<% Html.RenderPartial("MenuItem", menuItem); %>
 		<% } %>
 		</ul>
 	</div>
@@ -19,13 +13,7 @@
 	<div id="mainmenu-options">	
 		<ul>
 		<% foreach(var menuItem in ViewData.Model.OptionalMainMenuItems) {  %>
-			<% if (menuItem.IsSelected) { %>
-			<li class="selected">
-			<% } else { %>
-			<li>
-			<% } %>
-				<a href="<%= menuItem.Url %>"><%= menuItem.Text %></a>
-			</li>
+			<% Html.RenderPartial("MenuItem", menuItem); %>
 		<% } %>
 		</ul>
 	</div>

@@ -340,7 +340,7 @@
     <Compile Include="Manager\Controllers\SecureController.cs" />
     <Compile Include="Manager\Controllers\ServerController.cs" />
     <Compile Include="Manager\Controllers\SiteController.cs" />
-    <Compile Include="Manager\Controllers\TemplateController.cs" />
+    <Compile Include="Manager\Controllers\TemplatesController.cs" />
     <Compile Include="Manager\Controllers\UsersController.cs" />
     <Compile Include="Manager\Default.aspx.cs">
       <DependentUpon>Default.aspx</DependentUpon>
@@ -425,6 +425,13 @@
     <Compile Include="Manager\Views\Shared\MainMenu.ascx.designer.cs">
       <DependentUpon>MainMenu.ascx</DependentUpon>
     </Compile>
+    <Compile Include="Manager\Views\Shared\MenuItem.ascx.cs">
+      <DependentUpon>MenuItem.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Manager\Views\Shared\MenuItem.ascx.designer.cs">
+      <DependentUpon>MenuItem.ascx</DependentUpon>
+    </Compile>
     <Compile Include="Manager\Views\Shared\Messages.ascx.cs">
       <DependentUpon>Messages.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -453,11 +460,11 @@
     <Compile Include="Manager\Views\Site\Index.aspx.designer.cs">
       <DependentUpon>Index.aspx</DependentUpon>
     </Compile>
-    <Compile Include="Manager\Views\Template\Index.aspx.cs">
+    <Compile Include="Manager\Views\Templates\Index.aspx.cs">
       <DependentUpon>Index.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Manager\Views\Template\Index.aspx.designer.cs">
+    <Compile Include="Manager\Views\Templates\Index.aspx.designer.cs">
       <DependentUpon>Index.aspx</DependentUpon>
     </Compile>
     <Compile Include="Manager\Views\Users\EditRole.aspx.cs">
@@ -758,7 +765,16 @@
     <Content Include="Manager\Content\Images\cuyahoga-logo.png" />
     <Content Include="Manager\Content\Images\error.png" />
     <Content Include="Manager\Content\Images\exclamation.png" />
+    <Content Include="Manager\Content\Images\folder_page.png" />
+    <Content Include="Manager\Content\Images\folder_picture.png" />
+    <Content Include="Manager\Content\Images\group.png" />
     <Content Include="Manager\Content\Images\information.png" />
+    <Content Include="Manager\Content\Images\layout.png" />
+    <Content Include="Manager\Content\Images\page.png" />
+    <Content Include="Manager\Content\Images\server.png" />
+    <Content Include="Manager\Content\Images\television.png" />
+    <Content Include="Manager\Content\Images\user.png" />
+    <Content Include="Manager\Content\Images\world.png" />
     <Content Include="Manager\Content\Images\world_go.png" />
     <Content Include="Manager\Default.aspx" />
     <Content Include="Manager\Scripts\jquery-1.2.6.min.js" />
@@ -828,11 +844,12 @@
     <Content Include="Manager\Views\Shared\Error.aspx" />
     <Content Include="Manager\Views\Shared\Header.ascx" />
     <Content Include="Manager\Views\Shared\MainMenu.ascx" />
+    <Content Include="Manager\Views\Shared\MenuItem.ascx" />
     <Content Include="Manager\Views\Shared\Messages.ascx" />
     <Content Include="Manager\Views\Shared\SiteChooser.ascx" />
     <Content Include="Manager\Views\Shared\SubMenu.ascx" />
     <Content Include="Manager\Views\Site\Index.aspx" />
-    <Content Include="Manager\Views\Template\Index.aspx" />
+    <Content Include="Manager\Views\Templates\Index.aspx" />
     <Content Include="Manager\Views\Users\EditRole.aspx" />
     <Content Include="Manager\Views\Users\EditUser.aspx" />
     <Content Include="Manager\Views\Users\Index.aspx" />

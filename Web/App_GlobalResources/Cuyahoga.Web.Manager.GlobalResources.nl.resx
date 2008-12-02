@@ -321,4 +321,7 @@
   <data name="ManagerMenuTemplates" xml:space="preserve">
     <value>Templates</value>
   </data>
+  <data name="ManageTemplatesPageTitle" xml:space="preserve">
+    <value>Beheer templates</value>
+  </data>
 </root>

@@ -3,13 +3,7 @@
 	<div id="submenu">
 		<ul>
 			<% foreach(var menuItem in ViewData.Model.SubMenuItems) {  %>
-				<% if (menuItem.IsSelected) { %>
-				<li class="selected">
-				<% } else { %>
-				<li>
-				<% } %>
-					<a href="<%= menuItem.Url %>"><%= menuItem.Text %></a>
-				</li>
+				<% Html.RenderPartial("MenuItem", menuItem); %>
 			<% } %>
 		</ul>
 	</div>

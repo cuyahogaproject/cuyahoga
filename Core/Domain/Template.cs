@@ -16,6 +16,7 @@ namespace Cuyahoga.Core.Domain
 		private string _basePath;
 		private string _templateControl;
 		private string _css;
+		private Site _site;
 		private IDictionary _sections;
 
 		/// <summary>
@@ -85,6 +86,15 @@ namespace Cuyahoga.Core.Domain
 		{
 			get { return this._css; }
 			set { this._css = value; }
+		}
+
+		/// <summary>
+		/// The site where this template belongs to.
+		/// </summary>
+		public virtual Site Site
+		{
+			get { return _site; }
+			set { _site = value; }
 		}
 
 		/// <summary>

@@ -11,7 +11,6 @@ using System.Web.Caching;
 using System.Collections.Specialized;
 using System.Reflection;
 using System.Collections;
-using System.Security.Principal;
 using Cuyahoga.Core.Domain;
 using Cuyahoga.Web.Mvc.Filters;
 
@@ -41,7 +40,7 @@ namespace Cuyahoga.Web.Mvc.Sitemap
 		private string cacheKey = "122EF2B1-F0A4-4507-B011-94669840F79C";
 		private bool canCache = true;
 		private readonly object padlock = new object();
-		private readonly ICollection<string> ignoreAttributes = new [] { "title", "description", "resourceKey", "id", "paramid", "system" };
+		private readonly ICollection<string> ignoreAttributes = new [] { "title", "description", "resourceKey", "id", "paramid", "system", "icon" };
 		private IDictionary<string, string[]> permissionCache = new Dictionary<string, string[]>();
 
 		#endregion
@@ -527,7 +526,8 @@ namespace Cuyahoga.Web.Mvc.Sitemap
 			smNode.Description = smNode["description"]; 
 			smNode.ResourceKey = smNode["resourceKey"];
 			smNode.Controller = smNode["controller"];
-			smNode.Action = smNode["action"] ?? "Index"; 
+			smNode.Action = smNode["action"] ?? "Index";
+			smNode.Icon = smNode["icon"];
 
 			// Verify route values
 			if (!routeValues.ContainsKey("controller")) routeValues.Add("controller", "Home");

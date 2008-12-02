@@ -421,7 +421,7 @@ namespace Resources.Cuyahoga.Web.Manager {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Manage templates.
+        ///   Looks up a localized string similar to Templates.
         /// </summary>
         internal static string ManagerMenuTemplates {
             get {
@@ -453,6 +453,15 @@ namespace Resources.Cuyahoga.Web.Manager {
         internal static string ManageSitePageTitle {
             get {
                 return ResourceManager.GetString("ManageSitePageTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Manage templates.
+        /// </summary>
+        internal static string ManageTemplatesPageTitle {
+            get {
+                return ResourceManager.GetString("ManageTemplatesPageTitle", resourceCulture);
             }
         }
         

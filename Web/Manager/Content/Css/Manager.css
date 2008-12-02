@@ -121,9 +121,14 @@ a:hover
 	text-decoration: underline;
 }
 
+img
+{
+	border: 0;
+}
+
 #header
 {
-	background-color: #def;
+	background-color: #eef;
 	height: 60px;
 }
 
@@ -156,7 +161,7 @@ a:hover
 
 #mainmenu
 {
-	background-color: #def;
+	background-color: #eef;
 	padding: 5px 10px 0px 10px;
 	height: 24px;
 	border-bottom: 1px solid #ccc;
@@ -192,7 +197,7 @@ a:hover
 #mainmenu a
 {
 	display: block;
-	padding: 4px 10px;
+	padding: 4px 10px 4px 6px;
 	color: #fff;
 	text-decoration: none;
 	font-weight: bold;
@@ -215,6 +220,13 @@ a:hover
 	background-color: #ddd;
 }
 
+#mainmenu img,
+#submenu img
+{
+	vertical-align: middle;
+	margin-top: -4px;
+}
+
 #submenu ul
 {
 	list-style: none;
@@ -226,9 +238,9 @@ a:hover
 {
 	background-color: #369;
 	margin: 0;
-	text-indent: 20px;
-	border-bottom: 1px solid #fff;
-	border-right: 1px solid #fff;
+	text-indent: 5px;
+	border-bottom: 1px solid #aaa;
+	border-right: 1px solid #aaa;
 }
 
 #submenu li.selected

@@ -1,6 +1,10 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Manager/Views/Shared/Default.Master" AutoEventWireup="true" CodeBehind="Index.aspx.cs" Inherits="Cuyahoga.Web.Manager.Views.Login.Index" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="cphHead" runat="server">
 	<style type="text/css">
+	body
+	{
+		background-color: #eef;
+	}
 	#loginpanel
 	{
 		width: 350px;

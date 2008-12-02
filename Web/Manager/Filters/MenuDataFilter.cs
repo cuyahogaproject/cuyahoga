@@ -51,6 +51,7 @@ namespace Cuyahoga.Web.Manager.Filters
 			{
 				var nodes = this._sitemapProvider.GetMvcChildNodes(this._sitemapProvider.RootNode);
 				var currentNode = this._sitemapProvider.CurrentNode;
+				UrlHelper urlHelper = new UrlHelper(filterContext);
 
 				// mainmenu
 				foreach (MvcSiteMapNode node in nodes)
@@ -59,7 +60,8 @@ namespace Cuyahoga.Web.Manager.Filters
 					{
 						MenuItem menuItem = new MenuItem(VirtualPathUtility.ToAbsolute(node.Url)
 							, GlobalResources.ResourceManager.GetString(node.ResourceKey, Thread.CurrentThread.CurrentUICulture)
-							, CheckInPath(node, currentNode, filterContext.RouteData));
+							, CheckInPath(node, currentNode, filterContext.RouteData)
+							, node.Icon != null ? urlHelper.Content("~/manager/Content/images/" + node.Icon) : null);
 						bool isSystem = Convert.ToBoolean(node["system"]);
 						if (isSystem)
 						{
@@ -82,7 +84,8 @@ namespace Cuyahoga.Web.Manager.Filters
 								{
 									MenuItem menuItem = new MenuItem(VirtualPathUtility.ToAbsolute(mvcChildNode.Url)
 										, GlobalResources.ResourceManager.GetString(mvcChildNode.ResourceKey, Thread.CurrentThread.CurrentUICulture)
-										, CheckInPath(mvcChildNode, currentNode, filterContext.RouteData));
+										, CheckInPath(mvcChildNode, currentNode, filterContext.RouteData)
+										, mvcChildNode.Icon != null ? urlHelper.Content("~/manager/Content/images/" + mvcChildNode.Icon) : null);
 									menuViewData.AddSubMenuItem(menuItem);
 								}
 							}
