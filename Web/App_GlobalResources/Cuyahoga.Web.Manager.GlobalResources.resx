@@ -372,4 +372,13 @@
   <data name="TemplatesLabel" xml:space="preserve">
     <value>Templates</value>
   </data>
+  <data name="JumpToSiteAdminLabel" xml:space="preserve">
+    <value>Click here to go to the administration of the site</value>
+  </data>
+  <data name="NewSiteSuccessPageTitle" xml:space="preserve">
+    <value>The new site was created successfully.</value>
+  </data>
+  <data name="NewSiteWarningText" xml:space="preserve">
+    <value>Note that the url of the new site must be accesible. Verify that the physical directory of the url points to the Cuyahoga installation.</value>
+  </data>
 </root>

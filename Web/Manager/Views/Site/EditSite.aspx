@@ -4,11 +4,9 @@
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="cphTasks" runat="server">
 	<h2><%= GlobalResources.TasksLabel %></h2>
-	<ul>
-		<% if (Html.HasRight(User, Rights.CreateSite)) { %>
-			<li><%= Html.ActionLink(GlobalResources.CreateSiteLabel, "New")%></li>
-		<% } %>
-	</ul>
+	<% if (Html.HasRight(User, Rights.CreateSite)) { %>
+		<%= Html.ActionLink(GlobalResources.CreateSiteLabel, "New", null, new { @class = "createlink"} )%>
+	<% } %>
 </asp:Content>
 <asp:Content ID="Content3" ContentPlaceHolderID="cphMain" runat="server">
 </asp:Content>

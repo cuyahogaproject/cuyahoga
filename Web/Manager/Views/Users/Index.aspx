@@ -4,9 +4,8 @@
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="cphTasks" runat="server">
 	<h2><%= GlobalResources.TasksLabel %></h2>
-	<ul>
-		<li><%= Html.ActionLink(GlobalResources.CreateUserLabel, "New", "Users") %></li>
-	</ul>
+	<%= Html.ActionLink(GlobalResources.CreateUserLabel, "New", "Users", null, new { @class = "createlink" }) %>
+	
 </asp:Content>
 <asp:Content ID="Content3" ContentPlaceHolderID="cphMain" runat="server">
 	<% using (Html.BeginForm("Browse", "Users", FormMethod.Get, new { id = "usersearchform" })) { %>

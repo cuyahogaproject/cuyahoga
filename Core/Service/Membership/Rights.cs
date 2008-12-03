@@ -12,6 +12,7 @@ namespace Cuyahoga.Core.Service.Membership
 
 		public const string ManagePages = "Manage Pages";
 		public const string ManageFiles = "Manage Files";
+		public const string ManageTemplates = "Manage Templates";
 		public const string ManageUsers = "Manage Users";
 		public const string ManageSite = "Manage Site";
 		public const string ManageServer = "Manage Server";

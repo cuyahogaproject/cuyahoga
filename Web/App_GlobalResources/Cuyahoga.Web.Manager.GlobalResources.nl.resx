@@ -357,4 +357,13 @@
   <data name="TemplatesLabel" xml:space="preserve">
     <value>Templates</value>
   </data>
+  <data name="JumpToSiteAdminLabel" xml:space="preserve">
+    <value>Klik hier om naar de manager van de nieuwe site te gaan</value>
+  </data>
+  <data name="NewSiteSuccessPageTitle" xml:space="preserve">
+    <value>De nieuwe site is aangemaakt.</value>
+  </data>
+  <data name="NewSiteWarningText" xml:space="preserve">
+    <value>Let op: de url van de nieuwe site moet toegankelijk zijn. Check dat de fysieke directory die bij de url hoort verwijst naar de directory waar Cuyahoga geinstalleerd is.</value>
+  </data>
 </root>

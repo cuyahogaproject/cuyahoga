@@ -331,6 +331,15 @@ namespace Resources.Cuyahoga.Web.Manager {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Click here to go to the administration of the site.
+        /// </summary>
+        internal static string JumpToSiteAdminLabel {
+            get {
+                return ResourceManager.GetString("JumpToSiteAdminLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Last login from.
         /// </summary>
         internal static string LastLoginfromLabel {
@@ -552,6 +561,24 @@ namespace Resources.Cuyahoga.Web.Manager {
         internal static string NewSitePageTitle {
             get {
                 return ResourceManager.GetString("NewSitePageTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The new site was created successfully..
+        /// </summary>
+        internal static string NewSiteSuccessPageTitle {
+            get {
+                return ResourceManager.GetString("NewSiteSuccessPageTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Note that the url of the new site must be accesible. Verify that the physical directory of the url points to the Cuyahoga installation..
+        /// </summary>
+        internal static string NewSiteWarningText {
+            get {
+                return ResourceManager.GetString("NewSiteWarningText", resourceCulture);
             }
         }
         

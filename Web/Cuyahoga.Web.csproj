@@ -467,6 +467,13 @@
     <Compile Include="Manager\Views\Site\NewSite.aspx.designer.cs">
       <DependentUpon>NewSite.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Manager\Views\Site\NewSiteSuccess.aspx.cs">
+      <DependentUpon>NewSiteSuccess.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Manager\Views\Site\NewSiteSuccess.aspx.designer.cs">
+      <DependentUpon>NewSiteSuccess.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Manager\Views\Templates\Index.aspx.cs">
       <DependentUpon>Index.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -857,6 +864,7 @@
     <Content Include="Manager\Views\Shared\SubMenu.ascx" />
     <Content Include="Manager\Views\Site\EditSite.aspx" />
     <Content Include="Manager\Views\Site\NewSite.aspx" />
+    <Content Include="Manager\Views\Site\NewSiteSuccess.aspx" />
     <Content Include="Manager\Views\Templates\Index.aspx" />
     <Content Include="Manager\Views\Users\EditRole.aspx" />
     <Content Include="Manager\Views\Users\EditUser.aspx" />

@@ -42,18 +42,21 @@
 		</fieldset>		
 		<fieldset>
 			<legend><%= GlobalResources.TemplatesLabel %></legend>
-			<li>
-				<fieldset>  
-					<legend><%= GlobalResources.CopyTemplatesLabel %></legend>  
-					<ol>  
-						<% foreach (Template template in (IEnumerable<Template>)ViewData["Templates"]) { %>
-						<li>  
-							<input type="checkbox" name="TemplateIds" id="Template_<%= template.Id %>" value="<%= template.Id %>" />
-							<label for="Template_<%= template.Id %>"><%= template.Name %></label>  
-						</li>
-						<% } %>
-					</ol>
-				</fieldset>
+			<ol>
+				<li>
+					<fieldset>  
+						<legend><%= GlobalResources.CopyTemplatesLabel %></legend>  
+						<ol>  
+							<% foreach (Template template in (IEnumerable<Template>)ViewData["Templates"]) { %>
+							<li>  
+								<input type="checkbox" name="TemplateIds" id="Template_<%= template.Id %>" value="<%= template.Id %>" />
+								<label for="Template_<%= template.Id %>"><%= template.Name %></label>  
+							</li>
+							<% } %>
+						</ol>
+					</fieldset>
+				</li>
+			</ol>
 		</fieldset>
 		<input type="submit" value="<%= GlobalResources.SaveButtonLabel %>" />
 		<%= GlobalResources.Or %>

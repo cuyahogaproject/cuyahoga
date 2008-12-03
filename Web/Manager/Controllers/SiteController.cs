@@ -1,7 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Collections.Specialized;
-using System.Configuration;
 using System.Linq;
 using System.Web.Mvc;
 using Cuyahoga.Core.Domain;
@@ -35,6 +33,7 @@ namespace Cuyahoga.Web.Manager.Controllers
 			return View("EditSite", CuyahogaContext.CurrentSite);
 		}
 
+		[PermissionFilter(RequiredRights = Rights.CreateSite)]
 		public ActionResult New()
 		{
 			ViewData["Title"] = GlobalResources.NewSitePageTitle;
@@ -44,6 +43,8 @@ namespace Cuyahoga.Web.Manager.Controllers
 			return View("NewSite", new Site());
 		}
 
+		[PermissionFilter(RequiredRights = Rights.CreateSite)]
+		[AcceptVerbs(HttpVerbs.Post)]
 		public ActionResult Create(int defaultRoleId, int[] templateIds)
 		{
 			Site site = new Site();
@@ -61,8 +62,7 @@ namespace Cuyahoga.Web.Manager.Controllers
 					string systemTemplateDir = Server.MapPath(Config.GetConfiguration()["TemplateDir"]);
 					this._siteservice.CreateSite(site, Server.MapPath("~/SiteData"), templates, systemTemplateDir);
 
-					ShowMessage("Site created", true);
-					return RedirectToAction("Index");
+					return RedirectToAction("CreateSuccess", new { siteId = site.Id });
 				}
 			}
 			catch (Exception ex)
@@ -73,8 +73,15 @@ namespace Cuyahoga.Web.Manager.Controllers
 			ViewData["Roles"] = new SelectList(this._userService.GetAllGlobalRoles(), "Id", "Name", site.DefaultRole.Id);
 			ViewData["Cultures"] = new SelectList(Globalization.GetOrderedCultures(), "Key", "Value", site.DefaultCulture);
 			ViewData["Templates"] = this._templateService.GetAllSystemTemplates();
-			ViewData["TemplateIds"] = templateIds;
 			return View("NewSite", site);
+		}
+
+		[PermissionFilter(RequiredRights = Rights.CreateSite)]
+		public ActionResult CreateSuccess(int siteId)
+		{
+			ViewData["Title"] = GlobalResources.NewSiteSuccessPageTitle;
+			Site newSite = this._siteservice.GetSiteById(siteId);
+			return View("NewSiteSuccess", newSite);
 		}
 	}
 }

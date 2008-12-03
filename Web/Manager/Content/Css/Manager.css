@@ -289,19 +289,13 @@ img
 	margin-left: 10px;
 }
 
-#loginpanel
+a.createlink
 {
-	width: 350px;
-	height: 180px;
-	background-color: #fff;
-	margin-top: 100px;
-	margin-left: auto;
-	margin-right: auto;
-	padding: 10px;
-	border-top: 1px solid #ccc;
-	border-left: 1px solid #ccc;
-	border-bottom: 1px solid #ccc;
-	border-right: 8px solid #ccc;	
+	display: block;
+	background-image: url(../Images/add.png);
+	background-repeat: no-repeat;
+	background-position: left;
+	padding: 5px 20px;
 }
 
 .messagebox

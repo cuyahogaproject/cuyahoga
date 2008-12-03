@@ -5,9 +5,7 @@
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="cphTasks" runat="server">
 	<h2><%= GlobalResources.TasksLabel %></h2>
-	<ul>
-		<li><%= Html.ActionLink(GlobalResources.CreateRoleLabel, "NewRole", "Users") %></li>
-	</ul>
+	<%= Html.ActionLink(GlobalResources.CreateRoleLabel, "NewRole", "Users", null, new { @class = "createlink" })%>
 </asp:Content>
 <asp:Content ID="Content3" ContentPlaceHolderID="cphMain" runat="server">
 		<% if (ViewData.Model.Count > 0) { %>

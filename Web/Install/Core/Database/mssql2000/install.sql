@@ -567,6 +567,7 @@ INSERT INTO cuyahoga_right (rightid, name, description) VALUES (9, 'Manage Serve
 INSERT INTO cuyahoga_right (rightid, name, description) VALUES (10, 'Global Permissions', 'Manage permissions that are shared across sites')
 INSERT INTO cuyahoga_right (rightid, name, description) VALUES (11, 'Access Admin', 'Access site administration')
 INSERT INTO cuyahoga_right (rightid, name, description) VALUES (12, 'Create Site', 'Create a new site')
+INSERT INTO cuyahoga_right (rightid, name, description) VALUES (13, 'Manage Templates', 'Manage templates')
 GO
 
 SET IDENTITY_INSERT cuyahoga_right OFF
@@ -585,6 +586,7 @@ INSERT INTO cuyahoga_roleright(roleid, rightid) VALUES (1, 9)
 INSERT INTO cuyahoga_roleright(roleid, rightid) VALUES (1, 10)
 INSERT INTO cuyahoga_roleright(roleid, rightid) VALUES (1, 11)
 INSERT INTO cuyahoga_roleright(roleid, rightid) VALUES (1, 12)
+INSERT INTO cuyahoga_roleright(roleid, rightid) VALUES (1, 13)
 INSERT INTO cuyahoga_roleright(roleid, rightid) VALUES (2, 1)
 INSERT INTO cuyahoga_roleright(roleid, rightid) VALUES (2, 2)
 INSERT INTO cuyahoga_roleright(roleid, rightid) VALUES (2, 3)
