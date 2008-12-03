@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using System.Collections.Generic;
 
 using Cuyahoga.Core.Domain;
 
@@ -50,6 +51,15 @@ namespace Cuyahoga.Core.Service.SiteStructure
 		/// </summary>
 		/// <returns></returns>
 		IList GetAllSites();
+
+		/// <summary>
+		/// Create a new site instance.
+		/// </summary>
+		/// <param name="site">The site meta-data</param>
+		/// <param name="siteDataRoot">The physical directory of the SiteData root</param>
+		/// <param name="templatesToCopy">A list of system templates that need to be copied.</param>
+		/// <param name="systemTemplatesDirectory">The physical directory where the system templates are stored.</param>
+		void CreateSite(Site site, string siteDataRoot, IList<Template> templatesToCopy, string systemTemplatesDirectory);
 
 		/// <summary>
 		/// Save a site.

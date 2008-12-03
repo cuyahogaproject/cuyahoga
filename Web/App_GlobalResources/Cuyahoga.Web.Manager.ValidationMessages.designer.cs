@@ -61,6 +61,24 @@ namespace Resources.Cuyahoga.Web.Manager {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to A default culture is required.
+        /// </summary>
+        internal static string DefaultCultureValidatorNonEmpty {
+            get {
+                return ResourceManager.GetString("DefaultCultureValidatorNonEmpty", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to A default role is required.
+        /// </summary>
+        internal static string DefaultRoleValidatorNonEmpty {
+            get {
+                return ResourceManager.GetString("DefaultRoleValidatorNonEmpty", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Invalid e-mail address.
         /// </summary>
         internal static string EmailValidatorEmail {
@@ -106,6 +124,24 @@ namespace Resources.Cuyahoga.Web.Manager {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Meta description can contain max. 500 characters.
+        /// </summary>
+        internal static string MetaDescriptionValidatorLength {
+            get {
+                return ResourceManager.GetString("MetaDescriptionValidatorLength", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Meta keywords can contain max. 500 characters.
+        /// </summary>
+        internal static string MetaKeywordsValidatorLength {
+            get {
+                return ResourceManager.GetString("MetaKeywordsValidatorLength", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to The password confirmation may not be empty.
         /// </summary>
         internal static string PasswordConfirmationValidatorNonEmpty {
@@ -142,6 +178,15 @@ namespace Resources.Cuyahoga.Web.Manager {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to The placeholder can contain max. 100 characters.
+        /// </summary>
+        internal static string PlaceholderValidatorLength {
+            get {
+                return ResourceManager.GetString("PlaceholderValidatorLength", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to The name must be between 1 and 50 characters.
         /// </summary>
         internal static string RoleNameValidatorLength {
@@ -174,6 +219,51 @@ namespace Resources.Cuyahoga.Web.Manager {
         internal static string RolesValidatorNotEmpty {
             get {
                 return ResourceManager.GetString("RolesValidatorNotEmpty", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The site name must be between 1 and 100 characters.
+        /// </summary>
+        internal static string SiteNameValidatorLength {
+            get {
+                return ResourceManager.GetString("SiteNameValidatorLength", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The site name may not be empty.
+        /// </summary>
+        internal static string SiteNameValidatorNonEmpty {
+            get {
+                return ResourceManager.GetString("SiteNameValidatorNonEmpty", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The site url must be between 12 and 100 characters.
+        /// </summary>
+        internal static string SiteUrlValidatorLength {
+            get {
+                return ResourceManager.GetString("SiteUrlValidatorLength", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The site url may not be empty.
+        /// </summary>
+        internal static string SiteUrlValidatorNonEmpty {
+            get {
+                return ResourceManager.GetString("SiteUrlValidatorNonEmpty", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Invalid site url (must begin with http:// or https://).
+        /// </summary>
+        internal static string SiteUrlValidatorPattern {
+            get {
+                return ResourceManager.GetString("SiteUrlValidatorPattern", resourceCulture);
             }
         }
         

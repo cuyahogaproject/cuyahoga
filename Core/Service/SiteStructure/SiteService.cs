@@ -1,6 +1,9 @@
 using System;
 using System.Collections;
-
+using System.Collections.Generic;
+using System.IO;
+using Castle.Services.Transaction;
+using Cuyahoga.Core.Service.Files;
 using log4net;
 
 using Cuyahoga.Core.Domain;
@@ -11,20 +14,25 @@ namespace Cuyahoga.Core.Service.SiteStructure
 	/// <summary>
 	/// Provides functionality to manage site instances.
 	/// </summary>
+	[Transactional]
 	public class SiteService : ISiteService
 	{
 		private static readonly ILog log = LogManager.GetLogger(typeof(SiteService));
 		private ISiteStructureDao _siteStructureDao;
 		private ICommonDao _commonDao;
+		private IFileService _fileService;
 
 		/// <summary>
 		/// Constructor.
 		/// </summary>
 		/// <param name="siteStructureDao"></param>
-		public SiteService(ISiteStructureDao siteStructureDao, ICommonDao commonDao)
+		/// <param name="commonDao"></param>
+		/// <param name="fileService"></param>
+		public SiteService(ISiteStructureDao siteStructureDao, ICommonDao commonDao, IFileService fileService)
 		{
 			this._siteStructureDao = siteStructureDao;
 			this._commonDao = commonDao;
+			this._fileService = fileService;
 		}
 
 		#region ISiteService Members
@@ -67,6 +75,64 @@ namespace Cuyahoga.Core.Service.SiteStructure
 		public IList GetAllSites()
 		{
 			return this._commonDao.GetAll(typeof(Site));
+		}
+
+		[Transaction(TransactionMode.RequiresNew)]
+		public void CreateSite(Site site, string siteDataRoot, IList<Template> templatesToCopy, string systemTemplatesDirectory)
+		{
+			try
+			{
+				// 1. Add global roles to site
+				IList<Role> roles = this._commonDao.GetAll<Role>();
+				foreach (Role role in roles)
+				{
+					if (role.IsGlobal)
+					{
+						site.Roles.Add(role);
+					}
+				}
+
+				// 2. Save site in database
+				this._commonDao.SaveObject(site);
+
+				// 3. Create SiteData folder structure
+				if (! this._fileService.CheckIfDirectoryIsWritable(siteDataRoot))
+				{
+					throw new IOException(string.Format("Unable to create the site because the directory {0} is not writable.", siteDataRoot));
+				}
+				string siteDataPhysicalDirectory = Path.Combine(siteDataRoot, site.Id.ToString());
+				this._fileService.CreateDirectory(siteDataPhysicalDirectory);
+				this._fileService.CreateDirectory(Path.Combine(siteDataPhysicalDirectory, "UserFiles"));
+				this._fileService.CreateDirectory(Path.Combine(siteDataPhysicalDirectory, "index"));
+				string siteTemplatesDirectory = Path.Combine(siteDataPhysicalDirectory, "Templates");
+				this._fileService.CreateDirectory(siteTemplatesDirectory);
+
+				// 4. Copy templates
+				IList<string> templateDirectoriesToCopy = new List<string>();
+				foreach (Template template in templatesToCopy)
+				{
+					string templateDirectoryName = template.BasePath.Substring(template.BasePath.IndexOf("/") + 1);
+					if (! templateDirectoriesToCopy.Contains(templateDirectoryName))
+					{
+						templateDirectoriesToCopy.Add(templateDirectoryName);
+					}
+					Template newTemplate = template.GetCopy();
+					newTemplate.Site = site;
+					site.Templates.Add(newTemplate);
+					this._commonDao.SaveOrUpdateObject(site);
+				}
+				foreach (string templateDirectory in templateDirectoriesToCopy)
+				{
+					string sourceDir = Path.Combine(systemTemplatesDirectory, templateDirectory);
+					string targetDir = Path.Combine(siteTemplatesDirectory, templateDirectory);
+					this._fileService.CopyDirectory(sourceDir, targetDir);
+				}
+			}
+			catch (Exception ex)
+			{
+				log.Error("An unexpected error occured while creating a new site.", ex);
+				throw;
+			}
 		}
 
 		public void SaveSite(Site site)

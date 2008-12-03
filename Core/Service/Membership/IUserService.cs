@@ -116,6 +116,12 @@ namespace Cuyahoga.Core.Service.Membership
 		IList<Role> GetRolesByIds(int[] roleIds);
 
 		/// <summary>
+		/// Get all global roles.
+		/// </summary>
+		/// <returns></returns>
+		IList<Role> GetAllGlobalRoles();
+
+		/// <summary>
 		/// Get all available rights.
 		/// </summary>
 		/// <returns></returns>

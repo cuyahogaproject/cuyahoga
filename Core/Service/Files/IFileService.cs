@@ -36,6 +36,26 @@ namespace Cuyahoga.Core.Service.Files
 		void DeleteFile(string filePath);
 
 		/// <summary>
+		/// Create a new directory.
+		/// </summary>
+		/// <param name="physicalDirectory">The physical path of the new directory</param>
+		void CreateDirectory(string physicalDirectory);
+
+		/// <summary>
+		/// Recursively copy the contents of a given directory to a new location.
+		/// </summary>
+		/// <param name="directoryToCopy">Physical path of the directory to copy</param>
+		/// <param name="directoryToCopyTo">Physical path of the directory where directory and contents are copied to</param>
+		void CopyDirectory(string directoryToCopy, string directoryToCopyTo);
+
+		/// <summary>
+		/// Copy a file to a new location.
+		/// </summary>
+		/// <param name="filePathToCopy"></param>
+		/// <param name="directoryToCopyTo"></param>
+		void CopyFile(string filePathToCopy, string directoryToCopyTo);
+
+		/// <summary>
 		/// Check if the given physical directory is writable for the current user.
 		/// </summary>
 		/// <param name="physicalDirectory"></param>

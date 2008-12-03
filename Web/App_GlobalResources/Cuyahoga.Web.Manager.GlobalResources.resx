@@ -342,4 +342,34 @@
   <data name="ManageTemplatesPageTitle" xml:space="preserve">
     <value>Manage templates</value>
   </data>
+  <data name="CreateSiteLabel" xml:space="preserve">
+    <value>Create new site</value>
+  </data>
+  <data name="DefaultCultureLabel" xml:space="preserve">
+    <value>Default culture</value>
+  </data>
+  <data name="DefaultRoleLabel" xml:space="preserve">
+    <value>Default role for authenticated users</value>
+  </data>
+  <data name="DefaultsLabel" xml:space="preserve">
+    <value>Defaults</value>
+  </data>
+  <data name="NewSitePageTitle" xml:space="preserve">
+    <value>Create a new site</value>
+  </data>
+  <data name="SiteUrlLabel" xml:space="preserve">
+    <value>Site url</value>
+  </data>
+  <data name="UseFriendlyUrlsLabel" xml:space="preserve">
+    <value>Use friendly urls</value>
+  </data>
+  <data name="WebmasterEmailLabel" xml:space="preserve">
+    <value>Webmaster email</value>
+  </data>
+  <data name="CopyTemplatesLabel" xml:space="preserve">
+    <value>Copy templates</value>
+  </data>
+  <data name="TemplatesLabel" xml:space="preserve">
+    <value>Templates</value>
+  </data>
 </root>

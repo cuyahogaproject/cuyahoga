@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Configuration;
 using System.IO;
 using System.Reflection;
 using System.Web;
@@ -8,6 +9,9 @@ using System.Web.UI.WebControls;
 using Cuyahoga.Core.DataAccess;
 using Cuyahoga.Core.Domain;
 using Cuyahoga.Core.Service;
+using Cuyahoga.Core.Service.Membership;
+using Cuyahoga.Core.Service.SiteStructure;
+using Cuyahoga.Core.Util;
 using Cuyahoga.Web.Components;
 using Cuyahoga.Web.UI;
 using Cuyahoga.Web.Util;
@@ -20,6 +24,7 @@ namespace Cuyahoga.Web.Install
 	public class Install : CuyahogaPage
 	{
 		private ICommonDao _commonDao;
+		private ISiteService _siteService;
         private ModuleLoader _moduleLoader;
 
 		protected Panel pnlErrors;
@@ -50,8 +55,9 @@ namespace Cuyahoga.Web.Install
 		/// </summary>
 		public Install()
 		{
-			this._commonDao = Container.Resolve<ICommonDao>();
-            this._moduleLoader = Container.Resolve<ModuleLoader>();
+			this._commonDao = IoC.Resolve<ICommonDao>();
+			this._siteService = IoC.Resolve<ISiteService>();
+            this._moduleLoader = IoC.Resolve<ModuleLoader>();
 		}
 	
 		private void Page_Load(object sender, EventArgs e)
@@ -179,7 +185,6 @@ namespace Cuyahoga.Web.Install
 			User adminUser = (User) this._commonDao.GetObjectById(typeof(User), 1);
 			Template defaultTemplate = this._commonDao.GetObjectByDescription(typeof(Template), "Name", "Another Red") as Template;
 			Role defaultAuthenticatedRole = this._commonDao.GetObjectByDescription(typeof(Role), "Name", "Authenticated user") as Role;
-			IList<Role> roles = this._commonDao.GetAll<Role>();
 
 			// Site
 			Site site = new Site();
@@ -191,14 +196,9 @@ namespace Cuyahoga.Web.Install
 			site.DefaultTemplate = defaultTemplate;
 			site.DefaultPlaceholder = "maincontent";
 			site.DefaultRole = defaultAuthenticatedRole;
-			foreach (Role role in roles)
-			{
-				if (role.IsGlobal)
-				{
-					site.Roles.Add(role);
-				}
-			}
-			this._commonDao.SaveOrUpdateObject(site);
+			
+			string systemTemplatePath = Server.MapPath(Config.GetConfiguration()["TemplateDir"]);
+			this._siteService.CreateSite(site, Server.MapPath("~/SiteData"), this._commonDao.GetAll<Template>(), systemTemplatePath);
 
 			// Root node
 			Node rootNode = new Node();
@@ -216,7 +216,7 @@ namespace Cuyahoga.Web.Install
 				np.Node = rootNode;
 				np.Role = role;
 				np.ViewAllowed = true;
-				np.EditAllowed = role.HasPermission(AccessLevel.Administrator);
+				np.EditAllowed = role.HasRight(Rights.Administrator);
 				rootNode.NodePermissions.Add(np);
 			}
 			this._commonDao.SaveOrUpdateObject(rootNode);

@@ -1,8 +1,9 @@
 using System;
 using System.Collections;
-
+using System.Collections.Generic;
 using Cuyahoga.Core.Domain;
 using Cuyahoga.Core.DataAccess;
+using NHibernate.Expression;
 
 namespace Cuyahoga.Core.Service.SiteStructure
 {
@@ -27,6 +28,13 @@ namespace Cuyahoga.Core.Service.SiteStructure
 		public IList GetAllTemplates()
 		{
 			return this._commonDao.GetAll(typeof(Template), "Name");
+		}
+
+		public IList<Template> GetAllSystemTemplates()
+		{
+			DetachedCriteria crit = DetachedCriteria.For(typeof(Template))
+				.Add(Expression.IsNull("Site"));
+			return this._commonDao.GetAllByCriteria<Template>(crit);
 		}
 
 		public Template GetTemplateById(int templateId)

@@ -106,6 +106,24 @@ namespace Cuyahoga.Core.DataAccess
 		}
 
 		/// <summary>
+		/// Get all objects of T that match the given criteria.
+		/// </summary>
+		/// <typeparam name="T"></typeparam>
+		/// <param name="criteria">NHibernate DetachedCriteria instance.</param>
+		/// <returns></returns>
+		/// <remarks>
+		/// Be careful to not use this one from the UI layer beacuse it ties the UI to NHibernate.
+		/// </remarks>
+		public IList<T> GetAllByCriteria<T>(DetachedCriteria criteria)
+		{
+			using (ISession session = this._sessionManager.OpenSession())
+			{
+				ICriteria crit = criteria.GetExecutableCriteria(session);
+				return crit.List<T>();
+			}
+		}
+
+		/// <summary>
 		/// Get all objects of T for the given id's.
 		/// </summary>
 		/// <typeparam name="T"></typeparam>

@@ -453,12 +453,19 @@
     <Compile Include="Manager\Views\Shared\SubMenu.ascx.designer.cs">
       <DependentUpon>SubMenu.ascx</DependentUpon>
     </Compile>
-    <Compile Include="Manager\Views\Site\Index.aspx.cs">
-      <DependentUpon>Index.aspx</DependentUpon>
+    <Compile Include="Manager\Views\Site\EditSite.aspx.cs">
+      <DependentUpon>EditSite.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Manager\Views\Site\Index.aspx.designer.cs">
-      <DependentUpon>Index.aspx</DependentUpon>
+    <Compile Include="Manager\Views\Site\EditSite.aspx.designer.cs">
+      <DependentUpon>EditSite.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Manager\Views\Site\NewSite.aspx.cs">
+      <DependentUpon>NewSite.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Manager\Views\Site\NewSite.aspx.designer.cs">
+      <DependentUpon>NewSite.aspx</DependentUpon>
     </Compile>
     <Compile Include="Manager\Views\Templates\Index.aspx.cs">
       <DependentUpon>Index.aspx</DependentUpon>
@@ -848,7 +855,8 @@
     <Content Include="Manager\Views\Shared\Messages.ascx" />
     <Content Include="Manager\Views\Shared\SiteChooser.ascx" />
     <Content Include="Manager\Views\Shared\SubMenu.ascx" />
-    <Content Include="Manager\Views\Site\Index.aspx" />
+    <Content Include="Manager\Views\Site\EditSite.aspx" />
+    <Content Include="Manager\Views\Site\NewSite.aspx" />
     <Content Include="Manager\Views\Templates\Index.aspx" />
     <Content Include="Manager\Views\Users\EditRole.aspx" />
     <Content Include="Manager\Views\Users\EditUser.aspx" />
@@ -865,24 +873,6 @@
     <Content Include="Rss.aspx">
       <SubType>Form</SubType>
     </Content>
-    <Content Include="SiteData\1\Templates\AnotherRed\Css\red.css" />
-    <Content Include="SiteData\1\Templates\AnotherRed\Cuyahoga.ascx" />
-    <Content Include="SiteData\1\Templates\AnotherRed\Images\bg-body.gif" />
-    <Content Include="SiteData\1\Templates\AnotherRed\Images\shadow-bottom.gif" />
-    <Content Include="SiteData\1\Templates\AnotherRed\Images\shadow-left.gif" />
-    <Content Include="SiteData\1\Templates\AnotherRed\Images\shadow-right.gif" />
-    <Content Include="SiteData\1\Templates\AnotherRed\Images\shadow-top-left.gif" />
-    <Content Include="SiteData\1\Templates\AnotherRed\Images\shadow-top-right.gif" />
-    <Content Include="SiteData\1\Templates\Classic\Css\red.css" />
-    <Content Include="SiteData\1\Templates\Classic\CuyahogaHome.ascx">
-      <SubType>UserControl</SubType>
-    </Content>
-    <Content Include="SiteData\1\Templates\Classic\CuyahogaStandard.ascx">
-      <SubType>UserControl</SubType>
-    </Content>
-    <Content Include="SiteData\1\Templates\Classic\Images\bg-header.gif" />
-    <Content Include="SiteData\1\Templates\Classic\Images\bg.gif" />
-    <Content Include="SiteData\1\Templates\Classic\Images\bgitem.gif" />
     <Content Include="Support\FCKeditor\editor\css\behaviors\disablehandles.htc" />
     <Content Include="Support\FCKeditor\editor\css\behaviors\hiddenfield.gif" />
     <Content Include="Support\FCKeditor\editor\css\behaviors\hiddenfield.htc" />
@@ -1499,8 +1489,7 @@
   <ItemGroup>
     <Folder Include="index\" />
     <Folder Include="Modules\" />
-    <Folder Include="SiteData\1\index\" />
-    <Folder Include="SiteData\1\UserFiles\" />
+    <Folder Include="SiteData\" />
     <Folder Include="UserFiles\File\" />
     <Folder Include="UserFiles\Image\" />
   </ItemGroup>

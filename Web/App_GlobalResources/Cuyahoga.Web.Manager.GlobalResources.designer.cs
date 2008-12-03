@@ -115,11 +115,29 @@ namespace Resources.Cuyahoga.Web.Manager {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Copy templates.
+        /// </summary>
+        internal static string CopyTemplatesLabel {
+            get {
+                return ResourceManager.GetString("CopyTemplatesLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Create new role.
         /// </summary>
         internal static string CreateRoleLabel {
             get {
                 return ResourceManager.GetString("CreateRoleLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Create new site.
+        /// </summary>
+        internal static string CreateSiteLabel {
+            get {
+                return ResourceManager.GetString("CreateSiteLabel", resourceCulture);
             }
         }
         
@@ -147,6 +165,33 @@ namespace Resources.Cuyahoga.Web.Manager {
         internal static string DashboardPageTitle {
             get {
                 return ResourceManager.GetString("DashboardPageTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Default culture.
+        /// </summary>
+        internal static string DefaultCultureLabel {
+            get {
+                return ResourceManager.GetString("DefaultCultureLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Default role for authenticated users.
+        /// </summary>
+        internal static string DefaultRoleLabel {
+            get {
+                return ResourceManager.GetString("DefaultRoleLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Defaults.
+        /// </summary>
+        internal static string DefaultsLabel {
+            get {
+                return ResourceManager.GetString("DefaultsLabel", resourceCulture);
             }
         }
         
@@ -502,6 +547,15 @@ namespace Resources.Cuyahoga.Web.Manager {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Create a new site.
+        /// </summary>
+        internal static string NewSitePageTitle {
+            get {
+                return ResourceManager.GetString("NewSitePageTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Add new user.
         /// </summary>
         internal static string NewUserPageTitle {
@@ -646,6 +700,15 @@ namespace Resources.Cuyahoga.Web.Manager {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Site url.
+        /// </summary>
+        internal static string SiteUrlLabel {
+            get {
+                return ResourceManager.GetString("SiteUrlLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Tasks.
         /// </summary>
         internal static string TasksLabel {
@@ -655,11 +718,29 @@ namespace Resources.Cuyahoga.Web.Manager {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Templates.
+        /// </summary>
+        internal static string TemplatesLabel {
+            get {
+                return ResourceManager.GetString("TemplatesLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Time zone.
         /// </summary>
         internal static string TimeZoneLabel {
             get {
                 return ResourceManager.GetString("TimeZoneLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Use friendly urls.
+        /// </summary>
+        internal static string UseFriendlyUrlsLabel {
+            get {
+                return ResourceManager.GetString("UseFriendlyUrlsLabel", resourceCulture);
             }
         }
         
@@ -714,6 +795,15 @@ namespace Resources.Cuyahoga.Web.Manager {
         internal static string UserUpdatedMessage {
             get {
                 return ResourceManager.GetString("UserUpdatedMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Webmaster email.
+        /// </summary>
+        internal static string WebmasterEmailLabel {
+            get {
+                return ResourceManager.GetString("WebmasterEmailLabel", resourceCulture);
             }
         }
         

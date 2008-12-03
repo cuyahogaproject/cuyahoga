@@ -117,6 +117,12 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="DefaultCultureValidatorNonEmpty" xml:space="preserve">
+    <value>A default culture is required</value>
+  </data>
+  <data name="DefaultRoleValidatorNonEmpty" xml:space="preserve">
+    <value>A default role is required</value>
+  </data>
   <data name="EmailValidatorEmail" xml:space="preserve">
     <value>Invalid e-mail address</value>
   </data>
@@ -132,6 +138,12 @@
   <data name="LastNameValidatorLength" xml:space="preserve">
     <value>The lastname must be between 1 and 100 characters</value>
   </data>
+  <data name="MetaDescriptionValidatorLength" xml:space="preserve">
+    <value>Meta description can contain max. 500 characters</value>
+  </data>
+  <data name="MetaKeywordsValidatorLength" xml:space="preserve">
+    <value>Meta keywords can contain max. 500 characters</value>
+  </data>
   <data name="PasswordConfirmationValidatorNonEmpty" xml:space="preserve">
     <value>The password confirmation may not be empty</value>
   </data>
@@ -144,6 +156,9 @@
   <data name="PasswordValidatorSameAs" xml:space="preserve">
     <value>The password must be the same as the confirmation password</value>
   </data>
+  <data name="PlaceholderValidatorLength" xml:space="preserve">
+    <value>The placeholder can contain max. 100 characters</value>
+  </data>
   <data name="RoleNameValidatorLength" xml:space="preserve">
     <value>The name must be between 1 and 50 characters</value>
   </data>
@@ -155,6 +170,21 @@
   </data>
   <data name="RolesValidatorNotEmpty" xml:space="preserve">
     <value>A user must at least have one role</value>
+  </data>
+  <data name="SiteNameValidatorLength" xml:space="preserve">
+    <value>The site name must be between 1 and 100 characters</value>
+  </data>
+  <data name="SiteNameValidatorNonEmpty" xml:space="preserve">
+    <value>The site name may not be empty</value>
+  </data>
+  <data name="SiteUrlValidatorLength" xml:space="preserve">
+    <value>The site url must be between 12 and 100 characters</value>
+  </data>
+  <data name="SiteUrlValidatorNonEmpty" xml:space="preserve">
+    <value>The site url may not be empty</value>
+  </data>
+  <data name="SiteUrlValidatorPattern" xml:space="preserve">
+    <value>Invalid site url (must begin with http:// or https://)</value>
   </data>
   <data name="UserNameValidatorLength" xml:space="preserve">
     <value>The username must be between 1 and 50 characters</value>

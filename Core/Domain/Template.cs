@@ -115,5 +115,20 @@ namespace Cuyahoga.Core.Domain
 			this._id = -1;
 			this._sections = new Hashtable();
 		}
+
+		/// <summary>
+		/// Get a clean copy of this template.
+		/// </summary>
+		/// <returns></returns>
+		public virtual Template GetCopy()
+		{
+			Template newTemplate = new Template();
+			newTemplate.Name = this.Name;
+			newTemplate.BasePath = this.BasePath;
+			newTemplate.TemplateControl = this.TemplateControl;
+			newTemplate.Css = this.Css;
+
+			return newTemplate;
+		}
 	}
 }

@@ -7,6 +7,7 @@ using Castle.Services.Transaction;
 using Cuyahoga.Core.Domain;
 using Cuyahoga.Core.DataAccess;
 using Cuyahoga.Core.Util;
+using NHibernate.Expression;
 
 namespace Cuyahoga.Core.Service.Membership
 {
@@ -144,6 +145,14 @@ namespace Cuyahoga.Core.Service.Membership
 		public IList<Role> GetRolesByIds(int[] roleIds)
 		{
 			return this._commonDao.GetByIds<Role>(roleIds);
+		}
+
+		public IList<Role> GetAllGlobalRoles()
+		{
+			DetachedCriteria crit = DetachedCriteria.For(typeof(Role))
+				.Add(Expression.Eq("IsGlobal", true))
+				.AddOrder(Order.Asc("Name"));
+			return this._commonDao.GetAllByCriteria<Role>(crit);
 		}
 
 		/// <summary>

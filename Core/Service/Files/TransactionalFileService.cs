@@ -1,6 +1,6 @@
 using System;
 using System.IO;
-
+using Cuyahoga.Core.Util;
 using log4net;
 using Castle.MicroKernel;
 using Castle.Services.Transaction;
@@ -60,7 +60,7 @@ namespace Cuyahoga.Core.Service.Files
 			if (transaction != null)
 			{
 				// We're participating in a transaction, use the FileWriter to write the file.
-				FileWriter fileWriter = new FileWriter(this._tempDir);
+				FileWriter fileWriter = new FileWriter(this._tempDir, transaction.Name);
 				transaction.Enlist(fileWriter);
 				fileWriter.CreateFromStream(filePath, fileContents);
 			}
@@ -80,7 +80,7 @@ namespace Cuyahoga.Core.Service.Files
 			if (transaction != null)
 			{
 				// We're participating in a transaction, use the FileWriter to delete the file.
-				FileWriter fileWriter = new FileWriter(this._tempDir);
+				FileWriter fileWriter = new FileWriter(this._tempDir, transaction.Name);
 				transaction.Enlist(fileWriter);
 				fileWriter.DeleteFile(filePath);
 			}
@@ -88,6 +88,51 @@ namespace Cuyahoga.Core.Service.Files
 			{
 				// No transaction, just delete the file.
 				File.Delete(filePath);
+			}
+		}
+
+		public void CreateDirectory(string physicalDirectory)
+		{
+			ITransaction transaction = ObtainCurrentTransaction();
+			if (transaction != null)
+			{
+				FileWriter fileWriter = new FileWriter(this._tempDir, transaction.Name);
+				transaction.Enlist(fileWriter);
+				fileWriter.CreateDirectory(physicalDirectory);
+			}
+			else
+			{
+				Directory.CreateDirectory(physicalDirectory);
+			}
+		}
+
+		public void CopyDirectory(string directoryToCopy, string directoryToCopyTo)
+		{
+			ITransaction transaction = ObtainCurrentTransaction();
+			if (transaction != null)
+			{
+				FileWriter fileWriter = new FileWriter(this._tempDir, transaction.Name);
+				transaction.Enlist(fileWriter);
+				fileWriter.CopyDirectory(directoryToCopy, directoryToCopyTo);
+			}
+			else
+			{
+				IOUtil.CopyDirectory(directoryToCopy, directoryToCopyTo);
+			}
+		}
+
+		public void CopyFile(string filePathToCopy, string directoryToCopyTo)
+		{
+			ITransaction transaction = ObtainCurrentTransaction();
+			if (transaction != null)
+			{
+				FileWriter fileWriter = new FileWriter(this._tempDir, transaction.Name);
+				transaction.Enlist(fileWriter);
+				fileWriter.CopyFile(filePathToCopy, directoryToCopyTo);
+			}
+			else
+			{
+				File.Copy(filePathToCopy, Path.Combine(directoryToCopyTo, Path.GetFileName(filePathToCopy)), true);
 			}
 		}
 

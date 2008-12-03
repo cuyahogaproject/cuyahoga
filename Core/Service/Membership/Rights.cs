@@ -17,5 +17,6 @@ namespace Cuyahoga.Core.Service.Membership
 		public const string ManageServer = "Manage Server";
 		public const string GlobalPermissions = "Global Permissions";
 		public const string AccessAdmin = "Access Admin";
+		public const string CreateSite = "Create Site";
 	}
 }

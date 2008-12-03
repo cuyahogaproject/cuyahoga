@@ -12,7 +12,7 @@ namespace Cuyahoga.Web.Manager.Views.Site
 {
 
 
-	public partial class Index
+	public partial class NewSite
 	{
 	}
 }

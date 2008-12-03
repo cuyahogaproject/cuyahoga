@@ -389,6 +389,7 @@
     <Compile Include="Util\Encryption.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Util\IOUtil.cs" />
     <Compile Include="Util\Globalization.cs" />
     <Compile Include="Util\IoC.cs" />
     <Compile Include="Util\PagedResultSet.cs" />

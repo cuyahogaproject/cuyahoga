@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using NHibernate.Expression;
 
 namespace Cuyahoga.Core.DataAccess
 {
@@ -65,6 +66,17 @@ namespace Cuyahoga.Core.DataAccess
 		/// <param name="sortProperties"></param>
 		/// <returns></returns>
 		IList<T> GetAll<T>(params string[] sortProperties);
+
+		/// <summary>
+		/// Get all objects of T that match the given criteria.
+		/// </summary>
+		/// <typeparam name="T"></typeparam>
+		/// <param name="criteria">NHibernate DetachedCriteria instance.</param>
+		/// <returns></returns>
+		/// <remarks>
+		/// Be careful to not use this one from the UI layer beacuse it ties the UI to NHibernate.
+		/// </remarks>
+		IList<T> GetAllByCriteria<T>(DetachedCriteria criteria);
 
 		/// <summary>
 		/// Get all objects of T for the given id's.
