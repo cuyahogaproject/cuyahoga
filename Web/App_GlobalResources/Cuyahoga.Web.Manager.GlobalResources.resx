@@ -381,4 +381,19 @@
   <data name="NewSiteWarningText" xml:space="preserve">
     <value>Note that the url of the new site must be accesible. Verify that the physical directory of the url points to the Cuyahoga installation.</value>
   </data>
+  <data name="DefaultMetaDescriptionLabel" xml:space="preserve">
+    <value>Default meta description</value>
+  </data>
+  <data name="DefaultMetaKeywordsLabel" xml:space="preserve">
+    <value>Default meta keywords</value>
+  </data>
+  <data name="DefaultPlaceholderLabel" xml:space="preserve">
+    <value>Default placeholder in the default template</value>
+  </data>
+  <data name="DefaultTemplateLabel" xml:space="preserve">
+    <value>Default template</value>
+  </data>
+  <data name="SiteUpdatedMessage" xml:space="preserve">
+    <value>The site is updated successfully.</value>
+  </data>
 </root>

@@ -29,8 +29,12 @@ namespace Cuyahoga.Web.Manager.Controllers
 
 		public ActionResult Index()
 		{
+			Site currentSite = CuyahogaContext.CurrentSite;
 			ViewData["Title"] = GlobalResources.ManageSitePageTitle;
-			return View("EditSite", CuyahogaContext.CurrentSite);
+			ViewData["Roles"] = new SelectList(this._userService.GetAllGlobalRoles(), "Id", "Name", currentSite.DefaultRole.Id);
+			ViewData["Cultures"] = new SelectList(Globalization.GetOrderedCultures(), "Key", "Value", currentSite.DefaultCulture);
+			ViewData["Templates"] = new SelectList(currentSite.Templates, "Id", "Name", currentSite.DefaultTemplate != null ? currentSite.DefaultTemplate.Id : 0);
+			return View("EditSite", currentSite);
 		}
 
 		[PermissionFilter(RequiredRights = Rights.CreateSite)]
@@ -82,6 +86,32 @@ namespace Cuyahoga.Web.Manager.Controllers
 			ViewData["Title"] = GlobalResources.NewSiteSuccessPageTitle;
 			Site newSite = this._siteservice.GetSiteById(siteId);
 			return View("NewSiteSuccess", newSite);
+		}
+
+		public ActionResult Update(int id, int defaultRoleId, int defaultTemplateId)
+		{
+			Site site = this._siteservice.GetSiteById(id);
+			try
+			{
+				UpdateModel(site, new [] {"Name", "SiteUrl", "WebmasterEmail", "UserFriendlyUrls", "DefaultCulture", "DefaultPlaceholder", "MetaDescription", "MetaKeywords"});
+				site.DefaultRole = this._userService.GetRoleById(defaultRoleId);
+				site.DefaultTemplate = this._templateService.GetTemplateById(defaultTemplateId);
+				if (ValidateModel(site))
+				{
+					this._siteservice.SaveSite(site);
+					ShowMessage(GlobalResources.SiteUpdatedMessage);
+					RedirectToAction("Index");
+				}
+			}
+			catch (Exception ex)
+			{
+				ShowException(ex);
+			}
+			ViewData["Title"] = GlobalResources.ManageSitePageTitle;
+			ViewData["Roles"] = new SelectList(this._userService.GetAllGlobalRoles(), "Id", "Name", site.DefaultRole.Id);
+			ViewData["Cultures"] = new SelectList(Globalization.GetOrderedCultures(), "Key", "Value", site.DefaultCulture);
+			ViewData["Templates"] = new SelectList(site.Templates, "Id", "Name", site.DefaultTemplate != null ? site.DefaultTemplate.Id : 0);
+			return View("EditSite", site);
 		}
 	}
 }

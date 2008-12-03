@@ -178,6 +178,33 @@ namespace Resources.Cuyahoga.Web.Manager {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Default meta description.
+        /// </summary>
+        internal static string DefaultMetaDescriptionLabel {
+            get {
+                return ResourceManager.GetString("DefaultMetaDescriptionLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Default meta keywords.
+        /// </summary>
+        internal static string DefaultMetaKeywordsLabel {
+            get {
+                return ResourceManager.GetString("DefaultMetaKeywordsLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Default placeholder in the default template.
+        /// </summary>
+        internal static string DefaultPlaceholderLabel {
+            get {
+                return ResourceManager.GetString("DefaultPlaceholderLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Default role for authenticated users.
         /// </summary>
         internal static string DefaultRoleLabel {
@@ -192,6 +219,15 @@ namespace Resources.Cuyahoga.Web.Manager {
         internal static string DefaultsLabel {
             get {
                 return ResourceManager.GetString("DefaultsLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Default template.
+        /// </summary>
+        internal static string DefaultTemplateLabel {
+            get {
+                return ResourceManager.GetString("DefaultTemplateLabel", resourceCulture);
             }
         }
         
@@ -723,6 +759,15 @@ namespace Resources.Cuyahoga.Web.Manager {
         internal static string SiteLabel {
             get {
                 return ResourceManager.GetString("SiteLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The site is updated successfully..
+        /// </summary>
+        internal static string SiteUpdatedMessage {
+            get {
+                return ResourceManager.GetString("SiteUpdatedMessage", resourceCulture);
             }
         }
         

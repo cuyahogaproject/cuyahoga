@@ -157,6 +157,11 @@ namespace Cuyahoga.Core.Service.Files
 
 		private ITransaction ObtainCurrentTransaction()
 		{
+			// We're obtaining the transaction manager explicitly because it probably has a different lifestyle 
+			// than this service (much shorter lifespan, singleton vs. perthread).
+
+			// Because we're also using the NHibernateIntegration facility, we already have ITransactionManager
+			// registered in the container (kernel).
 			ITransactionManager transactionManager = this._kernel.Resolve<ITransactionManager>();
 
 			return transactionManager.CurrentTransaction;

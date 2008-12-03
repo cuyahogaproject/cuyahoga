@@ -334,7 +334,7 @@
     <value>Standaard rol voor ingelogde gebruikers</value>
   </data>
   <data name="DefaultsLabel" xml:space="preserve">
-    <value>Standaardinstellingen</value>
+    <value>Standaardwaarden</value>
   </data>
   <data name="ManageSitePageTitle" xml:space="preserve">
     <value>Beheer site</value>
@@ -365,5 +365,20 @@
   </data>
   <data name="NewSiteWarningText" xml:space="preserve">
     <value>Let op: de url van de nieuwe site moet toegankelijk zijn. Check dat de fysieke directory die bij de url hoort verwijst naar de directory waar Cuyahoga geinstalleerd is.</value>
+  </data>
+  <data name="DefaultMetaDescriptionLabel" xml:space="preserve">
+    <value>Meta description</value>
+  </data>
+  <data name="DefaultMetaKeywordsLabel" xml:space="preserve">
+    <value>Meta keywords</value>
+  </data>
+  <data name="DefaultPlaceholderLabel" xml:space="preserve">
+    <value>Placeholder in standaard template</value>
+  </data>
+  <data name="DefaultTemplateLabel" xml:space="preserve">
+    <value>Template</value>
+  </data>
+  <data name="SiteUpdatedMessage" xml:space="preserve">
+    <value>De site is gewijzigd.</value>
   </data>
 </root>
