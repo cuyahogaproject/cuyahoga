@@ -30,7 +30,6 @@ namespace Cuyahoga.Core.Service.Files
 		public TransactionalFileService(IKernel kernel)
 		{
 			this._kernel = kernel;
-			this._kernel.AddComponent("core.fileservice.transactionmanager", typeof(ITransactionManager), typeof(FileTransactionManager));
 		}
 
 		#region IFileService Members
@@ -138,24 +137,14 @@ namespace Cuyahoga.Core.Service.Files
 
 		public bool CheckIfDirectoryIsWritable(string physicalDirectory)
 		{
-			// Check if the given directory is writable by creating a dummy file.
-			string fileName = Path.Combine(physicalDirectory, "dummy.txt");
-
 			try
 			{
-				using (StreamWriter sw = new StreamWriter(fileName))
+				bool isWritable = IOUtil.CheckIfDirectoryIsWritable(physicalDirectory);
+				if (!isWritable)
 				{
-					// Add some text to the file.
-					sw.WriteLine("DUMMY");
-					sw.Flush();
+					log.WarnFormat("Checking access to physical directory {0} resulted in no access.", physicalDirectory);
 				}
-				File.Delete(fileName);
-				return true;
-			}
-			catch (UnauthorizedAccessException)
-			{
-				log.WarnFormat("Checking access to physical directory {0} resulted in no access.", physicalDirectory);
-				return false;
+				return isWritable;
 			}
 			catch (Exception ex)
 			{
@@ -168,7 +157,7 @@ namespace Cuyahoga.Core.Service.Files
 
 		private ITransaction ObtainCurrentTransaction()
 		{
-			ITransactionManager transactionManager = this._kernel[typeof(ITransactionManager)] as ITransactionManager;
+			ITransactionManager transactionManager = this._kernel.Resolve<ITransactionManager>();
 
 			return transactionManager.CurrentTransaction;
 		}

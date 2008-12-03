@@ -78,7 +78,7 @@ namespace Cuyahoga.Core.Service.SiteStructure
 		}
 
 		[Transaction(TransactionMode.RequiresNew)]
-		public void CreateSite(Site site, string siteDataRoot, IList<Template> templatesToCopy, string systemTemplatesDirectory)
+		public virtual void CreateSite(Site site, string siteDataRoot, IList<Template> templatesToCopy, string systemTemplatesDirectory)
 		{
 			try
 			{
@@ -135,7 +135,8 @@ namespace Cuyahoga.Core.Service.SiteStructure
 			}
 		}
 
-		public void SaveSite(Site site)
+		[Transaction(TransactionMode.RequiresNew)]
+		public virtual void SaveSite(Site site)
 		{
 			try
 			{
@@ -149,7 +150,8 @@ namespace Cuyahoga.Core.Service.SiteStructure
 			}
 		}
 
-		public void DeleteSite(Site site)
+		[Transaction(TransactionMode.RequiresNew)]
+		public virtual void DeleteSite(Site site)
 		{
 			if (site.RootNodes.Count > 0)
 			{
@@ -179,7 +181,8 @@ namespace Cuyahoga.Core.Service.SiteStructure
 			}
 		}
 
-		public void SaveSiteAlias(SiteAlias siteAlias)
+		[Transaction(TransactionMode.RequiresNew)]
+		public virtual void SaveSiteAlias(SiteAlias siteAlias)
 		{
 			try
 			{
@@ -193,7 +196,8 @@ namespace Cuyahoga.Core.Service.SiteStructure
 			}
 		}
 
-		public void DeleteSiteAlias(SiteAlias siteAlias)
+		[Transaction(TransactionMode.RequiresNew)]
+		public virtual void DeleteSiteAlias(SiteAlias siteAlias)
 		{
 			try
 			{

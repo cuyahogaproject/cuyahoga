@@ -304,9 +304,6 @@
     <Compile Include="Service\Files\FileResourceService.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Service\Files\FileTransactionManager.cs">
-      <SubType>Code</SubType>
-    </Compile>
     <Compile Include="Service\Files\FileWriter.cs">
       <SubType>Code</SubType>
     </Compile>

@@ -1,4 +1,5 @@
-﻿using System.IO;
+﻿using System;
+using System.IO;
 
 namespace Cuyahoga.Core.Util
 {
@@ -48,6 +49,28 @@ namespace Cuyahoga.Core.Util
 		{
 			int lastSlashIndex = directoryPath.LastIndexOf(Path.DirectorySeparatorChar);
 			return directoryPath.Substring(lastSlashIndex + 1);
+		}
+
+		public static bool CheckIfDirectoryIsWritable(string physicalDirectory)
+		{
+			// Check if the given directory is writable by creating a dummy file.
+			string fileName = Path.Combine(physicalDirectory, "dummy.txt");
+
+			try
+			{
+				using (StreamWriter sw = new StreamWriter(fileName))
+				{
+					// Add some text to the file.
+					sw.WriteLine("DUMMY");
+					sw.Flush();
+				}
+				File.Delete(fileName);
+				return true;
+			}
+			catch (UnauthorizedAccessException)
+			{
+				return false;
+			}
 		}
 	}
 }
