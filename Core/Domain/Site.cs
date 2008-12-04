@@ -176,6 +176,21 @@ namespace Cuyahoga.Core.Domain
 			set { this._updateTimestamp = value; }
 		}
 
+		/// <summary>
+		/// The virtual path of the site data directory (starting with ~/ and ending with /).
+		/// </summary>
+		public virtual string SiteDataDirectory
+		{
+			get
+			{
+				if (this._id <= 0)
+				{
+					throw new InvalidOperationException("Unable to get the site data directory when the site isn't saved yet.");
+				}
+				return string.Format("~/SiteData/{0}/ ", this._id);
+			}
+		}
+
 		#endregion
 
 		/// <summary>

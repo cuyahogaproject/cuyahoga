@@ -781,6 +781,7 @@
     <Content Include="Manager\Content\Css\flora.datepicker.css" />
     <Content Include="Manager\Content\Css\Manager.css" />
     <Content Include="Manager\Content\Css\thickbox.css" />
+    <Content Include="Manager\Content\Images\ajax-loader.gif" />
     <Content Include="Manager\Content\Images\cancel.png" />
     <Content Include="Manager\Content\Images\cross.gif" />
     <Content Include="Manager\Content\Images\cuyahoga-logo.png" />

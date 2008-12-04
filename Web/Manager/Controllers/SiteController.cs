@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Web;
 using System.Web.Mvc;
 using Cuyahoga.Core.Domain;
 using Cuyahoga.Core.Service.Membership;
@@ -8,6 +9,7 @@ using Cuyahoga.Core.Service.SiteStructure;
 using Cuyahoga.Core.Util;
 using Cuyahoga.Core.Validation;
 using Cuyahoga.Web.Mvc.Filters;
+using Cuyahoga.Web.Mvc.WebForms;
 using Resources.Cuyahoga.Web.Manager;
 
 namespace Cuyahoga.Web.Manager.Controllers
@@ -34,6 +36,11 @@ namespace Cuyahoga.Web.Manager.Controllers
 			ViewData["Roles"] = new SelectList(this._userService.GetAllGlobalRoles(), "Id", "Name", currentSite.DefaultRole.Id);
 			ViewData["Cultures"] = new SelectList(Globalization.GetOrderedCultures(), "Key", "Value", currentSite.DefaultCulture);
 			ViewData["Templates"] = new SelectList(currentSite.Templates, "Id", "Name", currentSite.DefaultTemplate != null ? currentSite.DefaultTemplate.Id : 0);
+			if (currentSite.DefaultTemplate != null)
+			{
+				string virtualTemplatePath = VirtualPathUtility.Combine(currentSite.SiteDataDirectory, currentSite.DefaultTemplate.Path);
+				ViewData["PlaceHolders"] = new SelectList(ViewUtil.GetPlaceholdersFromVirtualPath(virtualTemplatePath).Keys, currentSite.DefaultPlaceholder);
+			}
 			return View("EditSite", currentSite);
 		}
 
@@ -111,6 +118,11 @@ namespace Cuyahoga.Web.Manager.Controllers
 			ViewData["Roles"] = new SelectList(this._userService.GetAllGlobalRoles(), "Id", "Name", site.DefaultRole.Id);
 			ViewData["Cultures"] = new SelectList(Globalization.GetOrderedCultures(), "Key", "Value", site.DefaultCulture);
 			ViewData["Templates"] = new SelectList(site.Templates, "Id", "Name", site.DefaultTemplate != null ? site.DefaultTemplate.Id : 0);
+			if (site.DefaultTemplate != null)
+			{
+				string virtualTemplatePath = VirtualPathUtility.Combine(site.SiteDataDirectory, site.DefaultTemplate.Path);
+				ViewData["PlaceHolders"] = new SelectList(ViewUtil.GetPlaceholdersFromVirtualPath(virtualTemplatePath).Keys, site.DefaultPlaceholder);
+			}
 			return View("EditSite", site);
 		}
 	}

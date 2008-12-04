@@ -65,7 +65,7 @@ namespace Cuyahoga.Core.Domain
 		}
 
 		/// <summary>
-		/// The path to the Template control from the application root.
+		/// BasePath and Template control combined.
 		/// </summary>
 		/// <remarks>
 		/// This is a combination of BasePath and TemplateControl. This is the same as pre-0.7 Path property.

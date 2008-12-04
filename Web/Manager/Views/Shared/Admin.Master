@@ -37,6 +37,15 @@
 							$(this).parents('form').submit();
 						}
 					});
+					
+					// Add AJAX indicator
+					$(document.body).ajaxStart(function() {
+						$(document.body).append('<div id="loading"><img src="<%= Url.Content("~/manager/Content/images/ajax-loader.gif") %>" alt="loading"/></div>');
+						$('#loading').css({position:"fixed", width:"40px", top:"50%", left:"50%"});
+					}).ajaxStop(function() {
+						$('#loading').remove();
+					});
+
 							
 				});
 			</script>

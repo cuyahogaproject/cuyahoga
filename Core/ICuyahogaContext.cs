@@ -15,12 +15,6 @@ namespace Cuyahoga.Core
 		/// </summary>
 		Site CurrentSite { get; }
 
-		///// <summary>
-		///// Initialize the CuyahogaContext.
-		///// </summary>
-		///// <param name="underlyingContext"></param>
-		//void Initialize(HttpContext underlyingContext);
-
 		/// <summary>
 		/// Set the Cuyahoga user for the current context.
 		/// </summary>

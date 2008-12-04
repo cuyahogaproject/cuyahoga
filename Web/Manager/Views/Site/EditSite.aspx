@@ -9,6 +9,20 @@
 	<% } %>
 </asp:Content>
 <asp:Content ID="Content3" ContentPlaceHolderID="cphMain" runat="server">
+	<script type="text/javascript">
+		$(document).ready(function() {
+			$('#DefaultTemplateId').change(function() {
+				if ($('select#DefaultTemplateId')) {
+					$('#DefaultPlaceholder').html('');
+					$.getJSON('<%= Url.Action("GetPlaceholdersByTemplateId", "Templates") %>', { templateid:$('#DefaultTemplateId').val() }, function(data) {
+						$.each(data, function(i, item) {
+							$('#DefaultPlaceholder').append('<option value="' + item.Placeholder + '">' + item.Placeholder + '</option>');
+						});
+					});
+				}
+			});
+		});
+	</script>
 	<% using (Html.BeginForm("Update", "Site", new { id = ViewData.Model.Id }, FormMethod.Post, new { id = "siteform" })) { %>
 		
 		<% Html.RenderPartial("SharedSiteFormElements", ViewData.Model, ViewData); %>
@@ -30,7 +44,11 @@
 				</li>
 				<li>
 					<label for="DefaultPlaceholder"><%= GlobalResources.DefaultPlaceholderLabel %></label>
-					<%= Html.TextBox("DefaultPlaceholder", ViewData["DefaultPlaceholder"]) %>
+					<% if (ViewData.ContainsKey("PlaceHolders")){ %>
+						<%= Html.DropDownList("DefaultPlaceholder", ViewData["Placeholders"] as SelectList)%>
+					<% }else{ %>
+						<%= Html.TextBox("DefaultPlaceholder", ViewData["DefaultPlaceholder"])%>
+					<% } %>
 				</li>
 				<li>
 					<label for="MetaDescription"><%= GlobalResources.DefaultMetaDescriptionLabel %></label>
