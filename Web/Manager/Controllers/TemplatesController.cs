@@ -29,7 +29,6 @@ namespace Cuyahoga.Web.Manager.Controllers
 
 		public ActionResult GetPlaceholdersByTemplateId(int templateId)
 		{
-			//Thread.Sleep(3000);
 			Template template = this._templateService.GetTemplateById(templateId);
 			string virtualTemplatePath = VirtualPathUtility.Combine(CuyahogaContext.CurrentSite.SiteDataDirectory, template.Path);
 			var placeholders = ViewUtil.GetPlaceholdersFromVirtualPath(virtualTemplatePath);
