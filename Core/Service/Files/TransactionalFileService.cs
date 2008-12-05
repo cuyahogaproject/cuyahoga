@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.IO;
 using Cuyahoga.Core.Util;
 using log4net;
@@ -151,6 +152,26 @@ namespace Cuyahoga.Core.Service.Files
 				log.Error(String.Format("An unexpected error occured while checking write access for the directory {0}.", physicalDirectory), ex);
 				throw;
 			}
+		}
+
+		public string[] GetSubDirectories(string parentDirectory)
+		{
+			List<string> dirList = new List<string>();
+			foreach (string dirName in Directory.GetDirectories(parentDirectory))
+			{
+				dirList.Add(IOUtil.GetLastPathFragment(dirName));
+			}
+			return dirList.ToArray();
+		}
+
+		public string[] GetFiles(string physicalDirectory)
+		{
+			List<string> filesList = new List<string>();
+			foreach (string fileName in Directory.GetFiles(physicalDirectory))
+			{
+				filesList.Add(IOUtil.GetLastPathFragment(fileName));
+			}
+			return filesList.ToArray();
 		}
 
 		#endregion

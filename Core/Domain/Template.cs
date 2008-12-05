@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using Castle.Components.Validator;
 
 namespace Cuyahoga.Core.Domain
 {
@@ -40,6 +41,8 @@ namespace Cuyahoga.Core.Domain
 		/// <summary>
 		/// Property Name (string)
 		/// </summary>
+		[ValidateNonEmpty("TemplateNameValidatorNonEmpty")]
+		[ValidateLength(1, 100, "TemplateNameValidatorLength")]
 		public virtual string Name
 		{
 			get { return this._name; }
@@ -49,6 +52,8 @@ namespace Cuyahoga.Core.Domain
 		/// <summary>
 		/// Property BasePath (string)
 		/// </summary>
+		[ValidateNonEmpty]
+		[ValidateLength(1, 100)]
 		public virtual string BasePath
 		{
 			get { return this._basePath; }
@@ -58,6 +63,8 @@ namespace Cuyahoga.Core.Domain
 		/// <summary>
 		/// Property TemplateControl (string)
 		/// </summary>
+		[ValidateNonEmpty]
+		[ValidateLength(1, 50)]
 		public virtual string TemplateControl
 		{
 			get { return this._templateControl; }
@@ -82,6 +89,8 @@ namespace Cuyahoga.Core.Domain
 		/// <remarks>
 		/// The stylesheet file has to be in the [BasePath]/Css directory.
 		/// </remarks>
+		[ValidateNonEmpty]
+		[ValidateLength(1, 100)]
 		public virtual string Css
 		{
 			get { return this._css; }

@@ -88,6 +88,15 @@ namespace Resources.Cuyahoga.Web.Manager {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Base path.
+        /// </summary>
+        internal static string BasePathLabel {
+            get {
+                return ResourceManager.GetString("BasePathLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Cancel.
         /// </summary>
         internal static string CancelLabel {
@@ -147,6 +156,15 @@ namespace Resources.Cuyahoga.Web.Manager {
         internal static string CreateUserLabel {
             get {
                 return ResourceManager.GetString("CreateUserLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Css.
+        /// </summary>
+        internal static string CssLabel {
+            get {
+                return ResourceManager.GetString("CssLabel", resourceCulture);
             }
         }
         
@@ -264,6 +282,15 @@ namespace Resources.Cuyahoga.Web.Manager {
         internal static string EditRolePageTitle {
             get {
                 return ResourceManager.GetString("EditRolePageTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Edit template.
+        /// </summary>
+        internal static string EditTemplatePageTitle {
+            get {
+                return ResourceManager.GetString("EditTemplatePageTitle", resourceCulture);
             }
         }
         
@@ -646,6 +673,15 @@ namespace Resources.Cuyahoga.Web.Manager {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to No templates found.
+        /// </summary>
+        internal static string NoTemplatesFound {
+            get {
+                return ResourceManager.GetString("NoTemplatesFound", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to No user(s) found.
         /// </summary>
         internal static string NoUsersFound {
@@ -687,6 +723,24 @@ namespace Resources.Cuyahoga.Web.Manager {
         internal static string PasswordLabel {
             get {
                 return ResourceManager.GetString("PasswordLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Register new template.
+        /// </summary>
+        internal static string RegisterTemplateLabel {
+            get {
+                return ResourceManager.GetString("RegisterTemplateLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Register new template.
+        /// </summary>
+        internal static string RegisterTemplatePageTitle {
+            get {
+                return ResourceManager.GetString("RegisterTemplatePageTitle", resourceCulture);
             }
         }
         
@@ -790,11 +844,47 @@ namespace Resources.Cuyahoga.Web.Manager {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Template control.
+        /// </summary>
+        internal static string TemplateControlLabel {
+            get {
+                return ResourceManager.GetString("TemplateControlLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The template {0} is created successfully..
+        /// </summary>
+        internal static string TemplateCreatedMessage {
+            get {
+                return ResourceManager.GetString("TemplateCreatedMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The template {0} is deleted successfully..
+        /// </summary>
+        internal static string TemplateDeletedMessage {
+            get {
+                return ResourceManager.GetString("TemplateDeletedMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Templates.
         /// </summary>
         internal static string TemplatesLabel {
             get {
                 return ResourceManager.GetString("TemplatesLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The template {0} is updated successfully..
+        /// </summary>
+        internal static string TemplateUpdatedMessage {
+            get {
+                return ResourceManager.GetString("TemplateUpdatedMessage", resourceCulture);
             }
         }
         

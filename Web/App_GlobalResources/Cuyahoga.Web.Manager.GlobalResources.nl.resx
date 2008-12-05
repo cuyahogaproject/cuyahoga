@@ -381,4 +381,34 @@
   <data name="SiteUpdatedMessage" xml:space="preserve">
     <value>De site is gewijzigd.</value>
   </data>
+  <data name="BasePathLabel" xml:space="preserve">
+    <value>Basis pad</value>
+  </data>
+  <data name="CssLabel" xml:space="preserve">
+    <value>Css</value>
+  </data>
+  <data name="EditTemplatePageTitle" xml:space="preserve">
+    <value>Wijzig template</value>
+  </data>
+  <data name="NoTemplatesFound" xml:space="preserve">
+    <value>Geen templates gevonden</value>
+  </data>
+  <data name="RegisterTemplateLabel" xml:space="preserve">
+    <value>Registreer nieuw template</value>
+  </data>
+  <data name="RegisterTemplatePageTitle" xml:space="preserve">
+    <value>Registeer nieuw template</value>
+  </data>
+  <data name="TemplateControlLabel" xml:space="preserve">
+    <value>Template control</value>
+  </data>
+  <data name="TemplateCreatedMessage" xml:space="preserve">
+    <value>De template {0} is aangemaakt.</value>
+  </data>
+  <data name="TemplateDeletedMessage" xml:space="preserve">
+    <value>De template {0} is verwijderd.</value>
+  </data>
+  <data name="TemplateUpdatedMessage" xml:space="preserve">
+    <value>De template {0} is gewijzigd.</value>
+  </data>
 </root>

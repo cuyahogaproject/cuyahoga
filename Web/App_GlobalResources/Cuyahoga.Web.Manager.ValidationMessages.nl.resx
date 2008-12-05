@@ -186,6 +186,12 @@
   <data name="SiteUrlValidatorPattern" xml:space="preserve">
     <value>Ongeldige site url (moet beginnen met http:// of https://)</value>
   </data>
+  <data name="TemplateNameValidatorLength" xml:space="preserve">
+    <value>Templatenaam moet tussen de 1 en 100 tekens bevatten</value>
+  </data>
+  <data name="TemplateNameValidatorNonEmpty" xml:space="preserve">
+    <value>Templatenaam is verplicht</value>
+  </data>
   <data name="UserNameValidatorLength" xml:space="preserve">
     <value>Gebruikersnaam moet tussen de 1 en 100 tekens bevatten</value>
   </data>

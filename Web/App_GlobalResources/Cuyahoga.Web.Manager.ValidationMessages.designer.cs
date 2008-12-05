@@ -268,6 +268,24 @@ namespace Resources.Cuyahoga.Web.Manager {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to The template name must be between 1 and 100 characters.
+        /// </summary>
+        internal static string TemplateNameValidatorLength {
+            get {
+                return ResourceManager.GetString("TemplateNameValidatorLength", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The template name may not be empty.
+        /// </summary>
+        internal static string TemplateNameValidatorNonEmpty {
+            get {
+                return ResourceManager.GetString("TemplateNameValidatorNonEmpty", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to The username must be between 1 and 50 characters.
         /// </summary>
         internal static string UserNameValidatorLength {

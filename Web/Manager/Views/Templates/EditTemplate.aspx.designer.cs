@@ -10,7 +10,9 @@
 
 namespace Cuyahoga.Web.Manager.Views.Templates
 {
-	public partial class Index
+
+
+	public partial class EditTemplate
 	{
 	}
 }

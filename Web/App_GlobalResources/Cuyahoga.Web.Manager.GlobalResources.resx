@@ -396,4 +396,34 @@
   <data name="SiteUpdatedMessage" xml:space="preserve">
     <value>The site is updated successfully.</value>
   </data>
+  <data name="BasePathLabel" xml:space="preserve">
+    <value>Base path</value>
+  </data>
+  <data name="CssLabel" xml:space="preserve">
+    <value>Css</value>
+  </data>
+  <data name="EditTemplatePageTitle" xml:space="preserve">
+    <value>Edit template</value>
+  </data>
+  <data name="NoTemplatesFound" xml:space="preserve">
+    <value>No templates found</value>
+  </data>
+  <data name="RegisterTemplateLabel" xml:space="preserve">
+    <value>Register new template</value>
+  </data>
+  <data name="RegisterTemplatePageTitle" xml:space="preserve">
+    <value>Register new template</value>
+  </data>
+  <data name="TemplateControlLabel" xml:space="preserve">
+    <value>Template control</value>
+  </data>
+  <data name="TemplateCreatedMessage" xml:space="preserve">
+    <value>The template {0} is created successfully.</value>
+  </data>
+  <data name="TemplateDeletedMessage" xml:space="preserve">
+    <value>The template {0} is deleted successfully.</value>
+  </data>
+  <data name="TemplateUpdatedMessage" xml:space="preserve">
+    <value>The template {0} is updated successfully.</value>
+  </data>
 </root>

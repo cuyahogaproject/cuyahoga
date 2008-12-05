@@ -41,14 +41,14 @@ namespace Cuyahoga.Core.Util
 		}
 
 		/// <summary>
-		/// Gets the name of the directory in the given path. Only returns the name of the deepest directory.
+		/// Gets the name of the last fragment in the given path.
 		/// </summary>
-		/// <param name="directoryPath"></param>
+		/// <param name="path"></param>
 		/// <returns></returns>
-		public static string GetDirectoryName(string directoryPath)
+		public static string GetLastPathFragment(string path)
 		{
-			int lastSlashIndex = directoryPath.LastIndexOf(Path.DirectorySeparatorChar);
-			return directoryPath.Substring(lastSlashIndex + 1);
+			int lastSlashIndex = path.LastIndexOf(Path.DirectorySeparatorChar);
+			return path.Substring(lastSlashIndex + 1);
 		}
 
 		public static bool CheckIfDirectoryIsWritable(string physicalDirectory)

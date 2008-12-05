@@ -101,7 +101,7 @@ namespace Cuyahoga.Core.Service.Files
 					throw new UnauthorizedAccessException(string.Format("Unable to copy files and directories to {0}. Access denied.", targetDirectory));
 				}
 			}
-			string directoryName = IOUtil.GetDirectoryName(sourceDirectory);
+			string directoryName = IOUtil.GetLastPathFragment(sourceDirectory);
 			string tempCopyDir = Path.Combine(this._transactionDir, directoryName);
 			IOUtil.CopyDirectory(sourceDirectory, tempCopyDir);
 			this._directoriesToCopy.Add(new CopyLocations(tempCopyDir, targetDirectory));

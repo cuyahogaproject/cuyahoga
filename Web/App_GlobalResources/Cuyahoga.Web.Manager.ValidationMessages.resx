@@ -186,6 +186,12 @@
   <data name="SiteUrlValidatorPattern" xml:space="preserve">
     <value>Invalid site url (must begin with http:// or https://)</value>
   </data>
+  <data name="TemplateNameValidatorLength" xml:space="preserve">
+    <value>The template name must be between 1 and 100 characters</value>
+  </data>
+  <data name="TemplateNameValidatorNonEmpty" xml:space="preserve">
+    <value>The template name may not be empty</value>
+  </data>
   <data name="UserNameValidatorLength" xml:space="preserve">
     <value>The username must be between 1 and 50 characters</value>
   </data>

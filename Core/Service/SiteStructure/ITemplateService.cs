@@ -28,5 +28,24 @@ namespace Cuyahoga.Core.Service.SiteStructure
 		/// <param name="templateId"></param>
 		/// <returns></returns>
 		Template GetTemplateById(int templateId);
+
+		/// <summary>
+		/// Get all templates that belong to the given site.
+		/// </summary>
+		/// <param name="site"></param>
+		/// <returns></returns>
+		IList<Template> GetAllTemplatesBySite(Site site);
+
+		/// <summary>
+		/// Saves a template to the database.
+		/// </summary>
+		/// <param name="template"></param>
+		void SaveTemplate(Template template);
+
+		/// <summary>
+		/// Deletes the given template from the database.
+		/// </summary>
+		/// <param name="template"></param>
+		void DeleteTemplate(Template template);
 	}
 }

@@ -1,13 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+﻿using System.Collections.Generic;
 using System.Web.Mvc;
+using Cuyahoga.Core.Domain;
 
 
-namespace Cuyahoga.Web.Manager.Views.Template
+namespace Cuyahoga.Web.Manager.Views.Templates
 {
-	public partial class Index : ViewPage
+	public partial class Index : ViewPage<ICollection<Template>>
 	{
 	}
 }

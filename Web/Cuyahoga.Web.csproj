@@ -481,12 +481,26 @@
     <Compile Include="Manager\Views\Site\SharedSiteFormElements.ascx.designer.cs">
       <DependentUpon>SharedSiteFormElements.ascx</DependentUpon>
     </Compile>
+    <Compile Include="Manager\Views\Templates\EditTemplate.aspx.cs">
+      <DependentUpon>EditTemplate.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Manager\Views\Templates\EditTemplate.aspx.designer.cs">
+      <DependentUpon>EditTemplate.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Manager\Views\Templates\Index.aspx.cs">
       <DependentUpon>Index.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="Manager\Views\Templates\Index.aspx.designer.cs">
       <DependentUpon>Index.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Manager\Views\Templates\NewTemplate.aspx.cs">
+      <DependentUpon>NewTemplate.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Manager\Views\Templates\NewTemplate.aspx.designer.cs">
+      <DependentUpon>NewTemplate.aspx</DependentUpon>
     </Compile>
     <Compile Include="Manager\Views\Users\EditRole.aspx.cs">
       <DependentUpon>EditRole.aspx</DependentUpon>
@@ -874,7 +888,9 @@
     <Content Include="Manager\Views\Site\NewSite.aspx" />
     <Content Include="Manager\Views\Site\NewSiteSuccess.aspx" />
     <Content Include="Manager\Views\Site\SharedSiteFormElements.ascx" />
+    <Content Include="Manager\Views\Templates\EditTemplate.aspx" />
     <Content Include="Manager\Views\Templates\Index.aspx" />
+    <Content Include="Manager\Views\Templates\NewTemplate.aspx" />
     <Content Include="Manager\Views\Users\EditRole.aspx" />
     <Content Include="Manager\Views\Users\EditUser.aspx" />
     <Content Include="Manager\Views\Users\Index.aspx" />

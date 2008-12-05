@@ -61,5 +61,18 @@ namespace Cuyahoga.Core.Service.Files
 		/// <param name="physicalDirectory"></param>
 		/// <returns></returns>
 		bool CheckIfDirectoryIsWritable(string physicalDirectory);
+
+		/// <summary>
+		/// Get all directories located below the given physical directory.
+		/// </summary>
+		/// <param name="parentDirectory"></param>
+		string[] GetSubDirectories(string parentDirectory);
+
+		/// <summary>
+		/// Get all files located in the given physical directory.
+		/// </summary>
+		/// <param name="physicalDirectory"></param>
+		/// <returns></returns>
+		string[] GetFiles(string physicalDirectory);
 	}
 }
