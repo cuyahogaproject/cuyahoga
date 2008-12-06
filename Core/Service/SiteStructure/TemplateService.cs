@@ -1,9 +1,12 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 using Castle.Services.Transaction;
 using Cuyahoga.Core.Domain;
 using Cuyahoga.Core.DataAccess;
+using Cuyahoga.Core.Service.Files;
+using ICSharpCode.SharpZipLib.Zip;
 using NHibernate.Expression;
 
 namespace Cuyahoga.Core.Service.SiteStructure
@@ -15,14 +18,17 @@ namespace Cuyahoga.Core.Service.SiteStructure
 	public class TemplateService : ITemplateService
 	{
 		private ICommonDao _commonDao;
+		private IFileService _fileService;
 
 		/// <summary>
 		/// Default constructor.
 		/// </summary>
 		/// <param name="commonDao"></param>
-		public TemplateService(ICommonDao commonDao)
+		/// <param name="fileService"></param>
+		public TemplateService(ICommonDao commonDao, IFileService fileService)
 		{
 			this._commonDao = commonDao;
+			_fileService = fileService;
 		}
 
 		#region ITemplateService Members
@@ -62,6 +68,24 @@ namespace Cuyahoga.Core.Service.SiteStructure
 		public void DeleteTemplate(Template template)
 		{
 			this._commonDao.DeleteObject(template);
+		}
+
+		public void ExtractTemplatePackage(string packageFilePath, Stream packageStream)
+		{
+			// TODO: much more checks of the archive
+
+			// The template dir is the name of the zip package by convention.
+			string templateDir = Path.GetFileNameWithoutExtension(packageFilePath);
+			// We're assuming that the package will be saved in Templates directory of the site.
+			string physicalTemplatesDirectory = Path.GetDirectoryName(packageFilePath);
+			this._fileService.WriteFile(packageFilePath, packageStream);
+
+			// Extract
+			FastZip fastZipper = new FastZip();
+			fastZipper.ExtractZip(packageFilePath, Path.Combine(physicalTemplatesDirectory, templateDir), String.Empty);
+
+			// Delete package file.
+			this._fileService.DeleteFile(packageFilePath);
 		}
 
 		#endregion

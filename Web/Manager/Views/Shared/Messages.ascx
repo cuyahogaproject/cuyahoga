@@ -27,13 +27,27 @@
 </div>
 <script type="text/javascript">
 	$(document).ready(function(){
-		addMessageHandlers();
+		displayMessages();
 	});	
-	function addMessageHandlers() {
+	
+	function displayMessages() {
 		$("#messagewrapper").fadeOut(100).fadeIn(800);
 		
 		$(".close_message").click(function() { 
 			$("#messagewrapper").fadeOut("slow"); 
 		});
+	}
+	
+	function processJsonMessage(data) { 			
+		if (data.Message) {
+			$('#messagewrapper').html('<div class="messagebox"><img src="<%= Url.Content("~/Manager/Content/Images/cross.gif") %>" class="close_message" style="float:right;cursor:pointer" alt="Close" />'	+ data.Message + '</div>');
+			displayMessages();
+		} else if (data.Error) {
+			$('#messagewrapper').html('<div class="errorbox"><img src="<%= Url.Content("~/Manager/Content/Images/cross.gif") %>" class="close_message" style="float:right;cursor:pointer" alt="Close" />'	+ data.Error + '</div>');
+			displayMessages();
+		}
+		else {
+			$('#messagewrapper').html();
+		}
 	}
 </script>

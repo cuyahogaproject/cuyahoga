@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -142,7 +143,7 @@ namespace Cuyahoga.Web.Manager.Controllers
 			ViewData["CssFiles"] = new SelectList(cssFiles, template.Css);
 		}
 
-		#region JSON actions
+		#region AJAX actions
 
 		public ActionResult GetPlaceholdersByTemplateId(int templateId)
 		{
@@ -180,6 +181,41 @@ namespace Cuyahoga.Web.Manager.Controllers
 								 CssFile = cssFile
 							 };
 			return Json(jsonValues);
+		}
+
+		public ActionResult UploadTemplates()
+		{
+			// TODO: message translation
+			string message = "";
+			string error = "";
+			try
+			{
+				if (Request.Files.Count > 0)
+				{
+					HttpPostedFileBase theFile = Request.Files[0];
+					if (! theFile.FileName.EndsWith(".zip"))
+					{
+						throw new Exception("No zip file uploaded.");
+					}
+					string templatesRoot = VirtualPathUtility.Combine(CuyahogaContext.CurrentSite.SiteDataDirectory, "Templates");
+					string filePath = Path.Combine(Server.MapPath(templatesRoot), theFile.FileName);
+					this._templateService.ExtractTemplatePackage(filePath, theFile.InputStream);
+					message = "Template successfully uploaded.";
+				}
+				else
+				{
+					error = "No files found";
+				}
+			}
+			catch (Exception ex)
+			{
+				Logger.Error("Unexpected error while uploading templates.", ex);
+				error = ex.Message;
+			}
+
+			var result = Json( new { Message = message, Error = error });
+			result.ContentType = "text/html"; // otherwise the ajax form doesn't handle the callback
+			return result;
 		}
 
 		#endregion

@@ -23,6 +23,23 @@ h2
 	font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
 }
 
+h3
+{
+	margin: 3px 0px;
+	color: #333;
+	font-size: 110%;
+	font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+}
+
+h4
+{
+	margin: 2px 0px;
+	color: #333;
+	font-size: 100%;
+	font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+}
+
+
 fieldset 
 {  
 	margin: 15px 0 5px 0;  
@@ -266,7 +283,7 @@ img
 #contentarea
 {
 	background-color: #fff;
-	margin: 10px 240px 10px 10px;
+	margin: 10px 260px 10px 10px;
 	border-top: 1px solid #ccc;
 	border-left: 1px solid #ccc;
 	border-bottom: 1px solid #ccc;
@@ -277,7 +294,7 @@ img
 
 #subcontentarea
 {
-	width: 230px;
+	width: 250px;
 	float: right;
 	margin-top: 10px;
 	margin-bottom: 10px;
@@ -287,6 +304,13 @@ img
 #taskarea
 {
 	margin-left: 10px;
+}
+
+.taskcontainer
+{
+	border: 1px solid #ccc;
+	padding: 3px 5px;
+	background-color: #fff;
 }
 
 a.createlink

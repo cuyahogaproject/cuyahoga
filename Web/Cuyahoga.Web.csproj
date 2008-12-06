@@ -796,6 +796,7 @@
     <Content Include="Manager\Content\Css\Manager.css" />
     <Content Include="Manager\Content\Css\thickbox.css" />
     <Content Include="Manager\Content\Images\ajax-loader.gif" />
+    <Content Include="Manager\Content\Images\blankbutton.png" />
     <Content Include="Manager\Content\Images\cancel.png" />
     <Content Include="Manager\Content\Images\cross.gif" />
     <Content Include="Manager\Content\Images\cuyahoga-logo.png" />
@@ -806,6 +807,7 @@
     <Content Include="Manager\Content\Images\group.png" />
     <Content Include="Manager\Content\Images\information.png" />
     <Content Include="Manager\Content\Images\layout.png" />
+    <Content Include="Manager\Content\Images\layout_add.png" />
     <Content Include="Manager\Content\Images\page.png" />
     <Content Include="Manager\Content\Images\server.png" />
     <Content Include="Manager\Content\Images\television.png" />
@@ -814,8 +816,13 @@
     <Content Include="Manager\Content\Images\world_go.png" />
     <Content Include="Manager\Default.aspx" />
     <Content Include="Manager\Scripts\jquery-1.2.6.min.js" />
+    <Content Include="Manager\Scripts\jquery-asyncupload-0.1.js" />
+    <Content Include="Manager\Scripts\jquery.form.js" />
     <Content Include="Manager\Scripts\jquery.validate.js" />
     <Content Include="Manager\Scripts\jquery.validate.min.js" />
+    <Content Include="Manager\Scripts\swfupload license.txt" />
+    <Content Include="Manager\Scripts\swfupload.js" />
+    <Content Include="Manager\Scripts\swfupload.swf" />
     <Content Include="Manager\Scripts\thickbox.js" />
     <Content Include="Manager\Scripts\ui.core.min.js" />
     <Content Include="Manager\Scripts\ui.datepicker.min.js" />

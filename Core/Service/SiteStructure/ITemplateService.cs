@@ -1,7 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-
+using System.IO;
 using Cuyahoga.Core.Domain;
 
 namespace Cuyahoga.Core.Service.SiteStructure
@@ -47,5 +47,12 @@ namespace Cuyahoga.Core.Service.SiteStructure
 		/// </summary>
 		/// <param name="template"></param>
 		void DeleteTemplate(Template template);
+
+		/// <summary>
+		/// Extract the package file in the templates directory.
+		/// </summary>
+		/// <param name="packageFilePath"></param>
+		/// <param name="packageStream"></param>
+		void ExtractTemplatePackage(string packageFilePath, Stream packageStream);
 	}
 }
