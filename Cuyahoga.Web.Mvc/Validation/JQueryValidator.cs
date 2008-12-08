@@ -420,10 +420,7 @@ namespace Cuyahoga.Web.Mvc.Validation
 
 		static string GetPrefixedFieldld(string target, string field)
 		{
-			//string[] parts = target.Split('_');
-
-			//return string.Join("_", parts, 0, parts.Length - 1) + "_" + field;
-			// TODO: make this work with prefixes
+			// We don't need to do anything with field prefixes because it's already handled in BrowserValidationEngine.
 			return field;
 		}
 
