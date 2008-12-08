@@ -222,7 +222,7 @@ namespace Cuyahoga.Web.Manager.Controllers
 			Role newRole = new Role();
 			try
 			{
-				UpdateModel(newRole, new[] { "Name", "IsGlobal" });
+				UpdateModel(newRole, "role");
 				if (rightIds.Length > 0)
 				{
 					IList<Right> rights = this._userService.GetRightsByIds(rightIds);
@@ -255,7 +255,7 @@ namespace Cuyahoga.Web.Manager.Controllers
 			role.Rights.Clear();
 			try
 			{
-				UpdateModel(role, new[] { "Name", "IsGlobal" });
+				UpdateModel(role, "role");
 
 				if (rightIds.Length > 0)
 				{

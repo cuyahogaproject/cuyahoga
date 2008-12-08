@@ -11,13 +11,13 @@
 			<legend><%=GlobalResources.GeneralLabel%></legend>
 			<ol>
 				<li>
-					<label for="Name"><%=GlobalResources.NameLabel%></label>
-					<%=Html.TextBox("Name", ViewData.Model.Name)%>
+					<label for="role.Name"><%=GlobalResources.NameLabel%></label>
+					<%=Html.TextBox("role.Name", ViewData.Model.Name)%>
 				</li>
 				<% if (Html.HasRight(User, Rights.GlobalPermissions)) { %>
 				<li>
-					<label for="IsGlobal"><%=GlobalResources.IsGlobalLabel%></label>
-					<%= Html.CheckBox("IsGlobal", ViewData.Model.IsGlobal)%>
+					<label for="role.Name"><%=GlobalResources.IsGlobalLabel%></label>
+					<%= Html.CheckBox("role.Name", ViewData.Model.IsGlobal)%>
 				</li>
 				<% } %>
 			</ol>
@@ -28,6 +28,6 @@
 		<input type="submit" value="<%= GlobalResources.SaveButtonLabel %>" />
 		<%= GlobalResources.Or %>
 		<%= Html.ActionLink(GlobalResources.CancelLabel, "Roles", "Users") %>
-		<%= Html.ClientSideValidation(ViewData.Model, "roleform") %>
+		<%= Html.ClientSideValidation(ViewData.Model, "roleform", prop => "'role." + prop + "'") %>
 	<% } %>
 </asp:Content>
