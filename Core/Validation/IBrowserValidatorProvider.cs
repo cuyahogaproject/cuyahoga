@@ -12,6 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+using System;
 using System.Collections;
 using Castle.Components.Validator;
 
@@ -36,6 +37,6 @@ namespace Cuyahoga.Core.Validation
 		/// </summary>
 		/// <returns>A generator instance</returns>
 		IBrowserValidationGenerator CreateGenerator(BrowserValidationConfiguration config,
-		                                            InputElementType inputType, IDictionary attributes);
+													InputElementType inputType, Func<string, string> propertyNameToElementId);
 	}
 }

@@ -39,7 +39,7 @@ namespace Cuyahoga.Core.Validation
 			var validatorRunner = new ValidatorRunner(this._validatorRegistry);
 			// Create a script generator and that is linked to the BrowserValidationConfiguration
 			IBrowserValidationGenerator generator = 
-				_browserValidatorProvider.CreateGenerator(config, InputElementType.Undefined, null);
+				_browserValidatorProvider.CreateGenerator(config, InputElementType.Undefined, propertyNameToElementId);
 			// Get all validators for the given modelToValidate
 			IValidator[] validators = 
 				_validatorRegistry.GetValidators(validatorRunner, modelToValidate.GetType(), RunWhen.Everytime);

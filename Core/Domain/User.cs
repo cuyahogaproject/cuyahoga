@@ -56,7 +56,6 @@ namespace Cuyahoga.Core.Domain
 		/// </summary>
 		[ValidateNonEmpty("PasswordValidatorNonEmpty")]
 		[ValidateLength(5, 50, "PasswordValidatorLength")]
-		[ValidateSameAs("PasswordConfirmation", "PasswordValidatorSameAs")]
 		public virtual string Password
 		{
 			get { return this._password; }

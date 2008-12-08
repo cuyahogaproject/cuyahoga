@@ -32,11 +32,11 @@ namespace Cuyahoga.Web.Mvc.Validation
 		/// </summary>
 		/// <param name="configuration"></param>
 		/// <param name="inputType"></param>
-		/// <param name="attributes"></param>
+		/// <param name="propertyNameToElementId"></param>
 		/// <returns>A generator instance</returns>
-		public IBrowserValidationGenerator CreateGenerator(BrowserValidationConfiguration configuration, InputElementType inputType, IDictionary attributes)
+		public IBrowserValidationGenerator CreateGenerator(BrowserValidationConfiguration configuration, InputElementType inputType, Func<string, string> propertyNameToElementId)
 		{
-			return new JQueryValidationGenerator((JQueryConfiguration)configuration, inputType, attributes);
+			return new JQueryValidationGenerator((JQueryConfiguration)configuration, inputType, propertyNameToElementId);
 		}
 
 		#region Configuration
@@ -143,7 +143,7 @@ namespace Cuyahoga.Web.Mvc.Validation
 				sb.Append("\trules : { ");
 				sb.Append(Environment.NewLine);
 				int current = 0;
-				foreach(KeyValuePair<string, string> rule in this._rules)
+				foreach (KeyValuePair<string, string> rule in this._rules)
 				{
 					sb.AppendFormat("\t\t{0}: {1}", rule.Key, rule.Value);
 					if (current < this._rules.Count - 1)
@@ -214,15 +214,15 @@ namespace Cuyahoga.Web.Mvc.Validation
 				AddCustomRule("greaterThan", "Must be greater than {0}.", "function(value, element, param) { return ( IsNaN( value ) && IsNaN( jQuery(param).val() ) ) || ( value > jQuery(param).val() ); }");
 				AddCustomRule("lesserThan", "Must be lesser than {0}.", "function(value, element, param) { return ( IsNaN( value ) && IsNaN( jQuery(param).val() ) ) || ( value < jQuery(param).val() ); }");
 
-				string numberRegex  = @"/^-?(?:\d+|\d{1,3}(?:\_group_\d{3})+)(?:\_separator_\d+)?$/"
+				string numberRegex = @"/^-?(?:\d+|\d{1,3}(?:\_group_\d{3})+)(?:\_separator_\d+)?$/"
 					.Replace("_group_", CultureInfo.CurrentCulture.NumberFormat.NumberGroupSeparator)
 					.Replace("_separator_", CultureInfo.CurrentCulture.NumberFormat.NumberDecimalSeparator);
 				AddCustomRule("numberNative", "Not a valid number."
-				              , "function(value, element, param) { return this.optional(element) || " + numberRegex + ".test(value); }");
+							  , "function(value, element, param) { return this.optional(element) || " + numberRegex + ".test(value); }");
 				string simpleDateRegex = @"/^\d{1,2}\_separator_\d{1,2}\_separator_\d{4}$/"
 					.Replace("_separator_", CultureInfo.CurrentCulture.DateTimeFormat.DateSeparator);
 				AddCustomRule("simpleDate", "Not a valid date."
-				              , "function(value, element, param) { return this.optional(element) || " + simpleDateRegex + ".test(value); }");
+							  , "function(value, element, param) { return this.optional(element) || " + simpleDateRegex + ".test(value); }");
 			}
 
 			private void AddParameterToOptions(IDictionary parameters, string parameterName, bool quote)
@@ -397,6 +397,7 @@ namespace Cuyahoga.Web.Mvc.Validation
 		#region Instance Variables
 
 		readonly InputElementType _inputElementType;
+		private readonly Func<string, string> _propertyNameToElementId;
 		readonly JQueryValidator.JQueryConfiguration _config;
 
 		#endregion Instance Variables
@@ -408,26 +409,39 @@ namespace Cuyahoga.Web.Mvc.Validation
 		/// </summary>
 		/// <param name="configuration">The configuration.</param>
 		/// <param name="inputElementType">Type of the input element.</param>
-		/// <param name="attributes">The attributes.</param>
-		public JQueryValidationGenerator(JQueryValidator.JQueryConfiguration configuration, InputElementType inputElementType, IDictionary attributes)
+		/// <param name="propertyNameToElementId">The attributes.</param>
+		public JQueryValidationGenerator(JQueryValidator.JQueryConfiguration configuration, InputElementType inputElementType, Func<string, string> propertyNameToElementId)
 		{
 			_inputElementType = inputElementType;
+			_propertyNameToElementId = propertyNameToElementId;
 			_config = configuration;
 		}
 
 		#endregion Constructors
 
 
-		static string GetPrefixedFieldld(string target, string field)
+		private string GetPrefixedFieldld(string target, string field)
 		{
-			// We don't need to do anything with field prefixes because it's already handled in BrowserValidationEngine.
-			return field;
+			// Prefixes end with . by convention
+			if (this._propertyNameToElementId != null)
+			{
+				return this._propertyNameToElementId(field).Replace(".", @"\\.");
+			}
+			else
+			{
+				return field;
+			}
 		}
 
 		static string GetPrefixJQuerySelector(string target)
 		{
-			if (target.StartsWith("#")) return target;
-			return string.Format("#{0}", target);
+			string selector = target;
+			if (!selector.StartsWith("#"))
+			{
+				selector = string.Format("#{0}", selector);
+			}
+			// Strip single or double quotes from selector.
+			return selector.Replace("\'", String.Empty).Replace("\"", String.Empty);
 		}
 
 		#region IBrowserValidationGenerator Members
