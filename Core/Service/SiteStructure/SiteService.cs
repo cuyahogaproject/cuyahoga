@@ -119,6 +119,7 @@ namespace Cuyahoga.Core.Service.SiteStructure
 					Template newTemplate = template.GetCopy();
 					newTemplate.Site = site;
 					site.Templates.Add(newTemplate);
+					this._commonDao.SaveOrUpdateObject(newTemplate);
 					this._commonDao.SaveOrUpdateObject(site);
 				}
 				foreach (string templateDirectory in templateDirectoriesToCopy)

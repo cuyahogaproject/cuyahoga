@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Reflection;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
@@ -16,7 +16,7 @@ using System.Security;
 
 [assembly: CLSCompliantAttribute(false)]
 [assembly: ComVisibleAttribute(false)]
-[assembly: AssemblyTitleAttribute("Cuyahoga.Modules for Microsoft .NET Framework 2.0")]
+[assembly: AssemblyTitleAttribute("Cuyahoga.Tests for Microsoft .NET Framework 2.0")]
 [assembly: AssemblyDescriptionAttribute("")]
 [assembly: AssemblyCompanyAttribute("Cuyahoga Project")]
 [assembly: AssemblyProductAttribute("Cuyahoga")]
@@ -25,4 +25,5 @@ using System.Security;
 [assembly: AssemblyInformationalVersionAttribute("2.0.0.0")]
 [assembly: AssemblyFileVersionAttribute("2.0.0.0")]
 [assembly: AllowPartiallyTrustedCallersAttribute()]
+
 

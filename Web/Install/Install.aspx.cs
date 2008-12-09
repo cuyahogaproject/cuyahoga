@@ -190,7 +190,7 @@ namespace Cuyahoga.Web.Install
 			Site site = new Site();
 			site.Name = "Cuyahoga Sample Site";
 			site.SiteUrl = UrlHelper.GetSiteUrl();
-			site.WebmasterEmail = "webmaster@localhost";
+			site.WebmasterEmail = "webmaster@localhost.com";
 			site.UseFriendlyUrls = true;
 			site.DefaultCulture = "en-US";
 			site.DefaultTemplate = defaultTemplate;
