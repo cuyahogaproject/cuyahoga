@@ -39,7 +39,6 @@ h4
 	font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
 }
 
-
 fieldset 
 {  
 	margin: 15px 0 5px 0;  
@@ -313,6 +312,11 @@ img
 	background-color: #fff;
 }
 
+.taskcontainer p
+{
+	margin: 2px 0;
+}
+
 a.createlink
 {
 	display: block;
@@ -320,6 +324,25 @@ a.createlink
 	background-repeat: no-repeat;
 	background-position: left;
 	padding: 5px 20px;
+}
+
+a.expandlink
+{
+	display: block;
+	background-image: url(../Images/section_collapsed.png);
+	background-repeat: no-repeat;
+	background-position: left;
+	padding: 5px 20px;
+}
+
+a.collapselink
+{
+	display: block;
+	background-image: url(../Images/section_expanded.png);
+	background-repeat: no-repeat;
+	background-position: left;
+	padding: 5px 20px;
+	color: #333;
 }
 
 .messagebox

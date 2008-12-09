@@ -358,6 +358,42 @@ namespace Resources.Cuyahoga.Web.Manager {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Invalid .ascx file location in package. Make sure the .ascx files are in the root of the package..
+        /// </summary>
+        internal static string InvalidAscxLocationException {
+            get {
+                return ResourceManager.GetString("InvalidAscxLocationException", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Invalid .css file location in package. Make sure the .css files are in the &apos;css&apos; subdirectory..
+        /// </summary>
+        internal static string InvalidCssLocationException {
+            get {
+                return ResourceManager.GetString("InvalidCssLocationException", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Invalid directory found in package. Only &apos;Images&apos; and &apos;Css&apos; are allowed..
+        /// </summary>
+        internal static string InvalidDirectoryInPackageFoundException {
+            get {
+                return ResourceManager.GetString("InvalidDirectoryInPackageFoundException", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Invalid file extension found in package..
+        /// </summary>
+        internal static string InvalidExtensionFoundException {
+            get {
+                return ResourceManager.GetString("InvalidExtensionFoundException", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Invalid password. Make sure it has at least 5 characters..
         /// </summary>
         internal static string InvalidPassword {
@@ -372,6 +408,15 @@ namespace Resources.Cuyahoga.Web.Manager {
         internal static string InvalidUsernamePassword {
             get {
                 return ResourceManager.GetString("InvalidUsernamePassword", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The file is not a valid .zip archive.
+        /// </summary>
+        internal static string InvalidZipFileMessage {
+            get {
+                return ResourceManager.GetString("InvalidZipFileMessage", resourceCulture);
             }
         }
         
@@ -664,6 +709,15 @@ namespace Resources.Cuyahoga.Web.Manager {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to No file was uploaded..
+        /// </summary>
+        internal static string NoFileUploadedMessage {
+            get {
+                return ResourceManager.GetString("NoFileUploadedMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to No role(s) found.
         /// </summary>
         internal static string NoRolesFound {
@@ -880,6 +934,15 @@ namespace Resources.Cuyahoga.Web.Manager {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to The template files are uploaded. You can now register one or more new templates based on the files..
+        /// </summary>
+        internal static string TemplatesUploadedMessage {
+            get {
+                return ResourceManager.GetString("TemplatesUploadedMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to The template {0} is updated successfully..
         /// </summary>
         internal static string TemplateUpdatedMessage {
@@ -894,6 +957,24 @@ namespace Resources.Cuyahoga.Web.Manager {
         internal static string TimeZoneLabel {
             get {
                 return ResourceManager.GetString("TimeZoneLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to You can upload a set of template files, packaged as a .zip file. The name of the .zip file becomes the directory name. Make sure that the template control (.ascx) is in the root of the package and images and stylesheets are in the &apos;Images&apos; and &apos;Css&apos; directories..
+        /// </summary>
+        internal static string UploadNewTemplateFilesHint {
+            get {
+                return ResourceManager.GetString("UploadNewTemplateFilesHint", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Upload new template files.
+        /// </summary>
+        internal static string UploadNewTemplateFilesLabel {
+            get {
+                return ResourceManager.GetString("UploadNewTemplateFilesLabel", resourceCulture);
             }
         }
         

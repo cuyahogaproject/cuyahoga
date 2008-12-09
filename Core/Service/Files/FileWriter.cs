@@ -50,12 +50,12 @@ namespace Cuyahoga.Core.Service.Files
 				throw new ArgumentException("The file already exists", filePath);
 			}
 			string directoryName = Path.GetDirectoryName(filePath);
-			if (!Directory.Exists(directoryName))
+			if (!Directory.Exists(directoryName) && ! this._createdDirectories.Contains(directoryName))
 			{
 				throw new DirectoryNotFoundException(String.Format("The physical upload directory {0} for the file does not exist", directoryName));
 			}
-			// Check if the target directory is writable
-			if (!IOUtil.CheckIfDirectoryIsWritable(directoryName))
+			// Check if the target directory is writable (only with existing directories
+			if (! this._createdDirectories.Contains(directoryName) && !IOUtil.CheckIfDirectoryIsWritable(directoryName))
 			{
 				throw new UnauthorizedAccessException(string.Format("Unable to copy files and directories to {0}. Access denied.", directoryName));
 			}

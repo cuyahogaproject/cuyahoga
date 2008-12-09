@@ -21,8 +21,14 @@ namespace Cuyahoga.Core.Service.Files
 		/// <param name="toStream"></param>
 		public static void Copy(Stream fromStream, Stream toStream)
 		{
-			fromStream.Position = 0;
-			toStream.Position = 0;
+			if (fromStream.CanSeek)
+			{
+				fromStream.Position = 0;
+			}
+			if (toStream.CanSeek)
+			{
+				toStream.Position = 0;
+			}
 
 			byte[] buffer = new byte[_bufferSize];
 			int len;

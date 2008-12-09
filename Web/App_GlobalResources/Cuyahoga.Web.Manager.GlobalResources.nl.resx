@@ -411,4 +411,31 @@
   <data name="TemplateUpdatedMessage" xml:space="preserve">
     <value>De template {0} is gewijzigd.</value>
   </data>
+  <data name="InvalidAscxLocationException" xml:space="preserve">
+    <value>Ongeldige plaats van een .ascx bestand in het .zip bestand. Deze mogen alleen in de root van het bestand voorkomen.</value>
+  </data>
+  <data name="InvalidCssLocationException" xml:space="preserve">
+    <value>Ongeldige plaats van een .css bestand in het .zip bestand. Deze mogen alleen in de 'Css' subdirectory van het bestand voorkomen.</value>
+  </data>
+  <data name="InvalidDirectoryInPackageFoundException" xml:space="preserve">
+    <value>Ongeldige subdirectory gevonden in het .zip bestand. Alleen 'Images' en 'Css' zijn toegestaan.</value>
+  </data>
+  <data name="InvalidExtensionFoundException" xml:space="preserve">
+    <value>Ongeldige bestandsextensie gevonden in het .zip bestand.</value>
+  </data>
+  <data name="InvalidZipFileMessage" xml:space="preserve">
+    <value>Ongeldig .zip archief.</value>
+  </data>
+  <data name="NoFileUploadedMessage" xml:space="preserve">
+    <value>Er is geen bestand geupload.</value>
+  </data>
+  <data name="TemplatesUploadedMessage" xml:space="preserve">
+    <value>De template bestanden zijn geupload. Er kunnen nu nieuwe templates geregistreerd worden op basis van deze bestanden.</value>
+  </data>
+  <data name="UploadNewTemplateFilesHint" xml:space="preserve">
+    <value>Template bestanden kunnen worden geupload als een .zip bestand. Check dat de .ascx bestanden in de root van het .zip bestand staan, de .css bestanden in de 'Css' subdirectory en de afbeeldingen in de 'Images' subdirectory.</value>
+  </data>
+  <data name="UploadNewTemplateFilesLabel" xml:space="preserve">
+    <value>Upload nieuwe template bestanden.</value>
+  </data>
 </root>

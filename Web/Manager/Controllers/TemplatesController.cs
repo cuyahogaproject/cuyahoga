@@ -2,8 +2,10 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Threading;
 using System.Web;
 using System.Web.Mvc;
+using Cuyahoga.Core;
 using Cuyahoga.Core.Domain;
 using Cuyahoga.Core.Service.Files;
 using Cuyahoga.Core.Service.Membership;
@@ -185,9 +187,8 @@ namespace Cuyahoga.Web.Manager.Controllers
 
 		public ActionResult UploadTemplates()
 		{
-			// TODO: message translation
-			string message = "";
-			string error = "";
+			string message = String.Empty;
+			string error = String.Empty;
 			try
 			{
 				if (Request.Files.Count > 0)
@@ -195,17 +196,22 @@ namespace Cuyahoga.Web.Manager.Controllers
 					HttpPostedFileBase theFile = Request.Files[0];
 					if (! theFile.FileName.EndsWith(".zip"))
 					{
-						throw new Exception("No zip file uploaded.");
+						throw new Exception(GlobalResources.InvalidZipFileMessage);
 					}
 					string templatesRoot = VirtualPathUtility.Combine(CuyahogaContext.CurrentSite.SiteDataDirectory, "Templates");
 					string filePath = Path.Combine(Server.MapPath(templatesRoot), theFile.FileName);
 					this._templateService.ExtractTemplatePackage(filePath, theFile.InputStream);
-					message = "Template successfully uploaded.";
+					message = GlobalResources.TemplatesUploadedMessage;
 				}
 				else
 				{
-					error = "No files found";
+					error = GlobalResources.NoFileUploadedMessage;
 				}
+			}
+			catch (InvalidPackageException ex)
+			{
+				Logger.Error(ex.Message, ex);
+				error = TranslateMessage(ex.Message);
 			}
 			catch (Exception ex)
 			{

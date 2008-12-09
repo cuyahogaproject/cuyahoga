@@ -426,4 +426,31 @@
   <data name="TemplateUpdatedMessage" xml:space="preserve">
     <value>The template {0} is updated successfully.</value>
   </data>
+  <data name="InvalidAscxLocationException" xml:space="preserve">
+    <value>Invalid .ascx file location in package. Make sure the .ascx files are in the root of the package.</value>
+  </data>
+  <data name="InvalidCssLocationException" xml:space="preserve">
+    <value>Invalid .css file location in package. Make sure the .css files are in the 'css' subdirectory.</value>
+  </data>
+  <data name="InvalidDirectoryInPackageFoundException" xml:space="preserve">
+    <value>Invalid directory found in package. Only 'Images' and 'Css' are allowed.</value>
+  </data>
+  <data name="InvalidExtensionFoundException" xml:space="preserve">
+    <value>Invalid file extension found in package.</value>
+  </data>
+  <data name="InvalidZipFileMessage" xml:space="preserve">
+    <value>The file is not a valid .zip archive</value>
+  </data>
+  <data name="NoFileUploadedMessage" xml:space="preserve">
+    <value>No file was uploaded.</value>
+  </data>
+  <data name="TemplatesUploadedMessage" xml:space="preserve">
+    <value>The template files are uploaded. You can now register one or more new templates based on the files.</value>
+  </data>
+  <data name="UploadNewTemplateFilesHint" xml:space="preserve">
+    <value>You can upload a set of template files, packaged as a .zip file. The name of the .zip file becomes the directory name. Make sure that the template control (.ascx) is in the root of the package and images and stylesheets are in the 'Images' and 'Css' directories.</value>
+  </data>
+  <data name="UploadNewTemplateFilesLabel" xml:space="preserve">
+    <value>Upload new template files</value>
+  </data>
 </root>

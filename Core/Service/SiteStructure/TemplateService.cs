@@ -70,22 +70,55 @@ namespace Cuyahoga.Core.Service.SiteStructure
 			this._commonDao.DeleteObject(template);
 		}
 
+		[Transaction(TransactionMode.RequiresNew)]
 		public void ExtractTemplatePackage(string packageFilePath, Stream packageStream)
 		{
-			// TODO: much more checks of the archive
-
+			ICollection<string> allowedExtensions = new[] { ".ascx", ".css", ".gif", ".png", ".jpg", ".js", ".swf"};
+			
 			// The template dir is the name of the zip package by convention.
 			string templateDir = Path.GetFileNameWithoutExtension(packageFilePath);
-			// We're assuming that the package will be saved in Templates directory of the site.
 			string physicalTemplatesDirectory = Path.GetDirectoryName(packageFilePath);
-			this._fileService.WriteFile(packageFilePath, packageStream);
+			string physicalTargetTemplateDir = Path.Combine(physicalTemplatesDirectory, templateDir);
 
+			if (! Directory.Exists(physicalTargetTemplateDir))
+			{
+				this._fileService.CreateDirectory(physicalTargetTemplateDir);
+			}
 			// Extract
-			FastZip fastZipper = new FastZip();
-			fastZipper.ExtractZip(packageFilePath, Path.Combine(physicalTemplatesDirectory, templateDir), String.Empty);
-
-			// Delete package file.
-			this._fileService.DeleteFile(packageFilePath);
+			ZipFile templatesArchive = new ZipFile(packageStream);
+			foreach (ZipEntry zipEntry in templatesArchive)
+			{
+				if (zipEntry.IsDirectory)
+				{
+					// only 'Css' and 'Images' are allowed as directory names
+					if (zipEntry.Name.ToLower() != "css/" && zipEntry.Name.ToLower() != "images/")
+					{
+						throw new InvalidPackageException("InvalidDirectoryInPackageFoundException");
+					}
+					this._fileService.CreateDirectory(Path.Combine(physicalTargetTemplateDir, zipEntry.Name.Replace("/", String.Empty)));
+				}
+				if (zipEntry.IsFile)
+				{
+					string targetFilePath = Path.Combine(physicalTargetTemplateDir, zipEntry.Name);
+					string extension = Path.GetExtension(targetFilePath);
+					// Check allowed extensions.
+					if (! allowedExtensions.Contains(extension))
+					{
+						throw new InvalidPackageException("InvalidExtensionFoundException");
+					}
+					// ascx controls should be in the root of the template dir
+					if (extension == ".ascx" && ! (Path.GetDirectoryName(targetFilePath).EndsWith(templateDir)))
+					{
+						throw new InvalidPackageException("InvalidAscxLocationException");
+					}
+					// css files should be in the css subdirectory
+					if (extension == ".css" && !(Path.GetDirectoryName(targetFilePath).ToLower().EndsWith(@"\css")))
+					{
+						throw new InvalidPackageException("InvalidCssLocationException");
+					}
+					this._fileService.WriteFile(targetFilePath, templatesArchive.GetInputStream(zipEntry));
+				}
+			}
 		}
 
 		#endregion

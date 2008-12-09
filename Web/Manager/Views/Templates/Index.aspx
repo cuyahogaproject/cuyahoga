@@ -5,25 +5,23 @@
 <asp:Content ID="Content2" ContentPlaceHolderID="cphTasks" runat="server">
 	<h2><%= GlobalResources.TasksLabel %></h2>
 	<%= Html.ActionLink(GlobalResources.RegisterTemplateLabel, "New", null, new { @class = "createlink" })%>
-	<div id="uploadarea" class="taskcontainer">
-		<h4>Upload template files</h4>
+	<a href="#" class="expandlink"><%= GlobalResources.UploadNewTemplateFilesLabel %></a>
+	<div id="uploadarea" class="taskcontainer" style="display:none">
 		<% using (Html.BeginForm("UploadTemplates", "Templates", FormMethod.Post, new { id = "templatesuploadform", enctype = "multipart/formdata" })) { %>
             <p>
-            You can upload a set of template files, packaged as a .zip file. The name of the .zip file becomes the directory
-            name. Make sure that the template control (.ascx) is in the root of the package and images and stylesheets are in the Images
-            and Css directories.            
+            <%= GlobalResources.UploadNewTemplateFilesHint %>            
             </p>
             <input type="file" id="templatesuploader" name="templatesuploader" style="width:220px" /><br />
             <input type="submit" value="Upload" />
         <% } %>
         <script type="text/javascript">
-			
 			$(document).ready(function() {
 			
 				$('#templatesuploadform').ajaxForm({ 
 					dataType:  'json', 
-					success:   processJsonMessage // in Messages.ascx 
+					success:   processJsonMessage // in cuyahoga.common.js
 				}); 
+			
 			});        
 		</script> 
 	</div>

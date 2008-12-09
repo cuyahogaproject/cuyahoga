@@ -1,53 +1,21 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="Messages.ascx.cs" Inherits="Cuyahoga.Web.Manager.Views.Shared.Messages" %>
-<div id="messagewrapper">
-	<% if (ViewData.Model.Messages[MessageType.Exception].Count > 0) { %>
-		<div class="errorbox">
-		<img src="<%= Url.Content("~/Manager/Content/Images/cross.gif") %>" class="close_message" style="float:right;cursor:pointer" alt="Close" />
-		<% foreach (string exceptionMessage in ViewData.Model.Messages[MessageType.Exception]) { %>
-			<%= exceptionMessage %><br />
+<div id="messagewrapper" style="display:none">
+	<% foreach (string messageType in MessageType.GetTypes()) { %>
+		<% if (ViewData.Model.Messages[messageType].Count > 0) { %>
+			<div class="<%= messageType.ToLower() %>box">
+			<img src="<%= Url.Content("~/Manager/Content/Images/cross.gif") %>" class="close_message" style="float:right;cursor:pointer" alt="Close" />
+			<% foreach (string message in ViewData.Model.Messages[messageType]) { %>
+				<%= message%><br />
+			<% } %>
+			</div>
 		<% } %>
-		</div>
-	<% } %>
-	<% if (ViewData.Model.Messages[MessageType.Error].Count > 0) { %>
-		<div class="errorbox">
-		<img src="<%= Url.Content("~/Manager/Content/Images/cross.gif") %>" class="close_message" style="float:right;cursor:pointer" alt="Close" />
-		<% foreach (string errorMessage in ViewData.Model.Messages[MessageType.Error]) { %>
-			<%= errorMessage%><br />
-		<% } %>
-		</div>
-	<% } %>
-	<% if (ViewData.Model.Messages[MessageType.Message].Count > 0) { %>
-		<div class="messagebox">
-		<img src="<%= Url.Content("~/Manager/Content/Images/cross.gif") %>" class="close_message" style="float:right;cursor:pointer" alt="Close" />
-		<% foreach (string message in ViewData.Model.Messages[MessageType.Message]) { %>
-			<%= message%><br />
-		<% } %>
-		</div>
 	<% } %>
 </div>
 <script type="text/javascript">
 	$(document).ready(function(){
-		displayMessages();
+		// Display messages on page load if the #messagewrapper has content
+		if ($("#messagewrapper").children().length > 0) {
+			displayMessages();
+		}
 	});	
-	
-	function displayMessages() {
-		$("#messagewrapper").fadeOut(100).fadeIn(800);
-		
-		$(".close_message").click(function() { 
-			$("#messagewrapper").fadeOut("slow"); 
-		});
-	}
-	
-	function processJsonMessage(data) { 			
-		if (data.Message) {
-			$('#messagewrapper').html('<div class="messagebox"><img src="<%= Url.Content("~/Manager/Content/Images/cross.gif") %>" class="close_message" style="float:right;cursor:pointer" alt="Close" />'	+ data.Message + '</div>');
-			displayMessages();
-		} else if (data.Error) {
-			$('#messagewrapper').html('<div class="errorbox"><img src="<%= Url.Content("~/Manager/Content/Images/cross.gif") %>" class="close_message" style="float:right;cursor:pointer" alt="Close" />'	+ data.Error + '</div>');
-			displayMessages();
-		}
-		else {
-			$('#messagewrapper').html();
-		}
-	}
 </script>

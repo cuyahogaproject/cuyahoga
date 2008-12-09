@@ -51,4 +51,10 @@ namespace Cuyahoga.Core
 		{
 		}
 	}
+
+	public class InvalidPackageException : ApplicationException
+	{
+		public InvalidPackageException(string message) : base (message)
+		{}
+	}
 }

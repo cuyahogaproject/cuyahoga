@@ -179,6 +179,16 @@ namespace Cuyahoga.Web.Manager.Controllers
 			}
 		}
 
+		/// <summary>
+		/// Gets a translation of the given message from the GLobaResources. If not found, the original message is returned.
+		/// </summary>
+		/// <param name="message"></param>
+		/// <returns></returns>
+		protected string TranslateMessage(string message)
+		{
+			return GlobalResources.ResourceManager.GetString(message, Thread.CurrentThread.CurrentUICulture) ?? message;
+		}
+
 		private void InitMessageViewData()
 		{
 			if (TempData.ContainsKey("Messages"))
@@ -194,8 +204,8 @@ namespace Cuyahoga.Web.Manager.Controllers
 
 		private void RegisterMessage(string messageType, string message, bool persistForNextRequest)
 		{
-			string localizedMessage = GlobalResources.ResourceManager.GetString(message, Thread.CurrentThread.CurrentUICulture);
-			this._messageViewData.AddMessage(messageType, localizedMessage ?? message, persistForNextRequest);
+			string localizedMessage = TranslateMessage(message);
+			this._messageViewData.AddMessage(messageType, localizedMessage, persistForNextRequest);
 			if (persistForNextRequest)
 			{
 				// Just persist all messages directly. Not very subtle, but this also works in situations where exceptions occur.

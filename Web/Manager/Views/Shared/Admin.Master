@@ -8,6 +8,7 @@
 		<link rel="stylesheet" type="text/css" href="<%= Url.Content("~/Manager/Content/Css/Manager.css") %>" />
 		<script type="text/javascript" src="<%= Url.Content("~/Manager/Scripts/jquery-1.2.6.min.js") %>"></script>
 		<script type="text/javascript" src="<%= Url.Content("~/Manager/Scripts/jquery.validate.js") %>"></script>
+		<script type="text/javascript" src="<%= Url.Content("~/Manager/Scripts/cuyahoga.common.js") %>"></script>
 		<asp:ContentPlaceHolder id="cphHead" runat="server">
 		</asp:ContentPlaceHolder>
 	</head>
@@ -30,23 +31,15 @@
 			<script type="text/javascript">
 				/* Common js functionality. Requires jquery 1.2.x */
 				$(document).ready(function() {
-	
+					// set content dir variable
+					CuyahogaConfig.ContentDir = '<%= Url.Content("~/manager/Content/") %>';
+
 					// Attach a delete event handler to all a tags that have the deletelink class.
 					$('a.deletelink').click(function() {
 						if (confirm('<%= GlobalResources.AreYouSure %>')) {
 							$(this).parents('form').submit();
 						}
 					});
-					
-					// Add AJAX indicator
-					$(document.body).ajaxStart(function() {
-						$(document.body).append('<div id="loading"><img src="<%= Url.Content("~/manager/Content/images/ajax-loader.gif") %>" alt="loading"/></div>');
-						$('#loading').css({position:"fixed", width:"40px", top:"50%", left:"50%"});
-					}).ajaxStop(function() {
-						$('#loading').remove();
-					});
-
-							
 				});
 			</script>
 		</div>

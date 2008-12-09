@@ -809,12 +809,15 @@
     <Content Include="Manager\Content\Images\layout.png" />
     <Content Include="Manager\Content\Images\layout_add.png" />
     <Content Include="Manager\Content\Images\page.png" />
+    <Content Include="Manager\Content\Images\section_collapsed.png" />
+    <Content Include="Manager\Content\Images\section_expanded.png" />
     <Content Include="Manager\Content\Images\server.png" />
     <Content Include="Manager\Content\Images\television.png" />
     <Content Include="Manager\Content\Images\user.png" />
     <Content Include="Manager\Content\Images\world.png" />
     <Content Include="Manager\Content\Images\world_go.png" />
     <Content Include="Manager\Default.aspx" />
+    <Content Include="Manager\Scripts\cuyahoga.common.js" />
     <Content Include="Manager\Scripts\jquery-1.2.6.min.js" />
     <Content Include="Manager\Scripts\jquery-asyncupload-0.1.js" />
     <Content Include="Manager\Scripts\jquery.form.js" />
