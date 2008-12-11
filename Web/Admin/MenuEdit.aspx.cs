@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
@@ -86,7 +87,7 @@ namespace Cuyahoga.Web.Admin
 
 		private void BindAvailableNodes()
 		{
-			IList rootNodes = this.ActiveNode.Site.RootNodes;
+			IList<Node> rootNodes = this.ActiveNode.Site.RootNodes;
 			AddAvailableNodes(rootNodes);
 		}
 
@@ -104,7 +105,7 @@ namespace Cuyahoga.Web.Admin
 			}
 		}
 
-		private void AddAvailableNodes(IList nodes)
+		private void AddAvailableNodes(System.Collections.Generic.IList<Node> nodes)
 		{
 			foreach (Node node in nodes)
 			{

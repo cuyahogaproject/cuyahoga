@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
@@ -74,11 +75,11 @@ namespace Cuyahoga.Web.Admin
 			// First create an option for the default root node of the site.
 			ListItem li = new ListItem("-- inherit from site --", "-1");
 			this.ddlEntryNodes.Items.Add(li);
-			IList rootNodes = this._activeSiteAlias.Site.RootNodes;
+			IList<Node> rootNodes = this._activeSiteAlias.Site.RootNodes;
 			AddAvailableNodes(rootNodes);
 		}
 
-		private void AddAvailableNodes(IList nodes)
+		private void AddAvailableNodes(IList<Node> nodes)
 		{
 			foreach (Node node in nodes)
 			{

@@ -1,5 +1,4 @@
-﻿<%@ Import Namespace="Cuyahoga.Web.Mvc.Helpers"%>
-<%@ Import Namespace="Cuyahoga.Core.Domain"%>
+﻿<%@ Import Namespace="Cuyahoga.Core.Domain"%>
 <%@ Control Language="C#" AutoEventWireup="true" CodeBehind="RightsSelector.ascx.cs" Inherits="Cuyahoga.Web.Manager.Views.Users.RightsSelector" %>
 <fieldset style="border:none">
 	<li>

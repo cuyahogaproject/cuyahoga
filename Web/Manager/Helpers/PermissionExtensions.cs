@@ -2,7 +2,7 @@
 using System.Web.Mvc;
 using Cuyahoga.Core.Domain;
 
-namespace Cuyahoga.Web.Mvc.Helpers
+namespace Cuyahoga.Web.Manager.Helpers
 {
 	public static class PermissionExtensions
 	{

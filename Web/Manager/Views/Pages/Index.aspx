@@ -4,4 +4,69 @@
 <asp:Content ID="Content2" ContentPlaceHolderID="cphTasks" runat="server">
 </asp:Content>
 <asp:Content ID="Content3" ContentPlaceHolderID="cphMain" runat="server">
+	<table class="grid" style="width:100%">
+		<thead>
+			<tr>
+				<th>Page title</th>
+				<th>Page url</th>
+				<th style="width:120px">Template</th>
+				<th style="width:60px">Culture</th>
+				<th style="width:120px">Last modified</th>
+				<th>&nbsp;</th>
+			</tr>
+		</thead>
+		<tbody>
+		<% foreach (var node in this.ViewData.Model) { %>
+			<% Html.RenderPartial("PageListItem", node, ViewData); %>	
+		<% } %>
+		</tbody>
+	</table>
+	<script type="text/javascript">
+		$(document).ready(function() {
+			$('span.children-visible > .expander').toggle(function() {
+				toggleHide(this);
+			}, function() {
+				toggleShow(this);
+			});
+			
+			$('span.children-hidden > .expander').toggle(function() { 
+				toggleShow(this);	
+			}, function() {
+				toggleHide(this);
+			});
+		})
+		
+		function toggleHide(expander) {
+			$(expander).attr('src', '<%= Url.Content("~/manager/Content/Images/expand.png") %>');
+			$(expander).parent().removeClass('children-visible');
+			$(expander).parent().addClass('children-hidden');
+			var nodeId = $(expander).parents('tr').attr('id').substring(5);
+			hidePages(nodeId);
+		}
+		
+		function toggleShow(expander) {
+			$(expander).attr('src', '<%= Url.Content("~/manager/Content/Images/collapse.png") %>');
+			$(expander).parent().removeClass('children-hidden');
+			$(expander).parent().addClass('children-visible');
+			var nodeId = $(expander).parents('tr').attr('id').substring(5);
+			showPages(nodeId);	
+	}
+		
+		function hidePages(parentNodeId) {
+			$('.parent-' + parentNodeId).hide();
+			$('.parent-' + parentNodeId).each(function(i) {
+				hidePages($(this).attr('id').substring(5));
+			});
+		}
+		
+		function showPages(parentNodeId) {
+			$('.parent-' + parentNodeId).show();
+			// only recurse pages that have their children visible
+			$('.parent-' + parentNodeId + ':has(span.children-visible)').each(function(i) {
+				showPages($(this).attr('id').substring(5));
+			});
+		}
+
+		
+	</script>
 </asp:Content>

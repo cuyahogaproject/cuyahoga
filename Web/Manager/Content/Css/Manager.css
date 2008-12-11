@@ -396,13 +396,18 @@ table.grid th
 table.grid td
 {
 	border-bottom: 1px solid #eee;
-	padding: 4px;
+	padding: 6px 4px;
 
 }
 
 table.grid td form
 {
 	display: inline;
+}
+
+table.grid tr:hover
+{
+	background-color: #eef;
 }
 
 table.grid tr.selected
@@ -413,6 +418,16 @@ table.grid tr.selected
 table.grid td a
 {
 	margin-right: 5px;
+}
+
+table.grid td.center
+{
+	text-align: center;
+}
+
+table.grid td.right
+{
+	text-align: right;
 }
 
 /* Pager */
@@ -458,4 +473,17 @@ table.grid td a
 .validation-summary-errors
 {
 	color: #f00;
+}
+
+/* Page list */
+span.no-children
+{
+	padding: 11px;
+}
+
+span.children-hidden,
+span.children-visible
+{
+	padding: 0;
+	cursor: pointer;
 }

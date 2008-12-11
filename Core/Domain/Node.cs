@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using System.Collections.Generic;
 using System.Security.Principal;
 using System.Text.RegularExpressions;
 
@@ -16,7 +17,7 @@ namespace Cuyahoga.Core.Domain
 		private int _position;
 		private Site _site;
 		private Node _parentNode;
-		private IList _childNodes;
+		private IList<Node> _childNodes;
 		private IList _sections;
 		private Template _template;
 		private int[] _trail;
@@ -184,7 +185,7 @@ namespace Cuyahoga.Core.Domain
 		/// <summary>
 		/// Property ChildNodes (IList). Lazy loaded.
 		/// </summary>
-		public virtual IList ChildNodes
+		public virtual IList<Node> ChildNodes
 		{
 			get 
 			{ 
@@ -320,7 +321,7 @@ namespace Cuyahoga.Core.Domain
 		/// </summary>
 		/// <param name="rootNodes">We need the root nodes when the node has no ParentNode</param>
 		/// <param name="npm">Direction</param>
-		public virtual void Move(IList rootNodes, NodePositionMovement npm)
+		public virtual void Move(IList<Node> rootNodes, NodePositionMovement npm)
 		{
 			switch (npm)
 			{
@@ -360,7 +361,7 @@ namespace Cuyahoga.Core.Domain
 		/// </summary>
 		/// <param name="nodeListWithGap"></param>
 		/// <param name="gapPosition"></param>
-		public virtual void ReOrderNodePositions(IList nodeListWithGap, int gapPosition)
+		public virtual void ReOrderNodePositions(IList<Node> nodeListWithGap, int gapPosition)
 		{
 			foreach (Node node in nodeListWithGap)
 			{
@@ -504,13 +505,13 @@ namespace Cuyahoga.Core.Domain
 		/// Move the node one position upwards and move the node above this one one position downwards.
 		/// </summary>
 		/// <param name="rootNodes">We need these when the node has no ParentNode.</param>
-		private void MoveUp(IList rootNodes)
+		private void MoveUp(IList<Node> rootNodes)
 		{
 			if (this._position > 0)
 			{
 				// HACK: Assume that the node indexes are the same as the value of the positions.
 				this._position--;
-				IList parentChildNodes = (this.ParentNode == null ? rootNodes : this.ParentNode.ChildNodes);
+				IList<Node> parentChildNodes = (this.ParentNode == null ? rootNodes : this.ParentNode.ChildNodes);
 				((Node)parentChildNodes[this._position]).Position++;
 				parentChildNodes.Remove(this);
 				parentChildNodes.Insert(this._position, this);
@@ -521,13 +522,13 @@ namespace Cuyahoga.Core.Domain
 		/// Move the node one position downwards and move the node above this one one position upwards.
 		/// </summary>
 		/// <param name="rootNodes">We need these when the node has no ParentNode.</param>
-		private void MoveDown(IList rootNodes)
+		private void MoveDown(IList<Node> rootNodes)
 		{
 			if (this._position < this.ParentNode.ChildNodes.Count - 1)
 			{
 				// HACK: Assume that the node indexes are the same as the value of the positions.
 				this._position++;
-				IList parentChildNodes = (this.ParentNode == null ? rootNodes : this.ParentNode.ChildNodes);
+				IList<Node> parentChildNodes = (this.ParentNode == null ? rootNodes : this.ParentNode.ChildNodes);
 				((Node)parentChildNodes[this._position]).Position--;
 				parentChildNodes.Remove(this);
 				parentChildNodes.Insert(this._position, this);
@@ -540,7 +541,7 @@ namespace Cuyahoga.Core.Domain
 		/// <param name="rootNodes">The root nodes. We need these when a node is moved to the
 		/// root level because the nodes that come after this one ahve to be moved and can't be reached
 		/// anymore by traversing related nodes.</param>
-		private void MoveLeft(IList rootNodes)
+		private void MoveLeft(IList<Node> rootNodes)
 		{
 			int newPosition = this.ParentNode.Position + 1;
 			if (this.ParentNode.Level == 0)
@@ -573,7 +574,7 @@ namespace Cuyahoga.Core.Domain
 		/// Add node to the children of the previous node in the list.
 		/// </summary>
 		/// <param name="rootNodes"></param>
-		private void MoveRight(IList rootNodes)
+		private void MoveRight(IList<Node> rootNodes)
 		{
 			if (this._position > 0)
 			{

@@ -352,6 +352,8 @@
     <Compile Include="Manager\Filters\ExceptionFilter.cs" />
     <Compile Include="Manager\Filters\MenuDataFilter.cs" />
     <Compile Include="Manager\Filters\SiteFilter.cs" />
+    <Compile Include="Manager\Helpers\PageAdminExtensions.cs" />
+    <Compile Include="Manager\Helpers\PermissionExtensions.cs" />
     <Compile Include="Manager\Model\ViewModels\LoginViewData.cs" />
     <Compile Include="Manager\Model\ViewModels\MenuViewData.cs" />
     <Compile Include="Manager\Model\ViewModels\MessageViewData.cs" />
@@ -382,6 +384,13 @@
     </Compile>
     <Compile Include="Manager\Views\Pages\Index.aspx.designer.cs">
       <DependentUpon>Index.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Manager\Views\Pages\PageListItem.ascx.cs">
+      <DependentUpon>PageListItem.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Manager\Views\Pages\PageListItem.ascx.designer.cs">
+      <DependentUpon>PageListItem.ascx</DependentUpon>
     </Compile>
     <Compile Include="Manager\Views\Server\Index.aspx.cs">
       <DependentUpon>Index.aspx</DependentUpon>
@@ -795,20 +804,25 @@
     <Content Include="Manager\Content\Css\flora.datepicker.css" />
     <Content Include="Manager\Content\Css\Manager.css" />
     <Content Include="Manager\Content\Css\thickbox.css" />
+    <Content Include="Manager\Content\Images\add.png" />
     <Content Include="Manager\Content\Images\ajax-loader.gif" />
     <Content Include="Manager\Content\Images\blankbutton.png" />
     <Content Include="Manager\Content\Images\cancel.png" />
+    <Content Include="Manager\Content\Images\collapse.png" />
     <Content Include="Manager\Content\Images\cross.gif" />
     <Content Include="Manager\Content\Images\cuyahoga-logo.png" />
     <Content Include="Manager\Content\Images\error.png" />
     <Content Include="Manager\Content\Images\exclamation.png" />
+    <Content Include="Manager\Content\Images\expand.png" />
     <Content Include="Manager\Content\Images\folder_page.png" />
     <Content Include="Manager\Content\Images\folder_picture.png" />
     <Content Include="Manager\Content\Images\group.png" />
+    <Content Include="Manager\Content\Images\house.png" />
     <Content Include="Manager\Content\Images\information.png" />
     <Content Include="Manager\Content\Images\layout.png" />
     <Content Include="Manager\Content\Images\layout_add.png" />
     <Content Include="Manager\Content\Images\page.png" />
+    <Content Include="Manager\Content\Images\page_link.png" />
     <Content Include="Manager\Content\Images\section_collapsed.png" />
     <Content Include="Manager\Content\Images\section_expanded.png" />
     <Content Include="Manager\Content\Images\server.png" />
@@ -886,6 +900,7 @@
     <Content Include="Manager\Views\Files\Index.aspx" />
     <Content Include="Manager\Views\Login\Index.aspx" />
     <Content Include="Manager\Views\Pages\Index.aspx" />
+    <Content Include="Manager\Views\Pages\PageListItem.ascx" />
     <Content Include="Manager\Views\Server\Index.aspx" />
     <Content Include="Manager\Views\Shared\Error.aspx" />
     <Content Include="Manager\Views\Shared\Header.ascx" />

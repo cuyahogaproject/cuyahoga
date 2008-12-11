@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing;
 using System.Globalization;
@@ -333,7 +334,7 @@ namespace Cuyahoga.Web.Admin
 		{
 			base.CoreRepository.ClearQueryCache("Nodes");
 
-			IList rootNodes = base.CoreRepository.GetRootNodes(this.ActiveNode.Site);
+			IList<Node> rootNodes = base.CoreRepository.GetRootNodes(this.ActiveNode.Site) as IList<Node>;
 			this.ActiveNode.Move(rootNodes, npm);
 			this.CoreRepository.FlushSession();
 			Context.Response.Redirect(Context.Request.RawUrl);
@@ -545,7 +546,7 @@ namespace Cuyahoga.Web.Admin
 					// Reset the position of the 'neighbour' nodes.
 					if (this.ActiveNode.Level == 0)
 					{						
-						this.ActiveNode.ReOrderNodePositions(base.CoreRepository.GetRootNodes(this.ActiveNode.Site), this.ActiveNode.Position);
+						this.ActiveNode.ReOrderNodePositions(this.ActiveNode.Site.RootNodes, this.ActiveNode.Position);
 					}
 					else
 					{

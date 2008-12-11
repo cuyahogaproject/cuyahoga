@@ -21,7 +21,7 @@ namespace Cuyahoga.Core.Domain
 		private string _metaKeywords;
 		private string _metaDescription;
 		private Role _defaultRole;
-		private IList _rootNodes;
+		private IList<Node> _rootNodes;
 		private IList<Role> _roles;
 		private IList<Template> _templates;
 		private DateTime _updateTimestamp;
@@ -143,7 +143,7 @@ namespace Cuyahoga.Core.Domain
 		/// <summary>
 		/// Property RootNodes (IList)
 		/// </summary>
-		public virtual IList RootNodes
+		public virtual IList<Node> RootNodes
 		{
 			get { return this._rootNodes; }
 			set { this._rootNodes = value; }
@@ -200,7 +200,7 @@ namespace Cuyahoga.Core.Domain
 		{
 			this._id = -1;
 			this._useFriendlyUrls = true;
-			this._rootNodes = new ArrayList();
+			this._rootNodes = new List<Node>();
 			this._roles = new List<Role>();
 			this._templates = new List<Template>();
 		}

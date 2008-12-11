@@ -520,7 +520,7 @@ namespace Resources.Cuyahoga.Web.Manager {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Manage pages and sections.
+        ///   Looks up a localized string similar to Manage pages.
         /// </summary>
         internal static string ManagePagesPageTitle {
             get {

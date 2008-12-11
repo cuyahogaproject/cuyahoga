@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
@@ -94,7 +95,7 @@ namespace Cuyahoga.Web.Admin
 			{
 				this.lbxAvailableNodes.Visible = true;
 				this.lbxAvailableNodes.Items.Clear();
-				IList rootNodes = base.CoreRepository.GetRootNodes(this._selectedSite);
+				IList<Node> rootNodes = base.CoreRepository.GetRootNodes(this._selectedSite) as IList<Node>;
 				AddAvailableNodes(rootNodes);
 			}
 			this.btnSave.Enabled = false;
@@ -142,7 +143,7 @@ namespace Cuyahoga.Web.Admin
 			}
 		}
 
-		private void AddAvailableNodes(IList nodes)
+		private void AddAvailableNodes(IList<Node> nodes)
 		{
 			foreach (Node node in nodes)
 			{

@@ -438,4 +438,7 @@
   <data name="UploadNewTemplateFilesLabel" xml:space="preserve">
     <value>Upload nieuwe template bestanden.</value>
   </data>
+  <data name="ManagePagesPageTitle" xml:space="preserve">
+    <value>Beheer pagina's</value>
+  </data>
 </root>
