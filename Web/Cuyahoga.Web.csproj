@@ -392,6 +392,13 @@
     <Compile Include="Manager\Views\Pages\PageListItem.ascx.designer.cs">
       <DependentUpon>PageListItem.ascx</DependentUpon>
     </Compile>
+    <Compile Include="Manager\Views\Pages\PageListItems.ascx.cs">
+      <DependentUpon>PageListItems.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Manager\Views\Pages\PageListItems.ascx.designer.cs">
+      <DependentUpon>PageListItems.ascx</DependentUpon>
+    </Compile>
     <Compile Include="Manager\Views\Server\Index.aspx.cs">
       <DependentUpon>Index.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -901,6 +908,7 @@
     <Content Include="Manager\Views\Login\Index.aspx" />
     <Content Include="Manager\Views\Pages\Index.aspx" />
     <Content Include="Manager\Views\Pages\PageListItem.ascx" />
+    <Content Include="Manager\Views\Pages\PageListItems.ascx" />
     <Content Include="Manager\Views\Server\Index.aspx" />
     <Content Include="Manager\Views\Shared\Error.aspx" />
     <Content Include="Manager\Views\Shared\Header.ascx" />

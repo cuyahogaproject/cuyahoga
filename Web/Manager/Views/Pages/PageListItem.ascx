@@ -14,8 +14,6 @@
 					<td class="right"><%= ViewData.Model.UpdateTimestamp %></td>
 					<td></td>
 				</tr>
-				<% if (ViewData.Model.Level < 1 || (ViewData["ActiveNode"] != null && ((Node)ViewData["ActiveNode"]).NodePath[ViewData.Model.Level] == ViewData.Model)) { %>
-					<% foreach (var childNode in ViewData.Model.ChildNodes) { %>
-						<% Html.RenderPartial("PageListItem", childNode); %>
-					<% } %>
+				<% if (ViewData.Model.Level < 0 || (ViewData.Model.IsInPath((Node)ViewData["ActiveNode"]))) { %>
+					<% Html.RenderPartial("PageListItems", ViewData.Model.ChildNodes, ViewData); %>
 				<% } %>		

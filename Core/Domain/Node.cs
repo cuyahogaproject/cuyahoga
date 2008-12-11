@@ -317,6 +317,21 @@ namespace Cuyahoga.Core.Domain
 		#region methods
 
 		/// <summary>
+		/// Checks if the node is in the path from the root to the given otherNode (also includes the node itself).
+		/// </summary>
+		/// <param name="otherNode">The node to check the path for. When null, IsInPath returns false.</param>
+		/// <returns></returns>
+		public virtual bool IsInPath(Node otherNode)
+		{
+			if (otherNode == null)
+			{
+				return false;
+			}
+			bool isInPath = this.Level < otherNode.NodePath.Length && otherNode.NodePath[this.Level].Id == this.Id;
+			return isInPath;
+		}
+
+		/// <summary>
 		/// Move the node to a different position in the tree.
 		/// </summary>
 		/// <param name="rootNodes">We need the root nodes when the node has no ParentNode</param>

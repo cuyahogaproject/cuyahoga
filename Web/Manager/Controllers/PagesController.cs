@@ -1,4 +1,5 @@
 ﻿using System.Web.Mvc;
+using Cuyahoga.Core.Domain;
 using Cuyahoga.Core.Service.Membership;
 using Cuyahoga.Core.Service.SiteStructure;
 using Cuyahoga.Web.Mvc.Filters;
@@ -25,6 +26,12 @@ namespace Cuyahoga.Web.Manager.Controllers
 				ViewData["ActiveNode"] = this._nodeService.GetNodeById(id.Value);
 			}
 			return View(CuyahogaContext.CurrentSite.RootNodes);
+		}
+
+		public ActionResult GetChildPageListItems(int nodeId)
+		{
+			Node node = this._nodeService.GetNodeById(nodeId);
+			return PartialView("PageListItems", node.ChildNodes);
 		}
 	}
 }

@@ -43,7 +43,7 @@ namespace Cuyahoga.Web.Manager.Helpers
 				TagBuilder expanderImage = new TagBuilder("img");
 				expanderImage.AddCssClass("expander");
 
-				if (node.Level < 1 || (activeNode != null && activeNode.NodePath[node.Level] == node))
+				if (node.Level < 0 || (node.IsInPath(activeNode)))
 				{
 					className = "children-visible";
 					expanderImage.Attributes.Add("src", urlHelper.Content("~/manager/Content/Images/collapse.png"));

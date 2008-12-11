@@ -16,9 +16,7 @@
 			</tr>
 		</thead>
 		<tbody>
-		<% foreach (var node in this.ViewData.Model) { %>
-			<% Html.RenderPartial("PageListItem", node, ViewData); %>	
-		<% } %>
+		<% Html.RenderPartial("PageListItems", ViewData.Model, ViewData); %>
 		</tbody>
 	</table>
 	<script type="text/javascript">
@@ -38,33 +36,43 @@
 		
 		function toggleHide(expander) {
 			$(expander).attr('src', '<%= Url.Content("~/manager/Content/Images/expand.png") %>');
-			$(expander).parent().removeClass('children-visible');
-			$(expander).parent().addClass('children-hidden');
+			$(expander).parent().removeClass('children-visible').addClass('children-hidden');
 			var nodeId = $(expander).parents('tr').attr('id').substring(5);
 			hidePages(nodeId);
 		}
 		
 		function toggleShow(expander) {
 			$(expander).attr('src', '<%= Url.Content("~/manager/Content/Images/collapse.png") %>');
-			$(expander).parent().removeClass('children-hidden');
-			$(expander).parent().addClass('children-visible');
+			$(expander).parent().removeClass('children-hidden').addClass('children-visible');
 			var nodeId = $(expander).parents('tr').attr('id').substring(5);
 			showPages(nodeId);	
-	}
+		}
 		
 		function hidePages(parentNodeId) {
-			$('.parent-' + parentNodeId).hide();
-			$('.parent-' + parentNodeId).each(function(i) {
+			$('.parent-' + parentNodeId).hide().each(function(i) {
 				hidePages($(this).attr('id').substring(5));
 			});
 		}
 		
 		function showPages(parentNodeId) {
-			$('.parent-' + parentNodeId).show();
-			// only recurse pages that have their children visible
-			$('.parent-' + parentNodeId + ':has(span.children-visible)').each(function(i) {
-				showPages($(this).attr('id').substring(5));
-			});
+			if ($('.parent-' + parentNodeId).length == 0) {
+				$.get('<%= Url.Action("GetChildPageListItems", "Pages") %>', { 'nodeid' : parentNodeId }, function(data) {
+					$('#page-' + parentNodeId).after(data);
+					// Add toggle handlers to newly added items
+					$('.parent-' + parentNodeId + ' .expander').toggle(function() { 
+						toggleShow(this);	
+					}, function() {
+						toggleHide(this);
+					});
+				}) 
+			}
+			else {
+				$('.parent-' + parentNodeId).show();
+				// only recurse pages that have their children visible
+				$('.parent-' + parentNodeId + ':has(span.children-visible)').each(function(i) {
+					showPages($(this).attr('id').substring(5));
+				});
+			}
 		}
 
 		
