@@ -441,4 +441,10 @@
   <data name="ManagePagesPageTitle" xml:space="preserve">
     <value>Beheer pagina's</value>
   </data>
+  <data name="ViewLabel" xml:space="preserve">
+    <value>Bekijk</value>
+  </data>
+  <data name="ViewTemplatePageTitle" xml:space="preserve">
+    <value>Bekijk template</value>
+  </data>
 </root>

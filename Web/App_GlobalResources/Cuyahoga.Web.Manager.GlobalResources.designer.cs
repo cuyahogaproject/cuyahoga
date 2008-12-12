@@ -1042,6 +1042,24 @@ namespace Resources.Cuyahoga.Web.Manager {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to View.
+        /// </summary>
+        internal static string ViewLabel {
+            get {
+                return ResourceManager.GetString("ViewLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to View template.
+        /// </summary>
+        internal static string ViewTemplatePageTitle {
+            get {
+                return ResourceManager.GetString("ViewTemplatePageTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Webmaster email.
         /// </summary>
         internal static string WebmasterEmailLabel {

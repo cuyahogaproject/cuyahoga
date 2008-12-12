@@ -46,6 +46,7 @@
 						<td><%= template.TemplateControl%></td>
 						<td><%= template.Css%></td>
 						<td style="white-space:nowrap">
+							<%= Html.ActionLink(GlobalResources.ViewLabel, "View", new { id = template.Id })%>
 							<%= Html.ActionLink(GlobalResources.EditLabel, "Edit", new { id = template.Id })%>
 							<% using (Html.BeginForm("Delete", "Templates", new { id = template.Id }, FormMethod.Post)) { %>
 								<a href="#" class="deletelink"><%= GlobalResources.DeleteButtonLabel%></a>

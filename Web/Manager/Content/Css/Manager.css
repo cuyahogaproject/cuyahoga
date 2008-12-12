@@ -487,3 +487,19 @@ span.children-visible
 	padding: 0;
 	cursor: pointer;
 }
+
+/* Templates */
+.templatecontainer
+{
+	overflow: auto; 
+	font-size: larger;
+	border: 1px solid #000;
+}
+
+.contentplaceholder
+{
+	border: 5px solid #ccc;
+	padding: 3px;
+	background-color: #eee;
+	color: #000;
+}

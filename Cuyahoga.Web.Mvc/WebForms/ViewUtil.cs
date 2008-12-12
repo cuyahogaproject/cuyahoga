@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Web.Compilation;
+using System.IO;
+using System.Web;
 using System.Web.UI;
 using System.Web.UI.HtmlControls;
 using System.Web.UI.WebControls;
@@ -32,9 +33,42 @@ namespace Cuyahoga.Web.Mvc.WebForms
 		/// <returns></returns>
 		public static IDictionary<string, PlaceHolder> GetPlaceholdersFromVirtualPath(string virtualPath)
 		{
-			IDictionary<string, PlaceHolder> placeholders = new Dictionary<string, PlaceHolder>();
 			Control control = LoadControlFromVirtualPath(virtualPath);
+			IDictionary<string, PlaceHolder> placeholders = ExtractPlaceholdersFromControl(control);
+			return placeholders;
+		}
+
+		public static string RenderTemplateHtml(string virtualPath)
+		{
+			Page pageHolder = new Page();
+			UserControl viewControl = (UserControl)pageHolder.LoadControl(virtualPath);
+
+			// Insert placeholder div's into the placholder.
+			foreach (KeyValuePair<string, PlaceHolder> placeHolder in ExtractPlaceholdersFromControl(viewControl))
+			{
+				string placeHolderDiv = String.Format("<div id=\"{0}\" class=\"{1}\">{2}</div>"
+					, "plh_" + placeHolder.Key, "contentplaceholder", placeHolder.Key);
+				Literal placeHolderContentControl = new Literal();
+				placeHolderContentControl.Text = placeHolderDiv;
+				placeHolder.Value.Controls.Add(placeHolderContentControl);
+			}
+
+			// Only render inner contents of the form
+			HtmlForm theForm = FindForm(viewControl);
+			while (theForm.Controls.Count > 0)
+			{
+				pageHolder.Controls.Add(theForm.Controls[0]);
+			}
+			StringWriter output = new StringWriter();
+			HttpContext.Current.Server.Execute(pageHolder, output, false);
+
+			return output.ToString();
+		}
+
+		private static IDictionary<string, PlaceHolder> ExtractPlaceholdersFromControl(Control control)
+		{
 			HtmlForm form = FindForm(control);
+			IDictionary<string, PlaceHolder> placeholders = new Dictionary<string, PlaceHolder>();
 			if (form != null)
 			{
 				foreach (Control childControl in form.Controls)
@@ -43,7 +77,7 @@ namespace Cuyahoga.Web.Mvc.WebForms
 					{
 						placeholders.Add(childControl.ID, (PlaceHolder) childControl);
 					}
-					// Also check for user controls with content placeholders.
+						// Also check for user controls with content placeholders.
 					else if (childControl is UserControl)
 					{
 						foreach (Control userControlChildControl in childControl.Controls)

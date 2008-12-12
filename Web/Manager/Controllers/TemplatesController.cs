@@ -11,6 +11,7 @@ using Cuyahoga.Core.Service.Files;
 using Cuyahoga.Core.Service.Membership;
 using Cuyahoga.Core.Service.SiteStructure;
 using Cuyahoga.Core.Validation;
+using Cuyahoga.Web.Manager.Model.ViewModels;
 using Cuyahoga.Web.Mvc.Filters;
 using Cuyahoga.Web.Mvc.WebForms;
 using Resources.Cuyahoga.Web.Manager;
@@ -35,6 +36,19 @@ namespace Cuyahoga.Web.Manager.Controllers
 			ViewData["Title"] = GlobalResources.ManageTemplatesPageTitle;
 			IList<Template> templates = this._templateService.GetAllTemplatesBySite(CuyahogaContext.CurrentSite);
 			return View(templates);
+		}
+
+		public ActionResult View(int id)
+		{
+			Template template = this._templateService.GetTemplateById(id);
+			ViewData["Title"] = GlobalResources.ViewTemplatePageTitle;
+			string siteDataDir = CuyahogaContext.CurrentSite.SiteDataDirectory;
+			string absoluteBasePath = VirtualPathUtility.Combine(siteDataDir, template.BasePath) + "/";
+			string htmlContent = ViewUtil.RenderTemplateHtml(VirtualPathUtility.Combine(absoluteBasePath, template.TemplateControl));
+			string cssContent = GetCssContent(absoluteBasePath + "Css/" + template.Css);
+			TemplateViewData templateViewData = new TemplateViewData(template, htmlContent, cssContent);
+			templateViewData.PrepareTemplateDataForEmbedding(Url.Content(CuyahogaContext.CurrentSite.SiteDataDirectory));
+			return View("ViewTemplate", templateViewData);
 		}
 
 		[PermissionFilter(RequiredRights = Rights.ManageTemplates)]
@@ -134,17 +148,6 @@ namespace Cuyahoga.Web.Manager.Controllers
 			return RedirectToAction("Index");
 		}
 
-		private void SetupTemplateControlAndCssLists(Template template, string relativeBasePath)
-		{
-			string siteDataDir = CuyahogaContext.CurrentSite.SiteDataDirectory;
-			string absoluteBasePath = VirtualPathUtility.Combine(siteDataDir, relativeBasePath); 
-			string[] templateControls = this._fileService.GetFiles(Server.MapPath(absoluteBasePath));
-			ViewData["TemplateControls"] = new SelectList(templateControls, template.TemplateControl);
-			string absoluteCssPath = absoluteBasePath + "/Css";
-			string[] cssFiles = this._fileService.GetFiles(Server.MapPath(absoluteCssPath));
-			ViewData["CssFiles"] = new SelectList(cssFiles, template.Css);
-		}
-
 		#region AJAX actions
 
 		public ActionResult GetPlaceholdersByTemplateId(int templateId)
@@ -222,6 +225,32 @@ namespace Cuyahoga.Web.Manager.Controllers
 			var result = Json( new { Message = message, Error = error });
 			result.ContentType = "text/html"; // otherwise the ajax form doesn't handle the callback
 			return result;
+		}
+
+		#endregion
+
+		#region private methods
+
+		private void SetupTemplateControlAndCssLists(Template template, string relativeBasePath)
+		{
+			string siteDataDir = CuyahogaContext.CurrentSite.SiteDataDirectory;
+			string absoluteBasePath = VirtualPathUtility.Combine(siteDataDir, relativeBasePath); 
+			string[] templateControls = this._fileService.GetFiles(Server.MapPath(absoluteBasePath));
+			ViewData["TemplateControls"] = new SelectList(templateControls, template.TemplateControl);
+			string absoluteCssPath = absoluteBasePath + "/Css";
+			string[] cssFiles = this._fileService.GetFiles(Server.MapPath(absoluteCssPath));
+			ViewData["CssFiles"] = new SelectList(cssFiles, template.Css);
+		}
+
+		private string GetCssContent(string virtualCssFilePath)
+		{
+			string physicalCssFilePath = Server.MapPath(virtualCssFilePath);
+
+			using (Stream fileStream = this._fileService.ReadFile(physicalCssFilePath))
+			using (StreamReader sr = new StreamReader(fileStream))
+			{
+				return sr.ReadToEnd();
+			}
 		}
 
 		#endregion

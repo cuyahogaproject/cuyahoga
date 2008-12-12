@@ -453,4 +453,10 @@
   <data name="UploadNewTemplateFilesLabel" xml:space="preserve">
     <value>Upload new template files</value>
   </data>
+  <data name="ViewLabel" xml:space="preserve">
+    <value>View</value>
+  </data>
+  <data name="ViewTemplatePageTitle" xml:space="preserve">
+    <value>View template</value>
+  </data>
 </root>
