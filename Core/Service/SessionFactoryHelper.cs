@@ -31,7 +31,7 @@ namespace Cuyahoga.Core.Service
 		{
 			Configuration nhConfiguration = this._kernel[typeof(Configuration)] as Configuration;
 			//has to have the second argument (true) for skipping ordering
-            nhConfiguration.AddAssembly(assembly, true);
+            nhConfiguration.AddAssembly(assembly);
 			ISessionFactory newSessionFactory = nhConfiguration.BuildSessionFactory();
 			ReplaceSessionFactory(newSessionFactory);
 		}

@@ -418,6 +418,7 @@ table.grid tr:hover
 table.grid tr.selected
 {
 	background-color: #ffd;
+	font-weight: bold;
 }
 
 table.grid td a

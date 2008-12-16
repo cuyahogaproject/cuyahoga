@@ -2,6 +2,7 @@ using System;
 
 using Cuyahoga.Core.Domain;
 using Cuyahoga.Core.Communication;
+using Action = Cuyahoga.Core.Communication.Action;
 
 namespace Cuyahoga.Modules.User
 {

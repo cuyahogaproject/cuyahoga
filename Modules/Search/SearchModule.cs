@@ -7,6 +7,7 @@ using Cuyahoga.Core.DataAccess;
 using Cuyahoga.Core.Service;
 using Cuyahoga.Core.Service.Search;
 using Cuyahoga.Core.Communication;
+using Action=Cuyahoga.Core.Communication.Action;
 
 namespace Cuyahoga.Modules.Search
 {

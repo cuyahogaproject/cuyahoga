@@ -15,6 +15,7 @@ using Cuyahoga.Web.Util;
 using Cuyahoga.Modules.Articles.DataAccess;
 using Cuyahoga.Core.DataAccess;
 using Castle.Services.Transaction;
+using Action = Cuyahoga.Core.Communication.Action;
 
 namespace Cuyahoga.Modules.Articles
 {

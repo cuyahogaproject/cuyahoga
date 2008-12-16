@@ -176,7 +176,7 @@ namespace Cuyahoga.Core.Domain
 		/// <summary>
 		/// Property Categories (Category)
 		/// </summary>
-		public IList<Category> Categories
+		public virtual IList<Category> Categories
 		{
 			get { return this.categories; }
 			set { this.categories = value; }
@@ -185,7 +185,7 @@ namespace Cuyahoga.Core.Domain
         /// <summary>
         /// Property ContentItemPermissions (ContentItemPermission)
         /// </summary>
-        public IList<ContentItemPermission> ContentItemPermissions
+        public virtual IList<ContentItemPermission> ContentItemPermissions
         {
             get { return this.contentItemPermissions; }
             set { this.contentItemPermissions = value; }

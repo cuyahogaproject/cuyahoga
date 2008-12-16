@@ -7,6 +7,7 @@ using Cuyahoga.Core.Communication;
 using Cuyahoga.Core.Service.Membership;
 using Cuyahoga.Core.Service.Email;
 using User = Cuyahoga.Core.Domain.User;
+using Action = Cuyahoga.Core.Communication.Action;
 
 namespace Cuyahoga.Modules.User
 {

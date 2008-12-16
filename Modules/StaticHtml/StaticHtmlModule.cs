@@ -2,7 +2,7 @@ using System;
 using System.Collections;
 
 using NHibernate;
-using NHibernate.Expression;
+using NHibernate.Criterion;
 
 using Cuyahoga.Core;
 using Cuyahoga.Core.Service;

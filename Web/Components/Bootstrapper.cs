@@ -38,7 +38,7 @@ namespace Cuyahoga.Web.Components
 				IoC.Initialize(container);
 
 				// Add ICuyahogaContext to the container.
-				container.AddComponentWithLifestyle("cuyahoga.context", typeof(ICuyahogaContext), typeof(CuyahogaContext),
+				container.AddComponentLifeStyle("cuyahoga.context", typeof(ICuyahogaContext), typeof(CuyahogaContext),
 													LifestyleType.PerWebRequest);
 
 				// Windsor controller builder
@@ -119,9 +119,9 @@ namespace Cuyahoga.Web.Components
 		{
 			container.AddComponent("validatorprovider", typeof(IBrowserValidatorProvider), typeof(JQueryValidator));
 			container.AddComponent("validatorregistry", typeof(ILocalizedValidatorRegistry), typeof(CachedLocalizedValidatorRegistry));
-			container.AddComponentWithLifestyle("modelvalidator", typeof(IModelValidator<>), typeof(CastleModelValidator<>), LifestyleType.Transient);
-			container.AddComponentWithLifestyle("usermodelvalidator", typeof(UserModelValidator), LifestyleType.Transient);
-			container.AddComponentWithLifestyle("rolemodelvalidator", typeof(RoleModelValidator), LifestyleType.Transient);
+			container.AddComponentLifeStyle("modelvalidator", typeof(IModelValidator<>), typeof(CastleModelValidator<>), LifestyleType.Transient);
+			container.AddComponentLifeStyle("usermodelvalidator", typeof(UserModelValidator), LifestyleType.Transient);
+			container.AddComponentLifeStyle("rolemodelvalidator", typeof(RoleModelValidator), LifestyleType.Transient);
 			container.AddComponent("validationengine", typeof(BrowserValidationEngine));
 			container.Kernel.AddComponentInstance("validationresources", Resources.Cuyahoga.Web.Manager.ValidationMessages.ResourceManager);
 

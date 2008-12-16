@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using Cuyahoga.Core.Domain;
 using NHibernate;
-using NHibernate.Expression;
+using NHibernate.Criterion;
 using Castle.Facilities.NHibernateIntegration;
 
 namespace Cuyahoga.Core.DataAccess

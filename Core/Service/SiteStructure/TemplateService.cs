@@ -7,7 +7,7 @@ using Cuyahoga.Core.Domain;
 using Cuyahoga.Core.DataAccess;
 using Cuyahoga.Core.Service.Files;
 using ICSharpCode.SharpZipLib.Zip;
-using NHibernate.Expression;
+using NHibernate.Criterion;
 
 namespace Cuyahoga.Core.Service.SiteStructure
 {

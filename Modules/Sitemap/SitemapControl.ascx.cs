@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Data;
 using System.Configuration;
 using System.Collections;
@@ -53,7 +54,7 @@ namespace Cuyahoga.Modules.Sitemap.Web
 			return listItem;
 		}
 
-		private HtmlControl BuildListFromNodes(IList nodes)
+		private HtmlControl BuildListFromNodes(IList<Node> nodes)
 		{
 			HtmlGenericControl list = new HtmlGenericControl("ul");
 			foreach (Node node in nodes)

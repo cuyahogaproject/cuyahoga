@@ -702,6 +702,11 @@ namespace Cuyahoga.Web.Mvc.Validation
 			}
 		}
 
+		public void SetAsLesserThan(string target, string comparisonFieldName, IsLesserValidationType validationType, string violationMessage)
+		{
+			throw new System.NotImplementedException();
+		}
+
 		/// <summary>
 		/// Sets that a field's value must be lesser than another field's value.
 		/// </summary>

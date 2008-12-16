@@ -7,7 +7,7 @@ using Castle.Services.Transaction;
 using Cuyahoga.Core.Domain;
 using Cuyahoga.Core.DataAccess;
 using Cuyahoga.Core.Util;
-using NHibernate.Expression;
+using NHibernate.Criterion;
 
 namespace Cuyahoga.Core.Service.Membership
 {

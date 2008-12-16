@@ -7,6 +7,7 @@ using Cuyahoga.Core.Domain;
 using Cuyahoga.Core.Service.Content;
 using Cuyahoga.Core.Communication;
 using Cuyahoga.Web.Util;
+using Action = Cuyahoga.Core.Communication.Action;
 
 namespace Cuyahoga.Modules.Categories
 {

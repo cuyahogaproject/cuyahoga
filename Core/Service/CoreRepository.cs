@@ -4,7 +4,7 @@ using System.Reflection;
 
 using log4net;
 using NHibernate;
-using NHibernate.Expression;
+using NHibernate.Criterion;
 
 using Cuyahoga.Core.Domain;
 

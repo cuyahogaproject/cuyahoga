@@ -2,7 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using NHibernate;
-using NHibernate.Expression;
+using NHibernate.Criterion;
 using Castle.Facilities.NHibernateIntegration;
 using Castle.Services.Transaction;
 

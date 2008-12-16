@@ -64,7 +64,7 @@ namespace Cuyahoga.Core.Validation
 		/// <param name="targetType">Target type.</param>
 		/// <param name="runWhen">Restrict the set returned to the phase specified</param>
 		/// <returns>A Validator array</returns>
-		public IValidator[] GetValidators(ValidatorRunner validatorRunner, Type targetType, RunWhen runWhen)
+		public IValidator[] GetValidators(IValidatorRunner validatorRunner, Type targetType, RunWhen runWhen)
 		{
 			PropertyInfo[] properties = (PropertyInfo[])propertiesPerType[targetType];
 
@@ -94,7 +94,7 @@ namespace Cuyahoga.Core.Validation
 		/// <param name="property">The property.</param>
 		/// <param name="runWhen">Restrict the set returned to the phase specified</param>
 		/// <returns>A Validator array</returns>
-		public IValidator[] GetValidators(ValidatorRunner validatorRunner, Type targetType, PropertyInfo property, RunWhen runWhen)
+		public IValidator[] GetValidators(IValidatorRunner validatorRunner, Type targetType, PropertyInfo property, RunWhen runWhen)
 		{
 			object[] builders = (object[])this.attrsPerProperty[property];
 
@@ -123,6 +123,16 @@ namespace Cuyahoga.Core.Validation
 			}
 
 			return (IValidator[])validators.ToArray(typeof(IValidator));
+		}
+
+		public Accessor GetPropertyAccessor(PropertyInfo property)
+		{
+			return AccessorUtil.GetAccessor(property);
+		}
+
+		public Accessor GetFieldOrPropertyAccessor(Type targetType, string path)
+		{
+			return AccessorUtil.GetAccessor(targetType, path);
 		}
 
 		/// <summary>

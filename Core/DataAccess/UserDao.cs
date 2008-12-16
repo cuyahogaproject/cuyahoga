@@ -6,7 +6,7 @@ using Castle.Facilities.NHibernateIntegration;
 using Castle.Services.Transaction;
 using Cuyahoga.Core.Util;
 using NHibernate;
-using NHibernate.Expression;
+using NHibernate.Criterion;
 
 using Cuyahoga.Core.Domain;
 
