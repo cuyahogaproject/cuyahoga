@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Web;
 using System.Web.Mvc;
 using Cuyahoga.Core.Domain;
 
@@ -25,6 +26,10 @@ namespace Cuyahoga.Web.Manager.Helpers
 			{
 				imageTag = String.Format(imageTag, urlHelper.Content("~/manager/Content/Images/page_link.png"), "page-link");
 			}
+			else if (! node.ShowInNavigation)
+			{
+				imageTag = String.Format(imageTag, urlHelper.Content("~/manager/Content/Images/page_white.png"), "page-hidden");
+			}
 			else
 			{
 				imageTag = String.Format(imageTag, urlHelper.Content("~/manager/Content/Images/page.png"), "page");
@@ -36,28 +41,46 @@ namespace Cuyahoga.Web.Manager.Helpers
 		{
 			UrlHelper urlHelper = new UrlHelper(htmlHelper.ViewContext);
 
-			TagBuilder expanderSpan = new TagBuilder("span");
-			string className = "no-children";
+			
 			if (node.ChildNodes.Count > 0)
 			{
 				TagBuilder expanderImage = new TagBuilder("img");
-				expanderImage.AddCssClass("expander");
 
 				if (node.Level < 0 || (node.IsInPath(activeNode)))
 				{
-					className = "children-visible";
+					expanderImage.AddCssClass("children-visible");
 					expanderImage.Attributes.Add("src", urlHelper.Content("~/manager/Content/Images/collapse.png"));
 				}
 				else
 				{
-					className = "children-hidden";
+					expanderImage.AddCssClass("children-hidden");
 					expanderImage.Attributes.Add("src", urlHelper.Content("~/manager/Content/Images/expand.png"));					
 				}
 				expanderImage.Attributes.Add("alt", "toggle");
-				expanderSpan.InnerHtml = expanderImage.ToString(TagRenderMode.SelfClosing);
+				return expanderImage.ToString();
 			}
-			expanderSpan.AddCssClass(className);
-			return expanderSpan.ToString();
+			else
+			{
+				TagBuilder expanderSpan = new TagBuilder("span");
+				string className = "no-children";
+				expanderSpan.AddCssClass(className);
+				return expanderSpan.ToString();
+			}
+		}
+
+		public static ContainerElement PageRow(this HtmlHelper htmlHelper, Node node, Node activeNode)
+		{
+			TagBuilder tagBuilder = new TagBuilder("tr");
+
+			tagBuilder.Attributes["id"] = "page-" + node.Id;
+			tagBuilder.Attributes["class"] = "parent-" + (node.ParentNode != null ? node.ParentNode.Id.ToString() : String.Empty);
+			if (activeNode != null && node.Id == activeNode.Id)
+			{
+				tagBuilder.Attributes["class"] += " selected";
+			}
+			HttpResponseBase httpResponse = htmlHelper.ViewContext.HttpContext.Response;
+			httpResponse.Write(tagBuilder.ToString(TagRenderMode.StartTag));
+			return new ContainerElement(httpResponse, "tr");
 		}
 	}
 }

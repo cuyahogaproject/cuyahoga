@@ -309,12 +309,17 @@ img
 {
 	border: 1px solid #ccc;
 	padding: 3px 5px;
-	background-color: #fff;
+	background-color: #eef;
 }
 
 .taskcontainer p
 {
-	margin: 2px 0;
+	margin: 3px 0;
+}
+
+.taskcontainer label
+{
+	line-height: 20px;
 }
 
 a.createlink
@@ -412,7 +417,7 @@ table.grid tr:hover
 
 table.grid tr.selected
 {
-	background-color: #eee;
+	background-color: #ffd;
 }
 
 table.grid td a
@@ -481,8 +486,8 @@ span.no-children
 	padding: 11px;
 }
 
-span.children-hidden,
-span.children-visible
+img.children-hidden,
+img.children-visible
 {
 	padding: 0;
 	cursor: pointer;

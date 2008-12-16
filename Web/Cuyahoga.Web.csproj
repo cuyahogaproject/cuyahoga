@@ -352,6 +352,7 @@
     <Compile Include="Manager\Filters\ExceptionFilter.cs" />
     <Compile Include="Manager\Filters\MenuDataFilter.cs" />
     <Compile Include="Manager\Filters\SiteFilter.cs" />
+    <Compile Include="Manager\Helpers\ContainerElement.cs" />
     <Compile Include="Manager\Helpers\PageAdminExtensions.cs" />
     <Compile Include="Manager\Helpers\PermissionExtensions.cs" />
     <Compile Include="Manager\Model\ViewModels\LoginViewData.cs" />
@@ -399,6 +400,13 @@
     </Compile>
     <Compile Include="Manager\Views\Pages\PageListItems.ascx.designer.cs">
       <DependentUpon>PageListItems.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Manager\Views\Pages\SelectedPage.ascx.cs">
+      <DependentUpon>SelectedPage.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Manager\Views\Pages\SelectedPage.ascx.designer.cs">
+      <DependentUpon>SelectedPage.ascx</DependentUpon>
     </Compile>
     <Compile Include="Manager\Views\Server\Index.aspx.cs">
       <DependentUpon>Index.aspx</DependentUpon>
@@ -838,6 +846,7 @@
     <Content Include="Manager\Content\Images\layout_add.png" />
     <Content Include="Manager\Content\Images\page.png" />
     <Content Include="Manager\Content\Images\page_link.png" />
+    <Content Include="Manager\Content\Images\page_white.png" />
     <Content Include="Manager\Content\Images\section_collapsed.png" />
     <Content Include="Manager\Content\Images\section_expanded.png" />
     <Content Include="Manager\Content\Images\server.png" />
@@ -917,6 +926,7 @@
     <Content Include="Manager\Views\Pages\Index.aspx" />
     <Content Include="Manager\Views\Pages\PageListItem.ascx" />
     <Content Include="Manager\Views\Pages\PageListItems.ascx" />
+    <Content Include="Manager\Views\Pages\SelectedPage.ascx" />
     <Content Include="Manager\Views\Server\Index.aspx" />
     <Content Include="Manager\Views\Shared\Error.aspx" />
     <Content Include="Manager\Views\Shared\Header.ascx" />

@@ -2,9 +2,14 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="cphHead" runat="server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="cphTasks" runat="server">
+	<div id="selectedpage">
+	<% if (ViewData["ActiveNode"] != null) { 
+		Html.RenderPartial("SelectedPage", ViewData["ActiveNode"], ViewData);
+	} %>
+	</div>
 </asp:Content>
 <asp:Content ID="Content3" ContentPlaceHolderID="cphMain" runat="server">
-	<table class="grid" style="width:100%">
+	<table id="pagegrid" class="grid" style="width:100%">
 		<thead>
 			<tr>
 				<th>Page title</th>
@@ -12,38 +17,46 @@
 				<th style="width:120px">Template</th>
 				<th style="width:60px">Culture</th>
 				<th style="width:120px">Last modified</th>
-				<th>&nbsp;</th>
 			</tr>
 		</thead>
 		<tbody>
 		<% Html.RenderPartial("PageListItems", ViewData.Model, ViewData); %>
 		</tbody>
 	</table>
-	<script type="text/javascript">
-		$(document).ready(function() {
-			$('span.children-visible > .expander').toggle(function() {
-				toggleHide(this);
-			}, function() {
-				toggleShow(this);
-			});
-			
-			$('span.children-hidden > .expander').toggle(function() { 
-				toggleShow(this);	
-			}, function() {
-				toggleHide(this);
-			});
-		})
+	<script type="text/javascript"> 
+		var selectedPageRow;
 		
+		$(document).ready(function() {
+		
+			$('#pagegrid').click($.delegate({
+				'.children-visible' : function(e) { 
+					toggleHide(e.target); 
+				},
+				'.children-hidden' : function(e) { 
+					toggleShow(e.target);
+				},
+				'td' : function(e) {
+					selectPage(e.target);
+				},
+				'span' : function(e) {
+					selectPage(e.target);
+				}
+			}))
+			
+			selectedPageRow = $('#pagegrid tr.selected');
+			
+		})	
+				
 		function toggleHide(expander) {
 			$(expander).attr('src', '<%= Url.Content("~/manager/Content/Images/expand.png") %>');
-			$(expander).parent().removeClass('children-visible').addClass('children-hidden');
+			$(expander).removeClass('children-visible').addClass('children-hidden');
 			var nodeId = $(expander).parents('tr').attr('id').substring(5);
 			hidePages(nodeId);
 		}
 		
 		function toggleShow(expander) {
 			$(expander).attr('src', '<%= Url.Content("~/manager/Content/Images/collapse.png") %>');
-			$(expander).parent().removeClass('children-hidden').addClass('children-visible');
+			$(expander).removeClass('children-hidden').addClass('children-visible');
 			var nodeId = $(expander).parents('tr').attr('id').substring(5);
 			showPages(nodeId);	
 		}
@@ -58,13 +71,7 @@
 			if ($('.parent-' + parentNodeId).length == 0) {
 				$.get('<%= Url.Action("GetChildPageListItems", "Pages") %>', { 'nodeid' : parentNodeId }, function(data) {
 					$('#page-' + parentNodeId).after(data);
-					// Add toggle handlers to newly added items
-					$('.parent-' + parentNodeId + ' .expander').toggle(function() { 
-						toggleShow(this);	
-					}, function() {
-						toggleHide(this);
-					});
-				}) 
+				})
 			}
 			else {
 				$('.parent-' + parentNodeId).show();
@@ -74,7 +81,17 @@
 				});
 			}
 		}
-
+		
+		function selectPage(pageCell) {
+			if (selectedPageRow) {
+				selectedPageRow.removeClass('selected');
+			}
+			selectedPageRow = $(pageCell).parents('tr');
+			var nodeId = selectedPageRow.attr('id').substring(5);
+			$('#selectedpage').load('<%= Url.Action("SelectPage", "Pages") %>', { 'nodeid' : nodeId });
+			selectedPageRow.addClass('selected');
+			
+		}
 		
 	</script>
 </asp:Content>

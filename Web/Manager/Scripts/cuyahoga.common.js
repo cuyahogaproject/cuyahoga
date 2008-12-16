@@ -1,5 +1,14 @@
 ﻿/* Common javascript functionality for Cuyahoga manager, requires jQuery 1.2.x */
 
+// jQuery extra's
+jQuery.delegate = function(rules) {
+	return function(e) {
+		var target = $(e.target);
+		for (var selector in rules)
+			if (target.is(selector)) return rules[selector].apply(this, $.makeArray(arguments));
+	}
+}
+
 // Global cuyahoga manager js configuration properties
 var CuyahogaConfig = function()
 {
