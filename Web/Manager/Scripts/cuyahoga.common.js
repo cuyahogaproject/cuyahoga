@@ -1,6 +1,9 @@
 ﻿/* Common javascript functionality for Cuyahoga manager, requires jQuery 1.2.x */
 
 // jQuery extra's
+
+// Delegate function for selector based event handling.
+// Thanks to http://www.danwebb.net/2008/2/8/event-delegation-made-easy-in-jquery
 jQuery.delegate = function(rules) {
 	return function(e) {
 		var target = $(e.target);

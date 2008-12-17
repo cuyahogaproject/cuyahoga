@@ -8,7 +8,7 @@
 						<%= ViewData.Model.Title%>
 					</span>
 				</td>
-				<td>/<%= ViewData.Model.ShortDescription%></td>
+				<td><%= ViewData.Model.DisplayUrl%></td>
 				<td><%= ViewData.Model.Template != null ? ViewData.Model.Template.Name : String.Empty%></td>
 				<td class="center"><%= ViewData.Model.Culture%></td>
 				<td class="right"><%= ViewData.Model.UpdateTimestamp%></td>

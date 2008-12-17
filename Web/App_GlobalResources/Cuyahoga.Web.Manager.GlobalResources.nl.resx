@@ -447,4 +447,7 @@
   <data name="ViewTemplatePageTitle" xml:space="preserve">
     <value>Bekijk template</value>
   </data>
+  <data name="SelectLabel" xml:space="preserve">
+    <value>Selecteer</value>
+  </data>
 </root>

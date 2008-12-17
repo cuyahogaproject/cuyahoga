@@ -862,6 +862,15 @@ namespace Resources.Cuyahoga.Web.Manager {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Select.
+        /// </summary>
+        internal static string SelectLabel {
+            get {
+                return ResourceManager.GetString("SelectLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Site.
         /// </summary>
         internal static string SiteLabel {

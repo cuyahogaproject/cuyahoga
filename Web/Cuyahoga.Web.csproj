@@ -290,6 +290,16 @@
       <DependentUpon>Users.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
+    <Compile Include="App_GlobalResources\Cuyahoga.Enums.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Cuyahoga.Enums.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\Cuyahoga.Enums.nl.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Cuyahoga.Enums.nl.resx</DependentUpon>
+    </Compile>
     <Compile Include="App_GlobalResources\Cuyahoga.Web.Controls.Resources.Strings.designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -353,6 +363,7 @@
     <Compile Include="Manager\Filters\MenuDataFilter.cs" />
     <Compile Include="Manager\Filters\SiteFilter.cs" />
     <Compile Include="Manager\Helpers\ContainerElement.cs" />
+    <Compile Include="Manager\Helpers\EnumHelper.cs" />
     <Compile Include="Manager\Helpers\PageAdminExtensions.cs" />
     <Compile Include="Manager\Helpers\PermissionExtensions.cs" />
     <Compile Include="Manager\Model\ViewModels\LoginViewData.cs" />
@@ -400,6 +411,13 @@
     </Compile>
     <Compile Include="Manager\Views\Pages\PageListItems.ascx.designer.cs">
       <DependentUpon>PageListItems.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Manager\Views\Pages\SelectedLink.ascx.cs">
+      <DependentUpon>SelectedLink.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Manager\Views\Pages\SelectedLink.ascx.designer.cs">
+      <DependentUpon>SelectedLink.ascx</DependentUpon>
     </Compile>
     <Compile Include="Manager\Views\Pages\SelectedPage.ascx.cs">
       <DependentUpon>SelectedPage.ascx</DependentUpon>
@@ -859,14 +877,14 @@
     <Content Include="Manager\Scripts\jquery-1.2.6.min.js" />
     <Content Include="Manager\Scripts\jquery-asyncupload-0.1.js" />
     <Content Include="Manager\Scripts\jquery.form.js" />
+    <Content Include="Manager\Scripts\jquery.scrollfollow.js" />
     <Content Include="Manager\Scripts\jquery.validate.js" />
     <Content Include="Manager\Scripts\jquery.validate.min.js" />
     <Content Include="Manager\Scripts\swfupload license.txt" />
     <Content Include="Manager\Scripts\swfupload.js" />
     <Content Include="Manager\Scripts\swfupload.swf" />
     <Content Include="Manager\Scripts\thickbox.js" />
-    <Content Include="Manager\Scripts\ui.core.min.js" />
-    <Content Include="Manager\Scripts\ui.datepicker.min.js" />
+    <Content Include="Manager\Scripts\ui.core.js" />
     <Content Include="Controls\EditProfile.ascx">
       <SubType>UserControl</SubType>
     </Content>
@@ -926,6 +944,7 @@
     <Content Include="Manager\Views\Pages\Index.aspx" />
     <Content Include="Manager\Views\Pages\PageListItem.ascx" />
     <Content Include="Manager\Views\Pages\PageListItems.ascx" />
+    <Content Include="Manager\Views\Pages\SelectedLink.ascx" />
     <Content Include="Manager\Views\Pages\SelectedPage.ascx" />
     <Content Include="Manager\Views\Server\Index.aspx" />
     <Content Include="Manager\Views\Shared\Error.aspx" />
@@ -1445,6 +1464,16 @@
       <SubType>Designer</SubType>
       <Generator>GlobalResourceProxyGenerator</Generator>
       <LastGenOutput>Cuyahoga.Web.Manager.ValidationMessages.nl.designer.cs</LastGenOutput>
+    </Content>
+    <Content Include="App_GlobalResources\Cuyahoga.Enums.resx">
+      <Generator>GlobalResourceProxyGenerator</Generator>
+      <LastGenOutput>Cuyahoga.Enums.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="App_GlobalResources\Cuyahoga.Enums.nl.resx">
+      <Generator>GlobalResourceProxyGenerator</Generator>
+      <LastGenOutput>Cuyahoga.Enums.nl.designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
     </Content>
     <EmbeddedResource Include="Controls\EditProfile.ascx.resx">
       <DependentUpon>EditProfile.ascx.cs</DependentUpon>

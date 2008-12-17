@@ -303,6 +303,7 @@ img
 #taskarea
 {
 	margin-left: 10px;
+	position: relative;
 }
 
 .taskcontainer

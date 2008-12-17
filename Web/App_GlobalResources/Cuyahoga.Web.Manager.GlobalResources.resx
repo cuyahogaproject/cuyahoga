@@ -459,4 +459,7 @@
   <data name="ViewTemplatePageTitle" xml:space="preserve">
     <value>View template</value>
   </data>
+  <data name="SelectLabel" xml:space="preserve">
+    <value>Select</value>
+  </data>
 </root>

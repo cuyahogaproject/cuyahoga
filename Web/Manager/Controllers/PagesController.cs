@@ -1,8 +1,11 @@
-﻿using System.Web.Mvc;
+﻿using System;
+using System.Web.Mvc;
 using Cuyahoga.Core.Domain;
 using Cuyahoga.Core.Service.Membership;
 using Cuyahoga.Core.Service.SiteStructure;
 using Cuyahoga.Core.Util;
+using Cuyahoga.Core.Validation;
+using Cuyahoga.Web.Manager.Helpers;
 using Cuyahoga.Web.Mvc.Filters;
 using Resources.Cuyahoga.Web.Manager;
 
@@ -13,9 +16,10 @@ namespace Cuyahoga.Web.Manager.Controllers
 	{
 		private INodeService _nodeService;
 
-		public PagesController(INodeService nodeService)
+		public PagesController(INodeService nodeService, IModelValidator<Node> modelValidator)
 		{
 			_nodeService = nodeService;
+			this.ModelValidator = modelValidator;
 		}
 
 		public ActionResult Index(int? id)
@@ -26,11 +30,62 @@ namespace Cuyahoga.Web.Manager.Controllers
 			{
 				// There is an active node. Add node to ViewData.
 				Node activeNode = this._nodeService.GetNodeById(id.Value);
+				if (activeNode.IsExternalLink)
+				{
+					ViewData["LinkTargets"] = new SelectList(EnumHelper.GetValuesWithDescription<LinkTarget>(), "Key", "Value", activeNode.LinkTarget);
+				}
+				else
+				{
+					ViewData["Cultures"] = new SelectList(Globalization.GetOrderedCultures(), "Key", "Value", activeNode.Culture);
+				}
 				ViewData["ActiveNode"] = activeNode;
-				ViewData["Cultures"] = new SelectList(Globalization.GetOrderedCultures(), "Key", "Value", activeNode.Culture);
 			}
-			return View(CuyahogaContext.CurrentSite.RootNodes);
+			return View("Index", CuyahogaContext.CurrentSite.RootNodes);
 		}
+
+		[AcceptVerbs(HttpVerbs.Post)]
+		public ActionResult SavePageProperties(int id)
+		{
+			Node node = this._nodeService.GetNodeById(id);
+			var includeProperties = new[] { "Title", "ShortDescription", "Culture", "ShowInNavigation" };
+			try
+			{
+				if (TryUpdateModel(node, includeProperties) && ValidateModel(node, includeProperties))
+				{
+					this._nodeService.SaveNode(node);
+					ShowMessage("Page properties are updated sucessfully.", true);
+					return RedirectToAction("Index", new { id = node.Id });
+				}
+			}
+			catch (Exception ex)
+			{
+				ShowException(ex);
+			}
+			return Index(node.Id);
+		}
+
+		[AcceptVerbs(HttpVerbs.Post)]
+		public ActionResult SaveLinkProperties(int id)
+		{
+			Node node = this._nodeService.GetNodeById(id);
+			var includeProperties = new[] { "Title", "LinkUrl", "LinkTarget" };
+			try
+			{
+				if (TryUpdateModel(node, includeProperties) && ValidateModel(node, includeProperties))
+				{
+					this._nodeService.SaveNode(node);
+					ShowMessage("Link properties are updated sucessfully.", true);
+					return RedirectToAction("Index", new { id = node.Id });
+				}
+			}
+			catch (Exception ex)
+			{
+				ShowException(ex);
+			}
+			return Index(node.Id);
+		}
+
+		#region AJAX actions
 
 		public ActionResult GetPageListItem(int nodeId)
 		{
@@ -47,8 +102,18 @@ namespace Cuyahoga.Web.Manager.Controllers
 		public ActionResult SelectPage(int nodeId)
 		{
 			Node node = this._nodeService.GetNodeById(nodeId);
-			ViewData["Cultures"] = new SelectList(Globalization.GetOrderedCultures(), "Key", "Value", node.Culture);
-			return PartialView("SelectedPage", node);
+			if (node.IsExternalLink)
+			{
+				ViewData["LinkTargets"] = new SelectList(EnumHelper.GetValuesWithDescription<LinkTarget>(), "Key", "Value", node.LinkTarget);
+				return PartialView("SelectedLink", node);
+			}
+			else
+			{
+				ViewData["Cultures"] = new SelectList(Globalization.GetOrderedCultures(), "Key", "Value", node.Culture);
+				return PartialView("SelectedPage", node);
+			}
 		}
+
+		#endregion
 	}
 }

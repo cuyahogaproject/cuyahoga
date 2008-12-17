@@ -1,7 +1,7 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="SelectedPage.ascx.cs" Inherits="Cuyahoga.Web.Manager.Views.Pages.SelectedPage" %>
 <h2>Page properties</h2>
 <div class="taskcontainer">
-	<% using (Html.BeginForm("SavePageProperties", "Pages", new { id = ViewData.Model.Id }, FormMethod.Post)) { %>
+	<% using (Html.BeginForm("SavePageProperties", "Pages", new { id = ViewData.Model.Id }, FormMethod.Post, new { id = "pageform" })) { %>
 		<p>
 			<label for="Title">Page title</label>
 			<%= Html.TextBox("Title", ViewData.Model.Title, new { style = "width:220px;"}) %>

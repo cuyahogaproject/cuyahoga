@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Security.Principal;
 using System.Text.RegularExpressions;
+using Castle.Components.Validator;
 
 namespace Cuyahoga.Core.Domain
 {
@@ -45,6 +46,8 @@ namespace Cuyahoga.Core.Domain
 		/// <summary>
 		/// Property Title (string)
 		/// </summary>
+		[ValidateNonEmpty("NodeTitleValidatorNonEmpty")]
+		[ValidateLength(1, 255, "NodeTitleValidatorLength")]
 		public virtual string Title
 		{
 			get { return this._title; }
@@ -54,16 +57,12 @@ namespace Cuyahoga.Core.Domain
 		/// <summary>
 		/// Property ShortDescription (string)
 		/// </summary>
+		[ValidateNonEmpty("NodeShortDescriptionValidatorNonEmpty")]
+		[ValidateLength(1, 255, "NodeShortDescriptionValidatorLength")]
 		public virtual string ShortDescription
 		{
 			get { return this._shortDescription; }
-			set 
-			{ 
-				if (value.Trim().Length == 0)
-					this._shortDescription = null;
-				else
-					this._shortDescription = value; 
-			}
+			set { this._shortDescription = value; }
 		}
 
 		/// <summary>
@@ -78,6 +77,7 @@ namespace Cuyahoga.Core.Domain
 		/// <summary>
 		/// Property Culture (string)
 		/// </summary>
+		[ValidateNonEmpty("NodeCultureValidatorNonEmpty")]
 		public virtual string Culture
 		{
 			get { return this._culture; }
@@ -96,6 +96,8 @@ namespace Cuyahoga.Core.Domain
 		/// <summary>
 		/// Link to external url.
 		/// </summary>
+		[ValidateLength(1, 255, "NodeLinkUrlValidatorLength")]
+		[ValidateRegExp(@"^http(s)*://(\w[.\w]*)(:\d+)*(/\w[.\w]*)*", "NodeLinkUrlValidatorPattern")]
 		public virtual string LinkUrl
 		{
 			get { return this._linkUrl; }
@@ -116,12 +118,21 @@ namespace Cuyahoga.Core.Domain
 		/// </summary>
 		public virtual bool IsExternalLink
 		{
-			get { return this._linkUrl != null && this._linkUrl != String.Empty; }
+			get { return this._linkUrl != null; }
+		}
+
+		/// <summary>
+		/// The display url of the node.
+		/// </summary>
+		public virtual string DisplayUrl
+		{
+			get { return this.IsExternalLink ? this.LinkUrl : "/" + this.ShortDescription; }
 		}
 
 		/// <summary>
 		/// List of keywords for the page.
 		/// </summary>
+		[ValidateLength(1, 500, "NodeMetaKeywordsValidatorLength")]
 		public virtual string MetaKeywords
 		{
 			get { return this._metaKeywords; }
@@ -131,6 +142,7 @@ namespace Cuyahoga.Core.Domain
 		/// <summary>
 		/// Description of the page.
 		/// </summary>
+		[ValidateLength(1, 500, "NodeMetaDescriptionValidatorLength")]
 		public virtual string MetaDescription
 		{
 			get { return this._metaDescription; }
@@ -167,6 +179,7 @@ namespace Cuyahoga.Core.Domain
 		/// <summary>
 		/// Property Site (Site)
 		/// </summary>
+		[ValidateNonEmpty]
 		public virtual Site Site
 		{
 			get { return this._site; }
