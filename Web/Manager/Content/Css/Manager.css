@@ -482,18 +482,6 @@ table.grid td.right
 	color: #f00;
 }
 
-/* Page list */
-span.no-children
-{
-	padding: 11px;
-}
-
-img.children-hidden,
-img.children-visible
-{
-	padding: 0;
-	cursor: pointer;
-}
 
 /* Templates */
 .templatecontainer

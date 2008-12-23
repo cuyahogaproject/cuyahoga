@@ -17,7 +17,7 @@ namespace Cuyahoga.Web.Manager.Helpers
 		{
 			UrlHelper urlHelper = new UrlHelper(htmlHelper.ViewContext);
 
-			string imageTag = "<img src=\"{0}\" alt=\"{1}\" />";
+			string imageTag = "<img src=\"{0}\" class=\"handle\" alt=\"{1}\" />";
 			if (node.IsRootNode) 
 			{
 				imageTag = String.Format(imageTag, urlHelper.Content("~/manager/Content/Images/house.png"), "home");
@@ -46,7 +46,7 @@ namespace Cuyahoga.Web.Manager.Helpers
 			{
 				TagBuilder expanderImage = new TagBuilder("img");
 
-				if (node.Level < 0 || (node.IsInPath(activeNode)))
+				if (node.Level < 1 || (node.IsInPath(activeNode)))
 				{
 					expanderImage.AddCssClass("children-visible");
 					expanderImage.Attributes.Add("src", urlHelper.Content("~/manager/Content/Images/collapse.png"));
@@ -73,7 +73,10 @@ namespace Cuyahoga.Web.Manager.Helpers
 			TagBuilder tagBuilder = new TagBuilder("tr");
 
 			tagBuilder.Attributes["id"] = "page-" + node.Id;
-			tagBuilder.Attributes["class"] = "parent-" + (node.ParentNode != null ? node.ParentNode.Id.ToString() : String.Empty);
+			if (node.ParentNode != null)
+			{
+				tagBuilder.Attributes["class"] = "parent-" + node.ParentNode.Id;
+			}
 			if (activeNode != null && node.Id == activeNode.Id)
 			{
 				tagBuilder.Attributes["class"] += " selected";
@@ -81,6 +84,25 @@ namespace Cuyahoga.Web.Manager.Helpers
 			HttpResponseBase httpResponse = htmlHelper.ViewContext.HttpContext.Response;
 			httpResponse.Write(tagBuilder.ToString(TagRenderMode.StartTag));
 			return new ContainerElement(httpResponse, "tr");
+		}
+
+		public static ContainerElement PageElement(this HtmlHelper htmlHelper, Node node, Node activeNode)
+		{
+			TagBuilder tagBuilder = new TagBuilder("li");
+
+			tagBuilder.Attributes["id"] = "page-" + node.Id;
+			tagBuilder.Attributes["class"] = String.Empty;
+			if (node.ParentNode != null)
+			{
+				tagBuilder.Attributes["class"] += "parent-" + node.ParentNode.Id;
+			}
+			if (activeNode != null && node.Id == activeNode.Id)
+			{
+				tagBuilder.Attributes["class"] += " selected";
+			}
+			HttpResponseBase httpResponse = htmlHelper.ViewContext.HttpContext.Response;
+			httpResponse.Write(tagBuilder.ToString(TagRenderMode.StartTag));
+			return new ContainerElement(httpResponse, "li");
 		}
 	}
 }

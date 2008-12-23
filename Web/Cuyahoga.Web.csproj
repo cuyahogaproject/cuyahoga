@@ -844,6 +844,7 @@
     <Content Include="Admin\Web.config" />
     <Content Include="Manager\Content\Css\flora.datepicker.css" />
     <Content Include="Manager\Content\Css\Manager.css" />
+    <Content Include="Manager\Content\Css\Pagegrid.css" />
     <Content Include="Manager\Content\Css\thickbox.css" />
     <Content Include="Manager\Content\Images\add.png" />
     <Content Include="Manager\Content\Images\ajax-loader.gif" />
@@ -884,7 +885,6 @@
     <Content Include="Manager\Scripts\swfupload.js" />
     <Content Include="Manager\Scripts\swfupload.swf" />
     <Content Include="Manager\Scripts\thickbox.js" />
-    <Content Include="Manager\Scripts\ui.core.js" />
     <Content Include="Controls\EditProfile.ascx">
       <SubType>UserControl</SubType>
     </Content>
@@ -938,6 +938,10 @@
     <Content Include="Login.aspx">
       <SubType>Form</SubType>
     </Content>
+    <Content Include="Manager\Scripts\ui.core.js" />
+    <Content Include="Manager\Scripts\ui.draggable.js" />
+    <Content Include="Manager\Scripts\ui.droppable.js" />
+    <Content Include="Manager\Scripts\ui.sortable.js" />
     <Content Include="Manager\Views\Dashboard\Index.aspx" />
     <Content Include="Manager\Views\Files\Index.aspx" />
     <Content Include="Manager\Views\Login\Index.aspx" />

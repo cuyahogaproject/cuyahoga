@@ -1,0 +1,87 @@
+﻿/* Page grid */
+#pagegrid span.no-children
+{
+	padding: 11px;
+}
+
+#pagegrid img.children-hidden,
+#pagegrid img.children-visible
+{
+	padding: 0;
+	cursor: pointer;
+}
+
+#pagegrid-head div
+{
+	color: #333333;
+	background-color: #eee;
+	font-weight: bold;
+	border-right: solid 1px #fff;
+	border-bottom: solid 1px #ccc;
+	padding: 4px;
+	text-align: center;
+}
+
+#pagegrid .selected
+{
+	background-color: #ffd;
+	font-weight: bold;
+}
+
+#pagegrid-body
+{
+	margin-left: -20px;
+}
+
+ul.pagegroup
+{
+	margin: 0;
+	list-style: none;
+	padding: 0 0 0 20px;
+}
+
+li.pagerow
+{
+	margin: 0;
+	position: relative;
+}
+
+.pageplaceholder
+{
+	border: 2px dashed #666;
+	height: 3px;
+}
+
+.droppablepage
+{
+	background-color: #69c;
+	color: #fff;
+}
+
+#pagegrid .pagerow /* grid row */
+{
+	border-bottom: 1px solid #eee;
+	width: 100%;
+}
+
+#pagegrid .pagerow:hover
+{
+	background-color: #eef;
+}
+
+#pagegrid .pagerow div /* grid cell */
+{
+	padding: 4px;
+	border: none;
+}
+
+#pagegrid .page,
+#pagegrid .link
+{
+	white-space: nowrap;
+}
+
+#pagegrid .fr
+{
+	float: right;
+}
