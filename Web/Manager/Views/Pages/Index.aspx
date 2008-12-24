@@ -116,7 +116,17 @@
 				opacity : 0.5,
 				placeholder : "pageplaceholder",
 				delay : 50,
-				distance : 30
+				distance : 20,
+				update : function(ev, ui) {
+					var parentNodeId = ui.item.attr('class').substring(7);
+					var serializedChildNodeIds = $(this).sortable('serialize');
+					// we only need an array of node id's, extract these with a regex.
+					var orderedChildNodeIds = serializedChildNodeIds.match(/(\d+)/g);
+					$.post('<%= Url.Action("SortPages", "Pages") %>',
+						{ parentNodeId : parentNodeId, orderedChildNodeIds : orderedChildNodeIds },
+						processJsonMessage,
+						"json");
+				}
 			});
 		}
 		

@@ -115,5 +115,12 @@ namespace Cuyahoga.Core.DataAccess
 		/// </summary>
 		/// <param name="obj"></param>
 		void MarkForDeletion(object obj);
+
+		/// <summary>
+		/// Remove a collection from the second level cache.
+		/// </summary>
+		/// <param name="roleName">The fully qualified name of the collection (e.g. Cuyahoga.Core.Domain.Node.ChildNodes).</param>
+		/// <param name="id">The id of the object that has the collection.</param>
+		void RemoveCollectionFromCache(string roleName, int id);
 	}
 }

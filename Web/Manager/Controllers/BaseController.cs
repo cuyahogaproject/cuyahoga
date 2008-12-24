@@ -180,7 +180,7 @@ namespace Cuyahoga.Web.Manager.Controllers
 		}
 
 		/// <summary>
-		/// Gets a translation of the given message from the GLobaResources. If not found, the original message is returned.
+		/// Gets a translation of the given message from the GlobaResources. If not found, the original message is returned.
 		/// </summary>
 		/// <param name="message"></param>
 		/// <returns></returns>

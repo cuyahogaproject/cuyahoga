@@ -190,8 +190,7 @@ namespace Cuyahoga.Web.Manager.Controllers
 
 		public ActionResult UploadTemplates()
 		{
-			string message = String.Empty;
-			string error = String.Empty;
+			AjaxMessageViewData result = new AjaxMessageViewData();
 			try
 			{
 				if (Request.Files.Count > 0)
@@ -204,27 +203,27 @@ namespace Cuyahoga.Web.Manager.Controllers
 					string templatesRoot = VirtualPathUtility.Combine(CuyahogaContext.CurrentSite.SiteDataDirectory, "Templates");
 					string filePath = Path.Combine(Server.MapPath(templatesRoot), theFile.FileName);
 					this._templateService.ExtractTemplatePackage(filePath, theFile.InputStream);
-					message = GlobalResources.TemplatesUploadedMessage;
+					result.Message = GlobalResources.TemplatesUploadedMessage;
 				}
 				else
 				{
-					error = GlobalResources.NoFileUploadedMessage;
+					result.Error = GlobalResources.NoFileUploadedMessage;
 				}
 			}
 			catch (InvalidPackageException ex)
 			{
 				Logger.Error(ex.Message, ex);
-				error = TranslateMessage(ex.Message);
+				result.Error = TranslateMessage(ex.Message);
 			}
 			catch (Exception ex)
 			{
 				Logger.Error("Unexpected error while uploading templates.", ex);
-				error = ex.Message;
+				result.Error = ex.Message;
 			}
 
-			var result = Json( new { Message = message, Error = error });
-			result.ContentType = "text/html"; // otherwise the ajax form doesn't handle the callback
-			return result;
+			JsonResult jsonResult = Json(result);
+			jsonResult.ContentType = "text/html"; // otherwise the ajax form doesn't handle the callback
+			return jsonResult;
 		}
 
 		#endregion

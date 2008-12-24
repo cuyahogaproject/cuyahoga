@@ -6,6 +6,7 @@ using Cuyahoga.Core.Service.SiteStructure;
 using Cuyahoga.Core.Util;
 using Cuyahoga.Core.Validation;
 using Cuyahoga.Web.Manager.Helpers;
+using Cuyahoga.Web.Manager.Model.ViewModels;
 using Cuyahoga.Web.Mvc.Filters;
 using Resources.Cuyahoga.Web.Manager;
 
@@ -112,6 +113,24 @@ namespace Cuyahoga.Web.Manager.Controllers
 				ViewData["Cultures"] = new SelectList(Globalization.GetOrderedCultures(), "Key", "Value", node.Culture);
 				return PartialView("SelectedPage", node);
 			}
+		}
+
+		[AcceptVerbs(HttpVerbs.Post)]
+		public ActionResult SortPages(int parentNodeId, int[] orderedChildNodeIds)
+		{
+			AjaxMessageViewData result = new AjaxMessageViewData();
+			try
+			{
+				this._nodeService.SortNodes(parentNodeId, orderedChildNodeIds);
+				result.Message = "Order of pages was updated successfully.";
+			}
+			catch (Exception ex)
+			{
+				Logger.Error("Unexpected error while sorting pages.", ex);
+				result.Error = ex.Message;
+			}
+
+			return Json(result);
 		}
 
 		#endregion

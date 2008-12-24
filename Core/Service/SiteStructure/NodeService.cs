@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
-
+using System.Collections.Generic;
+using System.Linq;
 using Castle.Services.Transaction;
 
 using Cuyahoga.Core.Domain;
@@ -106,6 +107,20 @@ namespace Cuyahoga.Core.Service.SiteStructure
 		public IList GetMenusByRootNode(Node rootNode)
 		{
 			return this._siteStructureDao.GetMenusByRootNode(rootNode);
+		}
+
+		[Transaction(TransactionMode.RequiresNew)]
+		public void SortNodes(int parentNodeId, int[] orderedChildNodeIds)
+		{
+			Node parentNode = GetNodeById(parentNodeId);
+			for (int i = 0; i < orderedChildNodeIds.Length; i++)
+			{
+				Node childNode = parentNode.ChildNodes.Single(n => n.Id == orderedChildNodeIds[i]);
+				childNode.Position = i;
+//				this._commonDao.UpdateObject(childNode);
+			}
+			// Invalidate cache
+			this._commonDao.RemoveCollectionFromCache("Cuyahoga.Core.Domain.Node.ChildNodes", parentNode.Id);
 		}
 
 		#endregion

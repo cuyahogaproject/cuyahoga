@@ -73,5 +73,12 @@ namespace Cuyahoga.Core.Service.SiteStructure
 		/// <param name="rootNode"></param>
 		/// <returns></returns>
 		IList GetMenusByRootNode(Node rootNode);
+
+		/// <summary>
+		/// Sort child nodes of a node with the given id.
+		/// </summary>
+		/// <param name="parentNodeId">The Id of the node to sort the children of.</param>
+		/// <param name="orderedChildNodeIds">Ordered list of child node id's.</param>
+		void SortNodes(int parentNodeId, int[] orderedChildNodeIds);
 	}
 }
