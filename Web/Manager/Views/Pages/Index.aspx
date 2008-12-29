@@ -23,6 +23,9 @@
 	</div>
 </asp:Content>
 <asp:Content ID="Content3" ContentPlaceHolderID="cphMain" runat="server">
+	<% using (Html.BeginForm("MovePage", "Pages", FormMethod.Post, new { id = "pagesform" })) { %>
+	<%= Html.Hidden("nodeidtomove") %>
+	<%= Html.Hidden("nodeidtomoveto") %>
 	<div id="pagegrid">
 		<div id="pagegrid-head">
 			<div class="fr" style="width:120px">Last modified</div>
@@ -35,8 +38,9 @@
 			<% Html.RenderPartial("PageListItems", ViewData.Model, ViewData); %>
 		</div>
 	</div>
+	<% } %>
 	<script type="text/javascript"> 
-		var selectedPageDiv;
+		var selectedPageItem;
 		
 		$(document).ready(function() {
 			
@@ -62,7 +66,7 @@
 			addDroppable('.page');
 			addSortable('.pagegroup .pagegroup');
 					
-			selectedPageDiv = $('#pagegrid div.selected').parent();			
+			selectedPageItem = $('#pagegrid div.selected').parent();			
 		})	
 				
 		function toggleHide(expander) {
@@ -105,10 +109,10 @@
 		function selectPage(pageCell) {
 			$('#pagegrid .selected').removeClass('selected');
 			
-			selectedPageDiv = $(pageCell).parents('.pagerow').parent();
-			var nodeId = selectedPageDiv.attr('id').substring(5);
+			selectedPageItem = $(pageCell).parents('.pagerow').parent();
+			var nodeId = selectedPageItem.attr('id').substring(5);
 			$('#selectedpage').load('<%= Url.Action("SelectPage", "Pages") %>', { 'nodeid' : nodeId });
-			selectedPageDiv.find('.pagerow:first').addClass('selected');
+			selectedPageItem.find('.pagerow:first').addClass('selected');
 		}
 		
 		function addSortable(container) {
@@ -136,9 +140,12 @@
 				hoverClass : "droppablepage",
 				tolerance : "pointer",
 				drop : function(ev, ui) {
-					var nodeIdToDropOn = $(this).parents('li').attr('id').substring(5);
-					var nodeIdToDrop = $(ev.target).parents('li').attr('id').substring(5);
-					alert('Adding node ' + nodeIdToDrop + ' to ' + nodeIdToDropOn);
+					var nodeIdToMoveTo = $(this).parents('li').attr('id').substring(5);
+					var nodeIdToMove = $(ev.target).parents('li').attr('id').substring(5);
+					$('.pagegroup').sortable('disable'); // disable sorting when dropping on new parents
+					$('#nodeidtomove').val(nodeIdToMove);
+					$('#nodeidtomoveto').val(nodeIdToMoveTo);
+					$('#pagesform').submit();
 				}
 			});
 		}

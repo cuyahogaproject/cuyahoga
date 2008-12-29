@@ -940,6 +940,7 @@
       <SubType>Form</SubType>
     </Content>
     <Content Include="Manager\Scripts\ui.core.js" />
+    <Content Include="Manager\Scripts\ui.dialog.js" />
     <Content Include="Manager\Scripts\ui.draggable.js" />
     <Content Include="Manager\Scripts\ui.droppable.js" />
     <Content Include="Manager\Scripts\ui.sortable.js" />

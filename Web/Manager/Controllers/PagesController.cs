@@ -86,6 +86,13 @@ namespace Cuyahoga.Web.Manager.Controllers
 			return Index(node.Id);
 		}
 
+		[AcceptVerbs(HttpVerbs.Post)]
+		public ActionResult MovePage(int nodeIdToMove, int nodeIdToMoveTo)
+		{
+			this._nodeService.MoveNode(nodeIdToMove, nodeIdToMoveTo);
+			return RedirectToAction("Index", new { id = nodeIdToMove });
+		}
+
 		#region AJAX actions
 
 		public ActionResult GetPageListItem(int nodeId)

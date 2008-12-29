@@ -1,7 +1,7 @@
 ﻿<%@ Import Namespace="Cuyahoga.Core.Domain"%>
 <%@ Control Language="C#" AutoEventWireup="true" CodeBehind="PageListItem.ascx.cs" Inherits="Cuyahoga.Web.Manager.Views.Pages.PageListItem" %>
-			<% using (Html.PageElement(ViewData.Model, ViewData["ActiveNode"] as Node)) { %>	
-				<div class="pagerow">
+			<% using (Html.PageListItem(ViewData.Model, ViewData["ActiveNode"] as Node)) { %>
+				<% using (Html.PageRowDiv(ViewData.Model, ViewData["ActiveNode"] as Node)) { %>
 					<div class="fr" style="width:120px;text-align:right;"><%= ViewData.Model.UpdateTimestamp%></div>
 					<div class="fr" style="width:80px"><%= ViewData.Model.Culture%></div>
 					<div class="fr" style="width:120px"><%= ViewData.Model.Template != null ? ViewData.Model.Template.Name : String.Empty%></div>
@@ -13,7 +13,7 @@
 							<%= ViewData.Model.Title%>
 						</span>
 					</div>
-				</div>
+				<% } %>
 				<% if (ViewData.Model.Level < 1 || (ViewData.Model.IsInPath((Node)ViewData["ActiveNode"]))) { %>
 					<% Html.RenderPartial("PageListItems", ViewData.Model.ChildNodes, ViewData); %>
 				<% } %>	

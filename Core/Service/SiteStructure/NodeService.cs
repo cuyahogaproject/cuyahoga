@@ -117,10 +117,18 @@ namespace Cuyahoga.Core.Service.SiteStructure
 			{
 				Node childNode = parentNode.ChildNodes.Single(n => n.Id == orderedChildNodeIds[i]);
 				childNode.Position = i;
-//				this._commonDao.UpdateObject(childNode);
 			}
 			// Invalidate cache
 			this._commonDao.RemoveCollectionFromCache("Cuyahoga.Core.Domain.Node.ChildNodes", parentNode.Id);
+		}
+
+		[Transaction(TransactionMode.RequiresNew)]
+		public void MoveNode(int nodeIdToMove, int nodeIdToMoveTo)
+		{
+			Node nodeToMove = GetNodeById(nodeIdToMove);
+			Node newParentNode = GetNodeById(nodeIdToMoveTo);
+
+			nodeToMove.ChangeParent(newParentNode);
 		}
 
 		#endregion

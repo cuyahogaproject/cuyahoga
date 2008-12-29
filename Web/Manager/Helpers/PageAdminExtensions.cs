@@ -5,8 +5,40 @@ using Cuyahoga.Core.Domain;
 
 namespace Cuyahoga.Web.Manager.Helpers
 {
+	/// <summary>
+	/// Renders an li element for a page.
+	/// </summary>
 	public static class PageManagementExtensions
 	{
+		public static ContainerElement PageListItem(this HtmlHelper htmlHelper, Node node, Node activeNode)
+		{
+			TagBuilder tagBuilder = new TagBuilder("li");
+
+			tagBuilder.Attributes["id"] = "page-" + node.Id;
+			tagBuilder.Attributes["class"] = String.Empty;
+			if (node.ParentNode != null)
+			{
+				tagBuilder.Attributes["class"] += "parent-" + node.ParentNode.Id;
+			}
+			HttpResponseBase httpResponse = htmlHelper.ViewContext.HttpContext.Response;
+			httpResponse.Write(tagBuilder.ToString(TagRenderMode.StartTag));
+			return new ContainerElement(httpResponse, "li");
+		}
+
+		public static ContainerElement PageRowDiv(this HtmlHelper htmlHelper, Node node, Node activeNode)
+		{
+			TagBuilder tagBuilder = new TagBuilder("div");
+
+			tagBuilder.Attributes["class"] = "pagerow";
+			if (activeNode != null && node.Id == activeNode.Id)
+			{
+				tagBuilder.Attributes["class"] += " selected";
+			}
+			HttpResponseBase httpResponse = htmlHelper.ViewContext.HttpContext.Response;
+			httpResponse.Write(tagBuilder.ToString(TagRenderMode.StartTag));
+			return new ContainerElement(httpResponse, "div");
+		}
+
 		/// <summary>
 		/// Renders an icon image tag for a Page.
 		/// </summary>
@@ -66,43 +98,6 @@ namespace Cuyahoga.Web.Manager.Helpers
 				expanderSpan.AddCssClass(className);
 				return expanderSpan.ToString();
 			}
-		}
-
-		public static ContainerElement PageRow(this HtmlHelper htmlHelper, Node node, Node activeNode)
-		{
-			TagBuilder tagBuilder = new TagBuilder("tr");
-
-			tagBuilder.Attributes["id"] = "page-" + node.Id;
-			if (node.ParentNode != null)
-			{
-				tagBuilder.Attributes["class"] = "parent-" + node.ParentNode.Id;
-			}
-			if (activeNode != null && node.Id == activeNode.Id)
-			{
-				tagBuilder.Attributes["class"] += " selected";
-			}
-			HttpResponseBase httpResponse = htmlHelper.ViewContext.HttpContext.Response;
-			httpResponse.Write(tagBuilder.ToString(TagRenderMode.StartTag));
-			return new ContainerElement(httpResponse, "tr");
-		}
-
-		public static ContainerElement PageElement(this HtmlHelper htmlHelper, Node node, Node activeNode)
-		{
-			TagBuilder tagBuilder = new TagBuilder("li");
-
-			tagBuilder.Attributes["id"] = "page-" + node.Id;
-			tagBuilder.Attributes["class"] = String.Empty;
-			if (node.ParentNode != null)
-			{
-				tagBuilder.Attributes["class"] += "parent-" + node.ParentNode.Id;
-			}
-			if (activeNode != null && node.Id == activeNode.Id)
-			{
-				tagBuilder.Attributes["class"] += " selected";
-			}
-			HttpResponseBase httpResponse = htmlHelper.ViewContext.HttpContext.Response;
-			httpResponse.Write(tagBuilder.ToString(TagRenderMode.StartTag));
-			return new ContainerElement(httpResponse, "li");
 		}
 	}
 }

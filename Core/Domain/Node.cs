@@ -529,6 +529,31 @@ namespace Cuyahoga.Core.Domain
 			}
 		}
 
+		public virtual void ChangeParent(Node newParentNode)
+		{
+			// Don't do anything when the node is a root node or when the parent hasn't changed.
+			if (this.IsRootNode || newParentNode.Id == this.ParentNode.Id)
+			{
+				return;
+			}
+			// Remove node from parent childnodes
+			IList<Node> oldParentChildNodes = this.ParentNode.ChildNodes;
+			oldParentChildNodes.Remove(this);
+
+			// Update sort order of old parent childnodes
+			for (int i = 0; i < oldParentChildNodes.Count; i++)
+			{
+				Node childNodeToBeRepositioned = oldParentChildNodes[i];
+				childNodeToBeRepositioned.Position = i;
+			}
+
+			// Add to children new parent
+			int newPosition = newParentNode.ChildNodes.Count;
+			this.Position = newPosition;
+			this.ParentNode = newParentNode;
+			newParentNode.ChildNodes.Add(this);
+		}
+
 		/// <summary>
 		/// Move the node one position upwards and move the node above this one one position downwards.
 		/// </summary>

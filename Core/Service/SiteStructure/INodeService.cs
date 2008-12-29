@@ -80,5 +80,12 @@ namespace Cuyahoga.Core.Service.SiteStructure
 		/// <param name="parentNodeId">The Id of the node to sort the children of.</param>
 		/// <param name="orderedChildNodeIds">Ordered list of child node id's.</param>
 		void SortNodes(int parentNodeId, int[] orderedChildNodeIds);
+
+		/// <summary>
+		/// Move a node to a different parent.
+		/// </summary>
+		/// <param name="nodeIdToMove">The Id of the node to move.</param>
+		/// <param name="nodeIdToMoveTo">The Id of the new parent node.</param>
+		void MoveNode(int nodeIdToMove, int nodeIdToMoveTo);
 	}
 }
