@@ -87,5 +87,13 @@ namespace Cuyahoga.Core.Service.SiteStructure
 		/// <param name="nodeIdToMove">The Id of the node to move.</param>
 		/// <param name="nodeIdToMoveTo">The Id of the new parent node.</param>
 		void MoveNode(int nodeIdToMove, int nodeIdToMoveTo);
+
+		/// <summary>
+		/// Copy a node.
+		/// </summary>
+		/// <param name="nodeIdToCopy"></param>
+		/// <param name="newParentNodeId"></param>
+		/// <returns>The newly created node.</returns>
+		Node CopyNode(int nodeIdToCopy, int newParentNodeId);
 	}
 }

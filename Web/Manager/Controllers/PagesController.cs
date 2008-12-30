@@ -87,10 +87,19 @@ namespace Cuyahoga.Web.Manager.Controllers
 		}
 
 		[AcceptVerbs(HttpVerbs.Post)]
-		public ActionResult MovePage(int nodeIdToMove, int nodeIdToMoveTo)
+		public ActionResult MovePage(int nodeId, int newParentNodeId)
 		{
-			this._nodeService.MoveNode(nodeIdToMove, nodeIdToMoveTo);
-			return RedirectToAction("Index", new { id = nodeIdToMove });
+			this._nodeService.MoveNode(nodeId, newParentNodeId);
+			ShowMessage("Page moved sucessfully.", true);
+			return RedirectToAction("Index", new { id = nodeId });
+		}
+
+		[AcceptVerbs(HttpVerbs.Post)]
+		public ActionResult CopyPage(int nodeId, int newParentNodeId)
+		{
+			Node newNode = this._nodeService.CopyNode(nodeId, newParentNodeId);
+			ShowMessage("Page copied sucessfully.", true);
+			return RedirectToAction("Index", new { id = newNode.Id });
 		}
 
 		#region AJAX actions

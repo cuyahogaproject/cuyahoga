@@ -498,3 +498,10 @@ table.grid td.right
 	background-color: #eee;
 	color: #000;
 }
+
+/* Dialog text */
+.dialog-text
+{
+	padding: 10px;
+	margin: 0;
+}

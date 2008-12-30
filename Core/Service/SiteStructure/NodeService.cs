@@ -131,6 +131,22 @@ namespace Cuyahoga.Core.Service.SiteStructure
 			nodeToMove.ChangeParent(newParentNode);
 		}
 
+		[Transaction(TransactionMode.RequiresNew)]
+		public Node CopyNode(int nodeIdToCopy, int newParentNodeId)
+		{
+			Node nodeToCopy = GetNodeById(nodeIdToCopy);
+			Node newParentNode = GetNodeById(newParentNodeId);
+
+			Node newNode = nodeToCopy.Copy(newParentNode);
+			this._commonDao.SaveObject(newNode);
+			// also save sections, these don't cascade
+			foreach (Section section in newNode.Sections)
+			{
+				this._commonDao.SaveObject(section);
+			}
+			return newNode;
+		}
+
 		#endregion
 
 		private void PropagatePermissionsToChildNodes(Node parentNode, bool alsoPropagateToSections)

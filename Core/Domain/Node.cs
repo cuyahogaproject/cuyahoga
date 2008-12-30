@@ -529,6 +529,10 @@ namespace Cuyahoga.Core.Domain
 			}
 		}
 
+		/// <summary>
+		/// Change the parent of this node to the given new parent.
+		/// </summary>
+		/// <param name="newParentNode"></param>
 		public virtual void ChangeParent(Node newParentNode)
 		{
 			// Don't do anything when the node is a root node or when the parent hasn't changed.
@@ -552,6 +556,46 @@ namespace Cuyahoga.Core.Domain
 			this.Position = newPosition;
 			this.ParentNode = newParentNode;
 			newParentNode.ChildNodes.Add(this);
+		}
+
+		/// <summary>
+		/// Creates a new node that comes under the given parent node and copies the contents of this node.
+		/// </summary>
+		/// <param name="parentNode"></param>
+		/// <returns>The newly created node.</returns>
+		public virtual Node Copy(Node parentNode)
+		{
+			Node newNode = new Node();
+			newNode.Site = this.Site;
+			newNode.Title = "Copy of " + this.Title;
+			newNode.ParentNode = parentNode;
+			newNode.CreateShortDescription();
+			newNode.Culture = parentNode.Culture;
+			newNode.Template = this.Template;
+			newNode.ShowInNavigation = this.ShowInNavigation;
+			newNode.LinkUrl = this.LinkUrl;
+			newNode.LinkTarget = this.LinkTarget;
+			newNode.MetaDescription = this.MetaDescription;
+			newNode.MetaKeywords = this.MetaKeywords;
+
+			// Add to children parent
+			newNode.Position = parentNode.ChildNodes.Count;
+			newNode.ParentNode = parentNode;
+			parentNode.ChildNodes.Add(newNode);
+
+			// Apply permissions from parent node
+			newNode.CopyRolesFromParent();
+
+			// Add sections
+			foreach (Section section in this.Sections)
+			{
+				Section newSection = section.Copy();
+				newNode.Sections.Add(newSection);
+				newSection.Node = newNode;
+				newSection.CopyRolesFromNode();
+			}
+
+			return newNode;
 		}
 
 		/// <summary>

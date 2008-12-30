@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Security.Principal;
 using System.Collections;
 
@@ -452,6 +453,27 @@ namespace Cuyahoga.Core.Domain
 				}
 			}
 		}
+
+		/// <summary>
+		/// Copy this section. Only copies direct section properties and settings. Doesn't copy parent node or connections.
+		/// </summary>
+		/// <returns>A copy of this section.</returns>
+		public virtual Section Copy()
+		{
+			Section newSection = new Section();
+			newSection.ModuleType = this.ModuleType;
+			newSection.Title = this.Title;
+			newSection.ShowTitle = this.ShowTitle;
+			newSection.PlaceholderId = this.PlaceholderId;
+			newSection.Position = this.Position;
+			newSection.CacheDuration = this.CacheDuration;
+			foreach (DictionaryEntry setting in this.Settings)
+			{
+				newSection.Settings.Add(setting.Key, setting.Value);
+			}
+			return newSection;
+		}
+
 		#endregion
 
 		#region private methods
