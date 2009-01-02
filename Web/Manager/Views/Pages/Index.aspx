@@ -30,18 +30,18 @@
 	<%= Html.Hidden("newparentnodeid") %>
 	<div id="pagegrid">
 		<div id="pagegrid-head">
-			<div class="fr" style="width:120px">Last modified</div>
-			<div class="fr" style="width:80px">Culture</div>
-			<div class="fr" style="width:120px">Template</div>
-			<div class="fr" style="width:160px">Page url</div>
-			<div>Page title</div>
+			<div class="fr" style="width:120px"><%= GlobalResources.LastModifiedLabel %></div>
+			<div class="fr" style="width:80px"><%= GlobalResources.CultureLabel %></div>
+			<div class="fr" style="width:120px"><%= GlobalResources.TemplateLabel %></div>
+			<div class="fr" style="width:160px"><%= GlobalResources.PageUrlLabel %></div>
+			<div><%= GlobalResources.PageTitleLabel %></div>
 		</div>
 		<div id="pagegrid-body">
 			<% Html.RenderPartial("PageListItems", ViewData.Model, ViewData); %>
 		</div>
 	</div>
-	<div id="movedialog" title="Move or copy page">
-		<p class="dialog-text">Do you want to move this page under a new parent? Alternatively, you can also make a copy of the page. This will copy the page properties and sections. Note that this will not copy the actual content.</p>
+	<div id="movedialog" title="<%= GlobalResources.MoveOrCopyPageDialogTitle %>">
+		<p class="dialog-text"><%= GlobalResources.MoveOrCopyPageDialogText %></p>
 	</div>
 	<% } %>
 	<script type="text/javascript"> 
@@ -77,15 +77,15 @@
 			$('#movedialog').dialog({
 				autoOpen: false,
 				buttons: { 
-					"Move": function() { 
+					"<%= GlobalResources.MoveButtonLabel %>": function() { 
 						$('#pagesform').attr('action', '<%= Url.Action("MovePage", "Pages") %>');
 						$('#pagesform').submit(); 
 					},
-					"Copy": function() {
+					"<%= GlobalResources.CopyButtonLabel %>": function() {
 						$('#pagesform').attr('action', '<%= Url.Action("CopyPage", "Pages") %>');
 						$('#pagesform').submit(); 
 					},
-					"Cancel": closeDialog,
+					"<%= GlobalResources.CancelLabel %>": closeDialog,
 				}, 
 				modal: true,
 				overlay: { 
@@ -132,7 +132,7 @@
 				})
 			}
 			else {
-				$('.parent-' + parentNodeId).fadeIn();
+				$('.parent-' + parentNodeId).show();
 				// only recurse pages that have their children visible
 				$('.parent-' + parentNodeId + ':has(img.children-visible)').each(function(i) {
 					showPages($(this).attr('id').substring(5));

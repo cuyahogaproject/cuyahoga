@@ -15,7 +15,7 @@ namespace Cuyahoga.Web.Manager.Controllers
 	[PermissionFilter(RequiredRights = Rights.ManagePages)]
 	public class PagesController : SecureController
 	{
-		private INodeService _nodeService;
+		private readonly INodeService _nodeService;
 
 		public PagesController(INodeService nodeService, IModelValidator<Node> modelValidator)
 		{
@@ -54,7 +54,7 @@ namespace Cuyahoga.Web.Manager.Controllers
 				if (TryUpdateModel(node, includeProperties) && ValidateModel(node, includeProperties))
 				{
 					this._nodeService.SaveNode(node);
-					ShowMessage("Page properties are updated sucessfully.", true);
+					ShowMessage(GlobalResources.PagePropertiesUpdatedMessage, true);
 					return RedirectToAction("Index", new { id = node.Id });
 				}
 			}
@@ -75,7 +75,7 @@ namespace Cuyahoga.Web.Manager.Controllers
 				if (TryUpdateModel(node, includeProperties) && ValidateModel(node, includeProperties))
 				{
 					this._nodeService.SaveNode(node);
-					ShowMessage("Link properties are updated sucessfully.", true);
+					ShowMessage(GlobalResources.LinkPropertiesUpdatedMessage, true);
 					return RedirectToAction("Index", new { id = node.Id });
 				}
 			}
@@ -90,7 +90,7 @@ namespace Cuyahoga.Web.Manager.Controllers
 		public ActionResult MovePage(int nodeId, int newParentNodeId)
 		{
 			this._nodeService.MoveNode(nodeId, newParentNodeId);
-			ShowMessage("Page moved sucessfully.", true);
+			ShowMessage(GlobalResources.PageMovedMessage, true);
 			return RedirectToAction("Index", new { id = nodeId });
 		}
 
@@ -98,7 +98,7 @@ namespace Cuyahoga.Web.Manager.Controllers
 		public ActionResult CopyPage(int nodeId, int newParentNodeId)
 		{
 			Node newNode = this._nodeService.CopyNode(nodeId, newParentNodeId);
-			ShowMessage("Page copied sucessfully.", true);
+			ShowMessage(GlobalResources.PageCopiedMessage, true);
 			return RedirectToAction("Index", new { id = newNode.Id });
 		}
 
@@ -138,7 +138,7 @@ namespace Cuyahoga.Web.Manager.Controllers
 			try
 			{
 				this._nodeService.SortNodes(parentNodeId, orderedChildNodeIds);
-				result.Message = "Order of pages was updated successfully.";
+				result.Message = GlobalResources.PageOrderUpdatedMessage;
 			}
 			catch (Exception ex)
 			{

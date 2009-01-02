@@ -462,4 +462,64 @@
   <data name="SelectLabel" xml:space="preserve">
     <value>Select</value>
   </data>
+  <data name="CopyButtonLabel" xml:space="preserve">
+    <value>Copy</value>
+  </data>
+  <data name="CultureLabel" xml:space="preserve">
+    <value>Culture</value>
+  </data>
+  <data name="LastModifiedLabel" xml:space="preserve">
+    <value>Last modified</value>
+  </data>
+  <data name="LinkTargetLabel" xml:space="preserve">
+    <value>Link target</value>
+  </data>
+  <data name="LinkTitleLabel" xml:space="preserve">
+    <value>Link title</value>
+  </data>
+  <data name="LinkUrlLabel" xml:space="preserve">
+    <value>Link url</value>
+  </data>
+  <data name="MoveButtonLabel" xml:space="preserve">
+    <value>Move</value>
+  </data>
+  <data name="MoveOrCopyPageDialogText" xml:space="preserve">
+    <value>Do you want to move this page under a new parent? Alternatively, you can also make a copy of the page. This will copy the page properties and sections. Note that this will not copy the actual content.</value>
+  </data>
+  <data name="MoveOrCopyPageDialogTitle" xml:space="preserve">
+    <value>Move or copy page</value>
+  </data>
+  <data name="PageTitleLabel" xml:space="preserve">
+    <value>Page title</value>
+  </data>
+  <data name="PageUrlLabel" xml:space="preserve">
+    <value>Page url</value>
+  </data>
+  <data name="ShowInNavigationLabel" xml:space="preserve">
+    <value>Show in navigation</value>
+  </data>
+  <data name="TemplateLabel" xml:space="preserve">
+    <value>Template</value>
+  </data>
+  <data name="LinkPropertiesLabel" xml:space="preserve">
+    <value>Link properties</value>
+  </data>
+  <data name="LinkPropertiesUpdatedMessage" xml:space="preserve">
+    <value>The link properties are updated.</value>
+  </data>
+  <data name="PageCopiedMessage" xml:space="preserve">
+    <value>The page is copied successfully.</value>
+  </data>
+  <data name="PageMovedMessage" xml:space="preserve">
+    <value>The page is moved successfully.</value>
+  </data>
+  <data name="PageOrderUpdatedMessage" xml:space="preserve">
+    <value>The order of de pages is updated.</value>
+  </data>
+  <data name="PagePropertiesLabel" xml:space="preserve">
+    <value>Page properties</value>
+  </data>
+  <data name="PagePropertiesUpdatedMessage" xml:space="preserve">
+    <value>The page properties are updated.</value>
+  </data>
 </root>

@@ -124,6 +124,15 @@ namespace Resources.Cuyahoga.Web.Manager {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Copy.
+        /// </summary>
+        internal static string CopyButtonLabel {
+            get {
+                return ResourceManager.GetString("CopyButtonLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Copy templates.
         /// </summary>
         internal static string CopyTemplatesLabel {
@@ -165,6 +174,15 @@ namespace Resources.Cuyahoga.Web.Manager {
         internal static string CssLabel {
             get {
                 return ResourceManager.GetString("CssLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Culture.
+        /// </summary>
+        internal static string CultureLabel {
+            get {
+                return ResourceManager.GetString("CultureLabel", resourceCulture);
             }
         }
         
@@ -466,11 +484,65 @@ namespace Resources.Cuyahoga.Web.Manager {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Last modified.
+        /// </summary>
+        internal static string LastModifiedLabel {
+            get {
+                return ResourceManager.GetString("LastModifiedLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Last name.
         /// </summary>
         internal static string LastNameLabel {
             get {
                 return ResourceManager.GetString("LastNameLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Link properties.
+        /// </summary>
+        internal static string LinkPropertiesLabel {
+            get {
+                return ResourceManager.GetString("LinkPropertiesLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The link properties are updated..
+        /// </summary>
+        internal static string LinkPropertiesUpdatedMessage {
+            get {
+                return ResourceManager.GetString("LinkPropertiesUpdatedMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Link target.
+        /// </summary>
+        internal static string LinkTargetLabel {
+            get {
+                return ResourceManager.GetString("LinkTargetLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Link title.
+        /// </summary>
+        internal static string LinkTitleLabel {
+            get {
+                return ResourceManager.GetString("LinkTitleLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Link url.
+        /// </summary>
+        internal static string LinkUrlLabel {
+            get {
+                return ResourceManager.GetString("LinkUrlLabel", resourceCulture);
             }
         }
         
@@ -646,6 +718,33 @@ namespace Resources.Cuyahoga.Web.Manager {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Move.
+        /// </summary>
+        internal static string MoveButtonLabel {
+            get {
+                return ResourceManager.GetString("MoveButtonLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Do you want to move this page under a new parent? Alternatively, you can also make a copy of the page. This will copy the page properties and sections. Note that this will not copy the actual content..
+        /// </summary>
+        internal static string MoveOrCopyPageDialogText {
+            get {
+                return ResourceManager.GetString("MoveOrCopyPageDialogText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Move or copy page.
+        /// </summary>
+        internal static string MoveOrCopyPageDialogTitle {
+            get {
+                return ResourceManager.GetString("MoveOrCopyPageDialogTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Name.
         /// </summary>
         internal static string NameLabel {
@@ -763,6 +862,69 @@ namespace Resources.Cuyahoga.Web.Manager {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to The page is copied successfully..
+        /// </summary>
+        internal static string PageCopiedMessage {
+            get {
+                return ResourceManager.GetString("PageCopiedMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The page is moved successfully..
+        /// </summary>
+        internal static string PageMovedMessage {
+            get {
+                return ResourceManager.GetString("PageMovedMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The order of de pages is updated..
+        /// </summary>
+        internal static string PageOrderUpdatedMessage {
+            get {
+                return ResourceManager.GetString("PageOrderUpdatedMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Page properties.
+        /// </summary>
+        internal static string PagePropertiesLabel {
+            get {
+                return ResourceManager.GetString("PagePropertiesLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The page properties are updated..
+        /// </summary>
+        internal static string PagePropertiesUpdatedMessage {
+            get {
+                return ResourceManager.GetString("PagePropertiesUpdatedMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Page title.
+        /// </summary>
+        internal static string PageTitleLabel {
+            get {
+                return ResourceManager.GetString("PageTitleLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Page url.
+        /// </summary>
+        internal static string PageUrlLabel {
+            get {
+                return ResourceManager.GetString("PageUrlLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to The password is changed successfully..
         /// </summary>
         internal static string PasswordChangedMessage {
@@ -871,6 +1033,15 @@ namespace Resources.Cuyahoga.Web.Manager {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Show in navigation.
+        /// </summary>
+        internal static string ShowInNavigationLabel {
+            get {
+                return ResourceManager.GetString("ShowInNavigationLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Site.
         /// </summary>
         internal static string SiteLabel {
@@ -930,6 +1101,15 @@ namespace Resources.Cuyahoga.Web.Manager {
         internal static string TemplateDeletedMessage {
             get {
                 return ResourceManager.GetString("TemplateDeletedMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Template.
+        /// </summary>
+        internal static string TemplateLabel {
+            get {
+                return ResourceManager.GetString("TemplateLabel", resourceCulture);
             }
         }
         

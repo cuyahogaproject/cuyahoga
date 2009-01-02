@@ -450,4 +450,64 @@
   <data name="SelectLabel" xml:space="preserve">
     <value>Selecteer</value>
   </data>
+  <data name="CopyButtonLabel" xml:space="preserve">
+    <value>Kopieren</value>
+  </data>
+  <data name="CultureLabel" xml:space="preserve">
+    <value>Culture</value>
+  </data>
+  <data name="LastModifiedLabel" xml:space="preserve">
+    <value>Laatst gewijzigd</value>
+  </data>
+  <data name="LinkTargetLabel" xml:space="preserve">
+    <value>Link target</value>
+  </data>
+  <data name="LinkTitleLabel" xml:space="preserve">
+    <value>Link titel</value>
+  </data>
+  <data name="LinkUrlLabel" xml:space="preserve">
+    <value>Link url</value>
+  </data>
+  <data name="MoveButtonLabel" xml:space="preserve">
+    <value>Verplaatsen</value>
+  </data>
+  <data name="MoveOrCopyPageDialogText" xml:space="preserve">
+    <value>Wil je deze pagina onder een andere pagina zetten? Je kunt ook een kopie maken van de pagina. In dat geval worden de pagina eigenschappen en secties gekopieerd, maar niet de content die aan de secties verbonden is.</value>
+  </data>
+  <data name="MoveOrCopyPageDialogTitle" xml:space="preserve">
+    <value>Verplaats of kopieer pagina</value>
+  </data>
+  <data name="PageTitleLabel" xml:space="preserve">
+    <value>Pagina titel</value>
+  </data>
+  <data name="PageUrlLabel" xml:space="preserve">
+    <value>Pagina url</value>
+  </data>
+  <data name="TemplateLabel" xml:space="preserve">
+    <value>Template</value>
+  </data>
+  <data name="LinkPropertiesLabel" xml:space="preserve">
+    <value>Link eigenschappen</value>
+  </data>
+  <data name="LinkPropertiesUpdatedMessage" xml:space="preserve">
+    <value>De link eigenschappen zijn gewijzigd.</value>
+  </data>
+  <data name="PageCopiedMessage" xml:space="preserve">
+    <value>De pagina is gekopieerd.</value>
+  </data>
+  <data name="PageMovedMessage" xml:space="preserve">
+    <value>De pagina is verplaatst.</value>
+  </data>
+  <data name="PageOrderUpdatedMessage" xml:space="preserve">
+    <value>De volgorde van de pagina's is aangepast.</value>
+  </data>
+  <data name="PagePropertiesLabel" xml:space="preserve">
+    <value>Pagina eigenschappen</value>
+  </data>
+  <data name="PagePropertiesUpdatedMessage" xml:space="preserve">
+    <value>De pagina eigenschappen zijn gewijzigd.</value>
+  </data>
+  <data name="ShowInNavigationLabel" xml:space="preserve">
+    <value>Toon in navigatie</value>
+  </data>
 </root>
