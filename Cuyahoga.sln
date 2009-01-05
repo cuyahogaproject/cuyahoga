@@ -24,7 +24,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cuyahoga.Modules", "Modules
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cuyahoga.ServerControls", "ServerControls\Cuyahoga.ServerControls.csproj", "{C64DAA00-AAB1-4AC7-ADE2-119B53B9666A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cuyahoga.Tests", "Tests\Cuyahoga.Tests.csproj", "{E737CCAD-734D-4E61-8576-A42E4E803FA2}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cuyahoga.Tests", "Cuyahoga.Tests\Cuyahoga.Tests.csproj", "{E737CCAD-734D-4E61-8576-A42E4E803FA2}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cuyahoga.Modules.Downloads", "Cuyahoga.Modules.Downloads\Cuyahoga.Modules.Downloads.csproj", "{A613CF88-E66F-492B-9FD3-259BA3BD7310}"
 EndProject
