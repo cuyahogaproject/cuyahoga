@@ -82,7 +82,7 @@
     <Compile Include="WebForms\ViewUtil.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Core\Cuyahoga.Core.csproj">
+    <ProjectReference Include="..\Cuyahoga.Core\Cuyahoga.Core.csproj">
       <Project>{723B7D30-6472-4B96-8D09-4F094C96650E}</Project>
       <Name>Cuyahoga.Core</Name>
     </ProjectReference>

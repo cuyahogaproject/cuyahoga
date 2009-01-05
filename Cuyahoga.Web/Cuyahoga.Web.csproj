@@ -80,7 +80,7 @@
     <OutputPath>bin\</OutputPath>
   </PropertyGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Core\Cuyahoga.Core.csproj">
+    <ProjectReference Include="..\Cuyahoga.Core\Cuyahoga.Core.csproj">
       <Name>Cuyahoga.Core</Name>
       <Project>{723B7D30-6472-4B96-8D09-4F094C96650E}</Project>
       <Package>{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</Package>
@@ -89,7 +89,7 @@
       <Project>{216D2C63-CD7A-4601-ABB2-A2C9C461F7FD}</Project>
       <Name>Cuyahoga.Web.Mvc</Name>
     </ProjectReference>
-    <ProjectReference Include="..\ServerControls\Cuyahoga.ServerControls.csproj">
+    <ProjectReference Include="..\Cuyahoga.ServerControls\Cuyahoga.ServerControls.csproj">
       <Name>Cuyahoga.ServerControls</Name>
       <Project>{C64DAA00-AAB1-4AC7-ADE2-119B53B9666A}</Project>
       <Package>{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</Package>

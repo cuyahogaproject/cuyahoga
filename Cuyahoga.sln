@@ -16,13 +16,13 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "NAnt build files", "NAnt bu
 		Cuyahoga.build = Cuyahoga.build
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cuyahoga.Web", "Web\Cuyahoga.Web.csproj", "{DD158F08-6E8F-4234-B3F6-A5402C8E34CC}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cuyahoga.Web", "Cuyahoga.Web\Cuyahoga.Web.csproj", "{DD158F08-6E8F-4234-B3F6-A5402C8E34CC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cuyahoga.Core", "Core\Cuyahoga.Core.csproj", "{723B7D30-6472-4B96-8D09-4F094C96650E}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cuyahoga.Core", "Cuyahoga.Core\Cuyahoga.Core.csproj", "{723B7D30-6472-4B96-8D09-4F094C96650E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cuyahoga.Modules", "Modules\Cuyahoga.Modules.csproj", "{7069F87A-95E1-4E61-B5FD-E0892E6F821F}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cuyahoga.Modules", "Cuyahoga.Modules\Cuyahoga.Modules.csproj", "{7069F87A-95E1-4E61-B5FD-E0892E6F821F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cuyahoga.ServerControls", "ServerControls\Cuyahoga.ServerControls.csproj", "{C64DAA00-AAB1-4AC7-ADE2-119B53B9666A}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cuyahoga.ServerControls", "Cuyahoga.ServerControls\Cuyahoga.ServerControls.csproj", "{C64DAA00-AAB1-4AC7-ADE2-119B53B9666A}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cuyahoga.Tests", "Cuyahoga.Tests\Cuyahoga.Tests.csproj", "{E737CCAD-734D-4E61-8576-A42E4E803FA2}"
 EndProject

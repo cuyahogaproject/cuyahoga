@@ -137,11 +137,11 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Core\Cuyahoga.Core.csproj">
+    <ProjectReference Include="..\Cuyahoga.Core\Cuyahoga.Core.csproj">
       <Project>{723B7D30-6472-4B96-8D09-4F094C96650E}</Project>
       <Name>Cuyahoga.Core</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Web\Cuyahoga.Web.csproj">
+    <ProjectReference Include="..\Cuyahoga.Web\Cuyahoga.Web.csproj">
       <Project>{DD158F08-6E8F-4234-B3F6-A5402C8E34CC}</Project>
       <Name>Cuyahoga.Web</Name>
     </ProjectReference>
@@ -172,8 +172,8 @@
     </VisualStudio>
   </ProjectExtensions>
   <PropertyGroup>
-    <PostBuildEvent>xcopy /s /y "$(ProjectDir)"Web\*.as?x "$(SolutionDir)"Web\Modules\RemoteContent\
-xcopy /s /y "$(ProjectDir)"Install\Database\*.sql "$(SolutionDir)"Web\Modules\RemoteContent\Install\Database\
-xcopy /s /y "$(TargetDir)"Cuyahoga.Modules.RemoteContent*.dll "$(SolutionDir)"Web\bin\</PostBuildEvent>
+    <PostBuildEvent>xcopy /s /y "$(ProjectDir)"Web\*.as?x "$(SolutionDir)"Cuyahoga.Web\Modules\RemoteContent\
+xcopy /s /y "$(ProjectDir)"Install\Database\*.sql "$(SolutionDir)"Cuyahoga.Web\Modules\RemoteContent\Install\Database\
+xcopy /s /y "$(TargetDir)"Cuyahoga.Modules.RemoteContent*.dll "$(SolutionDir)"Cuyahoga.Web\bin\</PostBuildEvent>
   </PropertyGroup>
 </Project>

@@ -126,17 +126,17 @@
     <Reference Include="System.Xml.Linq, Version=3.5.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
     </Reference>
-    <ProjectReference Include="..\Core\Cuyahoga.Core.csproj">
+    <ProjectReference Include="..\Cuyahoga.Core\Cuyahoga.Core.csproj">
       <Name>Cuyahoga.Core</Name>
       <Project>{723B7D30-6472-4B96-8D09-4F094C96650E}</Project>
       <Package>{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</Package>
     </ProjectReference>
-    <ProjectReference Include="..\ServerControls\Cuyahoga.ServerControls.csproj">
+    <ProjectReference Include="..\Cuyahoga.ServerControls\Cuyahoga.ServerControls.csproj">
       <Name>Cuyahoga.ServerControls</Name>
       <Project>{C64DAA00-AAB1-4AC7-ADE2-119B53B9666A}</Project>
       <Package>{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</Package>
     </ProjectReference>
-    <ProjectReference Include="..\Web\Cuyahoga.Web.csproj">
+    <ProjectReference Include="..\Cuyahoga.Web\Cuyahoga.Web.csproj">
       <Name>Cuyahoga.Web</Name>
       <Project>{DD158F08-6E8F-4234-B3F6-A5402C8E34CC}</Project>
       <Package>{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</Package>
@@ -607,12 +607,12 @@
   <PropertyGroup>
     <PreBuildEvent>
     </PreBuildEvent>
-    <PostBuildEvent>xcopy /s /y "$(ProjectDir)"*.as?x "$(SolutionDir)"Web\Modules
-xcopy /s /y "$(ProjectDir)"*.gif "$(SolutionDir)"Web\Modules
-xcopy /s /y "$(ProjectDir)"*.png "$(SolutionDir)"Web\Modules
-xcopy /s /y "$(ProjectDir)"*.txt "$(SolutionDir)"Web\Modules
-xcopy /s /y "$(TargetDir)"Cuyahoga.Modules*.dll "$(SolutionDir)"Web\bin
-xcopy /s /y "$(TargetDir)"FredCK.FCKeditorV2.dll "$(SolutionDir)"Web\bin</PostBuildEvent>
+    <PostBuildEvent>xcopy /s /y "$(ProjectDir)"*.as?x "$(SolutionDir)"Cuyahoga.Web\Modules
+xcopy /s /y "$(ProjectDir)"*.gif "$(SolutionDir)"Cuyahoga.Web\Modules
+xcopy /s /y "$(ProjectDir)"*.png "$(SolutionDir)"Cuyahoga.Web\Modules
+xcopy /s /y "$(ProjectDir)"*.txt "$(SolutionDir)"Cuyahoga.Web\Modules
+xcopy /s /y "$(TargetDir)"Cuyahoga.Modules*.dll "$(SolutionDir)"Cuyahoga.Web\bin
+xcopy /s /y "$(TargetDir)"FredCK.FCKeditorV2.dll "$(SolutionDir)"Cuyahoga.Web\bin</PostBuildEvent>
   </PropertyGroup>
   <ProjectExtensions>
     <VisualStudio>
