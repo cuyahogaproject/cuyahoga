@@ -317,10 +317,10 @@ namespace Cuyahoga.Core.Domain
 			this._parentNode = null;
 			this._template = null;
 			this._childNodes = null;
-			this._sections = null;
 			this._position = -1;
 			this._trail = null;
 			this._showInNavigation = true;
+			this._childNodes = new List<Node>();
 			this._sections = new ArrayList();
 			this._nodePermissions = new ArrayList();
 		}
