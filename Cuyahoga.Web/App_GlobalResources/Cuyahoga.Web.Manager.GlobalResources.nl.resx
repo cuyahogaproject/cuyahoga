@@ -510,4 +510,34 @@
   <data name="ShowInNavigationLabel" xml:space="preserve">
     <value>Toon in navigatie</value>
   </data>
+  <data name="CreateButtonLabel" xml:space="preserve">
+    <value>Aanmaken</value>
+  </data>
+  <data name="DeleteLinkLabel" xml:space="preserve">
+    <value>Verwijder de huidige link</value>
+  </data>
+  <data name="DeletePageLabel" xml:space="preserve">
+    <value>Verwijder de huidge pagina</value>
+  </data>
+  <data name="NewChildLinkLabel" xml:space="preserve">
+    <value>Nieuwe link onder de huidige link</value>
+  </data>
+  <data name="NewChildPageLabel" xml:space="preserve">
+    <value>Nieuwe pagina onder de huidige pagina</value>
+  </data>
+  <data name="NewRootPageLabel" xml:space="preserve">
+    <value>Nieuwe pagina op het hoogste niveau</value>
+  </data>
+  <data name="LinkCreatedMessage" xml:space="preserve">
+    <value>De link {0} is aangemaakt.</value>
+  </data>
+  <data name="LinkDeletedMessage" xml:space="preserve">
+    <value>De link {0} is verwijderd.</value>
+  </data>
+  <data name="PageCreatedMessage" xml:space="preserve">
+    <value>De pagina {0} is aangemaakt. Je kunt nu een template kiezen en content plaatsen.</value>
+  </data>
+  <data name="PageDeletedMessage" xml:space="preserve">
+    <value>De pagina {0} is verwijderd.</value>
+  </data>
 </root>

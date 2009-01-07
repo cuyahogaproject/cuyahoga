@@ -522,4 +522,34 @@
   <data name="PagePropertiesUpdatedMessage" xml:space="preserve">
     <value>The page properties are updated.</value>
   </data>
+  <data name="CreateButtonLabel" xml:space="preserve">
+    <value>Create</value>
+  </data>
+  <data name="DeleteLinkLabel" xml:space="preserve">
+    <value>Delete the current link</value>
+  </data>
+  <data name="DeletePageLabel" xml:space="preserve">
+    <value>Delete the current page</value>
+  </data>
+  <data name="NewChildLinkLabel" xml:space="preserve">
+    <value>Create a new link below the current page</value>
+  </data>
+  <data name="NewChildPageLabel" xml:space="preserve">
+    <value>Create a new page below the current page</value>
+  </data>
+  <data name="NewRootPageLabel" xml:space="preserve">
+    <value>Create a new top-level page</value>
+  </data>
+  <data name="LinkCreatedMessage" xml:space="preserve">
+    <value>The link {0} was created successfully.</value>
+  </data>
+  <data name="LinkDeletedMessage" xml:space="preserve">
+    <value>The link {0} was deleted successfully.</value>
+  </data>
+  <data name="PageCreatedMessage" xml:space="preserve">
+    <value>The page {0} was created successfully. You can now choose a template and add content.</value>
+  </data>
+  <data name="PageDeletedMessage" xml:space="preserve">
+    <value>The page {0} was deleted successfully.</value>
+  </data>
 </root>

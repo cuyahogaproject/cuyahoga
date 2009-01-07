@@ -131,7 +131,7 @@ namespace Cuyahoga.Core.Service
 
 		public override IList GetRootNodes(Site site)
 		{
-			return this._siteStructureDao.GetRootNodes(site);
+			return (IList) this._siteStructureDao.GetRootNodes(site);
 		}
 
 		public override Node GetRootNodeByCultureAndSite(string culture, Site site)

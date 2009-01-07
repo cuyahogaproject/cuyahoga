@@ -29,17 +29,11 @@
 			<asp:ContentPlaceHolder id="cphMain" runat="server">
 			</asp:ContentPlaceHolder>
 			<script type="text/javascript">
-				/* Common js functionality. Requires jquery 1.2.x */
+				/* Set common js variables. */
 				$(document).ready(function() {
 					// set content dir variable
 					CuyahogaConfig.ContentDir = '<%= Url.Content("~/manager/Content/") %>';
-
-					// Attach a delete event handler to all a tags that have the deletelink class.
-					$('a.deletelink').click(function() {
-						if (confirm('<%= GlobalResources.AreYouSure %>')) {
-							$(this).parents('form').submit();
-						}
-					});
+					CuyahogaConfig.ConfirmText = '<%= GlobalResources.AreYouSure %>';
 				});
 			</script>
 		</div>

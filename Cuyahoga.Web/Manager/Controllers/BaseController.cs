@@ -76,7 +76,7 @@ namespace Cuyahoga.Web.Manager.Controllers
 		/// <returns>True if the object is valid</returns>
 		protected virtual bool ValidateModel(object objectToValidate)
 		{
-			return ValidateModel(objectToValidate, null, null);
+			return ValidateModel(objectToValidate, null, null, null);
 		}
 
 		/// <summary>
@@ -94,10 +94,35 @@ namespace Cuyahoga.Web.Manager.Controllers
 		/// Validates the given object. If invalid, the errors are added to the ModelState.
 		/// </summary>
 		/// <param name="objectToValidate">The object to validate</param>
+		/// <param name="includeProperties">Properties to check</param>
+		/// <param name="modelPrefix">The prefix of the form elements</param>
+		/// <returns>True if the object is valid</returns>
+		protected virtual bool ValidateModel(object objectToValidate, string[] includeProperties, string modelPrefix)
+		{
+			return ValidateModel(objectToValidate, null, includeProperties, modelPrefix);
+		}
+
+		/// <summary>
+		/// Validates the given object. If invalid, the errors are added to the ModelState.
+		/// </summary>
+		/// <param name="objectToValidate">The object to validate</param>
 		/// <param name="modelValidator">A specific model validator</param>
 		/// <param name="includeProperties">Properties to check</param>
 		/// <returns>True if the object is valid</returns>
 		protected virtual bool ValidateModel(object objectToValidate, IModelValidator modelValidator, string[] includeProperties)
+		{
+			return ValidateModel(objectToValidate, modelValidator, includeProperties, null);
+		}
+
+		/// <summary>
+		/// Validates the given object. If invalid, the errors are added to the ModelState.
+		/// </summary>
+		/// <param name="objectToValidate">The object to validate</param>
+		/// <param name="modelValidator">A specific model validator</param>
+		/// <param name="includeProperties">Properties to check</param>
+		/// <param name="modelPrefix"></param>
+		/// <returns>True if the object is valid</returns>
+		protected virtual bool ValidateModel(object objectToValidate, IModelValidator modelValidator, string[] includeProperties, string modelPrefix)
 		{
 			if (modelValidator == null && this._modelValidator == null)
 			{
@@ -112,6 +137,10 @@ namespace Cuyahoga.Web.Manager.Controllers
 				foreach (KeyValuePair<string, ICollection<string>> errorsForProperty in errorsForProperties)
 				{
 					string propertyName = errorsForProperty.Key;
+					if (! String.IsNullOrEmpty(modelPrefix))
+					{
+						propertyName = modelPrefix + "." + propertyName;
+					}
 					foreach (string errorMessage in errorsForProperty.Value)
 					{
 						ViewData.ModelState.AddModelError(propertyName, errorMessage);

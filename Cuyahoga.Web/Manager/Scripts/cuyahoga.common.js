@@ -17,6 +17,7 @@ var CuyahogaConfig = function()
 {
 	// Properties
 	this.ContentDir = '/Content/';
+	this.ConfirmText = 'Are you sure?';
 }
 
 $(document).ready(function() {
@@ -29,11 +30,23 @@ $(document).ready(function() {
 		$('#loading').remove();
 	});
 	
-	// Handle expand and collapse links
-	$('a.expandlink').click(function() {
-		$(this).next().slideToggle(300);
-		$(this).toggleClass('collapselink');
-	});
+	$('#taskarea').click($.delegate({
+		'.expandlink': function(e) { 
+			// Handle expand and collapse links
+			$(e.target).next().slideToggle(300);
+			$(e.target).toggleClass('collapselink');
+		},
+		'.deletelink': function(e) { 
+			// Attach a delete event handler to all a tags that have the deletelink class.
+			submitAfterConfirm(e.target);
+		}
+	}))
+	
+	$('#contentarea').click($.delegate({
+		'.deletelink': function(e) { 
+			submitAfterConfirm(e.target);
+		}
+	}))
 })
 
 function displayMessages() {
@@ -53,4 +66,10 @@ function processJsonMessage(messageData) {
 		}
 	});
 	displayMessages();
+}
+
+function submitAfterConfirm(targetElement) {
+	if (confirm(CuyahogaConfig.ConfirmText)) {
+		$(targetElement).parents('form').submit();
+	}
 }

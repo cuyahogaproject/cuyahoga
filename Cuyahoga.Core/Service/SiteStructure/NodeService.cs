@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using Castle.Services.Transaction;
 
@@ -36,7 +37,7 @@ namespace Cuyahoga.Core.Service.SiteStructure
 			return (Node)this._commonDao.GetObjectById(typeof(Node), nodeId, true);
 		}
 
-		public IList GetRootNodes(Site site)
+		public IList<Node> GetRootNodes(Site site)
 		{
 			return this._siteStructureDao.GetRootNodes(site);
 		}
@@ -54,6 +55,11 @@ namespace Cuyahoga.Core.Service.SiteStructure
 		public IList GetNodesByTemplate(Template template)
 		{
 			return this._siteStructureDao.GetNodesByTemplate(template);
+		}
+
+		public IList GetMenusByRootNode(Node rootNode)
+		{
+			return this._siteStructureDao.GetMenusByRootNode(rootNode);
 		}
 
 		[Transaction(TransactionMode.RequiresNew)]
@@ -79,8 +85,35 @@ namespace Cuyahoga.Core.Service.SiteStructure
 		[Transaction(TransactionMode.RequiresNew)]
 		public void DeleteNode(Node node)
 		{
+			if (node.Sections.Count > 0)
+			{
+				throw new DeleteForbiddenException("NodeDeleteForbiddenSectionsException");
+			}
+			if (node.ChildNodes.Count > 0)
+			{
+				throw new DeleteForbiddenException("NodeDeleteForbiddenChildNodesException");
+			}
+
+			// Clear query cache for nodes
+			this._commonDao.RemoveQueryFromCache("Nodes");
+
+			// Remove node from collections
+			IList<Node> containingCollection;
+			if (node.IsRootNode)
+			{
+				// Explicitly get the rootnodes. When fetching via node.Site.RootNodes, NHibernate tries to update the Site property of the 
+				// node to null before deleting the node -> booom.
+				containingCollection = this._siteStructureDao.GetRootNodes(node.Site);
+			}
+			else
+			{
+				containingCollection = node.ParentNode.ChildNodes;
+			}
+			containingCollection.Remove(node);
+			ReOrderNodePositions(containingCollection);
+
+			// Remove node from menu's
 			IList menus = this._siteStructureDao.GetMenusByParticipatingNode(node);
-	
 			foreach (CustomMenu menu in menus)
 			{
 				// HACK: due to a bug with proxies IList.Remove(object) always removes the first object in
@@ -101,12 +134,8 @@ namespace Cuyahoga.Core.Service.SiteStructure
 				}
 				this._commonDao.SaveOrUpdateObject(menu);
 			}
-			this._commonDao.DeleteObject(node);
-		}
 
-		public IList GetMenusByRootNode(Node rootNode)
-		{
-			return this._siteStructureDao.GetMenusByRootNode(rootNode);
+			this._commonDao.DeleteObject(node);
 		}
 
 		[Transaction(TransactionMode.RequiresNew)]
@@ -144,6 +173,32 @@ namespace Cuyahoga.Core.Service.SiteStructure
 			{
 				this._commonDao.SaveObject(section);
 			}
+			return newNode;
+		}
+
+		[Transaction(TransactionMode.RequiresNew)]
+		public Node CreateRootNode(Site site, Node newNode)
+		{
+			// ShortDescription is equal to language part of culture by default.
+			CultureInfo ci = new CultureInfo(newNode.Culture);
+			newNode.ShortDescription = ci.TwoLetterISOLanguageName;
+			newNode.Site = site;
+			newNode.Position = site.RootNodes.Count;
+			site.RootNodes.Add(newNode);
+			this._commonDao.SaveObject(newNode);
+			return newNode;
+		}
+
+		[Transaction(TransactionMode.RequiresNew)]
+		public Node CreateNode(Node parentNode, Node newNode)
+		{
+			newNode.ParentNode = parentNode;
+			newNode.Site = parentNode.Site;
+			newNode.CreateShortDescription();
+			newNode.Culture = parentNode.Culture;
+			newNode.Position = parentNode.ChildNodes.Count;
+			parentNode.ChildNodes.Add(newNode);
+			this._commonDao.SaveObject(newNode);
 			return newNode;
 		}
 
@@ -188,6 +243,16 @@ namespace Cuyahoga.Core.Service.SiteStructure
 				}
 			}
 			this._commonDao.SaveOrUpdateObject(node);
+		}
+
+		private void ReOrderNodePositions(IList<Node> nodes)
+		{
+			// Iterate the given collection of nodes and make sure there are no gaps between the positions. 
+			for (int i = 0; i < nodes.Count; i++)
+			{
+				Node node = nodes[i];
+				node.Position = i;
+			}
 		}
 	}
 }

@@ -392,6 +392,13 @@
     <Compile Include="Manager\Views\Login\Index.aspx.designer.cs">
       <DependentUpon>Index.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Manager\Views\Pages\Design.aspx.cs">
+      <DependentUpon>Design.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Manager\Views\Pages\Design.aspx.designer.cs">
+      <DependentUpon>Design.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Manager\Views\Pages\Index.aspx.cs">
       <DependentUpon>Index.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -426,6 +433,13 @@
     </Compile>
     <Compile Include="Manager\Views\Pages\SelectedPage.ascx.designer.cs">
       <DependentUpon>SelectedPage.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Manager\Views\Pages\Tasks.ascx.cs">
+      <DependentUpon>Tasks.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Manager\Views\Pages\Tasks.ascx.designer.cs">
+      <DependentUpon>Tasks.ascx</DependentUpon>
     </Compile>
     <Compile Include="Manager\Views\Server\Index.aspx.cs">
       <DependentUpon>Index.aspx</DependentUpon>
@@ -854,6 +868,7 @@
     <Content Include="Manager\Content\Images\collapse.png" />
     <Content Include="Manager\Content\Images\cross.gif" />
     <Content Include="Manager\Content\Images\cuyahoga-logo.png" />
+    <Content Include="Manager\Content\Images\delete.png" />
     <Content Include="Manager\Content\Images\error.png" />
     <Content Include="Manager\Content\Images\exclamation.png" />
     <Content Include="Manager\Content\Images\expand.png" />
@@ -1014,11 +1029,13 @@
     <Content Include="Manager\Views\Dashboard\Index.aspx" />
     <Content Include="Manager\Views\Files\Index.aspx" />
     <Content Include="Manager\Views\Login\Index.aspx" />
+    <Content Include="Manager\Views\Pages\Design.aspx" />
     <Content Include="Manager\Views\Pages\Index.aspx" />
     <Content Include="Manager\Views\Pages\PageListItem.ascx" />
     <Content Include="Manager\Views\Pages\PageListItems.ascx" />
     <Content Include="Manager\Views\Pages\SelectedLink.ascx" />
     <Content Include="Manager\Views\Pages\SelectedPage.ascx" />
+    <Content Include="Manager\Views\Pages\Tasks.ascx" />
     <Content Include="Manager\Views\Server\Index.aspx" />
     <Content Include="Manager\Views\Shared\Error.aspx" />
     <Content Include="Manager\Views\Shared\Header.ascx" />

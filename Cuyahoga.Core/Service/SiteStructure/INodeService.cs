@@ -1,6 +1,6 @@
 using System;
 using System.Collections;
-
+using System.Collections.Generic;
 using Cuyahoga.Core.Domain;
 
 namespace Cuyahoga.Core.Service.SiteStructure
@@ -22,7 +22,7 @@ namespace Cuyahoga.Core.Service.SiteStructure
 		/// </summary>
 		/// <param name="site"></param>
 		/// <returns></returns>
-		IList GetRootNodes(Site site);
+		IList<Node> GetRootNodes(Site site);
 
 		/// <summary>
 		/// Get a single root node by culture and site.
@@ -95,5 +95,21 @@ namespace Cuyahoga.Core.Service.SiteStructure
 		/// <param name="newParentNodeId"></param>
 		/// <returns>The newly created node.</returns>
 		Node CopyNode(int nodeIdToCopy, int newParentNodeId);
+
+		/// <summary>
+		/// Create a new root node for the given site and culture.
+		/// </summary>
+		/// <param name="site"></param>
+		/// <param name="newNode"></param>
+		/// <returns></returns>
+		Node CreateRootNode(Site site, Node newNode);
+
+		/// <summary>
+		/// Create a new node under the given parent node.
+		/// </summary>
+		/// <param name="parentNode"></param>
+		/// <param name="newNode"></param>
+		/// <returns></returns>
+		Node CreateNode(Node parentNode, Node newNode);
 	}
 }

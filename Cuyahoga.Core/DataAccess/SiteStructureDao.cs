@@ -1,6 +1,6 @@
 using System;
 using System.Collections;
-
+using System.Collections.Generic;
 using Castle.Facilities.NHibernateIntegration;
 using Castle.Services.Transaction;
 using NHibernate;
@@ -66,7 +66,7 @@ namespace Cuyahoga.Core.DataAccess
 			return query.List();
 		}
 
-		public IList GetRootNodes(Site site)
+		public IList<Node> GetRootNodes(Site site)
 		{
 			ISession session = this._sessionManager.OpenSession();
 
@@ -75,7 +75,7 @@ namespace Cuyahoga.Core.DataAccess
 			q.SetInt32("siteId", site.Id);
 			q.SetCacheable(true);
 			q.SetCacheRegion("Nodes");
-			return q.List();
+			return q.List<Node>();
 		}
 
 		public Node GetRootNodeByCultureAndSite(string culture, Site site)

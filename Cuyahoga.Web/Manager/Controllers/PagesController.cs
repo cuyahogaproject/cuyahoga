@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Collections;
 using System.Web.Mvc;
+using Cuyahoga.Core;
 using Cuyahoga.Core.Domain;
 using Cuyahoga.Core.Service.Membership;
 using Cuyahoga.Core.Service.SiteStructure;
@@ -33,15 +35,22 @@ namespace Cuyahoga.Web.Manager.Controllers
 				Node activeNode = this._nodeService.GetNodeById(id.Value);
 				if (activeNode.IsExternalLink)
 				{
-					ViewData["LinkTargets"] = new SelectList(EnumHelper.GetValuesWithDescription<LinkTarget>(), "Key", "Value", activeNode.LinkTarget);
+					ViewData["LinkTargets"] = new SelectList(EnumHelper.GetValuesWithDescription<LinkTarget>(), "Key", "Value", (int)activeNode.LinkTarget);
 				}
 				else
 				{
 					ViewData["Cultures"] = new SelectList(Globalization.GetOrderedCultures(), "Key", "Value", activeNode.Culture);
 				}
 				ViewData["ActiveNode"] = activeNode;
+				ViewData["NewLinkTargets"] = new SelectList(EnumHelper.GetValuesWithDescription<LinkTarget>(), "Key", "Value");
 			}
+			ViewData["AvailableCultures"] = GetAvailableCultures();
 			return View("Index", CuyahogaContext.CurrentSite.RootNodes);
+		}
+
+		public ActionResult Design(int id)
+		{
+			return View();
 		}
 
 		[AcceptVerbs(HttpVerbs.Post)]
@@ -102,6 +111,91 @@ namespace Cuyahoga.Web.Manager.Controllers
 			return RedirectToAction("Index", new { id = newNode.Id });
 		}
 
+		[AcceptVerbs(HttpVerbs.Post)]
+		public ActionResult CreateRootPage([Bind(Include = "Title, Culture")]Node newRootPage)
+		{
+			if (ValidateModel(newRootPage, new[] { "Title", "Culture" }, "NewRootPage" ))
+			{
+				try
+				{
+					newRootPage = this._nodeService.CreateRootNode(CuyahogaContext.CurrentSite, newRootPage);
+					ShowMessage(String.Format(GlobalResources.PageCreatedMessage, newRootPage.Title), true);
+					return RedirectToAction("Design", new { id = newRootPage.Id });
+				}
+				catch (Exception ex)
+				{
+					ShowException(ex);
+				}
+			}
+			ViewData["CurrentTask"] = "CreateRootPage";
+			return Index(null);
+		}
+
+		[AcceptVerbs(HttpVerbs.Post)]
+		public ActionResult CreatePage(int parentNodeId, [Bind(Include = "Title")]Node newPage)
+		{
+			if (ValidateModel(newPage, new[] { "Title" }, "NewPage" ))
+			{
+				try
+				{
+					Node parentNode = this._nodeService.GetNodeById(parentNodeId);
+					newPage = this._nodeService.CreateNode(parentNode, newPage);
+					ShowMessage(String.Format(GlobalResources.PageCreatedMessage, newPage.Title), true);
+					return RedirectToAction("Design", new { id = newPage.Id });
+				}
+				catch (Exception ex)
+				{
+					ShowException(ex);
+				}
+			}
+			ViewData["CurrentTask"] = "CreatePage";
+			return Index(parentNodeId);
+		}
+
+		public ActionResult CreateLink(int parentNodeId, [Bind(Include = "Title, LinkUrl, LinkTarget")]Node newLink)
+		{
+			if (ValidateModel(newLink, new[] { "Title", "LinkUrl" }, "NewLink" ))
+			{
+				try
+				{
+					Node parentNode = this._nodeService.GetNodeById(parentNodeId);
+					newLink = this._nodeService.CreateNode(parentNode, newLink);
+					ShowMessage(String.Format(GlobalResources.LinkCreatedMessage, newLink.Title), true);
+					return RedirectToAction("Index", new { id = newLink.Id });
+				}
+				catch (Exception ex)
+				{
+					ShowException(ex);
+				}
+			}
+			ViewData["CurrentTask"] = "CreateLink";
+			return Index(parentNodeId);
+		}
+
+		[AcceptVerbs(HttpVerbs.Post)]
+		public ActionResult Delete(int id)
+		{
+			Node nodeToDelete = this._nodeService.GetNodeById(id);
+			Node parentNode = nodeToDelete.ParentNode;
+			try
+			{
+				string message = String.Format((nodeToDelete.IsExternalLink ? GlobalResources.LinkDeletedMessage : GlobalResources.PageDeletedMessage)
+					, nodeToDelete.Title);
+				this._nodeService.DeleteNode(nodeToDelete);
+				ShowMessage(message, true);
+				if (parentNode != null)
+				{
+					return RedirectToAction("Index", new { id = parentNode.Id });
+				}
+				return RedirectToAction("Index");
+			}
+			catch (Exception ex)
+			{
+				ShowException(ex, true);
+			}
+			return RedirectToAction("Index", new { id = nodeToDelete.Id });
+		}
+
 		#region AJAX actions
 
 		public ActionResult GetPageListItem(int nodeId)
@@ -121,7 +215,7 @@ namespace Cuyahoga.Web.Manager.Controllers
 			Node node = this._nodeService.GetNodeById(nodeId);
 			if (node.IsExternalLink)
 			{
-				ViewData["LinkTargets"] = new SelectList(EnumHelper.GetValuesWithDescription<LinkTarget>(), "Key", "Value", node.LinkTarget);
+				ViewData["LinkTargets"] = new SelectList(EnumHelper.GetValuesWithDescription<LinkTarget>(), "Key", "Value", (int)node.LinkTarget);
 				return PartialView("SelectedLink", node);
 			}
 			else
@@ -129,6 +223,14 @@ namespace Cuyahoga.Web.Manager.Controllers
 				ViewData["Cultures"] = new SelectList(Globalization.GetOrderedCultures(), "Key", "Value", node.Culture);
 				return PartialView("SelectedPage", node);
 			}
+		}
+
+		public ActionResult RefreshTasks(int nodeId)
+		{
+			Node node = this._nodeService.GetNodeById(nodeId);
+			ViewData["AvailableCultures"] = GetAvailableCultures();
+			ViewData["NewLinkTargets"] = new SelectList(EnumHelper.GetValuesWithDescription<LinkTarget>(), "Key", "Value");
+			return PartialView("Tasks", node);
 		}
 
 		[AcceptVerbs(HttpVerbs.Post)]
@@ -150,5 +252,16 @@ namespace Cuyahoga.Web.Manager.Controllers
 		}
 
 		#endregion
+
+		private SelectList GetAvailableCultures()
+		{
+			// Get all cultures, but remove the cultures that are already connected to a root node.
+			SortedList availableCultures = Globalization.GetOrderedCultures();
+			foreach (Node rootNode in CuyahogaContext.CurrentSite.RootNodes)
+			{
+				availableCultures.Remove(rootNode.Culture);
+			}
+			return new SelectList(availableCultures, "Key", "Value");
+		}
 	}
 }

@@ -23,6 +23,9 @@
 		}
 	} %>
 	</div>
+	<div id="tasks">
+	<% Html.RenderPartial("Tasks", ViewData["ActiveNode"] ?? new Node(), ViewData); %>
+	</div>
 </asp:Content>
 <asp:Content ID="Content3" ContentPlaceHolderID="cphMain" runat="server">
 	<% using (Html.BeginForm("MovePage", "Pages", FormMethod.Post, new { id = "pagesform" })) { %>
@@ -146,6 +149,7 @@
 			selectedPageItem = $(pageCell).parents('.pagerow').parent();
 			var nodeId = selectedPageItem.attr('id').substring(5);
 			$('#selectedpage').load('<%= Url.Action("SelectPage", "Pages") %>', { 'nodeid' : nodeId });
+			$('#tasks').load('<%= Url.Action("RefreshTasks", "Pages") %>', { 'nodeid' : nodeId });
 			selectedPageItem.find('.pagerow:first').addClass('selected');
 		}
 		

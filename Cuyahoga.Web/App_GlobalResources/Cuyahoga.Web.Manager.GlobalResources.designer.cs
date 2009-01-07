@@ -142,6 +142,15 @@ namespace Resources.Cuyahoga.Web.Manager {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Create.
+        /// </summary>
+        internal static string CreateButtonLabel {
+            get {
+                return ResourceManager.GetString("CreateButtonLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Create new role.
         /// </summary>
         internal static string CreateRoleLabel {
@@ -273,6 +282,24 @@ namespace Resources.Cuyahoga.Web.Manager {
         internal static string DeleteButtonLabel {
             get {
                 return ResourceManager.GetString("DeleteButtonLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Delete the current link.
+        /// </summary>
+        internal static string DeleteLinkLabel {
+            get {
+                return ResourceManager.GetString("DeleteLinkLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Delete the current page.
+        /// </summary>
+        internal static string DeletePageLabel {
+            get {
+                return ResourceManager.GetString("DeletePageLabel", resourceCulture);
             }
         }
         
@@ -498,6 +525,24 @@ namespace Resources.Cuyahoga.Web.Manager {
         internal static string LastNameLabel {
             get {
                 return ResourceManager.GetString("LastNameLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The link {0} was created successfully..
+        /// </summary>
+        internal static string LinkCreatedMessage {
+            get {
+                return ResourceManager.GetString("LinkCreatedMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The link {0} was deleted successfully..
+        /// </summary>
+        internal static string LinkDeletedMessage {
+            get {
+                return ResourceManager.GetString("LinkDeletedMessage", resourceCulture);
             }
         }
         
@@ -754,11 +799,38 @@ namespace Resources.Cuyahoga.Web.Manager {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Create a new link below the current page.
+        /// </summary>
+        internal static string NewChildLinkLabel {
+            get {
+                return ResourceManager.GetString("NewChildLinkLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Create a new page below the current page.
+        /// </summary>
+        internal static string NewChildPageLabel {
+            get {
+                return ResourceManager.GetString("NewChildPageLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Create a new role.
         /// </summary>
         internal static string NewRolePageTitle {
             get {
                 return ResourceManager.GetString("NewRolePageTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Create a new top-level page.
+        /// </summary>
+        internal static string NewRootPageLabel {
+            get {
+                return ResourceManager.GetString("NewRootPageLabel", resourceCulture);
             }
         }
         
@@ -867,6 +939,24 @@ namespace Resources.Cuyahoga.Web.Manager {
         internal static string PageCopiedMessage {
             get {
                 return ResourceManager.GetString("PageCopiedMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The page {0} was created successfully. You can now choose a template and add content..
+        /// </summary>
+        internal static string PageCreatedMessage {
+            get {
+                return ResourceManager.GetString("PageCreatedMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The page {0} was deleted successfully..
+        /// </summary>
+        internal static string PageDeletedMessage {
+            get {
+                return ResourceManager.GetString("PageDeletedMessage", resourceCulture);
             }
         }
         

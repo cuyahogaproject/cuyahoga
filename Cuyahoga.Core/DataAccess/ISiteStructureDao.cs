@@ -1,6 +1,6 @@
 using System;
 using System.Collections;
-
+using System.Collections.Generic;
 using Cuyahoga.Core.Domain;
 
 namespace Cuyahoga.Core.DataAccess
@@ -36,7 +36,7 @@ namespace Cuyahoga.Core.DataAccess
 		/// </summary>
 		/// <param name="site"></param>
 		/// <returns></returns>
-		IList GetRootNodes(Site site);
+		IList<Node> GetRootNodes(Site site);
 
 		/// <summary>
 		/// Get the root node for the given culture and site.

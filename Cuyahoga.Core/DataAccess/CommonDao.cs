@@ -178,6 +178,12 @@ namespace Cuyahoga.Core.DataAccess
 			session.SessionFactory.EvictCollection(roleName, id);
 		}
 
+		public void RemoveQueryFromCache(string cacheRegion)
+		{
+			ISession session = this._sessionManager.OpenSession();
+			session.SessionFactory.EvictQueries(cacheRegion);
+		}
+
 		#endregion
 	}
 }

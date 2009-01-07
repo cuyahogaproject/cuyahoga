@@ -122,5 +122,11 @@ namespace Cuyahoga.Core.DataAccess
 		/// <param name="roleName">The fully qualified name of the collection (e.g. Cuyahoga.Core.Domain.Node.ChildNodes).</param>
 		/// <param name="id">The id of the object that has the collection.</param>
 		void RemoveCollectionFromCache(string roleName, int id);
+
+		/// <summary>
+		/// Remove a query from the second level query cache.
+		/// </summary>
+		/// <param name="cacheRegion">The name of the cached query to remove</param>
+		void RemoveQueryFromCache(string cacheRegion);
 	}
 }
