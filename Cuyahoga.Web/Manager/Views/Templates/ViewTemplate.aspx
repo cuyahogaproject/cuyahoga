@@ -7,7 +7,9 @@
 <asp:Content ID="Content2" ContentPlaceHolderID="cphTasks" runat="server">
 </asp:Content>
 <asp:Content ID="Content3" ContentPlaceHolderID="cphMain" runat="server">
-	<div id="<%= ViewData.Model.CssIdPrefix %>" class="templatecontainer">
-		<%= ViewData.Model.TemplateHtml %>
+	<div class="templatecontainer">
+		<div id="<%= ViewData.Model.CssIdPrefix %>">
+			<%= ViewData.Model.TemplateHtml %>
+		</div>
 	</div>
 </asp:Content>

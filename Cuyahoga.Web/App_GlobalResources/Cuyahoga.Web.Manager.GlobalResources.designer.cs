@@ -70,6 +70,15 @@ namespace Resources.Cuyahoga.Web.Manager {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Add section to page.
+        /// </summary>
+        internal static string AddSectionDialogTitle {
+            get {
+                return ResourceManager.GetString("AddSectionDialogTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Are you sure?.
         /// </summary>
         internal static string AreYouSure {
@@ -115,6 +124,15 @@ namespace Resources.Cuyahoga.Web.Manager {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Choose a template.
+        /// </summary>
+        internal static string ChooseTemplateOption {
+            get {
+                return ResourceManager.GetString("ChooseTemplateOption", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Confirm password.
         /// </summary>
         internal static string ConfirmPasswordLabel {
@@ -156,6 +174,15 @@ namespace Resources.Cuyahoga.Web.Manager {
         internal static string CreateRoleLabel {
             get {
                 return ResourceManager.GetString("CreateRoleLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Create section.
+        /// </summary>
+        internal static string CreateSectionLabel {
+            get {
+                return ResourceManager.GetString("CreateSectionLabel", resourceCulture);
             }
         }
         
@@ -309,6 +336,15 @@ namespace Resources.Cuyahoga.Web.Manager {
         internal static string DeleteYourselfNotAllowedException {
             get {
                 return ResourceManager.GetString("DeleteYourselfNotAllowedException", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Design page &apos;{0}&apos;.
+        /// </summary>
+        internal static string DesignPagePageTitle {
+            get {
+                return ResourceManager.GetString("DesignPagePageTitle", resourceCulture);
             }
         }
         
@@ -1114,6 +1150,15 @@ namespace Resources.Cuyahoga.Web.Manager {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to The section {0} is created successfully..
+        /// </summary>
+        internal static string SectionCreatedMessage {
+            get {
+                return ResourceManager.GetString("SectionCreatedMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Select.
         /// </summary>
         internal static string SelectLabel {
@@ -1200,6 +1245,15 @@ namespace Resources.Cuyahoga.Web.Manager {
         internal static string TemplateLabel {
             get {
                 return ResourceManager.GetString("TemplateLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The template was successfully connected to the page..
+        /// </summary>
+        internal static string TemplateSetMessage {
+            get {
+                return ResourceManager.GetString("TemplateSetMessage", resourceCulture);
             }
         }
         

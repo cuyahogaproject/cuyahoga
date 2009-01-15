@@ -149,7 +149,7 @@ namespace Cuyahoga.Core.Service.Membership
 
 		public IList<Role> GetAllGlobalRoles()
 		{
-			DetachedCriteria crit = DetachedCriteria.For(typeof(Role))
+			DetachedCriteria crit = DetachedCriteria.For<Role>()
 				.Add(Expression.Eq("IsGlobal", true))
 				.AddOrder(Order.Asc("Name"));
 			return this._commonDao.GetAllByCriteria<Role>(crit);

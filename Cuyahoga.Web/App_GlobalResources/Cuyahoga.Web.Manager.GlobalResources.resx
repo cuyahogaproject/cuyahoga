@@ -552,4 +552,22 @@
   <data name="PageDeletedMessage" xml:space="preserve">
     <value>The page {0} was deleted successfully.</value>
   </data>
+  <data name="ChooseTemplateOption" xml:space="preserve">
+    <value>Choose a template</value>
+  </data>
+  <data name="DesignPagePageTitle" xml:space="preserve">
+    <value>Design page '{0}'</value>
+  </data>
+  <data name="AddSectionDialogTitle" xml:space="preserve">
+    <value>Add section to page</value>
+  </data>
+  <data name="TemplateSetMessage" xml:space="preserve">
+    <value>The template was successfully connected to the page.</value>
+  </data>
+  <data name="CreateSectionLabel" xml:space="preserve">
+    <value>Create section</value>
+  </data>
+  <data name="SectionCreatedMessage" xml:space="preserve">
+    <value>The section {0} is created successfully.</value>
+  </data>
 </root>

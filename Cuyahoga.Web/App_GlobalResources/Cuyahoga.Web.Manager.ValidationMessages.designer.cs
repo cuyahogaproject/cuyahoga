@@ -142,6 +142,69 @@ namespace Resources.Cuyahoga.Web.Manager {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to The culture is required.
+        /// </summary>
+        internal static string NodeCultureValidatorNonEmpty {
+            get {
+                return ResourceManager.GetString("NodeCultureValidatorNonEmpty", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The link url must be between 1 and 255 characters.
+        /// </summary>
+        internal static string NodeLinkUrlValidatorLength {
+            get {
+                return ResourceManager.GetString("NodeLinkUrlValidatorLength", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The link url is not a valid hyperlink.
+        /// </summary>
+        internal static string NodeLinkUrlValidatorPattern {
+            get {
+                return ResourceManager.GetString("NodeLinkUrlValidatorPattern", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The friendly url must be between 1 and 255 characters.
+        /// </summary>
+        internal static string NodeShortDescriptionValidatorLength {
+            get {
+                return ResourceManager.GetString("NodeShortDescriptionValidatorLength", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The friendly url is required.
+        /// </summary>
+        internal static string NodeShortDescriptionValidatorNonEmpty {
+            get {
+                return ResourceManager.GetString("NodeShortDescriptionValidatorNonEmpty", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The page title must be between 1 and 255 characters.
+        /// </summary>
+        internal static string NodeTitleValidatorLength {
+            get {
+                return ResourceManager.GetString("NodeTitleValidatorLength", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The page title may not be empty.
+        /// </summary>
+        internal static string NodeTitleValidatorNonEmpty {
+            get {
+                return ResourceManager.GetString("NodeTitleValidatorNonEmpty", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to The password confirmation may not be empty.
         /// </summary>
         internal static string PasswordConfirmationValidatorNonEmpty {
@@ -219,6 +282,24 @@ namespace Resources.Cuyahoga.Web.Manager {
         internal static string RolesValidatorNotEmpty {
             get {
                 return ResourceManager.GetString("RolesValidatorNotEmpty", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The title must be between 1 and 100 characters.
+        /// </summary>
+        internal static string SectionTitleValidatorLength {
+            get {
+                return ResourceManager.GetString("SectionTitleValidatorLength", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The title may not be empty.
+        /// </summary>
+        internal static string SectionTitleValidatorNonEmpty {
+            get {
+                return ResourceManager.GetString("SectionTitleValidatorNonEmpty", resourceCulture);
             }
         }
         

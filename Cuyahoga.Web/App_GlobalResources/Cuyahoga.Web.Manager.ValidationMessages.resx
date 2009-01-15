@@ -144,6 +144,27 @@
   <data name="MetaKeywordsValidatorLength" xml:space="preserve">
     <value>Meta keywords can contain max. 500 characters</value>
   </data>
+  <data name="NodeCultureValidatorNonEmpty" xml:space="preserve">
+    <value>The culture is required</value>
+  </data>
+  <data name="NodeLinkUrlValidatorLength" xml:space="preserve">
+    <value>The link url must be between 1 and 255 characters</value>
+  </data>
+  <data name="NodeLinkUrlValidatorPattern" xml:space="preserve">
+    <value>The link url is not a valid hyperlink</value>
+  </data>
+  <data name="NodeShortDescriptionValidatorLength" xml:space="preserve">
+    <value>The friendly url must be between 1 and 255 characters</value>
+  </data>
+  <data name="NodeShortDescriptionValidatorNonEmpty" xml:space="preserve">
+    <value>The friendly url is required</value>
+  </data>
+  <data name="NodeTitleValidatorLength" xml:space="preserve">
+    <value>The page title must be between 1 and 255 characters</value>
+  </data>
+  <data name="NodeTitleValidatorNonEmpty" xml:space="preserve">
+    <value>The page title may not be empty</value>
+  </data>
   <data name="PasswordConfirmationValidatorNonEmpty" xml:space="preserve">
     <value>The password confirmation may not be empty</value>
   </data>
@@ -170,6 +191,12 @@
   </data>
   <data name="RolesValidatorNotEmpty" xml:space="preserve">
     <value>A user must at least have one role</value>
+  </data>
+  <data name="SectionTitleValidatorLength" xml:space="preserve">
+    <value>The title must be between 1 and 100 characters</value>
+  </data>
+  <data name="SectionTitleValidatorNonEmpty" xml:space="preserve">
+    <value>The title may not be empty</value>
   </data>
   <data name="SiteNameValidatorLength" xml:space="preserve">
     <value>The site name must be between 1 and 100 characters</value>

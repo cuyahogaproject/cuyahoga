@@ -48,7 +48,7 @@ namespace Cuyahoga.Core.Service.SiteStructure
 		IList GetNodesByTemplate(Template template);
 
 		/// <summary>
-		/// Save a new node.
+		/// Save a node to the database.
 		/// </summary>
 		/// <param name="node"></param>
 		void SaveNode(Node node);

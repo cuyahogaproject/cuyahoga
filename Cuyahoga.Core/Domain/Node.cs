@@ -132,7 +132,7 @@ namespace Cuyahoga.Core.Domain
 		/// <summary>
 		/// List of keywords for the page.
 		/// </summary>
-		[ValidateLength(1, 500, "NodeMetaKeywordsValidatorLength")]
+		[ValidateLength(1, 500, "MetaKeywordsValidatorLength")]
 		public virtual string MetaKeywords
 		{
 			get { return this._metaKeywords; }
@@ -142,7 +142,7 @@ namespace Cuyahoga.Core.Domain
 		/// <summary>
 		/// Description of the page.
 		/// </summary>
-		[ValidateLength(1, 500, "NodeMetaDescriptionValidatorLength")]
+		[ValidateLength(1, 500, "MetaDescriptionValidatorLength")]
 		public virtual string MetaDescription
 		{
 			get { return this._metaDescription; }
@@ -596,6 +596,21 @@ namespace Cuyahoga.Core.Domain
 			}
 
 			return newNode;
+		}
+
+		/// <summary>
+		/// Add a new section to the Node.
+		/// </summary>
+		/// <param name="section"></param>
+		public virtual void AddSection(Section section)
+		{
+			// First, try to determine the position of the section.
+			if (section.PlaceholderId != null)
+			{
+				section.CalculateNewPosition();
+			}
+			// Add to collection.
+			this.Sections.Add(section);
 		}
 
 		/// <summary>

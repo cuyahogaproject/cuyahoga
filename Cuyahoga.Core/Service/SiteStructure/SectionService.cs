@@ -1,10 +1,11 @@
 using System;
 using System.Collections;
-
+using System.Collections.Generic;
 using Castle.Services.Transaction;
 
 using Cuyahoga.Core.Domain;
 using Cuyahoga.Core.DataAccess;
+using NHibernate.Criterion;
 
 namespace Cuyahoga.Core.Service.SiteStructure
 {
@@ -53,6 +54,19 @@ namespace Cuyahoga.Core.Service.SiteStructure
 		public IList GetSectionsByModuleTypes(IList moduleTypes)
 		{
 			return this._siteStructureDao.GetSectionsByModuleTypes(moduleTypes);
+		}
+
+		public IList<ModuleType> GetSortedActiveModuleTypes()
+		{
+			DetachedCriteria crit = DetachedCriteria.For<ModuleType>()
+				.Add(Expression.Eq("AutoActivate", true))
+				.AddOrder(Order.Asc("Name"));
+			return this._commonDao.GetAllByCriteria<ModuleType>(crit);
+		}
+
+		public ModuleType GetModuleTypeById(int id)
+		{
+			return (ModuleType) this._commonDao.GetObjectById(typeof(ModuleType), id);
 		}
 
 		[Transaction(TransactionMode.RequiresNew)]

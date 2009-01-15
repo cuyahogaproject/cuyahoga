@@ -144,6 +144,27 @@
   <data name="MetaKeywordsValidatorLength" xml:space="preserve">
     <value>Meta keywords kan max. 100 tekens bevatten</value>
   </data>
+  <data name="NodeCultureValidatorNonEmpty" xml:space="preserve">
+    <value>De culture is verplicht</value>
+  </data>
+  <data name="NodeLinkUrlValidatorLength" xml:space="preserve">
+    <value>De link url moet tussen de 1 en 255 tekens bevatten</value>
+  </data>
+  <data name="NodeLinkUrlValidatorPattern" xml:space="preserve">
+    <value>De link url is geen geldige hyperlink</value>
+  </data>
+  <data name="NodeShortDescriptionValidatorLength" xml:space="preserve">
+    <value>De SEO-vriendelijke url moet tussen de 1 en 255 tekens bevatten</value>
+  </data>
+  <data name="NodeShortDescriptionValidatorNonEmpty" xml:space="preserve">
+    <value>De SEO-vriendelijke url is verplicht</value>
+  </data>
+  <data name="NodeTitleValidatorLength" xml:space="preserve">
+    <value>De paginatitel moet tussen de 1 en 255 tekens bevatten</value>
+  </data>
+  <data name="NodeTitleValidatorNonEmpty" xml:space="preserve">
+    <value>De paginatitel is verplicht</value>
+  </data>
   <data name="PasswordConfirmationValidatorNonEmpty" xml:space="preserve">
     <value>Bevestiging wachtwoord is verplicht</value>
   </data>
@@ -170,6 +191,12 @@
   </data>
   <data name="RolesValidatorNotEmpty" xml:space="preserve">
     <value>Een gebruiker moet tenminste 1 rol hebben</value>
+  </data>
+  <data name="SectionTitleValidatorLength" xml:space="preserve">
+    <value>De titel moet tussen de 1 en 100 tekens bevatten</value>
+  </data>
+  <data name="SectionTitleValidatorNonEmpty" xml:space="preserve">
+    <value>De titel is verplicht</value>
   </data>
   <data name="SiteNameValidatorLength" xml:space="preserve">
     <value>Site naam moet tussen de 1 en 100 tekens bevatten</value>

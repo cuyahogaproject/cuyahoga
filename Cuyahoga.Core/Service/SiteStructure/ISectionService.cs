@@ -1,6 +1,6 @@
 using System;
 using System.Collections;
-
+using System.Collections.Generic;
 using Cuyahoga.Core.Domain;
 
 namespace Cuyahoga.Core.Service.SiteStructure
@@ -61,5 +61,18 @@ namespace Cuyahoga.Core.Service.SiteStructure
 		/// </summary>
 		/// <param name="section"></param>
 		void DeleteSection(Section section);
+
+		/// <summary>
+		/// Get all available module types sorted by name.
+		/// </summary>
+		/// <returns></returns>
+		IList<ModuleType> GetSortedActiveModuleTypes();
+
+		/// <summary>
+		/// Get a ModuleType instance by id.
+		/// </summary>
+		/// <param name="id"></param>
+		/// <returns></returns>
+		ModuleType GetModuleTypeById(int id);
 	}
 }

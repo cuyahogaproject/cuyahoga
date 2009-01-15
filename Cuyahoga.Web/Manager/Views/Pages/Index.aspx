@@ -44,7 +44,7 @@
 		</div>
 	</div>
 	<div id="movedialog" title="<%= GlobalResources.MoveOrCopyPageDialogTitle %>">
-		<p class="dialog-text"><%= GlobalResources.MoveOrCopyPageDialogText %></p>
+		<p class="dialog-content"><%= GlobalResources.MoveOrCopyPageDialogText %></p>
 	</div>
 	<% } %>
 	<script type="text/javascript"> 
@@ -69,6 +69,14 @@
 				},
 				'span': function(e) {
 					selectPage(e.target);
+				}
+			}))
+			
+			$('#pagegrid').dblclick($.delegate({
+				'.pagerow div': function (e) {
+					selectedPageItem = $(e.target).parents('.pagerow').parent();
+					var nodeId = selectedPageItem.attr('id').substring(5);
+					document.location.href = '<%= Url.Action("Design", "Pages") %>/' + nodeId;
 				}
 			}))
 			

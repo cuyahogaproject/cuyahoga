@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Security.Principal;
 using System.Collections;
+using Castle.Components.Validator;
 
 namespace Cuyahoga.Core.Domain
 {
@@ -46,6 +47,8 @@ namespace Cuyahoga.Core.Domain
 		/// <summary>
 		/// Property Title (string)
 		/// </summary>
+		[ValidateNonEmpty("SectionTitleValidatorNonEmpty")]
+		[ValidateLength(1, 100, "SectionTitleValidatorLength")]
 		public virtual string Title
 		{
 			get { return this._title; }
@@ -91,6 +94,7 @@ namespace Cuyahoga.Core.Domain
 		/// <summary>
 		/// Property Module
 		/// </summary>
+		[ValidateNonEmpty]
 		public virtual ModuleType ModuleType
 		{
 			get { return this._moduleType; }
@@ -211,40 +215,6 @@ namespace Cuyahoga.Core.Domain
 		#endregion
 
 		#region public methods
-
-		/// <summary>
-		/// Factory for the concrete module connected to this Section.
-		/// </summary>
-		/// <param name="sectionUrl">The url that indentifies the section. We need this because the section
-		/// can't determine the url itself because it doesn't have a http context.</param>
-		/// <returns></returns>
-		//[Obsolete("Deprecated, use the ModuleService to obtain module instances")]
-		//public virtual ModuleBase CreateModule(string sectionUrl)
-		//{
-		//    if (this._moduleType != null)
-		//    {
-		//        string assemblyQualifiedName = this._moduleType.ClassName + ", " + this._moduleType.AssemblyName;
-		//        Type moduleType = Type.GetType(assemblyQualifiedName);
-		//        if (moduleType == null)
-		//        {
-		//            throw new Exception("Could not find module: " + assemblyQualifiedName);
-		//        }
-		//        else
-		//        {
-		//            ModuleBase concreteModule = (ModuleBase)Activator.CreateInstance(moduleType, null);
-		//            if (concreteModule.SessionFactoryRebuilt)
-		//            {
-		//                OnSessionFactoryRebuilt(EventArgs.Empty);
-		//            }
-		//            concreteModule.SectionUrl = sectionUrl;
-		//            return concreteModule;
-		//        }
-		//    }
-		//    else
-		//    {
-		//        return null;
-		//    }
-		//}
 
 		/// <summary>
 		/// Calculate the position of the new Section. If there are more sections with the same PlaceholderId

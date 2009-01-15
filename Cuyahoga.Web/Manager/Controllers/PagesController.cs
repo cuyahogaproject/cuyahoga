@@ -1,8 +1,12 @@
 ﻿using System;
 using System.Collections;
+using System.Collections.Generic;
+using System.IO;
+using System.Web;
 using System.Web.Mvc;
 using Cuyahoga.Core;
 using Cuyahoga.Core.Domain;
+using Cuyahoga.Core.Service.Files;
 using Cuyahoga.Core.Service.Membership;
 using Cuyahoga.Core.Service.SiteStructure;
 using Cuyahoga.Core.Util;
@@ -10,6 +14,7 @@ using Cuyahoga.Core.Validation;
 using Cuyahoga.Web.Manager.Helpers;
 using Cuyahoga.Web.Manager.Model.ViewModels;
 using Cuyahoga.Web.Mvc.Filters;
+using Cuyahoga.Web.Mvc.WebForms;
 using Resources.Cuyahoga.Web.Manager;
 
 namespace Cuyahoga.Web.Manager.Controllers
@@ -18,10 +23,16 @@ namespace Cuyahoga.Web.Manager.Controllers
 	public class PagesController : SecureController
 	{
 		private readonly INodeService _nodeService;
+		private readonly ITemplateService _templateService;
+		private readonly IFileService _fileService;
+		private readonly ISectionService _sectionService;
 
-		public PagesController(INodeService nodeService, IModelValidator<Node> modelValidator)
+		public PagesController(INodeService nodeService, ITemplateService templateService, IFileService fileService, ISectionService sectionService, IModelValidator<Node> modelValidator)
 		{
 			_nodeService = nodeService;
+			_templateService = templateService;
+			_fileService = fileService;
+			_sectionService = sectionService;
 			this.ModelValidator = modelValidator;
 		}
 
@@ -50,7 +61,16 @@ namespace Cuyahoga.Web.Manager.Controllers
 
 		public ActionResult Design(int id)
 		{
-			return View();
+			Node node = this._nodeService.GetNodeById(id);
+			ViewData["Title"] = String.Format(GlobalResources.DesignPagePageTitle, node.Title);
+			ViewData["Templates"] = new SelectList(this._templateService.GetAllTemplatesBySite(CuyahogaContext.CurrentSite), "Id", "Name"
+				, node.Template != null ? node.Template.Id : -1);
+			ViewData["AvailableModules"] = this._sectionService.GetSortedActiveModuleTypes();
+			if (node.Template != null)
+			{
+				ViewData["TemplateViewData"] = BuildTemplateViewData(node.Template);
+			}
+			return View(node);
 		}
 
 		[AcceptVerbs(HttpVerbs.Post)]
@@ -251,6 +271,51 @@ namespace Cuyahoga.Web.Manager.Controllers
 			return Json(result);
 		}
 
+		public ActionResult ShowTemplate(int templateId)
+		{
+			Template template = this._templateService.GetTemplateById(templateId);
+			return PartialView("PageTemplate", BuildTemplateViewData(template));
+		}
+
+		public ActionResult GetSectionsForPage(int nodeId)
+		{
+			IList sectionsForPage = new ArrayList();
+			Node node = this._nodeService.GetNodeById(nodeId);
+			foreach (Section section in node.Sections)
+			{
+				sectionsForPage.Add(new
+                                 	{
+										PlaceHolder = section.PlaceholderId,
+                                 		SectionId = section.Id, 
+										SectionName = section.Title, 
+										ModuleType = section.ModuleType.Name, 
+										Position = section.Position
+                                 	});
+			}
+			return Json(sectionsForPage);
+		}
+
+		[AcceptVerbs(HttpVerbs.Post)]
+		public ActionResult SetTemplate(int nodeId, int templateId)
+		{
+			AjaxMessageViewData result = new AjaxMessageViewData();
+			try
+			{
+				Node node = this._nodeService.GetNodeById(nodeId);
+				node.Template = this._templateService.GetTemplateById(templateId);
+				this._nodeService.SaveNode(node);
+				result.Message = GlobalResources.TemplateSetMessage;
+			}
+			catch (Exception ex)
+			{
+				Logger.Error("Unexpected error while setting template.", ex);
+				result.Error = ex.Message;
+			}
+			JsonResult jsonResult = Json(result);
+			jsonResult.ContentType = "text/html"; // otherwise the ajax form doesn't handle the callback
+			return jsonResult;
+		}
+
 		#endregion
 
 		private SelectList GetAvailableCultures()
@@ -262,6 +327,28 @@ namespace Cuyahoga.Web.Manager.Controllers
 				availableCultures.Remove(rootNode.Culture);
 			}
 			return new SelectList(availableCultures, "Key", "Value");
+		}
+
+		private TemplateViewData BuildTemplateViewData(Template template)
+		{
+			string siteDataDir = CuyahogaContext.CurrentSite.SiteDataDirectory;
+			string absoluteBasePath = VirtualPathUtility.Combine(siteDataDir, template.BasePath) + "/";
+			string htmlContent = ViewUtil.RenderTemplateHtml(VirtualPathUtility.Combine(absoluteBasePath, template.TemplateControl));
+			string cssContent = GetCssContent(absoluteBasePath + "Css/" + template.Css);
+			TemplateViewData templateViewData = new TemplateViewData(template, htmlContent, cssContent);
+			templateViewData.PrepareTemplateDataForEmbedding(Url.Content(CuyahogaContext.CurrentSite.SiteDataDirectory));
+			return templateViewData;
+		}
+
+		private string GetCssContent(string virtualCssFilePath)
+		{
+			string physicalCssFilePath = Server.MapPath(virtualCssFilePath);
+
+			using (Stream fileStream = this._fileService.ReadFile(physicalCssFilePath))
+			using (StreamReader sr = new StreamReader(fileStream))
+			{
+				return sr.ReadToEnd();
+			}
 		}
 	}
 }

@@ -540,4 +540,22 @@
   <data name="PageDeletedMessage" xml:space="preserve">
     <value>De pagina {0} is verwijderd.</value>
   </data>
+  <data name="ChooseTemplateOption" xml:space="preserve">
+    <value>Kies een template</value>
+  </data>
+  <data name="DesignPagePageTitle" xml:space="preserve">
+    <value>Design pagina '{0}'</value>
+  </data>
+  <data name="TemplateSetMessage" xml:space="preserve">
+    <value>Template is gekoppeld aan de pagina.</value>
+  </data>
+  <data name="AddSectionDialogTitle" xml:space="preserve">
+    <value>Toevoegen sectie aan pagina</value>
+  </data>
+  <data name="CreateSectionLabel" xml:space="preserve">
+    <value>Nieuwe sectie aanmaken</value>
+  </data>
+  <data name="SectionCreatedMessage" xml:space="preserve">
+    <value>De sectie {0} is aangemaakt.</value>
+  </data>
 </root>

@@ -347,6 +347,7 @@
     <Compile Include="Manager\Controllers\FilesController.cs" />
     <Compile Include="Manager\Controllers\LoginController.cs" />
     <Compile Include="Manager\Controllers\PagesController.cs" />
+    <Compile Include="Manager\Controllers\SectionsController.cs" />
     <Compile Include="Manager\Controllers\SecureController.cs" />
     <Compile Include="Manager\Controllers\ServerController.cs" />
     <Compile Include="Manager\Controllers\SiteController.cs" />
@@ -406,6 +407,13 @@
     <Compile Include="Manager\Views\Pages\Index.aspx.designer.cs">
       <DependentUpon>Index.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Manager\Views\Sections\NewSectionDialog.aspx.cs">
+      <DependentUpon>NewSectionDialog.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Manager\Views\Sections\NewSectionDialog.aspx.designer.cs">
+      <DependentUpon>NewSectionDialog.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Manager\Views\Pages\PageListItem.ascx.cs">
       <DependentUpon>PageListItem.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -420,6 +428,13 @@
     <Compile Include="Manager\Views\Pages\PageListItems.ascx.designer.cs">
       <DependentUpon>PageListItems.ascx</DependentUpon>
     </Compile>
+    <Compile Include="Manager\Views\Pages\PageTemplate.ascx.cs">
+      <DependentUpon>PageTemplate.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Manager\Views\Pages\PageTemplate.ascx.designer.cs">
+      <DependentUpon>PageTemplate.ascx</DependentUpon>
+    </Compile>
     <Compile Include="Manager\Views\Pages\SelectedLink.ascx.cs">
       <DependentUpon>SelectedLink.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -433,6 +448,13 @@
     </Compile>
     <Compile Include="Manager\Views\Pages\SelectedPage.ascx.designer.cs">
       <DependentUpon>SelectedPage.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Manager\Views\Sections\SharedSectionElements.ascx.cs">
+      <DependentUpon>SharedSectionElements.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Manager\Views\Sections\SharedSectionElements.ascx.designer.cs">
+      <DependentUpon>SharedSectionElements.ascx</DependentUpon>
     </Compile>
     <Compile Include="Manager\Views\Pages\Tasks.ascx.cs">
       <DependentUpon>Tasks.ascx</DependentUpon>
@@ -496,6 +518,13 @@
     </Compile>
     <Compile Include="Manager\Views\Shared\Messages.ascx.designer.cs">
       <DependentUpon>Messages.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Manager\Views\Shared\Dialog.Master.cs">
+      <DependentUpon>Dialog.Master</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Manager\Views\Shared\Dialog.Master.designer.cs">
+      <DependentUpon>Dialog.Master</DependentUpon>
     </Compile>
     <Compile Include="Manager\Views\Shared\SiteChooser.ascx.cs">
       <DependentUpon>SiteChooser.ascx</DependentUpon>
@@ -859,7 +888,6 @@
     <Content Include="Admin\Web.config" />
     <Content Include="Manager\Content\Css\Manager.css" />
     <Content Include="Manager\Content\Css\Pagegrid.css" />
-    <Content Include="Manager\Content\Css\thickbox.css" />
     <Content Include="Manager\Content\Css\jquery-ui\ui.dialog.css" />
     <Content Include="Manager\Content\Images\add.png" />
     <Content Include="Manager\Content\Images\ajax-loader.gif" />
@@ -967,7 +995,6 @@
     <Content Include="Manager\Scripts\swfupload license.txt" />
     <Content Include="Manager\Scripts\swfupload.js" />
     <Content Include="Manager\Scripts\swfupload.swf" />
-    <Content Include="Manager\Scripts\thickbox.js" />
     <Content Include="Controls\EditProfile.ascx">
       <SubType>UserControl</SubType>
     </Content>
@@ -1031,10 +1058,13 @@
     <Content Include="Manager\Views\Login\Index.aspx" />
     <Content Include="Manager\Views\Pages\Design.aspx" />
     <Content Include="Manager\Views\Pages\Index.aspx" />
+    <Content Include="Manager\Views\Sections\NewSectionDialog.aspx" />
     <Content Include="Manager\Views\Pages\PageListItem.ascx" />
     <Content Include="Manager\Views\Pages\PageListItems.ascx" />
+    <Content Include="Manager\Views\Pages\PageTemplate.ascx" />
     <Content Include="Manager\Views\Pages\SelectedLink.ascx" />
     <Content Include="Manager\Views\Pages\SelectedPage.ascx" />
+    <Content Include="Manager\Views\Sections\SharedSectionElements.ascx" />
     <Content Include="Manager\Views\Pages\Tasks.ascx" />
     <Content Include="Manager\Views\Server\Index.aspx" />
     <Content Include="Manager\Views\Shared\Error.aspx" />
@@ -1685,6 +1715,7 @@
     <Content Include="Manager\Views\Shared\Admin.Master" />
     <None Include="Manager\Controllers\Validation.cd" />
     <Content Include="Manager\Web.sitemap" />
+    <Content Include="Manager\Views\Shared\Dialog.Master" />
     <None Include="Support\FCKeditor\editor\dialog\fck_spellerpages\spellerpages\server-scripts\spellchecker.cfm" />
     <None Include="Support\FCKeditor\editor\dialog\fck_spellerpages\spellerpages\server-scripts\spellchecker.php" />
     <None Include="Support\FCKeditor\editor\dialog\fck_spellerpages\spellerpages\server-scripts\spellchecker.pl" />

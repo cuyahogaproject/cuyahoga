@@ -46,8 +46,8 @@ namespace Cuyahoga.Web.Mvc.WebForms
 			// Insert placeholder div's into the placholder.
 			foreach (KeyValuePair<string, PlaceHolder> placeHolder in ExtractPlaceholdersFromControl(viewControl))
 			{
-				string placeHolderDiv = String.Format("<div id=\"{0}\" class=\"{1}\">{2}</div>"
-					, "plh_" + placeHolder.Key, "contentplaceholder", placeHolder.Key);
+				string placeHolderDiv = String.Format("<div id=\"{0}\" class=\"{1}\"><div class=\"placeholdertitle\">{2}</div><ul class=\"sectionlist\"></ul></div>"
+					, "plh-" + placeHolder.Key, "contentplaceholder", placeHolder.Key);
 				Literal placeHolderContentControl = new Literal();
 				placeHolderContentControl.Text = placeHolderDiv;
 				placeHolder.Value.Controls.Add(placeHolderContentControl);
