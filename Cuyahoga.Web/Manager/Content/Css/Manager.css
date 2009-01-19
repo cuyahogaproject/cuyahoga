@@ -508,33 +508,41 @@ table.grid td.right
 
 .contentplaceholder
 {
-	border: 5px solid #ccc;
 	padding: 0px;
-	background-color: #eee;
 	color: #000;
 	font-family: Arial, Helvetica, sans-serif;
+	border: 1px dashed #999;
+	background-color: #eee;
 }
 
 .contentplaceholder .placeholdertitle
 {
 	font-weight: bold;
+	color: #999;
+	padding: 2px;
 }
 
 .contentplaceholder ul.sectionlist
 {
 	margin: 0;
-	padding: 5px 0;
+	padding: 0;
 	list-style: none;
-	background-color: #ddd;
+	min-height: 10px;
 }
 
 .contentplaceholder ul.sectionlist li
 {
-	border-top: solid 1px #fff;
-	border-right: solid 1px #fff;
-	border-bottom: solid 1px #ccc;
-	border-left: solid 1px #ccc;
 	padding: 3px;
+	margin: 2px 1px;
+	border: 1px solid #ccc;
+	border-collapse: collapse;
+	background-color: #fff;
+	cursor: move;
+}
+
+.contentplaceholder ul.sectionlist li.sectionplaceholder
+{
+	border: 3px dashed #ccc;
 }
 
 /* Dialog */
@@ -543,4 +551,11 @@ table.grid td.right
 	padding: 10px;
 	margin: 0;
 	overflow: auto;
+}
+
+/* Drag & drop */
+.drophover
+{
+	border: 3px dashed #999;
+	color: #333;
 }

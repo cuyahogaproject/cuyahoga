@@ -172,6 +172,12 @@ namespace Cuyahoga.Core.DataAccess
 			session.Delete(obj);
 		}
 
+		public void RemoveCollectionFromCache(string roleName)
+		{
+			ISession session = this._sessionManager.OpenSession();
+			session.SessionFactory.EvictCollection(roleName);
+		}
+
 		public void RemoveCollectionFromCache(string roleName, int id)
 		{
 			ISession session = this._sessionManager.OpenSession();

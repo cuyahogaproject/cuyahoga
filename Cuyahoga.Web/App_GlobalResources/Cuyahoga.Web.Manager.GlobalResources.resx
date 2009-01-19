@@ -570,4 +570,10 @@
   <data name="SectionCreatedMessage" xml:space="preserve">
     <value>The section {0} is created successfully.</value>
   </data>
+  <data name="SectionsArrangedMessage" xml:space="preserve">
+    <value>Sections arranged for placeholder {0}.</value>
+  </data>
+  <data name="AvailableModulesLabel" xml:space="preserve">
+    <value>Available modules</value>
+  </data>
 </root>

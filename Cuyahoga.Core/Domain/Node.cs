@@ -614,11 +614,32 @@ namespace Cuyahoga.Core.Domain
 		}
 
 		/// <summary>
+		/// Remove a section from the node and recalculate position of adjacent sections (with the same placeholder).
+		/// </summary>
+		/// <param name="sectionToRemove"></param>
+		public virtual void RemoveSection(Section sectionToRemove)
+		{
+			this.Sections.Remove(sectionToRemove);
+			sectionToRemove.Node = null;
+			sectionToRemove.PlaceholderId = null;
+			sectionToRemove.Position = -1;
+			int position = 0;
+			foreach (Section section in this.Sections)
+			{
+				if (section.PlaceholderId == sectionToRemove.PlaceholderId)
+				{
+					section.Position = position;
+					position++;
+				}
+			}
+		}
+
+		/// <summary>
 		/// Move the node one position upwards and move the node above this one one position downwards.
 		/// </summary>
 		/// <param name="rootNodes">We need these when the node has no ParentNode.</param>
 		private void MoveUp(IList<Node> rootNodes)
-		{
+		{ 
 			if (this._position > 0)
 			{
 				// HACK: Assume that the node indexes are the same as the value of the positions.

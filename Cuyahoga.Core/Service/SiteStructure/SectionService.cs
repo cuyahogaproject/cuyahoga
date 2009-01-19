@@ -70,6 +70,19 @@ namespace Cuyahoga.Core.Service.SiteStructure
 		}
 
 		[Transaction(TransactionMode.RequiresNew)]
+		public void ArrangeSections(string placeholder, int[] orderedSectionIds)
+		{
+			for (int i = 0; i < orderedSectionIds.Length; i++)
+			{
+				Section section = GetSectionById(orderedSectionIds[i]);
+				section.PlaceholderId = placeholder;
+				section.Position = i;
+			}
+			// Invalidate cache
+			this._commonDao.RemoveCollectionFromCache("Cuyahoga.Core.Domain.Node.Sections");
+		}
+
+		[Transaction(TransactionMode.RequiresNew)]
 		public void SaveSection(Section section)
 		{
 			this._commonDao.SaveOrUpdateObject(section);
@@ -81,10 +94,31 @@ namespace Cuyahoga.Core.Service.SiteStructure
 			this._commonDao.SaveOrUpdateObject(section);
 		}
 
-		[Transaction(TransactionMode.RequiresNew)]
-		public void DeleteSection(Section section)
+		[Transaction(TransactionMode.Requires)]
+		public void DeleteSection(Section section, ModuleBase module)
 		{
-			this._commonDao.SaveOrUpdateObject(section);
+			// Delete module content if the connected module allows this
+			module.DeleteModuleContent();
+
+			// Remove connections
+			this._commonDao.DeleteObject(section);
+			// Invalidate cache
+			this._commonDao.RemoveCollectionFromCache("Cuyahoga.Core.Domain.Node.Sections");
+		}
+
+		[Transaction(TransactionMode.RequiresNew)]
+		public void DeleteSection(Section section, int nodeId, ModuleBase module)
+		{
+			Node node = (Node) this._commonDao.GetObjectById(typeof(Node), nodeId);
+			node.RemoveSection(section);
+			DeleteSection(section, module);
+		}
+
+		[Transaction(TransactionMode.RequiresNew)]
+		public void DetachSection(Section section, int nodeId)
+		{
+			Node node = (Node)this._commonDao.GetObjectById(typeof(Node), nodeId);
+			node.RemoveSection(section);
 		}
 
 		#endregion

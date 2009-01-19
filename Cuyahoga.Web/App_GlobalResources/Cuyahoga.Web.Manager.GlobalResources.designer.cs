@@ -97,6 +97,15 @@ namespace Resources.Cuyahoga.Web.Manager {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Available modules.
+        /// </summary>
+        internal static string AvailableModulesLabel {
+            get {
+                return ResourceManager.GetString("AvailableModulesLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Base path.
         /// </summary>
         internal static string BasePathLabel {
@@ -1155,6 +1164,15 @@ namespace Resources.Cuyahoga.Web.Manager {
         internal static string SectionCreatedMessage {
             get {
                 return ResourceManager.GetString("SectionCreatedMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Sections arranged for placeholder {0}..
+        /// </summary>
+        internal static string SectionsArrangedMessage {
+            get {
+                return ResourceManager.GetString("SectionsArrangedMessage", resourceCulture);
             }
         }
         

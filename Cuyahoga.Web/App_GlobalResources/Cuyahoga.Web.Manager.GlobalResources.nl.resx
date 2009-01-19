@@ -558,4 +558,10 @@
   <data name="SectionCreatedMessage" xml:space="preserve">
     <value>De sectie {0} is aangemaakt.</value>
   </data>
+  <data name="SectionsArrangedMessage" xml:space="preserve">
+    <value>Secties voor placeholder {0} zijn gearrangeerd.</value>
+  </data>
+  <data name="AvailableModulesLabel" xml:space="preserve">
+    <value>Beschikbare modules</value>
+  </data>
 </root>

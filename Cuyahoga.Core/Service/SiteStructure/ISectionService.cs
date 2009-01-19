@@ -60,7 +60,23 @@ namespace Cuyahoga.Core.Service.SiteStructure
 		/// Delete a section.
 		/// </summary>
 		/// <param name="section"></param>
-		void DeleteSection(Section section);
+		/// <param name="module"></param>
+		void DeleteSection(Section section, ModuleBase module);
+
+		/// <summary>
+		/// Delete section and remove it from the node with the given id.
+		/// </summary>
+		/// <param name="section"></param>
+		/// <param name="nodeId"></param>
+		/// <param name="module"></param>
+		void DeleteSection(Section section, int nodeId, ModuleBase module);
+
+		/// <summary>
+		/// Detach the given section from the node with given id
+		/// </summary>
+		/// <param name="section"></param>
+		/// <param name="nodeId"></param>
+		void DetachSection(Section section, int nodeId);
 
 		/// <summary>
 		/// Get all available module types sorted by name.
@@ -74,5 +90,12 @@ namespace Cuyahoga.Core.Service.SiteStructure
 		/// <param name="id"></param>
 		/// <returns></returns>
 		ModuleType GetModuleTypeById(int id);
+
+		/// <summary>
+		/// Arrange (sort) sections with given section id's and placeholder.
+		/// </summary>
+		/// <param name="placeholder">The placeholder in the template where the sections should go</param>
+		/// <param name="orderedSectionIds">The ordered id's of the sections that go in the placeholder</param>
+		void ArrangeSections(string placeholder, int[] orderedSectionIds);
 	}
 }
