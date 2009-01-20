@@ -41,6 +41,13 @@ namespace Cuyahoga.Web.Manager.Controllers
 			return View("NewSectionDialog", newSection);
 		}
 
+		public ActionResult SectionProperties(int id)
+		{
+			Section section = this._sectionService.GetSectionById(id);
+			return View(section);
+		}
+
+		[AcceptVerbs(HttpVerbs.Post)]
 		public ActionResult AddSectionToPage([Bind(Include = "PlaceHolderId, Title, ShowTitle, CacheDuration")]Section section, int moduleTypeId, int nodeId)
 		{
 			section.ModuleType = this._sectionService.GetModuleTypeById(moduleTypeId);
@@ -58,10 +65,33 @@ namespace Cuyahoga.Web.Manager.Controllers
 			}
 			catch (Exception ex)
 			{
+				Logger.Error("Unexpected error while adding section to page.", ex);
 				ShowException(ex);
 			}
 			ViewData["NodeId"] = nodeId;
 			return View("NewSectionDialog", section);
+		}
+
+		[AcceptVerbs(HttpVerbs.Post)]
+		public ActionResult Update(int id)
+		{
+			Section section = this._sectionService.GetSectionById(id);
+			try
+			{
+				if (TryUpdateModel(section, "section", new[] { "Title", "ShowTitle", "CacheDuration" })
+					&& ValidateModel(section, new [] { "Title" }, "section"))
+				{
+					this._sectionService.UpdateSection(section);
+					ShowMessage(GlobalResources.SectionPropertiesUpdatedMessage, true);
+					return RedirectToAction("SectionProperties", new { id = section.Id });
+				}
+			}
+			catch (Exception ex)
+			{
+				Logger.Error("Unexpected error while updating section.", ex);
+				ShowException(ex);
+			}
+			return View("SectionProperties", section);
 		}
 
 		[AcceptVerbs(HttpVerbs.Post)]
@@ -71,10 +101,11 @@ namespace Cuyahoga.Web.Manager.Controllers
 			try
 			{
 				this._sectionService.DeleteSection(sectionToDelete, nodeId, this._moduleLoader.GetModuleFromSection(sectionToDelete));
-				ShowMessage(String.Format("The section {0} is successfully deleted.", sectionToDelete.Title), true);
+				ShowMessage(String.Format(GlobalResources.SectionDeletedMessage, sectionToDelete.Title), true);
 			}
 			catch (Exception ex)
 			{
+				Logger.Error("Unexpected error while deleting section.", ex);
 				ShowException(ex, true);
 			}
 			return RedirectToAction("Design", "Pages", new { id = nodeId });
@@ -84,14 +115,14 @@ namespace Cuyahoga.Web.Manager.Controllers
 		public ActionResult DetachSectionFromPage(int nodeId, int sectionIdToDelete)
 		{
 			Section sectionToDetach = this._sectionService.GetSectionById(sectionIdToDelete);
-			Node node = this._nodeService.GetNodeById(nodeId);
 			try
 			{
 				this._sectionService.DetachSection(sectionToDetach, nodeId);
-				ShowMessage(String.Format("The section {0} is successfully detached from this page.", sectionToDetach.Title), true);
+				ShowMessage(String.Format(GlobalResources.SectionDetachedMessage, sectionToDetach.Title), true);
 			}
 			catch (Exception ex)
 			{
+				Logger.Error("Unexpected error while detaching section.", ex);
 				ShowException(ex, true);
 			}
 			return RedirectToAction("Design", "Pages", new { id = nodeId });

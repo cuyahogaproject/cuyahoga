@@ -289,7 +289,8 @@ namespace Cuyahoga.Web.Manager.Controllers
                                  		SectionId = section.Id, 
 										SectionName = section.Title, 
 										ModuleType = section.ModuleType.Name, 
-										Position = section.Position
+										Position = section.Position,
+										EditUrl = section.ModuleType.EditPath ?? String.Empty
                                  	});
 			}
 			return Json(sectionsForPage);

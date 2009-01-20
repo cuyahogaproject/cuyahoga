@@ -564,4 +564,46 @@
   <data name="AvailableModulesLabel" xml:space="preserve">
     <value>Beschikbare modules</value>
   </data>
+  <data name="AvailableModulesHint" xml:space="preserve">
+    <value>Kies een module uit onderstaande lijst en sleep deze in een content placeholder in het template om een nieuwe sectie aan te maken.</value>
+  </data>
+  <data name="CloseLabel" xml:space="preserve">
+    <value>Sluiten</value>
+  </data>
+  <data name="DeleteSectionBoxHint" xml:space="preserve">
+    <value>Sleep een sectie naar dit vak om deze van de pagina te verwijderen</value>
+  </data>
+  <data name="DeleteSectionConfirmLabel" xml:space="preserve">
+    <value>OK, verwijder sectie</value>
+  </data>
+  <data name="DetachSectionConfirmLabel" xml:space="preserve">
+    <value>Ontkoppel de sectie van deze pagina</value>
+  </data>
+  <data name="EditContentDialogTitle" xml:space="preserve">
+    <value>Wijzig content</value>
+  </data>
+  <data name="EditContentLabel" xml:space="preserve">
+    <value>Wijzig content</value>
+  </data>
+  <data name="RemoveSectionDialogTitle" xml:space="preserve">
+    <value>Verwijderen of ontkoppelen van sectie</value>
+  </data>
+  <data name="RemoveSectionLabel" xml:space="preserve">
+    <value>Verwijder sectie</value>
+  </data>
+  <data name="SectionDeletedMessage" xml:space="preserve">
+    <value>De sectie {0} is verwijderd.</value>
+  </data>
+  <data name="SectionDetachedMessage" xml:space="preserve">
+    <value>De sectie {0} is losgekoppeld van deze pagina.</value>
+  </data>
+  <data name="SectionPropertiesDialogTitle" xml:space="preserve">
+    <value>Sectie eigenschappen</value>
+  </data>
+  <data name="SectionPropertiesLabel" xml:space="preserve">
+    <value>Sectie eigenschappen</value>
+  </data>
+  <data name="SectionPropertiesUpdatedMessage" xml:space="preserve">
+    <value>Sectie eigenschappen zijn opgeslagen.</value>
+  </data>
 </root>

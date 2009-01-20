@@ -66,7 +66,7 @@ namespace Cuyahoga.Modules.LanguageSwitcher
 		/// <returns></returns>
 		public Dictionary<string, Node> GetCultureRootNodesBySite(Site site)
 		{
-			IList rootNodes = this._nodeService.GetRootNodes(site);
+			IList<Node> rootNodes = this._nodeService.GetRootNodes(site);
 			Dictionary<string, Node> cultureNodes = new Dictionary<string, Node>(rootNodes.Count);
 			foreach (Node node in rootNodes)
 			{

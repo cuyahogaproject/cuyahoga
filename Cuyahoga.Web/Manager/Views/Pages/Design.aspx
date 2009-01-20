@@ -17,29 +17,21 @@
 	<% } %>
 	<h2><%= GlobalResources.AvailableModulesLabel %></h2>
 	<div class="taskcontainer">
-		<p>Pick a module from the list below and drag it to a content placeholder in the template to create a new section.</p>
+		<p><%= GlobalResources.AvailableModulesHint %></p>
 		<ul id="availablemodules">
 			<% foreach (ModuleType moduleType in (IEnumerable)ViewData["AvailableModules"]) { %>
 				<li id="mt-<%= moduleType.ModuleTypeId %>"><%= moduleType.Name %></li>
 			<% } %>
 		</ul>
 	</div>
-	<h2>Remove section</h2>
+	<h2><%= GlobalResources.RemoveSectionLabel %></h2>
 	<% using (Html.BeginForm("DeleteSectionFromPage", "Sections", FormMethod.Post, new { id = "deletesectionform" })) { %>
 		<%= Html.Hidden("nodeid", ViewData.Model.Id)%>
 		<%= Html.Hidden("sectionidtodelete")%>
 		<div id="deletebox" class="taskcontainer">
-			<p>Drop a section in this box to remove it from the page</p>
+			<p></p>
 		</div>
-	<% } %>	
-	<div id="newsectiondialog" title="<%= GlobalResources.AddSectionDialogTitle %>">
-		<iframe id="sectionproperties" class="dialog-content" style="width:740px;height:400px"></iframe>
-	</div>
-	
-	<div id="deletesectiondialog" title="Remove section from page">
-		<p class="dialog-content">Do you want to delete the entire section or only detach it from the page?</p>
-	</div>
-	
+	<% } %>		
 	<script type="text/javascript">
 		var isDeleting = false;
 		
@@ -85,16 +77,44 @@
 				close: closeDialog 
 			})
 			
+			$('#sectionpropertiesdialog').dialog({
+				autoOpen: false,
+				width: "760px",
+				height: "500px",
+				buttons: {
+					"<%= GlobalResources.CloseLabel %>": closeDialog
+				}, 
+				modal: true,
+				overlay: { 
+					opacity: 0.5, 
+					background: "black" 
+				}
+			})
+			
+			$('#editcontentdialog').dialog({
+				autoOpen: false,
+				width: "800px",
+				height: "560px",
+				buttons: {
+					"<%= GlobalResources.CloseLabel %>": closeDialog
+				}, 
+				modal: true,
+				overlay: { 
+					opacity: 0.5, 
+					background: "black" 
+				}
+			})
+			
 			$('#deletesectiondialog').dialog({
 				autoOpen: false,
 				width: "520px",
 				height: "150px",
 				buttons: { 
-					"Yes, delete section": function() { 
+					"<%= GlobalResources.DeleteSectionConfirmLabel %>": function() { 
 						$('#deletesectionform').attr('action', '<%= Url.Action("DeleteSectionFromPage", "Sections") %>');
 						$('#deletesectionform').submit(); 
 					},
-					"Just detach the section from the page": function() {
+					"<%= GlobalResources.DetachSectionConfirmLabel %> : function() {
 						$('#deletesectionform').attr('action', '<%= Url.Action("DetachSectionFromPage", "Sections") %>');
 						$('#deletesectionform').submit(); 
 					},
@@ -118,18 +138,29 @@
 					$('#deletesectiondialog').dialog("open");
 				}
 			})
+			
+			$('.templatecontainer').click($.delegate({
+				'img.sectionpropertieslink': function(e) {
+					$('#sectionpropertiesframe').attr('src', $(e.target).parent().attr("href"));
+					$('#sectionpropertiesdialog').dialog("open");
+					return false; 
+				},
+				'img.editcontentlink': function(e) { 
+					$('#editcontentframe').attr('src', $(e.target).parent().attr("href"));
+					$('#editcontentdialog').dialog("open");
+					return false;
+				}
+			}))
 		})
 		
 		function renderSectionsInTemplate() {
 			$.getJSON('<%= Url.Action("GetSectionsForPage", "Pages") %>', { nodeid:<%= ViewData.Model.Id %> }, function(data) {
 				$.each(data, function(i, item) {
 					var sectionsSelector = '#plh-' + item.PlaceHolder + ' > ul';
-					if ($(sectionsSelector).length > 0) {
-						$(sectionsSelector).append('<li id="section-' + item.SectionId + '" class="section-item">' + item.SectionName + ' (' + item.ModuleType + ')</li>');
+					if ($(sectionsSelector).length == 0) {
+						sectionsSelector = '#plh-unknown > ul';
 					}
-					else {
-						$('#plh-unknown > ul').append('<li id="section-' + item.SectionId + '" class="section-item">' + item.SectionName + ' (' + item.ModuleType + ')</li>');
-					}
+					$(sectionsSelector).append(createSectionItemElement(item.SectionId, item.SectionName, item.ModuleType, item.EditUrl));
 				})
 			});
 			$('.sectionlist').sortable({
@@ -144,7 +175,7 @@
 						var placeholder = $(this).parent().attr('id').substring(4); // strip 'plh_'
 						var newSectionDialogUrl = '<%= Url.Action("NewSectionDialog", "Sections") %>?nodeid=<%= ViewData.Model.Id %>&moduletypeid=' + moduleTypeId + '&placeholder=' + placeholder;
 
-						$('#sectionproperties').attr('src', newSectionDialogUrl);
+						$('#newsectionpropertiesframe').attr('src', newSectionDialogUrl);
 						$('#newsectiondialog').dialog("open");
 					}
 				},
@@ -164,12 +195,22 @@
 		}
 		
 		function createSectionFromDialog(ev, ui) {
-			$('#sectionproperties').contents().find('form').submit(); 
+			$('#newsectionpropertiesframe').contents().find('form').submit(); 
 		}
 		
 		function closeDialog(ev, ui) {
 			// reload page to prevent sorting.
 			document.location.href = '<%= Url.Action("Design", "Pages", new { id = ViewData.Model.Id }) %>'; 
+		}
+		
+		function createSectionItemElement(sectionId, sectionName, moduleType, editUrl) {
+			var el = '<li id="section-{0}" class="section-item"><div style="float:right">{3}</div><div>{1} ({2})</div></li>';
+			var sectionLinks = jQuery.format('<a href="<%= Url.Action("SectionProperties", "Sections") %>/{0}" title="<%= GlobalResources.SectionPropertiesLabel %>"><img src="<%= Url.Content("~/manager/Content/Images/application_form.png") %>" alt="<%= GlobalResources.SectionPropertiesLabel %>" class="sectionpropertieslink" /></a>', sectionId);
+			if (editUrl != '') {
+				editLink = jQuery.format('<a href="<%= ResolveUrl("~/") %>{0}?nodeid={1}&sectionid={2}" title="<%= GlobalResources.EditContentLabel %>"><img src="<%= Url.Content("~/manager/Content/Images/pencil.png") %>" alt="<%= GlobalResources.EditContentLabel %>" class="editcontentlink" /></a>', editUrl, $('#NodeId').val(), sectionId);
+				sectionLinks = editLink + ' ' + sectionLinks;
+			}
+			return jQuery.format(el, sectionId, sectionName, moduleType, sectionLinks);
 		}
 
 	</script>
@@ -180,4 +221,21 @@
 		<% Html.RenderPartial("PageTemplate", ViewData["TemplateViewData"]); %>
 	<% } %>
 	</div>
+	<div id="newsectiondialog" title="<%= GlobalResources.AddSectionDialogTitle %>">
+		<iframe id="newsectionpropertiesframe" class="dialog-content" style="width:740px;height:400px"></iframe>
+	</div>
+
+	<div id="sectionpropertiesdialog" title="<%= GlobalResources.SectionPropertiesDialogTitle %>">
+		<iframe id="sectionpropertiesframe" class="dialog-content" style="width:740px;height:400px"></iframe>
+	</div>
+	
+	<div id="deletesectiondialog" title="<%= GlobalResources.RemoveSectionDialogTitle %>">
+		<p class="dialog-content">Do you want to delete the entire section or only detach it from the page?</p>
+	</div>
+		
+	<div id="editcontentdialog" title="<%= GlobalResources.EditContentDialogTitle %>">
+		<iframe id="editcontentframe" class="dialog-content" style="width:780px;height:460px"></iframe>
+	</div>
+	
+
 </asp:Content>

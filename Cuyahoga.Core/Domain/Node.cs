@@ -604,6 +604,7 @@ namespace Cuyahoga.Core.Domain
 		/// <param name="section"></param>
 		public virtual void AddSection(Section section)
 		{
+			section.Node = this;
 			// First, try to determine the position of the section.
 			if (section.PlaceholderId != null)
 			{
@@ -611,6 +612,8 @@ namespace Cuyahoga.Core.Domain
 			}
 			// Add to collection.
 			this.Sections.Add(section);
+			// Apply security
+			section.CopyRolesFromNode();
 		}
 
 		/// <summary>

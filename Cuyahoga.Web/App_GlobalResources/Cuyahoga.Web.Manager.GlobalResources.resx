@@ -576,4 +576,46 @@
   <data name="AvailableModulesLabel" xml:space="preserve">
     <value>Available modules</value>
   </data>
+  <data name="AvailableModulesHint" xml:space="preserve">
+    <value>Pick a module from the list below and drag it to a content placeholder in the template to create a new section.</value>
+  </data>
+  <data name="CloseLabel" xml:space="preserve">
+    <value>Close</value>
+  </data>
+  <data name="DeleteSectionBoxHint" xml:space="preserve">
+    <value>Drop a section in this box to remove it from the page</value>
+  </data>
+  <data name="DeleteSectionConfirmLabel" xml:space="preserve">
+    <value>Yes, delete section</value>
+  </data>
+  <data name="DetachSectionConfirmLabel" xml:space="preserve">
+    <value>Just detach the section from the page</value>
+  </data>
+  <data name="EditContentDialogTitle" xml:space="preserve">
+    <value>Edit content</value>
+  </data>
+  <data name="EditContentLabel" xml:space="preserve">
+    <value>Edit content</value>
+  </data>
+  <data name="RemoveSectionDialogTitle" xml:space="preserve">
+    <value>Remove or detach section from page</value>
+  </data>
+  <data name="RemoveSectionLabel" xml:space="preserve">
+    <value>Remove section</value>
+  </data>
+  <data name="SectionDeletedMessage" xml:space="preserve">
+    <value>The section {0} is successfully deleted.</value>
+  </data>
+  <data name="SectionDetachedMessage" xml:space="preserve">
+    <value>The section {0} is successfully detached from this page.</value>
+  </data>
+  <data name="SectionPropertiesDialogTitle" xml:space="preserve">
+    <value>Section properties</value>
+  </data>
+  <data name="SectionPropertiesLabel" xml:space="preserve">
+    <value>Section properties</value>
+  </data>
+  <data name="SectionPropertiesUpdatedMessage" xml:space="preserve">
+    <value>Section properties are saved successfully.</value>
+  </data>
 </root>

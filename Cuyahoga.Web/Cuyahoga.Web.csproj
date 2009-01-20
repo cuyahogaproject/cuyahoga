@@ -449,6 +449,13 @@
     <Compile Include="Manager\Views\Pages\SelectedPage.ascx.designer.cs">
       <DependentUpon>SelectedPage.ascx</DependentUpon>
     </Compile>
+    <Compile Include="Manager\Views\Sections\SectionProperties.aspx.cs">
+      <DependentUpon>SectionProperties.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Manager\Views\Sections\SectionProperties.aspx.designer.cs">
+      <DependentUpon>SectionProperties.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Manager\Views\Sections\SharedSectionElements.ascx.cs">
       <DependentUpon>SharedSectionElements.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -891,6 +898,7 @@
     <Content Include="Manager\Content\Css\jquery-ui\ui.dialog.css" />
     <Content Include="Manager\Content\Images\add.png" />
     <Content Include="Manager\Content\Images\ajax-loader.gif" />
+    <Content Include="Manager\Content\Images\application_form.png" />
     <Content Include="Manager\Content\Images\blankbutton.png" />
     <Content Include="Manager\Content\Images\cancel.png" />
     <Content Include="Manager\Content\Images\collapse.png" />
@@ -974,9 +982,12 @@
     <Content Include="Manager\Content\Css\jquery-ui\images\spinner-bg.gif" />
     <Content Include="Manager\Content\Images\layout.png" />
     <Content Include="Manager\Content\Images\layout_add.png" />
+    <Content Include="Manager\Content\Images\layout_content.png" />
+    <Content Include="Manager\Content\Images\layout_edit.png" />
     <Content Include="Manager\Content\Images\page.png" />
     <Content Include="Manager\Content\Images\page_link.png" />
     <Content Include="Manager\Content\Images\page_white.png" />
+    <Content Include="Manager\Content\Images\pencil.png" />
     <Content Include="Manager\Content\Images\section_collapsed.png" />
     <Content Include="Manager\Content\Images\section_expanded.png" />
     <Content Include="Manager\Content\Images\server.png" />
@@ -1064,6 +1075,7 @@
     <Content Include="Manager\Views\Pages\PageTemplate.ascx" />
     <Content Include="Manager\Views\Pages\SelectedLink.ascx" />
     <Content Include="Manager\Views\Pages\SelectedPage.ascx" />
+    <Content Include="Manager\Views\Sections\SectionProperties.aspx" />
     <Content Include="Manager\Views\Sections\SharedSectionElements.ascx" />
     <Content Include="Manager\Views\Pages\Tasks.ascx" />
     <Content Include="Manager\Views\Server\Index.aspx" />

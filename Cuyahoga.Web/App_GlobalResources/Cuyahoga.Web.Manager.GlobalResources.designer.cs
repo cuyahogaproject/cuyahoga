@@ -97,6 +97,15 @@ namespace Resources.Cuyahoga.Web.Manager {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Pick a module from the list below and drag it to a content placeholder in the template to create a new section..
+        /// </summary>
+        internal static string AvailableModulesHint {
+            get {
+                return ResourceManager.GetString("AvailableModulesHint", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Available modules.
         /// </summary>
         internal static string AvailableModulesLabel {
@@ -138,6 +147,15 @@ namespace Resources.Cuyahoga.Web.Manager {
         internal static string ChooseTemplateOption {
             get {
                 return ResourceManager.GetString("ChooseTemplateOption", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Close.
+        /// </summary>
+        internal static string CloseLabel {
+            get {
+                return ResourceManager.GetString("CloseLabel", resourceCulture);
             }
         }
         
@@ -340,6 +358,24 @@ namespace Resources.Cuyahoga.Web.Manager {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Drop a section in this box to remove it from the page.
+        /// </summary>
+        internal static string DeleteSectionBoxHint {
+            get {
+                return ResourceManager.GetString("DeleteSectionBoxHint", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Yes, delete section.
+        /// </summary>
+        internal static string DeleteSectionConfirmLabel {
+            get {
+                return ResourceManager.GetString("DeleteSectionConfirmLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to You can&apos;t delete yourself..
         /// </summary>
         internal static string DeleteYourselfNotAllowedException {
@@ -354,6 +390,33 @@ namespace Resources.Cuyahoga.Web.Manager {
         internal static string DesignPagePageTitle {
             get {
                 return ResourceManager.GetString("DesignPagePageTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Just detach the section from the page.
+        /// </summary>
+        internal static string DetachSectionConfirmLabel {
+            get {
+                return ResourceManager.GetString("DetachSectionConfirmLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Edit content.
+        /// </summary>
+        internal static string EditContentDialogTitle {
+            get {
+                return ResourceManager.GetString("EditContentDialogTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Edit content.
+        /// </summary>
+        internal static string EditContentLabel {
+            get {
+                return ResourceManager.GetString("EditContentLabel", resourceCulture);
             }
         }
         
@@ -1096,6 +1159,24 @@ namespace Resources.Cuyahoga.Web.Manager {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Remove or detach section from page.
+        /// </summary>
+        internal static string RemoveSectionDialogTitle {
+            get {
+                return ResourceManager.GetString("RemoveSectionDialogTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Remove section.
+        /// </summary>
+        internal static string RemoveSectionLabel {
+            get {
+                return ResourceManager.GetString("RemoveSectionLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Rights.
         /// </summary>
         internal static string RightsLabel {
@@ -1164,6 +1245,51 @@ namespace Resources.Cuyahoga.Web.Manager {
         internal static string SectionCreatedMessage {
             get {
                 return ResourceManager.GetString("SectionCreatedMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The section {0} is successfully deleted..
+        /// </summary>
+        internal static string SectionDeletedMessage {
+            get {
+                return ResourceManager.GetString("SectionDeletedMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The section {0} is successfully detached from this page..
+        /// </summary>
+        internal static string SectionDetachedMessage {
+            get {
+                return ResourceManager.GetString("SectionDetachedMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Section properties.
+        /// </summary>
+        internal static string SectionPropertiesDialogTitle {
+            get {
+                return ResourceManager.GetString("SectionPropertiesDialogTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Section properties.
+        /// </summary>
+        internal static string SectionPropertiesLabel {
+            get {
+                return ResourceManager.GetString("SectionPropertiesLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Section properties are saved successfully..
+        /// </summary>
+        internal static string SectionPropertiesUpdatedMessage {
+            get {
+                return ResourceManager.GetString("SectionPropertiesUpdatedMessage", resourceCulture);
             }
         }
         
