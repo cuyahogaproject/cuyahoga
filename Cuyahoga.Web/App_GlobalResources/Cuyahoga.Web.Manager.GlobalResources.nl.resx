@@ -606,4 +606,13 @@
   <data name="SectionPropertiesUpdatedMessage" xml:space="preserve">
     <value>Sectie eigenschappen zijn opgeslagen.</value>
   </data>
+  <data name="AddSectionLabel" xml:space="preserve">
+    <value>Toevoegen sectie aan pagina</value>
+  </data>
+  <data name="BackToPageListLabel" xml:space="preserve">
+    <value>Terug naar het paginaoverzicht</value>
+  </data>
+  <data name="DesignCurrentPageLabel" xml:space="preserve">
+    <value>Design de geselecteerde pagina</value>
+  </data>
 </root>

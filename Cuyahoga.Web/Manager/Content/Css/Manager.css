@@ -328,30 +328,40 @@ img, iframe
 	line-height: 20px;
 }
 
-#taskarea a.createlink
+#taskarea a
 {
 	display: block;
-	background-image: url(../Images/add.png);
 	background-repeat: no-repeat;
 	background-position: left;
 	padding: 5px 20px;
+	border-bottom: 1px solid #ddd;
+}
+
+#taskarea a:hover
+{
+	background-color: #fff;
+	text-decoration: none;
+}
+
+#taskarea a.createlink
+{
+	
+	background-image: url(../Images/add.png);
+}
+
+#taskarea a.designlink
+{
+	background-image: url(../Images/layout_edit.png);
 }
 
 #taskarea a.expandlink
 {
-	display: block;
 	background-image: url(../Images/section_collapsed.png);
-	background-repeat: no-repeat;
-	background-position: left;
-	padding: 5px 20px;
 }
 
 #taskarea a.collapselink
 {
-	display: block;
 	background-image: url(../Images/section_expanded.png);
-	background-repeat: no-repeat;
-	background-position: left;
 	background-color: #369;
 	padding: 5px 20px;
 	color: #fff;
@@ -497,6 +507,12 @@ table.grid td.right
 	color: #f00;
 }
 
+#availablemodules
+{
+	margin: 0;
+	padding: 0;
+	list-style: none;
+}
 
 /* Templates */
 .templatecontainer
@@ -530,13 +546,14 @@ table.grid td.right
 	min-height: 10px;
 }
 
+#availablemodules li,
 .contentplaceholder ul.sectionlist li
 {
 	padding: 3px;
 	margin: 2px 1px;
 	border: 1px solid #ccc;
-	border-collapse: collapse;
 	background-color: #fff;
+	cursor: default;
 }
 
 .contentplaceholder ul.sectionlist li.sectionplaceholder
@@ -558,3 +575,5 @@ table.grid td.right
 	border: 3px dashed #999;
 	color: #333;
 }
+
+.

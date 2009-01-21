@@ -31,6 +31,7 @@
 			<input type="submit" value="<%= GlobalResources.CreateButtonLabel %>" />
 		<% } %>
 	</div>
+	
 	<a href="#" class="<%= (isCreatingLink ? " collapselink" : " expandlink") %>"><%= GlobalResources.NewChildLinkLabel %></a>
 	<div class="taskcontainer"<% if (! isCreatingLink) { %> style="display:none"<% } %>>
 		<% using (Html.BeginForm("CreateLink", "Pages", new { parentnodeid = ViewData.Model.Id }, FormMethod.Post)) { %>
@@ -49,6 +50,11 @@
 			<input type="submit" value="<%= GlobalResources.CreateButtonLabel %>" />
 		<% } %>
 	</div>
+	
+	<% if (! ViewData.Model.IsExternalLink) { %>
+		<%= Html.ActionLink(GlobalResources.DesignCurrentPageLabel, "Design", "Pages", new { id = ViewData.Model.Id }, new { @class = "designlink" }) %>
+	<% } %>
+	
 	<% using (Html.BeginForm("Delete", "Pages", new { id = ViewData.Model.Id }, FormMethod.Post)) { %>
 		<% if (ViewData.Model.IsExternalLink) { %>
 			<a href="#" class="deletelink"><%= GlobalResources.DeleteLinkLabel%></a>
@@ -56,4 +62,5 @@
 			<a href="#" class="deletelink"><%= GlobalResources.DeletePageLabel%></a>
 		<% } %>
 	<% } %>
+	
 <% } %>

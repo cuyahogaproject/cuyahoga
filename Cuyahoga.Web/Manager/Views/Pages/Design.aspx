@@ -15,7 +15,8 @@
 		<%= Html.Hidden("NodeId", ViewData.Model.Id) %>
 		<%= Html.DropDownList(GlobalResources.ChooseTemplateOption, "TemplateId", ViewData["Templates"] as SelectList)%>
 	<% } %>
-	<h2><%= GlobalResources.AvailableModulesLabel %></h2>
+	<h2><%= GlobalResources.TasksLabel %></h2>
+	<a href="#" class="collapselink"><%= GlobalResources.AddSectionLabel %></a>
 	<div class="taskcontainer">
 		<p><%= GlobalResources.AvailableModulesHint %></p>
 		<ul id="availablemodules">
@@ -24,12 +25,12 @@
 			<% } %>
 		</ul>
 	</div>
-	<h2><%= GlobalResources.RemoveSectionLabel %></h2>
 	<% using (Html.BeginForm("DeleteSectionFromPage", "Sections", FormMethod.Post, new { id = "deletesectionform" })) { %>
 		<%= Html.Hidden("nodeid", ViewData.Model.Id)%>
 		<%= Html.Hidden("sectionidtodelete")%>
-		<div id="deletebox" class="taskcontainer">
-			<p></p>
+		<a href="#" class="expandlink"><%= GlobalResources.RemoveSectionLabel %></a>
+		<div id="deletebox" class="taskcontainer" style="display:none">
+			<p><%= GlobalResources.DeleteSectionBoxHint %></p>
 		</div>
 	<% } %>		
 	<script type="text/javascript">
@@ -114,7 +115,7 @@
 						$('#deletesectionform').attr('action', '<%= Url.Action("DeleteSectionFromPage", "Sections") %>');
 						$('#deletesectionform').submit(); 
 					},
-					"<%= GlobalResources.DetachSectionConfirmLabel %> : function() {
+					"<%= GlobalResources.DetachSectionConfirmLabel %>" : function() {
 						$('#deletesectionform').attr('action', '<%= Url.Action("DetachSectionFromPage", "Sections") %>');
 						$('#deletesectionform').submit(); 
 					},
@@ -221,6 +222,7 @@
 		<% Html.RenderPartial("PageTemplate", ViewData["TemplateViewData"]); %>
 	<% } %>
 	</div>
+	<p><%= Html.ActionLink(GlobalResources.BackToPageListLabel, "Index", new { id = ViewData.Model.Id }) %></p>
 	<div id="newsectiondialog" title="<%= GlobalResources.AddSectionDialogTitle %>">
 		<iframe id="newsectionpropertiesframe" class="dialog-content" style="width:740px;height:400px"></iframe>
 	</div>

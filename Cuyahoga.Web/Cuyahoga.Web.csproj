@@ -367,6 +367,7 @@
     <Compile Include="Manager\Helpers\EnumHelper.cs" />
     <Compile Include="Manager\Helpers\PageAdminExtensions.cs" />
     <Compile Include="Manager\Helpers\PermissionExtensions.cs" />
+    <Compile Include="Manager\Helpers\SectionAdminExtensions.cs" />
     <Compile Include="Manager\Model\ViewModels\AjaxMessageViewData.cs" />
     <Compile Include="Manager\Model\ViewModels\LoginViewData.cs" />
     <Compile Include="Manager\Model\ViewModels\MenuViewData.cs" />

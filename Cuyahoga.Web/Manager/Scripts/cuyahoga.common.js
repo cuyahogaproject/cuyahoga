@@ -36,6 +36,11 @@ $(document).ready(function() {
 			$(e.target).next().slideToggle(300);
 			$(e.target).toggleClass('collapselink');
 		},
+		'.collapselink': function(e) { 
+			// Handle expand and collapse links
+			$(e.target).next().slideToggle(300);
+			$(e.target).removeClass('collapselink').addClass('expandlink');
+		},
 		'.deletelink': function(e) { 
 			// Attach a delete event handler to all a tags that have the deletelink class.
 			submitAfterConfirm(e.target);

@@ -79,6 +79,15 @@ namespace Resources.Cuyahoga.Web.Manager {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Add section to page.
+        /// </summary>
+        internal static string AddSectionLabel {
+            get {
+                return ResourceManager.GetString("AddSectionLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Are you sure?.
         /// </summary>
         internal static string AreYouSure {
@@ -111,6 +120,15 @@ namespace Resources.Cuyahoga.Web.Manager {
         internal static string AvailableModulesLabel {
             get {
                 return ResourceManager.GetString("AvailableModulesLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Back to page list.
+        /// </summary>
+        internal static string BackToPageListLabel {
+            get {
+                return ResourceManager.GetString("BackToPageListLabel", resourceCulture);
             }
         }
         
@@ -381,6 +399,15 @@ namespace Resources.Cuyahoga.Web.Manager {
         internal static string DeleteYourselfNotAllowedException {
             get {
                 return ResourceManager.GetString("DeleteYourselfNotAllowedException", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Design the current page.
+        /// </summary>
+        internal static string DesignCurrentPageLabel {
+            get {
+                return ResourceManager.GetString("DesignCurrentPageLabel", resourceCulture);
             }
         }
         

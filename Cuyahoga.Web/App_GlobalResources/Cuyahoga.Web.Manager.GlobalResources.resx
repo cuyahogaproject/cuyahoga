@@ -618,4 +618,13 @@
   <data name="SectionPropertiesUpdatedMessage" xml:space="preserve">
     <value>Section properties are saved successfully.</value>
   </data>
+  <data name="AddSectionLabel" xml:space="preserve">
+    <value>Add section to page</value>
+  </data>
+  <data name="BackToPageListLabel" xml:space="preserve">
+    <value>Back to page list</value>
+  </data>
+  <data name="DesignCurrentPageLabel" xml:space="preserve">
+    <value>Design the current page</value>
+  </data>
 </root>

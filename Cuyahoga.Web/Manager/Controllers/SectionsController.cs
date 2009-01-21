@@ -4,6 +4,7 @@ using Cuyahoga.Core.Domain;
 using Cuyahoga.Core.Service.Membership;
 using Cuyahoga.Core.Service.SiteStructure;
 using Cuyahoga.Core.Validation;
+using Cuyahoga.Core.Validation.ModelValidators;
 using Cuyahoga.Web.Components;
 using Cuyahoga.Web.Manager.Model.ViewModels;
 using Cuyahoga.Web.Mvc.Filters;
@@ -14,11 +15,12 @@ namespace Cuyahoga.Web.Manager.Controllers
 	[PermissionFilter(RequiredRights = Rights.ManagePages)]
 	public class SectionsController : SecureController
 	{
+		private const string settingsFormElementPrefix = "settings_";
 		private readonly ISectionService _sectionService;
 		private readonly INodeService _nodeService;
 		private ModuleLoader _moduleLoader;
 
-		public SectionsController(ISectionService sectionService, INodeService nodeService, ModuleLoader moduleLoader, IModelValidator<Section> modelValidator)
+		public SectionsController(ISectionService sectionService, INodeService nodeService, ModuleLoader moduleLoader, SectionModelValidator modelValidator)
 		{
 			_sectionService = sectionService;
 			_nodeService = nodeService;
@@ -53,10 +55,10 @@ namespace Cuyahoga.Web.Manager.Controllers
 			section.ModuleType = this._sectionService.GetModuleTypeById(moduleTypeId);
 			section.Node = this._nodeService.GetNodeById(nodeId);
 			section.Node.AddSection(section);
-
+			UpdateSectionSettingsFromForm(section, settingsFormElementPrefix);
 			try
 			{
-				if (ValidateModel(section, new [] { "Title", "ModuleType" }, "section"))
+				if (ValidateModel(section, new [] { "Title", "ModuleType", "Settings" }, "section"))
 				{
 					this._sectionService.SaveSection(section);
 					ShowMessage(String.Format(GlobalResources.SectionCreatedMessage, section.Title));
@@ -73,13 +75,14 @@ namespace Cuyahoga.Web.Manager.Controllers
 		}
 
 		[AcceptVerbs(HttpVerbs.Post)]
-		public ActionResult Update(int id)
+		public ActionResult UpdateSection(int id)
 		{
 			Section section = this._sectionService.GetSectionById(id);
+			UpdateSectionSettingsFromForm(section, settingsFormElementPrefix);
 			try
 			{
 				if (TryUpdateModel(section, "section", new[] { "Title", "ShowTitle", "CacheDuration" })
-					&& ValidateModel(section, new [] { "Title" }, "section"))
+					&& ValidateModel(section, new [] { "Title", "Settings" }, "section"))
 				{
 					this._sectionService.UpdateSection(section);
 					ShowMessage(GlobalResources.SectionPropertiesUpdatedMessage, true);
@@ -152,5 +155,23 @@ namespace Cuyahoga.Web.Manager.Controllers
 		}
 
 		#endregion
+
+		private void UpdateSectionSettingsFromForm(Section section, string prefix)
+		{
+			// Perhaps we should create a custom model binder?
+			foreach (ModuleSetting moduleSetting in section.ModuleType.ModuleSettings)
+			{
+				string formElementName = prefix + moduleSetting.Name;
+				// Special treatment for boolean (checkbox) settings because these aren't passed when the checkbox is not checked.
+				if (moduleSetting.GetRealType() == typeof(System.Boolean))
+				{
+					section.Settings[moduleSetting.Name] = (Request.Params[formElementName] != null).ToString();
+				}
+				else if (Request.Params[formElementName] != null)
+				{
+					section.Settings[moduleSetting.Name] = Request.Params[formElementName];
+				}
+			}
+		}
 	}
 }

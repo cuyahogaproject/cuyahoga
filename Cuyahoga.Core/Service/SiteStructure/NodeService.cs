@@ -197,6 +197,7 @@ namespace Cuyahoga.Core.Service.SiteStructure
 			newNode.CreateShortDescription();
 			newNode.Culture = parentNode.Culture;
 			newNode.Position = parentNode.ChildNodes.Count;
+			newNode.CopyRolesFromParent();
 			parentNode.ChildNodes.Add(newNode);
 			this._commonDao.SaveObject(newNode);
 			return newNode;

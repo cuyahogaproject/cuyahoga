@@ -1,4 +1,5 @@
-﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="SharedSectionElements.ascx.cs" Inherits="Cuyahoga.Web.Manager.Views.Sections.SharedSectionElements" %>
+﻿<%@ Import Namespace="Cuyahoga.Core.Domain"%>
+<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="SharedSectionElements.ascx.cs" Inherits="Cuyahoga.Web.Manager.Views.Sections.SharedSectionElements" %>
 	<fieldset>
 		<legend>Common section properties</legend>
 		<ol>
@@ -24,6 +25,18 @@
 			</li>
 		</ol>
 	</fieldset>
-	<fieldset>
-		<legend>Custom section properties</legend>
-	</fieldset>
+	<% if (ViewData.Model.ModuleType.ModuleSettings.Count > 0) {  %>
+		<fieldset>
+			<legend>Custom section properties</legend>
+			<ol>
+				<% foreach (ModuleSetting moduleSetting in ViewData.Model.ModuleType.ModuleSettings) {
+					string name = "settings_" + moduleSetting.Name;
+					%>
+					<li>
+						<label for="<%= name %>"><%= moduleSetting.FriendlyName %></label>
+						<%= Html.SectionSetting(moduleSetting, name, ViewData.Model.Settings[moduleSetting.Name]) %>
+					</li>
+				<% } %>
+			</ol>
+		</fieldset>
+	<% } %>
