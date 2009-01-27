@@ -44,6 +44,12 @@ h4
 	font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
 }
 
+form
+{
+	padding: 0;
+	margin: 0;
+}
+
 fieldset 
 {  
 	margin: 15px 0 5px 0;  
@@ -147,6 +153,13 @@ img, iframe
 	border: 0;
 }
 
+ul
+{
+	margin: 0;
+	padding: 0;
+	list-style-type: none;
+}
+
 #header
 {
 	background-color: #eef;
@@ -191,13 +204,6 @@ img, iframe
 #mainmenu-options
 {
 	float: right;
-}
-
-#mainmenu ul
-{
-	margin: 0;
-	padding: 0;
-	list-style-type: none;
 }
 
 #mainmenu li
@@ -248,13 +254,6 @@ img, iframe
 	margin-top: -4px;
 }
 
-#submenu ul
-{
-	list-style: none;
-	margin: 0;
-	padding: 0;
-}
-
 #submenu li
 {
 	background-color: #369;
@@ -292,7 +291,7 @@ img, iframe
 	border-left: 1px solid #ccc;
 	border-bottom: 1px solid #ccc;
 	border-right: 8px solid #ccc;
-	min-height: 500px;
+	min-height: 700px;
 	padding: 10px;
 }
 
@@ -540,9 +539,6 @@ table.grid td.right
 
 .contentplaceholder ul.sectionlist
 {
-	margin: 0;
-	padding: 0;
-	list-style: none;
 	min-height: 10px;
 }
 

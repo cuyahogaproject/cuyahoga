@@ -135,7 +135,7 @@ namespace Cuyahoga.Core.Service.Membership
 		Right GetRightById(int rightId);
 
 		/// <summary>
-		/// Get rights for the give id's.
+		/// Get rights for the given id's.
 		/// </summary>
 		/// <param name="rightIds"></param>
 		/// <returns></returns>

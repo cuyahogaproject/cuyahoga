@@ -1,4 +1,5 @@
-﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="Tasks.ascx.cs" Inherits="Cuyahoga.Web.Manager.Views.Pages.Tasks" %>
+﻿<%@ Import Namespace="Cuyahoga.Core.Domain"%>
+<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="Tasks.ascx.cs" Inherits="Cuyahoga.Web.Manager.Views.Pages.Tasks" %>
 <h2><%= GlobalResources.TasksLabel %></h2>
 <%
 	bool isCreatingRootPage = (ViewData["CurrentTask"] as String ?? String.Empty) == "CreateRootPage";
@@ -51,6 +52,25 @@
 		<% } %>
 	</div>
 	
+	<a href="#" class="expandlink" id="togglePermissionsLink"><%= GlobalResources.ManagePermissionsLabel %></a>
+	<div class="taskcontainer" style="display:none">
+		<% using (Html.BeginForm("SetPagePermissions", "Pages", new { id = ViewData.Model.Id }, FormMethod.Post)) { %>
+			<% Html.RenderPartial("ViewAndEditRolesSelector", ViewData.Model.NodePermissions.OfType<Permission>(), ViewData); %>
+			<%= GlobalResources.PropagatePermissionsLabel %>
+			<ul>
+				<li>
+					<%= Html.CheckBox("PropagateToChildPages") %>
+					<label for="PropagateToChildPages"><%= GlobalResources.PropagateToChildPagesLabel %></label>
+				</li>
+				<li>
+					<%= Html.CheckBox("PropagateToChildSections", true) %>
+					<label for="PropagateToChildSections"><%= GlobalResources.PropagateToChildSectionsLabel %></label>
+				</li>
+			</ul>
+			<input type="submit" value="<%= GlobalResources.SaveButtonLabel %>" />
+		<% } %>
+	</div>
+		
 	<% if (! ViewData.Model.IsExternalLink) { %>
 		<%= Html.ActionLink(GlobalResources.DesignCurrentPageLabel, "Design", "Pages", new { id = ViewData.Model.Id }, new { @class = "designlink" }) %>
 	<% } %>

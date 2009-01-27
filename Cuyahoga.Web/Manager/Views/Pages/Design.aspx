@@ -119,7 +119,7 @@
 						$('#deletesectionform').attr('action', '<%= Url.Action("DetachSectionFromPage", "Sections") %>');
 						$('#deletesectionform').submit(); 
 					},
-					"<%= GlobalResources.CancelLabel %>": closeDialog,
+					"<%= GlobalResources.CancelLabel %>": closeDialog
 				}, 
 				modal: true,
 				overlay: { 

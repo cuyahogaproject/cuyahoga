@@ -17,25 +17,27 @@
 		<% Html.RenderPartialRequest("SiteChooser"); %>
 		<% Html.RenderPartial("MainMenu", ViewData["MenuViewData"]); %>
 		<% Html.RenderPartial("Messages", ViewData["Messages"]); %>
-		<div id="subcontentarea">
-			<% Html.RenderPartial("SubMenu", ViewData["MenuViewData"]); %>
-			<div id="taskarea">
-				<asp:ContentPlaceHolder id="cphTasks" runat="server">
-				</asp:ContentPlaceHolder>
+		<div id="content-container">
+			<div id="subcontentarea">
+				<% Html.RenderPartial("SubMenu", ViewData["MenuViewData"]); %>
+				<div id="taskarea">
+					<asp:ContentPlaceHolder id="cphTasks" runat="server">
+					</asp:ContentPlaceHolder>
+				</div>
 			</div>
-		</div>
-		<div id="contentarea">
-			<h1><%= Html.Encode(ViewData["Title"]) %></h1> 
-			<asp:ContentPlaceHolder id="cphMain" runat="server">
-			</asp:ContentPlaceHolder>
-			<script type="text/javascript">
-				/* Set common js variables. */
-				$(document).ready(function() {
-					// set content dir variable
-					CuyahogaConfig.ContentDir = '<%= Url.Content("~/manager/Content/") %>';
-					CuyahogaConfig.ConfirmText = '<%= GlobalResources.AreYouSure %>';
-				});
-			</script>
+			<div id="contentarea">
+				<h1><%= Html.Encode(ViewData["Title"]) %></h1> 
+				<asp:ContentPlaceHolder id="cphMain" runat="server">
+				</asp:ContentPlaceHolder>
+				<script type="text/javascript">
+					/* Set common js variables. */
+					$(document).ready(function() {
+						// set content dir variable
+						CuyahogaConfig.ContentDir = '<%= Url.Content("~/manager/Content/") %>';
+						CuyahogaConfig.ConfirmText = '<%= GlobalResources.AreYouSure %>';
+					});
+				</script>
+			</div>
 		</div>
 	</body>
 </html>

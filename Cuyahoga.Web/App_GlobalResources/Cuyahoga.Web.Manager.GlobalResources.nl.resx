@@ -615,4 +615,25 @@
   <data name="DesignCurrentPageLabel" xml:space="preserve">
     <value>Design de geselecteerde pagina</value>
   </data>
+  <data name="EditRolesLabel" xml:space="preserve">
+    <value>Rollen die de content mogen wijzigen</value>
+  </data>
+  <data name="ManagePermissionsLabel" xml:space="preserve">
+    <value>Beheer rechten</value>
+  </data>
+  <data name="ViewRolesLabel" xml:space="preserve">
+    <value>Rollen die de content mogen zien</value>
+  </data>
+  <data name="PropagateToChildPagesLabel" xml:space="preserve">
+    <value>Doorvoeren naar onderliggende pagina's</value>
+  </data>
+  <data name="PropagateToChildSectionsLabel" xml:space="preserve">
+    <value>Doorvoeren naar secties op de pagina</value>
+  </data>
+  <data name="PagePermissionsUpdated" xml:space="preserve">
+    <value>Rechten voor {0} zijn gewijzigd.</value>
+  </data>
+  <data name="PropagatePermissionsLabel" xml:space="preserve">
+    <value>Doorvoeren rechten</value>
+  </data>
 </root>

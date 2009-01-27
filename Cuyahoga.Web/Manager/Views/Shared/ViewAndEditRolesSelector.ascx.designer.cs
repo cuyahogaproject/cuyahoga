@@ -8,9 +8,11 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Cuyahoga.Web.Manager.Views.Pages {
-    
-    
-    public partial class Tasks {
-    }
+namespace Cuyahoga.Web.Manager.Views.Shared
+{
+
+
+	public partial class ViewAndEditRolesSelector
+	{
+	}
 }

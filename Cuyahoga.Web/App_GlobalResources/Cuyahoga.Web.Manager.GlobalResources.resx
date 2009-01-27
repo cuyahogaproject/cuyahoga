@@ -627,4 +627,25 @@
   <data name="DesignCurrentPageLabel" xml:space="preserve">
     <value>Design the current page</value>
   </data>
+  <data name="EditRolesLabel" xml:space="preserve">
+    <value>Roles that are allowed to edit the content</value>
+  </data>
+  <data name="ManagePermissionsLabel" xml:space="preserve">
+    <value>Manage permissions</value>
+  </data>
+  <data name="ViewRolesLabel" xml:space="preserve">
+    <value>Roles that are allowed to view the content</value>
+  </data>
+  <data name="PropagateToChildPagesLabel" xml:space="preserve">
+    <value>Propagate to child pages</value>
+  </data>
+  <data name="PropagateToChildSectionsLabel" xml:space="preserve">
+    <value>Propagate to sections on the page</value>
+  </data>
+  <data name="PagePermissionsUpdated" xml:space="preserve">
+    <value>Permissions for {0} are updated successfully.</value>
+  </data>
+  <data name="PropagatePermissionsLabel" xml:space="preserve">
+    <value>Propagate permissions</value>
+  </data>
 </root>

@@ -111,5 +111,15 @@ namespace Cuyahoga.Core.Service.SiteStructure
 		/// <param name="newNode"></param>
 		/// <returns></returns>
 		Node CreateNode(Node parentNode, Node newNode);
+
+		/// <summary>
+		/// Set node permissions.
+		/// </summary>
+		/// <param name="node">The node to set the permissions for.</param>
+		/// <param name="viewRoleIds">Array of role id's that are allowed to view the node.</param>
+		/// <param name="editRoleIds">Array of role id's that are allowed to edit the node.</param>
+		/// <param name="propagateToChildPages">When true, all underlying nodes should get the same permissions.</param>
+		/// <param name="propagateToChildSections">When true, all sections should get the same permissions.</param>
+		void SetNodePermissions(Node node, int[] viewRoleIds, int[] editRoleIds, bool propagateToChildPages, bool propagateToChildSections);
 	}
 }

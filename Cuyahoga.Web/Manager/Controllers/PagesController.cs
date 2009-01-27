@@ -11,6 +11,7 @@ using Cuyahoga.Core.Service.Membership;
 using Cuyahoga.Core.Service.SiteStructure;
 using Cuyahoga.Core.Util;
 using Cuyahoga.Core.Validation;
+using Cuyahoga.Web.Manager.Filters;
 using Cuyahoga.Web.Manager.Helpers;
 using Cuyahoga.Web.Manager.Model.ViewModels;
 using Cuyahoga.Web.Mvc.Filters;
@@ -36,6 +37,7 @@ namespace Cuyahoga.Web.Manager.Controllers
 			this.ModelValidator = modelValidator;
 		}
 
+		[RolesFilter(Order = 10)]
 		public ActionResult Index(int? id)
 		{
 			ViewData["Title"] = GlobalResources.ManagePagesPageTitle;
@@ -172,6 +174,7 @@ namespace Cuyahoga.Web.Manager.Controllers
 			return Index(parentNodeId);
 		}
 
+		[AcceptVerbs(HttpVerbs.Post)]
 		public ActionResult CreateLink(int parentNodeId, [Bind(Include = "Title, LinkUrl, LinkTarget")]Node newLink)
 		{
 			if (ValidateModel(newLink, new[] { "Title", "LinkUrl" }, "NewLink" ))
@@ -216,6 +219,23 @@ namespace Cuyahoga.Web.Manager.Controllers
 			return RedirectToAction("Index", new { id = nodeToDelete.Id });
 		}
 
+		[AcceptVerbs(HttpVerbs.Post)]
+		public ActionResult SetPagePermissions(int id, int[] viewRoleIds, int[] editRoleIds, bool propagateToChildPages, bool propagateToChildSections)
+		{
+			Node node = this._nodeService.GetNodeById(id);
+			try
+			{
+				this._nodeService.SetNodePermissions(node, viewRoleIds, editRoleIds, propagateToChildPages, propagateToChildSections);
+				ShowMessage(String.Format(GlobalResources.PagePermissionsUpdated, node.Title), true);
+
+			}
+			catch (Exception ex)
+			{
+				ShowException(ex, true);
+			}
+			return RedirectToAction("Index", new { id = id });
+		}
+
 		#region AJAX actions
 
 		public ActionResult GetPageListItem(int nodeId)
@@ -245,6 +265,7 @@ namespace Cuyahoga.Web.Manager.Controllers
 			}
 		}
 
+		[RolesFilter]
 		public ActionResult RefreshTasks(int nodeId)
 		{
 			Node node = this._nodeService.GetNodeById(nodeId);

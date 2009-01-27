@@ -96,11 +96,11 @@
 						$('#pagesform').attr('action', '<%= Url.Action("CopyPage", "Pages") %>');
 						$('#pagesform').submit(); 
 					},
-					"<%= GlobalResources.CancelLabel %>": closeDialog,
+					"<%= GlobalResources.CancelLabel %>": closeDialog
 				}, 
 				modal: true,
 				overlay: { 
-					opacity: 0.5, 
+					opacity: "0.5", 
 					background: "black" 
 				},
 				close: closeDialog 

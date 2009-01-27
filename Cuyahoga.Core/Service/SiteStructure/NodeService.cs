@@ -68,7 +68,7 @@ namespace Cuyahoga.Core.Service.SiteStructure
 			this._commonDao.SaveOrUpdateObject(node);
 		}
 
-		[Transaction(TransactionMode.RequiresNew)]
+		[Transaction(TransactionMode.Requires)]
 		public void UpdateNode(Node node, bool propagatePermissionsToChildNodes, bool propagatePermissionsToSections)
 		{
 			this._commonDao.SaveOrUpdateObject(node);
@@ -201,6 +201,30 @@ namespace Cuyahoga.Core.Service.SiteStructure
 			parentNode.ChildNodes.Add(newNode);
 			this._commonDao.SaveObject(newNode);
 			return newNode;
+		}
+
+		[Transaction(TransactionMode.RequiresNew)]
+		public void SetNodePermissions(Node node, int[] viewRoleIds, int[] editRoleIds, bool propagateToChildPages, bool propagateToChildSections)
+		{
+			node.NodePermissions.Clear();
+			IList<Role> viewRoles = this._commonDao.GetByIds<Role>(viewRoleIds);
+			foreach (Role role in viewRoles)
+			{
+				node.NodePermissions.Add(new NodePermission() { Node = node, Role = role, ViewAllowed = true });
+			}
+			IList<Role> editRoles = this._commonDao.GetByIds<Role>(editRoleIds);
+			foreach (Role role in editRoles)
+			{
+				if (viewRoles.Contains(role))
+				{
+					node.NodePermissions.OfType<NodePermission>().Single(np => np.Role == role).EditAllowed = true;
+				}
+				else
+				{
+					node.NodePermissions.Add(new NodePermission() { Node = node, Role = role, EditAllowed = true });
+				}
+			}
+			UpdateNode(node, propagateToChildPages, propagateToChildSections);
 		}
 
 		#endregion

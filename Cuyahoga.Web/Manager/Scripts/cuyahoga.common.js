@@ -33,12 +33,12 @@ $(document).ready(function() {
 	$('#taskarea').click($.delegate({
 		'.expandlink': function(e) { 
 			// Handle expand and collapse links
-			$(e.target).next().slideToggle(300);
-			$(e.target).toggleClass('collapselink');
+			$(e.target).next().show();
+			$(e.target).removeClass('expandlink').addClass('collapselink');
 		},
 		'.collapselink': function(e) { 
 			// Handle expand and collapse links
-			$(e.target).next().slideToggle(300);
+		    $(e.target).next().hide();
 			$(e.target).removeClass('collapselink').addClass('expandlink');
 		},
 		'.deletelink': function(e) { 
