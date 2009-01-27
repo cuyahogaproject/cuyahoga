@@ -327,6 +327,16 @@ ul
 	line-height: 20px;
 }
 
+.taskcontainer input[type=text]
+{
+	width: 220px;
+}
+
+.taskcontainer select
+{
+	width: 225px;
+}
+
 #taskarea a
 {
 	display: block;

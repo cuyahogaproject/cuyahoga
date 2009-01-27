@@ -61,9 +61,13 @@ namespace Cuyahoga.Web.Manager.Controllers
 			return View("Index", CuyahogaContext.CurrentSite.RootNodes);
 		}
 
-		public ActionResult Design(int id)
+		public ActionResult Design(int id, int? sectionId, bool? expandAddNew)
 		{
 			Node node = this._nodeService.GetNodeById(id);
+			if (sectionId.HasValue)
+			{
+				ViewData["ActiveSection"] = this._sectionService.GetSectionById(sectionId.Value);
+			}
 			ViewData["Title"] = String.Format(GlobalResources.DesignPagePageTitle, node.Title);
 			ViewData["Templates"] = new SelectList(this._templateService.GetAllTemplatesBySite(CuyahogaContext.CurrentSite), "Id", "Name"
 				, node.Template != null ? node.Template.Id : -1);
@@ -71,6 +75,10 @@ namespace Cuyahoga.Web.Manager.Controllers
 			if (node.Template != null)
 			{
 				ViewData["TemplateViewData"] = BuildTemplateViewData(node.Template);
+			}
+			if (expandAddNew.HasValue)
+			{
+				ViewData["ExpandAddNew"] = expandAddNew.Value;
 			}
 			return View(node);
 		}
@@ -142,7 +150,7 @@ namespace Cuyahoga.Web.Manager.Controllers
 				{
 					newRootPage = this._nodeService.CreateRootNode(CuyahogaContext.CurrentSite, newRootPage);
 					ShowMessage(String.Format(GlobalResources.PageCreatedMessage, newRootPage.Title), true);
-					return RedirectToAction("Design", new { id = newRootPage.Id });
+					return RedirectToAction("Design", new { id = newRootPage.Id, expandaddnew = true });
 				}
 				catch (Exception ex)
 				{
@@ -163,7 +171,7 @@ namespace Cuyahoga.Web.Manager.Controllers
 					Node parentNode = this._nodeService.GetNodeById(parentNodeId);
 					newPage = this._nodeService.CreateNode(parentNode, newPage);
 					ShowMessage(String.Format(GlobalResources.PageCreatedMessage, newPage.Title), true);
-					return RedirectToAction("Design", new { id = newPage.Id });
+					return RedirectToAction("Design", new { id = newPage.Id, expandaddnew = true });
 				}
 				catch (Exception ex)
 				{

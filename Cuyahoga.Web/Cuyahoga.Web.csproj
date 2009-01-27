@@ -409,6 +409,13 @@
     <Compile Include="Manager\Views\Pages\Index.aspx.designer.cs">
       <DependentUpon>Index.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Manager\Views\Pages\SelectedSection.ascx.cs">
+      <DependentUpon>SelectedSection.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Manager\Views\Pages\SelectedSection.ascx.designer.cs">
+      <DependentUpon>SelectedSection.ascx</DependentUpon>
+    </Compile>
     <Compile Include="Manager\Views\Sections\NewSectionDialog.aspx.cs">
       <DependentUpon>NewSectionDialog.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -458,11 +465,11 @@
     <Compile Include="Manager\Views\Sections\SectionProperties.aspx.designer.cs">
       <DependentUpon>SectionProperties.aspx</DependentUpon>
     </Compile>
-    <Compile Include="Manager\Views\Sections\SharedSectionElements.ascx.cs">
+    <Compile Include="Manager\Views\Shared\SharedSectionElements.ascx.cs">
       <DependentUpon>SharedSectionElements.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Manager\Views\Sections\SharedSectionElements.ascx.designer.cs">
+    <Compile Include="Manager\Views\Shared\SharedSectionElements.ascx.designer.cs">
       <DependentUpon>SharedSectionElements.ascx</DependentUpon>
     </Compile>
     <Compile Include="Manager\Views\Pages\Tasks.ascx.cs">
@@ -534,6 +541,13 @@
     </Compile>
     <Compile Include="Manager\Views\Shared\Dialog.Master.designer.cs">
       <DependentUpon>Dialog.Master</DependentUpon>
+    </Compile>
+    <Compile Include="Manager\Views\Shared\SharedSectionElementsNarrow.ascx.cs">
+      <DependentUpon>SharedSectionElementsNarrow.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Manager\Views\Shared\SharedSectionElementsNarrow.ascx.designer.cs">
+      <DependentUpon>SharedSectionElementsNarrow.ascx</DependentUpon>
     </Compile>
     <Compile Include="Manager\Views\Shared\SiteChooser.ascx.cs">
       <DependentUpon>SiteChooser.ascx</DependentUpon>
@@ -1078,6 +1092,7 @@
     <Content Include="Manager\Views\Login\Index.aspx" />
     <Content Include="Manager\Views\Pages\Design.aspx" />
     <Content Include="Manager\Views\Pages\Index.aspx" />
+    <Content Include="Manager\Views\Pages\SelectedSection.ascx" />
     <Content Include="Manager\Views\Sections\NewSectionDialog.aspx" />
     <Content Include="Manager\Views\Pages\PageListItem.ascx" />
     <Content Include="Manager\Views\Pages\PageListItems.ascx" />
@@ -1085,7 +1100,7 @@
     <Content Include="Manager\Views\Pages\SelectedLink.ascx" />
     <Content Include="Manager\Views\Pages\SelectedPage.ascx" />
     <Content Include="Manager\Views\Sections\SectionProperties.aspx" />
-    <Content Include="Manager\Views\Sections\SharedSectionElements.ascx" />
+    <Content Include="Manager\Views\Shared\SharedSectionElements.ascx" />
     <Content Include="Manager\Views\Pages\Tasks.ascx" />
     <Content Include="Manager\Views\Server\Index.aspx" />
     <Content Include="Manager\Views\Shared\Error.aspx" />
@@ -1093,6 +1108,7 @@
     <Content Include="Manager\Views\Shared\MainMenu.ascx" />
     <Content Include="Manager\Views\Shared\MenuItem.ascx" />
     <Content Include="Manager\Views\Shared\Messages.ascx" />
+    <Content Include="Manager\Views\Shared\SharedSectionElementsNarrow.ascx" />
     <Content Include="Manager\Views\Shared\SiteChooser.ascx" />
     <Content Include="Manager\Views\Shared\SubMenu.ascx" />
     <Content Include="Manager\Views\Shared\ViewAndEditRolesSelector.ascx" />

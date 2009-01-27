@@ -648,4 +648,13 @@
   <data name="PropagatePermissionsLabel" xml:space="preserve">
     <value>Propagate permissions</value>
   </data>
+  <data name="SectionConnectionsLabel" xml:space="preserve">
+    <value>Connections</value>
+  </data>
+  <data name="SelectedSectionLabel" xml:space="preserve">
+    <value>Selected section</value>
+  </data>
+  <data name="SectionPermissionsLabel" xml:space="preserve">
+    <value>Section permissions</value>
+  </data>
 </root>

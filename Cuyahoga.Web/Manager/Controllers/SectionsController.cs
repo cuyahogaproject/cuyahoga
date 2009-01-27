@@ -75,7 +75,7 @@ namespace Cuyahoga.Web.Manager.Controllers
 		}
 
 		[AcceptVerbs(HttpVerbs.Post)]
-		public ActionResult UpdateSection(int id)
+		public ActionResult UpdateSection(int id, bool isDesign)
 		{
 			Section section = this._sectionService.GetSectionById(id);
 			UpdateSectionSettingsFromForm(section, settingsFormElementPrefix);
@@ -86,7 +86,14 @@ namespace Cuyahoga.Web.Manager.Controllers
 				{
 					this._sectionService.UpdateSection(section);
 					ShowMessage(GlobalResources.SectionPropertiesUpdatedMessage, true);
-					return RedirectToAction("SectionProperties", new { id = section.Id });
+					if (isDesign && section.Node != null)
+					{
+						return RedirectToAction("Design", "Pages", new { id = section.Node.Id, sectionid = section.Id });
+					}
+					else
+					{
+						return RedirectToAction("SectionProperties", new { id = section.Id });
+					}
 				}
 			}
 			catch (Exception ex)

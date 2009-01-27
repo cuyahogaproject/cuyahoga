@@ -1,7 +1,6 @@
 ﻿<%@ Import Namespace="Cuyahoga.Core.Domain"%>
-<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="SharedSectionElements.ascx.cs" Inherits="Cuyahoga.Web.Manager.Views.Sections.SharedSectionElements" %>
+<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="SharedSectionElements.ascx.cs" Inherits="Cuyahoga.Web.Manager.Views.Shared.SharedSectionElements" %>
 	<fieldset>
-		<legend>Common section properties</legend>
 		<ol>
 			<li>
 				<label>Module type</label>
@@ -23,20 +22,17 @@
 				<label for="section.CacheDuration">Cache duration</label>
 				<%= Html.TextBox("section.CacheDuration", ViewData.Model.CacheDuration, new { style = "width:40px"} ) %>
 			</li>
+	<% if (ViewData.Model.ModuleType.ModuleSettings.Count > 0) {  %>
+		<ol>
+			<% foreach (ModuleSetting moduleSetting in ViewData.Model.ModuleType.ModuleSettings) {
+				string name = "settings_" + moduleSetting.Name;
+				%>
+				<li>
+					<label for="<%= name %>"><%= moduleSetting.FriendlyName %></label>
+					<%= Html.SectionSetting(moduleSetting, name, ViewData.Model.Settings[moduleSetting.Name], true) %>
+				</li>
+			<% } %>
+		
+	<% } %>
 		</ol>
 	</fieldset>
-	<% if (ViewData.Model.ModuleType.ModuleSettings.Count > 0) {  %>
-		<fieldset>
-			<legend>Custom section properties</legend>
-			<ol>
-				<% foreach (ModuleSetting moduleSetting in ViewData.Model.ModuleType.ModuleSettings) {
-					string name = "settings_" + moduleSetting.Name;
-					%>
-					<li>
-						<label for="<%= name %>"><%= moduleSetting.FriendlyName %></label>
-						<%= Html.SectionSetting(moduleSetting, name, ViewData.Model.Settings[moduleSetting.Name]) %>
-					</li>
-				<% } %>
-			</ol>
-		</fieldset>
-	<% } %>

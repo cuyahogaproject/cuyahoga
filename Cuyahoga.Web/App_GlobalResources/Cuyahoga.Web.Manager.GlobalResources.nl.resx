@@ -636,4 +636,13 @@
   <data name="PropagatePermissionsLabel" xml:space="preserve">
     <value>Doorvoeren rechten</value>
   </data>
+  <data name="SectionConnectionsLabel" xml:space="preserve">
+    <value>Connecties</value>
+  </data>
+  <data name="SelectedSectionLabel" xml:space="preserve">
+    <value>Geselecteerde sectie</value>
+  </data>
+  <data name="SectionPermissionsLabel" xml:space="preserve">
+    <value>Sectie rechten</value>
+  </data>
 </root>

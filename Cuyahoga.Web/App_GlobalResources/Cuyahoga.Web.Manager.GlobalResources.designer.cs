@@ -1321,6 +1321,15 @@ namespace Resources.Cuyahoga.Web.Manager {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Connections.
+        /// </summary>
+        internal static string SectionConnectionsLabel {
+            get {
+                return ResourceManager.GetString("SectionConnectionsLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to The section {0} is created successfully..
         /// </summary>
         internal static string SectionCreatedMessage {
@@ -1344,6 +1353,15 @@ namespace Resources.Cuyahoga.Web.Manager {
         internal static string SectionDetachedMessage {
             get {
                 return ResourceManager.GetString("SectionDetachedMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Section permissions.
+        /// </summary>
+        internal static string SectionPermissionsLabel {
+            get {
+                return ResourceManager.GetString("SectionPermissionsLabel", resourceCulture);
             }
         }
         
@@ -1380,6 +1398,15 @@ namespace Resources.Cuyahoga.Web.Manager {
         internal static string SectionsArrangedMessage {
             get {
                 return ResourceManager.GetString("SectionsArrangedMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Selected section.
+        /// </summary>
+        internal static string SelectedSectionLabel {
+            get {
+                return ResourceManager.GetString("SelectedSectionLabel", resourceCulture);
             }
         }
         

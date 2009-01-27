@@ -10,14 +10,18 @@
 	<script type="text/javascript" src="<%= Url.Content("~/manager/Scripts/ui.dialog.js") %>"></script>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="cphTasks" runat="server">
+<%
+	bool expandAddNewSection = (bool) (ViewData.ContainsKey("ExpandAddNew") ? ViewData["ExpandAddNew"] : false);
+%>
 	<h2><%= GlobalResources.TemplateLabel %></h2>
 	<% using (Html.BeginForm("SetTemplate", "Pages", FormMethod.Post, new { @id = "templateform" } )) { %>
 		<%= Html.Hidden("NodeId", ViewData.Model.Id) %>
 		<%= Html.DropDownList(GlobalResources.ChooseTemplateOption, "TemplateId", ViewData["Templates"] as SelectList)%>
 	<% } %>
+	
 	<h2><%= GlobalResources.TasksLabel %></h2>
-	<a href="#" class="collapselink"><%= GlobalResources.AddSectionLabel %></a>
-	<div class="taskcontainer">
+	<a href="#" class="<%= (expandAddNewSection ? " collapselink" : " expandlink") %>"><%= GlobalResources.AddSectionLabel %></a>
+	<div class="taskcontainer"<% if (! expandAddNewSection) { %> style="display:none"<% } %>>
 		<p><%= GlobalResources.AvailableModulesHint %></p>
 		<ul id="availablemodules">
 			<% foreach (ModuleType moduleType in (IEnumerable)ViewData["AvailableModules"]) { %>
@@ -33,6 +37,14 @@
 			<p><%= GlobalResources.DeleteSectionBoxHint %></p>
 		</div>
 	<% } %>		
+	
+	<div id="selectedsection">
+	<% if (ViewData.ContainsKey("ActiveSection")) {
+		Section activeSection = (Section)ViewData["ActiveSection"];
+		Html.RenderPartial("SelectedSection", activeSection);
+	} %>
+	</div>
+	
 	<script type="text/javascript">
 		var isDeleting = false;
 		

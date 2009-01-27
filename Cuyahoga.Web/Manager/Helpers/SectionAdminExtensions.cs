@@ -9,15 +9,20 @@ namespace Cuyahoga.Web.Manager.Helpers
 	{
 		public static string SectionSetting(this HtmlHelper htmlHelper, ModuleSetting moduleSetting, string name, object value)
 		{
+			return SectionSetting(htmlHelper, moduleSetting, name, value, false);
+		}
+
+		public static string SectionSetting(this HtmlHelper htmlHelper, ModuleSetting moduleSetting, string name, object value, bool fixedTextBoxWidth)
+		{
 			Type settingType = moduleSetting.GetRealType();
 
 			switch (settingType.FullName)
 			{
 				case "System.String":
-					return CreateSettingTextBox(name, value, 300);
+					return fixedTextBoxWidth ? CreateSettingTextBox(name, value, 300) : CreateSettingTextBox(name, value, null);
 				case "System.Int16":
 				case "System.Int32":
-					return CreateSettingTextBox(name, value, 50);
+					return fixedTextBoxWidth ? CreateSettingTextBox(name, value, 50) : CreateSettingTextBox(name, value, null);
 				case "System.Boolean":
 					return CreateSettingCheckBox(name, value);
 				default:
@@ -25,13 +30,16 @@ namespace Cuyahoga.Web.Manager.Helpers
 			}
 		}
 
-		private static string CreateSettingTextBox(string name, object value, int length)
+		private static string CreateSettingTextBox(string name, object value, int? length)
 		{
 			TagBuilder tb = new TagBuilder("input");
 			tb.MergeAttribute("type", "text");
 			tb.MergeAttribute("id", name);
 			tb.MergeAttribute("name", name);
-			tb.MergeAttribute("style", string.Format("width:{0}px", length));
+			if (length.HasValue)
+			{
+				tb.MergeAttribute("style", string.Format("width:{0}px", length.Value));
+			}
 			tb.MergeAttribute("value", Convert.ToString(value));
 			return tb.ToString();
 		}
