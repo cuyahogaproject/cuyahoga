@@ -567,6 +567,12 @@ table.grid td.right
 	border: 3px dashed #ccc;
 }
 
+.contentplaceholder ul.sectionlist li.section-selected
+{
+	background-color: #ffd;
+	font-weight: bold;
+}
+
 /* Dialog */
 .dialog-content
 {

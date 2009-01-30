@@ -37,7 +37,7 @@ namespace Cuyahoga.Web.Manager.Controllers
 			this.ModelValidator = modelValidator;
 		}
 
-		[RolesFilter(Order = 10)]
+		[RolesFilter]
 		public ActionResult Index(int? id)
 		{
 			ViewData["Title"] = GlobalResources.ManagePagesPageTitle;
@@ -61,6 +61,7 @@ namespace Cuyahoga.Web.Manager.Controllers
 			return View("Index", CuyahogaContext.CurrentSite.RootNodes);
 		}
 
+		[RolesFilter]
 		public ActionResult Design(int id, int? sectionId, bool? expandAddNew)
 		{
 			Node node = this._nodeService.GetNodeById(id);
@@ -234,7 +235,7 @@ namespace Cuyahoga.Web.Manager.Controllers
 			try
 			{
 				this._nodeService.SetNodePermissions(node, viewRoleIds, editRoleIds, propagateToChildPages, propagateToChildSections);
-				ShowMessage(String.Format(GlobalResources.PagePermissionsUpdated, node.Title), true);
+				ShowMessage(String.Format(GlobalResources.PermissionsUpdatedMessage, node.Title), true);
 
 			}
 			catch (Exception ex)

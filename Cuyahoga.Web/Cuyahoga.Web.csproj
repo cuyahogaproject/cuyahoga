@@ -362,6 +362,7 @@
     </Compile>
     <Compile Include="Manager\Filters\ExceptionFilter.cs" />
     <Compile Include="Manager\Filters\MenuDataFilter.cs" />
+    <Compile Include="Manager\Filters\PartialMessagesFilter.cs" />
     <Compile Include="Manager\Filters\RolesFilter.cs" />
     <Compile Include="Manager\Filters\SiteFilter.cs" />
     <Compile Include="Manager\Helpers\ContainerElement.cs" />
@@ -409,11 +410,18 @@
     <Compile Include="Manager\Views\Pages\Index.aspx.designer.cs">
       <DependentUpon>Index.aspx</DependentUpon>
     </Compile>
-    <Compile Include="Manager\Views\Pages\SelectedSection.ascx.cs">
+    <Compile Include="Manager\Views\Shared\PartialMessages.ascx.cs">
+      <DependentUpon>PartialMessages.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Manager\Views\Shared\PartialMessages.ascx.designer.cs">
+      <DependentUpon>PartialMessages.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Manager\Views\Shared\SelectedSection.ascx.cs">
       <DependentUpon>SelectedSection.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Manager\Views\Pages\SelectedSection.ascx.designer.cs">
+    <Compile Include="Manager\Views\Shared\SelectedSection.ascx.designer.cs">
       <DependentUpon>SelectedSection.ascx</DependentUpon>
     </Compile>
     <Compile Include="Manager\Views\Sections\NewSectionDialog.aspx.cs">
@@ -457,13 +465,6 @@
     </Compile>
     <Compile Include="Manager\Views\Pages\SelectedPage.ascx.designer.cs">
       <DependentUpon>SelectedPage.ascx</DependentUpon>
-    </Compile>
-    <Compile Include="Manager\Views\Sections\SectionProperties.aspx.cs">
-      <DependentUpon>SectionProperties.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Manager\Views\Sections\SectionProperties.aspx.designer.cs">
-      <DependentUpon>SectionProperties.aspx</DependentUpon>
     </Compile>
     <Compile Include="Manager\Views\Shared\SharedSectionElements.ascx.cs">
       <DependentUpon>SharedSectionElements.ascx</DependentUpon>
@@ -1092,14 +1093,14 @@
     <Content Include="Manager\Views\Login\Index.aspx" />
     <Content Include="Manager\Views\Pages\Design.aspx" />
     <Content Include="Manager\Views\Pages\Index.aspx" />
-    <Content Include="Manager\Views\Pages\SelectedSection.ascx" />
+    <Content Include="Manager\Views\Shared\PartialMessages.ascx" />
+    <Content Include="Manager\Views\Shared\SelectedSection.ascx" />
     <Content Include="Manager\Views\Sections\NewSectionDialog.aspx" />
     <Content Include="Manager\Views\Pages\PageListItem.ascx" />
     <Content Include="Manager\Views\Pages\PageListItems.ascx" />
     <Content Include="Manager\Views\Pages\PageTemplate.ascx" />
     <Content Include="Manager\Views\Pages\SelectedLink.ascx" />
     <Content Include="Manager\Views\Pages\SelectedPage.ascx" />
-    <Content Include="Manager\Views\Sections\SectionProperties.aspx" />
     <Content Include="Manager\Views\Shared\SharedSectionElements.ascx" />
     <Content Include="Manager\Views\Pages\Tasks.ascx" />
     <Content Include="Manager\Views\Server\Index.aspx" />
@@ -1754,6 +1755,7 @@
     <None Include="Manager\Controllers\Validation.cd" />
     <Content Include="Manager\Web.sitemap" />
     <Content Include="Manager\Views\Shared\Dialog.Master" />
+    <Content Include="Manager\Views\Web.config" />
     <None Include="Support\FCKeditor\editor\dialog\fck_spellerpages\spellerpages\server-scripts\spellchecker.cfm" />
     <None Include="Support\FCKeditor\editor\dialog\fck_spellerpages\spellerpages\server-scripts\spellchecker.php" />
     <None Include="Support\FCKeditor\editor\dialog\fck_spellerpages\spellerpages\server-scripts\spellchecker.pl" />

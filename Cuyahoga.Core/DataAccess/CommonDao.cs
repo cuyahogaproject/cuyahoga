@@ -46,6 +46,12 @@ namespace Cuyahoga.Core.DataAccess
 			}
 		}
 
+		public T GetObjectById<T>(int id)
+		{
+			ISession session = this._sessionManager.OpenSession();
+			return session.Get<T>(id);
+		}
+
 		public object GetObjectByDescription(Type type, string propertyName, string description)
 		{
 			ISession session = this._sessionManager.OpenSession();

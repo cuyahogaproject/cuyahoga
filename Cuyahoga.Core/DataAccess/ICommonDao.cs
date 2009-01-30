@@ -29,6 +29,14 @@ namespace Cuyahoga.Core.DataAccess
 		object GetObjectById(Type type, int id, bool allowNull);
 
 		/// <summary>
+		/// Get a single instance from the database by type and primary key.
+		/// </summary>
+		/// <typeparam name="T"></typeparam>
+		/// <param name="id"></param>
+		/// <returns>The requested object of type T or null when not found.</returns>
+		T GetObjectById<T>(int id);
+
+		/// <summary>
 		/// Get a single instance from the database by type and a string description of a given property.
 		/// </summary>
 		/// <param name="type"></param>

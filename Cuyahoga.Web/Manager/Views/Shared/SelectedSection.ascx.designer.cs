@@ -8,10 +8,8 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Cuyahoga.Web.Manager.Views.Pages
+namespace Cuyahoga.Web.Manager.Views.Shared
 {
-
-
 	public partial class SelectedSection
 	{
 	}

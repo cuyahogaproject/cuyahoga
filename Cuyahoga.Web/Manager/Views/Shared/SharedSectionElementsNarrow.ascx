@@ -20,7 +20,7 @@
 	</p>
 	<% if (ViewData.Model.ModuleType.ModuleSettings.Count > 0) {  %>
 		<% foreach (ModuleSetting moduleSetting in ViewData.Model.ModuleType.ModuleSettings) {
-			string name = "settings_" + moduleSetting.Name;
+			string name = "section.Settings_" + moduleSetting.Name;
 			if (moduleSetting.SettingDataType == "System.Boolean") {
 			%>
 				<p>

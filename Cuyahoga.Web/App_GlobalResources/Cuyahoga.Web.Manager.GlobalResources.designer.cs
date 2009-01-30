@@ -1132,15 +1132,6 @@ namespace Resources.Cuyahoga.Web.Manager {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Permissions for {0} are updated successfully..
-        /// </summary>
-        internal static string PagePermissionsUpdated {
-            get {
-                return ResourceManager.GetString("PagePermissionsUpdated", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Page properties.
         /// </summary>
         internal static string PagePropertiesLabel {
@@ -1191,6 +1182,15 @@ namespace Resources.Cuyahoga.Web.Manager {
         internal static string PasswordLabel {
             get {
                 return ResourceManager.GetString("PasswordLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Permissions for {0} are updated successfully..
+        /// </summary>
+        internal static string PermissionsUpdatedMessage {
+            get {
+                return ResourceManager.GetString("PermissionsUpdatedMessage", resourceCulture);
             }
         }
         

@@ -41,19 +41,24 @@
 	<div id="selectedsection">
 	<% if (ViewData.ContainsKey("ActiveSection")) {
 		Section activeSection = (Section)ViewData["ActiveSection"];
-		Html.RenderPartial("SelectedSection", activeSection);
+		Html.RenderPartial("SelectedSection", activeSection, ViewData);
 	} %>
 	</div>
 	
 	<script type="text/javascript">
 		var isDeleting = false;
+		<% if (ViewData.ContainsKey("ActiveSection")) { %>
+		var selectedSectionId = <%= ((Section)ViewData["ActiveSection"]).Id %>;		
+		<% } else { %>
+		var selectedSectionId = 0;
+		<% } %>
 		
 		$(document).ready(function() {
 			$('#templateform').ajaxForm({ 
 				dataType:  'json' 
 				// Success messages conflict with sortables success:   processJsonMessage // in cuyahoga.common.js
 			}); 
-			
+
 			$('#TemplateId').change(function() {
 				var templateId = $('#TemplateId').val();
 				if (templateId > 0) {
@@ -66,6 +71,8 @@
 				}
 			})
 			
+			ajaxifySelectedSectionForms();
+						
 			renderSectionsInTemplate();
 			
 			$('#availablemodules > li').draggable({
@@ -89,21 +96,7 @@
 				},
 				close: closeDialog 
 			})
-			
-			$('#sectionpropertiesdialog').dialog({
-				autoOpen: false,
-				width: "760px",
-				height: "500px",
-				buttons: {
-					"<%= GlobalResources.CloseLabel %>": closeDialog
-				}, 
-				modal: true,
-				overlay: { 
-					opacity: 0.5, 
-					background: "black" 
-				}
-			})
-			
+
 			$('#editcontentdialog').dialog({
 				autoOpen: false,
 				width: "800px",
@@ -153,21 +146,28 @@
 			})
 			
 			$('.templatecontainer').click($.delegate({
-				'img.sectionpropertieslink': function(e) {
-					$('#sectionpropertiesframe').attr('src', $(e.target).parent().attr("href"));
-					$('#sectionpropertiesdialog').dialog("open");
-					return false; 
-				},
 				'img.editcontentlink': function(e) { 
 					$('#editcontentframe').attr('src', $(e.target).parent().attr("href"));
 					$('#editcontentdialog').dialog("open");
 					return false;
-				}
+				},
+				'li.section-item div': selectSection 
 			}))
 		})
 		
+		function ajaxifySelectedSectionForms() {
+			$('#selectedsection form').ajaxForm({
+				target: '#selectedsection',
+				success: function() {
+					ajaxifySelectedSectionForms();
+					renderSectionsInTemplate();
+				}
+			});
+		}
+		
 		function renderSectionsInTemplate() {
 			$.getJSON('<%= Url.Action("GetSectionsForPage", "Pages") %>', { nodeid:<%= ViewData.Model.Id %> }, function(data) {
+				$('.templatecontainer ul.sectionlist').empty();
 				$.each(data, function(i, item) {
 					var sectionsSelector = '#plh-' + item.PlaceHolder + ' > ul';
 					if ($(sectionsSelector).length == 0) {
@@ -216,14 +216,30 @@
 			document.location.href = '<%= Url.Action("Design", "Pages", new { id = ViewData.Model.Id }) %>'; 
 		}
 		
+		function selectSection(e) {
+			var selectedSectionElement = $(e.target).is('div') ? $(e.target).parents('.section-item') : $(e.target);
+			
+			if (selectedSectionElement.length > 0) {
+				$('#section-' + selectedSectionId).removeClass('section-selected'); // remove previous selected section.
+				selectedSectionId = selectedSectionElement.attr('id').substring(8); // strip 'section-'
+				selectedSectionElement.addClass('section-selected');
+				$('#selectedsection').unbind();
+				$('#selectedsection').load('<%= Url.Action("SelectSection", "Sections") %>', { sectionid : selectedSectionId }, ajaxifySelectedSectionForms);
+			}
+		}
+		
 		function createSectionItemElement(sectionId, sectionName, moduleType, editUrl) {
-			var el = '<li id="section-{0}" class="section-item"><div style="float:right">{3}</div><div>{1} ({2})</div></li>';
-			var sectionLinks = jQuery.format('<a href="<%= Url.Action("SectionProperties", "Sections") %>/{0}" title="<%= GlobalResources.SectionPropertiesLabel %>"><img src="<%= Url.Content("~/manager/Content/Images/application_form.png") %>" alt="<%= GlobalResources.SectionPropertiesLabel %>" class="sectionpropertieslink" /></a>', sectionId);
+			var el = '<li id="section-{0}" class="{4}"><div style="float:right">{3}</div><div>{1} ({2})</div></li>';
+			var sectionLinks = '';
 			if (editUrl != '') {
 				editLink = jQuery.format('<a href="<%= ResolveUrl("~/") %>{0}?nodeid={1}&sectionid={2}" title="<%= GlobalResources.EditContentLabel %>"><img src="<%= Url.Content("~/manager/Content/Images/pencil.png") %>" alt="<%= GlobalResources.EditContentLabel %>" class="editcontentlink" /></a>', editUrl, $('#NodeId').val(), sectionId);
 				sectionLinks = editLink + ' ' + sectionLinks;
 			}
-			return jQuery.format(el, sectionId, sectionName, moduleType, sectionLinks);
+			var sectionItemClass = 'section-item';
+			if (sectionId == selectedSectionId) {
+				sectionItemClass += ' section-selected';
+			}
+			return jQuery.format(el, sectionId, sectionName, moduleType, sectionLinks, sectionItemClass);
 		}
 
 	</script>
@@ -237,10 +253,6 @@
 	<p><%= Html.ActionLink(GlobalResources.BackToPageListLabel, "Index", new { id = ViewData.Model.Id }) %></p>
 	<div id="newsectiondialog" title="<%= GlobalResources.AddSectionDialogTitle %>">
 		<iframe id="newsectionpropertiesframe" class="dialog-content" style="width:740px;height:400px"></iframe>
-	</div>
-
-	<div id="sectionpropertiesdialog" title="<%= GlobalResources.SectionPropertiesDialogTitle %>">
-		<iframe id="sectionpropertiesframe" class="dialog-content" style="width:740px;height:400px"></iframe>
 	</div>
 	
 	<div id="deletesectiondialog" title="<%= GlobalResources.RemoveSectionDialogTitle %>">

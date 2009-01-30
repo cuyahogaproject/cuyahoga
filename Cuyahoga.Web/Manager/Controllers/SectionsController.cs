@@ -6,6 +6,7 @@ using Cuyahoga.Core.Service.SiteStructure;
 using Cuyahoga.Core.Validation;
 using Cuyahoga.Core.Validation.ModelValidators;
 using Cuyahoga.Web.Components;
+using Cuyahoga.Web.Manager.Filters;
 using Cuyahoga.Web.Manager.Model.ViewModels;
 using Cuyahoga.Web.Mvc.Filters;
 using Resources.Cuyahoga.Web.Manager;
@@ -15,7 +16,7 @@ namespace Cuyahoga.Web.Manager.Controllers
 	[PermissionFilter(RequiredRights = Rights.ManagePages)]
 	public class SectionsController : SecureController
 	{
-		private const string settingsFormElementPrefix = "settings_";
+		private const string settingsFormElementPrefix = "section.Settings_";
 		private readonly ISectionService _sectionService;
 		private readonly INodeService _nodeService;
 		private ModuleLoader _moduleLoader;
@@ -43,12 +44,6 @@ namespace Cuyahoga.Web.Manager.Controllers
 			return View("NewSectionDialog", newSection);
 		}
 
-		public ActionResult SectionProperties(int id)
-		{
-			Section section = this._sectionService.GetSectionById(id);
-			return View(section);
-		}
-
 		[AcceptVerbs(HttpVerbs.Post)]
 		public ActionResult AddSectionToPage([Bind(Include = "PlaceHolderId, Title, ShowTitle, CacheDuration")]Section section, int moduleTypeId, int nodeId)
 		{
@@ -72,36 +67,6 @@ namespace Cuyahoga.Web.Manager.Controllers
 			}
 			ViewData["NodeId"] = nodeId;
 			return View("NewSectionDialog", section);
-		}
-
-		[AcceptVerbs(HttpVerbs.Post)]
-		public ActionResult UpdateSection(int id, bool isDesign)
-		{
-			Section section = this._sectionService.GetSectionById(id);
-			UpdateSectionSettingsFromForm(section, settingsFormElementPrefix);
-			try
-			{
-				if (TryUpdateModel(section, "section", new[] { "Title", "ShowTitle", "CacheDuration" })
-					&& ValidateModel(section, new [] { "Title", "Settings" }, "section"))
-				{
-					this._sectionService.UpdateSection(section);
-					ShowMessage(GlobalResources.SectionPropertiesUpdatedMessage, true);
-					if (isDesign && section.Node != null)
-					{
-						return RedirectToAction("Design", "Pages", new { id = section.Node.Id, sectionid = section.Id });
-					}
-					else
-					{
-						return RedirectToAction("SectionProperties", new { id = section.Id });
-					}
-				}
-			}
-			catch (Exception ex)
-			{
-				Logger.Error("Unexpected error while updating section.", ex);
-				ShowException(ex);
-			}
-			return View("SectionProperties", section);
 		}
 
 		[AcceptVerbs(HttpVerbs.Post)]
@@ -140,6 +105,13 @@ namespace Cuyahoga.Web.Manager.Controllers
 
 		#region Ajax actions
 
+		[RolesFilter]
+		public ActionResult SelectSection(int sectionId)
+		{
+			Section section = this._sectionService.GetSectionById(sectionId);
+			return PartialView("SelectedSection", section);
+		}
+
 		[AcceptVerbs(HttpVerbs.Post)]
 		public ActionResult ArrangeSections(string placeholder, int[] orderedSectionIds)
 		{
@@ -159,6 +131,49 @@ namespace Cuyahoga.Web.Manager.Controllers
 			}
 
 			return Json(result);
+		}
+
+		[AcceptVerbs(HttpVerbs.Post)]
+		[RolesFilter]
+		[PartialMessagesFilter]
+		public ActionResult UpdateSection(int id)
+		{
+			Section section = this._sectionService.GetSectionById(id);
+			UpdateSectionSettingsFromForm(section, settingsFormElementPrefix);
+			try
+			{
+				if (TryUpdateModel(section, "section", new[] { "Title", "ShowTitle", "CacheDuration" })
+					&& ValidateModel(section, new[] { "Title", "Settings" }, "section"))
+				{
+					this._sectionService.UpdateSection(section);
+					ShowMessage(GlobalResources.SectionPropertiesUpdatedMessage);
+				}
+			}
+			catch (Exception ex)
+			{
+				Logger.Error("Unexpected error while updating section.", ex);
+				ShowException(ex);
+			}
+			return PartialView("SelectedSection", section);
+		}
+
+		[AcceptVerbs(HttpVerbs.Post)]
+		[RolesFilter]
+		[PartialMessagesFilter]
+		public ActionResult SetSectionPermissions(int id, int[] viewRoleIds, int[] editRoleIds)
+		{
+			Section section = this._sectionService.GetSectionById(id);
+			try
+			{
+				this._sectionService.SetSectionPermissions(section, viewRoleIds, editRoleIds);
+				ShowMessage(String.Format(GlobalResources.PermissionsUpdatedMessage, section.Title));
+
+			}
+			catch (Exception ex)
+			{
+				ShowException(ex);
+			}
+			return PartialView("SelectedSection", section);
 		}
 
 		#endregion

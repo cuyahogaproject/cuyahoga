@@ -97,5 +97,13 @@ namespace Cuyahoga.Core.Service.SiteStructure
 		/// <param name="placeholder">The placeholder in the template where the sections should go</param>
 		/// <param name="orderedSectionIds">The ordered id's of the sections that go in the placeholder</param>
 		void ArrangeSections(string placeholder, int[] orderedSectionIds);
+
+		/// <summary>
+		/// Set node permissions.
+		/// </summary>
+		/// <param name="section">The node to set the permissions for.</param>
+		/// <param name="viewRoleIds">Array of role id's that are allowed to view the section.</param>
+		/// <param name="editRoleIds">Array of role id's that are allowed to edit the section.</param>
+		void SetSectionPermissions(Section section, int[] viewRoleIds, int[] editRoleIds);
 	}
 }

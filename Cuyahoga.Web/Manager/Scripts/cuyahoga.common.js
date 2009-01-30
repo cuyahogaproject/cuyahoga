@@ -21,34 +21,36 @@ var CuyahogaConfig = function()
 }
 
 $(document).ready(function() {
-	
+
 	// Add AJAX indicator
 	$(document.body).ajaxStart(function() {
 		$(document.body).append('<div id="loading"><img src="' + CuyahogaConfig.ContentDir + 'images/ajax-loader.gif" alt="loading"/></div>');
-		$('#loading').css({position:"fixed", width:"40px", top:"50%", left:"50%"});
+		$('#loading').css({ position: "fixed", width: "40px", top: "50%", left: "50%" });
 	}).ajaxStop(function() {
 		$('#loading').remove();
 	});
-	
+
 	$('#taskarea').click($.delegate({
-		'.expandlink': function(e) { 
+		'.expandlink': function(e) {
 			// Handle expand and collapse links
 			$(e.target).next().show();
 			$(e.target).removeClass('expandlink').addClass('collapselink');
+			return false;
 		},
-		'.collapselink': function(e) { 
+		'.collapselink': function(e) {
 			// Handle expand and collapse links
-		    $(e.target).next().hide();
+			$(e.target).next().hide();
 			$(e.target).removeClass('collapselink').addClass('expandlink');
+			return false;
 		},
-		'.deletelink': function(e) { 
+		'.deletelink': function(e) {
 			// Attach a delete event handler to all a tags that have the deletelink class.
 			submitAfterConfirm(e.target);
 		}
 	}))
-	
+
 	$('#contentarea').click($.delegate({
-		'.deletelink': function(e) { 
+		'.deletelink': function(e) {
 			submitAfterConfirm(e.target);
 		}
 	}))

@@ -5,6 +5,8 @@ namespace Cuyahoga.Core.Validation.ModelValidators
 {
 	public class SectionModelValidator : CastleModelValidator<Section>
 	{
+		private const string settingsPrefix = "Settings_";
+
 		protected override void PerformValidation(Section sectionToValidate, System.Collections.Generic.ICollection<string> includeProperties)
 		{
 			base.PerformValidation(sectionToValidate, includeProperties);
@@ -14,12 +16,13 @@ namespace Cuyahoga.Core.Validation.ModelValidators
 				// Check if section settings are correct
 				foreach (ModuleSetting moduleSetting in sectionToValidate.ModuleType.ModuleSettings)
 				{
+					string moduleSettingName = settingsPrefix + moduleSetting.Name;
 					if (moduleSetting.IsRequired
 						&& (!sectionToValidate.Settings.Contains(moduleSetting.Name)
 							|| String.IsNullOrEmpty(sectionToValidate.Settings[moduleSetting.Name].ToString())))
 					{
 						// TODO section settings and errors localization.
-						AddError(moduleSetting.Name, moduleSetting.FriendlyName + " is required", false);
+						AddError(moduleSettingName, moduleSetting.FriendlyName + " is required", false);
 					}
 					else
 					{
@@ -45,7 +48,7 @@ namespace Cuyahoga.Core.Validation.ModelValidators
 							catch (Exception)
 							{
 								// TODO: localization.
-								AddError(moduleSetting.Name, String.Format("Invalid value entered for {0}: {1}", moduleSetting.FriendlyName, settingValue), false);
+								AddError(moduleSettingName, String.Format("Invalid value entered for {0}: {1}", moduleSetting.FriendlyName, settingValue), false);
 							}
 						}
 					}

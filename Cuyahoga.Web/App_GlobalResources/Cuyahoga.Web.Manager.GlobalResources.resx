@@ -642,9 +642,6 @@
   <data name="PropagateToChildSectionsLabel" xml:space="preserve">
     <value>Propagate to sections on the page</value>
   </data>
-  <data name="PagePermissionsUpdated" xml:space="preserve">
-    <value>Permissions for {0} are updated successfully.</value>
-  </data>
   <data name="PropagatePermissionsLabel" xml:space="preserve">
     <value>Propagate permissions</value>
   </data>
@@ -656,5 +653,8 @@
   </data>
   <data name="SectionPermissionsLabel" xml:space="preserve">
     <value>Section permissions</value>
+  </data>
+  <data name="PermissionsUpdatedMessage" xml:space="preserve">
+    <value>Permissions for {0} are updated successfully.</value>
   </data>
 </root>

@@ -25,7 +25,7 @@
 	<% if (ViewData.Model.ModuleType.ModuleSettings.Count > 0) {  %>
 		<ol>
 			<% foreach (ModuleSetting moduleSetting in ViewData.Model.ModuleType.ModuleSettings) {
-				string name = "settings_" + moduleSetting.Name;
+				string name = "section.Settings_" + moduleSetting.Name;
 				%>
 				<li>
 					<label for="<%= name %>"><%= moduleSetting.FriendlyName %></label>

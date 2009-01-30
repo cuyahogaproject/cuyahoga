@@ -1,6 +1,8 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Text;
 using System.Web.Mvc;
+using System.Web.Mvc.Html;
 using Cuyahoga.Core.Domain;
 
 namespace Cuyahoga.Web.Manager.Helpers
@@ -19,10 +21,10 @@ namespace Cuyahoga.Web.Manager.Helpers
 			switch (settingType.FullName)
 			{
 				case "System.String":
-					return fixedTextBoxWidth ? CreateSettingTextBox(name, value, 300) : CreateSettingTextBox(name, value, null);
+					return fixedTextBoxWidth ? CreateSettingTextBox(htmlHelper, name, value, 300) : CreateSettingTextBox(htmlHelper, name, value, null);
 				case "System.Int16":
 				case "System.Int32":
-					return fixedTextBoxWidth ? CreateSettingTextBox(name, value, 50) : CreateSettingTextBox(name, value, null);
+					return fixedTextBoxWidth ? CreateSettingTextBox(htmlHelper, name, value, 50) : CreateSettingTextBox(htmlHelper, name, value, null);
 				case "System.Boolean":
 					return CreateSettingCheckBox(name, value);
 				default:
@@ -30,18 +32,14 @@ namespace Cuyahoga.Web.Manager.Helpers
 			}
 		}
 
-		private static string CreateSettingTextBox(string name, object value, int? length)
+		private static string CreateSettingTextBox(HtmlHelper htmlHelper, string name, object value, int? length)
 		{
-			TagBuilder tb = new TagBuilder("input");
-			tb.MergeAttribute("type", "text");
-			tb.MergeAttribute("id", name);
-			tb.MergeAttribute("name", name);
+			IDictionary<string, object> htmlAttributes = new Dictionary<string, object>();
 			if (length.HasValue)
 			{
-				tb.MergeAttribute("style", string.Format("width:{0}px", length.Value));
+				htmlAttributes.Add("style", string.Format("width:{0}px", length.Value));
 			}
-			tb.MergeAttribute("value", Convert.ToString(value));
-			return tb.ToString();
+			return htmlHelper.TextBox(name, value, htmlAttributes);
 		}
 
 		private static string CreateSettingCheckBox(string name, object value)

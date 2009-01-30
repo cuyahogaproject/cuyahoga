@@ -630,7 +630,7 @@
   <data name="PropagateToChildSectionsLabel" xml:space="preserve">
     <value>Doorvoeren naar secties op de pagina</value>
   </data>
-  <data name="PagePermissionsUpdated" xml:space="preserve">
+  <data name="PermissionsUpdatedMessage" xml:space="preserve">
     <value>Rechten voor {0} zijn gewijzigd.</value>
   </data>
   <data name="PropagatePermissionsLabel" xml:space="preserve">

@@ -10,6 +10,9 @@
 	<script type="text/javascript" src="<%= Url.Content("~/manager/Scripts/jquery.scrollfollow.js") %>"></script>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="cphTasks" runat="server">
+	<div id="tasks">
+	<% Html.RenderPartial("Tasks", ViewData["ActiveNode"] ?? new Node(), ViewData); %>
+	</div>
 	<div id="selectedpage">
 	<% if (ViewData["ActiveNode"] != null) {
 		Node activeNode = (Node) ViewData["ActiveNode"];
@@ -22,9 +25,6 @@
 			Html.RenderPartial("SelectedPage", activeNode, ViewData);
 		}
 	} %>
-	</div>
-	<div id="tasks">
-	<% Html.RenderPartial("Tasks", ViewData["ActiveNode"] ?? new Node(), ViewData); %>
 	</div>
 </asp:Content>
 <asp:Content ID="Content3" ContentPlaceHolderID="cphMain" runat="server">

@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using Castle.Services.Transaction;
 
 using Cuyahoga.Core.Domain;
@@ -33,7 +34,7 @@ namespace Cuyahoga.Core.Service.SiteStructure
 
 		public Section GetSectionById(int sectionId)
 		{
-			return (Section)this._commonDao.GetObjectById(typeof(Section), sectionId);
+			return this._commonDao.GetObjectById<Section>(sectionId);
 		}
 
 		public IList GetSortedSectionsByNode(Node node)
@@ -80,6 +81,30 @@ namespace Cuyahoga.Core.Service.SiteStructure
 			}
 			// Invalidate cache
 			this._commonDao.RemoveCollectionFromCache("Cuyahoga.Core.Domain.Node.Sections");
+		}
+
+		[Transaction(TransactionMode.RequiresNew)]
+		public void SetSectionPermissions(Section section, int[] viewRoleIds, int[] editRoleIds)
+		{
+			section.SectionPermissions.Clear();
+			IList<Role> viewRoles = this._commonDao.GetByIds<Role>(viewRoleIds);
+			foreach (Role role in viewRoles)
+			{
+				section.SectionPermissions.Add(new SectionPermission() { Section = section, Role = role, ViewAllowed = true });
+			}
+			IList<Role> editRoles = this._commonDao.GetByIds<Role>(editRoleIds);
+			foreach (Role role in editRoles)
+			{
+				if (viewRoles.Contains(role))
+				{
+					section.SectionPermissions.OfType<SectionPermission>().Single(sp => sp.Role == role).EditAllowed = true;
+				}
+				else
+				{
+					section.SectionPermissions.Add(new SectionPermission() { Section = section, Role = role, EditAllowed = true });
+				}
+			}
+			this._commonDao.UpdateObject(section);
 		}
 
 		[Transaction(TransactionMode.RequiresNew)]

@@ -40,12 +40,6 @@ ul.pagegroup
 	padding: 0 0 0 20px;
 }
 
-li.pagerow
-{
-	margin: 0;
-	position: relative;
-}
-
 .pageplaceholder
 {
 	border: 2px dashed #666;
