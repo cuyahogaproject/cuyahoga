@@ -1,4 +1,5 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Manager/Views/Shared/Admin.Master" AutoEventWireup="true" CodeBehind="Index.aspx.cs" Inherits="Cuyahoga.Web.Manager.Views.Users.Index" %>
+﻿<%@ Language="C#" MasterPageFile="~/Manager/Views/Shared/Admin.Master" Inherits="ViewPage<IPagedList<User>>" %>
+<%@ Import Namespace="Cuyahoga.Core.Domain"%>
 <%@ Import Namespace="Cuyahoga.Web.Mvc.Paging"%>
 <asp:Content ID="Content1" ContentPlaceHolderID="cphHead" runat="server">
 </asp:Content>
@@ -12,9 +13,9 @@
 		<label for="username"><%= GlobalResources.UsernameLabel %></label>
 		<%= Html.TextBox("username", ViewData["username"]) %>
 		<label for="roleid"><%= GlobalResources.RoleLabel %></label>
-		<%= Html.DropDownList(GlobalResources.OptionAll, "roleid", ViewData["roles"] as SelectList) %>
+		<%= Html.DropDownList("roleid", ViewData["roles"] as SelectList, GlobalResources.OptionAll)%>
 		<label for="isactive"><%= GlobalResources.IsActiveLabel %></label>
-		<%= Html.DropDownList(GlobalResources.OptionAll, "isactive", ViewData["isactiveoptions"] as SelectList) %>
+		<%= Html.DropDownList("isactive", ViewData["isactiveoptions"] as SelectList, GlobalResources.OptionAll) %>
 		<% if ((bool)ViewData["globalsearchallowed"]) { %>
 			<%= Html.CheckBox("globalsearch", (bool?)ViewData["globalsearch"])%><label for="globalsearch"><%= GlobalResources.GlobalSearchLabel %></label>
 		<% } %>

@@ -1,4 +1,4 @@
-﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="SiteChooser.ascx.cs" Inherits="Cuyahoga.Web.Manager.Views.Shared.SiteChooser" %>
+﻿<%@ Control Language="C#" Inherits="System.Web.Mvc.ViewUserControl" %>
 <div id="sitechooser">
 	<form id="sitechooserform" action="<%= Url.Action("SetSite", "Dashboard") %>" method="post">
 	<%= GlobalResources.SiteLabel %>:

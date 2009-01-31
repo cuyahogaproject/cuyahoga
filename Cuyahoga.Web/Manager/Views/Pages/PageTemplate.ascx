@@ -1,4 +1,5 @@
-﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="PageTemplate.ascx.cs" Inherits="Cuyahoga.Web.Manager.Views.Pages.PageTemplate" %>
+﻿<%@ Import Namespace="Cuyahoga.Web.Manager.Model.ViewModels"%>
+<%@ Control Language="C#" Inherits="ViewUserControl<TemplateViewData>" %>
 <style type="text/css">
 <%= ViewData.Model.TemplateCss %>
 </style>

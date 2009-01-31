@@ -1,4 +1,5 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Manager/Views/Shared/Dialog.Master" AutoEventWireup="true" CodeBehind="NewSectionDialog.aspx.cs" Inherits="Cuyahoga.Web.Manager.Views.Sections.NewSectionDialog" %>
+﻿<%@ Page Language="C#" MasterPageFile="~/Manager/Views/Shared/Dialog.Master" Inherits="ViewPage<Section>" %>
+<%@ Import Namespace="Cuyahoga.Core.Domain"%>
 <asp:Content ID="Content1" ContentPlaceHolderID="cphHead" runat="server">
 	<script type="text/javascript" src="<%= Url.Content("~/manager/Scripts/ui.core.js") %>"></script>
 	<script type="text/javascript" src="<%= Url.Content("~/manager/Scripts/ui.dialog.js") %>"></script>

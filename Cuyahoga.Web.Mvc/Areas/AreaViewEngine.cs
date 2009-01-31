@@ -29,7 +29,7 @@ namespace Cuyahoga.Web.Mvc.Areas
 			PartialViewLocationFormats = ViewLocationFormats;
 		}
 
-		public override ViewEngineResult FindPartialView(ControllerContext controllerContext, string partialViewName)
+		public override ViewEngineResult FindPartialView(ControllerContext controllerContext, string partialViewName, bool useCache)
 		{
 
 			ViewEngineResult areaResult;
@@ -37,23 +37,23 @@ namespace Cuyahoga.Web.Mvc.Areas
 			if (controllerContext.RouteData.Values.ContainsKey("area"))
 			{
 				string areaPartialName = FormatViewName(controllerContext, partialViewName);
-				areaResult = base.FindPartialView(controllerContext, areaPartialName);
+				areaResult = base.FindPartialView(controllerContext, areaPartialName, useCache);
 				if (areaResult != null && areaResult.View != null)
 				{
 					return areaResult;
 				}
 				string sharedAreaPartialName = FormatSharedViewName(controllerContext, partialViewName);
-				areaResult = base.FindPartialView(controllerContext, sharedAreaPartialName);
+				areaResult = base.FindPartialView(controllerContext, sharedAreaPartialName, useCache);
 				if (areaResult != null && areaResult.View != null)
 				{
 					return areaResult;
 				}
 			}
 
-			return base.FindPartialView(controllerContext, partialViewName);
+			return base.FindPartialView(controllerContext, partialViewName, useCache);
 		}
 
-		public override ViewEngineResult FindView(ControllerContext controllerContext, string viewName, string masterName)
+		public override ViewEngineResult FindView(ControllerContext controllerContext, string viewName, string masterName, bool useCache)
 		{
 
 			ViewEngineResult areaResult = null;
@@ -61,20 +61,20 @@ namespace Cuyahoga.Web.Mvc.Areas
 			if (controllerContext.RouteData.Values.ContainsKey("area"))
 			{
 				string areaViewName = FormatViewName(controllerContext, viewName);
-				areaResult = base.FindView(controllerContext, areaViewName, masterName);
+				areaResult = base.FindView(controllerContext, areaViewName, masterName, useCache);
 				if (areaResult != null && areaResult.View != null)
 				{
 					return areaResult;
 				}
 				string sharedAreaViewName = FormatSharedViewName(controllerContext, viewName);
-				areaResult = base.FindView(controllerContext, sharedAreaViewName, masterName);
+				areaResult = base.FindView(controllerContext, sharedAreaViewName, masterName, useCache);
 				if (areaResult != null && areaResult.View != null)
 				{
 					return areaResult;
 				}
 			}
 
-			return base.FindView(controllerContext, viewName, masterName);
+			return base.FindView(controllerContext, viewName, masterName, useCache);
 		}
 
 		private static string FormatViewName(ControllerContext controllerContext, string viewName)

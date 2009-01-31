@@ -1,4 +1,5 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Manager/Views/Shared/Default.Master" AutoEventWireup="true" CodeBehind="Index.aspx.cs" Inherits="Cuyahoga.Web.Manager.Views.Login.Index" %>
+﻿<%@ Import Namespace="Cuyahoga.Web.Manager.Model.ViewModels"%>
+<%@ Page Language="C#" MasterPageFile="~/Manager/Views/Shared/Default.Master" Inherits="ViewPage<LoginViewData>" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="cphHead" runat="server">
 	<style type="text/css">
 	body

@@ -1,5 +1,5 @@
 ﻿<%@ Import Namespace="Cuyahoga.Core.Domain"%>
-<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="Tasks.ascx.cs" Inherits="Cuyahoga.Web.Manager.Views.Pages.Tasks" %>
+<%@ Control Language="C#" Inherits="ViewUserControl<Node>" %>
 <h2><%= GlobalResources.TasksLabel %></h2>
 <%
 	bool isCreatingRootPage = (ViewData["CurrentTask"] as String ?? String.Empty) == "CreateRootPage";

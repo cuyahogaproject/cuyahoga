@@ -13,12 +13,12 @@ namespace Cuyahoga.Web.Manager.Helpers
 	/// </summary>
 	public static class EnumHelper
 	{
-		public static ListItem[] GetListItems<T>(bool includeSelect)
+		public static SelectListItem[] GetListItems<T>(bool includeSelect)
 		{
-			IList<ListItem> items = GetValuesWithDescription<T>().Select(x => new ListItem { Text = x.Value, Value = x.Key }).ToList();
+			IList<SelectListItem> items = GetValuesWithDescription<T>().Select(x => new SelectListItem { Text = x.Value, Value = x.Key }).ToList();
 			if (includeSelect)
 			{
-				items.Insert(0, new ListItem { Value = String.Empty, Text = GlobalResources.SelectLabel });
+				items.Insert(0, new SelectListItem { Value = String.Empty, Text = GlobalResources.SelectLabel });
 			}
 			return items.ToArray();
 		}

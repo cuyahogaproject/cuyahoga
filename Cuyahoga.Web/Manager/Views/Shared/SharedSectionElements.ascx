@@ -1,5 +1,5 @@
 ﻿<%@ Import Namespace="Cuyahoga.Core.Domain"%>
-<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="SharedSectionElements.ascx.cs" Inherits="Cuyahoga.Web.Manager.Views.Shared.SharedSectionElements" %>
+<%@ Control Language="C#" Inherits="ViewUserControl<Section>" %>
 	<fieldset>
 		<ol>
 			<li>

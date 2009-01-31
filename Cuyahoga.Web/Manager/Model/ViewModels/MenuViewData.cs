@@ -4,42 +4,42 @@ namespace Cuyahoga.Web.Manager.Model.ViewModels
 {
 	public class MenuViewData
 	{
-		private IList<MenuItem> _standardMainMenuItems = new List<MenuItem>();
-		private IList<MenuItem> _optionalMainMenuItems = new List<MenuItem>();
-		private IList<MenuItem> _subMenuItems = new List<MenuItem>();
+		private IList<MenuItemData> _standardMainMenuItems = new List<MenuItemData>();
+		private IList<MenuItemData> _optionalMainMenuItems = new List<MenuItemData>();
+		private IList<MenuItemData> _subMenuItems = new List<MenuItemData>();
 
-		public IList<MenuItem> StandardMainMenuItems
+		public IList<MenuItemData> StandardMainMenuItems
 		{
 			get { return _standardMainMenuItems; }
 		}
 
-		public IList<MenuItem> OptionalMainMenuItems
+		public IList<MenuItemData> OptionalMainMenuItems
 		{
 			get { return _optionalMainMenuItems; }
 		}
 
-		public IList<MenuItem> SubMenuItems
+		public IList<MenuItemData> SubMenuItems
 		{
 			get { return _subMenuItems; }
 		}
 
-		public void AddStandardMenuItem(MenuItem menuItem)
+		public void AddStandardMenuItem(MenuItemData menuItemData)
 		{
-			_standardMainMenuItems.Add(menuItem);
+			_standardMainMenuItems.Add(menuItemData);
 		}
 
-		public void AddOptionalMenuItem(MenuItem menuItem)
+		public void AddOptionalMenuItem(MenuItemData menuItemData)
 		{
-			_optionalMainMenuItems.Add(menuItem);
+			_optionalMainMenuItems.Add(menuItemData);
 		}
 
-		public void AddSubMenuItem(MenuItem menuItem)
+		public void AddSubMenuItem(MenuItemData menuItemData)
 		{
-			_subMenuItems.Add(menuItem);
+			_subMenuItems.Add(menuItemData);
 		}
 	}
 
-	public class MenuItem
+	public class MenuItemData
 	{
 		private string _url;
 		private string _text;
@@ -66,7 +66,7 @@ namespace Cuyahoga.Web.Manager.Model.ViewModels
 			get { return _iconUrl; }
 		}
 
-		public MenuItem(string url, string text, bool isSelected, string iconUrl)
+		public MenuItemData(string url, string text, bool isSelected, string iconUrl)
 		{
 			this._url = url;
 			this._text = text;

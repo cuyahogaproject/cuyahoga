@@ -1,5 +1,5 @@
 ﻿<%@ Import Namespace="Cuyahoga.Core.Domain"%>
-<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="PageListItem.ascx.cs" Inherits="Cuyahoga.Web.Manager.Views.Pages.PageListItem" %>
+<%@ Control Language="C#" Inherits="ViewUserControl<Node>" %>
 			<% using (Html.PageListItem(ViewData.Model, ViewData["ActiveNode"] as Node)) { %>
 				<% using (Html.PageRowDiv(ViewData.Model, ViewData["ActiveNode"] as Node)) { %>
 					<div class="fr" style="width:120px;text-align:right;"><%= ViewData.Model.UpdateTimestamp%></div>

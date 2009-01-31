@@ -1,4 +1,5 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Manager/Views/Shared/Admin.Master" AutoEventWireup="true" CodeBehind="ViewTemplate.aspx.cs" Inherits="Cuyahoga.Web.Manager.Views.Templates.ViewTemplate" %>
+﻿<%@ Page Language="C#" MasterPageFile="~/Manager/Views/Shared/Admin.Master" Inherits="ViewPage<TemplateViewData>" %>
+<%@ Import Namespace="Cuyahoga.Web.Manager.Model.ViewModels"%>
 <asp:Content ID="Content1" ContentPlaceHolderID="cphHead" runat="server">
 	<style type="text/css">
 	<%= ViewData.Model.TemplateCss %>

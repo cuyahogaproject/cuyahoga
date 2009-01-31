@@ -19,7 +19,7 @@ namespace Cuyahoga.Web.Manager.Controllers
 	{
 		private readonly IUserService _userService;
 		private readonly RoleModelValidator _roleModelValidator;
-		private const int pageSize = 20;
+		private const int pageSize = 3;
 
 		public UsersController(IUserService userService, UserModelValidator userModelValidator, RoleModelValidator roleModelValidator)
 		{

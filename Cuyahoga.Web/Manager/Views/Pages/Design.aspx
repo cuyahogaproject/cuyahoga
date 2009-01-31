@@ -1,4 +1,4 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Manager/Views/Shared/Admin.Master" AutoEventWireup="true" CodeBehind="Design.aspx.cs" Inherits="Cuyahoga.Web.Manager.Views.Pages.Design" %>
+﻿<%@ Page Language="C#" MasterPageFile="~/Manager/Views/Shared/Admin.Master" Inherits="ViewPage<Node>" %>
 <%@ Import Namespace="Cuyahoga.Core.Domain"%>
 <asp:Content ID="Content1" ContentPlaceHolderID="cphHead" runat="server">
 	<link rel="stylesheet" type="text/css" href="<%= Url.Content("~/Manager/Content/Css/jquery-ui/ui.dialog.css") %>" />
@@ -16,7 +16,7 @@
 	<h2><%= GlobalResources.TemplateLabel %></h2>
 	<% using (Html.BeginForm("SetTemplate", "Pages", FormMethod.Post, new { @id = "templateform" } )) { %>
 		<%= Html.Hidden("NodeId", ViewData.Model.Id) %>
-		<%= Html.DropDownList(GlobalResources.ChooseTemplateOption, "TemplateId", ViewData["Templates"] as SelectList)%>
+		<%= Html.DropDownList("TemplateId", ViewData["Templates"] as SelectList, GlobalResources.ChooseTemplateOption)%>
 	<% } %>
 	
 	<h2><%= GlobalResources.TasksLabel %></h2>

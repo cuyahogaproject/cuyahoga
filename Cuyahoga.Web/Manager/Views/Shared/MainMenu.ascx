@@ -1,4 +1,5 @@
-﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="MainMenu.ascx.cs" Inherits="Cuyahoga.Web.Manager.Views.Shared.MainMenu" %>
+﻿<%@ Import Namespace="Cuyahoga.Web.Manager.Model.ViewModels"%>
+<%@ Control Language="C#" Inherits="ViewUserControl<MenuViewData>" %>
 <div id="mainmenu">
 	<% if (ViewData.Model.StandardMainMenuItems.Count > 0) { %>
 	<div id="mainmenu-standard">

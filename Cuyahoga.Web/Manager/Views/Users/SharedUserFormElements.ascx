@@ -1,4 +1,5 @@
-﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="SharedUserFormElements.ascx.cs" Inherits="Cuyahoga.Web.Manager.Views.Users.SharedUserFormElements" %>
+﻿<%@ Import Namespace="Cuyahoga.Core.Domain"%>
+<%@ Control Language="C#" Inherits="System.Web.Mvc.ViewUserControl<User>" %>
 <li>
 	<label for="FirstName"><%=GlobalResources.FirstNameLabel%></label>
 	<%=Html.TextBox("FirstName", ViewData.Model.FirstName, new {style = "width:300px"})%>

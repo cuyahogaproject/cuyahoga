@@ -1,4 +1,5 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Manager/Views/Shared/Admin.Master" AutoEventWireup="true" CodeBehind="EditRole.aspx.cs" Inherits="Cuyahoga.Web.Manager.Views.Users.EditRole" %>
+﻿<%@ Page Language="C#" MasterPageFile="~/Manager/Views/Shared/Admin.Master" Inherits="ViewPage<Role>" %>
+<%@ Import Namespace="Cuyahoga.Core.Domain"%>
 <%@ Import Namespace="Cuyahoga.Core.Service.Membership"%>
 <asp:Content ID="Content1" ContentPlaceHolderID="cphHead" runat="server">
 </asp:Content>

@@ -51,25 +51,25 @@ namespace Cuyahoga.Web.Manager.Filters
 			{
 				var nodes = this._sitemapProvider.GetMvcChildNodes(this._sitemapProvider.RootNode);
 				var currentNode = this._sitemapProvider.CurrentNode;
-				UrlHelper urlHelper = new UrlHelper(filterContext);
+				UrlHelper urlHelper = new UrlHelper(filterContext.RequestContext);
 
 				// mainmenu
 				foreach (MvcSiteMapNode node in nodes)
 				{
 					if (this._sitemapProvider.IsAccessibleToUser(filterContext.HttpContext, node, this._cuyahogaContext.CurrentSite))
 					{
-						MenuItem menuItem = new MenuItem(VirtualPathUtility.ToAbsolute(node.Url)
+						MenuItemData menuItemData = new MenuItemData(VirtualPathUtility.ToAbsolute(node.Url)
 							, GlobalResources.ResourceManager.GetString(node.ResourceKey, Thread.CurrentThread.CurrentUICulture)
 							, CheckInPath(node, currentNode, filterContext.RouteData)
 							, node.Icon != null ? urlHelper.Content("~/manager/Content/images/" + node.Icon) : null);
 						bool isSystem = Convert.ToBoolean(node["system"]);
 						if (isSystem)
 						{
-							menuViewData.AddOptionalMenuItem(menuItem);
+							menuViewData.AddOptionalMenuItem(menuItemData);
 						}
 						else
 						{
-							menuViewData.AddStandardMenuItem(menuItem);
+							menuViewData.AddStandardMenuItem(menuItemData);
 						}
 					}
 					// submenu
@@ -82,11 +82,11 @@ namespace Cuyahoga.Web.Manager.Filters
 							{
 								if (this._sitemapProvider.IsAccessibleToUser(filterContext.HttpContext, mvcChildNode, this._cuyahogaContext.CurrentSite))
 								{
-									MenuItem menuItem = new MenuItem(VirtualPathUtility.ToAbsolute(mvcChildNode.Url)
+									MenuItemData menuItemData = new MenuItemData(VirtualPathUtility.ToAbsolute(mvcChildNode.Url)
 										, GlobalResources.ResourceManager.GetString(mvcChildNode.ResourceKey, Thread.CurrentThread.CurrentUICulture)
 										, CheckInPath(mvcChildNode, currentNode, filterContext.RouteData)
 										, mvcChildNode.Icon != null ? urlHelper.Content("~/manager/Content/images/" + mvcChildNode.Icon) : null);
-									menuViewData.AddSubMenuItem(menuItem);
+									menuViewData.AddSubMenuItem(menuItemData);
 								}
 							}
 						}

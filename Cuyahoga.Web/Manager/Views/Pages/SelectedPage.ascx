@@ -1,4 +1,5 @@
-﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="SelectedPage.ascx.cs" Inherits="Cuyahoga.Web.Manager.Views.Pages.SelectedPage" %>
+﻿<%@ Import Namespace="Cuyahoga.Core.Domain"%>
+<%@ Control Language="C#" Inherits="ViewUserControl<Node>" %>
 <h2><%= GlobalResources.PagePropertiesLabel %></h2>
 <div class="taskcontainer">
 	<% using (Html.BeginForm("SavePageProperties", "Pages", new { id = ViewData.Model.Id }, FormMethod.Post, new { id = "pageform" })) { %>

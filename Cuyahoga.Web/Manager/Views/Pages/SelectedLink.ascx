@@ -1,4 +1,5 @@
-﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="SelectedLink.ascx.cs" Inherits="Cuyahoga.Web.Manager.Views.Pages.SelectedLink" %>
+﻿<%@ Import Namespace="Cuyahoga.Core.Domain"%>
+<%@ Control Language="C#" Inherits="ViewUserControl<Node>" %>
 <h2><%= GlobalResources.LinkPropertiesLabel %></h2>
 <div class="taskcontainer">
 	<% using (Html.BeginForm("SaveLinkProperties", "Pages", new { id = ViewData.Model.Id }, FormMethod.Post)) { %>

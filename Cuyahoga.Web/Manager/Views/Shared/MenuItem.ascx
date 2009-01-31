@@ -1,4 +1,5 @@
-﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="MenuItem.ascx.cs" Inherits="Cuyahoga.Web.Manager.Views.Shared.MenuItem" %>
+﻿<%@ Import Namespace="Cuyahoga.Web.Manager.Model.ViewModels"%>
+<%@ Control Language="C#" Inherits="ViewUserControl<MenuItemData>" %>
 <% if (ViewData.Model.IsSelected) { %>
 <li class="selected">
 <% } else { %>

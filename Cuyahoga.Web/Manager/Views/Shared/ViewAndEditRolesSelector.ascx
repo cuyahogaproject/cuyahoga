@@ -1,5 +1,5 @@
 ﻿<%@ Import Namespace="Cuyahoga.Core.Domain"%>
-<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="ViewAndEditRolesSelector.ascx.cs" Inherits="Cuyahoga.Web.Manager.Views.Shared.ViewAndEditRolesSelector" %>
+<%@ Control Language="C#" Inherits="ViewUserControl<IEnumerable<Permission>>" %>
 <%= GlobalResources.ViewRolesLabel %>
 <% if (ViewData.ContainsKey("AllRoles")) { %>
 	<ul>

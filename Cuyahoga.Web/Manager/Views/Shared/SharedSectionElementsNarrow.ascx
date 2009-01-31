@@ -1,5 +1,5 @@
 ﻿<%@ Import Namespace="Cuyahoga.Core.Domain"%>
-<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="SharedSectionElementsNarrow.ascx.cs" Inherits="Cuyahoga.Web.Manager.Views.Shared.SharedSectionElementsNarrow" %>	
+<%@ Control Language="C#" Inherits="ViewUserControl<Section>" %>	
 	<p>
 		<label>Module type:</label> <strong><%= ViewData.Model.ModuleType.Name %></strong>
 	</p>

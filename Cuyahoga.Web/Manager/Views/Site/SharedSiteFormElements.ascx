@@ -1,4 +1,5 @@
-﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="SharedSiteFormElements.ascx.cs" Inherits="Cuyahoga.Web.Manager.Views.Site.SharedSiteFormElements" %>
+﻿<%@ Import Namespace="Cuyahoga.Core.Domain"%>
+<%@ Control Language="C#" Inherits="ViewUserControl<Site>" %>
 <fieldset>
 	<legend><%=GlobalResources.GeneralLabel%></legend>
 	<ol>

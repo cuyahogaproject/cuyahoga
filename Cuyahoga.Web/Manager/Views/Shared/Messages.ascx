@@ -1,4 +1,5 @@
-﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="Messages.ascx.cs" Inherits="Cuyahoga.Web.Manager.Views.Shared.Messages" %>
+﻿<%@ Import Namespace="Cuyahoga.Web.Manager.Model.ViewModels"%>
+<%@ Control Language="C#" Inherits="ViewUserControl<MessageViewData>" %>
 <div id="messagewrapper" style="display:none">
 	<% foreach (string messageType in MessageType.GetTypes()) { %>
 		<% if (ViewData.Model.Messages[messageType].Count > 0) { %>

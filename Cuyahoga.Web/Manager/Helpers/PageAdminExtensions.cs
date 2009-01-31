@@ -47,7 +47,7 @@ namespace Cuyahoga.Web.Manager.Helpers
 		/// <returns></returns>
 		public static string PageImage(this HtmlHelper htmlHelper, Node node)
 		{
-			UrlHelper urlHelper = new UrlHelper(htmlHelper.ViewContext);
+			UrlHelper urlHelper = new UrlHelper(htmlHelper.ViewContext.RequestContext);
 
 			string imageTag = "<img src=\"{0}\" class=\"handle\" alt=\"{1}\" />";
 			if (node.IsRootNode) 
@@ -71,7 +71,7 @@ namespace Cuyahoga.Web.Manager.Helpers
 
 		public static string PageExpander(this HtmlHelper htmlHelper, Node node, Node activeNode)
 		{
-			UrlHelper urlHelper = new UrlHelper(htmlHelper.ViewContext);
+			UrlHelper urlHelper = new UrlHelper(htmlHelper.ViewContext.RequestContext);
 
 			
 			if (node.ChildNodes.Count > 0)
