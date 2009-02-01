@@ -75,6 +75,16 @@ function processJsonMessage(messageData) {
 	displayMessages();
 }
 
+function movePartialMessages() {
+	// When partial views are rendered, the PartialMessagesFilter might have added some messages to the partial view output. This method 
+	// moves these messages to the main messages area.
+	if ($('.partialmessagewrapper').children().length > 0 && $('#messagewrapper').length > 0) {
+		$('#messagewrapper').empty();
+		$('#messagewrapper').append($('.partialmessagewrapper').children());
+		displayMessages();
+	}
+}
+
 function submitAfterConfirm(targetElement) {
 	if (confirm(CuyahogaConfig.ConfirmText)) {
 		$(targetElement).parents('form').submit();

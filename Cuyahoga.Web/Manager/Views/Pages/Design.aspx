@@ -159,6 +159,7 @@
 			$('#selectedsection form').ajaxForm({
 				target: '#selectedsection',
 				success: function() {
+					movePartialMessages();
 					ajaxifySelectedSectionForms();
 					renderSectionsInTemplate();
 				}

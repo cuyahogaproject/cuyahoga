@@ -11,11 +11,14 @@ namespace Cuyahoga.Web.Manager.Filters
 	{
 		public override void  OnResultExecuting(ResultExecutingContext filterContext)
 		{
-			PartialViewResult result = new PartialViewResult();
-			result.ViewName = "PartialMessages";
-			result.ViewData.Model = filterContext.Controller.ViewData["Messages"];
-			result.ExecuteResult(filterContext.Controller.ControllerContext);
-	 		base.OnResultExecuting(filterContext);
+			if (filterContext.HttpContext.Request.IsAjaxRequest())
+			{
+				PartialViewResult result = new PartialViewResult();
+				result.ViewName = "PartialMessages";
+				result.ViewData.Model = filterContext.Controller.ViewData["Messages"];
+				result.ExecuteResult(filterContext.Controller.ControllerContext);
+	 			base.OnResultExecuting(filterContext);
+			}
 		}
 	}
 }

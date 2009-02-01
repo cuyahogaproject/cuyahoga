@@ -154,7 +154,14 @@ namespace Cuyahoga.Web.Manager.Controllers
 				Logger.Error("Unexpected error while updating section.", ex);
 				ShowException(ex);
 			}
-			return PartialView("SelectedSection", section);
+			if (Request.IsAjaxRequest())
+			{
+				return PartialView("SelectedSection", section);
+			}
+			else
+			{
+				throw new NotImplementedException("UpdateSection not yet implemented for non-AJAX scenario's");
+			}
 		}
 
 		[AcceptVerbs(HttpVerbs.Post)]
@@ -173,7 +180,14 @@ namespace Cuyahoga.Web.Manager.Controllers
 			{
 				ShowException(ex);
 			}
-			return PartialView("SelectedSection", section);
+			if (Request.IsAjaxRequest())
+			{
+				return PartialView("SelectedSection", section);
+			}
+			else
+			{
+				throw new NotImplementedException("UpdateSection not yet implemented for non-AJAX scenario's");
+			}
 		}
 
 		#endregion
