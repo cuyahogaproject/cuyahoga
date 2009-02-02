@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Web.Mvc;
 using Cuyahoga.Core.Domain;
@@ -19,7 +18,7 @@ namespace Cuyahoga.Web.Manager.Controllers
 	{
 		private readonly IUserService _userService;
 		private readonly RoleModelValidator _roleModelValidator;
-		private const int pageSize = 3;
+		private const int pageSize = 20;
 
 		public UsersController(IUserService userService, UserModelValidator userModelValidator, RoleModelValidator roleModelValidator)
 		{

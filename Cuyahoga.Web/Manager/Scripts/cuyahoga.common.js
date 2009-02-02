@@ -57,7 +57,7 @@ $(document).ready(function() {
 })
 
 function displayMessages() {
-	$("#messagewrapper").fadeIn(800);
+	$("#messagewrapper").slideDown(500);
 	
 	$(".close_message").click(function() { 
 		$("#messagewrapper").empty(); 

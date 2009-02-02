@@ -55,8 +55,8 @@
 		
 		$(document).ready(function() {
 			$('#templateform').ajaxForm({ 
-				dataType:  'json' 
-				// Success messages conflict with sortables success:   processJsonMessage // in cuyahoga.common.js
+				dataType:  'json'
+				//success: processJsonMessage // in cuyahoga.common.js
 			}); 
 
 			$('#TemplateId').change(function() {
@@ -93,8 +93,7 @@
 				overlay: { 
 					opacity: 0.5, 
 					background: "black" 
-				},
-				close: closeDialog 
+				}
 			})
 
 			$('#editcontentdialog').dialog({
@@ -189,8 +188,9 @@
 						var placeholder = $(this).parent().attr('id').substring(4); // strip 'plh_'
 						var newSectionDialogUrl = '<%= Url.Action("NewSectionDialog", "Sections") %>?nodeid=<%= ViewData.Model.Id %>&moduletypeid=' + moduleTypeId + '&placeholder=' + placeholder;
 
-						$('#newsectionpropertiesframe').attr('src', newSectionDialogUrl);
-						$('#newsectiondialog').dialog("open");
+						$('#newsectiondialogcontent').load(newSectionDialogUrl, function(e) {
+							$(this).parent().dialog("open");
+						});
 					}
 				},
 				update: function(ev, ui) {
@@ -209,7 +209,16 @@
 		}
 		
 		function createSectionFromDialog(ev, ui) {
-			$('#newsectionpropertiesframe').contents().find('form').submit(); 
+			$('#newsectiondialog form').ajaxSubmit({
+				target: '#newsectiondialogcontent',
+				success: function() {
+					if ($('#newsectiondialog #isvalid').val() == 'True') {
+						movePartialMessages();
+						$('#newsectiondialog').dialog('close');
+						renderSectionsInTemplate();
+					}
+				}
+			});
 		}
 		
 		function closeDialog(ev, ui) {
@@ -252,8 +261,11 @@
 	<% } %>
 	</div>
 	<p><%= Html.ActionLink(GlobalResources.BackToPageListLabel, "Index", new { id = ViewData.Model.Id }) %></p>
+	
 	<div id="newsectiondialog" title="<%= GlobalResources.AddSectionDialogTitle %>">
-		<iframe id="newsectionpropertiesframe" class="dialog-content" style="width:740px;height:400px"></iframe>
+		<div id="newsectiondialogcontent" class="dialog-content" style="height:400px">
+		
+		</div>
 	</div>
 	
 	<div id="deletesectiondialog" title="<%= GlobalResources.RemoveSectionDialogTitle %>">

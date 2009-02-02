@@ -778,15 +778,15 @@
     <Content Include="Manager\Views\Login\Index.aspx" />
     <Content Include="Manager\Views\Pages\Design.aspx" />
     <Content Include="Manager\Views\Pages\Index.aspx" />
+    <Content Include="Manager\Views\Sections\NewSectionDialog.ascx" />
     <Content Include="Manager\Views\Shared\PartialMessages.ascx" />
-    <Content Include="Manager\Views\Shared\SelectedSection.ascx" />
-    <Content Include="Manager\Views\Sections\NewSectionDialog.aspx" />
+    <Content Include="Manager\Views\Sections\SelectedSection.ascx" />
     <Content Include="Manager\Views\Pages\PageListItem.ascx" />
     <Content Include="Manager\Views\Pages\PageListItems.ascx" />
     <Content Include="Manager\Views\Pages\PageTemplate.ascx" />
     <Content Include="Manager\Views\Pages\SelectedLink.ascx" />
     <Content Include="Manager\Views\Pages\SelectedPage.ascx" />
-    <Content Include="Manager\Views\Shared\SharedSectionElements.ascx" />
+    <Content Include="Manager\Views\Sections\SharedSectionElements.ascx" />
     <Content Include="Manager\Views\Pages\Tasks.ascx" />
     <Content Include="Manager\Views\Server\Index.aspx" />
     <Content Include="Manager\Views\Shared\Error.aspx" />
@@ -794,7 +794,7 @@
     <Content Include="Manager\Views\Shared\MainMenu.ascx" />
     <Content Include="Manager\Views\Shared\MenuItem.ascx" />
     <Content Include="Manager\Views\Shared\Messages.ascx" />
-    <Content Include="Manager\Views\Shared\SharedSectionElementsNarrow.ascx" />
+    <Content Include="Manager\Views\Sections\SharedSectionElementsNarrow.ascx" />
     <Content Include="Manager\Views\Shared\SiteChooser.ascx" />
     <Content Include="Manager\Views\Shared\SubMenu.ascx" />
     <Content Include="Manager\Views\Shared\ViewAndEditRolesSelector.ascx" />

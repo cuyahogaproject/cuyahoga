@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Globalization;
 using System.Web.Mvc;
 using Cuyahoga.Core.Domain;
 using Cuyahoga.Core.Service.Membership;
@@ -42,31 +44,6 @@ namespace Cuyahoga.Web.Manager.Controllers
 			newSection.ModuleType = this._sectionService.GetModuleTypeById(moduleTypeId);
 			newSection.PlaceholderId = placeholder;
 			return View("NewSectionDialog", newSection);
-		}
-
-		[AcceptVerbs(HttpVerbs.Post)]
-		public ActionResult AddSectionToPage([Bind(Include = "PlaceHolderId, Title, ShowTitle, CacheDuration")]Section section, int moduleTypeId, int nodeId)
-		{
-			section.ModuleType = this._sectionService.GetModuleTypeById(moduleTypeId);
-			section.Node = this._nodeService.GetNodeById(nodeId);
-			section.Node.AddSection(section);
-			UpdateSectionSettingsFromForm(section, settingsFormElementPrefix);
-			try
-			{
-				if (ValidateModel(section, new [] { "Title", "ModuleType", "Settings" }, "section"))
-				{
-					this._sectionService.SaveSection(section);
-					ShowMessage(String.Format(GlobalResources.SectionCreatedMessage, section.Title));
-					ViewData["CanCloseDialog"] = true;
-				}
-			}
-			catch (Exception ex)
-			{
-				Logger.Error("Unexpected error while adding section to page.", ex);
-				ShowException(ex);
-			}
-			ViewData["NodeId"] = nodeId;
-			return View("NewSectionDialog", section);
 		}
 
 		[AcceptVerbs(HttpVerbs.Post)]
@@ -131,6 +108,31 @@ namespace Cuyahoga.Web.Manager.Controllers
 			}
 
 			return Json(result);
+		}
+
+		[AcceptVerbs(HttpVerbs.Post)]
+		[PartialMessagesFilter]
+		public ActionResult AddSectionToPage([Bind(Include = "PlaceHolderId, Title, ShowTitle, CacheDuration")]Section section, int moduleTypeId, int nodeId)
+		{
+			section.ModuleType = this._sectionService.GetModuleTypeById(moduleTypeId);
+			section.Node = this._nodeService.GetNodeById(nodeId);
+			section.Node.AddSection(section);
+			UpdateSectionSettingsFromForm(section, settingsFormElementPrefix);
+			try
+			{
+				if (ModelState.IsValid && ValidateModel(section, new [] { "Title", "ModuleType", "Settings" }, "section"))
+				{
+					this._sectionService.SaveSection(section);
+					ShowMessage(String.Format(GlobalResources.SectionCreatedMessage, section.Title));
+				}
+			}
+			catch (Exception ex)
+			{
+				Logger.Error("Unexpected error while adding section to page.", ex);
+				ShowException(ex);
+			}
+			ViewData["NodeId"] = nodeId;
+			return View("NewSectionDialog", section);
 		}
 
 		[AcceptVerbs(HttpVerbs.Post)]
@@ -206,6 +208,13 @@ namespace Cuyahoga.Web.Manager.Controllers
 				else if (Request.Params[formElementName] != null)
 				{
 					section.Settings[moduleSetting.Name] = Request.Params[formElementName];
+				}
+				// If a property doesn't exist in ModelState (such as with dynamic dictionary's), add a dummy value
+				// , otherwise rendering of Html elements crashes.
+				if (!ViewData.ModelState.ContainsKey(formElementName))
+				{
+					string value = Request.Params[formElementName];
+					ViewData.ModelState.Add(new KeyValuePair<string, ModelState>(formElementName, new ModelState() { Value = new ValueProviderResult(value, value, CultureInfo.CurrentUICulture) }));
 				}
 			}
 		}

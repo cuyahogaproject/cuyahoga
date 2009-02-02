@@ -385,6 +385,14 @@ ul
 	padding: 5px 20px;
 }
 
+#messagewrapper
+{
+	position: fixed;
+	top: 0px;
+	width: 100%;
+	z-index: 100;
+}
+
 .messagebox
 {
 	color: #060;
@@ -579,7 +587,7 @@ table.grid td.right
 	padding: 10px;
 	margin: 0;
 	overflow: auto;
-}
+s}
 
 /* Drag & drop */
 .drophover
@@ -587,5 +595,3 @@ table.grid td.right
 	border: 3px dashed #999;
 	color: #333;
 }
-
-.
