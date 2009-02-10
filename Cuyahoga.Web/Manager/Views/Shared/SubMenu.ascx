@@ -1,5 +1,5 @@
 ﻿<%@ Import Namespace="Cuyahoga.Web.Manager.Model.ViewModels"%>
-<%@ Control Language="C#" Inherits="ViewUserControl<MenuViewData>" %>
+<%@ Control Language="C#" Inherits="System.Web.Mvc.ViewUserControl<MenuViewData>" %>
 <% if (ViewData.Model.SubMenuItems.Count > 0) { %>
 	<div id="submenu">
 		<ul>

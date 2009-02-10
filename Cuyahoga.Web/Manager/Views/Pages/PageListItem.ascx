@@ -1,5 +1,5 @@
 ﻿<%@ Import Namespace="Cuyahoga.Core.Domain"%>
-<%@ Control Language="C#" Inherits="ViewUserControl<Node>" %>
+<%@ Control Language="C#" Inherits="System.Web.Mvc.ViewUserControl<Node>" %>
 			<% using (Html.PageListItem(ViewData.Model, ViewData["ActiveNode"] as Node)) { %>
 				<% using (Html.PageRowDiv(ViewData.Model, ViewData["ActiveNode"] as Node)) { %>
 					<div class="fr" style="width:120px;text-align:right;"><%= ViewData.Model.UpdateTimestamp%></div>

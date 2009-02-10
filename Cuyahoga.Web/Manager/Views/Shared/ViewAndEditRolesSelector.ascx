@@ -1,5 +1,5 @@
 ﻿<%@ Import Namespace="Cuyahoga.Core.Domain"%>
-<%@ Control Language="C#" Inherits="ViewUserControl<IEnumerable<Permission>>" %>
+<%@ Control Language="C#" Inherits="System.Web.Mvc.ViewUserControl<IEnumerable<Permission>>" %>
 <%= GlobalResources.ViewRolesLabel %>
 <% if (ViewData.ContainsKey("AllRoles")) { %>
 	<ul>

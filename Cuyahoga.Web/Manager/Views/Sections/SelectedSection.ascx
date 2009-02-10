@@ -1,5 +1,5 @@
 ﻿<%@ Import Namespace="Cuyahoga.Core.Domain"%>
-<%@ Control Language="C#" Inherits="ViewUserControl<Section>" %>
+<%@ Control Language="C#" Inherits="System.Web.Mvc.ViewUserControl<Section>" %>
 <h2><%= GlobalResources.SelectedSectionLabel %></h2>
 <a href="#" class="collapselink"><%= GlobalResources.SectionPropertiesLabel %></a>
 <div class="taskcontainer">

@@ -1,5 +1,5 @@
 ﻿<%@ Import Namespace="Cuyahoga.Core.Domain"%>
-<%@ Control Language="C#" Inherits="ViewUserControl<User>" %>
+<%@ Control Language="C#" Inherits="System.Web.Mvc.ViewUserControl<User>" %>
 <fieldset style="border:none">
 	<li>
 	<fieldset>  

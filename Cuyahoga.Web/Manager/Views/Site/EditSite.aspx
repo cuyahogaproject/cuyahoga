@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" MasterPageFile="~/Manager/Views/Shared/Admin.Master" Inherits="ViewPage<Site>" %>
+﻿<%@ Page Language="C#" MasterPageFile="~/Manager/Views/Shared/Admin.Master" Inherits="System.Web.Mvc.ViewPage<Site>" %>
 <%@ Import Namespace="Cuyahoga.Core.Domain"%>
 <%@ Import Namespace="Cuyahoga.Web.Manager.Helpers"%>
 <%@ Import Namespace="Cuyahoga.Core.Service.Membership"%>

@@ -1,5 +1,5 @@
 ﻿<%@ Import Namespace="Cuyahoga.Core.Domain"%>
-<%@ Control Language="C#" Inherits="ViewUserControl<Site>" %>
+<%@ Control Language="C#" Inherits="System.Web.Mvc.ViewUserControl<Site>" %>
 <fieldset>
 	<legend><%=GlobalResources.GeneralLabel%></legend>
 	<ol>

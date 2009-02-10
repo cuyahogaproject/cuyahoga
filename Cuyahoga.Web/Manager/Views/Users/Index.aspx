@@ -1,4 +1,4 @@
-﻿<%@ Language="C#" MasterPageFile="~/Manager/Views/Shared/Admin.Master" Inherits="ViewPage<IPagedList<User>>" %>
+﻿<%@ Language="C#" MasterPageFile="~/Manager/Views/Shared/Admin.Master" Inherits="System.Web.Mvc.ViewPage<IPagedList<User>>" %>
 <%@ Import Namespace="Cuyahoga.Core.Domain"%>
 <%@ Import Namespace="Cuyahoga.Web.Mvc.Paging"%>
 <asp:Content ID="Content1" ContentPlaceHolderID="cphHead" runat="server">

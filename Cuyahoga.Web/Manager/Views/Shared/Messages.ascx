@@ -1,5 +1,5 @@
 ﻿<%@ Import Namespace="Cuyahoga.Web.Manager.Model.ViewModels"%>
-<%@ Control Language="C#" Inherits="ViewUserControl<MessageViewData>" %>
+<%@ Control Language="C#" Inherits="System.Web.Mvc.ViewUserControl<MessageViewData>" %>
 <div id="messagewrapper" style="display:none">
 	<% foreach (string messageType in MessageType.GetTypes()) { %>
 		<% if (ViewData.Model.Messages[messageType].Count > 0) { %>

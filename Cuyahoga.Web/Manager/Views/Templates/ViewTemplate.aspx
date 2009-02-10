@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" MasterPageFile="~/Manager/Views/Shared/Admin.Master" Inherits="ViewPage<TemplateViewData>" %>
+﻿<%@ Page Language="C#" MasterPageFile="~/Manager/Views/Shared/Admin.Master" Inherits="System.Web.Mvc.ViewPage<TemplateViewData>" %>
 <%@ Import Namespace="Cuyahoga.Web.Manager.Model.ViewModels"%>
 <asp:Content ID="Content1" ContentPlaceHolderID="cphHead" runat="server">
 	<style type="text/css">

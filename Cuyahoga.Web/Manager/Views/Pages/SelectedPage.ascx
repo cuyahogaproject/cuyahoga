@@ -1,5 +1,5 @@
 ﻿<%@ Import Namespace="Cuyahoga.Core.Domain"%>
-<%@ Control Language="C#" Inherits="ViewUserControl<Node>" %>
+<%@ Control Language="C#" Inherits="System.Web.Mvc.ViewUserControl<Node>" %>
 <h2><%= GlobalResources.PagePropertiesLabel %></h2>
 <div class="taskcontainer">
 	<% using (Html.BeginForm("SavePageProperties", "Pages", new { id = ViewData.Model.Id }, FormMethod.Post, new { id = "pageform" })) { %>

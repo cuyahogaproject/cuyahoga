@@ -1,5 +1,5 @@
 ﻿<%@ Import Namespace="Cuyahoga.Core.Domain"%>
-<%@ Control Language="C#" Inherits="ViewUserControl<Section>" %>	
+<%@ Control Language="C#" Inherits="System.Web.Mvc.ViewUserControl<Section>" %>	
 	<p>
 		<label>Module type:</label> <strong><%= ViewData.Model.ModuleType.Name %></strong>
 	</p>

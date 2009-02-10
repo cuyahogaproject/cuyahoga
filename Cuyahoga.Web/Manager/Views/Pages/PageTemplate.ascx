@@ -1,5 +1,5 @@
 ﻿<%@ Import Namespace="Cuyahoga.Web.Manager.Model.ViewModels"%>
-<%@ Control Language="C#" Inherits="ViewUserControl<TemplateViewData>" %>
+<%@ Control Language="C#" Inherits="System.Web.Mvc.ViewUserControl<TemplateViewData>" %>
 <style type="text/css">
 <%= ViewData.Model.TemplateCss %>
 </style>

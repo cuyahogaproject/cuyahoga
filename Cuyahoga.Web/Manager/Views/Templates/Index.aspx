@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" MasterPageFile="~/Manager/Views/Shared/Admin.Master" Inherits="ViewPage<ICollection<Template>>" %>
+﻿<%@ Page Language="C#" MasterPageFile="~/Manager/Views/Shared/Admin.Master" Inherits="System.Web.Mvc.ViewPage<ICollection<Template>>" %>
 <%@ Import Namespace="Cuyahoga.Core.Domain"%>
 <asp:Content ID="Content1" ContentPlaceHolderID="cphHead" runat="server">
 	<script type="text/javascript" src="<%= Url.Content("~/manager/Scripts/jquery.form.js") %>"></script>

@@ -1,4 +1,4 @@
-﻿<%@ Language="C#" MasterPageFile="~/Manager/Views/Shared/Admin.Master" Inherits="ViewPage<User>" %>
+﻿<%@ Language="C#" MasterPageFile="~/Manager/Views/Shared/Admin.Master" Inherits="System.Web.Mvc.ViewPage<User>" %>
 <%@ Import Namespace="Cuyahoga.Core.Domain"%>
 <asp:Content ID="Content1" ContentPlaceHolderID="cphHead" runat="server">
 </asp:Content>

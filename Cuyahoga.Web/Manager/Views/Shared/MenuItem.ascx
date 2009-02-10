@@ -1,5 +1,5 @@
 ﻿<%@ Import Namespace="Cuyahoga.Web.Manager.Model.ViewModels"%>
-<%@ Control Language="C#" Inherits="ViewUserControl<MenuItemData>" %>
+<%@ Control Language="C#" Inherits="System.Web.Mvc.ViewUserControl<MenuItemData>" %>
 <% if (ViewData.Model.IsSelected) { %>
 <li class="selected">
 <% } else { %>
