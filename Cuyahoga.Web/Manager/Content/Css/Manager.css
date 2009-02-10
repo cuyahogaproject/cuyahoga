@@ -396,7 +396,7 @@ ul
 .messagebox
 {
 	color: #060;
-	margin: 10px;
+	margin: 0px;
 	padding: 10px 10px 10px 30px;
 	border: 1px solid #396;
 	background: #cfc url(../Images/information.png) no-repeat 8px 11px;
@@ -405,7 +405,7 @@ ul
 .errorbox
 {
 	color: #c00;
-	margin: 10px;
+	margin: 0px;
 	padding: 10px 10px 10px 30px;
 	border: 1px solid #c00;
 	background: #fcc url(../Images/exclamation.png) no-repeat 8px 11px;
