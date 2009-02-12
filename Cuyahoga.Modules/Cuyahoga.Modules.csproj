@@ -1,10 +1,10 @@
 ﻿<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="3.5">
   <PropertyGroup>
     <ProjectType>Local</ProjectType>
-    <ProductVersion>9.0.21022</ProductVersion>
+    <ProductVersion>9.0.30729</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{7069F87A-95E1-4E61-B5FD-E0892E6F821F}</ProjectGuid>
-    <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
+    <ProjectTypeGuids>{603c0e0b-db56-11dc-be95-000d561079b0};{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ApplicationIcon>
@@ -120,6 +120,15 @@
     <Reference Include="System.Web.Extensions.Design, Version=3.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35">
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
     </Reference>
+    <Reference Include="System.Web.Mvc, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\lib\System.Web.Mvc.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Routing, Version=3.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\lib\System.Web.Routing.dll</HintPath>
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
     <Reference Include="System.Xml">
       <Name>System.XML</Name>
     </Reference>
@@ -135,6 +144,10 @@
       <Name>Cuyahoga.ServerControls</Name>
       <Project>{C64DAA00-AAB1-4AC7-ADE2-119B53B9666A}</Project>
       <Package>{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</Package>
+    </ProjectReference>
+    <ProjectReference Include="..\Cuyahoga.Web.Mvc\Cuyahoga.Web.Mvc.csproj">
+      <Project>{216D2C63-CD7A-4601-ABB2-A2C9C461F7FD}</Project>
+      <Name>Cuyahoga.Web.Mvc</Name>
     </ProjectReference>
     <ProjectReference Include="..\Cuyahoga.Web\Cuyahoga.Web.csproj">
       <Name>Cuyahoga.Web</Name>
@@ -193,6 +206,7 @@
     <Compile Include="Sitemap\SitemapControl.ascx.designer.cs">
       <DependentUpon>SitemapControl.ascx</DependentUpon>
     </Compile>
+    <Compile Include="StaticHtml\Controllers\ManageContentController.cs" />
     <Compile Include="StaticHtml\EditHtml.aspx.cs">
       <DependentUpon>EditHtml.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -496,6 +510,7 @@
     <Content Include="StaticHtml\StaticHtml.ascx">
       <SubType>UserControl</SubType>
     </Content>
+    <Content Include="StaticHtml\Views\ManageContent\Edit.aspx" />
     <Content Include="User\EditProfile.ascx">
       <SubType>UserControl</SubType>
     </Content>
@@ -602,6 +617,7 @@
   <ItemGroup>
     <None Include="Cuyahoga.Modules.build" />
     <None Include="LanguageSwitcher\Images\flags\flag.tar.gz" />
+    <Content Include="StaticHtml\Views\Web.config" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
@@ -625,6 +641,9 @@ xcopy /s /y "$(TargetDir)"FredCK.FCKeditorV2.dll "$(SolutionDir)"Cuyahoga.Web\bi
           <IISUrl>
           </IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
+          <UseCustomServer>False</UseCustomServer>
+          <CustomServerUrl>
+          </CustomServerUrl>
           <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
         </WebProjectProperties>
       </FlavorProperties>

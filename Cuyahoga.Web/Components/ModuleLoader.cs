@@ -1,20 +1,19 @@
 using System;
-using System.Reflection;
-
+using System.Web.Mvc;
+using System.Web.Routing;
 using Castle.MicroKernel;
-using System.Collections.Generic;
+using Castle.MicroKernel.Registration;
 using System.Collections;
 using System.Web;
 
 using Castle.Core;
-using Castle.Core.Configuration;
-
 using Cuyahoga.Core;
 using Cuyahoga.Core.Domain;
 using Cuyahoga.Core.Service;
 using Cuyahoga.Core.Service.SiteStructure;
-using Cuyahoga.Web.Util;
+using Cuyahoga.Web.Mvc;
 using log4net;
+using UrlHelper=Cuyahoga.Web.Util.UrlHelper;
 
 
 namespace Cuyahoga.Web.Components
@@ -36,6 +35,7 @@ namespace Cuyahoga.Web.Components
 		/// </summary>
 		/// <param name="kernel"></param>
 		/// <param name="sessionFactoryHelper"></param>
+		/// <param name="moduleService"></param>
 		public ModuleLoader(IKernel kernel, SessionFactoryHelper sessionFactoryHelper, IModuleTypeService moduleService)
 		{
 			this._kernel = kernel;
@@ -183,7 +183,8 @@ namespace Cuyahoga.Web.Components
 				}
 
 				//Register the module
-				this._kernel.AddComponent("module." + moduleTypeType.FullName, moduleTypeType);
+				string moduleTypeKey = "module." + moduleTypeType.FullName;
+				this._kernel.AddComponent(moduleTypeKey, moduleTypeType);
 
 				//Configure NHibernate mappings and make sure we haven't already added this assembly to the NHibernate config
 				if (typeof(INHibernateModule).IsAssignableFrom(moduleTypeType) && ((HttpContext.Current.Application[moduleType.AssemblyName]) == null))
@@ -197,6 +198,16 @@ namespace Cuyahoga.Web.Components
 					HttpContext.Current.Application.Lock();
 					HttpContext.Current.Application[moduleType.AssemblyName] = moduleType.AssemblyName;
 					HttpContext.Current.Application.UnLock();
+				}
+				// Add routes to the routetable if the module supports MVC
+				if (typeof(IMvcModule).IsAssignableFrom(moduleTypeType))
+				{
+					IMvcModule module = this._kernel.Resolve<IMvcModule>(moduleTypeKey);
+					module.RegisterRoutes(RouteTable.Routes);
+					this._kernel.Register(AllTypes
+						.Of(typeof(IController))
+						.FromAssembly(moduleTypeType.Assembly)
+						.Configure(c => c.LifeStyle.Transient));
 				}
 			}
 			finally

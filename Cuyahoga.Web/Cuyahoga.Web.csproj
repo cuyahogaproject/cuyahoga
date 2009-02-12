@@ -1172,6 +1172,7 @@
     <Content Include="Templates\Default\CuyahogaNew.ascx" />
     <Content Include="Templates\Default\Images\bg-header-new.gif" />
     <Content Include="Templates\Default\Images\bg-left2.gif" />
+    <Content Include="Views\Shared\EmptyModuleAdminViewPage.aspx" />
     <Content Include="Web.config" />
     <EmbeddedResource Include="Admin\ConnectionEdit.aspx.resx">
       <DependentUpon>ConnectionEdit.aspx.cs</DependentUpon>
@@ -1444,6 +1445,7 @@
     <None Include="Support\FCKeditor\editor\dialog\fck_spellerpages\spellerpages\server-scripts\spellchecker.cfm" />
     <None Include="Support\FCKeditor\editor\dialog\fck_spellerpages\spellerpages\server-scripts\spellchecker.php" />
     <None Include="Support\FCKeditor\editor\dialog\fck_spellerpages\spellerpages\server-scripts\spellchecker.pl" />
+    <Content Include="Views\Shared\ModuleAdmin.Master" />
     <Content Include="Support\FCKeditor\editor\filemanager\Web.config" />
   </ItemGroup>
   <ItemGroup>

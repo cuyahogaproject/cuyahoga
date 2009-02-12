@@ -1,6 +1,9 @@
 using System;
 using System.Collections;
-
+using System.Web.Mvc;
+using System.Web.Routing;
+using Cuyahoga.Web.Mvc;
+using Cuyahoga.Web.Mvc.Areas;
 using NHibernate;
 using NHibernate.Criterion;
 
@@ -16,7 +19,7 @@ namespace Cuyahoga.Modules.StaticHtml
 	/// The StaticHtmlModule provides the content of simple static page. It needs at least its 
 	/// Section to be set to do something with the content (load, update, delete).
 	/// </summary>
-	public class StaticHtmlModule : ModuleBase, ISearchable, INHibernateModule
+	public class StaticHtmlModule : ModuleBase, ISearchable, INHibernateModule, IMvcModule
 	{
 		public StaticHtmlModule()
 		{	
@@ -177,5 +180,12 @@ namespace Cuyahoga.Modules.StaticHtml
 		}
 
 		#endregion
+
+		public void RegisterRoutes(RouteCollection routes)
+		{
+			routes.CreateArea("Modules/StaticHtml", "Cuyahoga.Modules.StaticHtml.Controllers",
+				routes.MapRoute("StaticHtmlRoute", "Modules/StaticHtml/{controller}/{action}/{id}", new { action = "Edit", controller = "ManageContent", id = "" })
+			);
+		}
 	}
 }
