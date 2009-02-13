@@ -709,6 +709,7 @@
     <Content Include="Manager\Scripts\jquery.form.js" />
     <Content Include="Manager\Scripts\jquery.validate.js" />
     <Content Include="Modules\Content\Css\ModuleAdmin.css" />
+    <Content Include="Modules\Views\Shared\EmptyModuleAdminViewPage.aspx" />
     <Content Include="Support\jquery\jquery-1.2.6.min.js" />
     <Content Include="Manager\Scripts\jquery-asyncupload-0.1.js" />
     <Content Include="Manager\Scripts\jquery.scrollfollow.js" />
@@ -1174,7 +1175,6 @@
     <Content Include="Templates\Default\CuyahogaNew.ascx" />
     <Content Include="Templates\Default\Images\bg-header-new.gif" />
     <Content Include="Templates\Default\Images\bg-left2.gif" />
-    <Content Include="Views\Shared\EmptyModuleAdminViewPage.aspx" />
     <Content Include="Web.config" />
     <EmbeddedResource Include="Admin\ConnectionEdit.aspx.resx">
       <DependentUpon>ConnectionEdit.aspx.cs</DependentUpon>
@@ -1444,10 +1444,10 @@
     <Content Include="Manager\Web.sitemap" />
     <Content Include="Manager\Views\Shared\Dialog.Master" />
     <Content Include="Manager\Views\Web.config" />
+    <Content Include="Modules\Views\Shared\ModuleAdmin.Master" />
     <None Include="Support\FCKeditor\editor\dialog\fck_spellerpages\spellerpages\server-scripts\spellchecker.cfm" />
     <None Include="Support\FCKeditor\editor\dialog\fck_spellerpages\spellerpages\server-scripts\spellchecker.php" />
     <None Include="Support\FCKeditor\editor\dialog\fck_spellerpages\spellerpages\server-scripts\spellchecker.pl" />
-    <Content Include="Views\Shared\ModuleAdmin.Master" />
     <Content Include="Support\FCKeditor\editor\filemanager\Web.config" />
   </ItemGroup>
   <ItemGroup>
