@@ -706,12 +706,12 @@
     <Content Include="Manager\Content\Images\world_go.png" />
     <Content Include="Manager\Default.aspx" />
     <Content Include="Manager\Scripts\cuyahoga.common.js" />
-    <Content Include="Manager\Scripts\jquery-1.2.6.min.js" />
-    <Content Include="Manager\Scripts\jquery-asyncupload-0.1.js" />
     <Content Include="Manager\Scripts\jquery.form.js" />
-    <Content Include="Manager\Scripts\jquery.scrollfollow.js" />
     <Content Include="Manager\Scripts\jquery.validate.js" />
-    <Content Include="Manager\Scripts\jquery.validate.min.js" />
+    <Content Include="Modules\Content\Css\ModuleAdmin.css" />
+    <Content Include="Support\jquery\jquery-1.2.6.min.js" />
+    <Content Include="Manager\Scripts\jquery-asyncupload-0.1.js" />
+    <Content Include="Manager\Scripts\jquery.scrollfollow.js" />
     <Content Include="Manager\Scripts\swfupload license.txt" />
     <Content Include="Manager\Scripts\swfupload.js" />
     <Content Include="Manager\Scripts\swfupload.swf" />
@@ -1101,6 +1101,8 @@
     <Content Include="Support\FCKeditor\fckstyles.xml" />
     <Content Include="Support\FCKeditor\fcktemplates.xml" />
     <Content Include="Support\FCKeditor\license.txt" />
+    <Content Include="Support\jquery\jquery.form.js" />
+    <Content Include="Support\jquery\jquery.validate.js" />
     <Content Include="Support\JsCalendar\cal.gif" />
     <Content Include="Support\JsCalendar\calendar-blue.css" />
     <Content Include="Support\JsCalendar\calendar-blue2.css" />
@@ -1450,7 +1452,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="index\" />
-    <Folder Include="Modules\" />
     <Folder Include="SiteData\" />
     <Folder Include="UserFiles\File\" />
     <Folder Include="UserFiles\Image\" />

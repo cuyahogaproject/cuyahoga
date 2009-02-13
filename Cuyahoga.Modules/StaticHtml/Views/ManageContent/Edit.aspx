@@ -1,5 +1,4 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Views/Shared/ModuleAdmin.Master" Inherits="System.Web.Mvc.ViewPage" %>
-
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Modules/Views/Shared/ModuleAdmin.Master" Inherits="System.Web.Mvc.ViewPage" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 	<title>EmptyModuleAdminViewPage</title>
 </asp:Content>
