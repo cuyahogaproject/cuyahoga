@@ -1,10 +1,10 @@
 ﻿using System;
-using System.Threading;
 using System.Web;
 using System.Web.Mvc;
-using Cuyahoga.Web.Mvc;
-using Resources.Cuyahoga.Web.Manager;
-using MessageViewData=Cuyahoga.Web.Manager.Model.ViewModels.MessageViewData;
+using Castle.Core.Logging;
+using Cuyahoga.Core.Util;
+using Cuyahoga.Web.Mvc.Localization;
+using Cuyahoga.Web.Mvc.ViewModels;
 
 namespace Cuyahoga.Web.Manager.Filters
 {
@@ -13,8 +13,18 @@ namespace Cuyahoga.Web.Manager.Filters
 	/// </summary>
 	public class ExceptionFilter : HandleErrorAttribute
 	{
-		private readonly MessageViewData _messageViewData = new MessageViewData();
+		private readonly ILocalizer _localizer;
+		private readonly ILogger _logger = NullLogger.Instance;
 
+		public ExceptionFilter() : this(IoC.Resolve<ILocalizer>(), IoC.Resolve<ILogger>())
+		{
+		}
+
+		public ExceptionFilter(ILocalizer localizer, ILogger logger)
+		{
+			this._localizer = localizer;
+			this._logger = logger;
+		}
 		public override void OnException(ExceptionContext filterContext)
 		{
 			if (filterContext == null)
@@ -47,15 +57,20 @@ namespace Cuyahoga.Web.Manager.Filters
 			string actionName = (string)filterContext.RouteData.Values["action"];
 			HandleErrorInfo model = new HandleErrorInfo(filterContext.Exception, controllerName, actionName);
 
-			RegisterMessage(MessageType.Exception, exception.Message);
-			while (exception.InnerException != null)
+			if (this._logger.IsErrorEnabled)
 			{
-				exception = exception.InnerException;
-				RegisterMessage(MessageType.Exception, exception.Message);
+				this._logger.Error(string.Format("An unexpected error occured while executing {0} in {1}.", actionName, controllerName), exception);
 			}
 
+			MessageViewData messageViewData = new MessageViewData();
+
+			while (exception != null)
+			{
+				messageViewData.AddErrorMessage(this._localizer.GetString(exception.Message));
+				exception = exception.InnerException;
+			}
 			var viewData = new ViewDataDictionary<HandleErrorInfo>(model);
-			viewData["Messages"] = this._messageViewData;
+			viewData["Messages"] = messageViewData;
 
 			// Render error view
 			filterContext.Result = new ViewResult
@@ -69,12 +84,6 @@ namespace Cuyahoga.Web.Manager.Filters
 			filterContext.ExceptionHandled = true;
 			filterContext.HttpContext.Response.Clear();
 			filterContext.HttpContext.Response.StatusCode = 500;
-		}
-
-		private void RegisterMessage(string messageType, string message)
-		{
-			string localizedMessage = GlobalResources.ResourceManager.GetString(message, Thread.CurrentThread.CurrentUICulture);
-			this._messageViewData.AddMessage(messageType, localizedMessage ?? message);
 		}
 	}
 }

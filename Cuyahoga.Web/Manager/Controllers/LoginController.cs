@@ -5,9 +5,7 @@ using System.Web.Security;
 using Cuyahoga.Core.Domain;
 using Cuyahoga.Core.Service.Membership;
 using Cuyahoga.Core.Validation;
-using Cuyahoga.Web.Manager.Controllers;
 using Cuyahoga.Web.Manager.Model.ViewModels;
-using Resources.Cuyahoga.Web.Manager;
 
 namespace Cuyahoga.Web.Manager.Controllers
 {
@@ -28,7 +26,6 @@ namespace Cuyahoga.Web.Manager.Controllers
 
 		public ActionResult Index(string returnUrl)
 		{
-			ViewData["Title"] = GlobalResources.LoginPageTitle;
 			ViewData["ReturnUrl"] = returnUrl;
 			return View(new LoginViewData());
 		}
@@ -54,14 +51,13 @@ namespace Cuyahoga.Web.Manager.Controllers
 			catch (AuthenticationException ex)
 			{
 				Logger.WarnFormat("User {0} unsuccesfully logged in with password {1}.", loginUser.Username, loginUser.Password);
-				ShowException(ex);
+				Messages.AddException(ex);
 			}
 			catch (Exception ex)
 			{
 				Logger.Error("Unexpected error while logging in", ex);
-				ShowException(ex);
+				Messages.AddException(ex);
 			}
-			ViewData["Title"] = GlobalResources.LoginPageTitle;
 			return View("Index", loginUser);
 		}
 

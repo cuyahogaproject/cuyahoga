@@ -3,6 +3,7 @@
 <%@ Import Namespace="Cuyahoga.Web.Manager.Helpers"%>
 <%@ Import Namespace="Cuyahoga.Core.Service.Membership"%>
 <asp:Content ID="Content1" ContentPlaceHolderID="cphHead" runat="server">
+	<title>Cuyahoga Manager :: <%= GlobalResources.ManageSitePageTitle %></title>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="cphTasks" runat="server">
 	<h2><%= GlobalResources.TasksLabel %></h2>
@@ -11,6 +12,7 @@
 	<% } %>
 </asp:Content>
 <asp:Content ID="Content3" ContentPlaceHolderID="cphMain" runat="server">
+	<h1><%= GlobalResources.ManageSitePageTitle %></h1>
 	<script type="text/javascript">
 		$(document).ready(function() {
 			$('#DefaultTemplateId').change(function() {

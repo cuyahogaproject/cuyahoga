@@ -2,10 +2,12 @@
 <%@ Import Namespace="Cuyahoga.Core.Domain"%>
 <%@ Import Namespace="Cuyahoga.Core.Service.Membership"%>
 <asp:Content ID="Content1" ContentPlaceHolderID="cphHead" runat="server">
+	<title>Cuyahoga Manager :: <%= GlobalResources.NewRolePageTitle %></title>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="cphTasks" runat="server">
 </asp:Content>
 <asp:Content ID="Content3" ContentPlaceHolderID="cphMain" runat="server">
+	<h1><%= GlobalResources.NewRolePageTitle %></h1>
 	<% using(Html.BeginForm("CreateRole", "Users", FormMethod.Post, new { id = "roleform" })) { %>
 		<fieldset>
 			<legend><%=GlobalResources.GeneralLabel%></legend>

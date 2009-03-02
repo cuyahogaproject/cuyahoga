@@ -1,6 +1,7 @@
 ﻿<%@ Page Language="C#" MasterPageFile="~/Manager/Views/Shared/Admin.Master" Inherits="System.Web.Mvc.ViewPage<Node>" %>
 <%@ Import Namespace="Cuyahoga.Core.Domain"%>
 <asp:Content ID="Content1" ContentPlaceHolderID="cphHead" runat="server">
+	<title>Cuyahoga Manager :: <%= String.Format(GlobalResources.DesignPagePageTitle, Model.Title) %></title>
 	<link rel="stylesheet" type="text/css" href="<%= Url.Content("~/Manager/Content/Css/jquery-ui/ui.dialog.css") %>" />
 	<script type="text/javascript" src="<%= Url.Content("~/manager/Scripts/ui.core.js") %>"></script>
 	<script type="text/javascript" src="<%= Url.Content("~/manager/Scripts/ui.sortable.js") %>"></script>
@@ -254,6 +255,7 @@
 	</script>
 </asp:Content>
 <asp:Content ID="Content3" ContentPlaceHolderID="cphMain" runat="server">
+	<h1><%= String.Format(GlobalResources.DesignPagePageTitle, Model.Title) %></h1>
 	<div class="templatecontainer">
 	<% if (ViewData.ContainsKey("TemplateViewData")) { %>
 		<% Html.RenderPartial("PageTemplate", ViewData["TemplateViewData"]); %>

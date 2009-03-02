@@ -10,7 +10,6 @@ using Cuyahoga.Core.Util;
 using Cuyahoga.Core.Validation;
 using Cuyahoga.Web.Mvc.Filters;
 using Cuyahoga.Web.Mvc.WebForms;
-using Resources.Cuyahoga.Web.Manager;
 
 namespace Cuyahoga.Web.Manager.Controllers
 {
@@ -32,7 +31,6 @@ namespace Cuyahoga.Web.Manager.Controllers
 		public ActionResult Index()
 		{
 			Site currentSite = CuyahogaContext.CurrentSite;
-			ViewData["Title"] = GlobalResources.ManageSitePageTitle;
 			ViewData["Roles"] = new SelectList(this._userService.GetAllGlobalRoles(), "Id", "Name", currentSite.DefaultRole.Id);
 			ViewData["Cultures"] = new SelectList(Globalization.GetOrderedCultures(), "Key", "Value", currentSite.DefaultCulture);
 			ViewData["Templates"] = new SelectList(currentSite.Templates, "Id", "Name", currentSite.DefaultTemplate != null ? currentSite.DefaultTemplate.Id : 0);
@@ -47,7 +45,6 @@ namespace Cuyahoga.Web.Manager.Controllers
 		[PermissionFilter(RequiredRights = Rights.CreateSite)]
 		public ActionResult New()
 		{
-			ViewData["Title"] = GlobalResources.NewSitePageTitle;
 			ViewData["Roles"] = new SelectList(this._userService.GetAllGlobalRoles(), "Id", "Name");
 			ViewData["Cultures"] = new SelectList(Globalization.GetOrderedCultures(), "Key", "Value");
 			ViewData["Templates"] = this._templateService.GetAllSystemTemplates();
@@ -78,9 +75,8 @@ namespace Cuyahoga.Web.Manager.Controllers
 			}
 			catch (Exception ex)
 			{
-				ShowException(ex);
+				Messages.AddException(ex);
 			}
-			ViewData["Title"] = GlobalResources.NewSitePageTitle;
 			ViewData["Roles"] = new SelectList(this._userService.GetAllGlobalRoles(), "Id", "Name", site.DefaultRole.Id);
 			ViewData["Cultures"] = new SelectList(Globalization.GetOrderedCultures(), "Key", "Value", site.DefaultCulture);
 			ViewData["Templates"] = this._templateService.GetAllSystemTemplates();
@@ -90,7 +86,6 @@ namespace Cuyahoga.Web.Manager.Controllers
 		[PermissionFilter(RequiredRights = Rights.CreateSite)]
 		public ActionResult CreateSuccess(int siteId)
 		{
-			ViewData["Title"] = GlobalResources.NewSiteSuccessPageTitle;
 			Site newSite = this._siteservice.GetSiteById(siteId);
 			return View("NewSiteSuccess", newSite);
 		}
@@ -106,15 +101,14 @@ namespace Cuyahoga.Web.Manager.Controllers
 				if (ValidateModel(site))
 				{
 					this._siteservice.SaveSite(site);
-					ShowMessage(GlobalResources.SiteUpdatedMessage);
+					Messages.AddMessage("SiteUpdatedMessage");
 					RedirectToAction("Index");
 				}
 			}
 			catch (Exception ex)
 			{
-				ShowException(ex);
+				Messages.AddException(ex);
 			}
-			ViewData["Title"] = GlobalResources.ManageSitePageTitle;
 			ViewData["Roles"] = new SelectList(this._userService.GetAllGlobalRoles(), "Id", "Name", site.DefaultRole.Id);
 			ViewData["Cultures"] = new SelectList(Globalization.GetOrderedCultures(), "Key", "Value", site.DefaultCulture);
 			ViewData["Templates"] = new SelectList(site.Templates, "Id", "Name", site.DefaultTemplate != null ? site.DefaultTemplate.Id : 0);

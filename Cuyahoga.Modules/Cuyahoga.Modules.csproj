@@ -156,6 +156,16 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="App_GlobalResources\Cuyahoga.Modules.StaticHtml.GlobalResources.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Cuyahoga.Modules.StaticHtml.GlobalResources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\Cuyahoga.Modules.StaticHtml.GlobalResources.nl.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Cuyahoga.Modules.StaticHtml.GlobalResources.nl.resx</DependentUpon>
+    </Compile>
     <Compile Include="Categories\CategoryControl.ascx.cs">
       <DependentUpon>CategoryControl.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -530,6 +540,14 @@
     <Content Include="User\ViewProfile.ascx">
       <SubType>UserControl</SubType>
     </Content>
+    <Content Include="App_GlobalResources\Cuyahoga.Modules.StaticHtml.GlobalResources.resx">
+      <Generator>GlobalResourceProxyGenerator</Generator>
+      <LastGenOutput>Cuyahoga.Modules.StaticHtml.GlobalResources.designer.cs</LastGenOutput>
+    </Content>
+    <Content Include="App_GlobalResources\Cuyahoga.Modules.StaticHtml.GlobalResources.nl.resx">
+      <Generator>GlobalResourceProxyGenerator</Generator>
+      <LastGenOutput>Cuyahoga.Modules.StaticHtml.GlobalResources.nl.designer.cs</LastGenOutput>
+    </Content>
     <EmbeddedResource Include="Categories\Resources\Strings.resx">
       <SubType>Designer</SubType>
     </EmbeddedResource>
@@ -624,11 +642,14 @@
     <PreBuildEvent>
     </PreBuildEvent>
     <PostBuildEvent>xcopy /s /y "$(ProjectDir)"*.as?x "$(SolutionDir)"Cuyahoga.Web\Modules
+xcopy /s /y "$(ProjectDir)"*.config "$(SolutionDir)"Cuyahoga.Web\Modules
 xcopy /s /y "$(ProjectDir)"*.gif "$(SolutionDir)"Cuyahoga.Web\Modules
 xcopy /s /y "$(ProjectDir)"*.png "$(SolutionDir)"Cuyahoga.Web\Modules
 xcopy /s /y "$(ProjectDir)"*.txt "$(SolutionDir)"Cuyahoga.Web\Modules
+xcopy /s /y "$(ProjectDir)"App_GlobalResources\*.resx "$(SolutionDir)"Cuyahoga.Web\App_GlobalResources
 xcopy /s /y "$(TargetDir)"Cuyahoga.Modules*.dll "$(SolutionDir)"Cuyahoga.Web\bin
-xcopy /s /y "$(TargetDir)"FredCK.FCKeditorV2.dll "$(SolutionDir)"Cuyahoga.Web\bin</PostBuildEvent>
+xcopy /s /y "$(TargetDir)"FredCK.FCKeditorV2.dll "$(SolutionDir)"Cuyahoga.Web\bin
+</PostBuildEvent>
   </PropertyGroup>
   <ProjectExtensions>
     <VisualStudio>

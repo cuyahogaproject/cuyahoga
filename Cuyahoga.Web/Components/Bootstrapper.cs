@@ -4,11 +4,13 @@ using System.Web;
 using System.Web.Mvc;
 using Castle.Core;
 using Castle.Windsor;
+using Castle.MicroKernel.Registration;
 using Cuyahoga.Core;
 using Cuyahoga.Core.Service;
 using Cuyahoga.Core.Util;
 using Cuyahoga.Core.Validation;
 using Cuyahoga.Core.Validation.ModelValidators;
+using Cuyahoga.Web.Mvc.Localization;
 using Cuyahoga.Web.Mvc.Sitemap;
 using Cuyahoga.Web.Mvc.Validation;
 using log4net;
@@ -38,8 +40,11 @@ namespace Cuyahoga.Web.Components
 				IoC.Initialize(container);
 
 				// Add ICuyahogaContext to the container.
-				container.AddComponentLifeStyle("cuyahoga.context", typeof(ICuyahogaContext), typeof(CuyahogaContext),
-													LifestyleType.PerWebRequest);
+				container.Register(Component.For<ICuyahogaContext>()
+					.ImplementedBy<CuyahogaContext>()
+					.Named("cuyahoga.context")
+					.LifeStyle.PerWebRequest
+				);
 
 				// Windsor controller builder
 				ControllerBuilder.Current.SetControllerFactory(new WindsorControllerFactory(container));
@@ -49,6 +54,11 @@ namespace Cuyahoga.Web.Components
 
 				// Validators
 				RegisterValidatorComponents(container);
+
+				// Localizer
+				container.Register(Component.For<ILocalizer>()
+					.ImplementedBy<ResourceLocalizer>()
+				);
 			}
 			catch (Exception ex)
 			{
@@ -104,26 +114,32 @@ namespace Cuyahoga.Web.Components
 
 		private static void RegisterMvcComponents(IWindsorContainer container)
 		{
-			foreach (Type type in Assembly.GetExecutingAssembly().GetTypes())
-			{
-				if (typeof(IController).IsAssignableFrom(type))
-				{
-					container.Kernel.AddComponent(type.Name.ToLower(), type, LifestyleType.Transient);
-				}
-			}
+			container.Register(AllTypes.Of<IController>()
+				.FromAssembly(Assembly.GetExecutingAssembly())
+				.Configure(c => c.LifeStyle.Transient)
+			);
 			// Register MVC sitemap provider
-			container.AddComponent("managersitemapprovider", typeof(IMvcSitemapProvider), typeof(MvcSitemapProvider));
+			container.Register(Component.For<IMvcSitemapProvider>()
+				.ImplementedBy<MvcSitemapProvider>()
+			);
 		}
 
 		private static void RegisterValidatorComponents(IWindsorContainer container)
 		{
-			container.AddComponent("validatorprovider", typeof(IBrowserValidatorProvider), typeof(JQueryValidator));
-			container.AddComponent("validatorregistry", typeof(ILocalizedValidatorRegistry), typeof(CachedLocalizedValidatorRegistry));
-			container.AddComponentLifeStyle("modelvalidator", typeof(IModelValidator<>), typeof(CastleModelValidator<>), LifestyleType.Transient);
-			container.AddComponentLifeStyle("usermodelvalidator", typeof(UserModelValidator), LifestyleType.Transient);
-			container.AddComponentLifeStyle("rolemodelvalidator", typeof(RoleModelValidator), LifestyleType.Transient);
-			container.AddComponentLifeStyle("sectionmodelvalidator", typeof(SectionModelValidator), LifestyleType.Transient);
-			container.AddComponent("validationengine", typeof(BrowserValidationEngine));
+			container.Register(Component.For<IBrowserValidatorProvider>()
+				.ImplementedBy<JQueryValidator>()
+			);
+			container.Register(Component.For<ILocalizedValidatorRegistry>()
+				.ImplementedBy<CachedLocalizedValidatorRegistry>()
+			);
+			container.Register(Component.For(typeof(IModelValidator<>))
+				.ImplementedBy(typeof(CastleModelValidator<>))
+				.LifeStyle.Transient
+			);
+			container.Register(Component.For<UserModelValidator>().LifeStyle.Transient);
+			container.Register(Component.For<RoleModelValidator>().LifeStyle.Transient);
+			container.Register(Component.For<SectionModelValidator>().LifeStyle.Transient);
+			container.Register(Component.For<BrowserValidationEngine>());
 			container.Kernel.AddComponentInstance("validationresources", Resources.Cuyahoga.Web.Manager.ValidationMessages.ResourceManager);
 
 			// Set validation engine to accessor.

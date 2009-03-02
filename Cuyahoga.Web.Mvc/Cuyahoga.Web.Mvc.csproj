@@ -65,8 +65,12 @@
   <ItemGroup>
     <Compile Include="Areas\RouteCollectionExtensions.cs" />
     <Compile Include="Areas\AreaViewEngine.cs" />
+    <Compile Include="Filters\LocalizationFilter.cs" />
+    <Compile Include="Filters\MessagesFilter.cs" />
     <Compile Include="Filters\PermissionFilter.cs" />
     <Compile Include="IMvcModule.cs" />
+    <Compile Include="Localization\ILocalizer.cs" />
+    <Compile Include="Localization\ResourceLocalizer.cs" />
     <Compile Include="MessageType.cs" />
     <Compile Include="Paging\IPagedList.cs" />
     <Compile Include="Paging\PagedList.cs" />
@@ -80,6 +84,7 @@
     <Compile Include="Sitemap\MvcSitemapProvider.cs" />
     <Compile Include="Validation\JQueryValidator.cs" />
     <Compile Include="Validation\ValidationExtensions.cs" />
+    <Compile Include="ViewModels\MessageViewData.cs" />
     <Compile Include="WebForms\ViewUtil.cs" />
   </ItemGroup>
   <ItemGroup>

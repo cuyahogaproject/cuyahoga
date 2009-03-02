@@ -2,11 +2,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Web.Mvc;
-using Cuyahoga.Core.Domain;
 using Cuyahoga.Core.Service.Membership;
 using Cuyahoga.Core.Service.SiteStructure;
 using Cuyahoga.Web.Mvc.Filters;
-using Resources.Cuyahoga.Web.Manager;
 using CuyahogaSite = Cuyahoga.Core.Domain.Site;
 
 namespace Cuyahoga.Web.Manager.Controllers
@@ -23,7 +21,6 @@ namespace Cuyahoga.Web.Manager.Controllers
 
 		public ActionResult Index()
 		{
-			ViewData["Title"] = GlobalResources.DashboardPageTitle;
 			return View();
 		}
 

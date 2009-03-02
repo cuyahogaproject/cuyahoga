@@ -1,6 +1,7 @@
 ﻿<%@ Import Namespace="Cuyahoga.Web.Manager.Model.ViewModels"%>
 <%@ Page Language="C#" MasterPageFile="~/Manager/Views/Shared/Default.Master" Inherits="System.Web.Mvc.ViewPage<LoginViewData>" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="cphHead" runat="server">
+	<title><%= GlobalResources.LoginPageTitle %></title>
 	<style type="text/css">
 	body
 	{

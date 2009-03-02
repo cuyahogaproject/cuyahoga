@@ -1,5 +1,8 @@
 ﻿<%@ Page Language="C#" MasterPageFile="~/Manager/Views/Shared/Admin.Master" Inherits="System.Web.Mvc.ViewPage<ICollection<Template>>" %>
 <%@ Import Namespace="Cuyahoga.Core.Domain"%>
+<asp:Content ID="Content1" ContentPlaceHolderID="cphHead" runat="server">
+	<title>Cuyahoga Manager :: <%= GlobalResources.ManageTemplatesPageTitle %></title>
+</asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="cphTasks" runat="server">
 	<h2><%= GlobalResources.TasksLabel %></h2>
 	<%= Html.ActionLink(GlobalResources.RegisterTemplateLabel, "New", null, new { @class = "createlink" })%>
@@ -25,6 +28,7 @@
 	</div>
 </asp:Content>
 <asp:Content ID="Content3" ContentPlaceHolderID="cphMain" runat="server">
+	<h1><%= GlobalResources.ManageTemplatesPageTitle %></h1>
 	<% if (ViewData.Model.Count > 0) { %>
 		<table class="grid" style="width:100%">
 			<thead>

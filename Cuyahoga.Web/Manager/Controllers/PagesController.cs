@@ -1,10 +1,8 @@
 ﻿using System;
 using System.Collections;
-using System.Collections.Generic;
 using System.IO;
 using System.Web;
 using System.Web.Mvc;
-using Cuyahoga.Core;
 using Cuyahoga.Core.Domain;
 using Cuyahoga.Core.Service.Files;
 using Cuyahoga.Core.Service.Membership;
@@ -16,7 +14,6 @@ using Cuyahoga.Web.Manager.Helpers;
 using Cuyahoga.Web.Manager.Model.ViewModels;
 using Cuyahoga.Web.Mvc.Filters;
 using Cuyahoga.Web.Mvc.WebForms;
-using Resources.Cuyahoga.Web.Manager;
 
 namespace Cuyahoga.Web.Manager.Controllers
 {
@@ -40,7 +37,6 @@ namespace Cuyahoga.Web.Manager.Controllers
 		[RolesFilter]
 		public ActionResult Index(int? id)
 		{
-			ViewData["Title"] = GlobalResources.ManagePagesPageTitle;
 			// The given id is of the active node.
 			if (id.HasValue)
 			{
@@ -69,7 +65,6 @@ namespace Cuyahoga.Web.Manager.Controllers
 			{
 				ViewData["ActiveSection"] = this._sectionService.GetSectionById(sectionId.Value);
 			}
-			ViewData["Title"] = String.Format(GlobalResources.DesignPagePageTitle, node.Title);
 			ViewData["Templates"] = new SelectList(this._templateService.GetAllTemplatesBySite(CuyahogaContext.CurrentSite), "Id", "Name"
 				, node.Template != null ? node.Template.Id : -1);
 			ViewData["AvailableModules"] = this._sectionService.GetSortedActiveModuleTypes();
@@ -94,13 +89,13 @@ namespace Cuyahoga.Web.Manager.Controllers
 				if (TryUpdateModel(node, includeProperties) && ValidateModel(node, includeProperties))
 				{
 					this._nodeService.SaveNode(node);
-					ShowMessage(GlobalResources.PagePropertiesUpdatedMessage, true);
+					Messages.AddFlashMessage("PagePropertiesUpdatedMessage");
 					return RedirectToAction("Index", new { id = node.Id });
 				}
 			}
 			catch (Exception ex)
 			{
-				ShowException(ex);
+				Messages.AddException(ex);
 			}
 			return Index(node.Id);
 		}
@@ -115,13 +110,13 @@ namespace Cuyahoga.Web.Manager.Controllers
 				if (TryUpdateModel(node, includeProperties) && ValidateModel(node, includeProperties))
 				{
 					this._nodeService.SaveNode(node);
-					ShowMessage(GlobalResources.LinkPropertiesUpdatedMessage, true);
+					Messages.AddFlashMessage("LinkPropertiesUpdatedMessage");
 					return RedirectToAction("Index", new { id = node.Id });
 				}
 			}
 			catch (Exception ex)
 			{
-				ShowException(ex);
+				Messages.AddException(ex);
 			}
 			return Index(node.Id);
 		}
@@ -130,7 +125,7 @@ namespace Cuyahoga.Web.Manager.Controllers
 		public ActionResult MovePage(int nodeId, int newParentNodeId)
 		{
 			this._nodeService.MoveNode(nodeId, newParentNodeId);
-			ShowMessage(GlobalResources.PageMovedMessage, true);
+			Messages.AddFlashMessage("PageMovedMessage");
 			return RedirectToAction("Index", new { id = nodeId });
 		}
 
@@ -138,7 +133,7 @@ namespace Cuyahoga.Web.Manager.Controllers
 		public ActionResult CopyPage(int nodeId, int newParentNodeId)
 		{
 			Node newNode = this._nodeService.CopyNode(nodeId, newParentNodeId);
-			ShowMessage(GlobalResources.PageCopiedMessage, true);
+			Messages.AddFlashMessage("PageCopiedMessage");
 			return RedirectToAction("Index", new { id = newNode.Id });
 		}
 
@@ -150,12 +145,12 @@ namespace Cuyahoga.Web.Manager.Controllers
 				try
 				{
 					newRootPage = this._nodeService.CreateRootNode(CuyahogaContext.CurrentSite, newRootPage);
-					ShowMessage(String.Format(GlobalResources.PageCreatedMessage, newRootPage.Title), true);
+					Messages.AddFlashMessageWithParams("PageCreatedMessage", newRootPage.Title);
 					return RedirectToAction("Design", new { id = newRootPage.Id, expandaddnew = true });
 				}
 				catch (Exception ex)
 				{
-					ShowException(ex);
+					Messages.AddException(ex);
 				}
 			}
 			ViewData["CurrentTask"] = "CreateRootPage";
@@ -171,12 +166,12 @@ namespace Cuyahoga.Web.Manager.Controllers
 				{
 					Node parentNode = this._nodeService.GetNodeById(parentNodeId);
 					newPage = this._nodeService.CreateNode(parentNode, newPage);
-					ShowMessage(String.Format(GlobalResources.PageCreatedMessage, newPage.Title), true);
+					Messages.AddFlashMessageWithParams("PageCreatedMessage", newPage.Title);
 					return RedirectToAction("Design", new { id = newPage.Id, expandaddnew = true });
 				}
 				catch (Exception ex)
 				{
-					ShowException(ex);
+					Messages.AddException(ex);
 				}
 			}
 			ViewData["CurrentTask"] = "CreatePage";
@@ -192,12 +187,12 @@ namespace Cuyahoga.Web.Manager.Controllers
 				{
 					Node parentNode = this._nodeService.GetNodeById(parentNodeId);
 					newLink = this._nodeService.CreateNode(parentNode, newLink);
-					ShowMessage(String.Format(GlobalResources.LinkCreatedMessage, newLink.Title), true);
+					Messages.AddFlashMessageWithParams("LinkCreatedMessage", newLink.Title);
 					return RedirectToAction("Index", new { id = newLink.Id });
 				}
 				catch (Exception ex)
 				{
-					ShowException(ex);
+					Messages.AddException(ex);
 				}
 			}
 			ViewData["CurrentTask"] = "CreateLink";
@@ -211,10 +206,13 @@ namespace Cuyahoga.Web.Manager.Controllers
 			Node parentNode = nodeToDelete.ParentNode;
 			try
 			{
-				string message = String.Format((nodeToDelete.IsExternalLink ? GlobalResources.LinkDeletedMessage : GlobalResources.PageDeletedMessage)
-					, nodeToDelete.Title);
+				string message = "PageDeletedMessage";
+				if (nodeToDelete.IsExternalLink)
+				{
+					message = "LinkDeletedMessage";
+				}
 				this._nodeService.DeleteNode(nodeToDelete);
-				ShowMessage(message, true);
+				Messages.AddFlashMessageWithParams(message, nodeToDelete.Title);
 				if (parentNode != null)
 				{
 					return RedirectToAction("Index", new { id = parentNode.Id });
@@ -223,7 +221,7 @@ namespace Cuyahoga.Web.Manager.Controllers
 			}
 			catch (Exception ex)
 			{
-				ShowException(ex, true);
+				Messages.AddFlashException(ex);
 			}
 			return RedirectToAction("Index", new { id = nodeToDelete.Id });
 		}
@@ -235,12 +233,12 @@ namespace Cuyahoga.Web.Manager.Controllers
 			try
 			{
 				this._nodeService.SetNodePermissions(node, viewRoleIds, editRoleIds, propagateToChildPages, propagateToChildSections);
-				ShowMessage(String.Format(GlobalResources.PermissionsUpdatedMessage, node.Title), true);
+				Messages.AddFlashMessageWithParams("PermissionsUpdatedMessage", node.Title);
 
 			}
 			catch (Exception ex)
 			{
-				ShowException(ex, true);
+				Messages.AddFlashException(ex);
 			}
 			return RedirectToAction("Index", new { id = id });
 		}
@@ -290,7 +288,7 @@ namespace Cuyahoga.Web.Manager.Controllers
 			try
 			{
 				this._nodeService.SortNodes(parentNodeId, orderedChildNodeIds);
-				result.Message = GlobalResources.PageOrderUpdatedMessage;
+				result.Message = GetText("PageOrderUpdatedMessage");
 			}
 			catch (Exception ex)
 			{
@@ -335,7 +333,7 @@ namespace Cuyahoga.Web.Manager.Controllers
 				Node node = this._nodeService.GetNodeById(nodeId);
 				node.Template = this._templateService.GetTemplateById(templateId);
 				this._nodeService.SaveNode(node);
-				result.Message = GlobalResources.TemplateSetMessage;
+				result.Message = GetText("TemplateSetMessage");
 			}
 			catch (Exception ex)
 			{

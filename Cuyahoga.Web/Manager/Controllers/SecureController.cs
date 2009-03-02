@@ -1,7 +1,5 @@
 ﻿using System.Web.Mvc;
 using Cuyahoga.Core.Domain;
-using Cuyahoga.Core.Validation;
-using Cuyahoga.Web.Manager.Controllers;
 
 namespace Cuyahoga.Web.Manager.Controllers
 {

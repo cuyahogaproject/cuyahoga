@@ -2,6 +2,7 @@
 <%@ Import Namespace="Cuyahoga.Core.Domain"%>
 <%@ Import Namespace="Cuyahoga.Web.Mvc.Paging"%>
 <asp:Content ID="Content1" ContentPlaceHolderID="cphHead" runat="server">
+	<title>Cuyahoga Manager :: <%= GlobalResources.ManageUsersPageTitle %></title>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="cphTasks" runat="server">
 	<h2><%= GlobalResources.TasksLabel %></h2>
@@ -9,6 +10,7 @@
 	
 </asp:Content>
 <asp:Content ID="Content3" ContentPlaceHolderID="cphMain" runat="server">
+	<h1><%= GlobalResources.ManageUsersPageTitle %></h1>
 	<% using (Html.BeginForm("Browse", "Users", FormMethod.Get, new { id = "usersearchform" })) { %>
 		<label for="username"><%= GlobalResources.UsernameLabel %></label>
 		<%= Html.TextBox("username", ViewData["username"]) %>

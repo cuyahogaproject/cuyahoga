@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Threading;
 using System.Web;
 using System.Web.Mvc;
 using Cuyahoga.Core;
@@ -14,7 +13,6 @@ using Cuyahoga.Core.Validation;
 using Cuyahoga.Web.Manager.Model.ViewModels;
 using Cuyahoga.Web.Mvc.Filters;
 using Cuyahoga.Web.Mvc.WebForms;
-using Resources.Cuyahoga.Web.Manager;
 
 namespace Cuyahoga.Web.Manager.Controllers
 {
@@ -33,7 +31,6 @@ namespace Cuyahoga.Web.Manager.Controllers
 		[PermissionFilter(RequiredRights = Rights.ManageTemplates)]
 		public ActionResult Index()
 		{
-			ViewData["Title"] = GlobalResources.ManageTemplatesPageTitle;
 			IList<Template> templates = this._templateService.GetAllTemplatesBySite(CuyahogaContext.CurrentSite);
 			return View(templates);
 		}
@@ -41,7 +38,6 @@ namespace Cuyahoga.Web.Manager.Controllers
 		public ActionResult View(int id)
 		{
 			Template template = this._templateService.GetTemplateById(id);
-			ViewData["Title"] = GlobalResources.ViewTemplatePageTitle;
 			string siteDataDir = CuyahogaContext.CurrentSite.SiteDataDirectory;
 			string absoluteBasePath = VirtualPathUtility.Combine(siteDataDir, template.BasePath) + "/";
 			string htmlContent = ViewUtil.RenderTemplateHtml(VirtualPathUtility.Combine(absoluteBasePath, template.TemplateControl));
@@ -69,20 +65,19 @@ namespace Cuyahoga.Web.Manager.Controllers
 				if (TryUpdateModel(template, new[] { "Name", "BasePath", "TemplateControl", "Css" }) && ValidateModel(template))
 				{
 					this._templateService.SaveTemplate(template);
-					ShowMessage(String.Format(GlobalResources.TemplateCreatedMessage, template.Name), true);
+					Messages.AddMessageWithParams("TemplateCreatedMessage", template.Name);
 					return RedirectToAction("Index");
 				}
 			}
 			catch (Exception ex)
 			{
-				ShowException(ex);
+				Messages.AddException(ex);
 			}
 			return RenderNewTemplateView(template);
 		}
 
 		private ActionResult RenderNewTemplateView(Template template)
 		{
-			ViewData["Title"] = GlobalResources.RegisterTemplatePageTitle;
 			string siteDataDir = CuyahogaContext.CurrentSite.SiteDataDirectory;
 			var basePaths = (	from directory in this._fileService.GetSubDirectories(Server.MapPath(VirtualPathUtility.Combine(siteDataDir, "Templates")))
 			                 	select "Templates/" + directory
@@ -102,7 +97,6 @@ namespace Cuyahoga.Web.Manager.Controllers
 		[PermissionFilter(RequiredRights = Rights.ManageTemplates)]
 		public ActionResult Edit(int id)
 		{
-			ViewData["Title"] = GlobalResources.EditTemplatePageTitle;
 			Template template = this._templateService.GetTemplateById(id);
 			SetupTemplateControlAndCssLists(template, template.BasePath);
 			return View("EditTemplate", template);
@@ -118,15 +112,14 @@ namespace Cuyahoga.Web.Manager.Controllers
 				if (TryUpdateModel(template, new[] { "Name", "TemplateControl", "Css" }) && ValidateModel(template))
 				{
 					this._templateService.SaveTemplate(template);
-					ShowMessage(String.Format(GlobalResources.TemplateUpdatedMessage, template.Name), true);
+					Messages.AddFlashMessageWithParams("TemplateUpdatedMessage", template.Name);
 					return RedirectToAction("Index");
 				}
 			}
 			catch (Exception ex)
 			{
-				ShowException(ex);
+				Messages.AddException(ex);
 			}
-			ViewData["Title"] = GlobalResources.EditTemplatePageTitle;
 			SetupTemplateControlAndCssLists(template, template.BasePath);
 			return View("EditTemplate", template);
 		}
@@ -139,11 +132,11 @@ namespace Cuyahoga.Web.Manager.Controllers
 			try
 			{
 				this._templateService.DeleteTemplate(template);
-				ShowMessage(String.Format(GlobalResources.TemplateDeletedMessage, template.Name), true);
+				Messages.AddFlashMessageWithParams("TemplateDeletedMessage", template.Name);
 			}
 			catch (Exception ex)
 			{
-				ShowException(ex, true);
+				Messages.AddFlashException(ex);
 			}
 			return RedirectToAction("Index");
 		}
@@ -198,22 +191,22 @@ namespace Cuyahoga.Web.Manager.Controllers
 					HttpPostedFileBase theFile = Request.Files[0];
 					if (! theFile.FileName.EndsWith(".zip"))
 					{
-						throw new Exception(GlobalResources.InvalidZipFileMessage);
+						throw new Exception(GetText("InvalidZipFileMessage"));
 					}
 					string templatesRoot = VirtualPathUtility.Combine(CuyahogaContext.CurrentSite.SiteDataDirectory, "Templates");
 					string filePath = Path.Combine(Server.MapPath(templatesRoot), theFile.FileName);
 					this._templateService.ExtractTemplatePackage(filePath, theFile.InputStream);
-					result.Message = GlobalResources.TemplatesUploadedMessage;
+					result.Message = GetText("TemplatesUploadedMessage");
 				}
 				else
 				{
-					result.Error = GlobalResources.NoFileUploadedMessage;
+					result.Error = GetText("NoFileUploadedMessage");
 				}
 			}
 			catch (InvalidPackageException ex)
 			{
 				Logger.Error(ex.Message, ex);
-				result.Error = TranslateMessage(ex.Message);
+				result.Error = GetText(ex.Message);
 			}
 			catch (Exception ex)
 			{

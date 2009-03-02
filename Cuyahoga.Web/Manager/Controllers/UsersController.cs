@@ -7,7 +7,6 @@ using Cuyahoga.Core.Util;
 using Cuyahoga.Core.Validation.ModelValidators;
 using Cuyahoga.Web.Mvc.Filters;
 using Cuyahoga.Web.Mvc.Paging;
-using Resources.Cuyahoga.Web.Manager;
 using CuyahogaUser = Cuyahoga.Core.Domain.User;
 using CuyahogaSite = Cuyahoga.Core.Domain.Site;
 
@@ -34,12 +33,10 @@ namespace Cuyahoga.Web.Manager.Controllers
 
 		public ActionResult Browse(string username, int? roleId, bool? isActive, bool? globalSearch, int? page)
 		{
-			ViewData["Title"] = GlobalResources.ManageUsersPageTitle;
-
 			ViewData["username"] = username;
 			ViewData["roles"] = new SelectList(this._userService.GetAllRolesBySite(CuyahogaContext.CurrentSite), "Id", "Name", roleId);
 			ViewData["roleid"] = roleId;
-			IDictionary<bool, string> isActiveOptions = new Dictionary<bool, string>() { { true, GlobalResources.Yes }, { false, GlobalResources.No } };
+			IDictionary<bool, string> isActiveOptions = new Dictionary<bool, string>() { { true, GetText("Yes") }, { false, GetText("No") } };
 			ViewData["isactiveoptions"] = new SelectList(isActiveOptions, "Key", "Value", isActive);
 			ViewData["isactive"] = isActive;
 			ViewData["globalsearchallowed"] = CuyahogaContext.CurrentUser.HasRight(Rights.GlobalPermissions);
@@ -53,7 +50,6 @@ namespace Cuyahoga.Web.Manager.Controllers
 
 		public ActionResult New()
 		{
-			ViewData["Title"] = GlobalResources.NewUserPageTitle;
 			ViewData["Roles"] = this._userService.GetAllRolesBySite(CuyahogaContext.CurrentSite);
 			User user = new User();
 			ViewData["TimeZones"] = new SelectList(TimeZoneUtil.GetTimeZones(), "Key", "Value", user.TimeZone);
@@ -62,7 +58,6 @@ namespace Cuyahoga.Web.Manager.Controllers
 
 		public ActionResult Edit(int id)
 		{
-			ViewData["Title"] = GlobalResources.EditUserPageTitle;
 			ViewData["Roles"] = this._userService.GetAllRolesBySite(CuyahogaContext.CurrentSite);
 			User user = this._userService.GetUserById(id);
 			ViewData["TimeZones"] = new SelectList(TimeZoneUtil.GetTimeZones(), "Key", "Value", user.TimeZone);
@@ -90,15 +85,14 @@ namespace Cuyahoga.Web.Manager.Controllers
 				if (ValidateModel(newUser))
 				{
 					this._userService.CreateUser(newUser);
-					ShowMessage(String.Format(GlobalResources.UserCreatedMessage, newUser.UserName), true);
+					Messages.AddFlashMessageWithParams("UserCreatedMessage", newUser.UserName);
 					return RedirectToAction("Index");
 				}
 			}
 			catch (Exception ex)
 			{
-				ShowException(ex);
+				Messages.AddException(ex);
 			}
-			ViewData["Title"] = GlobalResources.NewUserPageTitle;
 			ViewData["Roles"] = this._userService.GetAllRolesBySite(CuyahogaContext.CurrentSite);
 			ViewData["TimeZones"] = new SelectList(TimeZoneUtil.GetTimeZones(), "Key", "Value", newUser.TimeZone);
 			return View("NewUser", newUser);
@@ -125,15 +119,14 @@ namespace Cuyahoga.Web.Manager.Controllers
 				if (ValidateModel(user, new[] { "FirstName", "LastName", "Email", "Website", "Roles" }))
 				{
 					this._userService.UpdateUser(user);
-					ShowMessage(String.Format(GlobalResources.UserUpdatedMessage, user.UserName), true);
+					Messages.AddFlashMessageWithParams("UserUpdatedMessage", user.UserName);
 					return RedirectToAction("Index");
 				}
 			}
 			catch (Exception ex)
 			{
-				ShowException(ex);
+				Messages.AddException(ex);
 			}
-			ViewData["Title"] = GlobalResources.EditUserPageTitle;
 			ViewData["Roles"] = this._userService.GetAllRolesBySite(CuyahogaContext.CurrentSite);
 			ViewData["TimeZones"] = new SelectList(TimeZoneUtil.GetTimeZones(), "Key", "Value", user.TimeZone);
 			return View("EditUser", user);
@@ -151,14 +144,13 @@ namespace Cuyahoga.Web.Manager.Controllers
 				if (ValidateModel(user, new[] { "Password", "PasswordConfirmation" }))
 				{
 					this._userService.UpdateUser(user);
-					ShowMessage(GlobalResources.PasswordChangedMessage);
+					Messages.AddMessage("PasswordChangedMessage");
 				}
 			}
 			catch (Exception ex)
 			{
-				ShowException(ex);
+				Messages.AddException(ex);
 			}
-			ViewData["Title"] = GlobalResources.EditUserPageTitle;
 			ViewData["Roles"] = this._userService.GetAllRolesBySite(CuyahogaContext.CurrentSite);
 			ViewData["TimeZones"] = new SelectList(TimeZoneUtil.GetTimeZones(), "Key", "Value", user.TimeZone);
 			return View("EditUser", user);
@@ -171,11 +163,11 @@ namespace Cuyahoga.Web.Manager.Controllers
 			try
 			{
 				this._userService.DeleteUser(user);
-				ShowMessage(String.Format(GlobalResources.UserDeletedMessage, user.UserName), true);
+				Messages.AddFlashMessageWithParams("UserDeletedMessage", user.UserName);
 			}
 			catch(Exception ex)
 			{
-				ShowException(ex, true);
+				Messages.AddFlashException(ex);
 			}
 			return RedirectToAction("Index");
 		}
@@ -194,14 +186,12 @@ namespace Cuyahoga.Web.Manager.Controllers
 
 		public ActionResult Roles()
 		{
-			ViewData["Title"] = GlobalResources.ManageRolesPageTitle;
 			IList<Role> roles = this._userService.GetAllRolesBySite(CuyahogaContext.CurrentSite);
 			return View("Roles", roles);
 		}
 
 		public ActionResult NewRole()
 		{
-			ViewData["Title"] = GlobalResources.NewRolePageTitle;
 			ViewData["Rights"] = this._userService.GetAllRights();
 			Role role = new Role();
 			return View(role);
@@ -209,7 +199,6 @@ namespace Cuyahoga.Web.Manager.Controllers
 
 		public ActionResult EditRole(int id)
 		{
-			ViewData["Title"] = GlobalResources.EditRolePageTitle;
 			ViewData["Rights"] = this._userService.GetAllRights();
 			Role role = this._userService.GetRoleById(id);
 			return View(role);
@@ -234,15 +223,15 @@ namespace Cuyahoga.Web.Manager.Controllers
 				if (ValidateModel(newRole, this._roleModelValidator, new [] { "Name" }))
 				{
 					this._userService.CreateRole(newRole, CuyahogaContext.CurrentSite);
-					ShowMessage(String.Format(GlobalResources.RoleCreatedMessage, newRole.Name), true);
+					Messages.AddFlashMessageWithParams("RoleCreatedMessage", newRole.Name);
 					return RedirectToAction("roles");
 				}
 			}
 			catch (Exception ex)
 			{
-				ShowException(ex);
+				Messages.AddException(ex);
 			}
-			ViewData["Title"] = GlobalResources.NewRolePageTitle;
+			ViewData["Title"] = GetText("NewRolePageTitle");
 			ViewData["Rights"] = this._userService.GetAllRights();
 			return View("NewRole", newRole);
 		}
@@ -268,15 +257,15 @@ namespace Cuyahoga.Web.Manager.Controllers
 				if (ValidateModel(role, this._roleModelValidator, new[] { "Name" }))
 				{
 					this._userService.UpdateRole(role, CuyahogaContext.CurrentSite);
-					ShowMessage(String.Format(GlobalResources.RoleUpdatedMessage, role.Name), true);
+					Messages.AddFlashMessageWithParams("RoleUpdatedMessage", role.Name);
 					return RedirectToAction("Roles");
 				}
 			}
 			catch (Exception ex)
 			{
-				ShowException(ex);
+				Messages.AddException(ex);
 			}
-			ViewData["Title"] = GlobalResources.EditRolePageTitle;
+			ViewData["Title"] = GetText("EditRolePageTitle");
 			ViewData["Rights"] = this._userService.GetAllRights();
 			return View("EditRole", role);
 		}
@@ -288,11 +277,11 @@ namespace Cuyahoga.Web.Manager.Controllers
 			try
 			{
 				this._userService.DeleteRole(role);
-				ShowMessage(String.Format(GlobalResources.RoleDeletedMessage, role.Name), true);
+				Messages.AddFlashMessageWithParams("RoleDeletedMessage", role.Name);
 			}
 			catch (Exception ex)
 			{
-				ShowException(ex, true);
+				Messages.AddFlashException(ex);
 			}
 			return RedirectToAction("Roles");
 		}

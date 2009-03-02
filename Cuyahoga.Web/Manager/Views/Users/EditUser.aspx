@@ -1,10 +1,12 @@
 ﻿<%@ Language="C#" MasterPageFile="~/Manager/Views/Shared/Admin.Master" Inherits="System.Web.Mvc.ViewPage<User>" %>
 <%@ Import Namespace="Cuyahoga.Core.Domain"%>
 <asp:Content ID="Content1" ContentPlaceHolderID="cphHead" runat="server">
+	<title>Cuyahoga Manager :: <%= GlobalResources.EditUserPageTitle %></title>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="cphTasks" runat="server">
 </asp:Content>
 <asp:Content ID="Content3" ContentPlaceHolderID="cphMain" runat="server">
+	<h1><%= GlobalResources.EditUserPageTitle %></h1>
 	<% using(Html.BeginForm("Update", "Users", new { id = ViewData.Model.Id }, FormMethod.Post, new { id = "userform" })) { %>
 		<fieldset>
 			<legend><%=GlobalResources.GeneralLabel%></legend>

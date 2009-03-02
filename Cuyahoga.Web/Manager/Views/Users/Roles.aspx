@@ -2,13 +2,15 @@
 <%@ Import Namespace="Cuyahoga.Core.Domain"%>
 <%@ Import Namespace="Cuyahoga.Core.Service.Membership"%>
 <asp:Content ID="Content1" ContentPlaceHolderID="cphHead" runat="server">
+	<title>Cuyahoga Manager :: <%= GlobalResources.ManageRolesPageTitle %></title>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="cphTasks" runat="server">
 	<h2><%= GlobalResources.TasksLabel %></h2>
 	<%= Html.ActionLink(GlobalResources.CreateRoleLabel, "NewRole", "Users", null, new { @class = "createlink" })%>
 </asp:Content>
 <asp:Content ID="Content3" ContentPlaceHolderID="cphMain" runat="server">
-		<% if (ViewData.Model.Count > 0) { %>
+	<h1><%= GlobalResources.ManageRolesPageTitle %></h1>
+	<% if (ViewData.Model.Count > 0) { %>
 		<table class="grid" style="width:100%">
 			<thead>
 				<tr>

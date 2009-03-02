@@ -5,13 +5,11 @@ using System.Web.Mvc;
 using Cuyahoga.Core.Domain;
 using Cuyahoga.Core.Service.Membership;
 using Cuyahoga.Core.Service.SiteStructure;
-using Cuyahoga.Core.Validation;
 using Cuyahoga.Core.Validation.ModelValidators;
 using Cuyahoga.Web.Components;
 using Cuyahoga.Web.Manager.Filters;
 using Cuyahoga.Web.Manager.Model.ViewModels;
 using Cuyahoga.Web.Mvc.Filters;
-using Resources.Cuyahoga.Web.Manager;
 
 namespace Cuyahoga.Web.Manager.Controllers
 {
@@ -53,12 +51,12 @@ namespace Cuyahoga.Web.Manager.Controllers
 			try
 			{
 				this._sectionService.DeleteSection(sectionToDelete, nodeId, this._moduleLoader.GetModuleFromSection(sectionToDelete));
-				ShowMessage(String.Format(GlobalResources.SectionDeletedMessage, sectionToDelete.Title), true);
+				Messages.AddFlashMessageWithParams("SectionDeletedMessage", sectionToDelete.Title);
 			}
 			catch (Exception ex)
 			{
 				Logger.Error("Unexpected error while deleting section.", ex);
-				ShowException(ex, true);
+				Messages.AddFlashException(ex);
 			}
 			return RedirectToAction("Design", "Pages", new { id = nodeId });
 		}
@@ -70,12 +68,12 @@ namespace Cuyahoga.Web.Manager.Controllers
 			try
 			{
 				this._sectionService.DetachSection(sectionToDetach, nodeId);
-				ShowMessage(String.Format(GlobalResources.SectionDetachedMessage, sectionToDetach.Title), true);
+				Messages.AddFlashMessageWithParams("SectionDetachedMessage", sectionToDetach.Title);
 			}
 			catch (Exception ex)
 			{
 				Logger.Error("Unexpected error while detaching section.", ex);
-				ShowException(ex, true);
+				Messages.AddFlashException(ex);
 			}
 			return RedirectToAction("Design", "Pages", new { id = nodeId });
 		}
@@ -98,7 +96,7 @@ namespace Cuyahoga.Web.Manager.Controllers
 				if (orderedSectionIds != null)
 				{
 					this._sectionService.ArrangeSections(placeholder, orderedSectionIds);
-					result.Message = String.Format(GlobalResources.SectionsArrangedMessage, placeholder);
+					result.Message = String.Format(GetText("SectionsArrangedMessage"), placeholder);
 				}
 			}
 			catch (Exception ex)
@@ -123,13 +121,13 @@ namespace Cuyahoga.Web.Manager.Controllers
 				if (ModelState.IsValid && ValidateModel(section, new [] { "Title", "ModuleType", "Settings" }, "section"))
 				{
 					this._sectionService.SaveSection(section);
-					ShowMessage(String.Format(GlobalResources.SectionCreatedMessage, section.Title));
+					Messages.AddMessageWithParams("SectionCreatedMessage", section.Title);
 				}
 			}
 			catch (Exception ex)
 			{
 				Logger.Error("Unexpected error while adding section to page.", ex);
-				ShowException(ex);
+				Messages.AddException(ex);
 			}
 			ViewData["NodeId"] = nodeId;
 			return View("NewSectionDialog", section);
@@ -148,13 +146,13 @@ namespace Cuyahoga.Web.Manager.Controllers
 					&& ValidateModel(section, new[] { "Title", "Settings" }, "section"))
 				{
 					this._sectionService.UpdateSection(section);
-					ShowMessage(GlobalResources.SectionPropertiesUpdatedMessage);
+					Messages.AddMessage("SectionPropertiesUpdatedMessage");
 				}
 			}
 			catch (Exception ex)
 			{
 				Logger.Error("Unexpected error while updating section.", ex);
-				ShowException(ex);
+				Messages.AddException(ex);
 			}
 			if (Request.IsAjaxRequest())
 			{
@@ -175,12 +173,12 @@ namespace Cuyahoga.Web.Manager.Controllers
 			try
 			{
 				this._sectionService.SetSectionPermissions(section, viewRoleIds, editRoleIds);
-				ShowMessage(String.Format(GlobalResources.PermissionsUpdatedMessage, section.Title));
+				Messages.AddMessageWithParams("PermissionsUpdatedMessage", section.Title);
 
 			}
 			catch (Exception ex)
 			{
-				ShowException(ex);
+				Messages.AddException(ex);
 			}
 			if (Request.IsAjaxRequest())
 			{

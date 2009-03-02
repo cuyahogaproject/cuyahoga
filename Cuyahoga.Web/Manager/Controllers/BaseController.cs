@@ -1,31 +1,31 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Security;
-using System.Text;
-using System.Threading;
 using System.Web.Mvc;
 using Castle.Core.Logging;
 using Cuyahoga.Core;
 using Cuyahoga.Core.Validation;
 using Cuyahoga.Web.Manager.Filters;
-using Cuyahoga.Web.Manager.Model.ViewModels;
-using Cuyahoga.Web.Mvc;
-using Resources.Cuyahoga.Web.Manager;
+using Cuyahoga.Web.Mvc.Filters;
+using Cuyahoga.Web.Mvc.Localization;
+using Cuyahoga.Web.Mvc.ViewModels;
 
 namespace Cuyahoga.Web.Manager.Controllers
 {
 	/// <summary>
-	/// Base class for all controllers.
+	/// Base class for all manager controllers.
 	/// </summary>
 	[SiteFilter(Order = 1)]
 	[MenuDataFilter(Order = 2)]
+	[MessagesFilter(Order = 3)]
+	[LocalizationFilter(Order = 4)]
 	[ExceptionFilter(ExceptionType = typeof(SecurityException))]
 	public abstract class BaseController : Controller
 	{
 		private ICuyahogaContext _cuyahogaContext;
 		private ILogger _logger = NullLogger.Instance;
-		private MessageViewData _messageViewData;
 		private IModelValidator _modelValidator;
+		private ILocalizer _localizer;
 
 		/// <summary>
 		/// Get or sets the Cuyahoga context.
@@ -46,6 +46,30 @@ namespace Cuyahoga.Web.Manager.Controllers
 		}
 
 		/// <summary>
+		/// Gets or sets the localizer.
+		/// </summary>
+		public ILocalizer Localizer
+		{
+			get { return this._localizer; }
+			set { this._localizer = value; }
+		}
+
+		/// <summary>
+		/// Gets the object responsible for message handling.
+		/// </summary>
+		public MessageViewData Messages
+		{
+			get
+			{
+				if (! ViewData.ContainsKey("Messages"))
+				{
+					throw new InvalidOperationException("Messages are not available. Did you add the MessageFilter attribute to the controller?");
+				}
+				return (MessageViewData) ViewData["Messages"];
+			}
+		}
+
+		/// <summary>
 		/// Sets the model validator.
 		/// </summary>
 		/// <remarks>
@@ -55,18 +79,6 @@ namespace Cuyahoga.Web.Manager.Controllers
 		protected IModelValidator ModelValidator
 		{
 			set { this._modelValidator = value; }
-		}
-
-		protected override void OnActionExecuting(ActionExecutingContext filterContext)
-		{
-			InitMessageViewData();
-			base.OnActionExecuting(filterContext);
-		}
-
-		protected override void  OnActionExecuted(ActionExecutedContext filterContext)
-		{
-			DisplayModelStateErrors();
-			base.OnActionExecuted(filterContext);
 		}
 
 		/// <summary>
@@ -151,103 +163,11 @@ namespace Cuyahoga.Web.Manager.Controllers
 			return true;
 		}
 
-		private void DisplayModelStateErrors()
+		protected string GetText(string key)
 		{
-			// Show the ModelState errors in the standard Cuyahoga errorbox.
-			if (! ViewData.ModelState.IsValid)
-			{
-				string generalMessage = GlobalResources.ModelValidationErrorMessage;
-				TagBuilder errorList = new TagBuilder("ul");
-				StringBuilder errorSummary = new StringBuilder();
-				foreach (KeyValuePair<string, ModelState> modelStateKvp in ViewData.ModelState)
-				{
-					foreach (ModelError modelError in modelStateKvp.Value.Errors)
-					{
-						TagBuilder listItem = new TagBuilder("li");
-						listItem.SetInnerText(modelError.ErrorMessage);
-						errorSummary.AppendLine(listItem.ToString(TagRenderMode.Normal));
-					}
-				}
-				errorList.InnerHtml = errorSummary.ToString();
-				RegisterMessage(MessageType.Error, generalMessage + errorList.ToString(TagRenderMode.Normal), false);
-			}
-		}
-
-		protected virtual void ShowMessage(string message)
-		{
-			ShowMessage(message, false);
-		}
-
-		protected virtual void ShowMessage(string message, bool persistForNextRequest)
-		{
-			RegisterMessage(MessageType.Message, message, persistForNextRequest);
-		}
-
-		protected virtual void ShowError(string error)
-		{
-			ShowError(error, false);
-		}
-
-		protected virtual void ShowError(string error, bool persistForNextRequest)
-		{
-			RegisterMessage(MessageType.Error, error, persistForNextRequest);
-		}
-
-		protected virtual void ShowException(Exception exception)
-		{
-			ShowException(exception, false);
-		}
-
-		protected virtual void ShowException(Exception exception, bool persistForNextRequest)
-		{
-			RegisterMessage(MessageType.Exception, exception.Message, persistForNextRequest);
-			while (exception.InnerException != null)
-			{
-				exception = exception.InnerException;
-				RegisterMessage(MessageType.Exception, exception.Message, persistForNextRequest);
-			}
-		}
-
-		/// <summary>
-		/// Gets a translation of the given message from the GlobaResources. If not found, the original message is returned.
-		/// </summary>
-		/// <param name="message"></param>
-		/// <returns></returns>
-		protected string TranslateMessage(string message)
-		{
-			return GlobalResources.ResourceManager.GetString(message, Thread.CurrentThread.CurrentUICulture) ?? message;
-		}
-
-		private void InitMessageViewData()
-		{
-			if (TempData.ContainsKey("Messages"))
-			{
-				this._messageViewData = new MessageViewData((MessageViewData)TempData["Messages"]);
-			}
-			else
-			{
-				this._messageViewData = new MessageViewData();
-			}
-			ViewData["Messages"] = this._messageViewData;
-		}
-
-		private void RegisterMessage(string messageType, string message, bool persistForNextRequest)
-		{
-			string localizedMessage = TranslateMessage(message);
-			this._messageViewData.AddMessage(messageType, localizedMessage, persistForNextRequest);
-			if (persistForNextRequest)
-			{
-				// Just persist all messages directly. Not very subtle, but this also works in situations where exceptions occur.
-				PersistMessages();
-			}
-		}
-
-		private void PersistMessages()
-		{
-			if (this._messageViewData.HasFlashMessages)
-			{
-				TempData["Messages"] = this._messageViewData.GetFlashMessages();
-			}
+			string baseName = String.Format("resources.{0}.globalresources"
+				, this.GetType().Namespace.Replace(".Controllers", String.Empty).ToLowerInvariant());
+			return Localizer.GetString(key, baseName);
 		}
 	}
 }

@@ -2,7 +2,7 @@ body
 {
 	margin: 0;
 	padding: 0;
-	background: #eee;
+	background: #fff;
 	font-family: Arial, Helvetica, sans-serif;
 	font-size: small;
 }
@@ -160,230 +160,13 @@ ul
 	list-style-type: none;
 }
 
-#header
-{
-	background-color: #eef;
-	height: 60px;
-}
-
-#header p
-{
-	margin: 0 0 0 180px;
-	font-weight: bold;
-	padding-top: 17px;
-	
-}
-
-#header img
-{
-	float: left;
-}
-
-#sitechooser
-{
-	position: absolute;
-	top: 10px;
-	left: 450px;
-}
-
-#userinfo
-{
-	margin-top: 10px;
-	float: right;
-	width: 200px;
-}
-
-#mainmenu
-{
-	background-color: #eef;
-	padding: 5px 10px 0px 10px;
-	height: 24px;
-	border-bottom: 1px solid #ccc;
-}
-
-#mainmenu-options
-{
-	float: right;
-}
-
-#mainmenu li
-{
-	float: left;
-	margin-right: 4px;
-	border-top: 1px solid #ccc;
-	border-left: 1px solid #ccc;
-	border-right: 1px solid #ccc;
-	background-color: #369;
-}
-
-#mainmenu li.selected
-{
-	background-color: #eee;
-}
-
-#mainmenu a
-{
-	display: block;
-	padding: 4px 10px 4px 6px;
-	color: #fff;
-	text-decoration: none;
-	font-weight: bold;
-}
-
-#mainmenu a:hover,
-#submenu a:hover
-{
-	background-color: #69c;
-}
-
-#mainmenu li.selected a
-{
-	color: #000;
-}
-
-#mainmenu li.selected a:hover,
-#submenu li.selected a:hover
-{
-	background-color: #ddd;
-}
-
-#mainmenu img,
-#submenu img
-{
-	vertical-align: middle;
-	margin-top: -4px;
-}
-
-#submenu li
-{
-	background-color: #369;
-	margin: 0;
-	text-indent: 5px;
-	border-bottom: 1px solid #aaa;
-	border-right: 1px solid #aaa;
-}
-
-#submenu li.selected
-{
-	background-color: #ccc;
-}
-
-#submenu a
-{
-	display: block;
-	padding: 6px 7px;
-	color: #fff;
-	text-decoration: none;
-	font-size: 100%;
-	font-weight: bold;
-}
-
-#submenu li.selected a
-{
-	color: #333;
-}
-
 #contentarea
 {
-	background-color: #fff;
-	margin: 10px 260px 10px 10px;
-	border-top: 1px solid #ccc;
-	border-left: 1px solid #ccc;
-	border-bottom: 1px solid #ccc;
-	border-right: 8px solid #ccc;
-	min-height: 700px;
-	padding: 10px;
+	margin: 10px;
+	padding: 5px 10px;
 }
 
-#subcontentarea
-{
-	width: 250px;
-	float: right;
-	margin-top: 10px;
-	margin-bottom: 10px;
-	margin-right: 10px;
-}
-
-#taskarea
-{
-	margin-left: 10px;
-	position: relative;
-}
-
-.taskcontainer
-{
-	border: 1px solid #ccc;
-	padding: 3px 5px;
-	background-color: #eef;
-}
-
-.taskcontainer p
-{
-	margin: 3px 0;
-}
-
-.taskcontainer label
-{
-	line-height: 20px;
-}
-
-.taskcontainer input[type=text]
-{
-	width: 220px;
-}
-
-.taskcontainer select
-{
-	width: 225px;
-}
-
-#taskarea a
-{
-	display: block;
-	background-repeat: no-repeat;
-	background-position: left;
-	padding: 5px 20px;
-	border-bottom: 1px solid #ddd;
-}
-
-#taskarea a:hover
-{
-	background-color: #fff;
-	text-decoration: none;
-}
-
-#taskarea a.createlink
-{
-	
-	background-image: url(../Images/add.png);
-}
-
-#taskarea a.designlink
-{
-	background-image: url(../Images/layout_edit.png);
-}
-
-#taskarea a.expandlink
-{
-	background-image: url(../Images/section_collapsed.png);
-}
-
-#taskarea a.collapselink
-{
-	background-image: url(../Images/section_expanded.png);
-	background-color: #369;
-	padding: 5px 20px;
-	color: #fff;
-}
-
-#taskarea a.deletelink
-{
-	display: block;
-	background-image: url(../Images/delete.png);
-	background-repeat: no-repeat;
-	background-position: left;
-	padding: 5px 20px;
-}
+/* Messages */
 
 #messagewrapper
 {
@@ -524,74 +307,10 @@ table.grid td.right
 	color: #f00;
 }
 
-#availablemodules
-{
-	margin: 0;
-	padding: 0;
-	list-style: none;
-}
-
-/* Templates */
-.templatecontainer
-{
-	overflow: auto; 
-	font-size: larger;
-	border: 1px solid #000;
-}
-
-.contentplaceholder
-{
-	padding: 0px;
-	color: #000;
-	font-family: Arial, Helvetica, sans-serif;
-	border: 1px dashed #999;
-	background-color: #eee;
-}
-
-.contentplaceholder .placeholdertitle
-{
-	font-weight: bold;
-	color: #999;
-	padding: 2px;
-}
-
-.contentplaceholder ul.sectionlist
-{
-	min-height: 10px;
-}
-
-#availablemodules li,
-.contentplaceholder ul.sectionlist li
-{
-	padding: 3px;
-	margin: 2px 1px;
-	border: 1px solid #ccc;
-	background-color: #fff;
-	cursor: default;
-}
-
-.contentplaceholder ul.sectionlist li.sectionplaceholder
-{
-	border: 3px dashed #ccc;
-}
-
-.contentplaceholder ul.sectionlist li.section-selected
-{
-	background-color: #ffd;
-	font-weight: bold;
-}
-
 /* Dialog */
 .dialog-content
 {
 	padding: 10px;
 	margin: 0;
 	overflow: auto;
-s}
-
-/* Drag & drop */
-.drophover
-{
-	border: 3px dashed #999;
-	color: #333;
 }
