@@ -195,9 +195,8 @@
     <Compile Include="DataAccess\UserDao.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Decorators\AbstractDaoDecorator.cs" />
-    <Compile Include="Decorators\SearchDecorator.cs" />
-    <Compile Include="Decorators\VersioningDecorator.cs" />
+    <Compile Include="Service\Search\SearchDecorator.cs" />
+    <Compile Include="Service\Versioning\VersioningDecorator.cs" />
     <Compile Include="Domain\Category.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -282,6 +281,7 @@
     <Compile Include="Search\SearchContent.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Service\Content\AbstractContentItemServiceDecorator.cs" />
     <Compile Include="Service\Content\CategoryService.cs" />
     <Compile Include="Service\Content\ContentItemService.cs">
       <SubType>Code</SubType>
@@ -451,6 +451,7 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="Decorators\" />
     <Folder Include="Service\Workflow\" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />

@@ -1,13 +1,9 @@
-using System;
-using System.IO;
 using System.Collections;
 
 using Castle.Facilities.NHibernateIntegration;
 using Castle.Services.Transaction;
 
 using NHibernate;
-using NHibernate.Criterion;
-
 using Cuyahoga.Core.Domain;
 
 namespace Cuyahoga.Core.DataAccess

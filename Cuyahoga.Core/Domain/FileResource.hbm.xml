@@ -1,20 +1,20 @@
-<?xml version="1.0" encoding="utf-8" ?> 
+<?xml version="1.0" encoding="utf-8" ?>
 <hibernate-mapping xmlns="urn:nhibernate-mapping-2.2">
 	<joined-subclass name="Cuyahoga.Core.Domain.FileResource, Cuyahoga.Core" extends="Cuyahoga.Core.Domain.ContentItem, Cuyahoga.Core" table="cuyahoga_fileresource">
 
 		<key column="fileresourceid" />
-		
+
 		<property name="Name" column="filename" type="String" length="255" not-null="false" />
-    <property name="Extension" column="extension" type="String" length="10" not-null="false" />
+		<property name="Extension" column="extension" type="String" length="10" not-null="false" />
 		<property name="PhysicalPath" column="physicalpath" type="String" length="255" not-null="true" />
 		<property name="Length" column="length" type="Int64" not-null="false" />
 		<property name="MimeType" column="mimetype" type="String" length="255" not-null="false" />
 		<property name="DownloadCount" column="downloadcount" type="Int32" not-null="false" />
-	
+
 		<bag name="DownloadRoles" cascade="none" lazy="true" table="cuyahoga_fileresourcerole">
 			<cache usage="read-write" />
 			<key column="fileresourceid" />
-			<many-to-many class="Cuyahoga.Core.Domain.Role, Cuyahoga.Core" column="roleid" /> 
+			<many-to-many class="Cuyahoga.Core.Domain.Role, Cuyahoga.Core" column="roleid" />
 		</bag>
 
 		<map name="UserAttributes" cascade="all" lazy="true" table="cuyahoga_fileresourceuserattributes" order-by="attributekey asc">
@@ -23,7 +23,7 @@
 			<index column="attributekey" type="String" length="50"/>
 			<element column="attributevalue" type="String" length="255"/>
 		</map>
-		
+
 	</joined-subclass>
-	
+
 </hibernate-mapping>
