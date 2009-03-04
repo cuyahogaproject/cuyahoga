@@ -7,13 +7,22 @@
 	<script type="text/javascript" src="<%= Url.Content("~/Support/jquery/jquery-1.2.6.min.js") %>"></script>
 	<script type="text/javascript" src="<%= Url.Content("~/Support/jquery/jquery.form.js") %>"></script>
 	<script type="text/javascript" src="<%= Url.Content("~/Support/jquery/jquery.validate.js") %>"></script>
+	<script type="text/javascript" src="<%= Url.Content("~/Modules/Scripts/cuyahoga.modules.common.js") %>"></script>
 	<asp:ContentPlaceHolder ID="head" runat="server">
 	</asp:ContentPlaceHolder>
 </head>
 <body>
+	<% Html.RenderPartial("Messages", ViewData["Messages"]); %>
 	<div id="contentarea">
 		<asp:ContentPlaceHolder ID="MainContent" runat="server">
 		</asp:ContentPlaceHolder>
+		<script type="text/javascript">
+			/* Set common js variables. */
+			$(document).ready(function() {
+				CuyahogaConfig.ContentDir = '<%= Url.Content("~/Modules/Content/") %>';
+				CuyahogaConfig.ConfirmText = '<%= GlobalResources.AreYouSure %>';
+			});
+		</script>
 	</div>
 </body>
 </html>

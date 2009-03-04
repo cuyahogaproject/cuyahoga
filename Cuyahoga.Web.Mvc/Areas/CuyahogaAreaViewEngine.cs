@@ -6,9 +6,9 @@ namespace Cuyahoga.Web.Mvc.Areas
 	/// An ASP.NET MVC view engine that is able to resolve views in different areas (for application partitioning)
 	/// </summary>
 	/// <remarks>Thanks to Phil Haack, http://haacked.com/archive/2008/11/04/areas-in-aspnetmvc.aspx</remarks>
-	public class AreaViewEngine : WebFormViewEngine
+	public class CuyahogaAreaViewEngine : WebFormViewEngine
 	{
-		public AreaViewEngine()
+		public CuyahogaAreaViewEngine()
 		{
 			ViewLocationFormats = new[] { 
 			                            	"~/{0}.aspx",
@@ -17,6 +17,7 @@ namespace Cuyahoga.Web.Mvc.Areas
 			                            	"~/Views/{1}/{0}.ascx",
 			                            	"~/Views/Shared/{0}.aspx",
 			                            	"~/Views/Shared/{0}.ascx",
+                                            "~/Modules/Views/Shared/{0}.ascx",
 			                            };
 
 			MasterLocationFormats = new[] {
@@ -24,6 +25,7 @@ namespace Cuyahoga.Web.Mvc.Areas
 			                              	"~/Shared/{0}.master",
 			                              	"~/Views/{1}/{0}.master",
 			                              	"~/Views/Shared/{0}.master",
+                                            "~/Modules/Views/Shared/{0}.master",
 			                              };
 
 			PartialViewLocationFormats = ViewLocationFormats;

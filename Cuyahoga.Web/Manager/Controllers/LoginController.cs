@@ -6,6 +6,7 @@ using Cuyahoga.Core.Domain;
 using Cuyahoga.Core.Service.Membership;
 using Cuyahoga.Core.Validation;
 using Cuyahoga.Web.Manager.Model.ViewModels;
+using Cuyahoga.Web.Mvc.Controllers;
 
 namespace Cuyahoga.Web.Manager.Controllers
 {

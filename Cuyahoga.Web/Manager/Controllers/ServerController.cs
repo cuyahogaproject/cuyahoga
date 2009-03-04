@@ -5,7 +5,7 @@ using Cuyahoga.Web.Mvc.Filters;
 namespace Cuyahoga.Web.Manager.Controllers
 {
 	[PermissionFilter(RequiredRights = Rights.ManageServer)]
-	public class ServerController : SecureController
+	public class ServerController : ManagerController
 	{
 		public ActionResult Index()
 		{

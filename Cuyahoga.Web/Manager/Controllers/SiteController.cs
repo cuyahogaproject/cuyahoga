@@ -14,7 +14,7 @@ using Cuyahoga.Web.Mvc.WebForms;
 namespace Cuyahoga.Web.Manager.Controllers
 {
 	[PermissionFilter(RequiredRights = Rights.ManageSite)]
-	public class SiteController : SecureController
+	public class SiteController : ManagerController
 	{
 		private readonly ISiteService _siteservice;
 		private readonly IUserService _userService;

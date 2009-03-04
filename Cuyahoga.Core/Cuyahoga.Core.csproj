@@ -393,7 +393,6 @@
     <Compile Include="Util\IOUtil.cs" />
     <Compile Include="Util\Globalization.cs" />
     <Compile Include="Util\IoC.cs" />
-    <Compile Include="Util\PagedResultSet.cs" />
     <Compile Include="Util\Rss.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -403,6 +402,7 @@
     <Compile Include="Util\TimeZoneUtil.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Util\UrlUtil.cs" />
     <Compile Include="Validation\CachedLocalizedValidatorRegistry.cs" />
     <Compile Include="Util\CommonUtils.cs" />
     <Compile Include="Validation\CastleModelValidator.cs" />

@@ -5,7 +5,7 @@ using Cuyahoga.Web.Mvc.Filters;
 namespace Cuyahoga.Web.Manager.Controllers
 {
 	[PermissionFilter(RequiredRights = Rights.ManageFiles)]
-	public class FilesController : SecureController
+	public class FilesController : ManagerController
 	{
 		public ActionResult Index()
 		{

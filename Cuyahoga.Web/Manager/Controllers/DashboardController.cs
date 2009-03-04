@@ -10,7 +10,7 @@ using CuyahogaSite = Cuyahoga.Core.Domain.Site;
 namespace Cuyahoga.Web.Manager.Controllers
 {
 	[PermissionFilter(RequiredRights = Rights.AccessAdmin)]
-	public class DashboardController : SecureController
+	public class DashboardController : ManagerController
 	{
 		private readonly ISiteService _siteService;
 

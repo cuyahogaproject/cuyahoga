@@ -1,17 +1,13 @@
 namespace Cuyahoga.Modules.LanguageSwitcher
 {
 	using System;
-	using System.Data;
 	using System.Web;
 	using System.Web.UI.WebControls;
 	using System.Web.UI.HtmlControls;
-	using System.Globalization;
 	using System.Collections.Generic;
 
 	using Cuyahoga.Core.Domain;
-	using Cuyahoga.Core.Service;
 	using Cuyahoga.Web.UI;
-	using Cuyahoga.Web.Util;
 	using System.Collections.Specialized;
 	using Cuyahoga.Core.Util;
 
@@ -72,7 +68,7 @@ namespace Cuyahoga.Modules.LanguageSwitcher
 				// specific page requested.
 				if (cultureNode.Key != base.PageEngine.RootNode.Culture)
 				{
-					this._homePagesForLanguages.Add(Globalization.GetLanguageFromCulture(cultureNode.Key), UrlHelper.GetUrlFromNode(cultureNode.Value));
+					this._homePagesForLanguages.Add(Globalization.GetLanguageFromCulture(cultureNode.Key), UrlUtil.GetUrlFromNode(cultureNode.Value));
 				}
 			}
 			if (this._module.DisplayMode == DisplayMode.Text || this._module.DisplayMode == DisplayMode.Flag)
@@ -105,7 +101,7 @@ namespace Cuyahoga.Modules.LanguageSwitcher
 			{
 				HtmlGenericControl listItem = new HtmlGenericControl("li");
 				HyperLink hpl = new HyperLink();
-				hpl.NavigateUrl = UrlHelper.GetUrlFromNode(node);
+				hpl.NavigateUrl = UrlUtil.GetUrlFromNode(node);
 				hpl.Text = languageAsText;
 				if (showImage)
 				{
@@ -165,7 +161,7 @@ namespace Cuyahoga.Modules.LanguageSwitcher
 				// Set cookie for the selected culture. In the future we might enable persisting
 				// this cookie to remember the prefered language of the user.
 				HttpContext.Current.Response.Cookies.Add(new HttpCookie("CuyahogaCulture", selectedCulture));
-				HttpContext.Current.Response.Redirect(UrlHelper.GetUrlFromNode(rootNodeForSelectedCulture));
+				HttpContext.Current.Response.Redirect(UrlUtil.GetUrlFromNode(rootNodeForSelectedCulture));
 			}
 		}
 	}

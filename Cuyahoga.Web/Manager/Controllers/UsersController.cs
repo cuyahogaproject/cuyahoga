@@ -13,7 +13,7 @@ using CuyahogaSite = Cuyahoga.Core.Domain.Site;
 namespace Cuyahoga.Web.Manager.Controllers
 {
 	[PermissionFilter(RequiredRights = Rights.ManageUsers)]
-	public class UsersController : SecureController
+	public class UsersController : ManagerController
 	{
 		private readonly IUserService _userService;
 		private readonly RoleModelValidator _roleModelValidator;

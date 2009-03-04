@@ -35,6 +35,10 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\lib\Castle.Components.Validator.dll</HintPath>
     </Reference>
+    <Reference Include="Castle.Core, Version=1.0.3.0, Culture=neutral, PublicKeyToken=407dd0808d44fbdc, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\lib\Castle.Core.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.configuration" />
     <Reference Include="System.Core">
@@ -64,10 +68,15 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Areas\RouteCollectionExtensions.cs" />
-    <Compile Include="Areas\AreaViewEngine.cs" />
+    <Compile Include="Areas\CuyahogaAreaViewEngine.cs" />
+    <Compile Include="Controllers\BaseController.cs" />
+    <Compile Include="Controllers\ModuleAdminController.cs" />
+    <Compile Include="Controllers\SecureController.cs" />
+    <Compile Include="Filters\ExceptionFilter.cs" />
     <Compile Include="Filters\LocalizationFilter.cs" />
     <Compile Include="Filters\MessagesFilter.cs" />
     <Compile Include="Filters\PermissionFilter.cs" />
+    <Compile Include="Filters\SiteFilter.cs" />
     <Compile Include="IMvcModule.cs" />
     <Compile Include="Localization\ILocalizer.cs" />
     <Compile Include="Localization\ResourceLocalizer.cs" />

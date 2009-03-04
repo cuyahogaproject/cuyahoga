@@ -14,7 +14,7 @@ using Cuyahoga.Web.Mvc.Filters;
 namespace Cuyahoga.Web.Manager.Controllers
 {
 	[PermissionFilter(RequiredRights = Rights.ManagePages)]
-	public class SectionsController : SecureController
+	public class SectionsController : ManagerController
 	{
 		private const string settingsFormElementPrefix = "section.Settings_";
 		private readonly ISectionService _sectionService;

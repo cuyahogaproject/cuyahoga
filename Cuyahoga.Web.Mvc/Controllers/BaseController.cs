@@ -5,20 +5,18 @@ using System.Web.Mvc;
 using Castle.Core.Logging;
 using Cuyahoga.Core;
 using Cuyahoga.Core.Validation;
-using Cuyahoga.Web.Manager.Filters;
 using Cuyahoga.Web.Mvc.Filters;
 using Cuyahoga.Web.Mvc.Localization;
 using Cuyahoga.Web.Mvc.ViewModels;
 
-namespace Cuyahoga.Web.Manager.Controllers
+namespace Cuyahoga.Web.Mvc.Controllers
 {
 	/// <summary>
-	/// Base class for all manager controllers.
+	/// Base class for Cuyahoga controllers.
 	/// </summary>
 	[SiteFilter(Order = 1)]
-	[MenuDataFilter(Order = 2)]
-	[MessagesFilter(Order = 3)]
-	[LocalizationFilter(Order = 4)]
+	[MessagesFilter(Order = 2)]
+	[LocalizationFilter(Order = 3)]
 	[ExceptionFilter(ExceptionType = typeof(SecurityException))]
 	public abstract class BaseController : Controller
 	{
@@ -166,7 +164,7 @@ namespace Cuyahoga.Web.Manager.Controllers
 		protected string GetText(string key)
 		{
 			string baseName = String.Format("resources.{0}.globalresources"
-				, this.GetType().Namespace.Replace(".Controllers", String.Empty).ToLowerInvariant());
+			                                , this.GetType().Namespace.Replace(".Controllers", String.Empty).ToLowerInvariant());
 			return Localizer.GetString(key, baseName);
 		}
 	}

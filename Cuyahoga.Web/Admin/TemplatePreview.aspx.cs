@@ -1,20 +1,10 @@
 using System;
-using System.Collections;
-using System.ComponentModel;
 // using System.Data;
-using System.Drawing;
 using System.Web;
-using System.Web.SessionState;
-using System.Web.UI;
-using System.Web.UI.WebControls;
-using System.Web.UI.HtmlControls;
-using System.Configuration;
-
 using Cuyahoga.Core.Service;
 using Cuyahoga.Core.Domain;
 using Cuyahoga.Core.Util;
 using Cuyahoga.Web.UI;
-using Cuyahoga.Web.Util;
 
 namespace Cuyahoga.Web.Admin
 {
@@ -30,8 +20,8 @@ namespace Cuyahoga.Web.Admin
 				int templateId = Int32.Parse(Context.Request.QueryString["TemplateId"]);
 				CoreRepository cr = (CoreRepository)HttpContext.Current.Items["CoreRepository"];
 				Template template = (Template)cr.GetObjectById(typeof(Template), templateId);
-				BaseTemplate templateControl = (BaseTemplate)this.LoadControl(UrlHelper.GetApplicationPath() + template.Path);
-				string css = UrlHelper.GetApplicationPath() + template.BasePath + "/Css/" + template.Css;
+				BaseTemplate templateControl = (BaseTemplate)this.LoadControl(UrlUtil.GetApplicationPath() + template.Path);
+				string css = UrlUtil.GetApplicationPath() + template.BasePath + "/Css/" + template.Css;
 				templateControl.RenderCssLinks(new string[1] {css});
 				templateControl.InsertContainerButtons();
 				this.Controls.Add(templateControl);

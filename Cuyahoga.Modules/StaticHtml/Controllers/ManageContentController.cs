@@ -1,16 +1,14 @@
 using System.Web.Mvc;
+using Cuyahoga.Web.Mvc.Controllers;
 
 namespace Cuyahoga.Modules.StaticHtml.Controllers
 {
-    public class ManageContentController : Controller
-    {
-        //
-        // GET: /ManageContent/
+	public class ManageContentController : ModuleAdminController
+	{
+		public ActionResult Edit()
+		{
+			return View();
+		}
 
-        public ActionResult Edit()
-        {
-            return View();
-        }
-
-    }
+	}
 }

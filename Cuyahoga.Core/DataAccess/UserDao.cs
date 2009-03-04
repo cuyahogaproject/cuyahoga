@@ -135,44 +135,6 @@ namespace Cuyahoga.Core.DataAccess
 			return userCriteria.List<User>();
 		}
 
-
-		/// <summary>
-		/// Find users and return paged results.
-		/// </summary>
-		/// <param name="username"></param>
-		/// <param name="roleId"></param>
-		/// <param name="isActive"></param>
-		/// <param name="pageSize"></param>
-		/// <param name="pageNumber"></param>
-		/// <returns></returns>
-		public PagedResultSet<User> FindUsers(string username, int? roleId, bool? isActive, int pageSize, int pageNumber)
-		{
-			ISession session = this._sessionManager.OpenSession();
-			ICriteria userCriteria = session.CreateCriteria(typeof (User));
-			ICriteria countCriteria = session.CreateCriteria(typeof (User));
-
-			if (! String.IsNullOrEmpty(username))
-			{
-				userCriteria.Add(Expression.InsensitiveLike("UserName", username, MatchMode.Start));
-				countCriteria.Add(Expression.InsensitiveLike("UserName", username, MatchMode.Start));
-			}
-			if (roleId.HasValue)
-			{
-				userCriteria.CreateCriteria("Roles").Add(Expression.Eq("Id", roleId));
-				countCriteria.CreateCriteria("Roles").Add(Expression.Eq("Id", roleId));
-			}
-			if (isActive.HasValue)
-			{
-				userCriteria.Add(Expression.Eq("IsActive", isActive));
-				countCriteria.Add(Expression.Eq("IsActive", isActive));
-			}
-			userCriteria.SetFirstResult((pageNumber - 1) * pageSize);
-			userCriteria.SetMaxResults(pageSize);
-			countCriteria.SetProjection(Projections.RowCount());
-
-			return new PagedResultSet<User>(userCriteria.List<User>(), (int)countCriteria.UniqueResult());
-		}
-
 		public IList<Section> GetViewableSectionsByUser(User user)
         {
 

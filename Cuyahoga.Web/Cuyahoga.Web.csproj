@@ -343,12 +343,11 @@
     <Compile Include="Components\Bootstrapper.cs" />
     <Compile Include="Components\CuyahogaContext.cs" />
     <Compile Include="Manager\Controllers\DashboardController.cs" />
-    <Compile Include="Manager\Controllers\BaseController.cs" />
     <Compile Include="Manager\Controllers\FilesController.cs" />
     <Compile Include="Manager\Controllers\LoginController.cs" />
+    <Compile Include="Manager\Controllers\ManagerController.cs" />
     <Compile Include="Manager\Controllers\PagesController.cs" />
     <Compile Include="Manager\Controllers\SectionsController.cs" />
-    <Compile Include="Manager\Controllers\SecureController.cs" />
     <Compile Include="Manager\Controllers\ServerController.cs" />
     <Compile Include="Manager\Controllers\SiteController.cs" />
     <Compile Include="Manager\Controllers\TemplatesController.cs" />
@@ -360,11 +359,10 @@
     <Compile Include="Manager\Default.aspx.designer.cs">
       <DependentUpon>Default.aspx</DependentUpon>
     </Compile>
-    <Compile Include="Manager\Filters\ExceptionFilter.cs" />
     <Compile Include="Manager\Filters\MenuDataFilter.cs" />
     <Compile Include="Manager\Filters\PartialMessagesFilter.cs" />
     <Compile Include="Manager\Filters\RolesFilter.cs" />
-    <Compile Include="Manager\Filters\SiteFilter.cs" />
+    <Compile Include="Manager\Filters\SiteChooserFilter.cs" />
     <Compile Include="Manager\Helpers\ContainerElement.cs" />
     <Compile Include="Manager\Helpers\EnumHelper.cs" />
     <Compile Include="Manager\Helpers\PageAdminExtensions.cs" />
@@ -708,7 +706,13 @@
     <Content Include="Manager\Scripts\jquery.form.js" />
     <Content Include="Manager\Scripts\jquery.validate.js" />
     <Content Include="Modules\Content\Css\ModuleAdmin.css" />
+    <Content Include="Modules\Content\Images\cross.gif" />
+    <Content Include="Modules\Content\Images\error.png" />
+    <Content Include="Modules\Content\Images\exclamation.png" />
+    <Content Include="Modules\Content\Images\information.png" />
+    <Content Include="Modules\Scripts\cuyahoga.modules.common.js" />
     <Content Include="Modules\Views\Shared\EmptyModuleAdminViewPage.aspx" />
+    <Content Include="Modules\Views\Shared\Messages.ascx" />
     <Content Include="Support\jquery\jquery-1.2.6.min.js" />
     <Content Include="Manager\Scripts\jquery-asyncupload-0.1.js" />
     <Content Include="Manager\Scripts\jquery.scrollfollow.js" />
@@ -1439,11 +1443,11 @@
     <None Include="Install\Web.config" />
     <Content Include="Manager\Views\Shared\Default.Master" />
     <Content Include="Manager\Views\Shared\Admin.Master" />
-    <None Include="Manager\Controllers\Validation.cd" />
     <Content Include="Manager\Web.sitemap" />
     <Content Include="Manager\Views\Shared\Dialog.Master" />
     <Content Include="Manager\Views\Web.config" />
     <Content Include="Modules\Views\Shared\ModuleAdmin.Master" />
+    <Content Include="Modules\Views\Web.config" />
     <None Include="Support\FCKeditor\editor\dialog\fck_spellerpages\spellerpages\server-scripts\spellchecker.cfm" />
     <None Include="Support\FCKeditor\editor\dialog\fck_spellerpages\spellerpages\server-scripts\spellchecker.php" />
     <None Include="Support\FCKeditor\editor\dialog\fck_spellerpages\spellerpages\server-scripts\spellchecker.pl" />

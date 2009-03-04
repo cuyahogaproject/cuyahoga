@@ -16,7 +16,7 @@ using Cuyahoga.Web.Mvc.WebForms;
 
 namespace Cuyahoga.Web.Manager.Controllers
 {
-	public class TemplatesController : SecureController
+	public class TemplatesController : ManagerController
 	{
 		private readonly ITemplateService _templateService;
 		private readonly IFileService _fileService;

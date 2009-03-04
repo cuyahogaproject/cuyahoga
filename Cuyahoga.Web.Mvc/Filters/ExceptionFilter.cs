@@ -6,7 +6,7 @@ using Cuyahoga.Core.Util;
 using Cuyahoga.Web.Mvc.Localization;
 using Cuyahoga.Web.Mvc.ViewModels;
 
-namespace Cuyahoga.Web.Manager.Filters
+namespace Cuyahoga.Web.Mvc.Filters
 {
 	/// <summary>
 	/// Filter attribute that allows for more graceful error handling, including localized exceptions.

@@ -1,7 +1,8 @@
 ﻿using System.Web.Mvc;
 using Cuyahoga.Core.Domain;
+using Cuyahoga.Web.Mvc.Controllers;
 
-namespace Cuyahoga.Web.Manager.Controllers
+namespace Cuyahoga.Web.Mvc.Controllers
 {
 	[Authorize]
 	public abstract class SecureController : BaseController

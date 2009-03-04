@@ -4,9 +4,8 @@ using Cuyahoga.Core;
 using Cuyahoga.Core.Service.SiteStructure;
 using Cuyahoga.Core.Util;
 using Cuyahoga.Web.Mvc.Partials;
-using UrlHelper = Cuyahoga.Web.Util.UrlHelper;
 
-namespace Cuyahoga.Web.Manager.Filters
+namespace Cuyahoga.Web.Mvc.Filters
 {
 	public class SiteFilter : ActionFilterAttribute
 	{
@@ -47,14 +46,7 @@ namespace Cuyahoga.Web.Manager.Filters
 			{
 				throw new InvalidOperationException("Unable to set the current site because the SiteService is unavailable");
 			}
-			this._cuyahogaContext.SetSite(this._siteService.GetSiteBySiteUrl(UrlHelper.GetSiteUrl()));
-			// Also register partial request for the site chooser component.
-			filterContext.Controller.ViewData["SiteChooser"] = new PartialRequest(new
-			{
-				area = "Manager",
-				controller = "Dashboard",
-				action = "SiteChooser"
-			});
+			this._cuyahogaContext.SetSite(this._siteService.GetSiteBySiteUrl(UrlUtil.GetSiteUrl()));
 		}
 	}
 }

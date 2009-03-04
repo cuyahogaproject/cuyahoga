@@ -18,7 +18,7 @@ using Cuyahoga.Web.Mvc.WebForms;
 namespace Cuyahoga.Web.Manager.Controllers
 {
 	[PermissionFilter(RequiredRights = Rights.ManagePages)]
-	public class PagesController : SecureController
+	public class PagesController : ManagerController
 	{
 		private readonly INodeService _nodeService;
 		private readonly ITemplateService _templateService;

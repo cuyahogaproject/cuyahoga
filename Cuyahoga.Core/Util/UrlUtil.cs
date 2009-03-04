@@ -1,15 +1,16 @@
+using System.Web;
 using System.Web.UI.WebControls;
-using Cuyahoga.Core.Domain;
-using Cuyahoga.Core.Util;
 
-namespace Cuyahoga.Web.Util
+using Cuyahoga.Core.Domain;
+
+namespace Cuyahoga.Core.Util
 {
 	/// <summary>
-	/// Adapter for UrlUtil for backward compatibility.
+	/// The UrlUtil class contains methods for url creation and manipulation.
 	/// </summary>
-	public class UrlHelper
+	public class UrlUtil
 	{
-		private UrlHelper()
+		private UrlUtil()
 		{
 		}
 
@@ -19,7 +20,7 @@ namespace Cuyahoga.Web.Util
 		/// <returns></returns>
 		public static string GetApplicationPath()
 		{
-			return UrlUtil.GetApplicationPath();
+			return Text.EnsureTrailingSlash(HttpContext.Current.Request.ApplicationPath);
 		}
 
 		/// <summary>
@@ -28,7 +29,15 @@ namespace Cuyahoga.Web.Util
 		/// <returns></returns>
 		public static string GetSiteUrl()
 		{
-			return UrlUtil.GetSiteUrl();
+			string path = HttpContext.Current.Request.ApplicationPath;
+			if (path.EndsWith("/") && path.Length == 1)
+			{
+				return GetHostUrl();
+			}
+			else
+			{
+				return GetHostUrl() + path.ToLower();
+			}
 		}
 
 		/// <summary>
@@ -38,7 +47,7 @@ namespace Cuyahoga.Web.Util
 		/// <returns></returns>
 		public static string GetFriendlyUrlFromNode(Node node)
 		{
-			return UrlUtil.GetFriendlyUrlFromNode(node);
+			return GetApplicationPath() + node.ShortDescription + ".aspx";
 		}
 
 		/// <summary>
@@ -50,7 +59,21 @@ namespace Cuyahoga.Web.Util
 		/// <returns></returns>
 		public static string GetUrlFromNode(Node node)
 		{
-			return UrlUtil.GetUrlFromNode(node);
+			if (node.IsExternalLink)
+			{
+				return node.LinkUrl;
+			}
+			else
+			{
+				if (node.Site.UseFriendlyUrls)
+				{
+					return GetFriendlyUrlFromNode(node);
+				}
+				else
+				{
+					return GetApplicationPath() + node.Id.ToString() + "/view.aspx";
+				}
+			}
 		}
 
 		/// <summary>
@@ -60,7 +83,14 @@ namespace Cuyahoga.Web.Util
 		/// <returns></returns>
 		public static string GetFullUrlFromNodeViaSite(Node node)
 		{
-			return UrlUtil.GetFullUrlFromNodeViaSite(node);
+			if (! node.IsExternalLink)
+			{
+				return Text.EnsureTrailingSlash(node.Site.SiteUrl) + node.Id.ToString() + "/view.aspx";
+			}
+			else
+			{
+				return null;
+			}
 		}
 
 		/// <summary>
@@ -70,7 +100,7 @@ namespace Cuyahoga.Web.Util
 		/// <returns></returns>
 		public static string GetUrlFromSection(Section section)
 		{
-			return UrlUtil.GetUrlFromSection(section);
+			return GetApplicationPath() + section.Id.ToString() + "/section.aspx";
 		}
 
 		/// <summary>
@@ -80,7 +110,7 @@ namespace Cuyahoga.Web.Util
 		/// <returns></returns>
 		public static string GetFullUrlFromSection(Section section)
 		{
-			return UrlUtil.GetFullUrlFromSection(section);
+			return GetHostUrl() + GetUrlFromSection(section);
 		}
 
 		/// <summary>
@@ -90,7 +120,14 @@ namespace Cuyahoga.Web.Util
 		/// <returns></returns>
 		public static string GetFullUrlFromSectionViaSite(Section section)
 		{
-			return UrlUtil.GetFullUrlFromSectionViaSite(section);
+			if (section.Node != null)
+			{
+				return Text.EnsureTrailingSlash(section.Node.Site.SiteUrl) + section.Id.ToString() + "/section.aspx";
+			}
+			else
+			{
+				return null;
+			}
 		}
 
 		/// <summary>
@@ -101,7 +138,7 @@ namespace Cuyahoga.Web.Util
 		/// <returns></returns>
 		public static string GetRssUrlFromSection(Section section)
 		{
-			return UrlUtil.GetRssUrlFromSection(section);
+			return GetHostUrl() + GetApplicationPath() + section.Id.ToString() + "/feed.aspx";
 		}
 
 		/// <summary>
@@ -111,7 +148,19 @@ namespace Cuyahoga.Web.Util
 		/// <returns></returns>
 		public static string[] GetParamsFromPathInfo(string pathInfo)
 		{
-			return UrlUtil.GetParamsFromPathInfo(pathInfo);
+			if (pathInfo.Length > 0)
+			{
+				if (pathInfo.EndsWith("/"))
+				{
+					pathInfo = pathInfo.Substring(0, pathInfo.Length - 1);
+				}
+				pathInfo = pathInfo.Substring(1, pathInfo.Length -1);
+				return pathInfo.Split(new char[] {'/'});
+			}
+			else
+			{
+				return null;
+			}
 		}
 
 		/// <summary>
@@ -121,7 +170,28 @@ namespace Cuyahoga.Web.Util
 		/// <param name="node"></param>
 		public static void SetHyperLinkTarget(HyperLink hpl, Node node)
 		{
-			UrlUtil.SetHyperLinkTarget(hpl, node);
+			if (node.IsExternalLink)
+			{
+				switch (node.LinkTarget)
+				{
+					case LinkTarget.Self:
+						hpl.Target = "_self";
+						break;
+					case LinkTarget.New:
+						hpl.Target = "_blank";
+						break;
+				}
+			}
+		}
+		
+		private static string GetHostUrl()
+		{
+			string securePort = HttpContext.Current.Request.ServerVariables["SERVER_PORT_SECURE"];
+			string protocol = securePort == null || securePort == "0" ? "http" : "https";
+			string serverPort = HttpContext.Current.Request.ServerVariables["SERVER_PORT"];
+			string port = serverPort == "80" ? string.Empty : ":" + serverPort;
+			string serverName = HttpContext.Current.Request.ServerVariables["SERVER_NAME"];
+			return string.Format("{0}://{1}{2}" , protocol, serverName, port ); 
 		}
 	}
 }
