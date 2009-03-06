@@ -10,6 +10,7 @@ using Castle.Services.Transaction;
 
 namespace Cuyahoga.Core.DataAccess
 {
+	[Transactional]
 	public class ContentItemDao<T> : IContentItemDao<T> where T : IContentItem
 	{
 		protected Type persistentType = typeof(T);

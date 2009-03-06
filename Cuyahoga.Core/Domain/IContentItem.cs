@@ -79,11 +79,6 @@ namespace Cuyahoga.Core.Domain
 		/// </summary>
         User ModifiedBy { get; set;}
 
-        /// <summary>
-        /// The path to this content
-        /// </summary>
-        string UrlFormat { get; set;}
-
 		/// <summary>
 		/// Parent section
 		/// </summary>
@@ -98,6 +93,11 @@ namespace Cuyahoga.Core.Domain
         /// Defines view and edit roles
         /// </summary>
         IList<ContentItemPermission> ContentItemPermissions { get; set;}
-    
-    }
+
+		/// <summary>
+		/// Gets the url that corresponds to the content. Inheritors can override this for custom url formatting.
+		/// </summary>
+		/// <returns></returns>
+		string GetContentUrl();
+	}
 }

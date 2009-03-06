@@ -1,42 +1,20 @@
 using System;
-
+using System.Collections.Generic;
 using Cuyahoga.Core.Domain;
+using Cuyahoga.Core.Service.Search;
+using Cuyahoga.Core.Util;
 
 namespace Cuyahoga.Modules.StaticHtml
 {
 	/// <summary>
 	/// Summary description for StaticHtml.
 	/// </summary>
-	public class StaticHtmlContent
+	public class StaticHtmlContent : ContentItem, ISearchableContent
 	{
-		private int _id;
-		private string _title;
 		private string _content;
-		private Section _section;
-		private Cuyahoga.Core.Domain.User _createdBy;
-		private Cuyahoga.Core.Domain.User _modifiedBy;
-		private DateTime _updateTimestamp;
 
 		/// <summary>
-		/// Property Id (int)
-		/// </summary>
-		public virtual int Id
-		{
-			get { return this._id; }
-			set { this._id = value; }
-		}
-
-		/// <summary>
-		/// Property Title (string)
-		/// </summary>
-		public virtual string Title
-		{
-			get { return this._title; }
-			set { this._title = value; }
-		}
-
-		/// <summary>
-		/// Property Content (string)
+		/// The content.
 		/// </summary>
 		public virtual string Content
 		{
@@ -44,45 +22,27 @@ namespace Cuyahoga.Modules.StaticHtml
 			set { this._content = value; }
 		}
 
-		/// <summary>
-		/// Property Section (Section)
-		/// </summary>
-		public virtual Section Section
+		public override string GetContentUrl()
 		{
-			get { return this._section; }
-			set { this._section = value; }
+			// return this url of the node itself when this object is connected to a single Node.
+			if (this.Section.Node != null)
+			{
+				return UrlUtil.GetFriendlyUrlFromNode(this.Section.Node);
+			}
+			else
+			{
+				return base.GetContentUrl();
+			}
 		}
 
-		/// <summary>
-		/// Property CreatedBy (User)
-		/// </summary>
-		public virtual Cuyahoga.Core.Domain.User CreatedBy
+		public virtual string ToSearchContent()
 		{
-			get { return this._createdBy; }
-			set { this._createdBy = value; }
+			return this._content;
 		}
 
-		/// <summary>
-		/// Property ModifiedBy (User)
-		/// </summary>
-		public virtual Cuyahoga.Core.Domain.User ModifiedBy
+		public virtual IList<CustomSearchField> GetCustomSearchFields()
 		{
-			get { return this._modifiedBy; }
-			set { this._modifiedBy = value; }
-		}
-
-		/// <summary>
-		/// Property UpdateTimestamp (DateTime)
-		/// </summary>
-		public virtual DateTime UpdateTimestamp
-		{
-			get { return this._updateTimestamp; }
-			set { this._updateTimestamp = value; }
-		}
-
-		public StaticHtmlContent()
-		{
-			this._id = -1;
+			return new List<CustomSearchField>();
 		}
 	}
 }

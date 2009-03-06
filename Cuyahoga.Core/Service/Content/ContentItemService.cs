@@ -1,12 +1,12 @@
 using System;
 using System.Collections.Generic;
-using System.Text;
-
+using Castle.Services.Transaction;
 using Cuyahoga.Core.Domain;
 using Cuyahoga.Core.DataAccess;
 
 namespace Cuyahoga.Core.Service.Content
 {
+	[Transactional]
 	public class ContentItemService<T> : IContentItemService<T> where T : IContentItem
 	{
 		protected IContentItemDao<T> contentItemDao;
@@ -46,11 +46,13 @@ namespace Cuyahoga.Core.Service.Content
 			return this.contentItemDao.GetByProperty("Section", section);
 		}
 
+		[Transaction(TransactionMode.Requires)]
 		public T Save(T entity)
 		{
 			return this.contentItemDao.Save(entity);
 		}
 
+		[Transaction(TransactionMode.Requires)]
 		public void Delete(T entity)
 		{
 			this.contentItemDao.Delete(entity);

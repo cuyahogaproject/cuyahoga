@@ -16,7 +16,8 @@
 		<property name="Position" column="position" type="Int32" not-null="true" />
 		<property name="CacheDuration" column="cacheduration" type="Int32" />
 		<property name="ShowTitle" column="showtitle" type="Boolean" />
-		
+
+		<many-to-one name="Site" class="Cuyahoga.Core.Domain.Site, Cuyahoga.Core" column="siteid" />
 		<many-to-one name="Node" class="Cuyahoga.Core.Domain.Node, Cuyahoga.Core" column="nodeid" />
 		<many-to-one name="ModuleType" class="Cuyahoga.Core.Domain.ModuleType, Cuyahoga.Core" column="moduletypeid" outer-join="true" not-null="true" />
 		

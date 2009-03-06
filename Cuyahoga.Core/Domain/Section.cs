@@ -23,6 +23,7 @@ namespace Cuyahoga.Core.Domain
 		private IList _sectionPermissions;
 		private IDictionary _settings;
 		private IDictionary _connections;
+		private Site _site;
 
 		#region properties
 
@@ -170,6 +171,12 @@ namespace Cuyahoga.Core.Domain
 				}
 				return prefix + " - " + this._title + " - " + this.ModuleType.Name;
 			}
+		}
+
+		public virtual Site Site
+		{
+			get { return this._site; }
+			set { this._site = value; }
 		}
 
 		#endregion

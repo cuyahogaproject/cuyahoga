@@ -1,13 +1,11 @@
 using System;
 using System.Collections.Generic;
-
+using Cuyahoga.Core.Util;
 using Lucene.Net.Index;
 using Lucene.Net.Documents;
 using Lucene.Net.Analysis.Standard;
 using Lucene.Net.Store;
 using log4net;
-
-using Cuyahoga.Core.Util;
 using Cuyahoga.Core.Domain;
 using Cuyahoga.Core.Search;
 
@@ -162,7 +160,7 @@ namespace Cuyahoga.Core.Service.Search
         /// <summary>
         /// Delete existing content from the search index.
         /// </summary>
-        /// <param name="searchContent"></param>
+        /// <param name="contentItem"></param>
         public void DeleteContent(IContentItem contentItem)
         {
             if (this._rebuildIndex)
@@ -175,7 +173,7 @@ namespace Cuyahoga.Core.Service.Search
                 this._indexWriter = null;
 
                 // The path uniquely identifies a document in the index.
-                Term term = new Term("path", string.Format(contentItem.UrlFormat, contentItem.Id));
+                Term term = new Term("path", string.Format(contentItem.GetContentUrl(), contentItem.Id));
                 IndexReader rdr = IndexReader.Open(this._indexDirectory);
                 rdr.DeleteDocuments(term);
                 rdr.Close();
@@ -197,7 +195,7 @@ namespace Cuyahoga.Core.Service.Search
                 foreach (IContentItem contentItem in contentItems)
                 {
                     // The path uniquely identifies a document in the index.
-                    Term term = new Term("path", string.Format(contentItem.UrlFormat, contentItem.Id));
+                    Term term = new Term("path", contentItem.GetContentUrl());
                     rdr.DeleteDocuments(term);
                 }
                 rdr.Close();
@@ -229,9 +227,9 @@ namespace Cuyahoga.Core.Service.Search
             //strip (x)html tags
             string plaintext = System.Text.RegularExpressions.Regex.Replace(searchInfo.ToSearchContent(), @"<(.|\n)*?>", string.Empty);
             //create the actual url (using the id)
-            string path = string.Format(contentItem.UrlFormat, contentItem.Id);
+        	string path = contentItem.GetContentUrl();
             //check that summary is not null, else provide empty string
-            string summary = contentItem.Summary == null ? string.Empty : contentItem.Summary;
+            string summary = contentItem.Summary ?? Text.TruncateText(plaintext, 200);
 
             Document doc = new Document();
             doc.Add(new Field("title", contentItem.Title, Field.Store.YES, Field.Index.TOKENIZED));

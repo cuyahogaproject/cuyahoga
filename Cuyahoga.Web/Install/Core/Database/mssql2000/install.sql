@@ -13,7 +13,6 @@ publisheduntil datetime NULL,
 createdby int NOT NULL,
 modifiedby int NOT NULL,
 publishedby int NULL,
-urlformat nvarchar(255) NOT NULL,
 sectionid int NOT NULL)
 go
 
@@ -245,6 +244,7 @@ go
 
 CREATE TABLE cuyahoga_section(
 sectionid int identity(1,1) NOT NULL CONSTRAINT PK_section PRIMARY KEY,
+siteid int NOT NULL,
 nodeid int NULL,
 moduletypeid int NOT NULL,
 title nvarchar(100) NOT NULL,
@@ -469,6 +469,10 @@ ADD CONSTRAINT FK_sitealias_site_siteid
 FOREIGN KEY (siteid) REFERENCES cuyahoga_site (siteid)
 go
 
+ALTER TABLE cuyahoga_section
+ADD CONSTRAINT FK_section_site_siteid
+FOREIGN KEY (siteid) REFERENCES cuyahoga_site (siteid)
+go
 
 ALTER TABLE cuyahoga_section
 ADD CONSTRAINT FK_section_moduletype_moduletypeid

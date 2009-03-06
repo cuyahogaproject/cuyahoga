@@ -36,6 +36,35 @@ FROM cuyahoga_site, cuyahoga_role
 
 go
 
+-- Sections belong to a site
+ALTER TABLE cuyahoga_section
+	ADD siteid int NULL
+go
+
+-- sections that belong to a node inherit the siteid of the node
+UPDATE cuyahoga_section
+	SET siteid = n.siteid
+FROM cuyahoga_section s, cuyahoga_node n
+WHERE s.nodeid = n.nodeid
+
+go
+
+-- detached sections are moved to the site with the lowest id (usually 1, the originally created site)
+UPDATE cuyahoga_section
+	SET siteid = (SELECT MIN(siteid) FROM cuyahoga_site)
+WHERE nodeid IS NULL
+
+go
+
+ALTER TABLE cuyahoga_section
+	ALTER COLUMN siteid int NOT NULL
+go 
+
+ALTER TABLE cuyahoga_section
+	ADD CONSTRAINT FK_section_site_siteid
+		FOREIGN KEY(siteid) REFERENCES cuyahoga_site(siteid)
+go
+
 -- Template per site
 ALTER TABLE cuyahoga_template
 	ADD siteid int NULL

@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <hibernate-mapping xmlns="urn:nhibernate-mapping-2.2">
-	<joined-subclass name="Cuyahoga.Core.Domain.FileResource, Cuyahoga.Core" extends="Cuyahoga.Core.Domain.ContentItem, Cuyahoga.Core" table="cuyahoga_fileresource">
+	<joined-subclass name="Cuyahoga.Core.Domain.FileResource, Cuyahoga.Core" 
+					 extends="Cuyahoga.Core.Domain.ContentItem, Cuyahoga.Core" 
+					 table="cuyahoga_fileresource">
 
 		<key column="fileresourceid" />
 

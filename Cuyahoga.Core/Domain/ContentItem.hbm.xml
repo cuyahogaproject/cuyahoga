@@ -21,7 +21,6 @@
 		<property name="ModifiedAt" column="modifiedat" type="DateTime" not-null="true" />
 		<property name="PublishedAt" column="publishedat" type="DateTime" not-null="false" />
 		<property name="PublishedUntil" column="publishedUntil" type="DateTime" not-null="false" />
-		<property name="UrlFormat" column="urlformat" type="String" length="255" not-null="true" />
 		<many-to-one name="CreatedBy" class="Cuyahoga.Core.Domain.User, Cuyahoga.Core" column="createdby" not-null="true" />
 		<many-to-one name="ModifiedBy" class="Cuyahoga.Core.Domain.User, Cuyahoga.Core" column="modifiedby" not-null="true" />
 		<many-to-one name="PublishedBy" class="Cuyahoga.Core.Domain.User, Cuyahoga.Core" column="publishedby" not-null="false" />

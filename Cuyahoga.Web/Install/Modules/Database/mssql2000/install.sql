@@ -1,31 +1,12 @@
 
-
-
-
 CREATE TABLE cm_statichtml(
-statichtmlid int identity(1,1) NOT NULL CONSTRAINT PK_statichtml PRIMARY KEY,
-sectionid int NOT NULL,
-createdby int NOT NULL,
-modifiedby int NULL,
-title nvarchar(255) NULL,
-content ntext NOT NULL,
-inserttimestamp datetime DEFAULT current_timestamp NOT NULL,
-updatetimestamp datetime DEFAULT current_timestamp NOT NULL)
+contentitemid bigint NOT NULL CONSTRAINT PK_statichtml PRIMARY KEY,
+content ntext NOT NULL)
 go
 
 ALTER TABLE cm_statichtml
-ADD CONSTRAINT FK_statichtml_section_sectionid
-FOREIGN KEY (sectionid) REFERENCES cuyahoga_section (sectionid)
-go
-
-ALTER TABLE cm_statichtml
-ADD CONSTRAINT FK_statichtml_user_createdby
-FOREIGN KEY (createdby) REFERENCES cuyahoga_user (userid)
-go
-
-ALTER TABLE cm_statichtml
-ADD CONSTRAINT FK_statichtml_user_modifiedby
-FOREIGN KEY (modifiedby) REFERENCES cuyahoga_user (userid)
+	ADD CONSTRAINT FK_statichtml_contentitem_contentitemid
+		FOREIGN KEY (contentitemid) REFERENCES cuyahoga_contentitem (contentitemid)
 go
 
 -- DATA

@@ -9,24 +9,23 @@ namespace Cuyahoga.Core.Domain
 	/// </summary>
 	public abstract class ContentItem : IContentItem
 	{
-		protected long id;
-		protected Guid globalId;
-        protected WorkflowStatus workflowStatus;
-		protected string title;
-		protected string summary;
-		protected int version;
-		protected string locale;
-		protected DateTime createdAt;
-		protected DateTime? publishedAt;
-        protected DateTime? publishedUntil;
-		protected DateTime modifiedAt;
-		protected User createdBy;
-		protected User publishedBy;
-		protected User modifiedBy;
-        protected string urlFormat;
-		protected Section section;
-		protected IList<Category> categories;
-        protected IList<ContentItemPermission> contentItemPermissions;
+		protected long _id;
+		protected Guid _globalId;
+        protected WorkflowStatus _workflowStatus;
+		protected string _title;
+		protected string _summary;
+		protected int _version;
+		protected string _locale;
+		protected DateTime _createdAt;
+		protected DateTime? _publishedAt;
+        protected DateTime? _publishedUntil;
+		protected DateTime _modifiedAt;
+		protected User _createdBy;
+		protected User _publishedBy;
+		protected User _modifiedBy;
+		protected Section _section;
+		protected IList<Category> _categories;
+        protected IList<ContentItemPermission> _contentItemPermissions;
 		
 		#region Properties
 		/// <summary>
@@ -34,8 +33,8 @@ namespace Cuyahoga.Core.Domain
 		/// </summary>
 		public virtual long Id
 		{
-			get { return this.id; }
-			set { this.id = value; }
+			get { return this._id; }
+			set { this._id = value; }
 		}
 
 		/// <summary>
@@ -43,8 +42,8 @@ namespace Cuyahoga.Core.Domain
 		/// </summary>
         public virtual Guid GlobalId
 		{
-			get { return this.globalId; }
-			set { this.globalId = value; }
+			get { return this._globalId; }
+			set { this._globalId = value; }
 		}
 
         /// <summary>
@@ -52,8 +51,8 @@ namespace Cuyahoga.Core.Domain
         /// </summary>
         public virtual WorkflowStatus WorkflowStatus
         {
-            get { return this.workflowStatus; }
-            set { this.workflowStatus = value; }
+            get { return this._workflowStatus; }
+            set { this._workflowStatus = value; }
         }
 
 		/// <summary>
@@ -61,8 +60,8 @@ namespace Cuyahoga.Core.Domain
 		/// </summary>
         public virtual string Title
 		{
-			get { return this.title; }
-			set { this.title = value; }
+			get { return this._title; }
+			set { this._title = value; }
 		}
 
 		/// <summary>
@@ -70,8 +69,8 @@ namespace Cuyahoga.Core.Domain
 		/// </summary>
         public virtual string Summary
 		{
-			get { return this.summary; }
-			set { this.summary = value; }
+			get { return this._summary; }
+			set { this._summary = value; }
 		}
 
 		/// <summary>
@@ -79,8 +78,8 @@ namespace Cuyahoga.Core.Domain
 		/// </summary>
         public virtual int Version
 		{
-			get { return this.version; }
-			set { this.version = value; }
+			get { return this._version; }
+			set { this._version = value; }
 		}
 
 		/// <summary>
@@ -88,8 +87,8 @@ namespace Cuyahoga.Core.Domain
 		/// </summary>
         public virtual string Locale
 		{
-			get{ return this.locale; }
-			set{ this.locale = value; }
+			get{ return this._locale; }
+			set{ this._locale = value; }
 		}
 
 		/// <summary>
@@ -97,8 +96,8 @@ namespace Cuyahoga.Core.Domain
 		/// </summary>
         public virtual DateTime CreatedAt
 		{
-			get { return this.createdAt; }
-			set { this.createdAt = value; }
+			get { return this._createdAt; }
+			set { this._createdAt = value; }
 		}
 
 		/// <summary>
@@ -106,8 +105,8 @@ namespace Cuyahoga.Core.Domain
 		/// </summary>
         public virtual DateTime? PublishedAt
 		{
-			get { return this.publishedAt; }
-			set { this.publishedAt = value; }
+			get { return this._publishedAt; }
+			set { this._publishedAt = value; }
 		}
 
         /// <summary>
@@ -115,8 +114,8 @@ namespace Cuyahoga.Core.Domain
         /// </summary>
         public virtual DateTime? PublishedUntil
         {
-            get { return this.publishedUntil; }
-            set { this.publishedUntil = value; }
+            get { return this._publishedUntil; }
+            set { this._publishedUntil = value; }
         }
 
 		/// <summary>
@@ -124,8 +123,8 @@ namespace Cuyahoga.Core.Domain
 		/// </summary>
         public virtual DateTime ModifiedAt
 		{
-			get { return this.modifiedAt; }
-			set { this.modifiedAt = value; }
+			get { return this._modifiedAt; }
+			set { this._modifiedAt = value; }
 		}
 
 		/// <summary>
@@ -133,8 +132,8 @@ namespace Cuyahoga.Core.Domain
 		/// </summary>
         public virtual User CreatedBy
 		{
-			get { return this.createdBy; }
-			set { this.createdBy = value; }
+			get { return this._createdBy; }
+			set { this._createdBy = value; }
 		}
 
 		/// <summary>
@@ -142,8 +141,8 @@ namespace Cuyahoga.Core.Domain
 		/// </summary>
         public virtual User PublishedBy
 		{
-			get { return this.publishedBy; }
-			set { this.publishedBy = value; }
+			get { return this._publishedBy; }
+			set { this._publishedBy = value; }
 		}
 
 		/// <summary>
@@ -151,26 +150,17 @@ namespace Cuyahoga.Core.Domain
 		/// </summary>
         public virtual User ModifiedBy
 		{
-			get { return this.modifiedBy; }
-			set { this.modifiedBy = value; }
+			get { return this._modifiedBy; }
+			set { this._modifiedBy = value; }
 		}
-
-        /// <summary>
-        /// Property UrlFormat (string)
-        /// </summary>
-        public virtual string UrlFormat
-        {
-            get { return this.urlFormat; }
-            set { this.urlFormat = value; }
-        }
 
 		/// <summary>
 		/// Property Section (Section)
 		/// </summary>
         public virtual Section Section
 		{
-			get { return this.section; }
-			set { this.section = value; }
+			get { return this._section; }
+			set { this._section = value; }
 		}
 		
 		/// <summary>
@@ -178,8 +168,8 @@ namespace Cuyahoga.Core.Domain
 		/// </summary>
 		public virtual IList<Category> Categories
 		{
-			get { return this.categories; }
-			set { this.categories = value; }
+			get { return this._categories; }
+			set { this._categories = value; }
 		}
 
         /// <summary>
@@ -187,22 +177,43 @@ namespace Cuyahoga.Core.Domain
         /// </summary>
         public virtual IList<ContentItemPermission> ContentItemPermissions
         {
-            get { return this.contentItemPermissions; }
-            set { this.contentItemPermissions = value; }
+            get { return this._contentItemPermissions; }
+            set { this._contentItemPermissions = value; }
         }
+
+		/// <summary>
+		/// Indicates if the content item is new.s
+		/// </summary>
+		public virtual bool IsNew
+		{
+			get { return this._id == -1; }
+		}
 
 		#endregion
 
 		public ContentItem()
 		{
-			this.id = -1;
-			this.globalId = Guid.NewGuid();
-            this.workflowStatus = WorkflowStatus.Draft;
-			this.createdAt = DateTime.Now;
-            this.modifiedAt = DateTime.Now;
-			this.version = 1;
-            this.categories = new List<Category>();
-            this.contentItemPermissions = new List<ContentItemPermission>();
+			this._id = -1;
+			this._globalId = Guid.NewGuid();
+            this._workflowStatus = WorkflowStatus.Draft;
+			this._createdAt = DateTime.Now;
+            this._modifiedAt = DateTime.Now;
+			this._version = 1;
+            this._categories = new List<Category>();
+            this._contentItemPermissions = new List<ContentItemPermission>();
+		}
+
+		/// <summary>
+		/// Gets the url that corresponds to the content. Inheritors can override this for custom url formatting.
+		/// </summary>
+		public virtual string GetContentUrl()
+		{
+			string defaultUrlFormat = "{0}/section.aspx/{1}";
+			if (this._section == null)
+			{
+				throw new InvalidOperationException("Unable to get the url for the content because the associated section is missing.");
+			}
+			return String.Format(defaultUrlFormat, this._section.Id, this._id);
 		}
 	}
 }

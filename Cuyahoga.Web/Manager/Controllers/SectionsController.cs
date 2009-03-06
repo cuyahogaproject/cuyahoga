@@ -113,6 +113,7 @@ namespace Cuyahoga.Web.Manager.Controllers
 		public ActionResult AddSectionToPage([Bind(Include = "PlaceHolderId, Title, ShowTitle, CacheDuration")]Section section, int moduleTypeId, int nodeId)
 		{
 			section.ModuleType = this._sectionService.GetModuleTypeById(moduleTypeId);
+			section.Site = CuyahogaContext.CurrentSite;
 			section.Node = this._nodeService.GetNodeById(nodeId);
 			section.Node.AddSection(section);
 			UpdateSectionSettingsFromForm(section, settingsFormElementPrefix);
