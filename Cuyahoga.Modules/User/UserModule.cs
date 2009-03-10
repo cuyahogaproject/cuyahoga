@@ -2,7 +2,6 @@ using System;
 
 using Cuyahoga.Core.Domain;
 using Cuyahoga.Core.Communication;
-using Action = Cuyahoga.Core.Communication.Action;
 
 namespace Cuyahoga.Modules.User
 {
@@ -18,7 +17,7 @@ namespace Cuyahoga.Modules.User
 	/// </summary>
 	public class UserModule : ModuleBase, IActionProvider
 	{
-		private ActionCollection _outboundActions;
+		private ModuleActionCollection _outboundModuleActions;
 
 		/// <summary>
 		/// Default constructor.
@@ -31,18 +30,18 @@ namespace Cuyahoga.Modules.User
 
 		private void InitOutboundActions()
 		{
-			this._outboundActions = new ActionCollection();
-			this._outboundActions.Add(new Action("ViewProfile", new string[1] {"UserId"}));
-			this._outboundActions.Add(new Action("EditProfile", null));
-			this._outboundActions.Add(new Action("Register", null));
-			this._outboundActions.Add(new Action("ResetPassword", null));
+			this._outboundModuleActions = new ModuleActionCollection();
+			this._outboundModuleActions.Add(new ModuleAction("ViewProfile", new string[1] {"UserId"}));
+			this._outboundModuleActions.Add(new ModuleAction("EditProfile", null));
+			this._outboundModuleActions.Add(new ModuleAction("Register", null));
+			this._outboundModuleActions.Add(new ModuleAction("ResetPassword", null));
 		}
 
 		#region IActionProvider Members
 
-		public ActionCollection GetOutboundActions()
+		public ModuleActionCollection GetOutboundActions()
 		{
-			return this._outboundActions;
+			return this._outboundModuleActions;
 		}
 
 		#endregion

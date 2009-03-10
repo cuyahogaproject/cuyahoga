@@ -2,7 +2,6 @@ using System;
 
 using Cuyahoga.Core.Domain;
 using Cuyahoga.Core.Communication;
-using Action = Cuyahoga.Core.Communication.Action;
 
 
 namespace Cuyahoga.Modules.Search
@@ -22,10 +21,10 @@ namespace Cuyahoga.Modules.Search
 
 		#region IActionProvider Members
 
-		public ActionCollection GetOutboundActions()
+		public ModuleActionCollection GetOutboundActions()
 		{
-			ActionCollection ac = new ActionCollection();
-			ac.Add(new Action("Search", new string[0]));
+			ModuleActionCollection ac = new ModuleActionCollection();
+			ac.Add(new ModuleAction("Search", new string[0]));
 			return ac;
 		}
 

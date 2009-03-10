@@ -7,7 +7,6 @@ using Cuyahoga.Core.Domain;
 using Cuyahoga.Core.Service.Content;
 using Cuyahoga.Core.Communication;
 using Cuyahoga.Web.Util;
-using Action = Cuyahoga.Core.Communication.Action;
 
 namespace Cuyahoga.Modules.Categories
 {
@@ -57,12 +56,12 @@ namespace Cuyahoga.Modules.Categories
 
         #region IActionProvider Members
 
-        public ActionCollection GetOutboundActions()
+        public ModuleActionCollection GetOutboundActions()
         {
-            ActionCollection actions = new ActionCollection();
+            ModuleActionCollection moduleActions = new ModuleActionCollection();
             //has to be connected to a SearchModule
-            actions.Add(new Action("SetCategory", new string[0]));
-            return actions;
+            moduleActions.Add(new ModuleAction("SetCategory", new string[0]));
+            return moduleActions;
         }
 
         #endregion

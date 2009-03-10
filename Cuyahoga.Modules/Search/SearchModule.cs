@@ -7,7 +7,6 @@ using Cuyahoga.Core.DataAccess;
 using Cuyahoga.Core.Service;
 using Cuyahoga.Core.Service.Search;
 using Cuyahoga.Core.Communication;
-using Action=Cuyahoga.Core.Communication.Action;
 
 namespace Cuyahoga.Modules.Search
 {
@@ -19,8 +18,8 @@ namespace Cuyahoga.Modules.Search
 	{
 		private int _resultsPerPage = 10;
 		private bool _showInputPanel = true;
-		private ActionCollection _inboundActions;
-		private Action _currentAction;
+		private ModuleActionCollection _inboundModuleActions;
+		private ModuleAction _currentModuleAction;
 		private string _searchQuery;
         private ISearchService _searchService;
        
@@ -46,9 +45,9 @@ namespace Cuyahoga.Modules.Search
         #endregion
 
 
-        public Action CurrentAction
+        public ModuleAction CurrentModuleAction
         {
-            get { return this._currentAction; }
+            get { return this._currentModuleAction; }
         }
 
         public string SearchQuery
@@ -73,11 +72,11 @@ namespace Cuyahoga.Modules.Search
 		public SearchModule(ISearchService searchService)
 		{
 			// Init inbound actions
-			this._inboundActions = new ActionCollection();
-			this._inboundActions.Add(new Action("Search", new string[0]));
-            this._inboundActions.Add(new Action("SetCategory", new string[0]));
-            this._inboundActions.Add(new Action("SetAlphabeticIndex", new string[0]));
-			this._currentAction = this._inboundActions[0];
+			this._inboundModuleActions = new ModuleActionCollection();
+			this._inboundModuleActions.Add(new ModuleAction("Search", new string[0]));
+            this._inboundModuleActions.Add(new ModuleAction("SetCategory", new string[0]));
+            this._inboundModuleActions.Add(new ModuleAction("SetAlphabeticIndex", new string[0]));
+			this._currentModuleAction = this._inboundModuleActions[0];
             //Obtain SearchService instance
             this._searchService = searchService;
         }
@@ -92,21 +91,21 @@ namespace Cuyahoga.Modules.Search
                 if (base.ModuleParams.Length == 1)
                 {
                     // First argument is the module action
-                    this._currentAction = this._inboundActions.FindByName(base.ModuleParams[0]);
-                    if (this._currentAction != null)
+                    this._currentModuleAction = this._inboundModuleActions.FindByName(base.ModuleParams[0]);
+                    if (this._currentModuleAction != null)
                     {
-                        if (this._currentAction.Name == "Search")
+                        if (this._currentModuleAction.Name == "Search")
                         {
                             this._searchQuery = HttpContext.Current.Server.UrlDecode(HttpContext.Current.Request.QueryString["q"]);
                         }
-                        else if (this._currentAction.Name == "SetCategory")
+                        else if (this._currentModuleAction.Name == "SetCategory")
                         {
                             string categoryNames = HttpContext.Current.Server.UrlDecode(HttpContext.Current.Request.QueryString["c"]);
                             this.CategoryNames = new List<string>(categoryNames.Split(','));
 							//reset searchquery (following queries can still be combined with catgories)
 							this._searchQuery = string.Empty;
                         }
-                        else if (this._currentAction.Name == "SetAlphabeticIndex")
+                        else if (this._currentModuleAction.Name == "SetAlphabeticIndex")
                         {
 							string letter = HttpContext.Current.Server.UrlDecode(HttpContext.Current.Request.QueryString["a"]);
 							this._searchQuery = string.Format("title:{0}*", letter );
@@ -168,9 +167,9 @@ namespace Cuyahoga.Modules.Search
 
 		#region IActionConsumer Members
 
-		public ActionCollection GetInboundActions()
+		public ModuleActionCollection GetInboundActions()
 		{
-			return this._inboundActions;
+			return this._inboundModuleActions;
 		}
 
 		#endregion

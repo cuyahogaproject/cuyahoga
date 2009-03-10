@@ -3,10 +3,10 @@ using System;
 namespace Cuyahoga.Core.Communication
 {
 	/// <summary>
-	/// The Action class describes a single action that a module can perform when calling or
+	/// The ModuleAction class describes a single action that a module can perform when calling or
 	/// called from other modules.
 	/// </summary>
-	public class Action
+	public class ModuleAction
 	{
 		private string _name;
 		private string[] _parameters;
@@ -33,7 +33,7 @@ namespace Cuyahoga.Core.Communication
 		/// <summary>
 		/// Default constructor.
 		/// </summary>
-		public Action(string name, string[] parameters)
+		public ModuleAction(string name, string[] parameters)
 		{
 			this._name = name;
 			this._parameters = parameters;
@@ -46,11 +46,11 @@ namespace Cuyahoga.Core.Communication
 		/// <returns></returns>
 		public override bool Equals(object obj)
 		{
-			if (obj is Action)
+			if (obj is ModuleAction)
 			{
 				bool isEqual = true;
-				Action otherAction = (Action)obj;
-				if (this._name != otherAction.Name)
+				ModuleAction otherModuleAction = (ModuleAction)obj;
+				if (this._name != otherModuleAction.Name)
 				{
 					isEqual = false;
 				}
@@ -58,15 +58,15 @@ namespace Cuyahoga.Core.Communication
 				{
 					if (this._parameters == null)
 					{
-						isEqual = otherAction.Parameters == null;
+						isEqual = otherModuleAction.Parameters == null;
 					}
 					else
 					{
-						if (this._parameters.Length == otherAction.Parameters.Length)
+						if (this._parameters.Length == otherModuleAction.Parameters.Length)
 						{
 							for (int i = 0; i < this._parameters.Length; i++)
 							{
-								if (this._parameters[i] != otherAction.Parameters[i])
+								if (this._parameters[i] != otherModuleAction.Parameters[i])
 								{
 									isEqual = false;
 								}

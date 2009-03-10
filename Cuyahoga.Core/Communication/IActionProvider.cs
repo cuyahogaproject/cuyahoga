@@ -8,6 +8,6 @@ namespace Cuyahoga.Core.Communication
 	/// </summary>
 	public interface IActionProvider
 	{
-		ActionCollection GetOutboundActions();
+		ModuleActionCollection GetOutboundActions();
 	}
 }

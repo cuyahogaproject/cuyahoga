@@ -7,7 +7,6 @@ using Cuyahoga.Core.Communication;
 using Cuyahoga.Core.Service.Membership;
 using Cuyahoga.Core.Service.Email;
 using User = Cuyahoga.Core.Domain.User;
-using Action = Cuyahoga.Core.Communication.Action;
 
 namespace Cuyahoga.Modules.User
 {
@@ -19,7 +18,7 @@ namespace Cuyahoga.Modules.User
 		private static readonly string virtualEmailTemplateDir = "~/Modules/User/EmailTemplates";
 		private static readonly string userCacheKeyPrefix = "User_";
 		private ProfileModuleAction _currentAction;
-		private ActionCollection _inboundActions;
+		private ModuleActionCollection _inboundModuleActions;
 		private int _currentUserId;
 		private IUserService _userService;
 		private IEmailService _emailService;
@@ -178,18 +177,18 @@ namespace Cuyahoga.Modules.User
 
 		private void InitInboundActions()
 		{
-			this._inboundActions = new ActionCollection();
-			this._inboundActions.Add(new Action("ViewProfile", new string[1] {"UserId"}));
-			this._inboundActions.Add(new Action("EditProfile", null));
-			this._inboundActions.Add(new Action("Register", null));
-			this._inboundActions.Add(new Action("ResetPassword", null));
+			this._inboundModuleActions = new ModuleActionCollection();
+			this._inboundModuleActions.Add(new ModuleAction("ViewProfile", new string[1] {"UserId"}));
+			this._inboundModuleActions.Add(new ModuleAction("EditProfile", null));
+			this._inboundModuleActions.Add(new ModuleAction("Register", null));
+			this._inboundModuleActions.Add(new ModuleAction("ResetPassword", null));
 		}
 
 		#region IActionConsumer Members
 
-		public ActionCollection GetInboundActions()
+		public ModuleActionCollection GetInboundActions()
 		{
-			return this._inboundActions;
+			return this._inboundModuleActions;
 		}
 
 		#endregion

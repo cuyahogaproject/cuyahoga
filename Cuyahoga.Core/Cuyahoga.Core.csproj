@@ -151,10 +151,10 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Communication\Action.cs">
+    <Compile Include="Communication\ModuleAction.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Communication\ActionCollection.cs">
+    <Compile Include="Communication\ModuleActionCollection.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Communication\IActionConsumer.cs">
