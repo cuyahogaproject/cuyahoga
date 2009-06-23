@@ -17,7 +17,10 @@ namespace Cuyahoga.Core.Service.SiteStructure
 	[Transactional]
 	public class TemplateService : ITemplateService
 	{
-		private ICommonDao _commonDao;
+		private static readonly ICollection<string> AllowedDirectories = new[] { "css/", "images/" };
+		private static readonly ICollection<string> AllowedExtensions = new[] { ".ascx", ".css", ".gif", ".png", ".jpg", ".js", ".swf" };
+
+		private readonly ICommonDao _commonDao;
 		private IFileService _fileService;
 
 		/// <summary>
@@ -73,7 +76,6 @@ namespace Cuyahoga.Core.Service.SiteStructure
 		[Transaction(TransactionMode.RequiresNew)]
 		public void ExtractTemplatePackage(string packageFilePath, Stream packageStream)
 		{
-			ICollection<string> allowedExtensions = new[] { ".ascx", ".css", ".gif", ".png", ".jpg", ".js", ".swf"};
 			
 			// The template dir is the name of the zip package by convention.
 			string templateDir = Path.GetFileNameWithoutExtension(packageFilePath);
@@ -90,8 +92,7 @@ namespace Cuyahoga.Core.Service.SiteStructure
 			{
 				if (zipEntry.IsDirectory)
 				{
-					// only 'Css' and 'Images' are allowed as directory names
-					if (zipEntry.Name.ToLower() != "css/" && zipEntry.Name.ToLower() != "images/")
+					if (! AllowedDirectories.Contains(zipEntry.Name.ToLower()))
 					{
 						throw new InvalidPackageException("InvalidDirectoryInPackageFoundException");
 					}
@@ -102,7 +103,7 @@ namespace Cuyahoga.Core.Service.SiteStructure
 					string targetFilePath = Path.Combine(physicalTargetTemplateDir, zipEntry.Name);
 					string extension = Path.GetExtension(targetFilePath);
 					// Check allowed extensions.
-					if (! allowedExtensions.Contains(extension))
+					if (! AllowedExtensions.Contains(extension))
 					{
 						throw new InvalidPackageException("InvalidExtensionFoundException");
 					}

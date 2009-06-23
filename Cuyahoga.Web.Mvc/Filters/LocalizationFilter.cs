@@ -34,7 +34,7 @@ namespace Cuyahoga.Web.Mvc.Filters
 				{
 					for (int i = 0; i < messagesForType.Value.Count; i++)
 					{
-						string baseName = String.Format("resources.{0}.globalresources"
+						string baseName = String.Format("{0}.globalresources"
 							, filterContext.Controller.GetType().Namespace.Replace(".Controllers", String.Empty).ToLowerInvariant());
 						string originalMessage = messagesForType.Value[i];
 						string translatedMessage = this._localizer.GetString(originalMessage, baseName);

@@ -163,7 +163,7 @@ namespace Cuyahoga.Web.Mvc.Controllers
 
 		protected string GetText(string key)
 		{
-			string baseName = String.Format("resources.{0}.globalresources"
+			string baseName = String.Format("{0}.globalresources"
 			                                , this.GetType().Namespace.Replace(".Controllers", String.Empty).ToLowerInvariant());
 			return Localizer.GetString(key, baseName);
 		}

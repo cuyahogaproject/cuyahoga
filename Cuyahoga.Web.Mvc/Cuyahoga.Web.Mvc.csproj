@@ -87,7 +87,7 @@
     <Compile Include="Filters\SiteFilter.cs" />
     <Compile Include="IMvcModule.cs" />
     <Compile Include="Localization\ILocalizer.cs" />
-    <Compile Include="Localization\ResourceLocalizer.cs" />
+    <Compile Include="Localization\GlobalResourceLocalizer.cs" />
     <Compile Include="MessageType.cs" />
     <Compile Include="Paging\IPagedList.cs" />
     <Compile Include="Paging\PagedList.cs" />

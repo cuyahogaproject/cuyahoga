@@ -338,6 +338,7 @@
     </Compile>
     <Compile Include="Components\Bootstrapper.cs" />
     <Compile Include="Components\CuyahogaContext.cs" />
+    <Compile Include="HttpModules\PageRequestModule.cs" />
     <Compile Include="Manager\Controllers\DashboardController.cs" />
     <Compile Include="Manager\Controllers\FilesController.cs" />
     <Compile Include="Manager\Controllers\LoginController.cs" />
@@ -441,10 +442,6 @@
     </Compile>
     <Compile Include="Install\Upgrade.aspx.cs">
       <DependentUpon>Upgrade.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Login.aspx.cs">
-      <DependentUpon>Login.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="Profile.aspx.cs">
@@ -765,9 +762,6 @@
       <SubType>Form</SubType>
     </Content>
     <Content Include="js\DefaultButton.js" />
-    <Content Include="Login.aspx">
-      <SubType>Form</SubType>
-    </Content>
     <Content Include="Manager\Scripts\ui.core.js" />
     <Content Include="Manager\Scripts\ui.dialog.js" />
     <Content Include="Manager\Scripts\ui.draggable.js" />
@@ -1375,10 +1369,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Install\Upgrade.aspx.resx">
       <DependentUpon>Upgrade.aspx.cs</DependentUpon>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Login.aspx.resx">
-      <DependentUpon>Login.aspx.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Profile.aspx.resx">

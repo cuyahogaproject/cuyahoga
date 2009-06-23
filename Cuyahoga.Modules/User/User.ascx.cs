@@ -1,33 +1,37 @@
+using System.Web.Security;
+using Cuyahoga.Core;
+using Cuyahoga.Core.Service.Membership;
+using Cuyahoga.Core.Util;
+using System;
+using System.Web;
+using Cuyahoga.Web.UI;
+using Cuyahoga.Web.Util;
+using Cuyahoga.Core.Domain;
+using log4net;
+using CuyahogaUser = Cuyahoga.Core.Domain.User;
+
+
 namespace Cuyahoga.Modules.User
 {
-	using System;
-	using System.Data;
-	using System.Drawing;
-	using System.Web;
-	using System.Web.UI.WebControls;
-	using System.Web.UI.HtmlControls;
-	using System.Threading;
-	using System.Globalization;
-
-	using Cuyahoga.Web.UI;
-	using Cuyahoga.Web.Util;
-	using Cuyahoga.Web.HttpModules;
-	using Cuyahoga.Core.Domain;
-
 	/// <summary>
 	///	Module to enable authentication and user sign-up etc.
 	/// </summary>
 	public partial class User : BaseModuleControl
 	{
+		private static readonly ILog log = LogManager.GetLogger(typeof(User));
+
 		private bool _showRegister = true;
 		private bool _showResetPassword = true;
 		private bool _showEditProfile = true;
 		private UserModule _module;
+		private IAuthenticationService _authenticationService;
 
 
 		protected void Page_Load(object sender, System.EventArgs e)
 		{
 			this._module = base.Module as UserModule;
+			this._authenticationService = IoC.Resolve<IAuthenticationService>();
+
 			if (this._module.Section.Settings["SHOW_REGISTER"] != null)
 			{
 				this._showRegister = Convert.ToBoolean(this._module.Section.Settings["SHOW_REGISTER"]);
@@ -137,12 +141,11 @@ namespace Cuyahoga.Modules.User
 
 		protected void btnLogin_Click(object sender, System.EventArgs e)
 		{
-			AuthenticationModule am = (AuthenticationModule)Context.ApplicationInstance.Modules["AuthenticationModule"];
 			if (this.txtUsername.Text.Trim().Length > 0 && this.txtPassword.Text.Trim().Length > 0)
 			{
 				try
 				{
-					if (am.AuthenticateUser(this.txtUsername.Text, this.txtPassword.Text, this.chkPersistLogin.Checked))
+					if (AuthenticateUser(this.txtUsername.Text, this.txtPassword.Text, this.chkPersistLogin.Checked))
 					{
 						this.lblLoggedInUser.Text = this.txtUsername.Text;
 						this.pnlUserInfo.Visible = true;
@@ -178,13 +181,48 @@ namespace Cuyahoga.Modules.User
 		protected void btnLogout_Click(object sender, System.EventArgs e)
 		{
 			// Log out
-			AuthenticationModule am = (AuthenticationModule)Context.ApplicationInstance.Modules["AuthenticationModule"];
-            am.Logout();
+			if (HttpContext.Current.User != null && HttpContext.Current.User.Identity.IsAuthenticated)
+			{
+				FormsAuthentication.SignOut();
+			}
 			this.pnlLogin.Visible = true;
 			this.pnlUserInfo.Visible = false;
 			// Redirect to self to refresh rendering of the page because this event happens after 
 			// everything is already constructed.
 			Context.Response.Redirect(Context.Request.RawUrl);
+		}
+
+		private bool AuthenticateUser(string username, string password, bool persistLogin)
+		{
+			try
+			{
+				CuyahogaUser user =
+					this._authenticationService.AuthenticateUser(username, password, HttpContext.Current.Request.UserHostAddress);
+				if (user != null)
+				{
+					if (!user.IsActive)
+					{
+						log.Warn(String.Format("Inactive user {0} tried to login.", user.UserName));
+						throw new AccessForbiddenException("The account is disabled.");
+					}
+					// Create the authentication ticket
+					HttpContext.Current.User = user;
+					FormsAuthentication.SetAuthCookie(user.Name, persistLogin);
+
+					return true;
+				}
+				else
+				{
+					log.Warn(String.Format("Invalid username-password combination: {0}:{1}.", username, password));
+					return false;
+				}
+			}
+			catch (Exception ex)
+			{
+				log.Error(String.Format("An error occured while logging in user {0}.", username));
+				throw new Exception(String.Format("Unable to log in user '{0}': " + ex.Message, username), ex);
+			}
+			
 		}
 	}
 }

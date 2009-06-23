@@ -1,9 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Configuration;
+using System.IO;
 using System.Linq;
 using System.Web;
-using System.Web.Configuration;
 using System.Xml.Linq;
 using System.Web.Routing;
 using System.Web.Mvc;
@@ -77,18 +76,23 @@ namespace Cuyahoga.Web.Mvc.Sitemap
 		/// </remarks>
 		public MvcSitemapProvider(string providerName)
 		{
-			// Read the sitemap configuration from web.config
-			Configuration config = WebConfigurationManager.OpenWebConfiguration("~/Web.config");
-			SiteMapSection siteMapSection = (SiteMapSection)config.GetSection("system.web/siteMap");
+			// Read the sitemap configuration from web.config.
+			// We can't use WebConfigurationManager.GetSection() because it's not allowed under medium trust.
+			XDocument doc = XDocument.Load(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Web.config"));
+			var siteMapSection = doc.Descendants("siteMap").FirstOrDefault();
 			if (siteMapSection == null)
 			{
 				throw new NullReferenceException("Unable to configure the MvcSitemap provider because there was no siteMap section found in web.config.");
 			}
-			if (providerName == null)
+			string defaultProviderName = siteMapSection.Attribute("defaultProvider").Value;
+			providerName = providerName ?? defaultProviderName;
+			var propertiesElement = siteMapSection.Descendants("providers").First().Elements().Where(at => at.Attribute("name").Value == providerName).Single();
+			NameValueCollection propertiesCollection = new NameValueCollection();
+			foreach (XAttribute attr in propertiesElement.Attributes())
 			{
-				providerName = siteMapSection.DefaultProvider;
+				propertiesCollection.Add(attr.Name.LocalName, attr.Value);
 			}
-			Initialize(providerName, siteMapSection.Providers[providerName].Parameters);
+			Initialize(providerName, propertiesCollection);
 		}
 
 		/// <summary>
@@ -571,7 +575,4 @@ namespace Cuyahoga.Web.Mvc.Sitemap
 		#endregion
 	}
 
-	#region Classes
-
-	#endregion
 }

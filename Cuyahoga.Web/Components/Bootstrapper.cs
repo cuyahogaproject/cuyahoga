@@ -56,7 +56,7 @@ namespace Cuyahoga.Web.Components
 
 				// Localizer
 				container.Register(Component.For<ILocalizer>()
-					.ImplementedBy<ResourceLocalizer>()
+					.ImplementedBy<GlobalResourceLocalizer>()
 				);
 			}
 			catch (Exception ex)
