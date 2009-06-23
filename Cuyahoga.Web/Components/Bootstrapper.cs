@@ -2,7 +2,6 @@
 using System.Reflection;
 using System.Web;
 using System.Web.Mvc;
-using Castle.Core;
 using Castle.Windsor;
 using Castle.MicroKernel.Registration;
 using Cuyahoga.Core;
@@ -13,8 +12,8 @@ using Cuyahoga.Core.Validation.ModelValidators;
 using Cuyahoga.Web.Mvc.Localization;
 using Cuyahoga.Web.Mvc.Sitemap;
 using Cuyahoga.Web.Mvc.Validation;
+using Cuyahoga.Web.Mvc.Windsor;
 using log4net;
-using MvcContrib.Castle;
 
 namespace Cuyahoga.Web.Components
 {

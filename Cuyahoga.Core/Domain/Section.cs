@@ -438,6 +438,7 @@ namespace Cuyahoga.Core.Domain
 		public virtual Section Copy()
 		{
 			Section newSection = new Section();
+			newSection.Site = this.Site;
 			newSection.ModuleType = this.ModuleType;
 			newSection.Title = this.Title;
 			newSection.ShowTitle = this.ShowTitle;

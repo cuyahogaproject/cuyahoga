@@ -118,10 +118,6 @@
       <Name>log4net</Name>
       <HintPath>..\lib\log4net.dll</HintPath>
     </Reference>
-    <Reference Include="MvcContrib.Castle, Version=0.0.1.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\lib\MvcContrib.Castle.dll</HintPath>
-    </Reference>
     <Reference Include="RouteHelper.RouteDebugger, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\lib\RouteHelper.RouteDebugger.dll</HintPath>
@@ -1465,10 +1461,11 @@
     <PreBuildEvent>
     </PreBuildEvent>
     <PostBuildEvent>xcopy /s /y "$(SolutionDir)"lib\NHibernate.Caches.SysCache.dll "$(TargetDir)"
+xcopy /s /y "$(SolutionDir)"lib\NHibernate.ByteCode.Castle.dll "$(TargetDir)"
+xcopy /s /y "$(SolutionDir)"lib\Antlr3.Runtime.dll "$(TargetDir)"
 xcopy /s /y "$(SolutionDir)"lib\Castle.Facilities.AutomaticTransactionManagement.dll "$(TargetDir)"
 xcopy /s /y "$(SolutionDir)"lib\Castle.Facilities.NHibernateIntegration.dll "$(TargetDir)"
 xcopy /s /y "$(SolutionDir)"lib\Castle.Components.Validator.dll "$(TargetDir)"
-xcopy /s /y "$(SolutionDir)"lib\Castle.Components.Common.EmailSender.dll "$(TargetDir)"
 xcopy /s /y "$(SolutionDir)"lib\Castle.Facilities.Logging.dll "$(TargetDir)"
 xcopy /s /y "$(SolutionDir)"lib\Castle.Services.Logging.Log4netIntegration.dll "$(TargetDir)"</PostBuildEvent>
   </PropertyGroup>

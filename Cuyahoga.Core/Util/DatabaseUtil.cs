@@ -8,8 +8,8 @@ using NHibernate.Dialect;
 using log4net;
 
 using Cuyahoga.Core.Domain;
-using Cuyahoga.Core.Service;
-using System.Globalization;
+using NHibernate.Engine;
+using NHibernate.Impl;
 
 namespace Cuyahoga.Core.Util
 {
@@ -30,7 +30,7 @@ namespace Cuyahoga.Core.Util
 		/// <returns></returns>
 		public static DatabaseType GetCurrentDatabaseType()
 		{
-			ISessionFactory nhSessionFactory = GetNHibernateSessionFactory();
+			ISessionFactoryImplementor nhSessionFactory = GetNHibernateSessionFactory();
 			if (nhSessionFactory.Dialect is MsSql2000Dialect)
 			{
 				return DatabaseType.MsSql2000;
@@ -52,7 +52,7 @@ namespace Cuyahoga.Core.Util
 		/// <returns></returns>
 		public static bool TestDatabaseConnection()
 		{
-			ISessionFactory sf = GetNHibernateSessionFactory();
+			ISessionFactoryImplementor sf = GetNHibernateSessionFactory();
 			try
 			{
 				IDbConnection con = sf.ConnectionProvider.GetConnection();
@@ -77,7 +77,7 @@ namespace Cuyahoga.Core.Util
 			StreamReader scriptFileStreamReader = new StreamReader(scriptFilePath);
 			string completeScript = scriptFileStreamReader.ReadToEnd();
 
-			ISessionFactory nhSessionFactory = GetNHibernateSessionFactory();
+			ISessionFactoryImplementor nhSessionFactory = GetNHibernateSessionFactory();
 			IDbConnection connection = nhSessionFactory.ConnectionProvider.GetConnection();
 			IDbTransaction transaction = connection.BeginTransaction();
 			try
@@ -126,7 +126,7 @@ namespace Cuyahoga.Core.Util
 		{
 			Version version = null;
 
-			ISessionFactory nhSessionFactory = GetNHibernateSessionFactory();
+			ISessionFactoryImplementor nhSessionFactory = GetNHibernateSessionFactory();
 			IDbConnection connection = nhSessionFactory.ConnectionProvider.GetConnection();
 			// TODO: create proper NHibernate mapping for version :).
 			string sql = String.Format("SELECT major, minor, patch FROM cuyahoga_version WHERE assembly = '{0}'", assembly);
@@ -154,10 +154,12 @@ namespace Cuyahoga.Core.Util
 			return version;
 		}
 
-		private static ISessionFactory GetNHibernateSessionFactory()
+		private static ISessionFactoryImplementor GetNHibernateSessionFactory()
 		{
-			SessionFactory sf = SessionFactory.GetInstance();
-			return sf.GetNHibernateFactory();
+			// Explicitly cast ISessionFactory to ISessionFactoryImplementor because we need the NHibernate 
+			// settings to determine the dialect and the connection provider. 
+			// TODO: can we get the settings without this explicit cast?
+			return (ISessionFactoryImplementor)IoC.Resolve<ISessionFactory>();
 		}
 
 		private static string GetDelimiter()

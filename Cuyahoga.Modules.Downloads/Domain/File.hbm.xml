@@ -8,7 +8,7 @@
 			</generator>
 		</id>
 		
-		<timestamp name="UpdateTimestamp" column="updatetimestamp" unsaved-value="1/1/0001" />
+		<timestamp name="UpdateTimestamp" column="updatetimestamp" />
 
 		<property name="FilePath" column="filepath" type="String" length="255" />
 		<property name="Title" column="title" type="String" length="100" not-null="false" />
