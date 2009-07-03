@@ -195,6 +195,7 @@
     <Compile Include="DataAccess\UserDao.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Infrastructure\Transactions\WebActivityManager.cs" />
     <Compile Include="Service\Search\SearchDecorator.cs" />
     <Compile Include="Service\Versioning\VersioningDecorator.cs" />
     <Compile Include="Domain\Category.cs">
@@ -308,7 +309,7 @@
     <Compile Include="Service\Files\FileResourceService.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Service\Files\FileWriter.cs">
+    <Compile Include="Infrastructure\Transactions\TransactionalFileWriter.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Service\Files\IFileResourceService.cs">

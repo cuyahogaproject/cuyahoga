@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using Cuyahoga.Core.Infrastructure.Transactions;
 using Cuyahoga.Core.Util;
 using log4net;
 using Castle.MicroKernel;
@@ -16,7 +17,7 @@ namespace Cuyahoga.Core.Service.Files
 		private static readonly ILog log = LogManager.GetLogger(typeof(TransactionalFileService));
 		private string _tempDir;
 		private IKernel _kernel;
-		private IDictionary<ITransaction, FileWriter> _fileWriters = new Dictionary<ITransaction, FileWriter>();
+		private IDictionary<ITransaction, TransactionalFileWriter> _fileWriters = new Dictionary<ITransaction, TransactionalFileWriter>();
 		
 		/// <summary>
 		/// Physical path for temporary file storage
@@ -60,8 +61,8 @@ namespace Cuyahoga.Core.Service.Files
 			ITransaction transaction = ObtainCurrentTransaction();
 			if (transaction != null)
 			{
-				// We're participating in a transaction, use the FileWriter to write the file.
-				FileWriter fileWriter = GetFileWriterForTransaction(transaction);
+				// We're participating in a transaction, use the TransactionalFileWriter to write the file.
+				TransactionalFileWriter fileWriter = GetFileWriterForTransaction(transaction);
 				transaction.Enlist(fileWriter);
 				fileWriter.CreateFromStream(filePath, fileContents);
 			}
@@ -80,8 +81,8 @@ namespace Cuyahoga.Core.Service.Files
 			ITransaction transaction = ObtainCurrentTransaction();
 			if (transaction != null)
 			{
-				// We're participating in a transaction, use the FileWriter to delete the file.
-				FileWriter fileWriter = GetFileWriterForTransaction(transaction);
+				// We're participating in a transaction, use the TransactionalFileWriter to delete the file.
+				TransactionalFileWriter fileWriter = GetFileWriterForTransaction(transaction);
 				transaction.Enlist(fileWriter);
 				fileWriter.DeleteFile(filePath);
 			}
@@ -97,7 +98,7 @@ namespace Cuyahoga.Core.Service.Files
 			ITransaction transaction = ObtainCurrentTransaction();
 			if (transaction != null)
 			{
-				FileWriter fileWriter = GetFileWriterForTransaction(transaction);
+				TransactionalFileWriter fileWriter = GetFileWriterForTransaction(transaction);
 				transaction.Enlist(fileWriter);
 				fileWriter.CreateDirectory(physicalDirectory);
 			}
@@ -112,7 +113,7 @@ namespace Cuyahoga.Core.Service.Files
 			ITransaction transaction = ObtainCurrentTransaction();
 			if (transaction != null)
 			{
-				FileWriter fileWriter = GetFileWriterForTransaction(transaction);
+				TransactionalFileWriter fileWriter = GetFileWriterForTransaction(transaction);
 				transaction.Enlist(fileWriter);
 				fileWriter.CopyDirectory(directoryToCopy, directoryToCopyTo);
 			}
@@ -127,7 +128,7 @@ namespace Cuyahoga.Core.Service.Files
 			ITransaction transaction = ObtainCurrentTransaction();
 			if (transaction != null)
 			{
-				FileWriter fileWriter = GetFileWriterForTransaction(transaction);
+				TransactionalFileWriter fileWriter = GetFileWriterForTransaction(transaction);
 				transaction.Enlist(fileWriter);
 				fileWriter.CopyFile(filePathToCopy, directoryToCopyTo);
 			}
@@ -193,11 +194,11 @@ namespace Cuyahoga.Core.Service.Files
 			return transactionManager.CurrentTransaction;
 		}
 
-		private FileWriter GetFileWriterForTransaction(ITransaction transaction)
+		private TransactionalFileWriter GetFileWriterForTransaction(ITransaction transaction)
 		{
 			if (!this._fileWriters.ContainsKey(transaction))
 			{
-				this._fileWriters.Add(transaction, new FileWriter(this._tempDir, transaction.Name));
+				this._fileWriters.Add(transaction, new TransactionalFileWriter(this._tempDir, transaction.Name));
 			}
 			return this._fileWriters[transaction];
 		}

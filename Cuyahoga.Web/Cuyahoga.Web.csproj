@@ -425,7 +425,6 @@
       <DependentUpon>Global.asax</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="HttpHandlers\PageHandler.cs" />
     <Compile Include="HttpModules\AuthenticationModule.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -1441,6 +1440,7 @@
     <Content Include="Support\FCKeditor\editor\filemanager\Web.config" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="HttpHandlers\" />
     <Folder Include="index\" />
     <Folder Include="SiteData\" />
     <Folder Include="UserFiles\File\" />

@@ -2,14 +2,15 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using Castle.Services.Transaction;
+using Cuyahoga.Core.Service.Files;
 using Cuyahoga.Core.Util;
 
-namespace Cuyahoga.Core.Service.Files
+namespace Cuyahoga.Core.Infrastructure.Transactions
 {
 	/// <summary>
-	/// The FileWriter class performs file actions in a transactional context.
+	/// The TransactionalFileWriter class performs file actions in a transactional context.
 	/// </summary>
-	public class FileWriter : IResource
+	public class TransactionalFileWriter : IResource
 	{
 		private readonly string _defaultTempDir = Environment.GetEnvironmentVariable("TEMP");
 		private readonly string _transactionName;
@@ -25,7 +26,7 @@ namespace Cuyahoga.Core.Service.Files
 		/// <summary>
 		/// Contructor.
 		/// </summary>
-		public FileWriter(string tempDir, string transactionName)
+		public TransactionalFileWriter(string tempDir, string transactionName)
 		{	
 			if (String.IsNullOrEmpty(tempDir))
 			{
