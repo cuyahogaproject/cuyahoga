@@ -2,7 +2,6 @@
 <%@ Import Namespace="Cuyahoga.Core.Domain"%>
 <asp:Content ID="Content1" ContentPlaceHolderID="cphHead" runat="server">
 	<title>Cuyahoga Manager :: <%= String.Format(GlobalResources.DesignPagePageTitle, Model.Title) %></title>
-	<link rel="stylesheet" type="text/css" href="<%= Url.Content("~/Manager/Content/Css/jquery-ui/ui.dialog.css") %>" />
 	<script type="text/javascript" src="<%= Url.Content("~/manager/Scripts/ui.core.js") %>"></script>
 	<script type="text/javascript" src="<%= Url.Content("~/manager/Scripts/ui.sortable.js") %>"></script>
 	<script type="text/javascript" src="<%= Url.Content("~/manager/Scripts/ui.draggable.js") %>"></script>
@@ -47,6 +46,7 @@
 	
 	<script type="text/javascript">
 		var isDeleting = false;
+		var isAdding = false;
 		<% if (ViewData.ContainsKey("ActiveSection")) { %>
 		var selectedSectionId = <%= ((Section)ViewData["ActiveSection"]).Id %>;		
 		<% } else { %>
@@ -83,8 +83,9 @@
 			
 			$('#newsectiondialog').dialog({
 				autoOpen: false,
+				autoResize: true,
 				width: "760px",
-				height: "500px",
+				minHeight: "500px",
 				buttons: {
 					"<%= GlobalResources.CreateSectionLabel %>": createSectionFromDialog, 
 					"<%= GlobalResources.CancelLabel %>": closeDialog
@@ -96,20 +97,6 @@
 				}
 			})
 
-			$('#editcontentdialog').dialog({
-				autoOpen: false,
-				width: "800px",
-				height: "560px",
-				buttons: {
-					"<%= GlobalResources.CloseLabel %>": closeDialog
-				}, 
-				modal: true,
-				overlay: { 
-					opacity: 0.5, 
-					background: "black" 
-				}
-			})
-			
 			$('#deletesectiondialog').dialog({
 				autoOpen: false,
 				width: "520px",
@@ -143,15 +130,6 @@
 					$('#deletesectiondialog').dialog("open");
 				}
 			})
-			
-			$('.templatecontainer').click($.delegate({
-				'img.editcontentlink': function(e) { 
-					$('#editcontentframe').attr('src', $(e.target).parent().attr("href"));
-					$('#editcontentdialog').dialog("open");
-					return false;
-				},
-				'li.section-item div': selectSection 
-			}))
 		})
 		
 		function ajaxifySelectedSectionForms() {
@@ -183,6 +161,9 @@
 				dropOnEmpty: true,
 				receive: function (ev, ui) {
 					if ($(ui.item).attr('id').substring(0,3) == "mt-") {
+					
+						isAdding = true; // Set flag to prevent sortable update.
+						
 						// Add new section to placeholder 
 						var moduleTypeId = $(ui.item).attr('id').substring(3);
 						var placeholder = $(this).parent().attr('id').substring(4); // strip 'plh_'
@@ -194,7 +175,7 @@
 					}
 				},
 				update: function(ev, ui) {
-					if (! isDeleting) {
+					if (! isDeleting && ! isAdding) {
 						var serializedChildNodeIds = $(this).sortable('serialize');
 						// we only need an array of section id's, extract these with a regex.
 						var orderedSectionIds = serializedChildNodeIds.match(/(\d+)/g);
@@ -239,17 +220,12 @@
 		}
 		
 		function createSectionItemElement(sectionId, sectionName, moduleType, editUrl) {
-			var el = '<li id="section-{0}" class="{4}"><div style="float:right">{3}</div><div>{1} ({2})</div></li>';
-			var sectionLinks = '';
-			if (editUrl != '') {
-				editLink = jQuery.format('<a href="<%= ResolveUrl("~/") %>{0}?nodeid={1}&sectionid={2}" title="<%= GlobalResources.EditContentLabel %>"><img src="<%= Url.Content("~/manager/Content/Images/pencil.png") %>" alt="<%= GlobalResources.EditContentLabel %>" class="editcontentlink" /></a>', editUrl, $('#NodeId').val(), sectionId);
-				sectionLinks = editLink + ' ' + sectionLinks;
-			}
+			var el = '<li id="section-{0}" class="{4}"><div>{1} ({2})</div></li>';
 			var sectionItemClass = 'section-item';
 			if (sectionId == selectedSectionId) {
 				sectionItemClass += ' section-selected';
 			}
-			return jQuery.format(el, sectionId, sectionName, moduleType, sectionLinks, sectionItemClass);
+			return jQuery.validator.format(el, sectionId, sectionName, moduleType, sectionItemClass);
 		}
 
 	</script>
@@ -264,7 +240,7 @@
 	<p><%= Html.ActionLink(GlobalResources.BackToPageListLabel, "Index", new { id = ViewData.Model.Id }) %></p>
 	
 	<div id="newsectiondialog" title="<%= GlobalResources.AddSectionDialogTitle %>">
-		<div id="newsectiondialogcontent" class="dialog-content" style="height:400px">
+		<div id="newsectiondialogcontent" class="dialog-content">
 		
 		</div>
 	</div>

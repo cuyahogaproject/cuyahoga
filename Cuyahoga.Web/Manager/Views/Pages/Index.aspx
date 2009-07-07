@@ -3,7 +3,6 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="cphHead" runat="server">
 	<title>Cuyahoga Manager :: <%= GlobalResources.ManagePagesPageTitle %></title>
 	<link rel="stylesheet" type="text/css" href="<%= Url.Content("~/Manager/Content/Css/Pagegrid.css") %>" />
-	<link rel="stylesheet" type="text/css" href="<%= Url.Content("~/Manager/Content/Css/jquery-ui/ui.dialog.css") %>" />
 	<script type="text/javascript" src="<%= Url.Content("~/manager/Scripts/ui.core.js") %>"></script>
 	<script type="text/javascript" src="<%= Url.Content("~/manager/Scripts/ui.sortable.js") %>"></script>
 	<script type="text/javascript" src="<%= Url.Content("~/manager/Scripts/ui.droppable.js") %>"></script>
@@ -98,7 +97,9 @@
 						$('#pagesform').attr('action', '<%= Url.Action("CopyPage", "Pages") %>');
 						$('#pagesform').submit(); 
 					},
-					"<%= GlobalResources.CancelLabel %>": closeDialog
+					"<%= GlobalResources.CancelLabel %>": function() {
+						$(this).dialog("close");
+					}
 				}, 
 				modal: true,
 				overlay: { 
@@ -110,10 +111,8 @@
 		})	
 		
 		function closeDialog(ev, ui) {
-			// reload page to prevent sorting, because with the current version (1.6rc2), it's impossible to cancel sorting.
-			var url = '<%= Url.Action("Index", "Pages", new { id = 0 }) %>'; // Hack: the url is generated with id 0, otherwise it won't generate the action.
-			url = url.replace("/0", "/" + $('#nodeid').val());
-			document.location.href = url;
+			// cancel sorting after doing something with the dialog.
+			$('pagegroup').sortable("cancel");
 		}
 				
 		function toggleHide(expander) {
@@ -191,7 +190,7 @@
 				tolerance: "pointer",
 				drop: function(ev, ui) {
 					var newParentNodeId = $(this).parents('li').attr('id').substring(5);
-					var nodeId = $(ev.target).parents('li').attr('id').substring(5);
+					var nodeId = $(ui.draggable).attr('id').substring(5);
 					isMoving = true; // disable sorting when dropping on a new parent to prevent the ajax call
 					$('#nodeid').val(nodeId);
 					$('#newparentnodeid').val(newParentNodeId);

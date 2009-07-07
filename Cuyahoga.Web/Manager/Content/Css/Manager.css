@@ -581,14 +581,6 @@ table.grid td.right
 	font-weight: bold;
 }
 
-/* Dialog */
-.dialog-content
-{
-	padding: 10px;
-	margin: 0;
-	overflow: auto;
-}
-
 /* Drag & drop */
 .drophover
 {
