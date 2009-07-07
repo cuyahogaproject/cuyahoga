@@ -645,4 +645,10 @@
   <data name="SectionPermissionsLabel" xml:space="preserve">
     <value>Sectie rechten</value>
   </data>
+  <data name="DeleteSectionChoiceLabel" xml:space="preserve">
+    <value>Wil je de sectie verwijderen of alleen maar ontkoppelen van deze pagina?</value>
+  </data>
+  <data name="ManageContentPageTitle" xml:space="preserve">
+    <value>Beheer content op '{0}'</value>
+  </data>
 </root>

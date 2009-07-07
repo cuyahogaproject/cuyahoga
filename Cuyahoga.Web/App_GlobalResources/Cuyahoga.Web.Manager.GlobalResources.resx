@@ -657,4 +657,10 @@
   <data name="PermissionsUpdatedMessage" xml:space="preserve">
     <value>Permissions for {0} are updated successfully.</value>
   </data>
+  <data name="DeleteSectionChoiceLabel" xml:space="preserve">
+    <value>Do you want to delete the section or only detach it from the page?</value>
+  </data>
+  <data name="ManageContentPageTitle" xml:space="preserve">
+    <value>Manage page content on '{0}'</value>
+  </data>
 </root>

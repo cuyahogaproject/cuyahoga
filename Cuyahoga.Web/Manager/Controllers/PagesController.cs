@@ -79,6 +79,12 @@ namespace Cuyahoga.Web.Manager.Controllers
 			return View(node);
 		}
 
+		public ActionResult Content(int id)
+		{
+			Node node = this._nodeService.GetNodeById(id);
+			return View(node);
+		}
+
 		[AcceptVerbs(HttpVerbs.Post)]
 		public ActionResult SavePageProperties(int id)
 		{

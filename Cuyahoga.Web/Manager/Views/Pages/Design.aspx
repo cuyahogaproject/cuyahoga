@@ -246,12 +246,7 @@
 	</div>
 	
 	<div id="deletesectiondialog" title="<%= GlobalResources.RemoveSectionDialogTitle %>">
-		<p class="dialog-content">Do you want to delete the entire section or only detach it from the page?</p>
+		<p class="dialog-content"><%= GlobalResources.DeleteSectionChoiceLabel %></p>
 	</div>
 		
-	<div id="editcontentdialog" title="<%= GlobalResources.EditContentDialogTitle %>">
-		<iframe id="editcontentframe" class="dialog-content" style="width:780px;height:460px"></iframe>
-	</div>
-	
-
 </asp:Content>

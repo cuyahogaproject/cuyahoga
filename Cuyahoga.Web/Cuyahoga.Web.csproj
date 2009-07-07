@@ -641,6 +641,7 @@
     <Content Include="Manager\Content\Images\world_go.png" />
     <Content Include="Manager\Default.aspx" />
     <Content Include="Manager\Scripts\cuyahoga.common.js" />
+    <Content Include="Manager\Views\Pages\Content.aspx" />
     <Content Include="Modules\Content\Css\ModuleAdmin.css" />
     <Content Include="Modules\Content\Images\cross.gif" />
     <Content Include="Modules\Content\Images\error.png" />

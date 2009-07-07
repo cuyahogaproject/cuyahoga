@@ -77,7 +77,7 @@
 				'.pagerow div': function (e) {
 					selectedPageItem = $(e.target).parents('.pagerow').parent();
 					var nodeId = selectedPageItem.attr('id').substring(5);
-					document.location.href = '<%= Url.Action("Design", "Pages") %>/' + nodeId;
+					document.location.href = '<%= Url.Action("Content", "Pages") %>/' + nodeId;
 				}
 			}))
 			
