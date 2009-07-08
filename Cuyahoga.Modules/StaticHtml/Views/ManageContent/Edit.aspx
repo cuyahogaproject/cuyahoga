@@ -5,11 +5,12 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 	<title><%= GlobalResources.EditContentPageTitle %></title>
 </asp:Content>
-
+<asp:Content ID="Content3" ContentPlaceHolderID="HeaderContent" runat="server">
+	<h2><%= GlobalResources.EditContentPageTitle %></h2>
+</asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
-    <h2><%= GlobalResources.EditContentPageTitle %></h2>
 	<% using (Html.BeginForm("SaveContent", "ManageContent", new { NodeId = Request.Params["nodeId"], SectionId = Request.Params["SectionId"] }, FormMethod.Post)) { %>
-		<%= Html.TextArea("content", Model.Content, new { style = "width:100%;height:400px" }) %>
+		<%= Html.TextArea("content", Model.Content, new { style = "width:100%;height:300px" }) %>
 		<input type="submit" value="Save" />
 	<% } %>
 </asp:Content>

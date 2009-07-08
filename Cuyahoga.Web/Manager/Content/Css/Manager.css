@@ -581,6 +581,23 @@ table.grid td.right
 	font-weight: bold;
 }
 
+/* Content editing */
+#contentblocks li
+{
+	padding: 2px;
+}
+
+#contentblocks li.active
+{
+	background-color: #369;
+}
+
+#contentblocks li.active a
+{
+	color: #fff;
+}
+
+
 /* Drag & drop */
 .drophover
 {

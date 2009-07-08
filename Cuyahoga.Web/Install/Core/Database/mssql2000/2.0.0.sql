@@ -128,6 +128,19 @@ ALTER TABLE cuyahoga_roleright
 		FOREIGN KEY (rightid) REFERENCES cuyahoga_right (rightid)
 go
 
+-- Add IsPrimarySection to section
+ALTER TABLE cuyahoga_section
+	ADD isprimarysection bit NULL DEFAULT 0
+go
+
+UPDATE cuyahoga_section
+SET isprimarysection = 0
+go
+
+ALTER TABLE cuyahoga_section
+	ALTER COLUMN isprimarysection bit NOT NULL
+go
+
 /* DATA */
 SET IDENTITY_INSERT cuyahoga_right ON
 
