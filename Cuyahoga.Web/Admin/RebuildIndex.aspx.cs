@@ -82,11 +82,11 @@ namespace Cuyahoga.Web.Admin
         private void BuildIndex()
         {
             //only one rebuild at a time allowed
-            this._searchService.StartRebuildingIndex();
+            //this._searchService.StartRebuildingIndex();
 
             this.BuildIndexBySites();
 
-            this._searchService.EndRebuildingIndex();
+            //this._searchService.EndRebuildingIndex();
         }
 
       

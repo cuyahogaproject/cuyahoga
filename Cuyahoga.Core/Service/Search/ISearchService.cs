@@ -23,9 +23,6 @@ namespace Cuyahoga.Core.Service.Search
         void AddContent(IList<IContentItem> contentItems);
         void DeleteContent(IList<IContentItem> contentItems);
 
-        void StartRebuildingIndex();
-        void EndRebuildingIndex();
-
         SearchResultCollection FindContent(string queryText, IDictionary<string, string> keywordFilter, int pageIndex, int pageSize, User user);
         SearchResultCollection FindContent(string queryText, IDictionary<string, string> keywordFilter, IList<string> categoryName, int pageIndex, int pageSize, User user);
 
