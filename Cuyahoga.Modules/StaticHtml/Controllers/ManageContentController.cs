@@ -1,10 +1,9 @@
 using System;
 using System.Linq;
 using System.Web.Mvc;
-using Cuyahoga.Core.Domain;
 using Cuyahoga.Core.Service.Content;
-using Cuyahoga.Core.Service.SiteStructure;
 using Cuyahoga.Web.Mvc.Controllers;
+using Cuyahoga.Web.Mvc.ViewModels;
 
 namespace Cuyahoga.Modules.StaticHtml.Controllers
 {
@@ -12,7 +11,7 @@ namespace Cuyahoga.Modules.StaticHtml.Controllers
 	{
 		private readonly IContentItemService<StaticHtmlContent> _contentItemService;
 
-		public ManageContentController(IContentItemService<StaticHtmlContent> contentItemService, ISectionService sectionService)
+		public ManageContentController(IContentItemService<StaticHtmlContent> contentItemService)
 		{
 			_contentItemService = contentItemService;
 		}
@@ -20,31 +19,38 @@ namespace Cuyahoga.Modules.StaticHtml.Controllers
 		public ActionResult Edit()
 		{
 			StaticHtmlContent htmlContent =
-				this._contentItemService.FindContentItemsBySection(base.CurrentSection).FirstOrDefault()
+				this._contentItemService.FindContentItemsBySection(CurrentSection).FirstOrDefault()
 				?? new StaticHtmlContent();
-			return View(htmlContent);
+			return View(new ModuleAdminViewModel<StaticHtmlContent>(CurrentNode, CurrentSection, htmlContent));
 		}
 
 		[ValidateInput(false)]
 		public ActionResult SaveContent()
 		{
 			StaticHtmlContent htmlContent =
-				this._contentItemService.FindContentItemsBySection(base.CurrentSection).FirstOrDefault()
+				this._contentItemService.FindContentItemsBySection(CurrentSection).FirstOrDefault()
 				?? new StaticHtmlContent();
 			if (TryUpdateModel(htmlContent, new [] { "Content"}))
 			{
 				// TODO: handle CreatedBy etc. more generic.
 				if (htmlContent.IsNew)
 				{
-					htmlContent.Title = base.CurrentSection.Title;
+					htmlContent.Title = CurrentSection.Title;
 					htmlContent.CreatedBy = CuyahogaContext.CurrentUser;
-					htmlContent.Section = base.CurrentSection;
+					htmlContent.Section = CurrentSection;
 				}
 				htmlContent.ModifiedBy = CuyahogaContext.CurrentUser;
 				htmlContent.ModifiedAt = DateTime.Now;
-				this._contentItemService.Save(htmlContent);
-				Messages.AddFlashMessage("Content is saved successfully.");
-				return RedirectToAction("Edit");
+				try
+				{
+					this._contentItemService.Save(htmlContent);
+					Messages.AddFlashMessage("Content is saved successfully.");
+					return RedirectToAction("Edit", "ManageContent", GetNodeAndSectionParams());
+				}
+				catch (Exception ex)
+				{
+					Messages.AddException(ex);
+				}
 			}
 			return View("Edit", htmlContent);
 		}

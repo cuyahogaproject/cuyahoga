@@ -4,6 +4,8 @@
 	<title>Cuyahoga Manager :: <%= String.Format(GlobalResources.ManageContentPageTitle, Model.Title) %></title>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="cphTasks" runat="server">
+	<h2><%= GlobalResources.TasksLabel %></h2>
+	<%= Html.ActionLink(GlobalResources.DesignCurrentPageLabel, "Design", "Pages", new { id = ViewData.Model.Id }, new { @class = "designlink" }) %>
 	<div id="selectedsection">
 	<% if (ViewData.ContainsKey("ActiveSection")) {
 		Section activeSection = (Section)ViewData["ActiveSection"];
@@ -26,6 +28,9 @@
 			</li>
 		<% } %>
 	</ul>
+	
+	<p><%= Html.ActionLink(GlobalResources.BackToPageListLabel, "Index", new { id = Model.Id }) %></p>
+	
 	<script type="text/javascript">
 		$(document).ready(function() {
 			$('#contentblocks .contenteditor').hide();

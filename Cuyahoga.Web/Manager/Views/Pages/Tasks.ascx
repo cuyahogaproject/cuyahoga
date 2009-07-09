@@ -70,11 +70,15 @@
 			<input type="submit" value="<%= GlobalResources.SaveButtonLabel %>" />
 		<% } %>
 	</div>
+
+	<% if (! ViewData.Model.IsExternalLink) { %>
+		<%= Html.ActionLink(GlobalResources.ManageContentCurrentPageLabel, "Content", "Pages", new { id = ViewData.Model.Id }, new { @class = "contentlink" }) %>
+	<% } %>
 		
 	<% if (! ViewData.Model.IsExternalLink) { %>
 		<%= Html.ActionLink(GlobalResources.DesignCurrentPageLabel, "Design", "Pages", new { id = ViewData.Model.Id }, new { @class = "designlink" }) %>
 	<% } %>
-	
+		
 	<% using (Html.BeginForm("Delete", "Pages", new { id = ViewData.Model.Id }, FormMethod.Post)) { %>
 		<% if (ViewData.Model.IsExternalLink) { %>
 			<a href="#" class="deletelink"><%= GlobalResources.DeleteLinkLabel%></a>

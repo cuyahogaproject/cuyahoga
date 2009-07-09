@@ -51,18 +51,18 @@
 	<script type="text/javascript"> 
 		var selectedPageItem;
 		var isMoving = false;
-		
+
 		$(document).ready(function() {
-			
+
 			$('#taskarea').scrollFollow({
 				container: 'contentarea'
 			});
-			
+
 			$('#pagegrid').click($.delegate({
-				'.children-visible': function(e) { 
-					toggleHide(e.target); 
+				'.children-visible': function(e) {
+					toggleHide(e.target);
 				},
-				'.children-hidden': function(e) { 
+				'.children-hidden': function(e) {
 					toggleShow(e.target);
 				},
 				'.pagerow div': function(e) {
@@ -72,42 +72,44 @@
 					selectPage(e.target);
 				}
 			}))
-			
+
 			$('#pagegrid').dblclick($.delegate({
-				'.pagerow div': function (e) {
+				'.pagerow div': function(e) {
 					selectedPageItem = $(e.target).parents('.pagerow').parent();
-					var nodeId = selectedPageItem.attr('id').substring(5);
-					document.location.href = '<%= Url.Action("Content", "Pages") %>/' + nodeId;
+					if (selectedPageItem.find('span.page').length > 0) { // only go to content editing on pages
+						var nodeId = selectedPageItem.attr('id').substring(5);
+						document.location.href = '<%= Url.Action("Content", "Pages") %>/' + nodeId;
+					}
 				}
 			}))
-			
+
 			addDroppable('.page');
 			addSortable('.pagegroup .pagegroup');
-					
+
 			selectedPageItem = $('#pagegrid div.selected').parent();
-			
+
 			$('#movedialog').dialog({
 				autoOpen: false,
-				buttons: { 
-					"<%= GlobalResources.MoveButtonLabel %>": function() { 
+				buttons: {
+					"<%= GlobalResources.MoveButtonLabel %>": function() {
 						$('#pagesform').attr('action', '<%= Url.Action("MovePage", "Pages") %>');
-						$('#pagesform').submit(); 
+						$('#pagesform').submit();
 					},
 					"<%= GlobalResources.CopyButtonLabel %>": function() {
 						$('#pagesform').attr('action', '<%= Url.Action("CopyPage", "Pages") %>');
-						$('#pagesform').submit(); 
+						$('#pagesform').submit();
 					},
 					"<%= GlobalResources.CancelLabel %>": function() {
 						$(this).dialog("close");
 					}
-				}, 
-				modal: true,
-				overlay: { 
-					opacity: "0.5", 
-					background: "black" 
 				},
-				close: closeDialog 
-			});			
+				modal: true,
+				overlay: {
+					opacity: "0.5",
+					background: "black"
+				},
+				close: closeDialog
+			});
 		})	
 		
 		function closeDialog(ev, ui) {

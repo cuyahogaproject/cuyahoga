@@ -1,4 +1,5 @@
-﻿using Cuyahoga.Core.Domain;
+﻿using System.Web.Routing;
+using Cuyahoga.Core.Domain;
 
 namespace Cuyahoga.Web.Mvc.ViewModels
 {
@@ -13,6 +14,20 @@ namespace Cuyahoga.Web.Mvc.ViewModels
 			this.Node = node;
 			this.Section = section;
 			this.ModuleData = moduleData;
+		}
+
+		public RouteValueDictionary GetNodeAndSectionParams()
+		{
+			RouteValueDictionary nodeAndSectionParams = new RouteValueDictionary();
+			if (this.Node != null)
+			{
+				nodeAndSectionParams.Add("nodeid", this.Node.Id);
+			}
+			if (this.Section != null)
+			{
+				nodeAndSectionParams.Add("sectionid", this.Section.Id);
+			}
+			return nodeAndSectionParams;
 		}
 	}
 }

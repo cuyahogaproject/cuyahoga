@@ -102,6 +102,7 @@
     <Compile Include="Validation\JQueryValidator.cs" />
     <Compile Include="Validation\ValidationExtensions.cs" />
     <Compile Include="ViewModels\MessageViewData.cs" />
+    <Compile Include="ViewModels\ModuleAdminViewModel.cs" />
     <Compile Include="WebForms\ViewUtil.cs" />
     <Compile Include="Windsor\WindsorControllerFactory.cs" />
   </ItemGroup>

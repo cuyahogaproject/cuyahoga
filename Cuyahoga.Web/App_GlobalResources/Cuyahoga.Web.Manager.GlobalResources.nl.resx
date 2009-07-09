@@ -544,7 +544,7 @@
     <value>Kies een template</value>
   </data>
   <data name="DesignPagePageTitle" xml:space="preserve">
-    <value>Design pagina '{0}'</value>
+    <value>Layout pagina '{0}'</value>
   </data>
   <data name="TemplateSetMessage" xml:space="preserve">
     <value>Template is gekoppeld aan de pagina.</value>
@@ -613,7 +613,7 @@
     <value>Terug naar het paginaoverzicht</value>
   </data>
   <data name="DesignCurrentPageLabel" xml:space="preserve">
-    <value>Design de geselecteerde pagina</value>
+    <value>Layout van de geselecteerde pagina</value>
   </data>
   <data name="EditRolesLabel" xml:space="preserve">
     <value>Rollen die de content mogen wijzigen</value>
@@ -650,5 +650,8 @@
   </data>
   <data name="ManageContentPageTitle" xml:space="preserve">
     <value>Beheer content op '{0}'</value>
+  </data>
+  <data name="ManageContentCurrentPageLabel" xml:space="preserve">
+    <value>Beheer content geselecteerde pagina</value>
   </data>
 </root>

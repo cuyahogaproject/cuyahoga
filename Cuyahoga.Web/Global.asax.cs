@@ -10,6 +10,7 @@ using Cuyahoga.Web.Components;
 using Cuyahoga.Web.Mvc.Areas;
 using log4net;
 using log4net.Config;
+using RouteHelper;
 
 namespace Cuyahoga.Web
 {

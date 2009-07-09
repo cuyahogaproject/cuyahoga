@@ -412,7 +412,7 @@ namespace Resources.Cuyahoga.Web.Manager {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Design the current page.
+        ///   Looks up a localized string similar to Layout of the current page.
         /// </summary>
         internal static string DesignCurrentPageLabel {
             get {
@@ -421,7 +421,7 @@ namespace Resources.Cuyahoga.Web.Manager {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Design page &apos;{0}&apos;.
+        ///   Looks up a localized string similar to Layout of page &apos;{0}&apos;.
         /// </summary>
         internal static string DesignPagePageTitle {
             get {
@@ -777,6 +777,15 @@ namespace Resources.Cuyahoga.Web.Manager {
         internal static string LogoutButtonLabel {
             get {
                 return ResourceManager.GetString("LogoutButtonLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Manage content current page.
+        /// </summary>
+        internal static string ManageContentCurrentPageLabel {
+            get {
+                return ResourceManager.GetString("ManageContentCurrentPageLabel", resourceCulture);
             }
         }
         

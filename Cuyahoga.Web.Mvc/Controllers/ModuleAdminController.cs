@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Web.Routing;
 using Cuyahoga.Core.Domain;
 using Cuyahoga.Core.Service.SiteStructure;
 
@@ -59,6 +60,20 @@ namespace Cuyahoga.Web.Mvc.Controllers
 				this._currentSection = this._sectionService.GetSectionById(Int32.Parse(Request.Params["SectionId"]));
 			}
 			base.OnActionExecuting(filterContext);
+		}
+
+		protected RouteValueDictionary GetNodeAndSectionParams()
+		{
+			RouteValueDictionary nodeAndSectionParams = new RouteValueDictionary();
+			if (this._currentNode != null)
+			{
+				nodeAndSectionParams.Add("nodeid", this._currentNode.Id);
+			}
+			if (this._currentSection != null)
+			{
+				nodeAndSectionParams.Add("sectionid", this._currentSection.Id);
+			}
+			return nodeAndSectionParams;
 		}
 	}
 }

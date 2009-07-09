@@ -363,6 +363,11 @@ ul
 	background-image: url(../Images/layout_edit.png);
 }
 
+#taskarea a.contentlink
+{
+	background-image: url(../Images/pencil.png);
+}
+
 #taskarea a.expandlink
 {
 	background-image: url(../Images/section_collapsed.png);

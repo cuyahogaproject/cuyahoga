@@ -70,7 +70,7 @@ namespace Cuyahoga.Modules.StaticHtml
 		public void RegisterRoutes(RouteCollection routes)
 		{
 			routes.CreateArea("Modules/StaticHtml", "Cuyahoga.Modules.StaticHtml.Controllers",
-				routes.MapRoute("StaticHtmlRoute", "Modules/StaticHtml/{controller}/{action}/{id}", new { action = "Edit", controller = "ManageContent", id = "" })
+				routes.MapRoute("StaticHtmlRoute", "Modules/StaticHtml/{controller}/{action}/{id}", new { action = "Edit", controller = "", id = "" })
 			);
 		}
 	}

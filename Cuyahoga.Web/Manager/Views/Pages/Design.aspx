@@ -19,6 +19,7 @@
 	<% } %>
 	
 	<h2><%= GlobalResources.TasksLabel %></h2>
+	<%= Html.ActionLink(GlobalResources.ManageContentCurrentPageLabel, "Content", "Pages", new { id = ViewData.Model.Id }, new { @class = "contentlink" }) %>
 	<a href="#" class="<%= (expandAddNewSection ? " collapselink" : " expandlink") %>"><%= GlobalResources.AddSectionLabel %></a>
 	<div class="taskcontainer"<% if (! expandAddNewSection) { %> style="display:none"<% } %>>
 		<p><%= GlobalResources.AvailableModulesHint %></p>
@@ -187,6 +188,9 @@
 					}
 				}
 			})
+			$('.templatecontainer').click($.delegate({
+				'li.section-item div': selectSection 
+			}))
 		}
 		
 		function createSectionFromDialog(ev, ui) {
@@ -220,7 +224,7 @@
 		}
 		
 		function createSectionItemElement(sectionId, sectionName, moduleType, editUrl) {
-			var el = '<li id="section-{0}" class="{4}"><div>{1} ({2})</div></li>';
+			var el = '<li id="section-{0}" class="{3}"><div>{1} ({2})</div></li>';
 			var sectionItemClass = 'section-item';
 			if (sectionId == selectedSectionId) {
 				sectionItemClass += ' section-selected';
