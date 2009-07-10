@@ -85,6 +85,7 @@
     <Compile Include="Filters\MessagesFilter.cs" />
     <Compile Include="Filters\PermissionFilter.cs" />
     <Compile Include="Filters\SiteFilter.cs" />
+    <Compile Include="HtmlHelperExtensions.cs" />
     <Compile Include="IMvcModule.cs" />
     <Compile Include="Localization\ILocalizer.cs" />
     <Compile Include="Localization\GlobalResourceLocalizer.cs" />
@@ -114,6 +115,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Validation\ClientSideValidation.cd" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="HtmlEditor\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
