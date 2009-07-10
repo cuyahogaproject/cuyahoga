@@ -10,16 +10,12 @@ namespace Cuyahoga.Core.Infrastructure.Transactions
 		private const string Key = "Castle.Services.Transaction.WebActivity";
 
 		private readonly object lockObj = new object();
-		private readonly bool isWeb;
 
 		/// <summary>
 		/// Initializes a new instance of the <see cref="WebActivityManager"/> class.
 		/// </summary>
 		public WebActivityManager()
 		{
-			isWeb = (HttpContext.Current != null);
-
-			StoreActivity(null);
 		}
 
 		#region MarshalByRefObject
@@ -65,22 +61,22 @@ namespace Cuyahoga.Core.Infrastructure.Transactions
 
 		private void StoreActivity(Activity activity)
 		{
-			if ( isWeb )
-			{
-				HttpContext.Current.Items[ Key ] = activity;
-			}
-			else
-			{
-				CallContext.SetData( Key, activity );
-			}
+			EnsureHttpContext();
+			HttpContext.Current.Items[Key] = activity;
 		}
 
 		private Activity ObtainActivity()
 		{
-			return ( isWeb ?
-				(Activity) HttpContext.Current.Items[ Key ] :
-				(Activity) CallContext.GetData( Key ));
-			
+			EnsureHttpContext();
+			return (HttpContext.Current.Items[Key] as Activity);			
+		}
+
+		private void EnsureHttpContext()
+		{
+			if (HttpContext.Current == null)
+			{
+				throw new InvalidOperationException("Unable to obtain the current HttpContext that is required for the activity manager.");
+			}
 		}
 	}
 
