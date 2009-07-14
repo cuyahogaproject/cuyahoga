@@ -51,7 +51,7 @@
 			var editUrl = sectionElement.find('a:first').attr('href');
 			var contentEditorDiv = sectionElement.children('.contenteditor:first');
 			if (editUrl != "#" && contentEditorDiv.children().length == 0) {
-				contentEditorDiv.append('<iframe src="' + editUrl + '" style="width:100%;height:400px"');			
+				contentEditorDiv.append('<iframe frameborder="0" src="' + editUrl + '" style="width:100%;height:400px"');			
 			}
 			contentEditorDiv.slideDown();
 			sectionElement.addClass('active');

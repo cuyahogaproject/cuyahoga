@@ -1,4 +1,5 @@
 ﻿using System.Web.Routing;
+using Cuyahoga.Core;
 using Cuyahoga.Core.Domain;
 
 namespace Cuyahoga.Web.Mvc.ViewModels
@@ -7,12 +8,14 @@ namespace Cuyahoga.Web.Mvc.ViewModels
 	{
 		public Node Node { get; private set; }
 		public Section Section { get; private set; }
+		public ICuyahogaContext CuyahogaContext { get; private set; }
 		public T ModuleData { get; private set; }
 
-		public ModuleAdminViewModel(Node node, Section section, T moduleData)
+		public ModuleAdminViewModel(Node node, Section section, ICuyahogaContext cuyahogaContext, T moduleData)
 		{
 			this.Node = node;
 			this.Section = section;
+			this.CuyahogaContext = cuyahogaContext;
 			this.ModuleData = moduleData;
 		}
 

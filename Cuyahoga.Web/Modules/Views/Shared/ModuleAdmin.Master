@@ -10,6 +10,13 @@
 	<%= Html.ScriptInclude("~/Modules/Scripts/cuyahoga.modules.common.js") %>
 	<asp:ContentPlaceHolder ID="head" runat="server">
 	</asp:ContentPlaceHolder>
+	<script type="text/javascript">
+		// Set common js variables.
+		CuyahogaConfig.ContentDir = '<%= Url.Content("~/Modules/Content/") %>';
+		CuyahogaConfig.ConfirmText = '<%= GlobalResources.AreYouSure %>';
+		CuyahogaConfig.SupportDir = '<%= Url.Content("~/Support/") %>';
+		CuyahogaConfig.SiteDataDir = '<%= Url.Content(Html.CuyahogaContext().CurrentSite.SiteDataDirectory) %>';
+	</script>
 </head>
 <body>
 	<% Html.RenderPartial("Messages", ViewData["Messages"]); %>
@@ -22,10 +29,6 @@
 		</asp:ContentPlaceHolder>
 		<script type="text/javascript">
 			$(document).ready(function() {
-				// Set common js variables.
-				CuyahogaConfig.ContentDir = '<%= Url.Content("~/Modules/Content/") %>';
-				CuyahogaConfig.ConfirmText = '<%= GlobalResources.AreYouSure %>';
-
 				// Hide module admin header when we're inside an iframe
 				var isInsideIframe = (window.location != window.parent.location) ? true : false;
 				if (isInsideIframe) {

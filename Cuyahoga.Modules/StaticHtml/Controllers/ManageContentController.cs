@@ -21,7 +21,7 @@ namespace Cuyahoga.Modules.StaticHtml.Controllers
 			StaticHtmlContent htmlContent =
 				this._contentItemService.FindContentItemsBySection(CurrentSection).FirstOrDefault()
 				?? new StaticHtmlContent();
-			return View(new ModuleAdminViewModel<StaticHtmlContent>(CurrentNode, CurrentSection, htmlContent));
+			return View(new ModuleAdminViewModel<StaticHtmlContent>(CurrentNode, CurrentSection, CuyahogaContext, htmlContent));
 		}
 
 		[ValidateInput(false)]

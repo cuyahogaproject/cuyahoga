@@ -13,11 +13,12 @@ jQuery.delegate = function(rules) {
 }
 
 // Global cuyahoga manager js configuration properties
-var CuyahogaConfig = function()
-{
+var CuyahogaConfig = function() {
 	// Properties
 	this.ContentDir = '/Content/';
 	this.ConfirmText = 'Are you sure?';
+	this.SupportDir = '/Support/';
+	this.SiteDataDir = '/SiteData/1/';
 }
 
 $(document).ready(function() {

@@ -12,6 +12,10 @@
 		<%= Html.ScriptInclude("~/Manager/Scripts/cuyahoga.common.js")%>
 		<asp:ContentPlaceHolder id="cphHead" runat="server">
 		</asp:ContentPlaceHolder>
+		<script type="text/javascript">
+			CuyahogaConfig.ContentDir = '<%= Url.Content("~/manager/Content/") %>';
+			CuyahogaConfig.ConfirmText = '<%= GlobalResources.AreYouSure %>';
+		</script>
 	</head>
 	<body>
 		<% Html.RenderPartial("Header"); %>
@@ -28,13 +32,6 @@
 		<div id="contentarea">
 			<asp:ContentPlaceHolder id="cphMain" runat="server">
 			</asp:ContentPlaceHolder>
-			<script type="text/javascript">
-				/* Set common js variables. */
-				$(document).ready(function() {
-					CuyahogaConfig.ContentDir = '<%= Url.Content("~/manager/Content/") %>';
-					CuyahogaConfig.ConfirmText = '<%= GlobalResources.AreYouSure %>';
-				});
-			</script>
 		</div>
 	</body>
 </html>

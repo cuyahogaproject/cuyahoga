@@ -117,6 +117,15 @@ namespace Cuyahoga.Core.Domain
 		}
 
 		/// <summary>
+		/// Gets the full css path from the sitedata root for the css styles that are shown in the html editor.
+		/// By convention, this file is in the /Css/ subdirectory with the name '
+		/// </summary>
+		public virtual string EditorCss
+		{
+			get { return this.BasePath + "/Css/" + "editor.css"; }
+		}
+
+		/// <summary>
 		/// Default constructor.
 		/// </summary>
 		public Template()

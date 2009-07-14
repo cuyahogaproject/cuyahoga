@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Web.Mvc;
+using Cuyahoga.Core;
+using Cuyahoga.Core.Util;
 
 namespace Cuyahoga.Web.Mvc
 {
@@ -66,6 +68,17 @@ namespace Cuyahoga.Web.Mvc
 			}
 			string resolvedCssPath = ResolveAndRegisterPath(htmlHelper, cssPath);
 			return string.Format("<style type=\"text/css\">@import url({0});</style>", resolvedCssPath);
+		}
+
+		/// <summary>
+		/// Gets the current Cuyahoga context.
+		/// </summary>
+		/// <param name="htmlHelper"></param>
+		/// <returns></returns>
+		public static ICuyahogaContext CuyahogaContext(this HtmlHelper htmlHelper)
+		{
+			// A little smelly. What would be the better alternative? ViewData? Base ViewModel class?
+			return IoC.Resolve<ICuyahogaContext>();
 		}
 
 		private static bool IsAlreadyRegistered(HtmlHelper htmlHelper, string virtualPath)
