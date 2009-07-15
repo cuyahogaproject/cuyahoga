@@ -83,5 +83,15 @@ namespace Cuyahoga.Core.Util
 		{
 			return Container.Resolve<T>(name);
 		}
+
+		/// <summary>
+		/// Check if a component of type T is registered in the container.
+		/// </summary>
+		/// <typeparam name="T"></typeparam>
+		/// <returns></returns>
+		public static bool HasComponent<T>()
+		{
+			return Container.Kernel.HasComponent(typeof(T));
+		}
 	}
 }

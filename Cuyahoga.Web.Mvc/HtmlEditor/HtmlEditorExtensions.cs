@@ -6,6 +6,7 @@ using System.Web;
 using System.Web.Mvc;
 using System.Web.Mvc.Html;
 using System.Web.Routing;
+using Cuyahoga.Core.Util;
 
 namespace Cuyahoga.Web.Mvc.HtmlEditor
 {
@@ -34,7 +35,11 @@ namespace Cuyahoga.Web.Mvc.HtmlEditor
 			{
 				sb.Append(htmlHelper.Hidden("contentcssfield", contentCss, new { @class = "contentcss" }));
 			}
-			IHtmlEditorScriptProvider htmlEditorScriptProvider = new TinyMceScriptProvider(); // Hardcoded to tinymce for the time being
+
+			IHtmlEditorScriptProvider htmlEditorScriptProvider = IoC.HasComponent<IHtmlEditorScriptProvider>() 
+				? IoC.Resolve<IHtmlEditorScriptProvider>() 
+				: new TinyMceScriptProvider(); // Default to TinyMce when there is no editor script provider registered.
+
 			foreach (string supportScriptFile in htmlEditorScriptProvider.GetSupportScriptFiles())
 			{
 				sb.AppendLine(htmlHelper.ScriptInclude(VirtualPathUtility.Combine(SupportDir, supportScriptFile)));

@@ -759,6 +759,7 @@
     <Content Include="Rss.aspx">
       <SubType>Form</SubType>
     </Content>
+    <Content Include="Support\fckeditor\cuyahoga.fckeditor.js" />
     <Content Include="Support\fckeditor\editor\css\behaviors\disablehandles.htc" />
     <Content Include="Support\fckeditor\editor\css\behaviors\showtableborders.htc" />
     <Content Include="Support\fckeditor\editor\css\fck_editorarea.css" />
