@@ -23,7 +23,6 @@
 		<% Html.RenderPartial("MainMenu", ViewData["MenuViewData"]); %>
 		<% Html.RenderPartial("Messages", ViewData["Messages"]); %>
 		<div id="subcontentarea">
-			<% Html.RenderPartial("SubMenu", ViewData["MenuViewData"]); %>
 			<div id="taskarea">
 				<asp:ContentPlaceHolder id="cphTasks" runat="server">
 				</asp:ContentPlaceHolder>

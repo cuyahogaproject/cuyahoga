@@ -63,11 +63,3 @@
     <asp:HyperLink ID="hplRebuild" NavigateUrl="../RebuildIndex.aspx" runat="server">Rebuild fulltext index</asp:HyperLink>
 </div>
 <br />
-<div class="navsection">
-    <h3>
-        <asp:Image ImageUrl="../Images/modules.gif" runat="server" ImageAlign="left" ID="i8"
-            AlternateText="Categories"></asp:Image>
-        Categories
-    </h3>
-    <asp:HyperLink ID="hplCategories" NavigateUrl="../Categories.aspx" runat="server">Manage categories</asp:HyperLink>
-</div>

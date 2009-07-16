@@ -58,10 +58,7 @@ namespace Cuyahoga.Web.Manager.Filters
 				{
 					if (this._sitemapProvider.IsAccessibleToUser(filterContext.HttpContext, node, this._cuyahogaContext.CurrentSite))
 					{
-						MenuItemData menuItemData = new MenuItemData(VirtualPathUtility.ToAbsolute(node.Url)
-							, GlobalResources.ResourceManager.GetString(node.ResourceKey, Thread.CurrentThread.CurrentUICulture)
-							, CheckInPath(node, currentNode, filterContext.RouteData)
-							, node.Icon != null ? urlHelper.Content("~/manager/Content/images/" + node.Icon) : null);
+						MenuItemData menuItemData = GenerateMenuItemFromSiteMapNode(filterContext, node, currentNode, urlHelper);
 						bool isSystem = Convert.ToBoolean(node["system"]);
 						if (isSystem)
 						{
@@ -71,22 +68,18 @@ namespace Cuyahoga.Web.Manager.Filters
 						{
 							menuViewData.AddStandardMenuItem(menuItemData);
 						}
-					}
-					// submenu
-					if (node.HasChildNodes && CheckInPath(node, currentNode, filterContext.RouteData))
-					{
-						foreach (SiteMapNode childNode in node.ChildNodes)
+						if (node.HasChildNodes)
 						{
-							MvcSiteMapNode mvcChildNode = childNode as MvcSiteMapNode;
-							if (mvcChildNode != null)
+							foreach (var childNode in node.ChildNodes)
 							{
-								if (this._sitemapProvider.IsAccessibleToUser(filterContext.HttpContext, mvcChildNode, this._cuyahogaContext.CurrentSite))
+								MvcSiteMapNode mvcChildNode = childNode as MvcSiteMapNode;
+								if (mvcChildNode != null)
 								{
-									MenuItemData menuItemData = new MenuItemData(VirtualPathUtility.ToAbsolute(mvcChildNode.Url)
-										, GlobalResources.ResourceManager.GetString(mvcChildNode.ResourceKey, Thread.CurrentThread.CurrentUICulture)
-										, CheckInPath(mvcChildNode, currentNode, filterContext.RouteData)
-										, mvcChildNode.Icon != null ? urlHelper.Content("~/manager/Content/images/" + mvcChildNode.Icon) : null);
-									menuViewData.AddSubMenuItem(menuItemData);
+									if (this._sitemapProvider.IsAccessibleToUser(filterContext.HttpContext, mvcChildNode,
+									                                             this._cuyahogaContext.CurrentSite))
+									{
+										menuItemData.AddChildMenuItem(GenerateMenuItemFromSiteMapNode(filterContext, mvcChildNode, currentNode, urlHelper));
+									}
 								}
 							}
 						}
@@ -94,6 +87,14 @@ namespace Cuyahoga.Web.Manager.Filters
 				}
 			}
 			filterContext.Controller.ViewData.Add("MenuViewData", menuViewData);
+		}
+
+		private MenuItemData GenerateMenuItemFromSiteMapNode(ActionExecutingContext filterContext, MvcSiteMapNode node, SiteMapNode currentNode, UrlHelper urlHelper)
+		{
+			return new MenuItemData(VirtualPathUtility.ToAbsolute(node.Url)
+			                        , GlobalResources.ResourceManager.GetString(node.ResourceKey, Thread.CurrentThread.CurrentUICulture)
+			                        , CheckInPath(node, currentNode, filterContext.RouteData)
+			                        , node.Icon != null ? urlHelper.Content("~/manager/Content/images/" + node.Icon) : null);
 		}
 
 		private bool CheckInPath(MvcSiteMapNode node, SiteMapNode currentNode, RouteData currentRouteData)

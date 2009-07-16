@@ -13,23 +13,5 @@ namespace Cuyahoga.Core.DataAccess
         /// </summary>
         /// <returns></returns>
         IList<Category> GetAllRootCategories();
-
-        Category GetByKey(string key);
-
-        IList<Category> GetByKeyIncludingSubcategories(string key);
-
-        /// <summary>
-        /// Gets all categories that start with the specified path
-        /// </summary>
-        /// <param name="path"></param>
-        /// <returns></returns>
-        IList<Category> GetByPathStartsWith(string path);
-
-        /// <summary>
-        /// Gets one category matching the supplied path
-        /// </summary>
-        /// <param name="path"></param>
-        /// <returns></returns>
-        Category GetByExactPath(string path);
     }
 }

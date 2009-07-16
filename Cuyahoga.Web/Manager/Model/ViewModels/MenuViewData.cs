@@ -4,9 +4,8 @@ namespace Cuyahoga.Web.Manager.Model.ViewModels
 {
 	public class MenuViewData
 	{
-		private IList<MenuItemData> _standardMainMenuItems = new List<MenuItemData>();
-		private IList<MenuItemData> _optionalMainMenuItems = new List<MenuItemData>();
-		private IList<MenuItemData> _subMenuItems = new List<MenuItemData>();
+		private readonly IList<MenuItemData> _standardMainMenuItems = new List<MenuItemData>();
+		private readonly IList<MenuItemData> _optionalMainMenuItems = new List<MenuItemData>();
 
 		public IList<MenuItemData> StandardMainMenuItems
 		{
@@ -18,11 +17,6 @@ namespace Cuyahoga.Web.Manager.Model.ViewModels
 			get { return _optionalMainMenuItems; }
 		}
 
-		public IList<MenuItemData> SubMenuItems
-		{
-			get { return _subMenuItems; }
-		}
-
 		public void AddStandardMenuItem(MenuItemData menuItemData)
 		{
 			_standardMainMenuItems.Add(menuItemData);
@@ -32,11 +26,6 @@ namespace Cuyahoga.Web.Manager.Model.ViewModels
 		{
 			_optionalMainMenuItems.Add(menuItemData);
 		}
-
-		public void AddSubMenuItem(MenuItemData menuItemData)
-		{
-			_subMenuItems.Add(menuItemData);
-		}
 	}
 
 	public class MenuItemData
@@ -45,6 +34,7 @@ namespace Cuyahoga.Web.Manager.Model.ViewModels
 		private string _text;
 		private bool _isSelected;
 		private string _iconUrl;
+		private IList<MenuItemData> _childMenuItems;
 
 		public string Url
 		{
@@ -66,12 +56,23 @@ namespace Cuyahoga.Web.Manager.Model.ViewModels
 			get { return _iconUrl; }
 		}
 
+		public IList<MenuItemData> ChildMenuItems
+		{
+			get { return _childMenuItems; }
+		}
+
 		public MenuItemData(string url, string text, bool isSelected, string iconUrl)
 		{
+			this._childMenuItems = new List<MenuItemData>();
 			this._url = url;
 			this._text = text;
 			this._isSelected = isSelected;
 			this._iconUrl = iconUrl;
+		}
+
+		public void AddChildMenuItem(MenuItemData childMenuItem)
+		{
+			this._childMenuItems.Add(childMenuItem);
 		}
 	}
 }

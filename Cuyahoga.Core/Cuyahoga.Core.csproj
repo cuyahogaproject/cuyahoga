@@ -201,9 +201,6 @@
     <Compile Include="Domain\Category.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Domain\CategorySystem.cs">
-      <SubType>Code</SubType>
-    </Compile>
     <Compile Include="Domain\ContentItem.cs">
       <SubType>Code</SubType>
     </Compile>

@@ -37,7 +37,7 @@ namespace Cuyahoga.Modules.Categories
 
         public IList<Category> GetCategories()
         {
-            return this.categoryService.GetByKeyIncludingSubcategories(key);
+        	return this.categoryService.GetAllRootCategories();
         }
 
         #endregion

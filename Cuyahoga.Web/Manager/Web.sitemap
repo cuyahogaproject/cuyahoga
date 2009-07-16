@@ -2,8 +2,11 @@
 <siteMap>
 	<siteMapNode id="Root" url="~/Default.aspx" >
 		<mvcSiteMapNode id="Dashboard" title="Dashboard" controller="Dashboard" action="Index" resourceKey="ManagerMenuDashboard" icon="television.png" />
-		<mvcSiteMapNode id="Pages" title="Pages" controller="Pages" resourceKey="ManagerMenuPages" icon="page.png" />
-		<mvcSiteMapNode id="Files" title="Files" controller="Files" resourceKey="ManagerMenuFiles" icon="folder_page.png" />
+		<mvcSiteMapNode id="Pages" title="Pages" controller="Pages" resourceKey="ManagerMenuPages" icon="page.png">
+			<mvcSiteMapNode id="SharedContent" title="Shared content" controller="Sections" resourceKey="ManagerMenuSharedContent" icon="page_white_stack.png" />
+			<mvcSiteMapNode id="Categories" title="Categories" controller="Categories" resourceKey="ManagerMenuCategories" icon="folder_page.png" />
+		</mvcSiteMapNode>
+		<mvcSiteMapNode id="Files" title="Files" controller="Files" resourceKey="ManagerMenuFiles" icon="folder.png" />
 		<mvcSiteMapNode id="Templates" title="Templates" controller="Templates" resourceKey="ManagerMenuTemplates" icon="layout.png"/>
 		<mvcSiteMapNode id="Users" title="Users and roles" controller="Users" resourceKey="ManagerMenuUsers" system="true" icon="user.png">
 			<mvcSiteMapNode id="Roles" title="Roles" controller="Users" action="Roles" resourceKey="ManagerMenuRoles" system="true" icon="group.png" />

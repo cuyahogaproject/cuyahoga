@@ -1,4 +1,95 @@
 /* DDL */ 
+-- Content abstraction
+CREATE TABLE cuyahoga_contentitem(
+contentitemid bigint identity(1,1) NOT NULL CONSTRAINT PK_contentitem PRIMARY KEY,
+globalid nvarchar(255) NOT NULL,
+workflowstatus int NOT NULL,
+title nvarchar(255) NOT NULL,
+description nvarchar(255) NULL,
+version int NOT NULL,
+locale nvarchar(5) NULL,
+createdat datetime NOT NULL,
+modifiedat datetime NOT NULL,
+publishedat datetime NULL,
+publisheduntil datetime NULL,
+createdby int NOT NULL,
+modifiedby int NOT NULL,
+publishedby int NULL,
+sectionid int NOT NULL)
+go
+
+CREATE TABLE cuyahoga_contentitemrole(
+contentitemroleid int identity(1,1) NOT NULL CONSTRAINT PK_contentitemrole PRIMARY KEY,
+contentitemid int NOT NULL,
+roleid int NOT NULL,
+viewallowed bit NOT NULL,
+editallowed bit NOT NULL)
+go
+
+CREATE UNIQUE INDEX IX_contentitemrole_roleid_contentitemid ON cuyahoga_contentitemrole (roleid,contentitemid)
+go
+
+CREATE TABLE cuyahoga_category(
+categoryid int identity(1,1) NOT NULL CONSTRAINT PK_category PRIMARY KEY,
+siteid int NOT NULL,
+parentcategoryid int NULL,
+path nvarchar(80) NOT NULL,
+categoryname nvarchar(100) NOT NULL,
+description nvarchar(255) NULL,
+position int NOT NULL)
+go
+
+CREATE UNIQUE INDEX IX_category_path_siteid ON cuyahoga_category (path, siteid)
+go
+
+CREATE UNIQUE INDEX IX_category_categoryname_siteid ON cuyahoga_category (categoryname, siteid)
+go
+
+CREATE TABLE cuyahoga_categorycontentitem(
+categorycontentitemid int identity(1,1) NOT NULL CONSTRAINT PK_categorycontentitem PRIMARY KEY,
+categoryid int NOT NULL,
+contentitemid bigint NOT NULL)
+go
+
+ALTER TABLE cuyahoga_contentitem
+ADD CONSTRAINT FK_contentitem_user_createdby 
+FOREIGN KEY (createdby) REFERENCES cuyahoga_user (userid)
+go
+
+ALTER TABLE cuyahoga_contentitem
+ADD CONSTRAINT FK_contentitem_user_modifiedby 
+FOREIGN KEY (modifiedby) REFERENCES cuyahoga_user (userid)
+go
+
+ALTER TABLE cuyahoga_contentitem
+ADD CONSTRAINT FK_contentitem_user_publishedby 
+FOREIGN KEY (publishedby) REFERENCES cuyahoga_user (userid)
+go
+
+ALTER TABLE cuyahoga_contentitem
+ADD CONSTRAINT FK_contentitem_section_sectionid 
+FOREIGN KEY (sectionid) REFERENCES cuyahoga_section (sectionid)
+go
+
+ALTER TABLE cuyahoga_category
+ADD CONSTRAINT FK_category_category_parentcategoryid 
+FOREIGN KEY (parentcategoryid) REFERENCES cuyahoga_category (categoryid)
+go
+
+ALTER TABLE cuyahoga_category
+ADD CONSTRAINT FK_category_site_siteid 
+FOREIGN KEY (siteid) REFERENCES cuyahoga_site (siteid)
+go
+
+ALTER TABLE cuyahoga_categorycontentitem
+ADD CONSTRAINT FK_categorycontentitem_contentitem_contentitemid
+FOREIGN KEY (contentitemid) REFERENCES cuyahoga_contentitem (contentitemid)
+go
+
+ALTER TABLE cuyahoga_categorycontentitem
+ADD CONSTRAINT FK_categorycontentitem_category_categoryid
+FOREIGN KEY (categoryid) REFERENCES cuyahoga_category (categoryid)
+go
 
 -- Roles per site
 ALTER TABLE cuyahoga_role

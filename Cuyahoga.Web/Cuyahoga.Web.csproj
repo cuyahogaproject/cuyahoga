@@ -170,20 +170,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Admin\Categories.aspx.cs">
-      <DependentUpon>Categories.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Admin\Categories.aspx.designer.cs">
-      <DependentUpon>Categories.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="Admin\CategoryEdit.aspx.cs">
-      <DependentUpon>CategoryEdit.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Admin\CategoryEdit.aspx.designer.cs">
-      <DependentUpon>CategoryEdit.aspx</DependentUpon>
-    </Compile>
     <Compile Include="Admin\ConnectionEdit.aspx.cs">
       <DependentUpon>ConnectionEdit.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -339,6 +325,7 @@
     <Compile Include="Components\Bootstrapper.cs" />
     <Compile Include="Components\CuyahogaContext.cs" />
     <Compile Include="HttpModules\PageRequestModule.cs" />
+    <Compile Include="Manager\Controllers\CategoriesController.cs" />
     <Compile Include="Manager\Controllers\DashboardController.cs" />
     <Compile Include="Manager\Controllers\FilesController.cs" />
     <Compile Include="Manager\Controllers\LoginController.cs" />
@@ -499,8 +486,6 @@
     <Compile Include="Util\UrlHelper.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Content Include="Admin\Categories.aspx" />
-    <Content Include="Admin\CategoryEdit.aspx" />
     <Content Include="Admin\ConnectionEdit.aspx">
       <SubType>Form</SubType>
     </Content>
@@ -611,6 +596,7 @@
     <Content Include="Manager\Content\Images\ajax-loader.gif" />
     <Content Include="Manager\Content\Images\application_form.png" />
     <Content Include="Manager\Content\Images\blankbutton.png" />
+    <Content Include="Manager\Content\Images\bullet_arrow_down.png" />
     <Content Include="Manager\Content\Images\cancel.png" />
     <Content Include="Manager\Content\Images\collapse.png" />
     <Content Include="Manager\Content\Images\cross.gif" />
@@ -619,6 +605,7 @@
     <Content Include="Manager\Content\Images\error.png" />
     <Content Include="Manager\Content\Images\exclamation.png" />
     <Content Include="Manager\Content\Images\expand.png" />
+    <Content Include="Manager\Content\Images\folder.png" />
     <Content Include="Manager\Content\Images\folder_page.png" />
     <Content Include="Manager\Content\Images\folder_picture.png" />
     <Content Include="Manager\Content\Images\group.png" />
@@ -631,6 +618,7 @@
     <Content Include="Manager\Content\Images\page.png" />
     <Content Include="Manager\Content\Images\page_link.png" />
     <Content Include="Manager\Content\Images\page_white.png" />
+    <Content Include="Manager\Content\Images\page_white_stack.png" />
     <Content Include="Manager\Content\Images\pencil.png" />
     <Content Include="Manager\Content\Images\section_collapsed.png" />
     <Content Include="Manager\Content\Images\section_expanded.png" />
@@ -641,7 +629,9 @@
     <Content Include="Manager\Content\Images\world_go.png" />
     <Content Include="Manager\Default.aspx" />
     <Content Include="Manager\Scripts\cuyahoga.common.js" />
+    <Content Include="Manager\Views\Categories\Index.aspx" />
     <Content Include="Manager\Views\Pages\Content.aspx" />
+    <Content Include="Manager\Views\Sections\Index.aspx" />
     <Content Include="Modules\Content\Css\ModuleAdmin.css" />
     <Content Include="Modules\Content\Images\ajax-loader.gif" />
     <Content Include="Modules\Content\Images\cross.gif" />
@@ -734,7 +724,6 @@
     <Content Include="Manager\Views\Shared\Messages.ascx" />
     <Content Include="Manager\Views\Sections\SharedSectionElementsNarrow.ascx" />
     <Content Include="Manager\Views\Shared\SiteChooser.ascx" />
-    <Content Include="Manager\Views\Shared\SubMenu.ascx" />
     <Content Include="Manager\Views\Shared\ViewAndEditRolesSelector.ascx" />
     <Content Include="Manager\Views\Site\EditSite.aspx" />
     <Content Include="Manager\Views\Site\NewSite.aspx" />

@@ -666,4 +666,10 @@
   <data name="ManageContentCurrentPageLabel" xml:space="preserve">
     <value>Manage content current page</value>
   </data>
+  <data name="ManagerMenuCategories" xml:space="preserve">
+    <value>Categories</value>
+  </data>
+  <data name="ManagerMenuSharedContent" xml:space="preserve">
+    <value>Shared content</value>
+  </data>
 </root>

@@ -30,14 +30,19 @@ go
 
 CREATE TABLE cuyahoga_category(
 categoryid int identity(1,1) NOT NULL CONSTRAINT PK_category PRIMARY KEY,
+siteid int NOT NULL,
+parentcategoryid int NULL,
 path nvarchar(80) NOT NULL,
-categorykey nvarchar(10) NOT NULL,
 categoryname nvarchar(100) NOT NULL,
 description nvarchar(255) NULL,
-parentcategoryid int NULL,
-CONSTRAINT UC_category_catagorykey UNIQUE(categorykey))
+position int NOT NULL)
 go
 
+CREATE UNIQUE INDEX IX_category_path_siteid ON cuyahoga_category (path, siteid)
+go
+
+CREATE UNIQUE INDEX IX_category_categoryname_siteid ON cuyahoga_category (categoryname, siteid)
+go
 
 CREATE TABLE cuyahoga_categorycontentitem(
 categorycontentitemid int identity(1,1) NOT NULL CONSTRAINT PK_categorycontentitem PRIMARY KEY,
@@ -343,6 +348,11 @@ go
 ALTER TABLE cuyahoga_category
 ADD CONSTRAINT FK_category_category_parentcategoryid 
 FOREIGN KEY (parentcategoryid) REFERENCES cuyahoga_category (categoryid)
+go
+
+ALTER TABLE cuyahoga_category
+ADD CONSTRAINT FK_category_site_siteid 
+FOREIGN KEY (siteid) REFERENCES cuyahoga_site (siteid)
 go
 
 ALTER TABLE cuyahoga_categorycontentitem

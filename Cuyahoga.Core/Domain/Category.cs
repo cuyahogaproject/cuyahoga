@@ -1,115 +1,123 @@
-using System;
 using System.Collections.Generic;
 
 namespace Cuyahoga.Core.Domain
 {
 	/// <summary>
-	/// Represents a category to classify content
+	/// Represents a category to classify content.
 	/// </summary>
 	public class Category
 	{
-		private int id;
-        private string path;
-        private int level;
-        private string key;
-		private string name;
-		private string description;
-        private Category parentCategory;
-        private IList<Category> childCategories;
-        private IList<ContentItem> contentItems;
+		private int _id;
+		private string _path;
+		private string _name;
+		private string _description;
+		private int _position;
+		private Site _site;
+		private Category _parentCategory;
+		private IList<Category> _childCategories;
+		private IList<ContentItem> _contentItems;
 
 		#region Properties
 
-        /// <summary>
-        /// Persistent Id
-        /// </summary>
+		/// <summary>
+		/// Persistent Id
+		/// </summary>
 		public virtual int Id
 		{
-			get{ return this.id; }
-			set{ this.id = value; }
+			get { return this._id; }
+			set { this._id = value; }
 		}
 
-        /// <summary>
-        /// This is a 80 characters long path definition with 16 fragments in following format: .0000
-        /// allowing 16 levels of categories with each a maximum of 9999 entries
-        /// </summary>
+		/// <summary>
+		/// This is a 80 characters long path definition with 16 fragments in following format: .0000
+		/// allowing 16 levels of categories with each a maximum of 9999 entries.
+		/// </summary>
+		/// <remarks>This one is used to simplify hierarchical queries etc (Materialized Path).</remarks>
 		public virtual string Path
 		{
-			get { return this.path; }
-            set { this.path = value; }
+			get { return this._path; }
+			set { this._path = value; }
 		}
 
-        /// <summary>
-        /// The level (number of parents) of the category
-        /// </summary>
-        public virtual int Level
-        {
-            get { return (this.path.Length / 5); }
-        }
+		/// <summary>
+		/// The level (number of parents) of the category
+		/// </summary>
+		public virtual int Level
+		{
+			get { return (this._path.Length / 5); }
+		}
 
-        /// <summary>
-        /// The position (in a list of categories) of the category
-        /// </summary>
-        public virtual int Position
-        {
-            get 
-            { 
-            //get last 5 characters of the path
-             string position = path.Substring(path.Length - 5);
-            //convert to int
-             return int.Parse(position.TrimStart('.', '0'));
-            }
-        }
+		/// <summary>
+		/// The position (in a list of categories) of the category
+		/// </summary>
+		public virtual int Position
+		{
+			get { return this._position; }
+			set
+			{
+				this._position = value;
+			}
+		}
 
-        /// <summary>
-        /// A shortcut name for the category
-        /// </summary>
-        public virtual string Key
-        {
-            get { return this.key; }
-            set { this.key = value; }
-        }
-
-        /// <summary>
-        /// The category name
-        /// </summary>
+		/// <summary>
+		/// The category name
+		/// </summary>
 		public virtual string Name
 		{
-			get{ return this.name; }
-			set{ this.name = value; }
+			get { return this._name; }
+			set { this._name = value; }
 		}
 
+		/// <summary>
+		/// A description of the category
+		/// </summary>
 		public virtual string Description
 		{
-			get{ return this.description; }
-			set{ this.description = value; }
+			get { return this._description; }
+			set { this._description = value; }
 		}
 
+		public virtual Site Site
+		{
+			get { return this._site; }
+			set { this._site = value; }
+		}
+
+		/// <summary>
+		/// The parent caetegory.
+		/// </summary>
 		public virtual Category ParentCategory
 		{
-			get{ return this.parentCategory; }
-			set{ this.parentCategory = value; }
+			get { return this._parentCategory; }
+			set { this._parentCategory = value; }
 		}
 
+		/// <summary>
+		/// Child categories.
+		/// </summary>
 		public virtual IList<Category> ChildCategories
 		{
-			get{ return this.childCategories; }
-			set{ this.childCategories = value; }
+			get { return this._childCategories; }
+			set { this._childCategories = value; }
 		}
 
-        public virtual IList<ContentItem> ContentItems
-        {
-            get { return this.contentItems; }
-            set { this.contentItems = value; }
-        }
-
-
+		/// <summary>
+		/// Content items associated with this category.
+		/// </summary>
+		public virtual IList<ContentItem> ContentItems
+		{
+			get { return this._contentItems; }
+			set { this._contentItems = value; }
+		}
 
 		#endregion
 
+		/// <summary>
+		/// Creates a new instance of the <see cref="Category"></see> class.
+		/// </summary>
 		public Category()
 		{
-			this.id = -1;
+			this._id = -1;
 		}
 	}
 }

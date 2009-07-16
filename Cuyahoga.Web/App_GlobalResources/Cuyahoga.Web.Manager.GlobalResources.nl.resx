@@ -654,4 +654,10 @@
   <data name="ManageContentCurrentPageLabel" xml:space="preserve">
     <value>Beheer content geselecteerde pagina</value>
   </data>
+  <data name="ManagerMenuCategories" xml:space="preserve">
+    <value>Categorieen</value>
+  </data>
+  <data name="ManagerMenuSharedContent" xml:space="preserve">
+    <value>Gedeelde content</value>
+  </data>
 </root>

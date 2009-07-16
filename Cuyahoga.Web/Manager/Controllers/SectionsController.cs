@@ -31,8 +31,7 @@ namespace Cuyahoga.Web.Manager.Controllers
 
 		public ActionResult Index()
 		{
-			// Add action logic here
-			throw new NotImplementedException();
+			return View();
 		}
 
 		public ActionResult NewSectionDialog(int moduleTypeId, int nodeId, string placeholder)
