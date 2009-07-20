@@ -129,7 +129,7 @@ namespace Cuyahoga.Core.Domain
 
 		public virtual void SetParentCategory(Category newParentCategory)
 		{
-			if (newParentCategory == this._parentCategory)
+			if (newParentCategory != null && newParentCategory == this._parentCategory)
 			{
 				return; // don't do anything when the parent stays the same.
 			}
@@ -176,7 +176,7 @@ namespace Cuyahoga.Core.Domain
 		/// <summary>
 		/// Synchronize the path with the position and also of all child categories.
 		/// </summary>
-		public virtual void SyncPath()
+		private void SyncPath()
 		{
 			this.Path = "." + this.Position.ToString(CultureInfo.InvariantCulture).PadLeft(4, '0');
 			if (this.ParentCategory != null)
