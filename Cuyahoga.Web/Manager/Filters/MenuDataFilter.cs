@@ -91,7 +91,11 @@ namespace Cuyahoga.Web.Manager.Filters
 
 		private MenuItemData GenerateMenuItemFromSiteMapNode(ActionExecutingContext filterContext, MvcSiteMapNode node, SiteMapNode currentNode, UrlHelper urlHelper)
 		{
-			return new MenuItemData(VirtualPathUtility.ToAbsolute(node.Url)
+			// HACK: it's possible that we have a querystring ?container=true. This is required when for a top-level
+			// menu item with the same action and controller as one of the children. Leaving the parameter out causes the
+			// sitemapprovider to crash because it doesn't allow duplicate url's.
+			string url = node.Url.Replace("?container=true", String.Empty);
+			return new MenuItemData(VirtualPathUtility.ToAbsolute(url)
 			                        , GlobalResources.ResourceManager.GetString(node.ResourceKey, Thread.CurrentThread.CurrentUICulture)
 			                        , CheckInPath(node, currentNode, filterContext.RouteData)
 			                        , node.Icon != null ? urlHelper.Content("~/manager/Content/images/" + node.Icon) : null);
