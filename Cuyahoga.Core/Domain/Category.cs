@@ -135,55 +135,58 @@ namespace Cuyahoga.Core.Domain
 			}
 			if (this._parentCategory != null)
 			{
-				this._parentCategory.ChildCategories.Remove(this);
-				foreach (Category siblingCategory in this._parentCategory.ChildCategories)
+				IList<Category> categoryList = this._parentCategory.ChildCategories;
+				categoryList.Remove(this);
+				// Re-organize sibling positions.
+				for (int i = 0; i < categoryList.Count; i++)
 				{
-					siblingCategory.CalculatePositionAndPath();
+					categoryList[i].SetPosition(i);
 				}
 			}
 			else if (this.Site.RootCategories.Contains(this))
 			{
 				this.Site.RootCategories.Remove(this);
-				foreach (Category rootCategory in this.Site.RootCategories)
+				// Re-organize sibling positions.
+				for (int i = 0; i < this.Site.RootCategories.Count; i++)
 				{
-					rootCategory.CalculatePositionAndPath();
+					this.Site.RootCategories[i].SetPosition(i);
 				}
 			}
+
+			this._parentCategory = newParentCategory;
 			if (newParentCategory != null)
 			{
+				SetPosition(newParentCategory.ChildCategories.Count);
 				newParentCategory.ChildCategories.Add(this);
 			}
 			else
 			{
+				SetPosition(this.Site.RootCategories.Count);
 				this.Site.RootCategories.Add(this);
 			}
-			this._parentCategory = newParentCategory;
+		}
+
+		public virtual void SetPosition(int position)
+		{
+			this.Position = position;
+			// update the path
+			SyncPath();
 		}
 
 		/// <summary>
-		/// Calculate the position and path of the category.
+		/// Synchronize the path with the position and also of all child categories.
 		/// </summary>
-		public virtual void CalculatePositionAndPath()
+		public virtual void SyncPath()
 		{
-			if (this._parentCategory != null)
+			this.Path = "." + this.Position.ToString(CultureInfo.InvariantCulture).PadLeft(4, '0');
+			if (this.ParentCategory != null)
 			{
-				this._position = this._parentCategory.ChildCategories.IndexOf(this);
+				this.Path = this.ParentCategory.Path + this.Path;
 			}
-			else
+			// Recurse into child categories
+			foreach (Category childCategory in this.ChildCategories)
 			{
-				if (this.Site.RootCategories.Contains(this))
-				{
-					this._position = this.Site.RootCategories.IndexOf(this);
-				}
-				else
-				{
-					this._position = this.Site.RootCategories.Count;
-				}
-			}
-			this._path = "." + this._position.ToString(CultureInfo.InvariantCulture).PadLeft(4, '0');
-			if (this._parentCategory != null)
-			{
-				this._path = this._parentCategory.Path + this._path;
+				childCategory.SyncPath();
 			}
 		}
 	}

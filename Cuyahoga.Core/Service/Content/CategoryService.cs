@@ -37,14 +37,12 @@ namespace Cuyahoga.Core.Service.Content
 		[Transaction(TransactionMode.Requires)]
 		public void CreateCategory(Category category)
 		{
-			category.CalculatePositionAndPath();
 			this._commonDao.SaveObject(category);
 		}
 
 		[Transaction(TransactionMode.Requires)]
 		public void UpdateCategory(Category category)
 		{
-			category.CalculatePositionAndPath();
 			this._commonDao.UpdateObject(category);
 		}
 
@@ -74,9 +72,9 @@ namespace Cuyahoga.Core.Service.Content
 		private void RemoveCategoryAndReorderSiblings(Category category, IList<Category> categories)
 		{
 			categories.Remove(category);
-			foreach (Category siblingCategory in categories)
+			for (int i = 0; i < categories.Count; i++)
 			{
-				siblingCategory.CalculatePositionAndPath();
+				categories[i].SetPosition(i);
 			}
 		}
 	}
