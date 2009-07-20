@@ -196,6 +196,12 @@ namespace Cuyahoga.Core.DataAccess
 			session.SessionFactory.EvictQueries(cacheRegion);
 		}
 
+		public void Flush()
+		{
+			ISession session = this._sessionManager.OpenSession();
+			session.Flush();
+		}
+
 		#endregion
 	}
 }

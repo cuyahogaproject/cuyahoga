@@ -9,9 +9,16 @@ namespace Cuyahoga.Core.DataAccess
     public interface ICategoryDao
     {
         /// <summary>
-        /// Gets all categories that have no parent category
+        /// Get all categories that have no parent category for a given site.
         /// </summary>
         /// <returns></returns>
-        IList<Category> GetAllRootCategories();
+        IList<Category> GetAllRootCategories(Site site);
+
+		/// <summary>
+		/// Get all categories for a given site.
+		/// </summary>
+		/// <param name="site"></param>
+		/// <returns></returns>
+    	IEnumerable<Category> GetAllCategories(Site site);
     }
 }

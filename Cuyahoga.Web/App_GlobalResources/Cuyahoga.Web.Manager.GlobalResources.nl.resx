@@ -660,4 +660,43 @@
   <data name="ManagerMenuSharedContent" xml:space="preserve">
     <value>Gedeelde content</value>
   </data>
+  <data name="CreateCategoryLabel" xml:space="preserve">
+    <value>Nieuwe categorie</value>
+  </data>
+  <data name="DescriptionLabel" xml:space="preserve">
+    <value>Omschrijving</value>
+  </data>
+  <data name="ManageCategoriesPageTitle" xml:space="preserve">
+    <value>Beheer categorieen</value>
+  </data>
+  <data name="ManagerMenuContent" xml:space="preserve">
+    <value>Content</value>
+  </data>
+  <data name="NoneLabel" xml:space="preserve">
+    <value>Geen</value>
+  </data>
+  <data name="ParentCategoryLabel" xml:space="preserve">
+    <value>Valt onder categorie</value>
+  </data>
+  <data name="CategoryCreatedMessage" xml:space="preserve">
+    <value>De categorie {0} is aangemaakt.</value>
+  </data>
+  <data name="CategoryDeletedMessage" xml:space="preserve">
+    <value>De categorie {0} is verwijderd.</value>
+  </data>
+  <data name="CategoryHasChildCategoriesException" xml:space="preserve">
+    <value>De categorie kan niet verwijderd worden want er hangen andere categorieen onder.</value>
+  </data>
+  <data name="CategoryHasContentItemsException" xml:space="preserve">
+    <value>De categorie kan niet verwijderd worden want er zijn content items die onder de categorie vallen.</value>
+  </data>
+  <data name="CategoryUpdatedMessage" xml:space="preserve">
+    <value>De categorie {0} is gewijzigd.</value>
+  </data>
+  <data name="EditCategoryPageTitle" xml:space="preserve">
+    <value>Wijzig categorie</value>
+  </data>
+  <data name="NewCategoryPageTitle" xml:space="preserve">
+    <value>Nieuwe categorie</value>
+  </data>
 </root>

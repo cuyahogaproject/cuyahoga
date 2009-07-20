@@ -1,4 +1,8 @@
+using System;
+using System.Linq;
 using System.Collections.Generic;
+using System.Globalization;
+using Castle.Components.Validator;
 
 namespace Cuyahoga.Core.Domain
 {
@@ -44,7 +48,7 @@ namespace Cuyahoga.Core.Domain
 		/// </summary>
 		public virtual int Level
 		{
-			get { return (this._path.Length / 5); }
+			get { return (this._path != null ? this._path.Length / 5 : 0); }
 		}
 
 		/// <summary>
@@ -53,15 +57,14 @@ namespace Cuyahoga.Core.Domain
 		public virtual int Position
 		{
 			get { return this._position; }
-			set
-			{
-				this._position = value;
-			}
+			set { this._position = value; }
 		}
 
 		/// <summary>
 		/// The category name
 		/// </summary>
+		[ValidateNonEmpty("CategoryNameValidatorNonEmpty")]
+		[ValidateLength(1, 100, "CategoryNameValidatorLength")]
 		public virtual string Name
 		{
 			get { return this._name; }
@@ -71,12 +74,14 @@ namespace Cuyahoga.Core.Domain
 		/// <summary>
 		/// A description of the category
 		/// </summary>
+		[ValidateLength(1, 255, "CategoryDescriptionValidatorLength")]
 		public virtual string Description
 		{
 			get { return this._description; }
 			set { this._description = value; }
 		}
 
+		[ValidateNonEmpty("CategorySiteValidatorNonEmpty")]
 		public virtual Site Site
 		{
 			get { return this._site; }
@@ -118,6 +123,68 @@ namespace Cuyahoga.Core.Domain
 		public Category()
 		{
 			this._id = -1;
+			this._childCategories = new List<Category>();
+			this._contentItems = new List<ContentItem>();
+		}
+
+		public virtual void SetParentCategory(Category newParentCategory)
+		{
+			if (newParentCategory == this._parentCategory)
+			{
+				return; // don't do anything when the parent stays the same.
+			}
+			if (this._parentCategory != null)
+			{
+				this._parentCategory.ChildCategories.Remove(this);
+				foreach (Category siblingCategory in this._parentCategory.ChildCategories)
+				{
+					siblingCategory.CalculatePositionAndPath();
+				}
+			}
+			else if (this.Site.RootCategories.Contains(this))
+			{
+				this.Site.RootCategories.Remove(this);
+				foreach (Category rootCategory in this.Site.RootCategories)
+				{
+					rootCategory.CalculatePositionAndPath();
+				}
+			}
+			if (newParentCategory != null)
+			{
+				newParentCategory.ChildCategories.Add(this);
+			}
+			else
+			{
+				this.Site.RootCategories.Add(this);
+			}
+			this._parentCategory = newParentCategory;
+		}
+
+		/// <summary>
+		/// Calculate the position and path of the category.
+		/// </summary>
+		public virtual void CalculatePositionAndPath()
+		{
+			if (this._parentCategory != null)
+			{
+				this._position = this._parentCategory.ChildCategories.IndexOf(this);
+			}
+			else
+			{
+				if (this.Site.RootCategories.Contains(this))
+				{
+					this._position = this.Site.RootCategories.IndexOf(this);
+				}
+				else
+				{
+					this._position = this.Site.RootCategories.Count;
+				}
+			}
+			this._path = "." + this._position.ToString(CultureInfo.InvariantCulture).PadLeft(4, '0');
+			if (this._parentCategory != null)
+			{
+				this._path = this._parentCategory.Path + this._path;
+			}
 		}
 	}
 }

@@ -629,7 +629,10 @@
     <Content Include="Manager\Content\Images\world_go.png" />
     <Content Include="Manager\Default.aspx" />
     <Content Include="Manager\Scripts\cuyahoga.common.js" />
+    <Content Include="Manager\Views\Categories\Edit.aspx" />
     <Content Include="Manager\Views\Categories\Index.aspx" />
+    <Content Include="Manager\Views\Categories\New.aspx" />
+    <Content Include="Manager\Views\Categories\SharedCategoryElements.ascx" />
     <Content Include="Manager\Views\Pages\Content.aspx" />
     <Content Include="Manager\Views\Sections\Index.aspx" />
     <Content Include="Modules\Content\Css\ModuleAdmin.css" />

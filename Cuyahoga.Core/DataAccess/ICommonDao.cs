@@ -142,5 +142,10 @@ namespace Cuyahoga.Core.DataAccess
 		/// </summary>
 		/// <param name="cacheRegion">The name of the cached query to remove</param>
 		void RemoveQueryFromCache(string cacheRegion);
+
+		/// <summary>
+		/// Writes all updates in the current unit of work to the database.
+		/// </summary>
+		void Flush();
 	}
 }

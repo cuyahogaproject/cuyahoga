@@ -16,11 +16,10 @@
 		<many-to-one name="Site" class="Cuyahoga.Core.Domain.Site, Cuyahoga.Core" column="siteid" not-null="true" />
 		<many-to-one name="ParentCategory" class="Cuyahoga.Core.Domain.Category, Cuyahoga.Core" column="parentcategoryid" />
 
-		<list name="ChildCategories" cascade="all" lazy="true">
+		<bag name="ChildCategories" cascade="none" lazy="true" order-by="path asc" inverse="true">
 			<key column="parentcategoryid" />
-			<index column="position" />
 			<one-to-many class="Cuyahoga.Core.Domain.Category, Cuyahoga.Core" />
-		</list>
+		</bag>
 
 		<bag name="ContentItems" table="cuyahoga_categorycontentitem" lazy="true">
 			<key column="categoryid" />

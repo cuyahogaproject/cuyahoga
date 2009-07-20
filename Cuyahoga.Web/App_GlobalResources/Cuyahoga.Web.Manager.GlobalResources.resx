@@ -672,4 +672,43 @@
   <data name="ManagerMenuSharedContent" xml:space="preserve">
     <value>Shared content</value>
   </data>
+  <data name="CreateCategoryLabel" xml:space="preserve">
+    <value>Create new category</value>
+  </data>
+  <data name="DescriptionLabel" xml:space="preserve">
+    <value>Description</value>
+  </data>
+  <data name="ManageCategoriesPageTitle" xml:space="preserve">
+    <value>Manage categories</value>
+  </data>
+  <data name="ManagerMenuContent" xml:space="preserve">
+    <value>Content</value>
+  </data>
+  <data name="NoneLabel" xml:space="preserve">
+    <value>None</value>
+  </data>
+  <data name="ParentCategoryLabel" xml:space="preserve">
+    <value>Parent category</value>
+  </data>
+  <data name="CategoryCreatedMessage" xml:space="preserve">
+    <value>The category {0} is created successfully.</value>
+  </data>
+  <data name="CategoryDeletedMessage" xml:space="preserve">
+    <value>The category {0} is deleted successfully.</value>
+  </data>
+  <data name="CategoryHasChildCategoriesException" xml:space="preserve">
+    <value>Can't delete the category because it has child categories.</value>
+  </data>
+  <data name="CategoryHasContentItemsException" xml:space="preserve">
+    <value>Can't delete the category because it contains content items.</value>
+  </data>
+  <data name="CategoryUpdatedMessage" xml:space="preserve">
+    <value>The category {0} is updated successfully.</value>
+  </data>
+  <data name="EditCategoryPageTitle" xml:space="preserve">
+    <value>Edit category</value>
+  </data>
+  <data name="NewCategoryPageTitle" xml:space="preserve">
+    <value>Create a new category</value>
+  </data>
 </root>

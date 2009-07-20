@@ -151,6 +151,51 @@ namespace Resources.Cuyahoga.Web.Manager {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to The category {0} is created successfully..
+        /// </summary>
+        internal static string CategoryCreatedMessage {
+            get {
+                return ResourceManager.GetString("CategoryCreatedMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The category {0} is deleted successfully..
+        /// </summary>
+        internal static string CategoryDeletedMessage {
+            get {
+                return ResourceManager.GetString("CategoryDeletedMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Can&apos;t delete the category because it has child categories..
+        /// </summary>
+        internal static string CategoryHasChildCategoriesException {
+            get {
+                return ResourceManager.GetString("CategoryHasChildCategoriesException", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Can&apos;t delete the category because it contains content items..
+        /// </summary>
+        internal static string CategoryHasContentItemsException {
+            get {
+                return ResourceManager.GetString("CategoryHasContentItemsException", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The category {0} is updated successfully..
+        /// </summary>
+        internal static string CategoryUpdatedMessage {
+            get {
+                return ResourceManager.GetString("CategoryUpdatedMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Change password.
         /// </summary>
         internal static string ChangePasswordLabel {
@@ -210,6 +255,15 @@ namespace Resources.Cuyahoga.Web.Manager {
         internal static string CreateButtonLabel {
             get {
                 return ResourceManager.GetString("CreateButtonLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Create new category.
+        /// </summary>
+        internal static string CreateCategoryLabel {
+            get {
+                return ResourceManager.GetString("CreateCategoryLabel", resourceCulture);
             }
         }
         
@@ -412,6 +466,15 @@ namespace Resources.Cuyahoga.Web.Manager {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Description.
+        /// </summary>
+        internal static string DescriptionLabel {
+            get {
+                return ResourceManager.GetString("DescriptionLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Layout of the current page.
         /// </summary>
         internal static string DesignCurrentPageLabel {
@@ -435,6 +498,15 @@ namespace Resources.Cuyahoga.Web.Manager {
         internal static string DetachSectionConfirmLabel {
             get {
                 return ResourceManager.GetString("DetachSectionConfirmLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Edit category.
+        /// </summary>
+        internal static string EditCategoryPageTitle {
+            get {
+                return ResourceManager.GetString("EditCategoryPageTitle", resourceCulture);
             }
         }
         
@@ -781,6 +853,15 @@ namespace Resources.Cuyahoga.Web.Manager {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Manage categories.
+        /// </summary>
+        internal static string ManageCategoriesPageTitle {
+            get {
+                return ResourceManager.GetString("ManageCategoriesPageTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Manage content current page.
         /// </summary>
         internal static string ManageContentCurrentPageLabel {
@@ -831,6 +912,15 @@ namespace Resources.Cuyahoga.Web.Manager {
         internal static string ManagerMenuCategories {
             get {
                 return ResourceManager.GetString("ManagerMenuCategories", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Content.
+        /// </summary>
+        internal static string ManagerMenuContent {
+            get {
+                return ResourceManager.GetString("ManagerMenuContent", resourceCulture);
             }
         }
         
@@ -997,6 +1087,15 @@ namespace Resources.Cuyahoga.Web.Manager {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Create a new category.
+        /// </summary>
+        internal static string NewCategoryPageTitle {
+            get {
+                return ResourceManager.GetString("NewCategoryPageTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Create a new link below the current page.
         /// </summary>
         internal static string NewChildLinkLabel {
@@ -1083,6 +1182,15 @@ namespace Resources.Cuyahoga.Web.Manager {
         internal static string NoFileUploadedMessage {
             get {
                 return ResourceManager.GetString("NoFileUploadedMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to None.
+        /// </summary>
+        internal static string NoneLabel {
+            get {
+                return ResourceManager.GetString("NoneLabel", resourceCulture);
             }
         }
         
@@ -1209,6 +1317,15 @@ namespace Resources.Cuyahoga.Web.Manager {
         internal static string PageUrlLabel {
             get {
                 return ResourceManager.GetString("PageUrlLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Parent category.
+        /// </summary>
+        internal static string ParentCategoryLabel {
+            get {
+                return ResourceManager.GetString("ParentCategoryLabel", resourceCulture);
             }
         }
         

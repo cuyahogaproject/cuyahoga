@@ -38,5 +38,11 @@
 			<key column="siteid" />
 			<one-to-many class="Cuyahoga.Core.Domain.Template, Cuyahoga.Core" />
 		</bag>
+
+		<bag name="RootCategories" cascade="none" where="parentcategoryid is null" order-by="path asc" lazy="true" inverse="true">
+			<key column="siteid" />
+			<one-to-many class="Cuyahoga.Core.Domain.Category, Cuyahoga.Core" />
+		</bag>
+
 	</class>
 </hibernate-mapping>

@@ -24,6 +24,7 @@ namespace Cuyahoga.Core.Domain
 		private IList<Node> _rootNodes;
 		private IList<Role> _roles;
 		private IList<Template> _templates;
+		private IList<Category> _rootCategories;
 		private DateTime _updateTimestamp;
 
 		#region properties
@@ -168,6 +169,15 @@ namespace Cuyahoga.Core.Domain
 		}
 
 		/// <summary>
+		/// The root categories that are related to the site.
+		/// </summary>
+		public virtual IList<Category> RootCategories
+		{
+			get { return _rootCategories; }
+			set { _rootCategories = value; }
+		}
+
+		/// <summary>
 		/// Property UpdateTimestamp (DateTime)
 		/// </summary>
 		public virtual DateTime UpdateTimestamp
@@ -203,6 +213,7 @@ namespace Cuyahoga.Core.Domain
 			this._rootNodes = new List<Node>();
 			this._roles = new List<Role>();
 			this._templates = new List<Template>();
+			this._rootCategories = new List<Category>();
 		}
 	}
 }
