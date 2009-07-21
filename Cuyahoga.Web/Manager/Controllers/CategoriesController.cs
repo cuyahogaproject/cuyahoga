@@ -47,6 +47,10 @@ namespace Cuyahoga.Web.Manager.Controllers
 			{
 				category.SetParentCategory(this._categoryService.GetCategoryById(parentCategoryId.Value));
 			}
+			else
+			{
+				category.SetParentCategory(null);
+			}
 			if (ValidateModel(category))
 			{
 				try
