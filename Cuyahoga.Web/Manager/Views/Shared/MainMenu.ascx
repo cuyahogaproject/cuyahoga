@@ -22,8 +22,13 @@
 </div>
 <script type="text/javascript">
 	$(document).ready(function() {
-		$('.expander').click(function() {
+		$('.expander').click(function(e) {
+			e.stopPropagation();
 			$(this).next('ul').slideToggle(100);
-		})
+		});
+
+		$(document).click(function() {
+			$('.expander').next('ul:visible').slideToggle(100);
+		});
 	});
 </script>

@@ -3,7 +3,7 @@
 <%@ Control Language="C#" Inherits="System.Web.Mvc.ViewUserControl<MessageViewData>" %>
 <div id="messagewrapper" style="display:none">
 	<% 
-	var messages = ViewData.Model.GetDisplayMessages(); 
+	var messages = Model.GetDisplayMessages(); 
 	foreach (string messageType in MessageType.GetTypes()) {
 		if (messages[messageType].Count > 0) { %>
 			<div class="<%= messageType.ToLower() %>box">
@@ -16,7 +16,7 @@
 	<% } %>
 </div>
 <script type="text/javascript">
-	$(document).ready(function(){
+	$(document).ready(function() {
 		// Display messages on page load if the #messagewrapper has content
 		if ($("#messagewrapper").children().length > 0) {
 			displayMessages();

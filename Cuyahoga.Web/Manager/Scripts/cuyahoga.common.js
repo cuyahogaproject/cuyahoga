@@ -59,7 +59,7 @@ $(document).ready(function() {
 function displayMessages() {
 	$("#messagewrapper").slideDown(500);
 	
-	$(".close_message").click(function() { 
+	$(document).click(function() { 
 		$("#messagewrapper").empty(); 
 	});
 }

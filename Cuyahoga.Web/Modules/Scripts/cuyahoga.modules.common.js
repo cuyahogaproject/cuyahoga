@@ -42,7 +42,11 @@ function displayMessages() {
 	$("#messagewrapper").slideDown(500);
 	
 	$(".close_message").click(function() { 
-		$("#messagewrapper").empty(); 
+		$("#messagewrapper").empty();
+	});
+
+	$(document).click(function() {
+		$("#messagewrapper").empty();
 	});
 }
 
