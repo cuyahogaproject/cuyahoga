@@ -28,7 +28,7 @@ namespace Cuyahoga.Tests.Core.Domain
 		[Test]
 		public void Setting_the_position_should_update_the_path()
 		{
-			Category newCategory = new Category() { Id = 6, Site = this._siteWithRootCategories, Name = "NewCat" };
+			Category newCategory = new Category() { Site = this._siteWithRootCategories, Name = "NewCat" };
 			newCategory.SetPosition(0);
 			Assert.That(newCategory.Position == 0);
 			Assert.That(newCategory.Path == ".0000");
@@ -48,9 +48,18 @@ namespace Cuyahoga.Tests.Core.Domain
 		}
 
 		[Test]
+		public void Setting_an_empty_parent_category_to_a_root_category_should_not_change_position_and_path()
+		{
+			Category cat1 = this._siteWithRootCategories.RootCategories[0];
+			cat1.SetParentCategory(null);
+			Assert.That(cat1.Position, Is.EqualTo(0));
+			Assert.That(cat1.Path, Is.EqualTo(".0000"));
+		}
+
+		[Test]
 		public void Ensure_that_new_category_is_added_to_root_categories_when_parent_is_set_null()
 		{
-			Category newCategory = new Category() { Id = 6, Site = this._siteWithRootCategories, Name = "NewCat" };
+			Category newCategory = new Category() { Site = this._siteWithRootCategories, Name = "NewCat" };
 			newCategory.SetParentCategory(null);
 			Assert.That(this._siteWithRootCategories.RootCategories.Contains(newCategory));
 		}
@@ -58,7 +67,7 @@ namespace Cuyahoga.Tests.Core.Domain
 		[Test]
 		public void Ensure_that_new_category_gets_correct_position_when_parent_is_set_null()
 		{
-			Category newCategory = new Category() { Id = 6, Site = this._siteWithRootCategories, Name = "NewCat" };
+			Category newCategory = new Category() { Site = this._siteWithRootCategories, Name = "NewCat" };
 			newCategory.SetParentCategory(null);
 			Assert.That(newCategory.Position, Is.EqualTo(3));
 		}
@@ -66,7 +75,7 @@ namespace Cuyahoga.Tests.Core.Domain
 		[Test]
 		public void Ensure_that_new_category_gets_correct_path_when_parent_is_set_null()
 		{
-			Category newCategory = new Category() { Id = 6, Site = this._siteWithRootCategories, Name = "NewCat" };
+			Category newCategory = new Category() { Site = this._siteWithRootCategories, Name = "NewCat" };
 			newCategory.SetParentCategory(null);
 			Assert.That(newCategory.Path, Is.EqualTo(".0003"));
 		}
@@ -74,7 +83,7 @@ namespace Cuyahoga.Tests.Core.Domain
 		[Test]
 		public void Ensure_that_new_category_is_added_to_child_catgories_of_parent()
 		{
-			Category newCategory = new Category() { Id = 6, Site = this._siteWithRootCategories, Name = "NewCat" };
+			Category newCategory = new Category() { Site = this._siteWithRootCategories, Name = "NewCat" };
 			newCategory.SetParentCategory(this._siteWithRootCategories.RootCategories[1]);
 			Assert.That(this._siteWithRootCategories.RootCategories[1].ChildCategories, Has.Member(newCategory));
 		}
@@ -82,7 +91,7 @@ namespace Cuyahoga.Tests.Core.Domain
 		[Test]
 		public void Ensure_that_new_category_gets_correct_position_when_parent_is_set()
 		{
-			Category newCategory = new Category() { Id = 6, Site = this._siteWithRootCategories, Name = "NewCat" };
+			Category newCategory = new Category() { Site = this._siteWithRootCategories, Name = "NewCat" };
 			newCategory.SetParentCategory(this._siteWithRootCategories.RootCategories[1]);
 			Assert.That(newCategory.Position, Is.EqualTo(2));
 		}
@@ -90,7 +99,7 @@ namespace Cuyahoga.Tests.Core.Domain
 		[Test]
 		public void Ensure_that_new_category_gets_correct_path_when_parent_is_set()
 		{
-			Category newCategory = new Category() { Id = 6, Site = this._siteWithRootCategories, Name = "NewCat" };
+			Category newCategory = new Category() { Site = this._siteWithRootCategories, Name = "NewCat" };
 			newCategory.SetParentCategory(this._siteWithRootCategories.RootCategories[1]);
 			Assert.That(newCategory.Path, Is.EqualTo(".0001.0002"));
 		}

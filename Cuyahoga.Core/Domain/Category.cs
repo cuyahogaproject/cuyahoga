@@ -129,7 +129,7 @@ namespace Cuyahoga.Core.Domain
 
 		public virtual void SetParentCategory(Category newParentCategory)
 		{
-			if (newParentCategory != null && newParentCategory == this._parentCategory)
+			if (this._id != -1 && newParentCategory == this._parentCategory)
 			{
 				return; // don't do anything when the parent stays the same.
 			}
