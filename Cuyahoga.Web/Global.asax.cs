@@ -104,6 +104,9 @@ namespace Cuyahoga.Web
 				routes.MapRoute(null, "manager/{controller}/{action}/{id}", new { action = "Index", controller = "Dashboard", id = "" }),
 				routes.MapRoute(null, "Login", new { action = "Index", controller = "Login" }) // Also put the login functionality in the manager area.
 			);
+			routes.CreateArea("modules/shared", "Cuyahoga.Web.Modules.Shared.Controllers", 
+				routes.MapRoute(null, "modules/shared/{controller}/{action}/{id}", new { action = "Index", id = "" })
+			);
 
 			// Routing config for the root area (not currently used)
 			//routes.CreateArea("root", "Cuyahoga.Web.Controllers",

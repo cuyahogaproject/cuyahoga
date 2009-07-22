@@ -17,7 +17,7 @@ namespace Cuyahoga.Web.Mvc.Areas
 			                            	"~/Views/{1}/{0}.ascx",
 			                            	"~/Views/Shared/{0}.aspx",
 			                            	"~/Views/Shared/{0}.ascx",
-                                            "~/Modules/Views/Shared/{0}.ascx",
+                                            "~/Modules/Shared/Views/Shared/{0}.ascx",
 			                            };
 
 			MasterLocationFormats = new[] {
@@ -25,7 +25,7 @@ namespace Cuyahoga.Web.Mvc.Areas
 			                              	"~/Shared/{0}.master",
 			                              	"~/Views/{1}/{0}.master",
 			                              	"~/Views/Shared/{0}.master",
-                                            "~/Modules/Views/Shared/{0}.master",
+                                            "~/Modules/Shared/Views/Shared/{0}.master",
 			                              };
 
 			PartialViewLocationFormats = ViewLocationFormats;

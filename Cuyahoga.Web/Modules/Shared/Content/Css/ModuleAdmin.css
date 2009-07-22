@@ -313,3 +313,20 @@ table.grid td.right
 	margin: 0;
 	overflow: auto;
 }
+
+/* Categories */
+.categorycontainer
+{
+	display: inline;
+	position: relative;
+}
+
+.categorypicker
+{
+	position: absolute;
+	left: 0;
+	bottom: 24px;
+	width: 200px;
+	border: 1px solid #ccc;
+	background-color: #fff;
+}

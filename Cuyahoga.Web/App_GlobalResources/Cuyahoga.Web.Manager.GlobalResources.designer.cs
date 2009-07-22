@@ -151,6 +151,15 @@ namespace Resources.Cuyahoga.Web.Manager {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Categories.
+        /// </summary>
+        internal static string CategoriesLabel {
+            get {
+                return ResourceManager.GetString("CategoriesLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to The category {0} is created successfully..
         /// </summary>
         internal static string CategoryCreatedMessage {
@@ -1218,6 +1227,15 @@ namespace Resources.Cuyahoga.Web.Manager {
         internal static string NoUsersFound {
             get {
                 return ResourceManager.GetString("NoUsersFound", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Ok.
+        /// </summary>
+        internal static string OkLabel {
+            get {
+                return ResourceManager.GetString("OkLabel", resourceCulture);
             }
         }
         

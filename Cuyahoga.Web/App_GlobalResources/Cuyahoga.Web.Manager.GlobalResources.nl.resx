@@ -699,4 +699,10 @@
   <data name="NewCategoryPageTitle" xml:space="preserve">
     <value>Nieuwe categorie</value>
   </data>
+  <data name="CategoriesLabel" xml:space="preserve">
+    <value>Categorieen</value>
+  </data>
+  <data name="OkLabel" xml:space="preserve">
+    <value>Ok</value>
+  </data>
 </root>

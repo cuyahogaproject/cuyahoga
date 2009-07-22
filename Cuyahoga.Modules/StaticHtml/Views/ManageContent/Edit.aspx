@@ -1,4 +1,4 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Modules/Views/Shared/ModuleAdmin.Master" Inherits="System.Web.Mvc.ViewPage<ModuleAdminViewModel<StaticHtmlContent>>" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Modules/Shared/Views/Shared/ModuleAdmin.Master" Inherits="System.Web.Mvc.ViewPage<ModuleAdminViewModel<StaticHtmlContent>>" %>
 <%@ Import Namespace="Cuyahoga.Web.Mvc.HtmlEditor"%>
 <%@ Import Namespace="Cuyahoga.Web.Mvc.ViewModels"%>
 <%@ Import Namespace="Cuyahoga.Modules.StaticHtml"%>
@@ -16,5 +16,6 @@
 		%>
 		<%= Html.HtmlEditor("content", Model.ModuleData.Content, contentCss, new { style = "width:100%;height:340px"}) %>
 		<input type="submit" value="Save" />
+		<% Html.RenderPartial("Categories", Model.ModuleData); %>
 	<% } %>
 </asp:Content>

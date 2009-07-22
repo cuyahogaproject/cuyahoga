@@ -48,7 +48,7 @@ namespace Cuyahoga.Core.Domain
 		/// </summary>
 		public virtual int Level
 		{
-			get { return (this._path != null ? this._path.Length / 5 : 0); }
+			get { return (this._path != null ? this._path.Length / 5 - 1 : 0); }
 		}
 
 		/// <summary>

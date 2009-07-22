@@ -356,6 +356,7 @@
     <Compile Include="Manager\Model\ViewModels\LoginViewData.cs" />
     <Compile Include="Manager\Model\ViewModels\MenuViewData.cs" />
     <Compile Include="Manager\Model\ViewModels\TemplateViewData.cs" />
+    <Compile Include="Modules\Shared\Controllers\CategoriesController.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -635,15 +636,6 @@
     <Content Include="Manager\Views\Categories\SharedCategoryElements.ascx" />
     <Content Include="Manager\Views\Pages\Content.aspx" />
     <Content Include="Manager\Views\Sections\Index.aspx" />
-    <Content Include="Modules\Content\Css\ModuleAdmin.css" />
-    <Content Include="Modules\Content\Images\ajax-loader.gif" />
-    <Content Include="Modules\Content\Images\cross.gif" />
-    <Content Include="Modules\Content\Images\error.png" />
-    <Content Include="Modules\Content\Images\exclamation.png" />
-    <Content Include="Modules\Content\Images\information.png" />
-    <Content Include="Modules\Scripts\cuyahoga.modules.common.js" />
-    <Content Include="Modules\Views\Shared\EmptyModuleAdminViewPage.aspx" />
-    <Content Include="Modules\Views\Shared\Messages.ascx" />
     <Content Include="Manager\Scripts\jquery-asyncupload-0.1.js" />
     <Content Include="Manager\Scripts\jquery.scrollfollow.js" />
     <Content Include="Manager\Scripts\swfupload license.txt" />
@@ -745,6 +737,17 @@
     <Content Include="Manager\Views\Users\Roles.aspx" />
     <Content Include="Manager\Views\Users\RoleSelector.ascx" />
     <Content Include="Manager\Views\Users\SharedUserFormElements.ascx" />
+    <Content Include="Modules\Shared\Content\Css\ModuleAdmin.css" />
+    <Content Include="Modules\Shared\Content\Images\ajax-loader.gif" />
+    <Content Include="Modules\Shared\Content\Images\cross.gif" />
+    <Content Include="Modules\Shared\Content\Images\error.png" />
+    <Content Include="Modules\Shared\Content\Images\exclamation.png" />
+    <Content Include="Modules\Shared\Content\Images\information.png" />
+    <Content Include="Modules\Shared\Scripts\cuyahoga.categorypicker.js" />
+    <Content Include="Modules\Shared\Scripts\cuyahoga.modules.common.js" />
+    <Content Include="Modules\Shared\Views\Shared\Categories.ascx" />
+    <Content Include="Modules\Shared\Views\Shared\EmptyModuleAdminViewPage.aspx" />
+    <Content Include="Modules\Shared\Views\Shared\Messages.ascx" />
     <Content Include="Profile.aspx">
       <SubType>Form</SubType>
     </Content>
@@ -1603,6 +1606,8 @@
     <None Include="Install\Modules\Database\postgresql\1.5.2.sql" />
     <None Include="Install\Modules\Database\postgresql\install.sql" />
     <None Include="Install\Web.config" />
+    <Content Include="Modules\Shared\Views\Shared\ModuleAdmin.Master" />
+    <Content Include="Modules\Shared\Views\Web.config" />
     <None Include="Support\fckeditor\editor\dialog\fck_spellerpages\spellerpages\server-scripts\spellchecker.cfm" />
     <None Include="Support\fckeditor\editor\dialog\fck_spellerpages\spellerpages\server-scripts\spellchecker.php" />
     <None Include="Support\fckeditor\editor\dialog\fck_spellerpages\spellerpages\server-scripts\spellchecker.pl" />
@@ -1612,8 +1617,6 @@
     <Content Include="Manager\Web.sitemap" />
     <Content Include="Manager\Views\Shared\Dialog.Master" />
     <Content Include="Manager\Views\Web.config" />
-    <Content Include="Modules\Views\Shared\ModuleAdmin.Master" />
-    <Content Include="Modules\Views\Web.config" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="HttpHandlers\" />
