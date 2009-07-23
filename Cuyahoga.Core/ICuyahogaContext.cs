@@ -16,6 +16,11 @@ namespace Cuyahoga.Core
 		Site CurrentSite { get; }
 
 		/// <summary>
+		/// Gets or sets the physical site data directory.
+		/// </summary>
+		string PhysicalSiteDataDirectory { get; set; }
+
+		/// <summary>
 		/// Set the Cuyahoga user for the current context.
 		/// </summary>
 		/// <param name="user"></param>

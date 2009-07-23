@@ -45,6 +45,11 @@ namespace Cuyahoga.Web.Components
 					.LifeStyle.PerWebRequest
 				);
 
+				// Add ICuyahogaContextProvider to the container.
+				container.Register(Component.For<ICuyahogaContextProvider>()
+					.ImplementedBy<CuyahogaContextProvider>()
+				);
+
 				// Windsor controller builder
 				ControllerBuilder.Current.SetControllerFactory(new WindsorControllerFactory(container));
 

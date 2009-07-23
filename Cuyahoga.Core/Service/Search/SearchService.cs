@@ -1,38 +1,28 @@
-﻿using System;
-using System.Threading;
-using System.Text.RegularExpressions;
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
-
+using System.IO;
 using Cuyahoga.Core.Domain;
 using Cuyahoga.Core.DataAccess;
 using Cuyahoga.Core.Search;
-using Cuyahoga.Core.Util;
-
 
 namespace Cuyahoga.Core.Service.Search
 {
 	public class SearchService : ISearchService
 	{
-		private string physicalIndexDir;
-		private bool isRebuildingIndex = false;
-		private static object lockObject = new object();
-		private IUserDao userDao;
+		private readonly IUserDao _userDao;
+		private readonly ICuyahogaContextProvider _cuyahogaContextProvider;
 
-		public SearchService(IUserDao userDao)
+		public SearchService(IUserDao userDao, ICuyahogaContextProvider cuyahogaContextProvider)
 		{
-			this.userDao = userDao;
-			//TODO: test if this works on Mono?
-			string rootDir = AppDomain.CurrentDomain.BaseDirectory;
-			string indexDir = (Config.GetConfiguration()["SearchIndexDir"]).TrimStart('~', '/');
-			this.physicalIndexDir = System.IO.Path.Combine(rootDir, indexDir);
+			this._userDao = userDao;
+			_cuyahogaContextProvider = cuyahogaContextProvider;
 		}
 
 		#region ISearchService Members
 
 		public void UpdateContent(SearchContent searchContent)
 		{
-			using (IndexBuilder indexBuilder = new IndexBuilder(this.physicalIndexDir, false))
+			using (IndexBuilder indexBuilder = CreateIndexBuilder())
 			{
 				indexBuilder.UpdateContent(searchContent);
 			}
@@ -40,7 +30,7 @@ namespace Cuyahoga.Core.Service.Search
 
 		public void AddContent(SearchContent searchContent)
 		{
-			using (IndexBuilder indexBuilder = new IndexBuilder(this.physicalIndexDir, false))
+			using (IndexBuilder indexBuilder = CreateIndexBuilder())
 			{
 				indexBuilder.AddContent(searchContent);
 			}
@@ -48,26 +38,15 @@ namespace Cuyahoga.Core.Service.Search
 
 		public void DeleteContent(SearchContent searchContent)
 		{
-			using (IndexBuilder indexBuilder = new IndexBuilder(this.physicalIndexDir, false))
+			using (IndexBuilder indexBuilder = CreateIndexBuilder())
 			{
 				indexBuilder.DeleteContent(searchContent);
 			}
 		}
 
-		public void UpdateContent(IList<SearchContent> searchContents)
-		{
-			using (IndexBuilder indexBuilder = new IndexBuilder(this.physicalIndexDir, false))
-			{
-				foreach (SearchContent searchContent in searchContents)
-				{
-					indexBuilder.UpdateContent(searchContent);
-				}
-			}
-		}
-
 		public void AddContent(IList<SearchContent> searchContents)
 		{
-			using (IndexBuilder indexBuilder = new IndexBuilder(this.physicalIndexDir, false))
+			using (IndexBuilder indexBuilder = CreateIndexBuilder())
 			{
 				foreach (SearchContent searchContent in searchContents)
 				{
@@ -76,17 +55,9 @@ namespace Cuyahoga.Core.Service.Search
 			}
 		}
 
-		public void DeleteContent(IList<SearchContent> searchContents)
-		{
-			using (IndexBuilder indexBuilder = new IndexBuilder(this.physicalIndexDir, false))
-			{
-				indexBuilder.DeleteContent(searchContents);
-			}
-		}
-
 		public void UpdateContent(IContentItem contentItem)
 		{
-			using (IndexBuilder indexBuilder = new IndexBuilder(this.physicalIndexDir, false))
+			using (IndexBuilder indexBuilder = CreateIndexBuilder())
 			{
 				indexBuilder.UpdateContent(contentItem);
 			}
@@ -94,7 +65,7 @@ namespace Cuyahoga.Core.Service.Search
 
 		public void AddContent(IContentItem contentItem)
 		{
-			using (IndexBuilder indexBuilder = new IndexBuilder(this.physicalIndexDir, false))
+			using (IndexBuilder indexBuilder = CreateIndexBuilder())
 			{
 				indexBuilder.AddContent(contentItem);
 			}
@@ -102,39 +73,9 @@ namespace Cuyahoga.Core.Service.Search
 
 		public void DeleteContent(IContentItem contentItem)
 		{
-			using (IndexBuilder indexBuilder = new IndexBuilder(this.physicalIndexDir, false))
+			using (IndexBuilder indexBuilder = CreateIndexBuilder())
 			{
 				indexBuilder.DeleteContent(contentItem);
-			}
-		}
-
-		public void UpdateContent(IList<IContentItem> contentItems)
-		{
-			using (IndexBuilder indexBuilder = new IndexBuilder(this.physicalIndexDir, false))
-			{
-				foreach (IContentItem contentItem in contentItems)
-				{
-					indexBuilder.UpdateContent(contentItem);
-				}
-			}
-		}
-
-		public void AddContent(IList<IContentItem> contentItems)
-		{
-			using (IndexBuilder indexBuilder = new IndexBuilder(this.physicalIndexDir, false))
-			{
-				foreach (IContentItem contentItem in contentItems)
-				{
-					indexBuilder.AddContent(contentItem);
-				}
-			}
-		}
-
-		public void DeleteContent(IList<IContentItem> contentItems)
-		{
-			using (IndexBuilder indexBuilder = new IndexBuilder(this.physicalIndexDir, false))
-			{
-				indexBuilder.DeleteContent(contentItems);
 			}
 		}
 
@@ -151,13 +92,13 @@ namespace Cuyahoga.Core.Service.Search
 			if (user != null)
 			{
 				roles = new List<Role>((new ArrayList(user.Roles)).ToArray(typeof(Role)) as Role[]);
-				sections = this.userDao.GetViewableSectionsByUser(user);
+				sections = this._userDao.GetViewableSectionsByUser(user);
 			}
 			//else assume anonymous access
 			else
 			{
-				roles = this.userDao.GetRolesByAccessLevel(AccessLevel.Anonymous);
-				sections = this.userDao.GetViewableSectionsByAccessLevel(AccessLevel.Anonymous);
+				roles = this._userDao.GetRolesByAccessLevel(AccessLevel.Anonymous);
+				sections = this._userDao.GetViewableSectionsByAccessLevel(AccessLevel.Anonymous);
 			}
 			List<int> sectionIds = new List<int>(sections.Count);
 			List<int> roleIds = new List<int>(roles.Count);
@@ -169,11 +110,22 @@ namespace Cuyahoga.Core.Service.Search
 			{
 				roleIds.Add(role.Id);
 			}
-			IndexQuery query = new IndexQuery(this.physicalIndexDir);
+			IndexQuery query = new IndexQuery(GetIndexDirectory());
 			return query.Find(queryText, keywordFilter, categoryNames, pageIndex, pageSize, sectionIds, roleIds);
 		}
 
 
 		#endregion
+
+		private IndexBuilder CreateIndexBuilder()
+		{
+			return new IndexBuilder(GetIndexDirectory(), false);
+		}
+
+		private string GetIndexDirectory()
+		{
+			ICuyahogaContext cuyahogaContext = this._cuyahogaContextProvider.GetContext();
+			return Path.Combine(cuyahogaContext.PhysicalSiteDataDirectory, "index");
+		}
 	}
 }

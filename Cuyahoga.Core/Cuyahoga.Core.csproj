@@ -199,6 +199,8 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Infrastructure\Transactions\WebActivityManager.cs" />
+    <Compile Include="Service\CuyahogaContextProvider.cs" />
+    <Compile Include="Service\ICuyahogaContextProvider.cs" />
     <Compile Include="Service\Search\SearchDecorator.cs" />
     <Compile Include="Service\Versioning\VersioningDecorator.cs" />
     <Compile Include="Domain\Category.cs">

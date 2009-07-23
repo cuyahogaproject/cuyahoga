@@ -1,5 +1,4 @@
 using System;
-using System.Collections.Generic;
 using Cuyahoga.Core.Util;
 using Lucene.Net.Index;
 using Lucene.Net.Documents;
@@ -134,29 +133,6 @@ namespace Cuyahoga.Core.Service.Search
 			}
 		}
 
-        public void DeleteContent(IList<SearchContent> searchContents)
-        {
-            if (this._rebuildIndex)
-            {
-                throw new InvalidOperationException("Cannot delete documents when rebuilding the index.");
-            }
-            else
-            {
-                this._indexWriter.Close();
-                this._indexWriter = null;
-
-                IndexReader rdr = IndexReader.Open(this._indexDirectory);
-                foreach (SearchContent sc in searchContents)
-                {
-                    // The path uniquely identifies a document in the index.
-                    Term term = new Term("path", sc.Path);
-                    rdr.DeleteDocuments(term);
-                }
-                rdr.Close();
-            }
-        }
-
-
         /// <summary>
         /// Delete existing content from the search index.
         /// </summary>
@@ -179,29 +155,6 @@ namespace Cuyahoga.Core.Service.Search
                 rdr.Close();
             }
         }
-
-        public void DeleteContent(IList<IContentItem> contentItems)
-        {
-            if (this._rebuildIndex)
-            {
-                throw new InvalidOperationException("Cannot delete documents when rebuilding the index.");
-            }
-            else
-            {
-                this._indexWriter.Close();
-                this._indexWriter = null;
-
-                IndexReader rdr = IndexReader.Open(this._indexDirectory);
-                foreach (IContentItem contentItem in contentItems)
-                {
-                    // The path uniquely identifies a document in the index.
-                    Term term = new Term("path", contentItem.GetContentUrl());
-                    rdr.DeleteDocuments(term);
-                }
-                rdr.Close();
-            }
-        }
-
 
 		/// <summary>
 		/// Close the IndexWriter (saves the index).

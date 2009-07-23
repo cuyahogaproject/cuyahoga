@@ -1,6 +1,7 @@
 using System;
 using System.Threading;
 using System.Web;
+using Castle.MicroKernel;
 using Cuyahoga.Core;
 using Cuyahoga.Core.Domain;
 using Cuyahoga.Core.Util;
@@ -14,6 +15,7 @@ namespace Cuyahoga.Web.Components
 	{
 		private Site _currentSite;
 		private User _currentUser;
+		private string _physicalSiteDataDirectory;
 
 		/// <summary>
 		/// The Cuyahoga user for the current request.
@@ -32,22 +34,23 @@ namespace Cuyahoga.Web.Components
 		}
 
 		/// <summary>
+		/// Gets or sets the physical site data directory.
+		/// </summary>
+		public string PhysicalSiteDataDirectory
+		{
+			get { return this._physicalSiteDataDirectory; }
+			set { this._physicalSiteDataDirectory = value; }
+		}
+
+		/// <summary>
 		/// Gets the current ICuyahoga context.
 		/// <remarks>
 		/// This property is just for convenience. Only use it from places where the context can't be injected via IoC.
-		/// TODO: We need to do something about the IoC dependency here.
 		/// </remarks>
 		/// </summary>
 		public static ICuyahogaContext Current
 		{
 			get { return IoC.Resolve<ICuyahogaContext>(); }
-		}
-
-		/// <summary>
-		/// Creates an instance of the CuyahogaContext class.
-		/// </summary>
-		public CuyahogaContext()
-		{
 		}
 
 		/// <summary>

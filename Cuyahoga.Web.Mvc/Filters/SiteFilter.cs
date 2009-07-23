@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Web.Mvc;
 using Cuyahoga.Core;
+using Cuyahoga.Core.Domain;
 using Cuyahoga.Core.Service.SiteStructure;
 using Cuyahoga.Core.Util;
 using Cuyahoga.Web.Mvc.Partials;
@@ -46,7 +47,9 @@ namespace Cuyahoga.Web.Mvc.Filters
 			{
 				throw new InvalidOperationException("Unable to set the current site because the SiteService is unavailable");
 			}
-			this._cuyahogaContext.SetSite(this._siteService.GetSiteBySiteUrl(UrlUtil.GetSiteUrl()));
+			Site currentSite = this._siteService.GetSiteBySiteUrl(UrlUtil.GetSiteUrl());
+			this._cuyahogaContext.SetSite(currentSite);
+			this._cuyahogaContext.PhysicalSiteDataDirectory = filterContext.HttpContext.Server.MapPath(currentSite.SiteDataDirectory);
 		}
 	}
 }
