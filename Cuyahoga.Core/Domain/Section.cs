@@ -18,7 +18,6 @@ namespace Cuyahoga.Core.Domain
 		private int _position;
 		private int _cacheDuration;
 		private bool _showTitle;
-		private bool _isPrimarySection;
 		private ModuleType _moduleType;
 		private Node _node;
 		private IList _sectionPermissions;
@@ -91,19 +90,6 @@ namespace Cuyahoga.Core.Domain
 		{
 			get { return this._showTitle; }
 			set { this._showTitle = value; }
-		}
-
-		/// <summary>
-		/// Indicates if the section is the primary section on the page.
-		/// </summary>
-		/// <remarks>
-		/// If a section is the primary section, it will become the active section when no specific section is targeted
-		/// via the url. This allows pretty urls for section content.
-		/// </remarks>
-		public virtual bool IsPrimarySection
-		{
-			get { return this._isPrimarySection; }
-			set { this._isPrimarySection = value; }
 		}
 
 		/// <summary>
@@ -456,7 +442,6 @@ namespace Cuyahoga.Core.Domain
 			newSection.ModuleType = this.ModuleType;
 			newSection.Title = this.Title;
 			newSection.ShowTitle = this.ShowTitle;
-			newSection.IsPrimarySection = this.IsPrimarySection;
 			newSection.PlaceholderId = this.PlaceholderId;
 			newSection.Position = this.Position;
 			newSection.CacheDuration = this.CacheDuration;

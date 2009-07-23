@@ -257,7 +257,6 @@ showtitle bit DEFAULT 1 NOT NULL,
 placeholder nvarchar(100) NULL,
 position int DEFAULT 0 NOT NULL,
 cacheduration int NULL,
-isprimarysection bit NOT NULL DEFAULT 0,
 inserttimestamp datetime DEFAULT current_timestamp NOT NULL,
 updatetimestamp datetime DEFAULT current_timestamp NOT NULL)
 go
