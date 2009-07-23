@@ -6,7 +6,7 @@
 		var editButtonsSpan = categoryContainer.children('.categoryeditbuttons');
 		editButtonsSpan.show();
 
-		var selectedCategoryIds = categoryContainer.children('#categories').val().split(",");
+		var selectedCategoryIds = categoryContainer.children('#categoryids').val().split(",");
 		if (categoryPicker.children().length == 0) {
 			loadCategories(categoryPicker, selectedCategoryIds);
 		}
@@ -23,7 +23,7 @@
 				selectedCategoryNames.push($(el).next('label').text());
 			}
 		})
-		categoryContainer.children('#categories').val(selectedCategoryIds.join(','));
+		categoryContainer.children('#categoryids').val(selectedCategoryIds.join(','));
 		categoryContainer.find('.categorynames').text(selectedCategoryNames.join(','));
 		
 		$(this).parent().hide();

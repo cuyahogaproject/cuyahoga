@@ -26,14 +26,12 @@
 		<many-to-one name="PublishedBy" class="Cuyahoga.Core.Domain.User, Cuyahoga.Core" column="publishedby" not-null="false" />
 		<many-to-one name="Section" class="Cuyahoga.Core.Domain.Section, Cuyahoga.Core" column="sectionid" not-null="true" />
 
-		<bag name="Categories" table="cuyahoga_categorycontentitem" cascade="none" lazy="true" generic="true" inverse="true">
-			<cache usage="read-write" />
+		<bag name="Categories" table="cuyahoga_categorycontentitem" cascade="none" lazy="true">
 			<key column="contentitemid" />
 			<many-to-many column="categoryid" class="Cuyahoga.Core.Domain.Category, Cuyahoga.Core" />
 		</bag>
 
 		<bag name="ContentItemPermissions" cascade="all" lazy="true" table="cuyahoga_contentitemrole">
-			<cache usage="read-write" />
 			<key column="contentitemid" />
 			<composite-element class="Cuyahoga.Core.Domain.ContentItemPermission, Cuyahoga.Core">
 				<parent name="ContentItem" />

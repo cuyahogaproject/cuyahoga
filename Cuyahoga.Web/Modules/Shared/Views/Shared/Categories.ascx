@@ -6,7 +6,7 @@
 <%= Html.ScriptInclude("~/Modules/Shared/Scripts/cuyahoga.categorypicker.js") %>
 <%= GlobalResources.CategoriesLabel %>: 
 <div class="categorycontainer">
-	<%= Html.Hidden("categories", categoryIds) %>
+	<%= Html.Hidden("categoryids", categoryIds) %>
 	<span class="displaycategories">
 		<span class="categorynames"><%= categoryNames %></span>
 		<a href="#"><%= GlobalResources.EditLabel %></a>
