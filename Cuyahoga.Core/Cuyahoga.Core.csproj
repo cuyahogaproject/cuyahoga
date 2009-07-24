@@ -198,6 +198,7 @@
     <Compile Include="DataAccess\UserDao.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Domain\Comment.cs" />
     <Compile Include="Infrastructure\Transactions\WebActivityManager.cs" />
     <Compile Include="Service\CuyahogaContextProvider.cs" />
     <Compile Include="Service\ICuyahogaContextProvider.cs" />
@@ -452,6 +453,9 @@
       <ProductName>.NET Framework 3.5</ProductName>
       <Install>false</Install>
     </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Domain\Comment.hbm.xml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Service\Workflow\" />

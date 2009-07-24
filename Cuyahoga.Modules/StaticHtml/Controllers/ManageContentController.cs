@@ -37,7 +37,7 @@ namespace Cuyahoga.Modules.StaticHtml.Controllers
 				?? new StaticHtmlContent();
 			if (TryUpdateModel(htmlContent, new [] { "Content" }))
 			{
-				// TODO: handle Categories, CreatedBy etc. more generic.
+				// TODO: handle Categories etc. more generic.
 				// Categories
 				htmlContent.Categories.Clear();
 				foreach(string categoryIdString in categoryids.Split(','))
@@ -47,11 +47,8 @@ namespace Cuyahoga.Modules.StaticHtml.Controllers
 				if (htmlContent.IsNew)
 				{
 					htmlContent.Title = CurrentSection.Title;
-					htmlContent.CreatedBy = CuyahogaContext.CurrentUser;
 					htmlContent.Section = CurrentSection;
 				}
-				htmlContent.ModifiedBy = CuyahogaContext.CurrentUser;
-				htmlContent.ModifiedAt = DateTime.Now;
 				try
 				{
 					this._contentItemService.Save(htmlContent);

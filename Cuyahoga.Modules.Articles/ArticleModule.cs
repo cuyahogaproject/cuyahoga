@@ -11,6 +11,7 @@ using Cuyahoga.Core.Communication;
 using Cuyahoga.Modules.Articles.Domain;
 
 using ArticleCategory = Cuyahoga.Modules.Articles.Domain.Category;
+using Comment = Cuyahoga.Modules.Articles.Domain.Comment;
 using Cuyahoga.Web.Util;
 using Cuyahoga.Modules.Articles.DataAccess;
 using Cuyahoga.Core.DataAccess;

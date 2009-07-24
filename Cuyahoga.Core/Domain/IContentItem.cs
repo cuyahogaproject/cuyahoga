@@ -100,6 +100,11 @@ namespace Cuyahoga.Core.Domain
         IList<ContentItemPermission> ContentItemPermissions { get; set;}
 
 		/// <summary>
+		/// Indicates if the content item is new.
+		/// </summary>
+		bool IsNew { get; }
+
+		/// <summary>
 		/// Gets the url that corresponds to the content. Inheritors can override this for custom url formatting.
 		/// </summary>
 		/// <returns></returns>

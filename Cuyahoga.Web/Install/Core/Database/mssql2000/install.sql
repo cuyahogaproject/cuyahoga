@@ -51,6 +51,15 @@ categoryid int NOT NULL,
 contentitemid bigint NOT NULL)
 go
 
+CREATE TABLE cuyahoga_comment(
+commentid int identity(1,1) NOT NULL CONSTRAINT PK_comment PRIMARY KEY,
+contentitemid bigint NOT NULL,
+userid int NULL,
+[name] nvarchar(100) NULL,
+website nvarchar(100) NULL,
+commenttext nvarchar(2000) NOT NULL,
+userip nvarchar(15) NULL)
+go
 
 CREATE TABLE cuyahoga_fileresource(
 fileresourceid bigint NOT NULL CONSTRAINT PK_fileresource PRIMARY KEY,
@@ -363,6 +372,16 @@ go
 ALTER TABLE cuyahoga_categorycontentitem
 ADD CONSTRAINT FK_categorycontentitem_category_categoryid
 FOREIGN KEY (categoryid) REFERENCES cuyahoga_category (categoryid)
+go
+
+ALTER TABLE cuyahoga_comment
+ADD CONSTRAINT FK_comment_contentitem_contentitemid
+FOREIGN KEY (contentitemid) REFERENCES cuyahoga_contentitem (contentitemid)
+go
+
+ALTER TABLE cuyahoga_comment
+ADD CONSTRAINT FK_comment_user_userid
+FOREIGN KEY (userid) REFERENCES cuyahoga_user (userid)
 go
 
 ALTER TABLE cuyahoga_fileresource

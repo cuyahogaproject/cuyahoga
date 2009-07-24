@@ -10,10 +10,12 @@ namespace Cuyahoga.Core.Service.Content
 	public class ContentItemService<T> : IContentItemService<T> where T : IContentItem
 	{
 		protected IContentItemDao<T> contentItemDao;
+		protected ICuyahogaContextProvider cuyahogaContextProvider;
 
-		public ContentItemService(IContentItemDao<T> contentItemDao)
+		public ContentItemService(IContentItemDao<T> contentItemDao, ICuyahogaContextProvider contextProvider)
 		{
 			this.contentItemDao = contentItemDao;
+			this.cuyahogaContextProvider = contextProvider;
 		}
 
 		public T GetById(long id)
@@ -49,6 +51,14 @@ namespace Cuyahoga.Core.Service.Content
 		[Transaction(TransactionMode.Requires)]
 		public T Save(T entity)
 		{
+			ICuyahogaContext cuyahogaContext = this.cuyahogaContextProvider.GetContext();
+			if (entity.IsNew)
+			{
+				entity.CreatedAt = DateTime.Now;
+				entity.CreatedBy = cuyahogaContext.CurrentUser;
+			}
+			entity.ModifiedAt = DateTime.Now;
+			entity.ModifiedBy = cuyahogaContext.CurrentUser;
 			return this.contentItemDao.Save(entity);
 		}
 

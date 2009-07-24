@@ -9,24 +9,25 @@ namespace Cuyahoga.Core.Domain
 	/// </summary>
 	public abstract class ContentItem : IContentItem
 	{
-		protected long _id;
-		protected Guid _globalId;
-        protected WorkflowStatus _workflowStatus;
-		protected string _title;
-		protected string _summary;
-		protected int _version;
-		protected string _locale;
+		private long _id;
+		private Guid _globalId;
+		private WorkflowStatus _workflowStatus;
+		private string _title;
+		private string _summary;
+		private int _version;
+		private string _locale;
 		private bool _syndicate;
-		protected DateTime _createdAt;
-		protected DateTime? _publishedAt;
-		protected DateTime? _publishedUntil;
-		protected DateTime _modifiedAt;
-		protected User _createdBy;
-		protected User _publishedBy;
-		protected User _modifiedBy;
-		protected Section _section;
-		protected IList<Category> _categories;
-		protected IList<ContentItemPermission> _contentItemPermissions;
+		private DateTime _createdAt;
+		private DateTime? _publishedAt;
+		private DateTime? _publishedUntil;
+		private DateTime _modifiedAt;
+		private User _createdBy;
+		private User _publishedBy;
+		private User _modifiedBy;
+		private Section _section;
+		private IList<Category> _categories;
+		private IList<ContentItemPermission> _contentItemPermissions;
+		private IList<Comment> _comments;
 
 		#region Properties
 		/// <summary>
@@ -212,6 +213,7 @@ namespace Cuyahoga.Core.Domain
 			this._syndicate = true;
             this._categories = new List<Category>();
             this._contentItemPermissions = new List<ContentItemPermission>();
+			this._comments = new List<Comment>();
 		}
 
 		/// <summary>
