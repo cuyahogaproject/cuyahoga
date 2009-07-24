@@ -14,16 +14,17 @@
 		<property name="GlobalId" column="globalid" type="Guid" not-null="true" />
 		<property name="WorkflowStatus" column="workflowstatus" not-null="true" />
 		<property name="Title" column="title" type="String" length="255" not-null="true" />
-		<property name="Summary" column="description" type="String" length="255" not-null="false" />
+		<property name="Summary" column="description" type="String" length="255" />
 		<property name="Version" column="version" type="Int32" not-null="true" />
 		<property name="Locale" column="locale" type="String" length="5" not-null="false" />
+		<property name="Syndicate" column="syndicate" type="Boolean" not-null="true" />
 		<property name="CreatedAt" column="createdat" type="DateTime" not-null="true" />
 		<property name="ModifiedAt" column="modifiedat" type="DateTime" not-null="true" />
-		<property name="PublishedAt" column="publishedat" type="DateTime" not-null="false" />
-		<property name="PublishedUntil" column="publishedUntil" type="DateTime" not-null="false" />
+		<property name="PublishedAt" column="publishedat" type="DateTime" />
+		<property name="PublishedUntil" column="publishedUntil" type="DateTime" />
 		<many-to-one name="CreatedBy" class="Cuyahoga.Core.Domain.User, Cuyahoga.Core" column="createdby" not-null="true" />
 		<many-to-one name="ModifiedBy" class="Cuyahoga.Core.Domain.User, Cuyahoga.Core" column="modifiedby" not-null="true" />
-		<many-to-one name="PublishedBy" class="Cuyahoga.Core.Domain.User, Cuyahoga.Core" column="publishedby" not-null="false" />
+		<many-to-one name="PublishedBy" class="Cuyahoga.Core.Domain.User, Cuyahoga.Core" column="publishedby" />
 		<many-to-one name="Section" class="Cuyahoga.Core.Domain.Section, Cuyahoga.Core" column="sectionid" not-null="true" />
 
 		<bag name="Categories" table="cuyahoga_categorycontentitem" cascade="none" lazy="true">
@@ -41,9 +42,5 @@
 			</composite-element>
 		</bag>
 
-
 	</class>
-
-
-
 </hibernate-mapping>

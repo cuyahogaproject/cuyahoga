@@ -16,17 +16,18 @@ namespace Cuyahoga.Core.Domain
 		protected string _summary;
 		protected int _version;
 		protected string _locale;
+		private bool _syndicate;
 		protected DateTime _createdAt;
 		protected DateTime? _publishedAt;
-        protected DateTime? _publishedUntil;
+		protected DateTime? _publishedUntil;
 		protected DateTime _modifiedAt;
 		protected User _createdBy;
 		protected User _publishedBy;
 		protected User _modifiedBy;
 		protected Section _section;
 		protected IList<Category> _categories;
-        protected IList<ContentItemPermission> _contentItemPermissions;
-		
+		protected IList<ContentItemPermission> _contentItemPermissions;
+
 		#region Properties
 		/// <summary>
 		/// Property Id (long)
@@ -89,6 +90,15 @@ namespace Cuyahoga.Core.Domain
 		{
 			get{ return this._locale; }
 			set{ this._locale = value; }
+		}
+
+		/// <summary>
+		/// Indicates if the content item should be syndicated.
+		/// </summary>
+		public virtual bool Syndicate
+		{
+			get { return this._syndicate; }
+			set { this._syndicate = value; }
 		}
 
 		/// <summary>
@@ -199,6 +209,7 @@ namespace Cuyahoga.Core.Domain
 			this._createdAt = DateTime.Now;
             this._modifiedAt = DateTime.Now;
 			this._version = 1;
+			this._syndicate = true;
             this._categories = new List<Category>();
             this._contentItemPermissions = new List<ContentItemPermission>();
 		}

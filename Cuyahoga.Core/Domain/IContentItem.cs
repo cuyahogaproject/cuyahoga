@@ -40,6 +40,11 @@ namespace Cuyahoga.Core.Domain
         string Locale { get; set;}
 
 		/// <summary>
+		/// Indicates if the content item should be syndicated.
+		/// </summary>
+		bool Syndicate { get; set; }
+
+		/// <summary>
 		/// Version information
 		/// </summary>
         int Version { get; set;}
