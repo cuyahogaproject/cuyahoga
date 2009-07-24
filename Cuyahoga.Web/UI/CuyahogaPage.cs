@@ -1,8 +1,12 @@
 using System;
-
+using Cuyahoga.Core;
+using Cuyahoga.Core.Domain;
 using Cuyahoga.Core.Service;
 using Castle.Windsor;
+using Cuyahoga.Core.Service.SiteStructure;
+using Cuyahoga.Core.Util;
 using Cuyahoga.Web.Util;
+using CuyahogaUser = Cuyahoga.Core.Domain.User;
 
 namespace Cuyahoga.Web.UI
 {
@@ -27,6 +31,21 @@ namespace Cuyahoga.Web.UI
 		public CuyahogaPage()
 		{
 			this._container = ContainerAccessorUtil.GetContainer();
+		}
+
+		protected override void OnInit(EventArgs e)
+		{
+			// Set the CuyahogaContext
+			ICuyahogaContext cuyahogaContext = Container.Resolve<ICuyahogaContext>();
+			if (User.Identity.IsAuthenticated && this.User is CuyahogaUser)
+			{
+				cuyahogaContext.SetUser((CuyahogaUser)this.User);
+			}
+			ISiteService siteService = Container.Resolve<ISiteService>();
+			Site currentSite = siteService.GetSiteBySiteUrl(UrlUtil.GetSiteUrl());
+			cuyahogaContext.SetSite(currentSite);
+			cuyahogaContext.PhysicalSiteDataDirectory = Server.MapPath(currentSite.SiteDataDirectory);
+			base.OnInit(e);
 		}
 	}
 }
