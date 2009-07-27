@@ -6,6 +6,7 @@ using Castle.Windsor;
 using Cuyahoga.Core.Service.SiteStructure;
 using Cuyahoga.Core.Util;
 using Cuyahoga.Web.Util;
+using log4net;
 using CuyahogaUser = Cuyahoga.Core.Domain.User;
 
 namespace Cuyahoga.Web.UI
@@ -15,6 +16,7 @@ namespace Cuyahoga.Web.UI
 	/// </summary>
 	public class CuyahogaPage : System.Web.UI.Page, ICuyahogaPage
 	{
+		private static readonly ILog logger = LogManager.GetLogger(typeof (CuyahogaPage));
 		private IWindsorContainer _container;
 
 		/// <summary>
@@ -42,9 +44,16 @@ namespace Cuyahoga.Web.UI
 				cuyahogaContext.SetUser((CuyahogaUser)this.User);
 			}
 			ISiteService siteService = Container.Resolve<ISiteService>();
-			Site currentSite = siteService.GetSiteBySiteUrl(UrlUtil.GetSiteUrl());
-			cuyahogaContext.SetSite(currentSite);
-			cuyahogaContext.PhysicalSiteDataDirectory = Server.MapPath(currentSite.SiteDataDirectory);
+			try
+			{
+				Site currentSite = siteService.GetSiteBySiteUrl(UrlUtil.GetSiteUrl());
+				cuyahogaContext.SetSite(currentSite);
+				cuyahogaContext.PhysicalSiteDataDirectory = Server.MapPath(currentSite.SiteDataDirectory);
+			}
+			catch (Exception ex)
+			{
+				logger.Error("An unexpected error occured while setting the current site context.", ex);
+			}
 			base.OnInit(e);
 		}
 	}

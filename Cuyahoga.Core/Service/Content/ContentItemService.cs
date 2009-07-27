@@ -51,14 +51,6 @@ namespace Cuyahoga.Core.Service.Content
 		[Transaction(TransactionMode.Requires)]
 		public T Save(T entity)
 		{
-			ICuyahogaContext cuyahogaContext = this.cuyahogaContextProvider.GetContext();
-			if (entity.IsNew)
-			{
-				entity.CreatedAt = DateTime.Now;
-				entity.CreatedBy = cuyahogaContext.CurrentUser;
-			}
-			entity.ModifiedAt = DateTime.Now;
-			entity.ModifiedBy = cuyahogaContext.CurrentUser;
 			return this.contentItemDao.Save(entity);
 		}
 

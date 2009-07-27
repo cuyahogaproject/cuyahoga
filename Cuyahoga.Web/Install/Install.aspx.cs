@@ -223,6 +223,7 @@ namespace Cuyahoga.Web.Install
 
 			// Sections on root Node
 			Section loginSection = new Section();
+			loginSection.Site = site;
 			loginSection.ModuleType = this._commonDao.GetObjectByDescription(typeof(ModuleType), "Name", "User") as ModuleType;
 			loginSection.Title = "Login";
 			loginSection.CacheDuration = 0;
@@ -237,6 +238,7 @@ namespace Cuyahoga.Web.Install
 			rootNode.Sections.Add(loginSection);
 			this._commonDao.SaveOrUpdateObject(loginSection);
 			Section introSection = new Section();
+			introSection.Site = site;
 			introSection.ModuleType = this._commonDao.GetObjectByDescription(typeof(ModuleType), "Name", "StaticHtml") as ModuleType;
 			introSection.Title = "Welcome";
 			introSection.CacheDuration = 0;
@@ -265,6 +267,7 @@ namespace Cuyahoga.Web.Install
 			if (articlesModuleType != null)
 			{
 				Section articleSection = new Section();
+				articleSection.Site = site;
 				articleSection.ModuleType = articlesModuleType;
 				articleSection.Title = "Articles";
 				articleSection.CacheDuration = 0;
@@ -295,6 +298,7 @@ namespace Cuyahoga.Web.Install
 			page2.CopyRolesFromParent();
 			this._commonDao.SaveOrUpdateObject(page2);
 			Section page2Section = new Section();
+			page2Section.Site = site;
 			page2Section.ModuleType = this._commonDao.GetObjectByDescription(typeof(ModuleType), "Name", "StaticHtml") as ModuleType;
 			page2Section.Title = "Page 2";
 			page2Section.CacheDuration = 0;
@@ -319,6 +323,7 @@ namespace Cuyahoga.Web.Install
 			userProfileNode.CopyRolesFromParent();
 			this._commonDao.SaveOrUpdateObject(userProfileNode);
 			Section userProfileSection = new Section();
+			userProfileSection.Site = site;
 			userProfileSection.ModuleType = this._commonDao.GetObjectByDescription(typeof(ModuleType), "Name", "UserProfile") as ModuleType;
 			userProfileSection.Title = "User Profile";
 			userProfileSection.CacheDuration = 0;

@@ -40,9 +40,12 @@ namespace Cuyahoga.Modules.StaticHtml.Controllers
 				// TODO: handle Categories etc. more generic.
 				// Categories
 				htmlContent.Categories.Clear();
-				foreach(string categoryIdString in categoryids.Split(','))
+				if (!String.IsNullOrEmpty(categoryids))
 				{
-					htmlContent.Categories.Add(this._categoryService.GetCategoryById(Convert.ToInt32(categoryIdString)));
+					foreach (string categoryIdString in categoryids.Split(','))
+					{
+						htmlContent.Categories.Add(this._categoryService.GetCategoryById(Convert.ToInt32(categoryIdString)));
+					}
 				}
 				if (htmlContent.IsNew)
 				{

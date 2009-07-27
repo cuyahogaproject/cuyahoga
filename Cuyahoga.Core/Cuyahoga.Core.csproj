@@ -200,6 +200,7 @@
     </Compile>
     <Compile Include="Domain\Comment.cs" />
     <Compile Include="Infrastructure\Transactions\WebActivityManager.cs" />
+    <Compile Include="Service\Content\AuditContentDecorator.cs" />
     <Compile Include="Service\CuyahogaContextProvider.cs" />
     <Compile Include="Service\ICuyahogaContextProvider.cs" />
     <Compile Include="Service\Search\SearchDecorator.cs" />

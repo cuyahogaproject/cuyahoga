@@ -1,92 +1,24 @@
 /*
  *  Table structure
  */
-CREATE TABLE cm_articlecategory(
-articlecategoryid int identity(1,1) NOT NULL CONSTRAINT PK_articlecategory PRIMARY KEY,
-siteid int NOT NULL,
-title nvarchar(100) NOT NULL,
-summary nvarchar(255) NULL,
-syndicate bit NOT NULL,
-inserttimestamp datetime DEFAULT current_timestamp NOT NULL,
-updatetimestamp datetime DEFAULT current_timestamp NOT NULL)
-go
-
 CREATE TABLE cm_article(
-articleid int identity(1,1) NOT NULL CONSTRAINT PK_article PRIMARY KEY,
-sectionid int NOT NULL,
-createdby int NOT NULL,
-modifiedby int NULL,
-articlecategoryid int NULL,
-title nvarchar(100) NOT NULL,
-summary nvarchar(255) NULL,
-content ntext NOT NULL,
-syndicate bit NOT NULL,
-dateonline datetime NOT NULL,
-dateoffline datetime NOT NULL,
-inserttimestamp datetime DEFAULT current_timestamp NOT NULL,
-updatetimestamp datetime DEFAULT current_timestamp NOT NULL)
-go
-
-
-CREATE TABLE cm_articlecomment(
-commentid int identity(1,1) NOT NULL CONSTRAINT PK_articlecomment PRIMARY KEY,
-articleid int NOT NULL,
-userid int NULL,
-name nvarchar(100) NULL,
-website nvarchar(100) NULL,
-commenttext nvarchar(2000) NOT NULL,
-userip nvarchar(15) NULL,
-inserttimestamp datetime DEFAULT current_timestamp NOT NULL,
-updatetimestamp datetime DEFAULT current_timestamp NOT NULL)
-go
-
-ALTER TABLE cm_articlecategory
-ADD CONSTRAINT FK_articlecategory_site_siteid
-FOREIGN KEY (siteid) REFERENCES cuyahoga_site (siteid)
+contentitemid bigint NOT NULL CONSTRAINT PK_article PRIMARY KEY,
+content ntext NOT NULL)
 go
 
 ALTER TABLE cm_article
-ADD CONSTRAINT FK_article_articlecategory_articlecategoryid
-FOREIGN KEY (articlecategoryid) REFERENCES cm_articlecategory (articlecategoryid)
+	ADD CONSTRAINT FK_article_contentitem_contentitemid
+		FOREIGN KEY (contentitemid) REFERENCES cuyahoga_contentitem (contentitemid)
 go
-
-ALTER TABLE cm_article
-ADD CONSTRAINT FK_article_section_sectionid
-FOREIGN KEY (sectionid) REFERENCES cuyahoga_section (sectionid)
-go
-
-ALTER TABLE cm_article
-ADD CONSTRAINT FK_article_user_createdby
-FOREIGN KEY (createdby) REFERENCES cuyahoga_user (userid)
-go
-
-ALTER TABLE cm_article
-ADD CONSTRAINT FK_article_user_modifiedby
-FOREIGN KEY (modifiedby) REFERENCES cuyahoga_user (userid)
-go
-
-
-ALTER TABLE cm_articlecomment
-ADD CONSTRAINT FK_articlecomment_article_articleid
-FOREIGN KEY (articleid) REFERENCES cm_article (articleid)
-go
-
-ALTER TABLE cm_articlecomment
-ADD CONSTRAINT FK_articlecomment_user_userid
-FOREIGN KEY (userid) REFERENCES cuyahoga_user (userid)
-go
-
 
 
 /*
  *  Table data
  */
-SET DATEFORMAT ymd
-
-
 DECLARE @moduletypeid int
 
-INSERT INTO cuyahoga_moduletype ([name], assemblyname, classname, path, editpath, inserttimestamp, updatetimestamp) VALUES ('Articles', 'Cuyahoga.Modules.Articles', 'Cuyahoga.Modules.Articles.ArticleModule', 'Modules/Articles/Articles.ascx', 'Modules/Articles/AdminArticles.aspx', '2004-10-02 14:36:28.324', '2004-10-02 14:36:28.324')
+INSERT INTO cuyahoga_moduletype ([name], assemblyname, classname, path, editpath) 
+VALUES ('Articles', 'Cuyahoga.Modules.Articles', 'Cuyahoga.Modules.Articles.ArticleModule', 'Modules/Articles/Articles.ascx', 'Modules/Articles/AdminArticles.aspx')
 
 SELECT @moduletypeid = Scope_Identity()
 
@@ -107,5 +39,5 @@ VALUES (@moduletypeid, 'articles.articledao', 'Cuyahoga.Modules.Articles.DataAcc
 
 go
 
-INSERT INTO cuyahoga_version (assembly, major, minor, patch) VALUES ('Cuyahoga.Modules.Articles', 1, 5, 2)
+INSERT INTO cuyahoga_version (assembly, major, minor, patch) VALUES ('Cuyahoga.Modules.Articles', 2, 0, 0)
 go
