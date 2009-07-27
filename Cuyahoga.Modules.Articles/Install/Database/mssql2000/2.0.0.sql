@@ -1,20 +1,32 @@
 ﻿-- Migrate Articles to ContentItem
 -- Move categories to cuyahoga_category table
--- MBO, 20090724: we're stuck here.
-INSERT INTO cuyahoga_category(siteid, [position], categoryname, description)
-SELECT siteid, (SELECT MAX([position]) FROM cuyahoga_category WHERE parentcategoryid IS NULL), title, summary
+-- Create a temp table and copy the categories that need to be moved to that table. We need this for proper position generation.
+CREATE TABLE #tempcategory(id int identity(1,1), categoryname nvarchar(100))
+
+DECLARE @currentMaxPosition int
+SELECT @currentMaxPosition = MAX([position]) FROM cuyahoga_category WHERE parentcategoryid IS NULL 
+
+INSERT INTO #tempcategory(categoryname)
+SELECT ac.title
 FROM cm_articlecategory ac
 WHERE NOT EXISTS (SELECT 1 FROM cuyahoga_category cc WHERE cc.categoryname = ac.title)
+
+INSERT INTO cuyahoga_category(siteid, [position], categoryname, description, path)
+SELECT siteid, @currentMaxPosition + tc.id, title, summary, '.' + right('0000' + convert(nvarchar,(@currentMaxPosition + tc.id)), 4)
+FROM cm_articlecategory ac
+	INNER JOIN #tempcategory tc ON tc.categoryname = ac.title
+
+DROP TABLE #tempcategory
 go
 
--- Add a temporary column to contentitem to store the old statichtmlid's
+-- Add a temporary column to contentitem to store the old articleid's
 ALTER TABLE cuyahoga_contentitem
 	ADD articleid int NULL
 go
 
 -- copy data to contentitem
 INSERT INTO cuyahoga_contentitem(articleid, globalid, workflowstatus, title, description, syndicate, version, createdat, modifiedat, createdby, modifiedby, publishedat, publisheduntil, sectionid)
-SELECT articleid, newid(), 0, title, summary, syndicate, 1, inserttimestamp, updatetimestamp, createdby, modifiedby, dateonline, dateoffline, sectionid)
+SELECT articleid, newid(), 0, title, summary, syndicate, 1, inserttimestamp, updatetimestamp, createdby, modifiedby, dateonline, dateoffline, sectionid
 FROM cm_article
 go
 
@@ -30,7 +42,36 @@ FROM cm_article a, cuyahoga_contentitem ci
 WHERE a.articleid = ci.articleid
 go
 
+-- update references to categories
+INSERT INTO cuyahoga_categorycontentitem(categoryid, contentitemid)
+SELECT cc.categoryid, ci.contentitemid
+FROM cuyahoga_contentitem ci
+	INNER JOIN cm_article a ON a.articleid = ci.articleid
+	INNER JOIN cm_articlecategory ac ON ac.articlecategoryid = a.articlecategoryid
+	INNER JOIN cuyahoga_category cc ON cc.categoryname = ac.title
+go
+	
+-- move the comments
+INSERT INTO cuyahoga_comment(contentitemid, userid, [name], website, commenttext, userip)
+SELECT ci.contentitemid, ac.userid, ac.[name], ac.website, ac.commenttext, ac.userip
+FROM cuyahoga_contentitem ci
+	INNER JOIN cm_articlecomment ac ON ac.articleid = ci.articleid
+go
+
 -- we can now get rid of the temporary column and clean the old cm_article, cm_ariclecategory and cm_articlecomment tables
+
+-- Drop old article comments
+ALTER TABLE cm_articlecomment
+	DROP CONSTRAINT FK_articlecomment_article_articleid
+go
+
+ALTER TABLE cm_articlecomment
+	DROP CONSTRAINT FK_articlecomment_user_userid
+go
+
+DROP TABLE cm_articlecomment
+go
+
 ALTER TABLE cuyahoga_contentitem
 	DROP COLUMN articleid
 go
@@ -107,9 +148,16 @@ go
 ALTER TABLE cm_article
 	DROP COLUMN modifiedby
 go
-
 -- We don't drop the inserttimestamp and updatetimestamp columns because they have defaults and are 
 -- very hard to drop because of their generated names
+
+-- Drop old article categories
+ALTER TABLE cm_articlecategory
+	DROP CONSTRAINT FK_articlecategory_site_siteid
+go
+
+DROP TABLE cm_articlecategory
+go
 
 /*
  * Version
