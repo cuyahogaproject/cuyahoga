@@ -201,6 +201,8 @@
     <Compile Include="Domain\Comment.cs" />
     <Compile Include="Infrastructure\Transactions\WebActivityManager.cs" />
     <Compile Include="Service\Content\AuditContentDecorator.cs" />
+    <Compile Include="Service\Content\ContentItemQuerySettings.cs" />
+    <Compile Include="Service\Content\Enumerations.cs" />
     <Compile Include="Service\CuyahogaContextProvider.cs" />
     <Compile Include="Service\ICuyahogaContextProvider.cs" />
     <Compile Include="Service\Search\SearchDecorator.cs" />
@@ -456,7 +458,7 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Domain\Comment.hbm.xml" />
+    <EmbeddedResource Include="Domain\Comment.hbm.xml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Service\Workflow\" />

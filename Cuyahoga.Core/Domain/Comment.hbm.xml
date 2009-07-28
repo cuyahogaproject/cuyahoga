@@ -8,6 +8,7 @@
 			</generator>
 		</id>
 
+		<property name="CommentDateTime" column="commentdatetime" type="DateTime" not-null="true" />
 		<property name="Name" column="name" type="String" length="100" />
 		<property name="WebSite" column="website" type="String" length="100" />
 		<property name="CommentText" column="commenttext" type="String" length="2000" not-null="true" />

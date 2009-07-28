@@ -1,13 +1,7 @@
 using System;
-using System.Data;
-using System.Configuration;
-using System.Collections;
 using System.Web;
-using System.Web.Security;
-using System.Web.UI;
 using System.Web.UI.WebControls;
-using System.Web.UI.WebControls.WebParts;
-using System.Web.UI.HtmlControls;
+using Cuyahoga.Core.Domain;
 using Cuyahoga.Web.UI;
 using Cuyahoga.Modules.Articles.Domain;
 using Cuyahoga.Web.Util;
@@ -36,7 +30,7 @@ namespace Cuyahoga.Modules.Articles.Web
 				{
 					this.pnlArticleInfo.Visible = true;
 
-					this.lblDateOnline.Text = TimeZoneUtil.AdjustDateToUserTimeZone(this._activeArticle.DateOnline, this.Page.User.Identity).ToString();
+					this.lblDateOnline.Text = TimeZoneUtil.AdjustDateToUserTimeZone(this._activeArticle.PublishedAt.Value, this.Page.User.Identity).ToString();
 					this.lblDateOnline.Visible = this._module.ShowDateTime;
 
 					this.litAuthor.Text = base.GetText("PUBLISHED") + " " + base.GetText("BY");
@@ -47,16 +41,9 @@ namespace Cuyahoga.Modules.Articles.Web
 
 					this.litCategory.Text = base.GetText("CATEGORY");
 					this.litCategory.Visible = this._module.ShowCategory;
-					if (this._activeArticle.Category != null)
-					{
-						this.hplCategory.NavigateUrl = UrlHelper.GetUrlFromSection(this.Module.Section) +
-							String.Format("/category/{0}", this._activeArticle.Category.Id);
-						this.hplCategory.Text = this._activeArticle.Category.Title;
-					}
-					else
-					{
-						this.hplCategory.Text = String.Empty;
-					}
+					
+					// TODO: categories
+					this.hplCategory.Text = String.Empty;
 					this.hplCategory.Visible = this._module.ShowCategory;
 
 					if (this._module.AllowComments)
@@ -75,7 +62,7 @@ namespace Cuyahoga.Modules.Articles.Web
 					this.pnlArticleInfo.Visible = false;
 				}
 
-				this.hplBack.NavigateUrl = UrlHelper.GetUrlFromSection(this._module.Section);
+				this.hplBack.NavigateUrl = UrlUtil.GetUrlFromSection(this._module.Section);
 				this.hplBack.Text = base.GetText("BACK");
 				this.btnSaveComment.Text = base.GetText("BTNSAVECOMMENT");
 				this.rfvName.ErrorMessage = base.GetText("NAMEREQUIRED");
@@ -109,7 +96,7 @@ namespace Cuyahoga.Modules.Articles.Web
 				commentText = commentText.Replace("\r", "<br/>");
 				// Save comment.
 				Comment comment = new Comment();
-				comment.Article = this._activeArticle;
+				comment.ContentItem = this._activeArticle;
 				comment.CommentText = commentText;
 				comment.UserIp = HttpContext.Current.Request.UserHostAddress;
 				if (this.Page.User.Identity.IsAuthenticated)
@@ -119,14 +106,14 @@ namespace Cuyahoga.Modules.Articles.Web
 				else
 				{
 					comment.Name = this.txtName.Text;
-					comment.Website = this.txtWebsite.Text;
+					comment.WebSite = this.txtWebsite.Text;
 				}
 				try
 				{
 					this._module.SaveComment(comment);
 					// Clear the cache, so the comment will appear immediately.
 					base.InvalidateCache();
-					Context.Response.Redirect(UrlHelper.GetUrlFromSection(this._module.Section) + "/" + this._activeArticle.Id.ToString());
+					Context.Response.Redirect(UrlUtil.GetUrlFromSection(this._module.Section) + "/" + this._activeArticle.Id.ToString());
 				}
 				catch (Exception ex)
 				{
@@ -142,13 +129,13 @@ namespace Cuyahoga.Modules.Articles.Web
 			if (plhCommentBy != null)
 			{
 				Comment comment = (Comment)e.Item.DataItem;
-				Literal litUpdateTimestamp = e.Item.FindControl("litUpdateTimestamp") as Literal;
-				litUpdateTimestamp.Text = TimeZoneUtil.AdjustDateToUserTimeZone(comment.UpdateTimestamp, this.Page.User.Identity).ToString();
+				Literal litUpdateTimestamp = (Literal)e.Item.FindControl("litUpdateTimestamp");
+				litUpdateTimestamp.Text = TimeZoneUtil.AdjustDateToUserTimeZone(comment.CommentDateTime, this.Page.User.Identity).ToString();
 
 				if (comment.User != null)
 				{
 					// Comment by registered user.
-					if (comment.User.Website != null && comment.User.Website != String.Empty)
+					if (!string.IsNullOrEmpty(comment.User.Website))
 					{
 						HyperLink hpl = new HyperLink();
 						hpl.NavigateUrl = this._module.GetProfileUrl(comment.User.Id);
@@ -165,10 +152,10 @@ namespace Cuyahoga.Modules.Articles.Web
 				else
 				{
 					// Comment by unregistered user.
-					if (comment.Website != null && comment.Website != String.Empty)
+					if (!String.IsNullOrEmpty(comment.WebSite))
 					{
 						HyperLink hpl = new HyperLink();
-						hpl.NavigateUrl = comment.Website;
+						hpl.NavigateUrl = comment.WebSite;
 						hpl.Target = "_blank";
 						hpl.Text = comment.Name;
 						plhCommentBy.Controls.Add(hpl);

@@ -5,7 +5,7 @@
     <ProductVersion>9.0.30729</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{9DCEC808-4FB7-47B1-ACAC-2016762BEE37}</ProjectGuid>
-    <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
+    <ProjectTypeGuids>{603c0e0b-db56-11dc-be95-000d561079b0};{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Cuyahoga.Modules.Articles</RootNamespace>
@@ -78,28 +78,32 @@
     <Reference Include="System.Web.Extensions.Design, Version=3.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35">
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
     </Reference>
+    <Reference Include="System.Web.Mvc, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\lib\System.Web.Mvc.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Web.Routing">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System.Xml" />
     <Reference Include="System.Xml.Linq, Version=3.5.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="DataAccess\ArticleDao.cs" />
-    <Compile Include="DataAccess\IArticleDao.cs" />
-    <Compile Include="Web\AdminArticles.aspx.cs">
-      <DependentUpon>AdminArticles.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
+    <Compile Include="App_GlobalResources\Cuyahoga.Modules.Articles.ArticleResources.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Cuyahoga.Modules.Articles.ArticleResources.resx</DependentUpon>
     </Compile>
-    <Compile Include="Web\AdminArticles.aspx.designer.cs">
-      <DependentUpon>AdminArticles.aspx</DependentUpon>
+    <Compile Include="App_GlobalResources\Cuyahoga.Modules.Articles.ArticleResources.nl.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Cuyahoga.Modules.Articles.ArticleResources.nl.resx</DependentUpon>
     </Compile>
-    <Compile Include="Web\AdminComments.aspx.cs">
-      <DependentUpon>AdminComments.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Web\AdminComments.aspx.designer.cs">
-      <DependentUpon>AdminComments.aspx</DependentUpon>
-    </Compile>
+    <Compile Include="Controllers\ManageArticlesController.cs" />
     <Compile Include="Domain\Article.cs" />
     <Compile Include="ArticleModule.cs" />
     <Compile Include="Web\ArticleDetails.ascx.cs">
@@ -116,30 +120,9 @@
     <Compile Include="Web\Articles.ascx.designer.cs">
       <DependentUpon>Articles.ascx</DependentUpon>
     </Compile>
-    <Compile Include="Domain\Category.cs" />
-    <Compile Include="Domain\Comment.cs" />
-    <Compile Include="Web\EditArticle.aspx.cs">
-      <DependentUpon>EditArticle.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Web\EditArticle.aspx.designer.cs">
-      <DependentUpon>EditArticle.aspx</DependentUpon>
-    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Web\AdminArticles.aspx.resx">
-      <DependentUpon>AdminArticles.aspx.cs</DependentUpon>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Web\AdminComments.aspx.resx">
-      <DependentUpon>AdminComments.aspx.cs</DependentUpon>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Web\EditArticle.aspx.resx">
-      <DependentUpon>EditArticle.aspx.cs</DependentUpon>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
     <EmbeddedResource Include="Web\Resources\Strings.es.resx">
       <SubType>Designer</SubType>
     </EmbeddedResource>
@@ -157,32 +140,30 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Web\AdminArticles.aspx">
-      <SubType>Form</SubType>
+    <Content Include="App_GlobalResources\Cuyahoga.Modules.Articles.ArticleResources.resx">
+      <Generator>GlobalResourceProxyGenerator</Generator>
+      <LastGenOutput>Cuyahoga.Modules.Articles.ArticleResources.designer.cs</LastGenOutput>
     </Content>
-    <Content Include="Web\AdminComments.aspx">
-      <SubType>Form</SubType>
+    <Content Include="App_GlobalResources\Cuyahoga.Modules.Articles.ArticleResources.nl.resx">
+      <Generator>GlobalResourceProxyGenerator</Generator>
+      <LastGenOutput>Cuyahoga.Modules.Articles.ArticleResources.nl.designer.cs</LastGenOutput>
     </Content>
     <EmbeddedResource Include="Domain\Article.hbm.xml" />
     <EmbeddedResource Include="Web\Articles.ascx.resx">
       <DependentUpon>Articles.ascx.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
+    <Content Include="Views\ManageArticles\Index.aspx" />
     <Content Include="Web\ArticleDetails.ascx" />
     <Content Include="Web\Articles.ascx">
       <SubType>UserControl</SubType>
     </Content>
-    <EmbeddedResource Include="Domain\Category.hbm.xml" />
-    <EmbeddedResource Include="Domain\Comment.hbm.xml" />
     <EmbeddedResource Include="Web\Resources\Strings.de.resx">
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Web\Resources\Strings.sv.resx">
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <Content Include="Web\EditArticle.aspx">
-      <SubType>Form</SubType>
-    </Content>
     <None Include="Cuyahoga.Modules.Articles.build" />
     <None Include="Install\Database\mssql2000\1.5.1.sql" />
     <None Include="Install\Database\mssql2000\1.5.2.sql" />
@@ -197,6 +178,7 @@
     <None Include="Install\Database\mysql\install.sql" />
     <None Include="Install\Database\mssql2000\uninstall.sql" />
     <None Include="Install\Database\mssql2000\install.sql" />
+    <Content Include="Views\Web.config" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Cuyahoga.Core\Cuyahoga.Core.csproj">
@@ -206,6 +188,10 @@
     <ProjectReference Include="..\Cuyahoga.ServerControls\Cuyahoga.ServerControls.csproj">
       <Project>{C64DAA00-AAB1-4AC7-ADE2-119B53B9666A}</Project>
       <Name>Cuyahoga.ServerControls</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Cuyahoga.Web.Mvc\Cuyahoga.Web.Mvc.csproj">
+      <Project>{216D2C63-CD7A-4601-ABB2-A2C9C461F7FD}</Project>
+      <Name>Cuyahoga.Web.Mvc</Name>
     </ProjectReference>
     <ProjectReference Include="..\Cuyahoga.Web\Cuyahoga.Web.csproj">
       <Project>{DD158F08-6E8F-4234-B3F6-A5402C8E34CC}</Project>
@@ -242,7 +228,10 @@
   </ProjectExtensions>
   <PropertyGroup>
     <PostBuildEvent>xcopy /s /y "$(ProjectDir)"Web\*.as?x "$(SolutionDir)"Cuyahoga.Web\Modules\Articles\
+xcopy /s /y "$(ProjectDir)"Views\*.as?x "$(SolutionDir)"Cuyahoga.Web\Modules\Articles\Views\
+xcopy /s /y "$(ProjectDir)"Views\*.config "$(SolutionDir)"Cuyahoga.Web\Modules\Articles\Views\
 xcopy /s /y "$(ProjectDir)"Install\Database\*.sql "$(SolutionDir)"Cuyahoga.Web\Modules\Articles\Install\Database\
+xcopy /s /y "$(ProjectDir)"App_GlobalResources\*.resx "$(SolutionDir)"Cuyahoga.Web\App_GlobalResources\
 xcopy /s /y "$(TargetDir)"Cuyahoga.Modules.Articles*.dll "$(SolutionDir)"Cuyahoga.Web\bin\</PostBuildEvent>
   </PropertyGroup>
 </Project>

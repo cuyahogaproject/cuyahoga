@@ -1,60 +1,16 @@
 using System;
-using System.Collections;
-
+using System.Collections.Generic;
 using Cuyahoga.Core.Domain;
+using Cuyahoga.Core.Service.Search;
 
 namespace Cuyahoga.Modules.Articles.Domain
 {
 	/// <summary>
 	/// Summary description for Article.
 	/// </summary>
-	public class Article
+	public class Article : ContentItem, ISearchableContent
 	{
-		private int _id;
-		private int _createdById;
-		private int _modifiedById;
-		private string _title;
-		private string _summary;
 		private string _content;
-		private bool _syndicate;
-		private DateTime _dateOnline;
-		private DateTime _dateOffline;
-		private DateTime _dateCreated;
-		private DateTime _dateModified;
-		private Section _section;
-		private Cuyahoga.Core.Domain.User _createdBy;
-		private Cuyahoga.Core.Domain.User _modifiedBy;
-		private Category _category;
-		private IList _comments;
-
-		#region properties
-
-		/// <summary>
-		/// Property Id (int)
-		/// </summary>
-		public virtual int Id
-		{
-			get { return this._id; }
-			set { this._id = value; }
-		}
-
-		/// <summary>
-		/// Property Title (string)
-		/// </summary>
-		public virtual string Title
-		{
-			get { return this._title; }
-			set { this._title = value; }
-		}
-
-		/// <summary>
-		/// Property Summary (string)
-		/// </summary>
-		public virtual string Summary
-		{
-			get { return this._summary; }
-			set { this._summary = value; }
-		}
 
 		/// <summary>
 		/// Property Content (string)
@@ -66,131 +22,21 @@ namespace Cuyahoga.Modules.Articles.Domain
 		}
 
 		/// <summary>
-		/// Property DateOnline (DateTime)
+		/// Get the full contents of this ContentItem for indexing
 		/// </summary>
-		public virtual DateTime DateOnline
+		/// <returns></returns>
+		public virtual string ToSearchContent()
 		{
-			get { return this._dateOnline; }
-			set { this._dateOnline = value; }
+			throw new NotImplementedException();
 		}
 
 		/// <summary>
-		/// Property DateOffline (DateTime)
+		/// Get a list of <see cref="CustomSearchField"/>s, if any
 		/// </summary>
-		public virtual DateTime DateOffline
+		/// <returns></returns>
+		public virtual IList<CustomSearchField> GetCustomSearchFields()
 		{
-			get { return this._dateOffline; }
-			set { this._dateOffline = value; }
+			return new List<CustomSearchField>();
 		}
-
-		/// <summary>
-		/// Property DateCreated (DateTime)
-		/// </summary>
-		public virtual DateTime DateCreated
-		{
-			get { return this._dateCreated; }
-			set { this._dateCreated = value; }
-		}
-
-		/// <summary>
-		/// Property DateModified (DateTime)
-		/// </summary>
-		public virtual DateTime DateModified
-		{
-			get { return this._dateModified; }
-			set { this._dateModified = value; }
-		}
-		/// <summary>
-		/// Property Syndicate (bool)
-		/// </summary>
-		public virtual bool Syndicate
-		{
-			get { return this._syndicate; }
-			set { this._syndicate = value; }
-		}
-
-		/// <summary>
-		/// Property Section (Section)
-		/// </summary>
-		public virtual Section Section
-		{
-			get { return this._section; }
-			set { this._section = value; }
-		}
-
-		/// <summary>
-		/// Property CreatedBy (User)
-		/// </summary>
-		public virtual Cuyahoga.Core.Domain.User CreatedBy
-		{
-			get { return this._createdBy; }
-			set { this._createdBy = value; }
-		}
-
-		/// <summary>
-		/// Property CreatedById (int)
-		/// </summary>
-		public virtual int CreatedById
-		{
-			get { return this._createdById; }
-			set { this._createdById = value; }
-		}
-
-		/// <summary>
-		/// Property ModifiedBy (User)
-		/// </summary>
-		public virtual Cuyahoga.Core.Domain.User ModifiedBy
-		{
-			get { return this._modifiedBy; }
-			set { this._modifiedBy = value; }
-		}
-
-		/// <summary>
-		/// Property ModifiedById (int)
-		/// </summary>
-		public virtual int ModifiedById
-		{
-			get { return this._modifiedById; }
-			set { this._modifiedById = value; }
-		}
-
-		/// <summary>
-		/// Property Category (Category)
-		/// </summary>
-		public virtual Category Category
-		{
-			get { return this._category; }
-			set { this._category = value; }
-		}
-
-		/// <summary>
-		/// Property Comments (IList)
-		/// </summary>
-		public virtual IList Comments
-		{
-			get { return this._comments; }
-			set { this._comments = value; }
-		}
-
-		#endregion
-
-		#region constructors
-
-		/// <summary>
-		/// Default constructor.
-		/// </summary>
-		public Article()
-		{
-			this._id = -1;
-			this._createdById = -1;
-			this._modifiedById = -1;
-			this._syndicate = true;
-			this._dateOnline = DateTime.MinValue;
-			this._dateOffline = DateTime.MinValue;
-			this._dateCreated = DateTime.Now;
-			this._comments = new ArrayList();
-		}
-
-		#endregion
 	}
 }

@@ -1,4 +1,6 @@
-﻿namespace Cuyahoga.Core.Domain
+﻿using System;
+
+namespace Cuyahoga.Core.Domain
 {
 	/// <summary>
 	/// Represents a comment.
@@ -9,6 +11,11 @@
 		/// Identifier.
 		/// </summary>
 		public virtual int Id { get; set; }
+
+		/// <summary>
+		/// The Date and time when the comment was placed.
+		/// </summary>
+		public virtual DateTime CommentDateTime { get; set; }
 
 		/// <summary>
 		/// The name of the commenter.

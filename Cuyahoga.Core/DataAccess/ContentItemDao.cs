@@ -13,8 +13,8 @@ namespace Cuyahoga.Core.DataAccess
 	[Transactional]
 	public class ContentItemDao<T> : IContentItemDao<T> where T : IContentItem
 	{
-		protected Type persistentType = typeof(T);
-		protected ISessionManager sessionManager;
+		protected readonly ISessionManager SessionManager;
+		protected readonly Type PersistentType = typeof(T);
 
 		/// <summary>
 		/// Constructor
@@ -22,15 +22,15 @@ namespace Cuyahoga.Core.DataAccess
 		/// <param name="sessionManager"></param>
 		public ContentItemDao(ISessionManager sessionManager)
 		{
-			this.sessionManager = sessionManager;
+			this.SessionManager = sessionManager;
 		}
 
 		/// <summary>
-		/// Returns a newly created session from the ISessionManager
+		/// Returns the session from the ISessionManager
 		/// </summary>
-		protected ISession GetNewSession()
+		protected ISession GetSession()
 		{
-			return this.sessionManager.OpenSession();
+			return this.SessionManager.OpenSession();
 		}
 
 		/// <summary>
@@ -38,7 +38,7 @@ namespace Cuyahoga.Core.DataAccess
 		/// </summary>
 		public T GetById(long id)
 		{
-			return (T)this.GetNewSession().Load(persistentType, id);
+			return this.GetSession().Load<T>(id);
 		}
 
 		/// <summary>
@@ -46,7 +46,7 @@ namespace Cuyahoga.Core.DataAccess
 		/// </summary>
 		public T GetById(Guid id)
 		{
-			return (T)this.GetNewSession().Load(persistentType, id);
+			return this.GetSession().Load<T>(id);
 		}
 
 		/// <summary>
@@ -54,23 +54,22 @@ namespace Cuyahoga.Core.DataAccess
 		/// </summary>
 		public IList<T> GetAll()
 		{
-			ICriteria criteria = this.GetNewSession().CreateCriteria(persistentType);
+			ICriteria criteria = this.GetSession().CreateCriteria(PersistentType);
 			return criteria.List<T>();
 		}
 
 		public IList<T> GetBySite(Site site)
     	{
-			ICriteria criteria = this.GetNewSession().CreateCriteria(persistentType)
+			ICriteria criteria = this.GetSession().CreateCriteria(PersistentType)
 				.CreateCriteria("Section", "s")
 					.Add(Expression.Eq("Site", site));
 			return criteria.List<T>();
     	}
 
-		public IList<T> GetByProperty(string propertyName, object propertyValue)
+		public IList<T> GetByCriteria(DetachedCriteria detachedCriteria)
 		{
-			ICriteria crit = this.GetNewSession().CreateCriteria(persistentType);
-			crit.Add(Expression.Eq(propertyName, propertyValue));
-			return crit.List<T>();
+			ICriteria criteria = detachedCriteria.GetExecutableCriteria(GetSession());
+			return criteria.List<T>();
 		}
 
 		/// <summary>
@@ -81,14 +80,14 @@ namespace Cuyahoga.Core.DataAccess
 		[Transaction(TransactionMode.Requires)]
 		public T Save(T entity)
 		{
-			this.GetNewSession().SaveOrUpdate(entity);
+			this.GetSession().SaveOrUpdate(entity);
 			return entity;
 		}
 
 		[Transaction(TransactionMode.Requires)]
 		public void Delete(T entity)
 		{
-			this.GetNewSession().Delete(entity);
+			this.GetSession().Delete(entity);
 		}
 
 

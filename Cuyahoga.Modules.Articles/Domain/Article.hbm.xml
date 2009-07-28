@@ -1,28 +1,9 @@
 <?xml version="1.0" encoding="utf-8" ?> 
 <hibernate-mapping xmlns="urn:nhibernate-mapping-2.2">
-	<class name="Cuyahoga.Modules.Articles.Domain.Article, Cuyahoga.Modules.Articles" table="cm_article">
-		<id name="Id" column="articleid" type="Int32" unsaved-value="-1">
-			<generator class="native">
-				<param name="sequence">cm_article_articleid_seq</param>
-			</generator>
-		</id>
-		<timestamp name="DateModified" column="updatetimestamp" />
-		<property name="Title" column="title" type="String" length="100" />
-		<property name="Summary" column="summary" type="String" length="255" />
+	<joined-subclass name="Cuyahoga.Modules.Articles.Domain.Article, Cuyahoga.Modules.Articles"
+					 extends="Cuyahoga.Core.Domain.ContentItem, Cuyahoga.Core"
+					 table="cm_article">
+		<key column="contentitemid" />
 		<property name="Content" column="content" type="StringClob" />
-		<property name="DateOnline" column="dateonline" type="DateTime" />
-		<property name="DateOffline" column="dateoffline" type="DateTime" />
-		<property name="DateCreated" column="inserttimestamp" type="DateTime" />
-		<property name="Syndicate" column="syndicate" type="Boolean" />
-
-		<many-to-one name="Section" class="Cuyahoga.Core.Domain.Section, Cuyahoga.Core" column="sectionid" cascade="none" />
-		<many-to-one name="CreatedBy" class="Cuyahoga.Core.Domain.User, Cuyahoga.Core" column="createdby" cascade="none" />
-		<many-to-one name="ModifiedBy" class="Cuyahoga.Core.Domain.User, Cuyahoga.Core" column="modifiedby" cascade="none" />
-		<many-to-one name="Category" class="Cuyahoga.Modules.Articles.Domain.Category, Cuyahoga.Modules.Articles" column="articlecategoryid" outer-join="true" cascade="none" />
-
-		<bag name="Comments" cascade="all-delete-orphan" lazy="true" order-by="updatetimestamp" inverse="true">
-			<key column="articleid" />
-			<one-to-many class="Cuyahoga.Modules.Articles.Domain.Comment, Cuyahoga.Modules.Articles" /> 
-		</bag>
-	</class>
+	</joined-subclass>
 </hibernate-mapping>

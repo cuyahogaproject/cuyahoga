@@ -1,27 +1,20 @@
+using System.Collections.Generic;
+using System;
+using System.Web.UI.WebControls;
+using Cuyahoga.Core.Util;
+using Cuyahoga.Web.UI;
+using Cuyahoga.Web.Util;
+using Cuyahoga.Modules.Articles.Domain;
+
 namespace Cuyahoga.Modules.Articles.Web
 {
-	using System;
-	using System.Collections;
-	using System.Drawing;
-	using System.Web;
-	using System.Web.UI.WebControls;
-	using System.Web.UI.HtmlControls;
-	using System.Text.RegularExpressions;
-
-	using Cuyahoga.Core.Util;
-	using Cuyahoga.Core.Domain;
-	using Cuyahoga.Web.UI;
-	using Cuyahoga.Web.Util;
-	using Cuyahoga.Modules.Articles;
-	using Cuyahoga.Modules.Articles.Domain;
-
 	/// <summary>
 	///		Summary description for Articles.
 	/// </summary>
 	public partial class Articles : BaseModuleControl
 	{
 		private ArticleModule _module;
-		private IList _articleList;
+		private IList<Article> _articleList;
 
 		protected void Page_Load(object sender, System.EventArgs e)
 		{
@@ -30,7 +23,7 @@ namespace Cuyahoga.Modules.Articles.Web
 			// We need to set the url where the pager needs to send the user to because otherwise
 			// The pager would add pathinfo parameters to the node url, which are not parsed 
 			// (instead of the section url).
-			this.pgrArticles.PageUrl = UrlHelper.GetUrlFromSection(this._module.Section);
+			this.pgrArticles.PageUrl = UrlUtil.GetUrlFromSection(this._module.Section);
 
 			// Don't display the syndication icon on the article view
 			base.DisplaySyndicationIcon = this._module.AllowSyndication && this._module.CurrentArticleId == -1;
@@ -62,12 +55,12 @@ namespace Cuyahoga.Modules.Articles.Web
 			{
 				if (this._module.IsArchive)
 				{
-					this.hplToggleArchive.NavigateUrl = UrlHelper.GetUrlFromSection(this._module.Section);
+					this.hplToggleArchive.NavigateUrl = UrlUtil.GetUrlFromSection(this._module.Section);
 					this.hplToggleArchive.Text = base.GetText("CURRENT");
 				}
 				else
 				{
-					this.hplToggleArchive.NavigateUrl = UrlHelper.GetUrlFromSection(this._module.Section) + "/archive";
+					this.hplToggleArchive.NavigateUrl = UrlUtil.GetUrlFromSection(this._module.Section) + "/archive";
 					this.hplToggleArchive.Text = base.GetText("ARCHIVE");
 				}
 				this.hplToggleArchive.Visible = true;
@@ -82,7 +75,7 @@ namespace Cuyahoga.Modules.Articles.Web
 		{
 			if (this._module.CurrentAction == ArticleModuleAction.Category)
 			{
-				this._module.DisplayTitle = String.Format("{0} {1}", GetText("CATEGORY"), this._module.GetCategoryById(this._module.CurrentCategoryId).Title);
+				this._module.DisplayTitle = String.Format("{0} {1}", GetText("CATEGORY"), this._module.GetCategoryById(this._module.CurrentCategoryId).Name);
 			}
 
 			if (this._module.IsArchive)
@@ -126,7 +119,7 @@ namespace Cuyahoga.Modules.Articles.Web
 					pnlArticleInfo.Visible = true;
 
 					Label lblDateOnline = e.Item.FindControl("lblDateOnline") as Label;
-					lblDateOnline.Text = TimeZoneUtil.AdjustDateToUserTimeZone(article.DateOnline, this.Page.User.Identity).ToString();
+					lblDateOnline.Text = TimeZoneUtil.AdjustDateToUserTimeZone(article.PublishedAt.Value, this.Page.User.Identity).ToString();
 					lblDateOnline.Visible = this._module.ShowDateTime;
 
 					Literal litAuthor = e.Item.FindControl("litAuthor") as Literal;
@@ -141,16 +134,8 @@ namespace Cuyahoga.Modules.Articles.Web
 					litCategory.Text = base.GetText("CATEGORY");
 					litCategory.Visible = this._module.ShowCategory;
 					HyperLink hplCategory = e.Item.FindControl("hplCategory") as HyperLink;
-					if (article.Category != null)
-					{
-						hplCategory.NavigateUrl = UrlHelper.GetUrlFromSection(this.Module.Section) +
-							String.Format("/category/{0}", article.Category.Id);
-						hplCategory.Text = article.Category.Title;
-					}
-					else
-					{
-						hplCategory.Text = String.Empty;
-					}
+					// TODO: handle categories
+					hplCategory.Text = String.Empty;
 					hplCategory.Visible = this._module.ShowCategory;
 
 					HyperLink hplComments = e.Item.FindControl("hplComments") as HyperLink;

@@ -32,6 +32,11 @@
 			<many-to-many column="categoryid" class="Cuyahoga.Core.Domain.Category, Cuyahoga.Core" />
 		</bag>
 
+		<bag name="Comments" cascade="all" lazy="true" inverse="true">
+			<key column="contentitemid" />
+			<one-to-many class="Cuyahoga.Core.Domain.Comment, Cuyahoga.Core" />
+		</bag>
+
 		<bag name="ContentItemPermissions" cascade="all" lazy="true" table="cuyahoga_contentitemrole">
 			<key column="contentitemid" />
 			<composite-element class="Cuyahoga.Core.Domain.ContentItemPermission, Cuyahoga.Core">

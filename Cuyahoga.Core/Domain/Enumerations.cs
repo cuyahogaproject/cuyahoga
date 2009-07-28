@@ -107,5 +107,4 @@ namespace Cuyahoga.Core.Domain
         /// </summary>
         Locked
     }
-
 }

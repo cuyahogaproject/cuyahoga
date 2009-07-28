@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using Cuyahoga.Core.Domain;
+using NHibernate.Criterion;
 
 namespace Cuyahoga.Core.DataAccess
 {
@@ -32,14 +33,13 @@ namespace Cuyahoga.Core.DataAccess
 		/// <param name="site"></param>
 		/// <returns></returns>
 		IList<T> GetBySite(Site site);
-		
+
 		/// <summary>
-		/// Gets all content items of T for the given property and property value.
+		/// Gets all content items of T by the given criteria.
 		/// </summary>
-		/// <param name="propertyName"></param>
-		/// <param name="propertyValue"></param>
+		/// <param name="detachedCriteria"></param>
 		/// <returns></returns>
-		IList<T> GetByProperty(string propertyName, object propertyValue);
+		IList<T> GetByCriteria(DetachedCriteria detachedCriteria);
 
 		/// <summary>
 		/// Save a single content item in the database.

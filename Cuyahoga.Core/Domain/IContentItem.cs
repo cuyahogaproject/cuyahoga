@@ -94,6 +94,11 @@ namespace Cuyahoga.Core.Domain
 		/// </summary>
 		IList<Category> Categories {get; set;}
 
+		/// <summary>
+		/// Comments
+		/// </summary>
+		IList<Comment> Comments { get; set; }
+
         /// <summary>
         /// Defines view and edit roles
         /// </summary>

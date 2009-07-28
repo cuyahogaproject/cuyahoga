@@ -52,8 +52,8 @@ FROM cuyahoga_contentitem ci
 go
 	
 -- move the comments
-INSERT INTO cuyahoga_comment(contentitemid, userid, [name], website, commenttext, userip)
-SELECT ci.contentitemid, ac.userid, ac.[name], ac.website, ac.commenttext, ac.userip
+INSERT INTO cuyahoga_comment(contentitemid, userid, commentdatetime, [name], website, commenttext, userip)
+SELECT ci.contentitemid, ac.userid, ac.updatetimestamp, ac.[name], ac.website, ac.commenttext, ac.userip
 FROM cuyahoga_contentitem ci
 	INNER JOIN cm_articlecomment ac ON ac.articleid = ci.articleid
 go
@@ -157,6 +157,17 @@ ALTER TABLE cm_articlecategory
 go
 
 DROP TABLE cm_articlecategory
+go
+
+-- Remove IArticelDao from moduleservice table
+DELETE FROM cuyahoga_moduleservice
+WHERE servicekey = 'articles.articledao';
+go
+
+-- Change module admin url
+UPDATE cuyahoga_moduletype
+SET editpath = 'Modules/Articles/ManageArticles'
+WHERE [name] = 'Articles'
 go
 
 /*

@@ -1,19 +1,16 @@
 using System;
-using System.Collections;
+using System.Collections.Generic;
 using System.Text.RegularExpressions;
-
+using System.Web.Routing;
+using System.Web.Mvc;
 using Cuyahoga.Core;
 using Cuyahoga.Core.Domain;
-using Cuyahoga.Core.Service;
-using Cuyahoga.Core.Search;
+using Cuyahoga.Core.Service.Content;
 using Cuyahoga.Core.Util;
 using Cuyahoga.Core.Communication;
 using Cuyahoga.Modules.Articles.Domain;
-
-using ArticleCategory = Cuyahoga.Modules.Articles.Domain.Category;
-using Comment = Cuyahoga.Modules.Articles.Domain.Comment;
-using Cuyahoga.Web.Util;
-using Cuyahoga.Modules.Articles.DataAccess;
+using Cuyahoga.Web.Mvc;
+using Cuyahoga.Web.Mvc.Areas;
 using Cuyahoga.Core.DataAccess;
 using Castle.Services.Transaction;
 
@@ -23,10 +20,11 @@ namespace Cuyahoga.Modules.Articles
 	/// The ArticleModule provides a news system (articles, comments, content expiration, rss feed).
 	/// </summary>
 	[Transactional]
-	public class ArticleModule : ModuleBase, ISyndicatable, ISearchable, IActionProvider, INHibernateModule
+	public class ArticleModule : ModuleBase, IActionProvider, INHibernateModule, IMvcModule
 	{
-		private ICommonDao _commonDao;
-		private IArticleDao _articleDao;
+		private readonly ICommonDao _commonDao;
+		private readonly IContentItemService<Article> _contentItemService;
+		private readonly ICategoryService _categoryService;
 
 		private int _currentArticleId;
 		private int _currentCategoryId;
@@ -147,14 +145,17 @@ namespace Cuyahoga.Modules.Articles
 		/// <summary>
 		/// Default constructor.
 		/// </summary>
-		public ArticleModule(ICommonDao commonDao, IArticleDao articleDao)
+		public ArticleModule(ICommonDao commonDao, IContentItemService<Article> contentItemService, ICategoryService categoryService)
 		{
 			this._commonDao = commonDao;
-			this._articleDao = articleDao;
+			this._contentItemService = contentItemService;
+			this._categoryService = categoryService;
 			this._currentArticleId = -1;
 			this._currentCategoryId = -1;
 			this._currentAction = ArticleModuleAction.List;
 		}
+
+		#region ModuleBase overrides
 
 		public override void ReadSectionSettings()
 		{
@@ -187,7 +188,7 @@ namespace Cuyahoga.Modules.Articles
 		/// </summary>
 		public override void DeleteModuleContent()
 		{
-			if (this.GetAllArticles().Count > 0)
+			if (this._contentItemService.FindContentItemsBySection(base.Section).Count > 0)
 			{
 				throw new ActionForbiddenException("You have to manually delete the related Articles before you can delete the Section.");
 			}
@@ -250,161 +251,39 @@ namespace Cuyahoga.Modules.Articles
 			}
 		}
 
-		#region Data Access
+		#endregion
 
-		/// <summary>
-		/// Get the available categories for the current site (via Article -> Section -> Node -> Site). 
-		/// </summary>
-		/// <returns></returns>
-		public IList GetAvailableCategories()
-		{
-			return this._articleDao.GetAvailableCategoriesBySite(base.Section.Node.Site);
-		}
-
-		/// <summary>
-		/// 
-		/// </summary>
-		/// <param name="categoryId"></param>
-		/// <returns></returns>
-		public ArticleCategory GetCategoryById(int categoryId)
-		{
-			return (ArticleCategory)this._commonDao.GetObjectById(typeof(ArticleCategory), categoryId);
-		}
-
-		/// <summary>
-		/// 
-		/// </summary>
-		/// <returns></returns>
-		public IList GetAllArticles()
-		{
-			return this._articleDao.GetAllArticlesBySection(base.Section, this._sortBy, this._sortDirection);
-		}
+		#region DataAccess for WebForms controls
 
 		/// <summary>
 		/// Get this list of articles
 		/// </summary>
 		/// <returns></returns>
-		public IList GetArticleList()
+		public IList<Article> GetArticleList()
 		{
 			switch (this._currentAction)
 			{
 				case ArticleModuleAction.List:
-					return this._articleDao.GetDisplayArticlesBySection(base.Section, this._sortBy, this._sortDirection);
+					return this._contentItemService.FindVisibleContentItemsBySection(base.Section, CreateQuerySettingsForModule());
 				case ArticleModuleAction.Category:
-					return this._articleDao.GetDisplayArticlesByCategory((ArticleCategory)this._commonDao.GetObjectById(typeof(ArticleCategory)
-						, this._currentCategoryId), this._sortBy, this._sortDirection);
+					return this._contentItemService.FindVisibleContentItemsByCategory(
+						this._commonDao.GetObjectById<Category>(this._currentCategoryId), CreateQuerySettingsForModule());
 				case ArticleModuleAction.Archive:
-					return this._articleDao.GetArchivedArticlesBySection(base.Section, this._sortBy, this._sortDirection);
+					return this._contentItemService.FindArchivedContentItemsBySection(base.Section, CreateQuerySettingsForModule());
 				default:
 					return null;
 			}
 		}
 
 		/// <summary>
-		/// 
-		/// </summary>
-		/// <returns></returns>
-		public IList GetRssArticlesByCategory()
-		{
-			return this._articleDao.GetRssArticlesByCategory((ArticleCategory)this._commonDao.GetObjectById(typeof(ArticleCategory), this._currentCategoryId)
-				, this._sortBy, this._sortDirection);
-		}
-
-		/// <summary>
-		/// 
-		/// </summary>
-		/// <param name="number"></param>
-		/// <returns></returns>
-		public IList GetRssArticles(int number)
-		{
-			return this._articleDao.GetRssArticles(base.Section, this._numberOfArticlesInList, this._sortBy, this._sortDirection);
-		}
-
-		/// <summary>
-		/// 
+		/// Gets a single article by Id.
 		/// </summary>
 		/// <param name="id"></param>
 		/// <returns></returns>
 		public Article GetArticleById(int id)
 		{
-			return (Article)this._commonDao.GetObjectById(typeof(Article), id);
+			return this._commonDao.GetObjectById<Article>(id);
 		}
-
-		/// <summary>
-		/// 
-		/// </summary>
-		/// <param name="article"></param>
-		[Transaction(TransactionMode.RequiresNew)]
-		public virtual void SaveArticle(Article article)
-		{			
-			article.Category = HandleCategory(article.Category);
-			if (article.Id == -1)
-			{
-				this._commonDao.SaveOrUpdateObject(article);
-				OnContentCreated(new IndexEventArgs(ArticleToSearchContent(article)));
-			}
-			else
-			{
-				this._commonDao.SaveOrUpdateObject(article);
-				OnContentUpdated(new IndexEventArgs(ArticleToSearchContent(article)));
-			}
-		}
-
-		/// <summary>
-		/// 
-		/// </summary>
-		/// <param name="article"></param>
-		[Transaction(TransactionMode.RequiresNew)]
-		public virtual void DeleteArticle(Article article)
-		{
-			this._commonDao.DeleteObject(article);
-			OnContentDeleted(new IndexEventArgs(ArticleToSearchContent(article)));
-		}
-
-		/// <summary>
-		/// 
-		/// </summary>
-		/// <param name="comment"></param>
-		[Transaction(TransactionMode.RequiresNew)]
-		public virtual void SaveComment(Comment comment)
-		{
-			this._commonDao.SaveOrUpdateObject(comment);
-		}
-
-		/// <summary>
-		/// 
-		/// </summary>
-		/// <param name="comment"></param>
-		[Transaction(TransactionMode.RequiresNew)]
-		public virtual void DeleteComment(Comment comment)
-		{
-			this._commonDao.DeleteObject(comment);
-		}
-
-		private ArticleCategory HandleCategory(ArticleCategory category)
-		{
-			if (category != null && category.Id == -1)
-			{
-				// Unknown category, this could be a new one or maybe still an existing one.
-				ArticleCategory cat = this._articleDao.FindCategoryByTitleAndSite(category.Title, base.Section.Node.Site);
-				
-
-				if (cat != null)
-				{
-					// Category already exists.
-					category = cat;
-				}
-				else
-				{
-					// Insert the new one, so the Id will be generated and retrieved.
-					category.Site = base.Section.Node.Site;
-					this._commonDao.SaveOrUpdateObject(category);
-				}
-			}
-			return category;
-		}
-
-		#endregion
 
 		/// <summary>
 		/// Get the url of a user profile. This only works if this module is connected to a UserProfile module.
@@ -416,150 +295,26 @@ namespace Cuyahoga.Modules.Articles
 			Section sectionTo = this.Section.Connections["ViewProfile"] as Section;
 			if (sectionTo != null)
 			{
-				return UrlHelper.GetUrlFromSection(sectionTo) + "/ViewProfile/" + userId.ToString();
+				return String.Format("{0}/ViewProfile/{1}", UrlUtil.GetUrlFromSection(sectionTo), userId);
 			}
-			else
-			{
-				return null;
-			}
+			return null;
 		}
 
-		private SearchContent ArticleToSearchContent(Article article)
-		{
-			SearchContent sc = new SearchContent();
-			sc.Title = article.Title;
-			if (article.Summary == null || article.Summary == String.Empty)
-			{
-				sc.Summary = Text.TruncateText(article.Content, 200); // truncate summary to 200 chars
-			}
-			else
-			{
-				sc.Summary = article.Summary;
-			}
-			sc.Contents = article.Content;
-			sc.Author = article.ModifiedBy.FullName;
-			sc.ModuleType = this.Section.ModuleType.Name;
-			sc.Path = this.SectionUrl + "/" + article.Id; // article ID has to be added as pathinfo parameter.
-			sc.Category = (article.Category != null ? article.Category.Title : sc.Category = String.Empty);
-			sc.Site = (this.Section.Node != null ? this.Section.Node.Site.Name : String.Empty);
-			sc.DateCreated = article.DateCreated;
-			sc.DateModified = article.DateModified;
-			sc.SectionId = this.Section.Id;
 
-			return sc;
+		public void SaveComment(Comment comment)
+		{
+			throw new NotImplementedException();
 		}
 
-		#region ISyndicatable Members
-
-		public RssChannel GetRssFeed()
+		public Category GetCategoryById(int categoryId)
 		{
-			RssChannel channel = new RssChannel();
-			channel.Title = this.Section.Title;
-			// channel.Link = "" (can't determine link here because the ArticleModule has no notion of any URL context).
-			channel.Description = this.Section.Title; // TODO: Section needs a description.
-			channel.Language = this.Section.Node.Culture;
-			channel.PubDate = DateTime.Now;
-			channel.LastBuildDate = DateTime.Now;
-			IList articles = null;
-			// We can have an rss feed for the normal article list but also for the category view.
-			if (base.ModulePathInfo.ToLower().IndexOf("category") > 0)
-			{
-				string expression = @"^\/category\/(\d+)";
-				Regex categoryRegex = new Regex(expression, RegexOptions.Singleline|RegexOptions.CultureInvariant|RegexOptions.Compiled);
-				if (categoryRegex.IsMatch(base.ModulePathInfo))
-				{
-					this._currentCategoryId = Int32.Parse(categoryRegex.Match(base.ModulePathInfo).Groups[1].Value);
-					articles = GetRssArticlesByCategory();
-					// We still need the category for the title.
-					ArticleCategory category = (ArticleCategory)base.NHSession.Load(typeof(ArticleCategory), this._currentCategoryId);
-					channel.Title += String.Format(" ({0}) ", category.Title);
-				}
-			}
-			else
-			{
-				int maxNumberOfItems = Int32.Parse(this.Section.Settings["NUMBER_OF_ARTICLES_IN_LIST"].ToString());
-				articles = GetRssArticles(maxNumberOfItems);
-			}
-			
-			DisplayType displayType = (DisplayType)Enum.Parse(typeof(DisplayType), this.Section.Settings["DISPLAY_TYPE"].ToString());
-			foreach (Article article in articles)
-			{
-				RssItem item = new RssItem();
-				item.ItemId = article.Id;
-				item.Title = article.Title;
-				// item.Link = "" (can't determine link here)
-				if (displayType == DisplayType.FullContent)
-				{
-					item.Description = article.Content;
-				}
-				else
-				{
-					item.Description = article.Summary;
-				}
-				item.Author = article.ModifiedBy.FullName;
-				if (article.Category != null)
-				{
-					item.Category = article.Category.Title;
-				}
-				else
-				{
-					item.Category = String.Empty;
-				}
-				item.PubDate = article.DateOnline;
-				channel.RssItems.Add(item);
-			}
-			return channel;
-		}
-
-		#endregion
-
-		#region ISearchable Members
-
-		public SearchContent[] GetAllSearchableContent()
-		{
-			ArrayList searchableContent = new ArrayList();
-			IList articles = GetAllArticles();
-			foreach (Article article in articles)
-			{
-				searchableContent.Add(ArticleToSearchContent(article));
-			}
-			return (SearchContent[])searchableContent.ToArray(typeof(SearchContent));
-		}
-
-		public event Cuyahoga.Core.Search.IndexEventHandler ContentCreated;
-
-		protected void OnContentCreated(IndexEventArgs e)
-		{
-			if (ContentCreated != null)
-			{
-				ContentCreated(this, e);
-			}
-		}
-
-		public event Cuyahoga.Core.Search.IndexEventHandler ContentDeleted;
-
-		protected void OnContentDeleted(IndexEventArgs e)
-		{
-			if (ContentDeleted != null)
-			{
-				ContentDeleted(this, e);
-			}
-		}
-
-		public event Cuyahoga.Core.Search.IndexEventHandler ContentUpdated;
-
-		protected void OnContentUpdated(IndexEventArgs e)
-		{
-			if (ContentUpdated != null)
-			{
-				ContentUpdated(this, e);
-			}
+			return this._categoryService.GetCategoryById(categoryId);
 		}
 
 		#endregion
 
 		#region IActionProvider Members
-		
+
 		/// <summary>
 		/// Returns a list of outbound actions.
 		/// </summary>
@@ -576,6 +331,53 @@ namespace Cuyahoga.Modules.Articles
 
 		#endregion
 
+		#region IMvcModule members
+
+		public void RegisterRoutes(RouteCollection routes)
+		{
+			routes.CreateArea("Modules/Articles", "Cuyahoga.Modules.Articles.Controllers",
+				routes.MapRoute("ArticlesRoute", "Modules/Articles/{controller}/{action}/{id}", new { action = "Index", controller = "", id = "" })
+			);
+		}
+
+		#endregion
+
+		private ContentItemQuerySettings CreateQuerySettingsForModule()
+		{
+			return CreateQuerySettingsForModule(null, null);
+		}
+
+		private ContentItemQuerySettings CreateQuerySettingsForModule(int? pageSize, int? pageNumber)
+		{
+			// Map sortby and sortdirection to the ones of the content item. We don't use these in the articles module
+			// because we need to convert all module settings for. Maybe sometime in the future.
+			ContentItemSortBy sortBy = ContentItemSortBy.None;
+			switch(this._sortBy)
+			{
+				case SortBy.CreatedBy:
+					sortBy = ContentItemSortBy.CreatedBy;
+					break;
+				case SortBy.DateCreated:
+					sortBy = ContentItemSortBy.CreatedAt;
+					break;
+				case SortBy.DateModified:
+					sortBy = ContentItemSortBy.ModifiedAt;
+					break;
+				case SortBy.DateOnline:
+					sortBy = ContentItemSortBy.PublishedAt;
+					break;
+				case SortBy.ModifiedBy:
+					sortBy = ContentItemSortBy.ModifiedBy;
+					break;
+				case SortBy.Title:
+					sortBy = ContentItemSortBy.Title;
+					break;
+			}
+			ContentItemSortDirection sortDirection = this._sortDirection == SortDirection.ASC
+			                                         	? ContentItemSortDirection.ASC
+			                                         	: ContentItemSortDirection.DESC;
+			return new ContentItemQuerySettings(sortBy, sortDirection, pageSize, pageNumber);
+		}
 	}
 
 	/// <summary>

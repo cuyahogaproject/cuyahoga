@@ -649,7 +649,6 @@ xcopy /s /y "$(ProjectDir)"*.png "$(SolutionDir)"Cuyahoga.Web\Modules
 xcopy /s /y "$(ProjectDir)"*.txt "$(SolutionDir)"Cuyahoga.Web\Modules
 xcopy /s /y "$(ProjectDir)"App_GlobalResources\*.resx "$(SolutionDir)"Cuyahoga.Web\App_GlobalResources
 xcopy /s /y "$(TargetDir)"Cuyahoga.Modules*.dll "$(SolutionDir)"Cuyahoga.Web\bin
-xcopy /s /y "$(TargetDir)"FredCK.FCKeditorV2.dll "$(SolutionDir)"Cuyahoga.Web\bin
 </PostBuildEvent>
   </PropertyGroup>
   <ProjectExtensions>

@@ -14,7 +14,7 @@ namespace Cuyahoga.Core.DataAccess
 	[Transactional]
 	public class CommonDao : ICommonDao
 	{
-		private ISessionManager _sessionManager;
+		private readonly ISessionManager _sessionManager;
 
 		/// <summary>
 		/// Constructor.

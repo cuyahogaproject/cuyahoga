@@ -55,6 +55,7 @@ CREATE TABLE cuyahoga_comment(
 commentid int identity(1,1) NOT NULL CONSTRAINT PK_comment PRIMARY KEY,
 contentitemid bigint NOT NULL,
 userid int NULL,
+commentdatetime datetime NOT NULL,
 [name] nvarchar(100) NULL,
 website nvarchar(100) NULL,
 commenttext nvarchar(2000) NOT NULL,

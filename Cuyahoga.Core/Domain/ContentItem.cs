@@ -183,7 +183,16 @@ namespace Cuyahoga.Core.Domain
 			set { this._categories = value; }
 		}
 
-        /// <summary>
+		/// <summary>
+		/// Comments
+		/// </summary>
+		public virtual IList<Comment> Comments
+		{
+			get { return this._comments; }
+			set { this._comments = value; }
+		}
+
+		/// <summary>
         /// Property ContentItemPermissions (ContentItemPermission)
         /// </summary>
         public virtual IList<ContentItemPermission> ContentItemPermissions

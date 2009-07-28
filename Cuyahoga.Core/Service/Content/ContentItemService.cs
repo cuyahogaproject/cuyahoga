@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Castle.Services.Transaction;
 using Cuyahoga.Core.Domain;
 using Cuyahoga.Core.DataAccess;
+using NHibernate.Criterion;
 
 namespace Cuyahoga.Core.Service.Content
 {
@@ -33,19 +34,103 @@ namespace Cuyahoga.Core.Service.Content
 			return this.contentItemDao.GetAll();
 		}
 
-		public IList<T> GetByProperty(string propertyName, object propertyValue)
-		{
-			return this.contentItemDao.GetByProperty(propertyName, propertyValue);
-		}
-
+		/// <summary>
+		/// Find all content items for the given site.
+		/// </summary>
+		/// <param name="site"></param>
+		/// <returns></returns>
 		public IList<T> FindContentItemsBySite(Site site)
 		{
 			return this.contentItemDao.GetBySite(site);
 		}
 
+		/// <summary>
+		/// Find ContentItems by the section they're assigned to.
+		/// </summary>
+		/// <param name="section"></param>
+		/// <returns></returns>
 		public IList<T> FindContentItemsBySection(Section section)
 		{
-			return this.contentItemDao.GetByProperty("Section", section);
+			return FindContentItemsBySection(section, new ContentItemQuerySettings(ContentItemSortBy.None, ContentItemSortDirection.None));
+		}
+
+		/// <summary>
+		/// Find ContentItems by the section they're assigned to.
+		/// </summary>
+		/// <param name="section"></param>
+		/// <param name="querySettings"></param>
+		/// <returns></returns>
+		public IList<T> FindContentItemsBySection(Section section, ContentItemQuerySettings querySettings)
+		{
+			DetachedCriteria criteria = GetCriteriaForSection(section, querySettings);
+			return this.contentItemDao.GetByCriteria(criteria);
+		}
+
+		/// <summary>
+		/// Find the currently visible ContentItems by the section they're assigned to.
+		/// </summary>
+		/// <param name="section"></param>
+		/// <param name="querySettings"></param>
+		/// <returns></returns>
+		public IList<T> FindVisibleContentItemsBySection(Section section, ContentItemQuerySettings querySettings)
+		{
+			DetachedCriteria criteria = GetCriteriaForSection(section, querySettings)
+				.Add(Restrictions.Lt("PublishedAt", DateTime.Now))
+				.Add(Restrictions.Or(Restrictions.IsNull("PublishedUntil"), Restrictions.Gt("PublishedUntil", DateTime.Now)));
+			return this.contentItemDao.GetByCriteria(criteria);
+		}
+
+		/// <summary>
+		/// Find currently visible ContentItems for a given category.
+		/// </summary>
+		/// <param name="category"></param>
+		/// <param name="querySettings"></param>
+		/// <returns></returns>
+		public IList<T> FindVisibleContentItemsByCategory(Category category, ContentItemQuerySettings querySettings)
+		{
+			DetachedCriteria criteria = GetCriteriaForCategory(category, querySettings)
+				.Add(Restrictions.Lt("PublishedAt", DateTime.Now))
+				.Add(Restrictions.Or(Restrictions.IsNull("PublishedUntil"), Restrictions.Gt("PublishedUntil", DateTime.Now)));
+			return this.contentItemDao.GetByCriteria(criteria);
+		}
+
+		/// <summary>
+		/// Find the archived content items for a given section (published until before today)
+		/// </summary>
+		/// <param name="section"></param>
+		/// <param name="querySettings"></param>
+		/// <returns></returns>
+		public IList<T> FindArchivedContentItemsBySection(Section section, ContentItemQuerySettings querySettings)
+		{
+			DetachedCriteria criteria = GetCriteriaForSection(section, querySettings)
+				.Add(Restrictions.Lt("PublishedUntil", DateTime.Now));
+			return this.contentItemDao.GetByCriteria(criteria);
+		}
+
+		/// <summary>
+		/// Find the syndicated content items for a given section.
+		/// </summary>
+		/// <param name="section"></param>
+		/// <param name="querySettings"></param>
+		/// <returns></returns>
+		public IList<T> FindSyndicatedContentItemsBySection(Section section, ContentItemQuerySettings querySettings)
+		{
+			DetachedCriteria criteria = GetCriteriaForSection(section, querySettings)
+				.Add(Restrictions.Eq("Syndicate", true));
+			return this.contentItemDao.GetByCriteria(criteria);
+		}
+
+		/// <summary>
+		/// Find the syndicated content items for a given category.
+		/// </summary>
+		/// <param name="category"></param>
+		/// <param name="querySettings"></param>
+		/// <returns></returns>
+		public IList<T> FindSyndicatedContentItemsByCategory(Category category, ContentItemQuerySettings querySettings)
+		{
+			DetachedCriteria criteria = GetCriteriaForCategory(category, querySettings)
+				.Add(Restrictions.Eq("Syndicate", true));
+			return this.contentItemDao.GetByCriteria(criteria);
 		}
 
 		[Transaction(TransactionMode.Requires)]
@@ -58,6 +143,28 @@ namespace Cuyahoga.Core.Service.Content
 		public void Delete(T entity)
 		{
 			this.contentItemDao.Delete(entity);
+		}
+
+		private DetachedCriteria GetCriteriaForSection(Section section, ContentItemQuerySettings querySettings)
+		{
+			return GetContentItemCriteria()
+				.Add(Restrictions.Eq("Section", section))
+				.ApplyOrdering(querySettings.SortBy, querySettings.SortDirection)
+				.ApplyPaging(querySettings.PageSize, querySettings.PageNumber);
+		}
+
+		private DetachedCriteria GetCriteriaForCategory(Category category, ContentItemQuerySettings querySettings)
+		{
+			return GetContentItemCriteria()
+				.CreateAlias("Categories", "cat")
+				.Add(Restrictions.Eq("cat", category))
+				.ApplyOrdering(querySettings.SortBy, querySettings.SortDirection)
+				.ApplyPaging(querySettings.PageSize, querySettings.PageNumber);
+		}
+
+		private DetachedCriteria GetContentItemCriteria()
+		{
+			return DetachedCriteria.For(typeof(T));
 		}
 	}
 }
