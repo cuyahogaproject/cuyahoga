@@ -2,6 +2,7 @@
 <%@ Import Namespace="Cuyahoga.Core.Domain"%>
 <asp:Content ID="Content1" ContentPlaceHolderID="cphHead" runat="server">
 	<title>Cuyahoga Manager :: <%= String.Format(GlobalResources.ManageContentPageTitle, Model.Title) %></title>
+	<script type="text/javascript" src="<%= Url.Content("~/manager/Scripts/iframe.js") %>"></script>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="cphTasks" runat="server">
 	<h2><%= GlobalResources.TasksLabel %></h2>
@@ -51,9 +52,10 @@
 			var editUrl = sectionElement.find('a:first').attr('href');
 			var contentEditorDiv = sectionElement.children('.contenteditor:first');
 			if (editUrl != "#" && contentEditorDiv.children().length == 0) {
-				contentEditorDiv.append('<iframe frameborder="0" src="' + editUrl + '" style="width:100%;height:400px"');			
+				contentEditorDiv.append('<iframe frameborder="0" scrolling="no" src="' + editUrl + '" style="width:100%"');
+				resizeiframes(); // in iframe.js			
 			}
-			contentEditorDiv.slideDown();
+			contentEditorDiv.show();
 			sectionElement.addClass('active');
 
 			// Show section properties for the selected section.

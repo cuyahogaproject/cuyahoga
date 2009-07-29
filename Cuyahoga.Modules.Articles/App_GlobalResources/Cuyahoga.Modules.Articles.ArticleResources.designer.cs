@@ -61,11 +61,29 @@ namespace Resources.Cuyahoga.Modules.Articles {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Article content.
+        /// </summary>
+        internal static string ArticleContentLabel {
+            get {
+                return ResourceManager.GetString("ArticleContentLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Author.
         /// </summary>
         internal static string AuthorLabel {
             get {
                 return ResourceManager.GetString("AuthorLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Full content.
+        /// </summary>
+        internal static string ContentLabel {
+            get {
+                return ResourceManager.GetString("ContentLabel", resourceCulture);
             }
         }
         
@@ -88,6 +106,15 @@ namespace Resources.Cuyahoga.Modules.Articles {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Edit article.
+        /// </summary>
+        internal static string EditArticlePageTitle {
+            get {
+                return ResourceManager.GetString("EditArticlePageTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Manage articles.
         /// </summary>
         internal static string ManageArticlesPageTitle {
@@ -97,11 +124,56 @@ namespace Resources.Cuyahoga.Modules.Articles {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Create new article.
+        /// </summary>
+        internal static string NewArticlePageTitle {
+            get {
+                return ResourceManager.GetString("NewArticlePageTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Publish date.
         /// </summary>
         internal static string PublishedLabel {
             get {
                 return ResourceManager.GetString("PublishedLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Publish until.
+        /// </summary>
+        internal static string PublishedUntilLabel {
+            get {
+                return ResourceManager.GetString("PublishedUntilLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Publishing.
+        /// </summary>
+        internal static string PublishingLabel {
+            get {
+                return ResourceManager.GetString("PublishingLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Summary.
+        /// </summary>
+        internal static string SummaryLabel {
+            get {
+                return ResourceManager.GetString("SummaryLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Syndicate.
+        /// </summary>
+        internal static string SyndicateLabel {
+            get {
+                return ResourceManager.GetString("SyndicateLabel", resourceCulture);
             }
         }
         

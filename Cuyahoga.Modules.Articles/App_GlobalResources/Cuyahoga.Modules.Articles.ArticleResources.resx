@@ -117,8 +117,14 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="ArticleContentLabel" xml:space="preserve">
+    <value>Article content</value>
+  </data>
   <data name="AuthorLabel" xml:space="preserve">
     <value>Author</value>
+  </data>
+  <data name="ContentLabel" xml:space="preserve">
+    <value>Full content</value>
   </data>
   <data name="CreateArticleButtonLabel" xml:space="preserve">
     <value>Create a new article</value>
@@ -126,11 +132,29 @@
   <data name="CreatedLabel" xml:space="preserve">
     <value>Created</value>
   </data>
+  <data name="EditArticlePageTitle" xml:space="preserve">
+    <value>Edit article</value>
+  </data>
   <data name="ManageArticlesPageTitle" xml:space="preserve">
     <value>Manage articles</value>
   </data>
+  <data name="NewArticlePageTitle" xml:space="preserve">
+    <value>Create new article</value>
+  </data>
   <data name="PublishedLabel" xml:space="preserve">
     <value>Publish date</value>
+  </data>
+  <data name="PublishedUntilLabel" xml:space="preserve">
+    <value>Publish until</value>
+  </data>
+  <data name="PublishingLabel" xml:space="preserve">
+    <value>Publishing</value>
+  </data>
+  <data name="SummaryLabel" xml:space="preserve">
+    <value>Summary</value>
+  </data>
+  <data name="SyndicateLabel" xml:space="preserve">
+    <value>Syndicate</value>
   </data>
   <data name="TitleLabel" xml:space="preserve">
     <value>Title</value>

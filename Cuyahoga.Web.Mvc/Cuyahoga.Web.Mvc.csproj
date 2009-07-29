@@ -104,6 +104,7 @@
     <Compile Include="Sitemap\IMvcSitemapProvider.cs" />
     <Compile Include="Sitemap\MvcSiteMapNode.cs" />
     <Compile Include="Sitemap\MvcSitemapProvider.cs" />
+    <Compile Include="UI\DynDateTimeExtensions.cs" />
     <Compile Include="Validation\JQueryValidator.cs" />
     <Compile Include="Validation\ValidationExtensions.cs" />
     <Compile Include="ViewModels\MessageViewData.cs" />

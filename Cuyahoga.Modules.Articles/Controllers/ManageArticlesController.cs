@@ -18,11 +18,22 @@ namespace Cuyahoga.Modules.Articles.Controllers
 
     	public ActionResult Index()
 		{
-    		IList<Article> articles = this._contentItemService.FindContentItemsBySection(CurrentSection,
+    		IEnumerable<Article> articles = this._contentItemService.FindContentItemsBySection(CurrentSection,
     		                                                                             new ContentItemQuerySettings(
     		                                                                             	ContentItemSortBy.CreatedAt,
     		                                                                             	ContentItemSortDirection.DESC));
-			return View(new ModuleAdminViewModel<IEnumerable<Article>>(CurrentNode, CurrentSection, CuyahogaContext, articles));
+			return View(GetModuleAdminViewModel(articles));
+		}
+
+		public ActionResult New()
+		{
+			return View(GetModuleAdminViewModel(new Article()));
+		}
+
+		public ActionResult Edit(long id)
+		{
+			Article article = this._contentItemService.GetById(id);
+			return View(GetModuleAdminViewModel(article));
 		}
     }
 }

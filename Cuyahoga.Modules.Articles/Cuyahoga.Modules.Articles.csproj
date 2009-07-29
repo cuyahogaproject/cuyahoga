@@ -153,7 +153,10 @@
       <DependentUpon>Articles.ascx.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
+    <Content Include="Views\ManageArticles\Edit.aspx" />
     <Content Include="Views\ManageArticles\Index.aspx" />
+    <Content Include="Views\ManageArticles\New.aspx" />
+    <Content Include="Views\ManageArticles\SharedArticleFormElements.ascx" />
     <Content Include="Web\ArticleDetails.ascx" />
     <Content Include="Web\Articles.ascx">
       <SubType>UserControl</SubType>

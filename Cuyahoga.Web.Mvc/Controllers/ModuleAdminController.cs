@@ -2,6 +2,7 @@
 using System.Web.Routing;
 using Cuyahoga.Core.Domain;
 using Cuyahoga.Core.Service.SiteStructure;
+using Cuyahoga.Web.Mvc.ViewModels;
 
 namespace Cuyahoga.Web.Mvc.Controllers
 {
@@ -74,6 +75,11 @@ namespace Cuyahoga.Web.Mvc.Controllers
 				nodeAndSectionParams.Add("sectionid", this._currentSection.Id);
 			}
 			return nodeAndSectionParams;
+		}
+
+		protected ModuleAdminViewModel<T> GetModuleAdminViewModel<T>(T moduleData) where T: class
+		{
+			return new ModuleAdminViewModel<T>(CurrentNode, CurrentSection, CuyahogaContext, moduleData);
 		}
 	}
 }
