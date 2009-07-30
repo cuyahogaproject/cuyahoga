@@ -1,4 +1,5 @@
 ﻿<%@ Page Language="C#" MasterPageFile="~/Manager/Views/Shared/Admin.Master" Inherits="System.Web.Mvc.ViewPage<User>" %>
+<%@ Import Namespace="Resources.Cuyahoga"%>
 <%@ Import Namespace="Cuyahoga.Core.Domain"%>
 <asp:Content ID="Content1" ContentPlaceHolderID="cphHead" runat="server">
 	<title>Cuyahoga Manager :: <%= GlobalResources.NewUserPageTitle %></title>

@@ -312,15 +312,15 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Cuyahoga.Web.Manager.GlobalResources.nl.resx</DependentUpon>
     </Compile>
-    <Compile Include="App_GlobalResources\Cuyahoga.Web.ValidationMessages.designer.cs">
+    <Compile Include="App_GlobalResources\Cuyahoga.ValidationMessages.designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>Cuyahoga.Web.ValidationMessages.resx</DependentUpon>
+      <DependentUpon>Cuyahoga.ValidationMessages.resx</DependentUpon>
     </Compile>
-    <Compile Include="App_GlobalResources\Cuyahoga.Web.ValidationMessages.nl.designer.cs">
+    <Compile Include="App_GlobalResources\Cuyahoga.ValidationMessages.nl.designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>Cuyahoga.Web.ValidationMessages.nl.resx</DependentUpon>
+      <DependentUpon>Cuyahoga.ValidationMessages.nl.resx</DependentUpon>
     </Compile>
     <Compile Include="Components\Bootstrapper.cs" />
     <Compile Include="Components\CuyahogaContext.cs" />
@@ -1507,15 +1507,15 @@
       <LastGenOutput>Cuyahoga.Web.Controls.Resources.Strings.sv-SE.designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
     </Content>
-    <Content Include="App_GlobalResources\Cuyahoga.Web.ValidationMessages.resx">
+    <Content Include="App_GlobalResources\Cuyahoga.ValidationMessages.resx">
       <SubType>Designer</SubType>
       <Generator>GlobalResourceProxyGenerator</Generator>
-      <LastGenOutput>Cuyahoga.Web.ValidationMessages.designer.cs</LastGenOutput>
+      <LastGenOutput>Cuyahoga.ValidationMessages.designer.cs</LastGenOutput>
     </Content>
-    <Content Include="App_GlobalResources\Cuyahoga.Web.ValidationMessages.nl.resx">
+    <Content Include="App_GlobalResources\Cuyahoga.ValidationMessages.nl.resx">
       <SubType>Designer</SubType>
       <Generator>GlobalResourceProxyGenerator</Generator>
-      <LastGenOutput>Cuyahoga.Web.ValidationMessages.nl.designer.cs</LastGenOutput>
+      <LastGenOutput>Cuyahoga.ValidationMessages.nl.designer.cs</LastGenOutput>
     </Content>
     <Content Include="App_GlobalResources\Cuyahoga.Enums.resx">
       <Generator>GlobalResourceProxyGenerator</Generator>
