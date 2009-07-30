@@ -413,6 +413,7 @@
     <Compile Include="Validation\CachedLocalizedValidatorRegistry.cs" />
     <Compile Include="Util\CommonUtils.cs" />
     <Compile Include="Validation\CastleModelValidator.cs" />
+    <Compile Include="Validation\CuyDateTimeValidator.cs" />
     <Compile Include="Validation\IBrowserValidatorProvider.cs" />
     <Compile Include="Validation\ILocalizedValidatorRegistry.cs" />
     <Compile Include="Validation\IModelValidator.cs" />
@@ -420,6 +421,7 @@
     <Compile Include="Validation\ModelValidators\SectionModelValidator.cs" />
     <Compile Include="Validation\ModelValidators\UserModelValidator.cs" />
     <Compile Include="Validation\BrowserValidationEngine.cs" />
+    <Compile Include="Validation\CuyValidateDateTimeAttribute.cs" />
     <Compile Include="Validation\ValidationEngineAccessor.cs" />
     <EmbeddedResource Include="Domain\CustomMenu.hbm.xml" />
     <EmbeddedResource Include="Domain\ModuleType.hbm.xml" />

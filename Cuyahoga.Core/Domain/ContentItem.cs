@@ -1,6 +1,8 @@
 
 using System;
 using System.Collections.Generic;
+using Castle.Components.Validator;
+using Cuyahoga.Core.Validation;
 
 namespace Cuyahoga.Core.Domain
 {
@@ -60,6 +62,8 @@ namespace Cuyahoga.Core.Domain
 		/// <summary>
 		/// Property Title (string)
 		/// </summary>
+		[ValidateNonEmpty("ContentItemTitleValidatorNonEmpty")]
+		[ValidateLength(1, 100, "ContentItemTitleValidatorLength")]
         public virtual string Title
 		{
 			get { return this._title; }
@@ -69,6 +73,7 @@ namespace Cuyahoga.Core.Domain
 		/// <summary>
 		/// Property Summary(string)
 		/// </summary>
+		[ValidateLength(1, 255, "ContentItemSummaryValidatorLength")]
         public virtual string Summary
 		{
 			get { return this._summary; }
@@ -114,6 +119,7 @@ namespace Cuyahoga.Core.Domain
 		/// <summary>
 		/// Property PublishedAt (DateTime)
 		/// </summary>
+		[CuyValidateDateTime("ContentItemPublishedAtValidatorDateTime")]
         public virtual DateTime? PublishedAt
 		{
 			get { return this._publishedAt; }
@@ -123,6 +129,7 @@ namespace Cuyahoga.Core.Domain
         /// <summary>
         /// Property PublishedUntil (DateTime)
         /// </summary>
+		[CuyValidateDateTime("ContentItemPublishedUntilValidatorDateTime")]
         public virtual DateTime? PublishedUntil
         {
             get { return this._publishedUntil; }

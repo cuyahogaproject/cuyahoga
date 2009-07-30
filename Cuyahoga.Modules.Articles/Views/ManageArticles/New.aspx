@@ -13,5 +13,6 @@
 		<input type="submit" value="<%= GlobalResources.SaveButtonLabel %>" />
 		<%= GlobalResources.Or %>
 		<%= Html.ActionLink(GlobalResources.CancelLabel, "Index", Model.GetNodeAndSectionParams()) %>
+		<%= Html.ClientSideValidation(Model.ModuleData, "articleform") %>
 	<% } %>
 </asp:Content>

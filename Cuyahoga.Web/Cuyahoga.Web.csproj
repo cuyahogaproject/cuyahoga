@@ -312,15 +312,15 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Cuyahoga.Web.Manager.GlobalResources.nl.resx</DependentUpon>
     </Compile>
-    <Compile Include="App_GlobalResources\Cuyahoga.Web.Manager.ValidationMessages.designer.cs">
+    <Compile Include="App_GlobalResources\Cuyahoga.Web.ValidationMessages.designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>Cuyahoga.Web.Manager.ValidationMessages.resx</DependentUpon>
+      <DependentUpon>Cuyahoga.Web.ValidationMessages.resx</DependentUpon>
     </Compile>
-    <Compile Include="App_GlobalResources\Cuyahoga.Web.Manager.ValidationMessages.nl.designer.cs">
+    <Compile Include="App_GlobalResources\Cuyahoga.Web.ValidationMessages.nl.designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>Cuyahoga.Web.Manager.ValidationMessages.nl.resx</DependentUpon>
+      <DependentUpon>Cuyahoga.Web.ValidationMessages.nl.resx</DependentUpon>
     </Compile>
     <Compile Include="Components\Bootstrapper.cs" />
     <Compile Include="Components\CuyahogaContext.cs" />
@@ -755,6 +755,7 @@
     <Content Include="Rss.aspx">
       <SubType>Form</SubType>
     </Content>
+    <Content Include="Support\DateJS\date.js" />
     <Content Include="Support\dynDateTime\css\calendar-system.css" />
     <Content Include="Support\dynDateTime\jquery.dynDateTime.min.js" />
     <Content Include="Support\dynDateTime\lang\calendar-af.js" />
@@ -1516,15 +1517,15 @@
       <Generator>GlobalResourceProxyGenerator</Generator>
       <LastGenOutput>Cuyahoga.Web.Manager.GlobalResources.nl.designer.cs</LastGenOutput>
     </Content>
-    <Content Include="App_GlobalResources\Cuyahoga.Web.Manager.ValidationMessages.resx">
+    <Content Include="App_GlobalResources\Cuyahoga.Web.ValidationMessages.resx">
       <SubType>Designer</SubType>
       <Generator>GlobalResourceProxyGenerator</Generator>
-      <LastGenOutput>Cuyahoga.Web.Manager.ValidationMessages.designer.cs</LastGenOutput>
+      <LastGenOutput>Cuyahoga.Web.ValidationMessages.designer.cs</LastGenOutput>
     </Content>
-    <Content Include="App_GlobalResources\Cuyahoga.Web.Manager.ValidationMessages.nl.resx">
+    <Content Include="App_GlobalResources\Cuyahoga.Web.ValidationMessages.nl.resx">
       <SubType>Designer</SubType>
       <Generator>GlobalResourceProxyGenerator</Generator>
-      <LastGenOutput>Cuyahoga.Web.Manager.ValidationMessages.nl.designer.cs</LastGenOutput>
+      <LastGenOutput>Cuyahoga.Web.ValidationMessages.nl.designer.cs</LastGenOutput>
     </Content>
     <Content Include="App_GlobalResources\Cuyahoga.Enums.resx">
       <Generator>GlobalResourceProxyGenerator</Generator>

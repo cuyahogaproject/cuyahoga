@@ -7,6 +7,7 @@
 	<%= Html.ScriptInclude("~/Support/jquery/jquery-1.3.2.min.js")%>
 	<%= Html.ScriptInclude("~/Support/jquery/jquery.form.js")%>
 	<%= Html.ScriptInclude("~/Support/jquery/jquery.validate.min.js")%>
+	<%= Html.ScriptInclude("~/Support/DateJS/date.js")%>
 	<%= Html.ScriptInclude("~/Modules/Shared/Scripts/cuyahoga.modules.common.js") %>
 	<asp:ContentPlaceHolder ID="head" runat="server">
 	</asp:ContentPlaceHolder>

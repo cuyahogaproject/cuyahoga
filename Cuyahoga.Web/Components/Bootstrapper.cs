@@ -144,7 +144,7 @@ namespace Cuyahoga.Web.Components
 			container.Register(Component.For<RoleModelValidator>().LifeStyle.Transient);
 			container.Register(Component.For<SectionModelValidator>().LifeStyle.Transient);
 			container.Register(Component.For<BrowserValidationEngine>());
-			container.Kernel.AddComponentInstance("validationresources", Resources.Cuyahoga.Web.Manager.ValidationMessages.ResourceManager);
+			container.Kernel.AddComponentInstance("validationresources", Resources.Cuyahoga.Web.ValidationMessages.ResourceManager);
 
 			// Set validation engine to accessor.
 			ValidationEngineAccessor.Current.SetValidationEngine(container.Resolve<BrowserValidationEngine>());

@@ -44,6 +44,7 @@ namespace Cuyahoga.Web.Mvc.Validation
 		/// <summary>
 		/// The <see cref="BrowserValidationConfiguration"/> implementation for the JQuery validate plugin.
 		/// </summary>
+		/// <remarks>We also need the DateJS library for date validation.</remarks>
 		public class JQueryConfiguration : BrowserValidationConfiguration
 		{
 			readonly Dictionary<string, string> _rules = new Dictionary<string, string>();
@@ -223,6 +224,11 @@ namespace Cuyahoga.Web.Mvc.Validation
 					.Replace("_separator_", CultureInfo.CurrentCulture.DateTimeFormat.DateSeparator);
 				AddCustomRule("simpleDate", "Not a valid date."
 							  , "function(value, element, param) { return this.optional(element) || " + simpleDateRegex + ".test(value); }");
+				// Add a special rule for date validation. We need date.js for this to work!
+				AddCustomRule("exactDateTime", "Not a valid date or datetime"
+					, "function(value, element, param) { return this.optional(element) || Date.parseExact(value,['" +
+						CultureInfo.CurrentCulture.DateTimeFormat.ShortDatePattern + " " + CultureInfo.CurrentCulture.DateTimeFormat.ShortTimePattern
+						+ "','" + CultureInfo.CurrentCulture.DateTimeFormat.ShortDatePattern + "']); }");
 			}
 
 			private void AddParameterToOptions(IDictionary parameters, string parameterName, bool quote)
@@ -677,8 +683,8 @@ namespace Cuyahoga.Web.Mvc.Validation
 		/// <param name="violationMessage">The violation message.</param>
 		public void SetDate(string target, string violationMessage)
 		{
-			_config.AddRule(target, "simpleDate: true");
-			_config.AddMessage(target, String.Format("simpleDate: \"{0}\"", violationMessage));
+			_config.AddRule(target, "exactDateTime: true");
+			_config.AddMessage(target, String.Format("exactDateTime: \"{0}\"", violationMessage));
 		}
 
 		/// <summary>
