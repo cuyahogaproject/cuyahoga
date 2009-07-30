@@ -1507,17 +1507,6 @@
       <LastGenOutput>Cuyahoga.Web.Controls.Resources.Strings.sv-SE.designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
     </Content>
-    <Content Include="App_GlobalResources\Cuyahoga.Web.Manager.GlobalResources.resx">
-      <SubType>Designer</SubType>
-      <Generator>PublicResXFileCodeGenerator</Generator>
-      <LastGenOutput>Cuyahoga.Web.Manager.GlobalResources.designer.cs</LastGenOutput>
-      <CustomToolNamespace>Resources.Cuyahoga.Web.Manager</CustomToolNamespace>
-    </Content>
-    <Content Include="App_GlobalResources\Cuyahoga.Web.Manager.GlobalResources.nl.resx">
-      <SubType>Designer</SubType>
-      <Generator>GlobalResourceProxyGenerator</Generator>
-      <LastGenOutput>Cuyahoga.Web.Manager.GlobalResources.nl.designer.cs</LastGenOutput>
-    </Content>
     <Content Include="App_GlobalResources\Cuyahoga.Web.ValidationMessages.resx">
       <SubType>Designer</SubType>
       <Generator>GlobalResourceProxyGenerator</Generator>
@@ -1536,6 +1525,16 @@
     <Content Include="App_GlobalResources\Cuyahoga.Enums.nl.resx">
       <Generator>GlobalResourceProxyGenerator</Generator>
       <LastGenOutput>Cuyahoga.Enums.nl.designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="App_GlobalResources\Cuyahoga.Web.Manager.GlobalResources.nl.resx">
+      <Generator>GlobalResourceProxyGenerator</Generator>
+      <LastGenOutput>Cuyahoga.Web.Manager.GlobalResources.nl.designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="App_GlobalResources\Cuyahoga.Web.Manager.GlobalResources.resx">
+      <Generator>GlobalResourceProxyGenerator</Generator>
+      <LastGenOutput>Cuyahoga.Web.Manager.GlobalResources.designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
     </Content>
     <EmbeddedResource Include="Controls\EditProfile.ascx.resx">
