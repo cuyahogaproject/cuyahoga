@@ -1509,8 +1509,9 @@
     </Content>
     <Content Include="App_GlobalResources\Cuyahoga.Web.Manager.GlobalResources.resx">
       <SubType>Designer</SubType>
-      <Generator>GlobalResourceProxyGenerator</Generator>
+      <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>Cuyahoga.Web.Manager.GlobalResources.designer.cs</LastGenOutput>
+      <CustomToolNamespace>Resources.Cuyahoga.Web.Manager</CustomToolNamespace>
     </Content>
     <Content Include="App_GlobalResources\Cuyahoga.Web.Manager.GlobalResources.nl.resx">
       <SubType>Designer</SubType>
