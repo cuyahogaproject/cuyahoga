@@ -1,9 +1,8 @@
-/*
- * Calendar PL language
- * Author: Artur Filipiak, <imagen@poczta.fm> January, 2004
- * Encoding: UTF-8
-*/
-
+// ** I18N
+// Calendar PL language
+// Author: Artur Filipiak, <imagen@poczta.fm>
+// January, 2004
+// Encoding: UTF-8
 Calendar._DN = new Array
 ("Niedziela", "Poniedziałek", "Wtorek", "Środa", "Czwartek", "Piątek", "Sobota", "Niedziela");
 

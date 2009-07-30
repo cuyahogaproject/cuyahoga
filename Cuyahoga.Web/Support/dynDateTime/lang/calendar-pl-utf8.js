@@ -1,9 +1,9 @@
-﻿/*
- *  Calendar PL language
- *  Author: Dariusz Pietrzak, <eyck@ghost.anime.pl>
- *  Author: Janusz Piwowarski, <jpiw@go2.pl>
- *  Encoding: utf-8
-*/
+﻿// ** I18N
+
+// Calendar PL language
+// Author: Dariusz Pietrzak, <eyck@ghost.anime.pl>
+// Author: Janusz Piwowarski, <jpiw@go2.pl>
+// Encoding: utf-8
 // Distributed under the same terms as the calendar itself.
 
 Calendar._DN = new Array

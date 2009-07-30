@@ -1,8 +1,10 @@
-/*
- * Translation: Yourim Yi <yyi@yourim.net>
- * Encoding: EUC-KR
- * lang : ko
-*/
+// ** I18N
+
+// Calendar EN language
+// Author: Mihai Bazon, <mihai_bazon@yahoo.com>
+// Translation: Yourim Yi <yyi@yourim.net>
+// Encoding: EUC-KR
+// lang : ko
 // Distributed under the same terms as the calendar itself.
 
 // For translators: please use UTF-8 if possible.  We strongly believe that

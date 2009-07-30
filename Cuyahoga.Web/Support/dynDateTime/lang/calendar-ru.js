@@ -1,8 +1,8 @@
-/*
- * Calendar RU language
- * Translation: Sly Golovanov, http://golovanov.net, <sly@golovanov.net>
-*/
+// ** I18N
 
+// Calendar RU language
+// Translation: Sly Golovanov, http://golovanov.net, <sly@golovanov.net>
+// Encoding: any
 // Distributed under the same terms as the calendar itself.
 
 // For translators: please use UTF-8 if possible.  We strongly believe that

@@ -1,8 +1,7 @@
-/*
- * Calendar CA language
- * Author: Mihai Bazon, <mihai_bazon@yahoo.com>
-*/
+// ** I18N
 
+// Calendar CA language
+// Author: Mihai Bazon, <mihai_bazon@yahoo.com>
 // Encoding: any
 // Distributed under the same terms as the calendar itself.
 
@@ -48,7 +47,7 @@ Calendar._SDN = new Array
 Calendar._MN = new Array
 ("Gener",
  "Febrer",
- "Marï¿½",
+ "Març",
  "Abril",
  "Maig",
  "Juny",
@@ -84,21 +83,21 @@ Calendar._TT["ABOUT"] =
 "For latest version visit: http://www.dynarch.com/projects/calendar/\n" +
 "Distributed under GNU LGPL.  See http://gnu.org/licenses/lgpl.html for details." +
 "\n\n" +
-"Sel.lecciï¿½ de Dates:\n" +
+"Sel.lecció de Dates:\n" +
 "- Fes servir els botons \xab, \xbb per sel.leccionar l'any\n" +
 "- Fes servir els botons " + String.fromCharCode(0x2039) + ", " + String.fromCharCode(0x203a) + " per se.lecciconar el mes\n" +
-"- Mantï¿½ el ratolï¿½ apretat en qualsevol dels anteriors per sel.lecciï¿½ rï¿½pida.";
+"- Manté el ratolí apretat en qualsevol dels anteriors per sel.lecció ràpida.";
 Calendar._TT["ABOUT_TIME"] = "\n\n" +
 "Time selection:\n" +
 "- claca en qualsevol de les parts de la hora per augmentar-les\n" +
 "- o Shift-click per decrementar-la\n" +
-"- or click and arrastra per sel.lecciï¿½ rï¿½pida.";
+"- or click and arrastra per sel.lecció ràpida.";
 
 Calendar._TT["PREV_YEAR"] = "Any anterior (Mantenir per menu)";
 Calendar._TT["PREV_MONTH"] = "Mes anterior (Mantenir per menu)";
 Calendar._TT["GO_TODAY"] = "Anar a avui";
-Calendar._TT["NEXT_MONTH"] = "Mes segï¿½ent (Mantenir per menu)";
-Calendar._TT["NEXT_YEAR"] = "Any segï¿½ent (Mantenir per menu)";
+Calendar._TT["NEXT_MONTH"] = "Mes següent (Mantenir per menu)";
+Calendar._TT["NEXT_YEAR"] = "Any següent (Mantenir per menu)";
 Calendar._TT["SEL_DATE"] = "Sel.leccionar data";
 Calendar._TT["DRAG_TO_MOVE"] = "Arrastrar per moure";
 Calendar._TT["PART_TODAY"] = " (avui)";

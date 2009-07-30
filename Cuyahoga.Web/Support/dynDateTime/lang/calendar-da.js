@@ -1,8 +1,7 @@
-/*
- *  Calendar DA language
- *  Author: Michael Thingmand Henriksen, <michael (a) thingmand dot dk>
-*/
+// ** I18N
 
+// Calendar DA language
+// Author: Michael Thingmand Henriksen, <michael (a) thingmand dot dk>
 // Encoding: any
 // Distributed under the same terms as the calendar itself.
 
@@ -43,6 +42,10 @@ Calendar._SDN = new Array
 "Fre",
 "Lør",
 "Søn");
+
+// First day of the week. "0" means display Sunday first, "1" means display
+// Monday first, etc.
+Calendar._FD = 0;
 
 // full month names
 Calendar._MN = new Array

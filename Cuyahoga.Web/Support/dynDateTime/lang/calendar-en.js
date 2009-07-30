@@ -1,8 +1,7 @@
-/*
- * Calendar EN language
- * Author: Mihai Bazon, <mihai_bazon@yahoo.com>
- */
+// ** I18N
 
+// Calendar EN language
+// Author: Mihai Bazon, <mihai_bazon@yahoo.com>
 // Encoding: any
 // Distributed under the same terms as the calendar itself.
 

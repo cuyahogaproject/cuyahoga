@@ -1,6 +1,4 @@
-/*
- * Dutch? duplicate w/ nl ?
-*/
+// ** I18N
 Calendar._DN = new Array
 ("Zondag",
  "Maandag",

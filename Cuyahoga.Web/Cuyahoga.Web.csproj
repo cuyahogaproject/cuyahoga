@@ -773,6 +773,7 @@
     <Content Include="Support\dynDateTime\lang\calendar-fr.js" />
     <Content Include="Support\dynDateTime\lang\calendar-he-utf8.js" />
     <Content Include="Support\dynDateTime\lang\calendar-hr-utf8.js" />
+    <Content Include="Support\dynDateTime\lang\calendar-hr.js" />
     <Content Include="Support\dynDateTime\lang\calendar-hu.js" />
     <Content Include="Support\dynDateTime\lang\calendar-it.js" />
     <Content Include="Support\dynDateTime\lang\calendar-jp.js" />
