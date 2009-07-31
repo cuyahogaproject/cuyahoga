@@ -130,6 +130,7 @@ namespace Cuyahoga.Core.Domain
         /// Property PublishedUntil (DateTime)
         /// </summary>
 		[CuyValidateDateTime("ContentItemPublishedUntilValidatorDateTime")]
+		[ValidateIsGreater(IsGreaterValidationType.DateTime, "PublishedAt", "ContentItemPublishedUntilValidatorGreaterThanPublishedAt")]
         public virtual DateTime? PublishedUntil
         {
             get { return this._publishedUntil; }

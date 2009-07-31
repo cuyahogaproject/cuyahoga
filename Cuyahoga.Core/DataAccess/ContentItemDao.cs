@@ -38,7 +38,7 @@ namespace Cuyahoga.Core.DataAccess
 		/// </summary>
 		public T GetById(long id)
 		{
-			return this.GetSession().Load<T>(id);
+			return this.GetSession().Get<T>(id);
 		}
 
 		/// <summary>
@@ -46,7 +46,7 @@ namespace Cuyahoga.Core.DataAccess
 		/// </summary>
 		public T GetById(Guid id)
 		{
-			return this.GetSession().Load<T>(id);
+			return this.GetSession().Get<T>(id); // MB: does this work????
 		}
 
 		/// <summary>

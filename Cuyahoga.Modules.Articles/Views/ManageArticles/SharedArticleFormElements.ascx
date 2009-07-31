@@ -2,18 +2,18 @@
 <%@ Import Namespace="Cuyahoga.Web.Mvc.HtmlEditor"%>
 <%@ Import Namespace="Cuyahoga.Web.Mvc.UI"%>
 <fieldset>
-	<legend><%=ArticleResources.ArticleContentLabel%></legend>
+	<legend><%=GlobalResources.ArticleContentLabel%></legend>
 	<ol>
 		<li>
-			<label for="Title"><%=ArticleResources.TitleLabel%></label>
+			<label for="Title"><%=GlobalResources.TitleLabel%></label>
 			<%=Html.TextBox("Title", Model.ModuleData.Title, new {style = "width:435px"})%>
 		</li>
 		<li>
-			<label for="Summary"><%=ArticleResources.SummaryLabel%></label>
+			<label for="Summary"><%=GlobalResources.SummaryLabel%></label>
 			<%=Html.TextArea("Summary", Model.ModuleData.Summary, new {style = "width:435px"})%>
 		</li>
 		<li>
-			<label for="Content"><%=ArticleResources.ContentLabel%></label><br />
+			<label for="Content"><%=GlobalResources.ContentLabel%></label><br />
 			<% 
 			string contentCss = Model.Node != null && Model.Node.Template != null
 				? Url.Content(Model.CuyahogaContext.CurrentSite.SiteDataDirectory) + Model.Node.Template.EditorCss
@@ -24,18 +24,18 @@
 	</ol>
 </fieldset>
 <fieldset>
-	<legend><%=ArticleResources.PublishingLabel%></legend>
+	<legend><%=GlobalResources.PublishingLabel%></legend>
 	<ol>
 		<li>
-			<label for="Syndicate"><%=ArticleResources.SyndicateLabel%></label>
+			<label for="Syndicate"><%=GlobalResources.SyndicateLabel%></label>
 			<%=Html.CheckBox("Syndicate", Model.ModuleData.Syndicate)%>			
 		</li>
 		<li>
-			<label for="PublishedAt"><%=ArticleResources.PublishedLabel%></label>
+			<label for="PublishedAt"><%=GlobalResources.PublishedLabel%></label>
 			<%=Html.DateTimeInput("PublishedAt", Model.ModuleData.PublishedAt)%>
 		</li>
 		<li>
-			<label for="PublishedUntil"><%=ArticleResources.PublishedUntilLabel%></label>
+			<label for="PublishedUntil"><%=GlobalResources.PublishedUntilLabel%></label>
 			<%=Html.DateTimeInput("PublishedUntil", Model.ModuleData.PublishedUntil)%>
 		</li>
 	</ol>

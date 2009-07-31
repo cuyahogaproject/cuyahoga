@@ -27,7 +27,7 @@ namespace Cuyahoga.Modules.Articles.Domain
 		/// <returns></returns>
 		public virtual string ToSearchContent()
 		{
-			throw new NotImplementedException();
+			return this._content;
 		}
 
 		/// <summary>

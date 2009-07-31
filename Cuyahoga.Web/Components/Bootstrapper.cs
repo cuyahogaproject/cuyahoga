@@ -136,13 +136,15 @@ namespace Cuyahoga.Web.Components
 			container.Register(Component.For<ILocalizedValidatorRegistry>()
 				.ImplementedBy<CachedLocalizedValidatorRegistry>()
 			);
+			// Register specific generic castle model validator
 			container.Register(Component.For(typeof(IModelValidator<>))
 				.ImplementedBy(typeof(CastleModelValidator<>))
 				.LifeStyle.Transient
 			);
-			container.Register(Component.For<UserModelValidator>().LifeStyle.Transient);
-			container.Register(Component.For<RoleModelValidator>().LifeStyle.Transient);
-			container.Register(Component.For<SectionModelValidator>().LifeStyle.Transient);
+			// Register all model validators.
+			container.Register(AllTypes.Of<IModelValidator>()
+				.FromAssembly(typeof (IModelValidator).Assembly)
+				.Configure(c => c.LifeStyle.Transient));
 			container.Register(Component.For<BrowserValidationEngine>());
 			container.Kernel.AddComponentInstance("validationresources", Resources.Cuyahoga.ValidationMessages.ResourceManager);
 

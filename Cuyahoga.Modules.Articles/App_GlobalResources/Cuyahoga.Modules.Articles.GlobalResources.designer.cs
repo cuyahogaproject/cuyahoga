@@ -22,14 +22,14 @@ namespace Resources.Cuyahoga.Modules.Articles {
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Web.Application.StronglyTypedResourceProxyBuilder", "9.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    internal class ArticleResources {
+    internal class GlobalResources {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
         private static global::System.Globalization.CultureInfo resourceCulture;
         
         [global::System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
-        internal ArticleResources() {
+        internal GlobalResources() {
         }
         
         /// <summary>
@@ -39,7 +39,7 @@ namespace Resources.Cuyahoga.Modules.Articles {
         internal static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Resources.Cuyahoga.Modules.Articles.ArticleResources", global::System.Reflection.Assembly.Load("App_GlobalResources"));
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Resources.Cuyahoga.Modules.Articles.GlobalResources", global::System.Reflection.Assembly.Load("App_GlobalResources"));
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -70,11 +70,56 @@ namespace Resources.Cuyahoga.Modules.Articles {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to The article &apos;{0}&apos; is created.
+        /// </summary>
+        internal static string ArticleCreatedMessage {
+            get {
+                return ResourceManager.GetString("ArticleCreatedMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The article &apos;{0}&apos; is verwijderd.
+        /// </summary>
+        internal static string ArticleDeletedMessage {
+            get {
+                return ResourceManager.GetString("ArticleDeletedMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The article &apos;{0}&apos; is updated.
+        /// </summary>
+        internal static string ArticleUpdatedMessage {
+            get {
+                return ResourceManager.GetString("ArticleUpdatedMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Author.
         /// </summary>
         internal static string AuthorLabel {
             get {
                 return ResourceManager.GetString("AuthorLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Cancel.
+        /// </summary>
+        internal static string CancelLabel {
+            get {
+                return ResourceManager.GetString("CancelLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Full content is required.
+        /// </summary>
+        internal static string ContentIsRequired {
+            get {
+                return ResourceManager.GetString("ContentIsRequired", resourceCulture);
             }
         }
         
@@ -106,11 +151,29 @@ namespace Resources.Cuyahoga.Modules.Articles {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Delete.
+        /// </summary>
+        internal static string DeleteButtonLabel {
+            get {
+                return ResourceManager.GetString("DeleteButtonLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Edit article.
         /// </summary>
         internal static string EditArticlePageTitle {
             get {
                 return ResourceManager.GetString("EditArticlePageTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Edit.
+        /// </summary>
+        internal static string EditLabel {
+            get {
+                return ResourceManager.GetString("EditLabel", resourceCulture);
             }
         }
         
@@ -129,6 +192,15 @@ namespace Resources.Cuyahoga.Modules.Articles {
         internal static string NewArticlePageTitle {
             get {
                 return ResourceManager.GetString("NewArticlePageTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Publish date is required.
+        /// </summary>
+        internal static string PublishedAtIsRequired {
+            get {
+                return ResourceManager.GetString("PublishedAtIsRequired", resourceCulture);
             }
         }
         
@@ -156,6 +228,15 @@ namespace Resources.Cuyahoga.Modules.Articles {
         internal static string PublishingLabel {
             get {
                 return ResourceManager.GetString("PublishingLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Save article.
+        /// </summary>
+        internal static string SaveButtonLabel {
+            get {
+                return ResourceManager.GetString("SaveButtonLabel", resourceCulture);
             }
         }
         

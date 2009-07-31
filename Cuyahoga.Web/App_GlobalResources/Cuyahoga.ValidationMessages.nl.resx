@@ -129,6 +129,24 @@
   <data name="CategorySiteValidatorNonEmpty" xml:space="preserve">
     <value>De categorie moet gerelateerd zijn aan een site</value>
   </data>
+  <data name="ContentItemPublishedAtValidatorDateTime" xml:space="preserve">
+    <value>Ongeldige datum/tijd</value>
+  </data>
+  <data name="ContentItemPublishedUntilValidatorDateTime" xml:space="preserve">
+    <value>Ongeldige datum/tijd</value>
+  </data>
+  <data name="ContentItemPublishedUntilValidatorGreaterThanPublishedAt" xml:space="preserve">
+    <value>Publicatiedatum moet voor de publicatie einddatum liggen</value>
+  </data>
+  <data name="ContentItemSummaryValidatorLength" xml:space="preserve">
+    <value>Samenvatting moet tussen de 1 en 255 tekens bevatten</value>
+  </data>
+  <data name="ContentItemTitleValidatorLength" xml:space="preserve">
+    <value>Titel is verplicht</value>
+  </data>
+  <data name="ContentItemTitleValidatorNonEmpty" xml:space="preserve">
+    <value>Titel moet tussen de 1 en 100 tekens bevatten</value>
+  </data>
   <data name="DefaultCultureValidatorNonEmpty" xml:space="preserve">
     <value>Standaard culture is verplicht</value>
   </data>

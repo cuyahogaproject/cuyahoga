@@ -129,6 +129,24 @@
   <data name="CategorySiteValidatorNonEmpty" xml:space="preserve">
     <value>The category must be connected to a site</value>
   </data>
+  <data name="ContentItemPublishedAtValidatorDateTime" xml:space="preserve">
+    <value>Invalid date/time</value>
+  </data>
+  <data name="ContentItemPublishedUntilValidatorDateTime" xml:space="preserve">
+    <value>Invalid date/time</value>
+  </data>
+  <data name="ContentItemPublishedUntilValidatorGreaterThanPublishedAt" xml:space="preserve">
+    <value>Publish date must be before Publish end date</value>
+  </data>
+  <data name="ContentItemSummaryValidatorLength" xml:space="preserve">
+    <value>The summary must be between 1 and 255 characters</value>
+  </data>
+  <data name="ContentItemTitleValidatorLength" xml:space="preserve">
+    <value>The title must be between 1 and 100 characters</value>
+  </data>
+  <data name="ContentItemTitleValidatorNonEmpty" xml:space="preserve">
+    <value>The title may not be empty</value>
+  </data>
   <data name="DefaultCultureValidatorNonEmpty" xml:space="preserve">
     <value>A default culture is required</value>
   </data>

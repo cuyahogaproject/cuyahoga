@@ -11,6 +11,7 @@ using Cuyahoga.Core;
 using Cuyahoga.Core.Domain;
 using Cuyahoga.Core.Service;
 using Cuyahoga.Core.Service.SiteStructure;
+using Cuyahoga.Core.Validation;
 using Cuyahoga.Web.Mvc;
 using log4net;
 using UrlHelper=Cuyahoga.Web.Util.UrlHelper;
@@ -199,16 +200,25 @@ namespace Cuyahoga.Web.Components
 					HttpContext.Current.Application[moduleType.AssemblyName] = moduleType.AssemblyName;
 					HttpContext.Current.Application.UnLock();
 				}
-				// Add routes to the routetable if the module supports MVC
+				
 				if (typeof(IMvcModule).IsAssignableFrom(moduleTypeType))
 				{
 					IMvcModule module = this._kernel.Resolve<IMvcModule>(moduleTypeKey);
+					// Add routes to the routetable if the module supports MVC
 					module.RegisterRoutes(RouteTable.Routes);
+
+					// Register module controllers
 					this._kernel.Register(AllTypes
 						.Of(typeof(IController))
 						.FromAssembly(moduleTypeType.Assembly)
 						.Configure(c => c.LifeStyle.Transient));
 				}
+
+				// Register model validators for modules
+				this._kernel.Register(AllTypes
+				                      	.Of<IModelValidator>()
+				                      	.FromAssembly(moduleTypeType.Assembly)
+				                      	.Configure(c => c.LifeStyle.Transient));
 			}
 			finally
 			{

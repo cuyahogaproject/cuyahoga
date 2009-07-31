@@ -23,9 +23,14 @@ namespace Cuyahoga.Web.Mvc.UI
 
 		public static string DateInput(this HtmlHelper htmlHelper, string name, object value, object htmlAttributes)
 		{
+			string displayValue = null;
+			if (value != null)
+			{
+				displayValue = Convert.ToDateTime(value).ToShortDateString();
+			}
 			StringBuilder sb = new StringBuilder();
 			sb.Append(GetDateInputScripts(htmlHelper));
-			sb.Append(htmlHelper.TextBox(name, value, htmlAttributes));
+			sb.Append(htmlHelper.TextBox(name, displayValue, htmlAttributes));
 			sb.Append("<script type=\"text/javascript\">");
 			sb.Append(@"
 				$(document).ready(function() {
@@ -44,9 +49,15 @@ namespace Cuyahoga.Web.Mvc.UI
 
 		public static string DateTimeInput(this HtmlHelper htmlHelper, string name, object value, object htmlAttributes)
 		{
+			string displayValue = null;
+			if (value != null)
+			{
+				DateTime theDateTime = Convert.ToDateTime(value);
+				displayValue = theDateTime.ToShortDateString() + " " + theDateTime.ToShortTimeString();
+			}
 			StringBuilder sb = new StringBuilder();
 			sb.Append(GetDateInputScripts(htmlHelper));
-			sb.Append(htmlHelper.TextBox(name, value, htmlAttributes));
+			sb.Append(htmlHelper.TextBox(name, displayValue, htmlAttributes));
 			sb.Append("<script type=\"text/javascript\">");
 			sb.Append(@"
 				$(document).ready(function() {

@@ -118,45 +118,72 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="ArticleContentLabel" xml:space="preserve">
-    <value>Article content</value>
+    <value>Artikel content</value>
+  </data>
+  <data name="ArticleCreatedMessage" xml:space="preserve">
+    <value>Artikel '{0}' is aangemaakt</value>
+  </data>
+  <data name="ArticleDeletedMessage" xml:space="preserve">
+    <value>Artikel '{0}' is verwijderd</value>
+  </data>
+  <data name="ArticleUpdatedMessage" xml:space="preserve">
+    <value>Artikel '{0}' is gewijzigd</value>
   </data>
   <data name="AuthorLabel" xml:space="preserve">
-    <value>Author</value>
+    <value>Auteur</value>
+  </data>
+  <data name="CancelLabel" xml:space="preserve">
+    <value>Afbreken</value>
+  </data>
+  <data name="ContentIsRequired" xml:space="preserve">
+    <value>Volledig artikel is verplicht</value>
   </data>
   <data name="ContentLabel" xml:space="preserve">
-    <value>Full content</value>
+    <value>Volledig artikel</value>
   </data>
   <data name="CreateArticleButtonLabel" xml:space="preserve">
-    <value>Create a new article</value>
+    <value>Maak een nieuw artikel aan</value>
   </data>
   <data name="CreatedLabel" xml:space="preserve">
-    <value>Created</value>
+    <value>Aangemaakt</value>
+  </data>
+  <data name="DeleteButtonLabel" xml:space="preserve">
+    <value>Verwijderen</value>
   </data>
   <data name="EditArticlePageTitle" xml:space="preserve">
-    <value>Edit article</value>
+    <value>Wijzig artikel</value>
+  </data>
+  <data name="EditLabel" xml:space="preserve">
+    <value>Wijzigen</value>
   </data>
   <data name="ManageArticlesPageTitle" xml:space="preserve">
-    <value>Manage articles</value>
+    <value>Beheer artikelen</value>
   </data>
   <data name="NewArticlePageTitle" xml:space="preserve">
-    <value>Create new article</value>
+    <value>Nieuw artikel</value>
+  </data>
+  <data name="PublishedAtIsRequired" xml:space="preserve">
+    <value>Publicatiedatum is verplicht</value>
   </data>
   <data name="PublishedLabel" xml:space="preserve">
-    <value>Publish date</value>
+    <value>Publicatiedatum</value>
   </data>
   <data name="PublishedUntilLabel" xml:space="preserve">
-    <value>Publish until</value>
+    <value>Einddatum publicatie</value>
   </data>
   <data name="PublishingLabel" xml:space="preserve">
-    <value>Publishing</value>
+    <value>Publicatie</value>
+  </data>
+  <data name="SaveButtonLabel" xml:space="preserve">
+    <value>Artikel opslaan</value>
   </data>
   <data name="SummaryLabel" xml:space="preserve">
-    <value>Summary</value>
+    <value>Samenvatting</value>
   </data>
   <data name="SyndicateLabel" xml:space="preserve">
-    <value>Syndicate</value>
+    <value>Syndicatie (RSS)</value>
   </data>
   <data name="TitleLabel" xml:space="preserve">
-    <value>Title</value>
+    <value>Titel</value>
   </data>
 </root>

@@ -97,6 +97,60 @@ namespace Resources.Cuyahoga {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Invalid date/time.
+        /// </summary>
+        internal static string ContentItemPublishedAtValidatorDateTime {
+            get {
+                return ResourceManager.GetString("ContentItemPublishedAtValidatorDateTime", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Invalid date/time.
+        /// </summary>
+        internal static string ContentItemPublishedUntilValidatorDateTime {
+            get {
+                return ResourceManager.GetString("ContentItemPublishedUntilValidatorDateTime", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Publish date must be before Publish end date.
+        /// </summary>
+        internal static string ContentItemPublishedUntilValidatorGreaterThanPublishedAt {
+            get {
+                return ResourceManager.GetString("ContentItemPublishedUntilValidatorGreaterThanPublishedAt", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The summary must be between 1 and 255 characters.
+        /// </summary>
+        internal static string ContentItemSummaryValidatorLength {
+            get {
+                return ResourceManager.GetString("ContentItemSummaryValidatorLength", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The title must be between 1 and 100 characters.
+        /// </summary>
+        internal static string ContentItemTitleValidatorLength {
+            get {
+                return ResourceManager.GetString("ContentItemTitleValidatorLength", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The title may not be empty.
+        /// </summary>
+        internal static string ContentItemTitleValidatorNonEmpty {
+            get {
+                return ResourceManager.GetString("ContentItemTitleValidatorNonEmpty", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to A default culture is required.
         /// </summary>
         internal static string DefaultCultureValidatorNonEmpty {

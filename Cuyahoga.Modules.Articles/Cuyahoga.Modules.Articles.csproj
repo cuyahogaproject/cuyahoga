@@ -93,19 +93,20 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="App_GlobalResources\Cuyahoga.Modules.Articles.ArticleResources.designer.cs">
+    <Compile Include="App_GlobalResources\Cuyahoga.Modules.Articles.GlobalResources.designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>Cuyahoga.Modules.Articles.ArticleResources.resx</DependentUpon>
+      <DependentUpon>Cuyahoga.Modules.Articles.GlobalResources.resx</DependentUpon>
     </Compile>
-    <Compile Include="App_GlobalResources\Cuyahoga.Modules.Articles.ArticleResources.nl.designer.cs">
+    <Compile Include="App_GlobalResources\Cuyahoga.Modules.Articles.GlobalResources.nl.designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>Cuyahoga.Modules.Articles.ArticleResources.nl.resx</DependentUpon>
+      <DependentUpon>Cuyahoga.Modules.Articles.GlobalResources.nl.resx</DependentUpon>
     </Compile>
     <Compile Include="Controllers\ManageArticlesController.cs" />
     <Compile Include="Domain\Article.cs" />
     <Compile Include="ArticleModule.cs" />
+    <Compile Include="Domain\ArticleModelValidator.cs" />
     <Compile Include="Web\ArticleDetails.ascx.cs">
       <DependentUpon>ArticleDetails.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -140,13 +141,13 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="App_GlobalResources\Cuyahoga.Modules.Articles.ArticleResources.resx">
+    <Content Include="App_GlobalResources\Cuyahoga.Modules.Articles.GlobalResources.resx">
       <Generator>GlobalResourceProxyGenerator</Generator>
-      <LastGenOutput>Cuyahoga.Modules.Articles.ArticleResources.designer.cs</LastGenOutput>
+      <LastGenOutput>Cuyahoga.Modules.Articles.GlobalResources.designer.cs</LastGenOutput>
     </Content>
-    <Content Include="App_GlobalResources\Cuyahoga.Modules.Articles.ArticleResources.nl.resx">
+    <Content Include="App_GlobalResources\Cuyahoga.Modules.Articles.GlobalResources.nl.resx">
       <Generator>GlobalResourceProxyGenerator</Generator>
-      <LastGenOutput>Cuyahoga.Modules.Articles.ArticleResources.nl.designer.cs</LastGenOutput>
+      <LastGenOutput>Cuyahoga.Modules.Articles.GlobalResources.nl.designer.cs</LastGenOutput>
     </Content>
     <EmbeddedResource Include="Domain\Article.hbm.xml" />
     <EmbeddedResource Include="Web\Articles.ascx.resx">
