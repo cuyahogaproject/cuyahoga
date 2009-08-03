@@ -357,6 +357,7 @@
     <Compile Include="Manager\Model\ViewModels\MenuViewData.cs" />
     <Compile Include="Manager\Model\ViewModels\TemplateViewData.cs" />
     <Compile Include="Modules\Shared\Controllers\CategoriesController.cs" />
+    <Compile Include="Modules\Shared\Controllers\CommentsController.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -747,6 +748,8 @@
     <Content Include="Modules\Shared\Scripts\cuyahoga.categorypicker.js" />
     <Content Include="Modules\Shared\Scripts\cuyahoga.modules.common.js" />
     <Content Include="Modules\Shared\Views\Shared\Categories.ascx" />
+    <Content Include="Modules\Shared\Views\Comments\CommentsList.ascx" />
+    <Content Include="Modules\Shared\Views\Shared\Comments.ascx" />
     <Content Include="Modules\Shared\Views\Shared\EmptyModuleAdminViewPage.aspx" />
     <Content Include="Modules\Shared\Views\Shared\Messages.ascx" />
     <Content Include="Profile.aspx">

@@ -36,6 +36,6 @@
 		</tbody>
 	</table>
 	<p>
-		<input type="button" onclick="document.location.href='<%= Url.Action("New", "ManageArticles", Model.GetNodeAndSectionParams()) %>'" value="Create new article" />
+		<input type="button" onclick="document.location.href='<%= Url.Action("New", "ManageArticles", Model.GetNodeAndSectionParams()) %>'" value="<%= GlobalResources.CreateArticleButtonLabel %>" />
 	</p>
 </asp:content>

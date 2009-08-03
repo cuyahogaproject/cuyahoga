@@ -705,4 +705,13 @@
   <data name="OkLabel" xml:space="preserve">
     <value>Ok</value>
   </data>
+  <data name="CommentsLabel" xml:space="preserve">
+    <value>Reacties</value>
+  </data>
+  <data name="AuthorLabel" xml:space="preserve">
+    <value>Auteur</value>
+  </data>
+  <data name="CommentLabel" xml:space="preserve">
+    <value>Reactie</value>
+  </data>
 </root>

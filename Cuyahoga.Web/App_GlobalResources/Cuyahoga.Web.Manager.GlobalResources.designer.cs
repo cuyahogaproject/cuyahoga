@@ -106,6 +106,15 @@ namespace Resources.Cuyahoga.Web.Manager {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Author.
+        /// </summary>
+        internal static string AuthorLabel {
+            get {
+                return ResourceManager.GetString("AuthorLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Pick a module from the list below and drag it to a content placeholder in the template to create a new section..
         /// </summary>
         internal static string AvailableModulesHint {
@@ -228,6 +237,24 @@ namespace Resources.Cuyahoga.Web.Manager {
         internal static string CloseLabel {
             get {
                 return ResourceManager.GetString("CloseLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Comment.
+        /// </summary>
+        internal static string CommentLabel {
+            get {
+                return ResourceManager.GetString("CommentLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Comments.
+        /// </summary>
+        internal static string CommentsLabel {
+            get {
+                return ResourceManager.GetString("CommentsLabel", resourceCulture);
             }
         }
         

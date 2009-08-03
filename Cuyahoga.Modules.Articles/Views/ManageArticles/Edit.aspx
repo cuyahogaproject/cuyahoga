@@ -15,4 +15,5 @@
 		<% Html.RenderPartial("Categories", Model.ModuleData); %>
 		<%= Html.ClientSideValidation(Model.ModuleData, "articleform") %>
 	<% } %>
+	<% Html.RenderPartial("Comments", Model.ModuleData); %>
 </asp:Content>

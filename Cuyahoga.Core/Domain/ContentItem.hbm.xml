@@ -32,7 +32,7 @@
 			<many-to-many column="categoryid" class="Cuyahoga.Core.Domain.Category, Cuyahoga.Core" />
 		</bag>
 
-		<bag name="Comments" cascade="all" lazy="true" inverse="true">
+		<bag name="Comments" cascade="all" lazy="true" inverse="true" order-by="commentdatetime desc">
 			<key column="contentitemid" />
 			<one-to-many class="Cuyahoga.Core.Domain.Comment, Cuyahoga.Core" />
 		</bag>

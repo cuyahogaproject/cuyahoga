@@ -48,6 +48,17 @@ namespace Cuyahoga.Core.Domain
 		public virtual User User { get; set; }
 
 		/// <summary>
+		/// Gets the name of the person who commented (either from the associated user or the explicit name).
+		/// </summary>
+		public virtual string AuthorName
+		{
+			get
+			{
+				return this.User != null ? this.User.FullName : this.Name;
+			}
+		}
+
+		/// <summary>
 		/// Creates a new instance of the <see cref="Comment"></see> class.
 		/// </summary>
 		public Comment()
