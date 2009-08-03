@@ -11,22 +11,20 @@ namespace Cuyahoga.Modules.Articles.Web
 	/// <summary>
 	///		Summary description for Articles.
 	/// </summary>
-	public partial class Articles : BaseModuleControl
+	public partial class Articles : BaseModuleControl<ArticleModule>
 	{
-		private ArticleModule _module;
 		private IList<Article> _articleList;
 
 		protected void Page_Load(object sender, System.EventArgs e)
 		{
-			this._module = this.Module as ArticleModule;
-			this.pgrArticles.PageSize = this._module.NumberOfArticlesInList;
+			this.pgrArticles.PageSize = this.Module.NumberOfArticlesInList;
 			// We need to set the url where the pager needs to send the user to because otherwise
 			// The pager would add pathinfo parameters to the node url, which are not parsed 
 			// (instead of the section url).
-			this.pgrArticles.PageUrl = UrlUtil.GetUrlFromSection(this._module.Section);
+			this.pgrArticles.PageUrl = UrlUtil.GetUrlFromSection(this.Module.Section);
 
 			// Don't display the syndication icon on the article view
-			base.DisplaySyndicationIcon = this._module.AllowSyndication && this._module.CurrentArticleId == -1;
+			base.DisplaySyndicationIcon = this.Module.AllowSyndication && this.Module.CurrentArticleId == -1;
 
 			if (! IsPostBack && ((! base.HasCachedOutput) || this.Page.User.Identity.IsAuthenticated))
 			{
@@ -43,7 +41,7 @@ namespace Cuyahoga.Modules.Articles.Web
 			// Article list view
 			if (this._articleList == null)
 			{
-				this._articleList = this._module.GetArticleList();
+				this._articleList = this.Module.GetArticleList();
 			}
 			this.rptArticles.DataSource = this._articleList;
 			this.rptArticles.DataBind();
@@ -51,16 +49,16 @@ namespace Cuyahoga.Modules.Articles.Web
 
 		private void BindArchiveLink()
 		{
-			if (this._module.ShowArchive)
+			if (this.Module.ShowArchive)
 			{
-				if (this._module.IsArchive)
+				if (this.Module.IsArchive)
 				{
-					this.hplToggleArchive.NavigateUrl = UrlUtil.GetUrlFromSection(this._module.Section);
+					this.hplToggleArchive.NavigateUrl = UrlUtil.GetUrlFromSection(this.Module.Section);
 					this.hplToggleArchive.Text = base.GetText("CURRENT");
 				}
 				else
 				{
-					this.hplToggleArchive.NavigateUrl = UrlUtil.GetUrlFromSection(this._module.Section) + "/archive";
+					this.hplToggleArchive.NavigateUrl = UrlUtil.GetUrlFromSection(this.Module.Section) + "/archive";
 					this.hplToggleArchive.Text = base.GetText("ARCHIVE");
 				}
 				this.hplToggleArchive.Visible = true;
@@ -73,14 +71,14 @@ namespace Cuyahoga.Modules.Articles.Web
 
 		private void SetDisplayTitle()
 		{
-			if (this._module.CurrentAction == ArticleModuleAction.Category)
+			if (this.Module.CurrentAction == ArticleModuleAction.Category)
 			{
-				this._module.DisplayTitle = String.Format("{0} {1}", GetText("CATEGORY"), this._module.GetCategoryById(this._module.CurrentCategoryId).Name);
+				this.Module.DisplayTitle = String.Format("{0} {1}", GetText("CATEGORY"), this.Module.GetCategoryById(this.Module.CurrentCategoryId).Name);
 			}
 
-			if (this._module.IsArchive)
+			if (this.Module.IsArchive)
 			{
-				this._module.DisplayTitle += String.Format(" ({0}) ", GetText("ARCHIVE"));
+				this.Module.DisplayTitle += String.Format(" ({0}) ", GetText("ARCHIVE"));
 			}
 		}
 
@@ -97,10 +95,10 @@ namespace Cuyahoga.Modules.Articles.Web
 			if (e.Item.ItemType == ListItemType.Item || e.Item.ItemType == ListItemType.AlternatingItem)
 			{
 				Article article = e.Item.DataItem as Article;
-				DisplayType displayType = (DisplayType)Enum.Parse(typeof(DisplayType), this._module.Section.Settings["DISPLAY_TYPE"].ToString());
+				DisplayType displayType = (DisplayType)Enum.Parse(typeof(DisplayType), this.Module.Section.Settings["DISPLAY_TYPE"].ToString());
 
 				HyperLink hpl = e.Item.FindControl("hplTitle") as HyperLink;
-				string articleUrl = UrlHelper.GetUrlFromSection(this._module.Section) + "/" + article.Id;
+				string articleUrl = UrlHelper.GetUrlFromSection(this.Module.Section) + "/" + article.Id;
 				hpl.NavigateUrl = articleUrl;
 
 				Panel pnlSummary = e.Item.FindControl("pnlSummary") as Panel;
@@ -114,34 +112,34 @@ namespace Cuyahoga.Modules.Articles.Web
 
 				Panel pnlArticleInfo = e.Item.FindControl("pnlArticleInfo") as Panel;
 
-				if (this._module.AllowComments || this._module.ShowAuthor || this._module.ShowCategory || this._module.ShowDateTime)
+				if (this.Module.AllowComments || this.Module.ShowAuthor || this.Module.ShowCategory || this.Module.ShowDateTime)
 				{
 					pnlArticleInfo.Visible = true;
 
 					Label lblDateOnline = e.Item.FindControl("lblDateOnline") as Label;
 					lblDateOnline.Text = TimeZoneUtil.AdjustDateToUserTimeZone(article.PublishedAt.Value, this.Page.User.Identity).ToString();
-					lblDateOnline.Visible = this._module.ShowDateTime;
+					lblDateOnline.Visible = this.Module.ShowDateTime;
 
 					Literal litAuthor = e.Item.FindControl("litAuthor") as Literal;
 					litAuthor.Text = base.GetText("PUBLISHED") + " " + base.GetText("BY");
-					litAuthor.Visible = this._module.ShowAuthor;
+					litAuthor.Visible = this.Module.ShowAuthor;
 					HyperLink hplAuthor = e.Item.FindControl("hplAuthor") as HyperLink;
-					hplAuthor.NavigateUrl = this._module.GetProfileUrl(article.CreatedBy.Id);
+					hplAuthor.NavigateUrl = this.Module.GetProfileUrl(article.CreatedBy.Id);
 					hplAuthor.Text = article.CreatedBy.FullName;
-					hplAuthor.Visible = this._module.ShowAuthor;
+					hplAuthor.Visible = this.Module.ShowAuthor;
 
 					Literal litCategory = e.Item.FindControl("litCategory") as Literal;
-					litCategory.Text = base.GetText("CATEGORY");
-					litCategory.Visible = this._module.ShowCategory;
+					litCategory.Text = base.GetText("CATEGORIES");
+					litCategory.Visible = this.Module.ShowCategory;
 					HyperLink hplCategory = e.Item.FindControl("hplCategory") as HyperLink;
 					// TODO: handle categories
 					hplCategory.Text = String.Empty;
-					hplCategory.Visible = this._module.ShowCategory;
+					hplCategory.Visible = this.Module.ShowCategory;
 
 					HyperLink hplComments = e.Item.FindControl("hplComments") as HyperLink;
-					if (this._module.AllowComments)
+					if (this.Module.AllowComments)
 					{
-						hplComments.NavigateUrl = UrlHelper.GetUrlFromSection(this._module.Section)
+						hplComments.NavigateUrl = UrlHelper.GetUrlFromSection(this.Module.Section)
 							+ String.Format("/{0}#comments", article.Id);
 						hplComments.Text = base.GetText("COMMENTS") + " " + article.Comments.Count.ToString();
 					}

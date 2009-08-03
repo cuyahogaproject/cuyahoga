@@ -1,5 +1,4 @@
 ﻿<%@ Control Language="C#" Inherits="System.Web.Mvc.ViewUserControl<IEnumerable<Comment>>" %>
-<h3><%= GlobalResources.CommentsLabel %></h3>
 <table class="grid">
 	<thead>
 		<tr>
@@ -11,15 +10,15 @@
 	<tbody>
 		<% foreach (var comment in Model) { %>
 			<tr>
-				<td>
+				<td style="min-width:100px">
 					<em><strong><%= comment.AuthorName %></strong></em><br />
 					<% if (! String.IsNullOrEmpty(comment.WebSite)) {%>
 						<a href="<%= comment.WebSite %>"><%= comment.WebSite %></a><br />
 					<% }%>
 					<%= comment.UserIp %>
 				</td>
-				<td>
-					<b><%= comment.CommentDateTime %></b><br />
+				<td style="min-width:300px">
+					<em><%= comment.CommentDateTime %></em><br />
 					<%= Server.HtmlEncode(comment.CommentText) %>
 				</td>
 				<td>

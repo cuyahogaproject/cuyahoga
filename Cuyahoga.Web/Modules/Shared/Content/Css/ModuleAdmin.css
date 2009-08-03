@@ -227,7 +227,7 @@ table.grid td
 {
 	border-bottom: 1px solid #eee;
 	padding: 6px 4px;
-
+	vertical-align: top;
 }
 
 table.grid td form

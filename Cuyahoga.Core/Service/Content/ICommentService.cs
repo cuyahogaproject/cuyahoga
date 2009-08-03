@@ -1,4 +1,3 @@
-using System.Collections.Generic;
 using Cuyahoga.Core.Domain;
 
 namespace Cuyahoga.Core.Service.Content
@@ -6,17 +5,22 @@ namespace Cuyahoga.Core.Service.Content
 	public interface ICommentService
 	{
 		/// <summary>
-		/// Gets all comments for the given content item.
+		/// Get a single comment by id.
 		/// </summary>
-		/// <param name="contentItem"></param>
+		/// <param name="id"></param>
 		/// <returns></returns>
-		IEnumerable<Comment> GetCommentsByContentItem(IContentItem contentItem);
+		Comment GetById(int id);
 
 		/// <summary>
-		/// Removes the comment with commentId from the given content item.
+		/// Saves a comment.
 		/// </summary>
-		/// <param name="contentItem"></param>
-		/// <param name="commentId"></param>
-		void DeleteCommentForContentItem(IContentItem contentItem, int commentId);
+		/// <param name="comment"></param>
+		void SaveComment(Comment comment);
+
+		/// <summary>
+		/// Delete a comment.
+		/// </summary>
+		/// <param name="comment"></param>
+		void DeleteComment(Comment comment);
 	}
 }

@@ -120,8 +120,8 @@
   <data name="PUBLISHED" xml:space="preserve">
     <value>Published</value>
   </data>
-  <data name="CATEGORY" xml:space="preserve">
-    <value>Category</value>
+  <data name="CATEGORIES" xml:space="preserve">
+    <value>Categories</value>
   </data>
   <data name="BY" xml:space="preserve">
     <value>by</value>

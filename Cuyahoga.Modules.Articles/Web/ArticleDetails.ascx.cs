@@ -10,45 +10,42 @@ using Cuyahoga.Core.Util;
 
 namespace Cuyahoga.Modules.Articles.Web
 {
-	public partial class ArticleDetails : BaseModuleControl
+	public partial class ArticleDetails : BaseModuleControl<ArticleModule>
 	{
-		private ArticleModule _module;
 		private Article _activeArticle; 
 
 		protected void Page_Load(object sender, System.EventArgs e)
 		{
-			this._module = this.Module as ArticleModule;
-
-			if (this._module.CurrentArticleId > 0 && (!base.HasCachedOutput || this.Page.IsPostBack) || this.Page.User.Identity.IsAuthenticated)
+			if (this.Module.CurrentArticleId > 0 && (!base.HasCachedOutput || this.Page.IsPostBack) || this.Page.User.Identity.IsAuthenticated)
 			{
 				// Article view
-				this._activeArticle = this._module.GetArticleById(this._module.CurrentArticleId);
+				this._activeArticle = this.Module.GetArticleById(this.Module.CurrentArticleId);
 				this.litTitle.Text = this._activeArticle.Title;
 				this.litContent.Text = this._activeArticle.Content;
 
-				if (this._module.AllowComments || this._module.ShowAuthor || this._module.ShowCategory || this._module.ShowDateTime)
+				if (this.Module.AllowComments || this.Module.ShowAuthor || this.Module.ShowCategory || this.Module.ShowDateTime)
 				{
 					this.pnlArticleInfo.Visible = true;
 
 					this.lblDateOnline.Text = TimeZoneUtil.AdjustDateToUserTimeZone(this._activeArticle.PublishedAt.Value, this.Page.User.Identity).ToString();
-					this.lblDateOnline.Visible = this._module.ShowDateTime;
+					this.lblDateOnline.Visible = this.Module.ShowDateTime;
 
 					this.litAuthor.Text = base.GetText("PUBLISHED") + " " + base.GetText("BY");
-					this.litAuthor.Visible = this._module.ShowAuthor;
-					this.hplAuthor.NavigateUrl = this._module.GetProfileUrl(this._activeArticle.CreatedBy.Id);
+					this.litAuthor.Visible = this.Module.ShowAuthor;
+					this.hplAuthor.NavigateUrl = this.Module.GetProfileUrl(this._activeArticle.CreatedBy.Id);
 					this.hplAuthor.Text = this._activeArticle.CreatedBy.FullName;
-					this.hplAuthor.Visible = this._module.ShowAuthor;
+					this.hplAuthor.Visible = this.Module.ShowAuthor;
 
 					this.litCategory.Text = base.GetText("CATEGORY");
-					this.litCategory.Visible = this._module.ShowCategory;
+					this.litCategory.Visible = this.Module.ShowCategory;
 					
 					// TODO: categories
 					this.hplCategory.Text = String.Empty;
-					this.hplCategory.Visible = this._module.ShowCategory;
+					this.hplCategory.Visible = this.Module.ShowCategory;
 
-					if (this._module.AllowComments)
+					if (this.Module.AllowComments)
 					{
-						this.hplComments.NavigateUrl = UrlHelper.GetUrlFromSection(this._module.Section)
+						this.hplComments.NavigateUrl = UrlHelper.GetUrlFromSection(this.Module.Section)
 							+ String.Format("/{0}#comments", this._activeArticle.Id);
 						this.hplComments.Text = base.GetText("COMMENTS") + " " + this._activeArticle.Comments.Count.ToString();
 					}
@@ -62,15 +59,15 @@ namespace Cuyahoga.Modules.Articles.Web
 					this.pnlArticleInfo.Visible = false;
 				}
 
-				this.hplBack.NavigateUrl = UrlUtil.GetUrlFromSection(this._module.Section);
+				this.hplBack.NavigateUrl = UrlUtil.GetUrlFromSection(this.Module.Section);
 				this.hplBack.Text = base.GetText("BACK");
 				this.btnSaveComment.Text = base.GetText("BTNSAVECOMMENT");
 				this.rfvName.ErrorMessage = base.GetText("NAMEREQUIRED");
 				this.rfvComment.ErrorMessage = base.GetText("COMMENTREQUIRED");
 
 				this.pnlArticleDetails.Visible = true;
-				this.pnlComments.Visible = this._module.AllowComments && this._activeArticle.Comments.Count > 0;
-				if (this._module.AllowAnonymousComments || (this.Page.User.Identity.IsAuthenticated && this._module.AllowComments))
+				this.pnlComments.Visible = this.Module.AllowComments && this._activeArticle.Comments.Count > 0;
+				if (this.Module.AllowAnonymousComments || (this.Page.User.Identity.IsAuthenticated && this.Module.AllowComments))
 				{
 					this.pnlComment.Visible = true;
 					this.pnlAnonymous.Visible = (!this.Page.User.Identity.IsAuthenticated);
@@ -99,6 +96,8 @@ namespace Cuyahoga.Modules.Articles.Web
 				comment.ContentItem = this._activeArticle;
 				comment.CommentText = commentText;
 				comment.UserIp = HttpContext.Current.Request.UserHostAddress;
+				comment.ContentItem = this._activeArticle;
+				comment.CommentDateTime = DateTime.Now;
 				if (this.Page.User.Identity.IsAuthenticated)
 				{
 					comment.User = this.Page.User.Identity as Cuyahoga.Core.Domain.User;
@@ -110,10 +109,10 @@ namespace Cuyahoga.Modules.Articles.Web
 				}
 				try
 				{
-					this._module.SaveComment(comment);
+					this.Module.SaveComment(comment);
 					// Clear the cache, so the comment will appear immediately.
 					base.InvalidateCache();
-					Context.Response.Redirect(UrlUtil.GetUrlFromSection(this._module.Section) + "/" + this._activeArticle.Id.ToString());
+					Context.Response.Redirect(UrlUtil.GetUrlFromSection(this.Module.Section) + "/" + this._activeArticle.Id.ToString());
 				}
 				catch (Exception ex)
 				{
@@ -138,7 +137,7 @@ namespace Cuyahoga.Modules.Articles.Web
 					if (!string.IsNullOrEmpty(comment.User.Website))
 					{
 						HyperLink hpl = new HyperLink();
-						hpl.NavigateUrl = this._module.GetProfileUrl(comment.User.Id);
+						hpl.NavigateUrl = this.Module.GetProfileUrl(comment.User.Id);
 						hpl.Text = comment.User.FullName;
 						plhCommentBy.Controls.Add(hpl);
 					}
@@ -157,13 +156,13 @@ namespace Cuyahoga.Modules.Articles.Web
 						HyperLink hpl = new HyperLink();
 						hpl.NavigateUrl = comment.WebSite;
 						hpl.Target = "_blank";
-						hpl.Text = comment.Name;
+						hpl.Text = Server.HtmlEncode(comment.Name);
 						plhCommentBy.Controls.Add(hpl);
 					}
 					else
 					{
 						Literal lit = new Literal();
-						lit.Text = comment.Name;
+						lit.Text = Server.HtmlEncode(comment.Name);
 						plhCommentBy.Controls.Add(lit);
 					}
 				}

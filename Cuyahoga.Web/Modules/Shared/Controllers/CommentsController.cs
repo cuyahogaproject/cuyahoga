@@ -24,8 +24,8 @@ namespace Cuyahoga.Web.Modules.Shared.Controllers
 
 		public ActionResult DeleteCommentForContentItem(int id, long contentItemId)
 		{
-			IContentItem contentItem = this._contentItemService.GetById(contentItemId);
-			this._commentService.DeleteCommentForContentItem(contentItem, id);
+			Comment comment = this._commentService.GetById(id);
+			this._commentService.DeleteComment(comment);
 			return RedirectToAction("ViewByContentItem", new {contentitemid = contentItemId});
 		}
 	}

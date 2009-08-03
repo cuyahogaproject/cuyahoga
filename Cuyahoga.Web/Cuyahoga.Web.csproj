@@ -443,6 +443,9 @@
     <Compile Include="UI\BaseModuleControl.cs">
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
+    <Compile Include="UI\BaseModuleControl`1.cs">
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
     <Compile Include="UI\BasePageControl.cs">
       <SubType>ASPXCodeBehind</SubType>
     </Compile>

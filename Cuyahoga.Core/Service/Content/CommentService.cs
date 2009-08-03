@@ -25,32 +25,35 @@ namespace Cuyahoga.Core.Service.Content
 		}
 
 		/// <summary>
-		/// Gets all comments for the given content item.
+		/// Gets a single comment by id.
 		/// </summary>
-		/// <param name="contentItem"></param>
+		/// <param name="id"></param>
 		/// <returns></returns>
-		public IEnumerable<Comment> GetCommentsByContentItem(IContentItem contentItem)
+		public Comment GetById(int id)
 		{
-			throw new NotImplementedException();
+			return this._commonDao.GetObjectById<Comment>(id);
 		}
 
 		/// <summary>
-		/// Removes the comment with commentId from the given content item.
+		/// Saves a comment.
 		/// </summary>
-		/// <param name="contentItem"></param>
-		/// <param name="commentId"></param>
+		/// <param name="comment"></param>
 		[Transaction(TransactionMode.Requires)]
-		public void DeleteCommentForContentItem(IContentItem contentItem, int commentId)
+		public void SaveComment(Comment comment)
 		{
-			Comment commentToDelete = contentItem.Comments.SingleOrDefault(c => c.Id == commentId);
-			if (commentToDelete == null)
-			{
-				throw new ArgumentException(
-					string.Format("The comment with id {0} could not be found in the comments of the given content item with id {1}.",
-					              commentId, contentItem.Id));
-			}
-			contentItem.Comments.Remove(commentToDelete);
-			this._commonDao.DeleteObject(commentToDelete);
+			comment.ContentItem.Comments.Add(comment);
+			this._commonDao.SaveObject(comment);
+		}
+
+		/// <summary>
+		/// Delete a comment.
+		/// </summary>
+		/// <param name="comment"></param>
+		[Transaction(TransactionMode.Requires)]
+		public void DeleteComment(Comment comment)
+		{
+			comment.ContentItem.Comments.Remove(comment);
+			this._commonDao.DeleteObject(comment);
 		}
 	}
 }

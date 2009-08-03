@@ -22,11 +22,11 @@ namespace Cuyahoga.Modules.Articles
 	[Transactional]
 	public class ArticleModule : ModuleBase, IActionProvider, INHibernateModule, IMvcModule
 	{
-		private readonly ICommonDao _commonDao;
 		private readonly IContentItemService<Article> _contentItemService;
 		private readonly ICategoryService _categoryService;
+		private readonly ICommentService _commentService;
 
-		private int _currentArticleId;
+		private long _currentArticleId;
 		private int _currentCategoryId;
 		private bool _isArchive;
 		private bool _allowComments;
@@ -47,7 +47,7 @@ namespace Cuyahoga.Modules.Articles
 		/// <summary>
 		/// Property CurrentArticleId (int)
 		/// </summary>
-		public int CurrentArticleId
+		public long CurrentArticleId
 		{
 			get { return this._currentArticleId; }
 		}
@@ -145,11 +145,11 @@ namespace Cuyahoga.Modules.Articles
 		/// <summary>
 		/// Default constructor.
 		/// </summary>
-		public ArticleModule(ICommonDao commonDao, IContentItemService<Article> contentItemService, ICategoryService categoryService)
+		public ArticleModule(IContentItemService<Article> contentItemService, ICategoryService categoryService, ICommentService commentService)
 		{
-			this._commonDao = commonDao;
 			this._contentItemService = contentItemService;
 			this._categoryService = categoryService;
+			this._commentService = commentService;
 			this._currentArticleId = -1;
 			this._currentCategoryId = -1;
 			this._currentAction = ArticleModuleAction.List;
@@ -267,7 +267,7 @@ namespace Cuyahoga.Modules.Articles
 					return this._contentItemService.FindVisibleContentItemsBySection(base.Section, CreateQuerySettingsForModule());
 				case ArticleModuleAction.Category:
 					return this._contentItemService.FindVisibleContentItemsByCategory(
-						this._commonDao.GetObjectById<Category>(this._currentCategoryId), CreateQuerySettingsForModule());
+						this._categoryService.GetCategoryById(this._currentCategoryId), CreateQuerySettingsForModule());
 				case ArticleModuleAction.Archive:
 					return this._contentItemService.FindArchivedContentItemsBySection(base.Section, CreateQuerySettingsForModule());
 				default:
@@ -280,9 +280,9 @@ namespace Cuyahoga.Modules.Articles
 		/// </summary>
 		/// <param name="id"></param>
 		/// <returns></returns>
-		public Article GetArticleById(int id)
+		public Article GetArticleById(long id)
 		{
-			return this._commonDao.GetObjectById<Article>(id);
+			return this._contentItemService.GetById(id);
 		}
 
 		/// <summary>
@@ -303,7 +303,7 @@ namespace Cuyahoga.Modules.Articles
 
 		public void SaveComment(Comment comment)
 		{
-			throw new NotImplementedException();
+			this._commentService.SaveComment(comment);
 		}
 
 		public Category GetCategoryById(int categoryId)

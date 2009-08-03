@@ -218,13 +218,6 @@
       <DependentUpon>SitemapControl.ascx</DependentUpon>
     </Compile>
     <Compile Include="StaticHtml\Controllers\ManageContentController.cs" />
-    <Compile Include="StaticHtml\EditHtml.aspx.cs">
-      <DependentUpon>EditHtml.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="StaticHtml\EditHtml.aspx.designer.cs">
-      <DependentUpon>EditHtml.aspx</DependentUpon>
-    </Compile>
     <Compile Include="StaticHtml\StaticHtml.ascx.cs">
       <DependentUpon>StaticHtml.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -515,9 +508,6 @@
       <SubType>UserControl</SubType>
     </Content>
     <Content Include="Sitemap\SitemapControl.ascx" />
-    <Content Include="StaticHtml\EditHtml.aspx">
-      <SubType>Form</SubType>
-    </Content>
     <Content Include="StaticHtml\StaticHtml.ascx">
       <SubType>UserControl</SubType>
     </Content>
@@ -583,10 +573,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Search\SearchInput.ascx.resx">
       <DependentUpon>SearchInput.ascx.cs</DependentUpon>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="StaticHtml\EditHtml.aspx.resx">
-      <DependentUpon>EditHtml.aspx.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="StaticHtml\StaticHtml.ascx.resx">

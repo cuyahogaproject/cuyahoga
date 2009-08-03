@@ -120,8 +120,8 @@
   <data name="PUBLISHED" xml:space="preserve">
     <value>Geplaatst</value>
   </data>
-  <data name="CATEGORY" xml:space="preserve">
-    <value>Categorie</value>
+  <data name="CATEGORIES" xml:space="preserve">
+    <value>Categorieen</value>
   </data>
   <data name="BY" xml:space="preserve">
     <value>door</value>
