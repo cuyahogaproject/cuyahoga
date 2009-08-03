@@ -1,9 +1,5 @@
 using System;
-using System.Drawing;
-using System.Web;
 using System.Web.UI.WebControls;
-using System.Web.UI.HtmlControls;
-
 using Cuyahoga.Web.UI;
 
 namespace Cuyahoga.Modules.StaticHtml
@@ -11,16 +7,15 @@ namespace Cuyahoga.Modules.StaticHtml
 	/// <summary>
 	///		Summary description for StaticHtml.
 	/// </summary>
-	public partial class StaticHtml : BaseModuleControl
+	public partial class StaticHtml : BaseModuleControl<StaticHtmlModule>
 	{
 
 		protected void Page_Load(object sender, System.EventArgs e)
 		{
-			StaticHtmlModule module = this.Module as StaticHtmlModule;
-			if (module != null && ! base.HasCachedOutput)
+			if (Module != null && ! base.HasCachedOutput)
 			{
 				Literal htmlControl = new Literal();
-				StaticHtmlContent shc = module.GetContent();
+				StaticHtmlContent shc = Module.GetContent();
 				if (shc != null)
 				{
 					htmlControl.Text = shc.Content;
