@@ -21,7 +21,7 @@
 						<asp:literal id="litAuthor" runat="server"></asp:literal>
 						<asp:hyperlink id="hplAuthor" runat="server"></asp:hyperlink>
 						<asp:literal id="litCategory" runat="server"></asp:literal>
-						<asp:hyperlink id="hplCategory" runat="server"></asp:hyperlink>
+						<cc1:categorydisplay id="cadCategories" runat="server" />
 						<asp:hyperlink id="hplComments" runat="server"></asp:hyperlink>
 					</asp:panel>
 				</li>

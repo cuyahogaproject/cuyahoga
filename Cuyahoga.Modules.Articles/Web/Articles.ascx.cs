@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using System;
 using System.Web.UI.WebControls;
 using Cuyahoga.Core.Util;
+using Cuyahoga.ServerControls;
 using Cuyahoga.Web.UI;
 using Cuyahoga.Web.Util;
 using Cuyahoga.Modules.Articles.Domain;
@@ -131,10 +132,11 @@ namespace Cuyahoga.Modules.Articles.Web
 					Literal litCategory = e.Item.FindControl("litCategory") as Literal;
 					litCategory.Text = base.GetText("CATEGORIES");
 					litCategory.Visible = this.Module.ShowCategory;
-					HyperLink hplCategory = e.Item.FindControl("hplCategory") as HyperLink;
-					// TODO: handle categories
-					hplCategory.Text = String.Empty;
-					hplCategory.Visible = this.Module.ShowCategory;
+
+					CategoryDisplay cadCategories = (CategoryDisplay) e.Item.FindControl("cadCategories");
+					cadCategories.SectionBaseUrl = UrlUtil.GetUrlFromSection(Module.Section);
+					cadCategories.Categories = article.Categories;
+					cadCategories.Visible = this.Module.ShowCategory;
 
 					HyperLink hplComments = e.Item.FindControl("hplComments") as HyperLink;
 					if (this.Module.AllowComments)

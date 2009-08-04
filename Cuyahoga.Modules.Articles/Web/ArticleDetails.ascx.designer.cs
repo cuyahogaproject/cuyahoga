@@ -86,13 +86,13 @@ namespace Cuyahoga.Modules.Articles.Web {
         protected global::System.Web.UI.WebControls.Literal litCategory;
         
         /// <summary>
-        /// hplCategory control.
+        /// cadCategories control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.HyperLink hplCategory;
+        protected global::Cuyahoga.ServerControls.CategoryDisplay cadCategories;
         
         /// <summary>
         /// hplComments control.

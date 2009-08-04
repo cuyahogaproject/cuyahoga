@@ -1,4 +1,5 @@
 <%@ Control Language="C#" AutoEventWireup="true" CodeBehind="ArticleDetails.ascx.cs" Inherits="Cuyahoga.Modules.Articles.Web.ArticleDetails" %>
+<%@ register assembly="Cuyahoga.ServerControls" namespace="Cuyahoga.ServerControls"	tagprefix="cc1" %>
 <asp:panel id="pnlArticleDetails" runat="server" visible="False">
 	<div class="articlecontent">
 		<h4><asp:literal id="litTitle" runat="server"></asp:literal></h4>
@@ -8,7 +9,7 @@
 			<asp:literal id="litAuthor" runat="server"></asp:literal>
 			<asp:hyperlink id="hplAuthor" runat="server"></asp:hyperlink>
 			<asp:literal id="litCategory" runat="server"></asp:literal>
-			<asp:hyperlink id="hplCategory" runat="server"></asp:hyperlink>
+			<cc1:categorydisplay id="cadCategories" runat="server" />
 			<asp:hyperlink id="hplComments" runat="server"></asp:hyperlink>
 		</asp:panel>
 		<br />

@@ -40,8 +40,9 @@ namespace Cuyahoga.Modules.Articles.Web
 					this.litCategory.Visible = this.Module.ShowCategory;
 					
 					// TODO: categories
-					this.hplCategory.Text = String.Empty;
-					this.hplCategory.Visible = this.Module.ShowCategory;
+					this.cadCategories.SectionBaseUrl = UrlUtil.GetUrlFromSection(Module.Section);
+					this.cadCategories.Categories = this._activeArticle.Categories;
+					this.cadCategories.Visible = this.Module.ShowCategory;
 
 					if (this.Module.AllowComments)
 					{

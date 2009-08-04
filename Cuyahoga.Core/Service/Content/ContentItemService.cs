@@ -157,7 +157,7 @@ namespace Cuyahoga.Core.Service.Content
 		{
 			return GetContentItemCriteria()
 				.CreateAlias("Categories", "cat")
-				.Add(Restrictions.Eq("cat", category))
+					.Add(Restrictions.Eq("cat.Id", category.Id))
 				.ApplyOrdering(querySettings.SortBy, querySettings.SortDirection)
 				.ApplyPaging(querySettings.PageSize, querySettings.PageNumber);
 		}
