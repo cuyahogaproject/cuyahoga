@@ -79,6 +79,12 @@ go
 -- We don't drop the inserttimestamp and updatetimestamp columns because they have defaults and are 
 -- very hard to drop because of their generated names
 
+-- Change module admin url
+UPDATE cuyahoga_moduletype
+SET editpath = 'Modules/StaticHtml/ManageContent/Edit'
+WHERE [name] = 'StaticHtml'
+go
+
 /*
  * Version
  */
