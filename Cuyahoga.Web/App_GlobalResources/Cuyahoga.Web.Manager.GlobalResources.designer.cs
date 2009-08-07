@@ -358,6 +358,15 @@ namespace Resources.Cuyahoga.Web.Manager {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Current directory.
+        /// </summary>
+        internal static string CurrentDirectoryLabel {
+            get {
+                return ResourceManager.GetString("CurrentDirectoryLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Cuyahoga Site Manager.
         /// </summary>
         internal static string CuyahogaSiteManagerLabel {

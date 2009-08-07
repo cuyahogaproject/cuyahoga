@@ -7,13 +7,17 @@ namespace Cuyahoga.Web.Manager.Filters
 	{
 		public override void OnActionExecuting(ActionExecutingContext filterContext)
 		{
-			// Register partial request for the site chooser component.
-			filterContext.Controller.ViewData["SiteChooser"] = new PartialRequest(new
+			// No need to do this for ajax requests.
+			if (!filterContext.HttpContext.Request.IsAjaxRequest())
 			{
-				area = "Manager",
-				controller = "Dashboard",
-				action = "SiteChooser"
-			});
+				// Register partial request for the site chooser component.
+				filterContext.Controller.ViewData["SiteChooser"] = new PartialRequest(new
+				                                                                      	{
+				                                                                      		area = "Manager",
+				                                                                      		controller = "Dashboard",
+				                                                                      		action = "SiteChooser"
+				                                                                      	});
+			}
 		}
 	}
 }

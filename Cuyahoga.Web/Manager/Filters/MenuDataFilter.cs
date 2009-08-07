@@ -40,7 +40,11 @@ namespace Cuyahoga.Web.Manager.Filters
 
 		public override void OnActionExecuting(ActionExecutingContext filterContext)
 		{
-			InitMenuViewData(filterContext);
+			// Don't get menu data for ajax requests.
+			if (!filterContext.HttpContext.Request.IsAjaxRequest())
+			{
+				InitMenuViewData(filterContext);
+			}
 		}
 
 		private void InitMenuViewData(ActionExecutingContext filterContext)

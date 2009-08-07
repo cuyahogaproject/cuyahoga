@@ -19,5 +19,6 @@ namespace Cuyahoga.Core.Service.Membership
 		public const string GlobalPermissions = "Global Permissions";
 		public const string AccessAdmin = "Access Admin";
 		public const string CreateSite = "Create Site";
+		public const string AccessRootDataFolder = "Access Root Data Folder";
 	}
 }

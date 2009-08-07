@@ -726,4 +726,7 @@
   <data name="CommentLabel" xml:space="preserve">
     <value>Comment</value>
   </data>
+  <data name="CurrentDirectoryLabel" xml:space="preserve">
+    <value>Current directory</value>
+  </data>
 </root>

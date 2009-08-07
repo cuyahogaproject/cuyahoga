@@ -260,6 +260,7 @@ INSERT INTO cuyahoga_right (rightid, name, description) VALUES (10, 'Global Perm
 INSERT INTO cuyahoga_right (rightid, name, description) VALUES (11, 'Access Admin', 'Access site administration')
 INSERT INTO cuyahoga_right (rightid, name, description) VALUES (12, 'Create Site', 'Create a new site')
 INSERT INTO cuyahoga_right (rightid, name, description) VALUES (13, 'Manage Templates', 'Manage templates')
+INSERT INTO cuyahoga_right (rightid, name, description) VALUES (14, 'Access Root Data Folder', 'Access root data folder')
 
 GO
 
@@ -280,6 +281,7 @@ INSERT INTO cuyahoga_roleright(roleid, rightid) VALUES (1, 10)
 INSERT INTO cuyahoga_roleright(roleid, rightid) VALUES (1, 11)
 INSERT INTO cuyahoga_roleright(roleid, rightid) VALUES (1, 12)
 INSERT INTO cuyahoga_roleright(roleid, rightid) VALUES (1, 13)
+INSERT INTO cuyahoga_roleright(roleid, rightid) VALUES (1, 14)
 INSERT INTO cuyahoga_roleright(roleid, rightid) VALUES (2, 1)
 INSERT INTO cuyahoga_roleright(roleid, rightid) VALUES (2, 2)
 INSERT INTO cuyahoga_roleright(roleid, rightid) VALUES (2, 3)

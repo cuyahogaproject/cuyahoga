@@ -714,4 +714,10 @@
   <data name="CommentLabel" xml:space="preserve">
     <value>Reactie</value>
   </data>
+  <data name="CurrentDirectoryLabel" xml:space="preserve">
+    <value>Huidige directory</value>
+  </data>
+  <data name="ManageFilesPageTitle" xml:space="preserve">
+    <value>Beheer bestanden</value>
+  </data>
 </root>

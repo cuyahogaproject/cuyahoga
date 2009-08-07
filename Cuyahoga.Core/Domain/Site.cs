@@ -197,7 +197,7 @@ namespace Cuyahoga.Core.Domain
 				{
 					throw new InvalidOperationException("Unable to get the site data directory when the site isn't saved yet.");
 				}
-				return string.Format("~/SiteData/{0}/ ", this._id);
+				return string.Format("~/SiteData/{0}/", this._id);
 			}
 		}
 
