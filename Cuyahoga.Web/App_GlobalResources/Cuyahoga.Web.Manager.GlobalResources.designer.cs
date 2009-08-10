@@ -1402,6 +1402,15 @@ namespace Resources.Cuyahoga.Web.Manager {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Path.
+        /// </summary>
+        internal static string PathLabel {
+            get {
+                return ResourceManager.GetString("PathLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Permissions for {0} are updated successfully..
         /// </summary>
         internal static string PermissionsUpdatedMessage {

@@ -74,5 +74,11 @@ namespace Cuyahoga.Core.Service.Files
 		/// <param name="physicalDirectory"></param>
 		/// <returns></returns>
 		string[] GetFiles(string physicalDirectory);
+
+		/// <summary>
+		/// Get the root data path for the current user.
+		/// </summary>
+		/// <returns></returns>
+		string GetRootDataPath();
 	}
 }

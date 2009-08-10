@@ -729,4 +729,7 @@
   <data name="CurrentDirectoryLabel" xml:space="preserve">
     <value>Current directory</value>
   </data>
+  <data name="PathLabel" xml:space="preserve">
+    <value>Path</value>
+  </data>
 </root>

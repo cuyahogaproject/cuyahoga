@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using Cuyahoga.Core.Infrastructure.Transactions;
+using Cuyahoga.Core.Service.Membership;
 using Cuyahoga.Core.Util;
 using log4net;
 using Castle.MicroKernel;
@@ -17,6 +18,7 @@ namespace Cuyahoga.Core.Service.Files
 		private static readonly ILog log = LogManager.GetLogger(typeof(TransactionalFileService));
 		private string _tempDir;
 		private IKernel _kernel;
+		private readonly ICuyahogaContextProvider _contextProvider;
 		private IDictionary<ITransaction, TransactionalFileWriter> _fileWriters = new Dictionary<ITransaction, TransactionalFileWriter>();
 		
 		/// <summary>
@@ -30,9 +32,10 @@ namespace Cuyahoga.Core.Service.Files
 		/// <summary>
 		/// Constructor.
 		/// </summary>
-		public TransactionalFileService(IKernel kernel)
+		public TransactionalFileService(IKernel kernel, ICuyahogaContextProvider contextProvider)
 		{
 			this._kernel = kernel;
+			this._contextProvider = contextProvider;
 		}
 
 		#region IFileService Members
@@ -174,6 +177,15 @@ namespace Cuyahoga.Core.Service.Files
 				filesList.Add(IOUtil.GetLastPathFragment(fileName));
 			}
 			return filesList.ToArray();
+		}
+
+		public string GetRootDataPath()
+		{
+			if (this._contextProvider.GetContext().CurrentUser.HasRight(Rights.AccessRootDataFolder))
+			{
+				return "~/SiteData/";
+			}
+			return this._contextProvider.GetContext().CurrentSite.SiteDataDirectory + "UserFiles/";
 		}
 
 		#endregion

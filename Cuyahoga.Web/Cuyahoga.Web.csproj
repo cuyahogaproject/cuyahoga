@@ -349,6 +349,7 @@
     <Compile Include="Manager\Filters\SiteChooserFilter.cs" />
     <Compile Include="Manager\Helpers\ContainerElement.cs" />
     <Compile Include="Manager\Helpers\EnumHelper.cs" />
+    <Compile Include="Manager\Helpers\FileTypeExtensions.cs" />
     <Compile Include="Manager\Helpers\PageAdminExtensions.cs" />
     <Compile Include="Manager\Helpers\PermissionExtensions.cs" />
     <Compile Include="Manager\Helpers\SectionAdminExtensions.cs" />
@@ -624,7 +625,15 @@
     <Content Include="Manager\Content\Images\page.png" />
     <Content Include="Manager\Content\Images\page_link.png" />
     <Content Include="Manager\Content\Images\page_white.png" />
+    <Content Include="Manager\Content\Images\page_white_acrobat.png" />
+    <Content Include="Manager\Content\Images\page_white_compressed.png" />
+    <Content Include="Manager\Content\Images\page_white_excel.png" />
+    <Content Include="Manager\Content\Images\page_white_flash.png" />
+    <Content Include="Manager\Content\Images\page_white_picture.png" />
+    <Content Include="Manager\Content\Images\page_white_powerpoint.png" />
     <Content Include="Manager\Content\Images\page_white_stack.png" />
+    <Content Include="Manager\Content\Images\page_white_text.png" />
+    <Content Include="Manager\Content\Images\page_white_word.png" />
     <Content Include="Manager\Content\Images\pencil.png" />
     <Content Include="Manager\Content\Images\section_collapsed.png" />
     <Content Include="Manager\Content\Images\section_expanded.png" />
