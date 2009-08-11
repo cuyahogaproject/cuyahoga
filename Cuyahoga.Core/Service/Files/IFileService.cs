@@ -1,5 +1,5 @@
 using System;
-
+using System.Collections.Generic;
 using System.IO;
 
 namespace Cuyahoga.Core.Service.Files
@@ -34,6 +34,12 @@ namespace Cuyahoga.Core.Service.Files
 		/// </summary>
 		/// <param name="filePath">The physical file path</param>
 		void DeleteFile(string filePath);
+
+		/// <summary>
+		/// Recursively delete an entire directory.
+		/// </summary>
+		/// <param name="directoryPath"></param>
+		void DeleteDirectory(string directoryPath);
 
 		/// <summary>
 		/// Create a new directory.
@@ -75,10 +81,5 @@ namespace Cuyahoga.Core.Service.Files
 		/// <returns></returns>
 		string[] GetFiles(string physicalDirectory);
 
-		/// <summary>
-		/// Get the root data path for the current user.
-		/// </summary>
-		/// <returns></returns>
-		string GetRootDataPath();
 	}
 }

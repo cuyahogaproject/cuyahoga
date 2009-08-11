@@ -2,7 +2,6 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using Cuyahoga.Core.Infrastructure.Transactions;
-using Cuyahoga.Core.Service.Membership;
 using Cuyahoga.Core.Util;
 using log4net;
 using Castle.MicroKernel;
@@ -17,9 +16,8 @@ namespace Cuyahoga.Core.Service.Files
 	{
 		private static readonly ILog log = LogManager.GetLogger(typeof(TransactionalFileService));
 		private string _tempDir;
-		private IKernel _kernel;
-		private readonly ICuyahogaContextProvider _contextProvider;
-		private IDictionary<ITransaction, TransactionalFileWriter> _fileWriters = new Dictionary<ITransaction, TransactionalFileWriter>();
+		private readonly IKernel _kernel;
+		private readonly IDictionary<ITransaction, TransactionalFileWriter> _fileWriters = new Dictionary<ITransaction, TransactionalFileWriter>();
 		
 		/// <summary>
 		/// Physical path for temporary file storage
@@ -32,10 +30,9 @@ namespace Cuyahoga.Core.Service.Files
 		/// <summary>
 		/// Constructor.
 		/// </summary>
-		public TransactionalFileService(IKernel kernel, ICuyahogaContextProvider contextProvider)
+		public TransactionalFileService(IKernel kernel)
 		{
 			this._kernel = kernel;
-			this._contextProvider = contextProvider;
 		}
 
 		#region IFileService Members
@@ -93,6 +90,23 @@ namespace Cuyahoga.Core.Service.Files
 			{
 				// No transaction, just delete the file.
 				File.Delete(filePath);
+			}
+		}
+
+		public void DeleteDirectory(string directoryPath)
+		{
+			ITransaction transaction = ObtainCurrentTransaction();
+			if (transaction != null)
+			{
+				// We're participating in a transaction, use the TransactionalFileWriter to delete the directory.
+				TransactionalFileWriter fileWriter = GetFileWriterForTransaction(transaction);
+				transaction.Enlist(fileWriter);
+				fileWriter.DeleteDirectory(directoryPath);
+			}
+			else
+			{
+				// No transaction, just delete the directory.
+				Directory.Delete(directoryPath, true);
 			}
 		}
 
@@ -177,15 +191,6 @@ namespace Cuyahoga.Core.Service.Files
 				filesList.Add(IOUtil.GetLastPathFragment(fileName));
 			}
 			return filesList.ToArray();
-		}
-
-		public string GetRootDataPath()
-		{
-			if (this._contextProvider.GetContext().CurrentUser.HasRight(Rights.AccessRootDataFolder))
-			{
-				return "~/SiteData/";
-			}
-			return this._contextProvider.GetContext().CurrentSite.SiteDataDirectory + "UserFiles/";
 		}
 
 		#endregion

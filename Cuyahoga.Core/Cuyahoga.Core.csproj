@@ -206,6 +206,8 @@
     <Compile Include="Service\Content\Enumerations.cs" />
     <Compile Include="Service\Content\ICommentService.cs" />
     <Compile Include="Service\CuyahogaContextProvider.cs" />
+    <Compile Include="Service\Files\FileManagerService.cs" />
+    <Compile Include="Service\Files\IFileManagerService.cs" />
     <Compile Include="Service\ICuyahogaContextProvider.cs" />
     <Compile Include="Service\Search\SearchDecorator.cs" />
     <Compile Include="Service\Versioning\VersioningDecorator.cs" />

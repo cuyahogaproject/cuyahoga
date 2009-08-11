@@ -1,16 +1,15 @@
 using System;
 using System.IO;
+using System.Reflection;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Routing;
-using Castle.Core;
 using Castle.Windsor;
 using Cuyahoga.Core.Util;
 using Cuyahoga.Web.Components;
 using Cuyahoga.Web.Mvc.Areas;
 using log4net;
 using log4net.Config;
-using RouteHelper;
 
 namespace Cuyahoga.Web
 {
@@ -18,6 +17,7 @@ namespace Cuyahoga.Web
 	{
 		private static readonly ILog log = LogManager.GetLogger(typeof(Global));
 		private static readonly string ERROR_PAGE_LOCATION = "~/Error.aspx";
+		private static readonly AspNetHostingPermissionLevel TrustLevel = GetCurrentTrustLevel();
 
 		/// <summary>
 		/// Obtain the container.
@@ -27,11 +27,19 @@ namespace Cuyahoga.Web
 			get { return IoC.Container; }
 		}
 
+		/// <summary>
+		/// Gets the current trust level.
+		/// </summary>
+		public static AspNetHostingPermissionLevel CurrentTrustLevel
+		{
+			get { return TrustLevel; }
+		}
+
 		protected void Application_Start(Object sender, EventArgs e)
 		{
 			// Initialize log4net 
-			XmlConfigurator.ConfigureAndWatch(new FileInfo(Server.MapPath("~/") + "config/logging.config")); 
-			
+			XmlConfigurator.ConfigureAndWatch(new FileInfo(Server.MapPath("~/") + "config/logging.config"));
+
 			// Set application level flags.
 			// TODO: get rid of application variables.
 			HttpContext.Current.Application.Lock();
@@ -53,6 +61,8 @@ namespace Cuyahoga.Web
 			RegisterRoutes(RouteTable.Routes);
 			//RouteHelper.RouteDebugger.RewriteRoutesForTesting(RouteTable.Routes);
 
+			// Misc
+			FixAppDomainRestartWhenTouchingFiles();
 		}
 
 		protected void Application_BeginRequest(object sender, EventArgs e)
@@ -104,7 +114,7 @@ namespace Cuyahoga.Web
 				routes.MapRoute(null, "manager/{controller}/{action}/{id}", new { action = "Index", controller = "Dashboard", id = "" }),
 				routes.MapRoute(null, "Login", new { action = "Index", controller = "Login" }) // Also put the login functionality in the manager area.
 			);
-			routes.CreateArea("modules/shared", "Cuyahoga.Web.Modules.Shared.Controllers", 
+			routes.CreateArea("modules/shared", "Cuyahoga.Web.Modules.Shared.Controllers",
 				routes.MapRoute(null, "modules/shared/{controller}/{action}/{id}", new { action = "Index", id = "" })
 			);
 
@@ -133,20 +143,47 @@ namespace Cuyahoga.Web
 
 		}
 
-		private void Kernel_ComponentCreated(ComponentModel model, object instance)
+		private void FixAppDomainRestartWhenTouchingFiles()
 		{
-			if (log.IsDebugEnabled)
+			if (CurrentTrustLevel == AspNetHostingPermissionLevel.Unrestricted)
 			{
-				log.Debug("Component created: " + instance.ToString());
+				// From: http://forums.asp.net/p/1310976/2581558.aspx
+				// FIX disable AppDomain restart when deleting subdirectory
+				// This code will turn off monitoring from the root website directory.
+				// Monitoring of Bin, App_Themes and other folders will still be operational, so updated DLLs will still auto deploy.
+				PropertyInfo p = typeof(HttpRuntime).GetProperty("FileChangesMonitor", BindingFlags.NonPublic | BindingFlags.Public | BindingFlags.Static);
+				object o = p.GetValue(null, null);
+				FieldInfo f = o.GetType().GetField("_dirMonSubdirs", BindingFlags.Instance | BindingFlags.NonPublic | BindingFlags.IgnoreCase);
+				object monitor = f.GetValue(o);
+				MethodInfo m = monitor.GetType().GetMethod("StopMonitoring", BindingFlags.Instance | BindingFlags.NonPublic); 
+				m.Invoke(monitor, new object[] { });
 			}
 		}
 
-		private void Kernel_ComponentDestroyed(ComponentModel model, object instance)
+		private static AspNetHostingPermissionLevel GetCurrentTrustLevel()
 		{
-			if (log.IsDebugEnabled)
+			foreach (AspNetHostingPermissionLevel trustLevel in
+					new AspNetHostingPermissionLevel[] {
+                AspNetHostingPermissionLevel.Unrestricted,
+                AspNetHostingPermissionLevel.High,
+                AspNetHostingPermissionLevel.Medium,
+                AspNetHostingPermissionLevel.Low,
+                AspNetHostingPermissionLevel.Minimal 
+            })
 			{
-				log.Debug("Component destroyed: " + instance.ToString());
+				try
+				{
+					new AspNetHostingPermission(trustLevel).Demand();
+				}
+				catch (System.Security.SecurityException)
+				{
+					continue;
+				}
+
+				return trustLevel;
 			}
+
+			return AspNetHostingPermissionLevel.None;
 		}
 	}
 }

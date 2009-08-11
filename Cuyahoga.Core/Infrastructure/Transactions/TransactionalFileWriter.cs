@@ -4,6 +4,7 @@ using System.IO;
 using Castle.Services.Transaction;
 using Cuyahoga.Core.Service.Files;
 using Cuyahoga.Core.Util;
+using log4net;
 
 namespace Cuyahoga.Core.Infrastructure.Transactions
 {
@@ -12,6 +13,7 @@ namespace Cuyahoga.Core.Infrastructure.Transactions
 	/// </summary>
 	public class TransactionalFileWriter : IResource
 	{
+		private static readonly ILog logger = LogManager.GetLogger(typeof (TransactionalFileWriter));
 		private readonly string _defaultTempDir = Environment.GetEnvironmentVariable("TEMP");
 		private readonly string _transactionName;
 		private readonly string _tempDir;
@@ -20,6 +22,7 @@ namespace Cuyahoga.Core.Infrastructure.Transactions
 		private IList<string> _createdDirectories = new List<string>();
 		private IList<CopyLocations> _createdFiles = new List<CopyLocations>();
 		private IList<string> _deletedFiles = new List<String>();
+		private IList<string> _deletedDirectories = new List<String>();
 		private IList<CopyLocations> _directoriesToCopy = new List<CopyLocations>();
 		private IList<CopyLocations> _filesToCopy = new List<CopyLocations>();
 
@@ -83,6 +86,19 @@ namespace Cuyahoga.Core.Infrastructure.Transactions
 			this._deletedFiles.Add(filePath);
 		}
 
+		/// <summary>
+		/// Mark a directory for deletion by adding it to the list of directories that are going to be deleted.
+		/// </summary>
+		/// <param name="directoryToDelete"></param>
+		public void DeleteDirectory(string directoryToDelete)
+		{
+			if (!Directory.Exists(directoryToDelete))
+			{
+				throw new DirectoryNotFoundException(string.Format("The directory {0} was not found so it could not be deleted.", directoryToDelete));
+			}
+			this._deletedDirectories.Add(directoryToDelete);
+		}
+
 		public void CreateDirectory(string physicalDirectoryPath)
 		{
 			this._createdDirectories.Add(physicalDirectoryPath);
@@ -132,9 +148,17 @@ namespace Cuyahoga.Core.Infrastructure.Transactions
 		{
 			// Create a transaction directory
 			this._transactionDir = Path.Combine(this._tempDir, this._transactionName);
-			if (!Directory.Exists(this._transactionDir))
+			try
 			{
-				Directory.CreateDirectory(this._transactionDir);
+				if (!Directory.Exists(this._transactionDir))
+				{
+					Directory.CreateDirectory(this._transactionDir);
+				}
+			}
+			catch (Exception ex)
+			{
+				logger.Error(string.Format("An unexpected error occured while creating the temporary transaction directory. Make sure you have access to {0}.", this._transactionDir), ex);
+				throw;
 			}
 		}
 
@@ -179,6 +203,10 @@ namespace Cuyahoga.Core.Infrastructure.Transactions
 			{
 				File.Delete(fileToBeDeleted);
 			}
+			foreach (string directoryToBeDeleted in _deletedDirectories)
+			{
+				Directory.Delete(directoryToBeDeleted, true);
+			}
 
 			CleanUpTransactionDir();
 		}
@@ -222,7 +250,7 @@ namespace Cuyahoga.Core.Infrastructure.Transactions
 			{
 				Directory.Delete(this._transactionDir);
 			}
-		}		
+		}
 	}
 
 	internal class CopyLocations
