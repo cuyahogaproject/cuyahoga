@@ -732,4 +732,37 @@
   <data name="PathLabel" xml:space="preserve">
     <value>Path</value>
   </data>
+  <data name="CopySelectedItemsTo" xml:space="preserve">
+    <value>Copy selected items to</value>
+  </data>
+  <data name="CreateDirectoryLabel" xml:space="preserve">
+    <value>Create a new directory</value>
+  </data>
+  <data name="DateModifiedLabel" xml:space="preserve">
+    <value>Date Modified</value>
+  </data>
+  <data name="DeleteSelectedItems" xml:space="preserve">
+    <value>Delete selected items</value>
+  </data>
+  <data name="DirectoryCreatedMessage" xml:space="preserve">
+    <value>The directory {0} is created successfully.</value>
+  </data>
+  <data name="FilesDirectoriesCopiedMessage" xml:space="preserve">
+    <value>The files and/or directories are copied to {0}.</value>
+  </data>
+  <data name="FilesDirectoriesDeletedMessage" xml:space="preserve">
+    <value>The files and/or directories are deleted successfully.</value>
+  </data>
+  <data name="FilesDirectoriesMovedMessage" xml:space="preserve">
+    <value>The files and/or directories are moved to {0}.</value>
+  </data>
+  <data name="MoveSelectedItemsTo" xml:space="preserve">
+    <value>Move selected items to</value>
+  </data>
+  <data name="SizeLabel" xml:space="preserve">
+    <value>Size</value>
+  </data>
+  <data name="WithSelectedItemsDo" xml:space="preserve">
+    <value>With the selected items do</value>
+  </data>
 </root>

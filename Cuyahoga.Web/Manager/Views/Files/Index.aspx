@@ -57,6 +57,20 @@
 			$('#fileactionbutton').live('click', function() {
 				return confirm('<%= GlobalResources.AreYouSure %>');
 			});
+
+			// select row in grid
+			$('#filemanager table.grid tr')
+				.filter(':has(:checkbox:checked)')
+				.addClass('selected')
+				.end()
+				.live('click', function(event) {
+				$(this).toggleClass("selected");
+
+				if (event.target.type !== "checkbox") {
+					checkbox = $(":checkbox", this);
+					checkbox.attr("checked", checkbox.is(':not(:checked)'));
+				}
+			});
 		});
 
 		function loadAvailableDirectories() {

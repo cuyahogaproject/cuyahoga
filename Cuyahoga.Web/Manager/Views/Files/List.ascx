@@ -11,9 +11,9 @@
 		<thead>
 			<tr>
 				<th style="width:30px">&nbsp;</th>
-				<th>Name</th>
-				<th style="width:100px">Size</th>
-				<th style="width:130px">Date modified</th>
+				<th><%= GlobalResources.NameLabel %></th>
+				<th style="width:100px"><%= GlobalResources.SizeLabel %></th>
+				<th style="width:130px"><%= GlobalResources.DateModifiedLabel %></th>
 			</tr>
 		</thead>
 		<tbody>
@@ -61,22 +61,22 @@
 	<% if (Model.CanCopy || Model.CanMove || Model.CanDelete) { %>
 		<p>
 			<%= Html.Hidden("path", Model.Path) %>
-			With the selected items do:
+			<%= GlobalResources.WithSelectedItemsDo %>:
 			<select name="fileaction" id="fileaction">
 				<% if (Model.CanCopy) { %>
-					<option value="<%= Url.Action("Copy", "Files") %>">copy the selected items to</option>
+					<option value="<%= Url.Action("Copy", "Files") %>"><%= GlobalResources.CopySelectedItemsTo %></option>
 				<% } %>
 				<% if (Model.CanMove) { %>
-					<option value="<%= Url.Action("Move", "Files") %>">move the selected items to</option>
+					<option value="<%= Url.Action("Move", "Files") %>"><%= GlobalResources.MoveSelectedItemsTo %></option>
 				<% } %>
 				<% if (Model.CanDelete) { %>
-					<option value="<%= Url.Action("Delete", "Files") %>">delete the selected items</option>
+					<option value="<%= Url.Action("Delete", "Files") %>"><%= GlobalResources.DeleteSelectedItems %></option>
 				<% } %>
 			</select>
 			<select name="pathto" id="pathto">
 				
 			</select>
-			<input id="fileactionbutton" type="submit" value="OK" />
+			<input id="fileactionbutton" type="submit" value="<%= GlobalResources.OkLabel %>" />
 		</p>
 	<% } // end if %>
 <% } // end form %>
@@ -85,9 +85,9 @@
 	<p>
 	<% using (Html.BeginForm("CreateDirectory", "Files")) { %>
 		<%=Html.Hidden("parentpath", Model.Path)%>
-		Create a new directory:
+		<%= GlobalResources.CreateDirectoryLabel %>:
 		<%=Html.TextBox("name")%>
-		<input type="submit" value="Create" />
+		<input type="submit" value="<%= GlobalResources.OkLabel %>" />
 	<% } %>
 	</p>
 <% } %>

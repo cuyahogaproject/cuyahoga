@@ -75,13 +75,53 @@ namespace Cuyahoga.Web.Manager.Controllers
 			try
 			{
 				this._fileManagerService.CreateDirectory(physicalDirectory);
-				Messages.AddFlashMessageWithParams("Directory {0} was created successfully.", name);
+				Messages.AddFlashMessageWithParams(GetText("DirectoryCreatedMessage"), name);
 			}
 			catch (Exception ex)
 			{
 				Messages.AddFlashException(ex);
 			}
 			return RedirectToAction("List", new { Path = parentPath });
+		}
+
+		[AcceptVerbs(HttpVerbs.Post)]
+		[PermissionFilter(RequiredRights = Rights.CopyFiles)]
+		public ActionResult Copy(string path, string[] directories, string[] files, string pathTo)
+		{
+			var directoriesToCopy = directories != null ? directories.Select(dir => Server.MapPath(dir)).ToArray() : new string[0];
+			var fileToCopy = files != null ? files.Select(file => Server.MapPath(file)).ToArray() : new string[0];
+			var toDirectory = Server.MapPath(pathTo);
+
+			try
+			{
+				this._fileManagerService.CopyFilesAndDirectories(fileToCopy, directoriesToCopy, toDirectory);
+				Messages.AddFlashMessageWithParams(GetText("FilesDirectoriesCopiedMessage"), pathTo);
+			}
+			catch (Exception ex)
+			{
+				Messages.AddFlashException(ex);
+			}
+			return RedirectToAction("List", new { Path = path });
+		}
+
+		[AcceptVerbs(HttpVerbs.Post)]
+		[PermissionFilter(RequiredRights = Rights.MoveFiles)]
+		public ActionResult Move(string path, string[] directories, string[] files, string pathTo)
+		{
+			var directoriesToMove = directories != null ? directories.Select(dir => Server.MapPath(dir)).ToArray() : new string[0];
+			var filesToMove = files != null ? files.Select(file => Server.MapPath(file)).ToArray() : new string[0];
+			var toDirectory = Server.MapPath(pathTo);
+
+			try
+			{
+				this._fileManagerService.MoveFilesAndDirectories(filesToMove, directoriesToMove, toDirectory);
+				Messages.AddFlashMessageWithParams(GetText("FilesDirectoriesMovedMessage"), pathTo);
+			}
+			catch (Exception ex)
+			{
+				Messages.AddFlashException(ex);
+			}
+			return RedirectToAction("List", new { Path = path });
 		}
 
 		[AcceptVerbs(HttpVerbs.Post)]
@@ -93,6 +133,7 @@ namespace Cuyahoga.Web.Manager.Controllers
 			try
 			{
 				this._fileManagerService.DeleteFilesAndDirectories(filesToDelete, directoriesToDelete);
+				Messages.AddFlashMessage(GetText("FilesDirectoriesDeletedMessage"));
 			}
 			catch (Exception ex)
 			{

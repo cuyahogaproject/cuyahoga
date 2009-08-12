@@ -125,7 +125,7 @@ namespace Cuyahoga.Core.Service.Files
 			}
 		}
 
-		public void CopyDirectory(string directoryToCopy, string directoryToCopyTo)
+		public void CopyDirectoryContents(string directoryToCopy, string directoryToCopyTo)
 		{
 			ITransaction transaction = ObtainCurrentTransaction();
 			if (transaction != null)
@@ -140,19 +140,21 @@ namespace Cuyahoga.Core.Service.Files
 			}
 		}
 
-		public void CopyFile(string filePathToCopy, string directoryToCopyTo)
+		public string CopyFile(string filePathToCopy, string directoryToCopyTo)
 		{
+			string targetFilePath = IOUtil.EnsureUniqueFilePath(Path.Combine(directoryToCopyTo, Path.GetFileName(filePathToCopy)));
 			ITransaction transaction = ObtainCurrentTransaction();
 			if (transaction != null)
 			{
 				TransactionalFileWriter fileWriter = GetFileWriterForTransaction(transaction);
 				transaction.Enlist(fileWriter);
-				fileWriter.CopyFile(filePathToCopy, directoryToCopyTo);
+				fileWriter.CopyFile(filePathToCopy, Path.GetFileName(targetFilePath), directoryToCopyTo);
 			}
 			else
 			{
-				File.Copy(filePathToCopy, Path.Combine(directoryToCopyTo, Path.GetFileName(filePathToCopy)), true);
+				File.Copy(filePathToCopy, targetFilePath, true);
 			}
+			return targetFilePath;
 		}
 
 		public bool CheckIfDirectoryIsWritable(string physicalDirectory)

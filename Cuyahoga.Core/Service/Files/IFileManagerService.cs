@@ -1,7 +1,7 @@
 namespace Cuyahoga.Core.Service.Files
 {
 	/// <summary>
-	/// Public interface for file manipulation.
+	/// Public interface for file manipulation. This provides a higher-level interface over the low-level <see cref="IFileService"/> interface.
 	/// </summary>
 	public interface IFileManagerService
 	{
@@ -16,6 +16,22 @@ namespace Cuyahoga.Core.Service.Files
 		/// </summary>
 		/// <param name="physicalDirectory"></param>
 		void CreateDirectory(string physicalDirectory);
+
+		/// <summary>
+		/// Copy files and directories to the given directory.
+		/// </summary>
+		/// <param name="filesToCopy"></param>
+		/// <param name="directoriesToCopy"></param>
+		/// <param name="toDirectory"></param>
+		void CopyFilesAndDirectories(string[] filesToCopy, string[] directoriesToCopy, string toDirectory);
+
+		/// <summary>
+		/// Move files and directories to the given directory.
+		/// </summary>
+		/// <param name="filesToMove"></param>
+		/// <param name="directoriesToMove"></param>
+		/// <param name="toDirectory"></param>
+		void MoveFilesAndDirectories(string[] filesToMove, string[] directoriesToMove, string toDirectory);
 
 		/// <summary>
 		/// Delete the given files and directories.

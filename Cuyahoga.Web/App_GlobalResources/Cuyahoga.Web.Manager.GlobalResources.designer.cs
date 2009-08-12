@@ -277,6 +277,15 @@ namespace Resources.Cuyahoga.Web.Manager {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Copy selected items to.
+        /// </summary>
+        internal static string CopySelectedItemsTo {
+            get {
+                return ResourceManager.GetString("CopySelectedItemsTo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Copy templates.
         /// </summary>
         internal static string CopyTemplatesLabel {
@@ -300,6 +309,15 @@ namespace Resources.Cuyahoga.Web.Manager {
         internal static string CreateCategoryLabel {
             get {
                 return ResourceManager.GetString("CreateCategoryLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Create a new directory.
+        /// </summary>
+        internal static string CreateDirectoryLabel {
+            get {
+                return ResourceManager.GetString("CreateDirectoryLabel", resourceCulture);
             }
         }
         
@@ -381,6 +399,15 @@ namespace Resources.Cuyahoga.Web.Manager {
         internal static string DashboardPageTitle {
             get {
                 return ResourceManager.GetString("DashboardPageTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Date Modified.
+        /// </summary>
+        internal static string DateModifiedLabel {
+            get {
+                return ResourceManager.GetString("DateModifiedLabel", resourceCulture);
             }
         }
         
@@ -502,6 +529,15 @@ namespace Resources.Cuyahoga.Web.Manager {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Delete selected items.
+        /// </summary>
+        internal static string DeleteSelectedItems {
+            get {
+                return ResourceManager.GetString("DeleteSelectedItems", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to You can&apos;t delete yourself..
         /// </summary>
         internal static string DeleteYourselfNotAllowedException {
@@ -543,6 +579,15 @@ namespace Resources.Cuyahoga.Web.Manager {
         internal static string DetachSectionConfirmLabel {
             get {
                 return ResourceManager.GetString("DetachSectionConfirmLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The directory {0} is created successfully..
+        /// </summary>
+        internal static string DirectoryCreatedMessage {
+            get {
+                return ResourceManager.GetString("DirectoryCreatedMessage", resourceCulture);
             }
         }
         
@@ -633,6 +678,33 @@ namespace Resources.Cuyahoga.Web.Manager {
         internal static string EmptyUsernameOrPassword {
             get {
                 return ResourceManager.GetString("EmptyUsernameOrPassword", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The files and/or directories are copied to {0}..
+        /// </summary>
+        internal static string FilesDirectoriesCopiedMessage {
+            get {
+                return ResourceManager.GetString("FilesDirectoriesCopiedMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The files and/or directories are deleted successfully..
+        /// </summary>
+        internal static string FilesDirectoriesDeletedMessage {
+            get {
+                return ResourceManager.GetString("FilesDirectoriesDeletedMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The files and/or directories are moved to {0}..
+        /// </summary>
+        internal static string FilesDirectoriesMovedMessage {
+            get {
+                return ResourceManager.GetString("FilesDirectoriesMovedMessage", resourceCulture);
             }
         }
         
@@ -1119,6 +1191,15 @@ namespace Resources.Cuyahoga.Web.Manager {
         internal static string MoveOrCopyPageDialogTitle {
             get {
                 return ResourceManager.GetString("MoveOrCopyPageDialogTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Move selected items to.
+        /// </summary>
+        internal static string MoveSelectedItemsTo {
+            get {
+                return ResourceManager.GetString("MoveSelectedItemsTo", resourceCulture);
             }
         }
         
@@ -1681,6 +1762,15 @@ namespace Resources.Cuyahoga.Web.Manager {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Size.
+        /// </summary>
+        internal static string SizeLabel {
+            get {
+                return ResourceManager.GetString("SizeLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Tasks.
         /// </summary>
         internal static string TasksLabel {
@@ -1893,6 +1983,15 @@ namespace Resources.Cuyahoga.Web.Manager {
         internal static string WebsiteLabel {
             get {
                 return ResourceManager.GetString("WebsiteLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to With the selected items do.
+        /// </summary>
+        internal static string WithSelectedItemsDo {
+            get {
+                return ResourceManager.GetString("WithSelectedItemsDo", resourceCulture);
             }
         }
         

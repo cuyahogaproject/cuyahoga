@@ -126,7 +126,7 @@ namespace Cuyahoga.Core.Service.SiteStructure
 				{
 					string sourceDir = Path.Combine(systemTemplatesDirectory, templateDirectory);
 					string targetDir = Path.Combine(siteTemplatesDirectory, templateDirectory);
-					this._fileService.CopyDirectory(sourceDir, targetDir);
+					this._fileService.CopyDirectoryContents(sourceDir, targetDir);
 				}
 			}
 			catch (Exception ex)

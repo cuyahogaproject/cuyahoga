@@ -723,4 +723,37 @@
   <data name="PathLabel" xml:space="preserve">
     <value>Pad</value>
   </data>
+  <data name="CopySelectedItemsTo" xml:space="preserve">
+    <value>Kopieer de geselecteerde items naar</value>
+  </data>
+  <data name="CreateDirectoryLabel" xml:space="preserve">
+    <value>Maak een nieuwe directory aan</value>
+  </data>
+  <data name="DateModifiedLabel" xml:space="preserve">
+    <value>Datum wijziging</value>
+  </data>
+  <data name="DeleteSelectedItems" xml:space="preserve">
+    <value>Verwijder de geselecteerde items</value>
+  </data>
+  <data name="DirectoryCreatedMessage" xml:space="preserve">
+    <value>De directory {0} is aangemaakt</value>
+  </data>
+  <data name="FilesDirectoriesCopiedMessage" xml:space="preserve">
+    <value>De bestanden en/of directories zijn gekopieerd naar {0}.</value>
+  </data>
+  <data name="FilesDirectoriesDeletedMessage" xml:space="preserve">
+    <value>De bestanden en/of directories zijn verwijderd.</value>
+  </data>
+  <data name="FilesDirectoriesMovedMessage" xml:space="preserve">
+    <value>De bestanden en/of directories zijn verplaatst naar {0}.</value>
+  </data>
+  <data name="MoveSelectedItemsTo" xml:space="preserve">
+    <value>Verplaats de geselecteerde items naar</value>
+  </data>
+  <data name="SizeLabel" xml:space="preserve">
+    <value>Grootte</value>
+  </data>
+  <data name="WithSelectedItemsDo" xml:space="preserve">
+    <value>Voer de volgende actie uit</value>
+  </data>
 </root>

@@ -52,14 +52,15 @@ namespace Cuyahoga.Core.Service.Files
 		/// </summary>
 		/// <param name="directoryToCopy">Physical path of the directory to copy</param>
 		/// <param name="directoryToCopyTo">Physical path of the directory where directory and contents are copied to</param>
-		void CopyDirectory(string directoryToCopy, string directoryToCopyTo);
+		void CopyDirectoryContents(string directoryToCopy, string directoryToCopyTo);
 
 		/// <summary>
-		/// Copy a file to a new location.
+		/// Copy a file to a new location. Doesn't overwrite existing files, but adds a suffix in that case.
 		/// </summary>
 		/// <param name="filePathToCopy"></param>
 		/// <param name="directoryToCopyTo"></param>
-		void CopyFile(string filePathToCopy, string directoryToCopyTo);
+		/// <returns>The file path.</returns>
+		string CopyFile(string filePathToCopy, string directoryToCopyTo);
 
 		/// <summary>
 		/// Check if the given physical directory is writable for the current user.

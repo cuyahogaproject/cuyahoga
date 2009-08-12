@@ -124,7 +124,7 @@ namespace Cuyahoga.Core.Infrastructure.Transactions
 			this._directoriesToCopy.Add(new CopyLocations(tempCopyDir, targetDirectory));
 		}
 
-		public void CopyFile(string filePathToCopy, string targetDirectory)
+		public void CopyFile(string filePathToCopy, string targetFileName, string targetDirectory)
 		{
 			if (!Directory.Exists(targetDirectory))
 			{
@@ -138,8 +138,9 @@ namespace Cuyahoga.Core.Infrastructure.Transactions
 					throw new UnauthorizedAccessException(string.Format("Unable to copy files and directories to {0}. Access denied.", targetDirectory));
 				}
 			}
-			string tempFilePath = Path.Combine(this._transactionDir, Path.GetFileName(filePathToCopy));
-			this._filesToCopy.Add(new CopyLocations(tempFilePath, targetDirectory));
+			string tempFilePath = Path.Combine(this._transactionDir, targetFileName);
+			File.Copy(filePathToCopy, tempFilePath);
+			this._filesToCopy.Add(new CopyLocations(tempFilePath, Path.Combine(targetDirectory, targetFileName)));
 		}
 
 		#region IResource Members
