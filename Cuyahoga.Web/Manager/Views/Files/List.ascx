@@ -59,7 +59,7 @@
 	</table>
 
 	<% if (Model.CanCopy || Model.CanMove || Model.CanDelete) { %>
-		<p>
+		<p id="fileactions" style="display:none">
 			<%= Html.Hidden("path", Model.Path) %>
 			<%= GlobalResources.WithSelectedItemsDo %>:
 			<select name="fileaction" id="fileaction">
@@ -73,21 +73,28 @@
 					<option value="<%= Url.Action("Delete", "Files") %>"><%= GlobalResources.DeleteSelectedItems %></option>
 				<% } %>
 			</select>
-			<select name="pathto" id="pathto">
-				
-			</select>
+			<select name="pathto" id="pathto"></select>
 			<input id="fileactionbutton" type="submit" value="<%= GlobalResources.OkLabel %>" />
 		</p>
 	<% } // end if %>
 <% } // end form %>
 
-<% if (Model.CanCreateDirectory) { %>
+<form action="<%= Url.Action("Upload", "Files") %>" method="post" enctype="multipart/form-data">
 	<p>
-	<% using (Html.BeginForm("CreateDirectory", "Files")) { %>
-		<%=Html.Hidden("parentpath", Model.Path)%>
-		<%= GlobalResources.CreateDirectoryLabel %>:
-		<%=Html.TextBox("name")%>
-		<input type="submit" value="<%= GlobalResources.OkLabel %>" />
-	<% } %>
+		<%= Html.Hidden("uploadpath", Model.Path)	%>
+		<label for="filedata"><%=GlobalResources.UploadFilesLabel %></label>:
+		<input type="file" name="filedata" id="filedata" />
+		<input id="uploadbutton" type="submit" value="<%= GlobalResources.UploadButtonLabel %>" />
 	</p>
+</form>
+
+<% if (Model.CanCreateDirectory) { %>
+	<% using (Html.BeginForm("CreateDirectory", "Files")) { %>
+		<p>
+			<%=Html.Hidden("parentpath", Model.Path)%>
+			<label for="name"><%= GlobalResources.CreateDirectoryLabel %></label>
+			<%=Html.TextBox("name")%>
+			<input type="submit" value="<%= GlobalResources.OkLabel %>" />
+		</p>
+	<% } %>
 <% } %>

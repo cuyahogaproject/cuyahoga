@@ -151,6 +151,15 @@ namespace Resources.Cuyahoga.Web.Manager {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Browse.
+        /// </summary>
+        internal static string BrowseButtonLabel {
+            get {
+                return ResourceManager.GetString("BrowseButtonLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Cancel.
         /// </summary>
         internal static string CancelLabel {
@@ -705,6 +714,15 @@ namespace Resources.Cuyahoga.Web.Manager {
         internal static string FilesDirectoriesMovedMessage {
             get {
                 return ResourceManager.GetString("FilesDirectoriesMovedMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The file is saved on the server as {0}..
+        /// </summary>
+        internal static string FileUploadSuccessMessage {
+            get {
+                return ResourceManager.GetString("FileUploadSuccessMessage", resourceCulture);
             }
         }
         
@@ -1857,6 +1875,24 @@ namespace Resources.Cuyahoga.Web.Manager {
         internal static string TimeZoneLabel {
             get {
                 return ResourceManager.GetString("TimeZoneLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Upload.
+        /// </summary>
+        internal static string UploadButtonLabel {
+            get {
+                return ResourceManager.GetString("UploadButtonLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Upload files.
+        /// </summary>
+        internal static string UploadFilesLabel {
+            get {
+                return ResourceManager.GetString("UploadFilesLabel", resourceCulture);
             }
         }
         

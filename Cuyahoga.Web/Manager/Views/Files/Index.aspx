@@ -2,6 +2,8 @@
 <%@ Import Namespace="Cuyahoga.Web.Manager.Model.ViewModels"%>
 <asp:Content ID="Content1" ContentPlaceHolderID="cphHead" runat="server">
 	<title>Cuyahoga Manager :: <%= GlobalResources.ManageFilesPageTitle %></title>
+	<%= Html.ScriptInclude("~/manager/Scripts/swfobject.js") %>
+	<%= Html.ScriptInclude("~/manager/Scripts/jquery.uploadify.v2.0.3.min.js") %>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="cphTasks" runat="server">
 </asp:Content>
@@ -16,30 +18,15 @@
 			// make sure the links in the filemanager div only reload the content of that div.
 			$('#filemanager a').live("click", function() {
 				$('#filemanager').load($(this).attr('href'), function() {
-					loadAvailableDirectories();
+					fileListLoaded();
 				});
 				return false;
 			});
 			// make sure the forms in the filemanager div only refresh the content of that div (when posting)
-			$('#filemanager form').live('submit', function() {
-				var formdata = $(this).serialize();
-				$.ajax({
-					type: $(this).attr('method'),
-					url: $(this).attr('action'),
-					data: formdata,
-					success: function(data) {
-						$('#filemanager').html(data);
-						loadAvailableDirectories();
-						movePartialMessages();
-					}
-				});
-				return false;
-			});
+			ajaxifyFileManagerForms();
+
 			// load the initial file list
-			$('#filemanager').load('<%= Url.Action("List", "Files", new { path = Model.Path } )%>', function() {
-				// load the available directories
-				loadAvailableDirectories();
-			});
+			loadFilesForPath('<%= Model.Path %>');
 
 			// change handler for the action select
 			$('#fileaction').live('change', function() {
@@ -60,18 +47,46 @@
 
 			// select row in grid
 			$('#filemanager table.grid tr')
-				.filter(':has(:checkbox:checked)')
-				.addClass('selected')
-				.end()
-				.live('click', function(event) {
+			.filter(':has(:checkbox:checked)')
+			.addClass('selected')
+			.end()
+			.live('click', function(event) {
 				$(this).toggleClass("selected");
 
 				if (event.target.type !== "checkbox") {
 					checkbox = $(":checkbox", this);
 					checkbox.attr("checked", checkbox.is(':not(:checked)'));
 				}
+				if ($(this).parent().find('tr:has(:checkbox:checked)').length > 0) {
+					$('#fileactions').show();
+				}
+				else {
+					$('#fileactions').hide();
+				}
 			});
 		});
+
+		function fileListLoaded() {
+			ajaxifyFileManagerForms();
+			loadAvailableDirectories();
+			applyUploadify();
+		}
+
+		function ajaxifyFileManagerForms() {
+			$('#filemanager form').ajaxForm({
+				target: '#filemanager',
+				success: function() {
+					fileListLoaded();
+					movePartialMessages();
+				}
+			});
+		}
+
+		function loadFilesForPath(path) {
+			$('#filemanager').load('<%= Url.Action("List", "Files") %>', { 'path': path }, function() {
+				fileListLoaded();
+			});
+		}
 
 		function loadAvailableDirectories() {
 			$.getJSON('<%= Url.Action("GetAllDirectories", "Files") %>', function(data) {
@@ -79,6 +94,35 @@
 					$('#pathto').append('<option value="' + item.Path + '">' + getIndent(item.Level) + item.Name + '</option>');
 				});
 			});
+		}
+
+		function applyUploadify() {
+			if (swfobject.getFlashPlayerVersion().major > 8) {
+				var auth = "<% = Request.Cookies[FormsAuthentication.FormsCookieName]==null ? string.Empty : Request.Cookies[FormsAuthentication.FormsCookieName].Value %>";
+				var uploadPath = $('#uploadpath').val();
+				$('#filedata').uploadify({
+					'fileDataName': 'filedata',
+					'uploader': '<%= Url.Content("~/manager/Scripts/uploadify.swf") %>',
+					'script': '<%= Url.Action("UploadAjax", "FilesUpload") %>',
+					'scriptData': {
+						'uploadpath': uploadPath,
+						'token': auth
+					},
+					'scriptAccess': 'always',
+					'cancelImg': '<%= Url.Content("~/manager/Content/Images/cancel.png") %>',
+					'multi': true,
+					'auto': false,
+					'buttonText': '<%= GlobalResources.BrowseButtonLabel %>',
+					'onAllComplete': function(event, data) {
+						// reload files
+						loadFilesForPath(uploadPath);
+					}
+				});
+				$('#uploadbutton').click(function() {
+					$('#filedata').uploadifyUpload();
+					return false;
+				});
+			}
 		}
 
 		function getIndent(level) {

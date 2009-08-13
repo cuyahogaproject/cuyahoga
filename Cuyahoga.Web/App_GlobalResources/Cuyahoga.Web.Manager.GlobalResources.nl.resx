@@ -756,4 +756,16 @@
   <data name="WithSelectedItemsDo" xml:space="preserve">
     <value>Voer de volgende actie uit</value>
   </data>
+  <data name="BrowseButtonLabel" xml:space="preserve">
+    <value>Bladeren</value>
+  </data>
+  <data name="FileUploadSuccessMessage" xml:space="preserve">
+    <value>Het bestand is op de server opgeslagen als {0}.</value>
+  </data>
+  <data name="UploadButtonLabel" xml:space="preserve">
+    <value>Upload</value>
+  </data>
+  <data name="UploadFilesLabel" xml:space="preserve">
+    <value>Upload bestanden</value>
+  </data>
 </root>

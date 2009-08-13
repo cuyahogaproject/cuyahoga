@@ -24,7 +24,7 @@ $(document).ready(function() {
 
 	// Add AJAX indicator
 	$(document.body).ajaxStart(function() {
-		$(document.body).append('<div id="loading"><img src="' + CuyahogaConfig.ContentDir + 'images/ajax-loader.gif" alt="loading"/></div>');
+		$(document.body).append('<div id="loading"><img src="' + CuyahogaConfig.ContentDir + 'Images/ajax-loader.gif" alt="loading"/></div>');
 		$('#loading').css({ position: "fixed", width: "40px", top: "50%", left: "50%" });
 	}).ajaxStop(function() {
 		$('#loading').remove();

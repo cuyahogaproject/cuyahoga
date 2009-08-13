@@ -765,4 +765,16 @@
   <data name="WithSelectedItemsDo" xml:space="preserve">
     <value>With the selected items do</value>
   </data>
+  <data name="BrowseButtonLabel" xml:space="preserve">
+    <value>Browse</value>
+  </data>
+  <data name="FileUploadSuccessMessage" xml:space="preserve">
+    <value>The file is saved on the server as {0}.</value>
+  </data>
+  <data name="UploadButtonLabel" xml:space="preserve">
+    <value>Upload</value>
+  </data>
+  <data name="UploadFilesLabel" xml:space="preserve">
+    <value>Upload files</value>
+  </data>
 </root>

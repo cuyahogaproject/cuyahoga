@@ -2,6 +2,7 @@
 using System.Collections;
 using System.IO;
 using System.Linq;
+using System.Web;
 using System.Web.Mvc;
 using Cuyahoga.Core;
 using Cuyahoga.Core.Service.Files;
@@ -63,6 +64,26 @@ namespace Cuyahoga.Web.Manager.Controllers
 			directories.Add(new {Path = rootDataPath, Name = rootDataPath, Level = 0});
 			AddDirectoriesForParentPath(directories, rootDataPath , 1);
 			return Json(directories);
+		}
+
+		[AcceptVerbs(HttpVerbs.Post)]
+		public ActionResult Upload(string uploadpath, HttpPostedFileBase filedata)
+		{
+			if (filedata != null)
+			{
+				try
+				{
+					string physicalDataDirectory = Server.MapPath(uploadpath);
+					string physicalFilePath = Path.Combine(physicalDataDirectory, filedata.FileName);
+					string fileNameAfterUpload = this._fileManagerService.UploadFile(physicalFilePath, filedata.InputStream);
+					Messages.AddFlashMessageWithParams(GetText("FileUploadSuccessMessage"), fileNameAfterUpload);
+				}
+				catch (Exception ex)
+				{
+					Messages.AddFlashException(ex);
+				}
+			}
+			return RedirectToAction("List", new { Path = uploadpath });
 		}
 
 		[AcceptVerbs(HttpVerbs.Post)]

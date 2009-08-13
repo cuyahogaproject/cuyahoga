@@ -1,3 +1,5 @@
+using System.IO;
+
 namespace Cuyahoga.Core.Service.Files
 {
 	/// <summary>
@@ -39,5 +41,13 @@ namespace Cuyahoga.Core.Service.Files
 		/// <param name="filesToDelete">List of physical files to delete.</param>
 		/// <param name="directoriesToDelete">List of physical directories to delete.</param>
 		void DeleteFilesAndDirectories(string[] filesToDelete, string[] directoriesToDelete);
+
+		/// <summary>
+		/// Upload a single file.
+		/// </summary>
+		/// <param name="physicalFilePath"></param>
+		/// <param name="uploadFileStream"></param>
+		/// <returns>The file name of the upload file on the server.
+		string UploadFile(string physicalFilePath, Stream uploadFileStream);
 	}
 }

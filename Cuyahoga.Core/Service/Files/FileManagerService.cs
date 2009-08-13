@@ -116,6 +116,14 @@ namespace Cuyahoga.Core.Service.Files
 			}
 		}
 
+		[Transaction(TransactionMode.Requires)]
+		public string UploadFile(string physicalFilePath, Stream uploadFileStream)
+		{
+			string filePath = IOUtil.EnsureUniqueFilePath(physicalFilePath);
+			this._fileService.WriteFile(filePath, uploadFileStream);
+			return Path.GetFileName(filePath);
+		}
+
 		private bool DirectoryCreateAllowed(string parentPath)
 		{
 			// We don't allow creating new directories in the SiteData/number directories

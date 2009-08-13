@@ -328,6 +328,7 @@
     <Compile Include="Manager\Controllers\CategoriesController.cs" />
     <Compile Include="Manager\Controllers\DashboardController.cs" />
     <Compile Include="Manager\Controllers\FilesController.cs" />
+    <Compile Include="Manager\Controllers\FilesUploadController.cs" />
     <Compile Include="Manager\Controllers\LoginController.cs" />
     <Compile Include="Manager\Controllers\ManagerController.cs" />
     <Compile Include="Manager\Controllers\PagesController.cs" />
@@ -645,6 +646,9 @@
     <Content Include="Manager\Default.aspx" />
     <Content Include="Manager\Scripts\cuyahoga.common.js" />
     <Content Include="Manager\Scripts\iframe.js" />
+    <Content Include="Manager\Scripts\jquery.uploadify.v2.0.3.min.js" />
+    <Content Include="Manager\Scripts\swfobject.js" />
+    <Content Include="Manager\Scripts\uploadify.swf" />
     <Content Include="Manager\Views\Categories\Edit.aspx" />
     <Content Include="Manager\Views\Categories\Index.aspx" />
     <Content Include="Manager\Views\Categories\New.aspx" />
@@ -652,11 +656,7 @@
     <Content Include="Manager\Views\Files\List.ascx" />
     <Content Include="Manager\Views\Pages\Content.aspx" />
     <Content Include="Manager\Views\Sections\Index.aspx" />
-    <Content Include="Manager\Scripts\jquery-asyncupload-0.1.js" />
     <Content Include="Manager\Scripts\jquery.scrollfollow.js" />
-    <Content Include="Manager\Scripts\swfupload license.txt" />
-    <Content Include="Manager\Scripts\swfupload.js" />
-    <Content Include="Manager\Scripts\swfupload.swf" />
     <Content Include="Controls\EditProfile.ascx">
       <SubType>UserControl</SubType>
     </Content>
