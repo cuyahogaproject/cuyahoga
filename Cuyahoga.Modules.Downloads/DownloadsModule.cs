@@ -2,17 +2,21 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Web;
+using System.Web.Mvc;
+using System.Web.Routing;
 using Cuyahoga.Core;
 using Cuyahoga.Core.Domain;
 using Cuyahoga.Core.Service.Content;
 using Cuyahoga.Core.Service.Files;
+using Cuyahoga.Web.Mvc;
+using Cuyahoga.Web.Mvc.Areas;
 
 namespace Cuyahoga.Modules.Downloads
 {
 	/// <summary>
 	/// The Downloads Module provides file downloads for users.
 	/// </summary>
-	public class DownloadsModule : ModuleBase
+	public class DownloadsModule : ModuleBase, IMvcModule
 	{
 		private string _physicalDir;
 		private bool _showPublisher;
@@ -214,6 +218,17 @@ namespace Cuyahoga.Modules.Downloads
 				}
 			}
 		}
+
+		#region IMvcModule members
+
+		public void RegisterRoutes(RouteCollection routes)
+		{
+			routes.CreateArea("Modules/Downloads", "Cuyahoga.Modules.Downloads.Controllers",
+				routes.MapRoute("DownloadsRoute", "Modules/Downloads/{controller}/{action}/{id}", new { action = "Index", controller = "", id = "" })
+			);
+		}
+
+		#endregion
 	}	
 
 	public enum DownloadsModuleActions
