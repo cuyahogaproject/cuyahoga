@@ -64,29 +64,11 @@ go
 
 CREATE TABLE cuyahoga_fileresource(
 fileresourceid bigint NOT NULL CONSTRAINT PK_fileresource PRIMARY KEY,
-physicalpath nvarchar(255) NOT NULL,
+filename nvarchar(255) NOT NULL,
 length bigint NULL,
 mimetype nvarchar(255) NULL,
-filename nvarchar(255) NULL,
-extension nvarchar(10) NULL,
 downloadcount int NULL)
 go
-
-
-CREATE TABLE cuyahoga_fileresourceuserattributes(
-fileresourceuserattributesid int identity(1,1) NOT NULL CONSTRAINT PK_fileresourceuserattributes PRIMARY KEY,
-fileresourceid bigint NOT NULL,
-attributekey nvarchar(50) NOT NULL,
-attributevalue nvarchar(255) NOT NULL)
-go
-
-
-CREATE TABLE cuyahoga_fileresourcerole(
-fileresourceroleid int identity(1,1) NOT NULL CONSTRAINT PK_fileresourcerole PRIMARY KEY,
-fileresourceid bigint NOT NULL,
-roleid int NOT NULL)
-go
-
 
 CREATE TABLE cuyahoga_user(
 userid int identity(1,1) NOT NULL CONSTRAINT PK_user PRIMARY KEY,
@@ -389,22 +371,6 @@ ALTER TABLE cuyahoga_fileresource
 ADD CONSTRAINT FK_fileresource_contentitem_fileresourceid 
 FOREIGN KEY (fileresourceid) REFERENCES cuyahoga_contentitem (contentitemid)
 go
-
-ALTER TABLE cuyahoga_fileresourceuserattributes
-ADD CONSTRAINT FK_fileresourceuserattributes_fileresource_fileresourceid 
-FOREIGN KEY (fileresourceid) REFERENCES cuyahoga_fileresource (fileresourceid)
-go
-
-ALTER TABLE cuyahoga_fileresourcerole
-ADD CONSTRAINT FK_fileresourcerole_fileresource_fileresourceid 
-FOREIGN KEY (fileresourceid) REFERENCES cuyahoga_fileresource (fileresourceid)
-go
-
-ALTER TABLE cuyahoga_fileresourcerole
-ADD CONSTRAINT FK_fileresourcerole_role_roleid 
-FOREIGN KEY (roleid) REFERENCES cuyahoga_role (roleid)
-go
-
 
 ALTER TABLE cuyahoga_userrole
 ADD CONSTRAINT FK_userrole_role_roleid

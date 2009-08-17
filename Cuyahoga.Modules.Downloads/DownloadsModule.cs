@@ -1,33 +1,28 @@
 using System;
-using System.Collections;
+using System.Collections.Generic;
+using System.IO;
 using System.Web;
-
-using NHibernate;
-using Castle.Services.Transaction;
-using Castle.Facilities.NHibernateIntegration;
-
 using Cuyahoga.Core;
 using Cuyahoga.Core.Domain;
-using Cuyahoga.Core.Service;
+using Cuyahoga.Core.Service.Content;
 using Cuyahoga.Core.Service.Files;
-using Cuyahoga.Modules.Downloads.Domain;
 
 namespace Cuyahoga.Modules.Downloads
 {
 	/// <summary>
 	/// The Downloads Module provides file downloads for users.
 	/// </summary>
-	[Transactional]
-	public class DownloadsModule : ModuleBase, INHibernateModule
+	public class DownloadsModule : ModuleBase
 	{
 		private string _physicalDir;
 		private bool _showPublisher;
 		private bool _showDateModified;
 		private bool _showNumberOfDownloads;
-		private int _currentFileId;
+		private long _currentFileId;
 		private DownloadsModuleActions _currentAction;
-		private ISessionManager _sessionManager;
-		private IFileService _fileService;
+		private readonly IFileResourceService _fileResourceService;
+		private readonly IContentItemService<FileResource> _contentItemService;
+		private readonly ICuyahogaContext _cuyahogaContext;
 
 		#region properties
 
@@ -36,7 +31,7 @@ namespace Cuyahoga.Modules.Downloads
 		/// </summary>
 		/// <remarks>
 		/// If there is no setting for the physical directory, the default of
-		/// Application_Root/files is used.
+		/// Application_Root/SiteData/site_id/Downloads/section_id is used.
 		///	</remarks>
 		public string FileDir
 		{
@@ -44,22 +39,22 @@ namespace Cuyahoga.Modules.Downloads
 			{
 				if (this._physicalDir == null)
 				{
-					this._physicalDir = HttpContext.Current.Server.MapPath("~/files");
-					CheckPhysicalDirectory(this._physicalDir);
+					this._physicalDir = Path.Combine(this._cuyahogaContext.PhysicalSiteDataDirectory, "Downloads" + Path.DirectorySeparatorChar + Section.Id);
+					this._fileResourceService.CheckPhysicalDirectory(this._physicalDir);
 				}
 				return this._physicalDir;
 			}
 			set
 			{
 				this._physicalDir = value;
-				CheckPhysicalDirectory(this._physicalDir);
+				this._fileResourceService.CheckPhysicalDirectory(this._physicalDir);
 			}
 		}
 
 		/// <summary>
 		/// The Id of the file that is to be downloaded.
 		/// </summary>
-		public int CurrentFileId
+		public long CurrentFileId
 		{
 			get { return this._currentFileId; }
 		}
@@ -101,12 +96,14 @@ namespace Cuyahoga.Modules.Downloads
 		/// <summary>
 		/// DownloadsModule constructor.
 		/// </summary>
-		/// <param name="fileService">FileService dependency.</param>
-		/// <param name="sessionManager">NHibernate session manager dependency.</param>
-		public DownloadsModule(IFileService fileService, ISessionManager sessionManager)
+		/// <param name="fileResourceService"></param>
+		/// <param name="cuyahogaContext"></param>
+		/// <param name="contentItemService"></param>
+		public DownloadsModule(IFileResourceService fileResourceService, ICuyahogaContext cuyahogaContext, IContentItemService<FileResource> contentItemService)
 		{
-			this._sessionManager = sessionManager;
-			this._fileService = fileService;
+			this._fileResourceService = fileResourceService;
+			this._contentItemService = contentItemService;
+			this._cuyahogaContext = cuyahogaContext;
 		}
 
 		public override void ReadSectionSettings()
@@ -136,55 +133,33 @@ namespace Cuyahoga.Modules.Downloads
 				string physicalDir = Convert.ToString(base.Section.Settings["PHYSICAL_DIR"]);
 				if (!String.IsNullOrEmpty(physicalDir))
 				{
-					CheckPhysicalDirectory(physicalDir);
+					this._fileResourceService.CheckPhysicalDirectory(physicalDir);
 				}
 			}
 			base.ValidateSectionSettings();
 		}
 
 		/// <summary>
-		/// Get the a file as stream.
+		/// Get the a fileResource as stream.
 		/// </summary>
 		/// <returns></returns>
-		public System.IO.Stream GetFileAsStream(File file)
+		public Stream GetFileAsStream(FileResource fileResource)
 		{
-			if (file.IsDownloadAllowed(HttpContext.Current.User.Identity))
+			if (fileResource.IsViewAllowed(this._cuyahogaContext.CurrentUser ?? HttpContext.Current.User))
 			{
-				string physicalFilePath = System.IO.Path.Combine(this.FileDir, file.FilePath);
-				if (System.IO.File.Exists(physicalFilePath))
-				{
-					return this._fileService.ReadFile(physicalFilePath);
-				}
-				else
-				{
-					throw new System.IO.FileNotFoundException("File not found", physicalFilePath);
-				}
+				string physicalFilePath = Path.Combine(this.FileDir, fileResource.FileName);				
+				return this._fileResourceService.ReadFile(physicalFilePath);
 			}
-			else
-			{
-				throw new AccessForbiddenException("The current user has no permission to download the file.");
-			}
+			throw new AccessForbiddenException("The current user has no permission to download the fileResource.");
 		}
 
 		/// <summary>
 		/// Retrieve the meta-information of all files that belong to this module.
 		/// </summary>
 		/// <returns></returns>
-		public IList GetAllFiles()
+		public virtual IList<FileResource> GetAllFiles()
 		{
-			ISession session = this._sessionManager.OpenSession();
-			string hql = "from File f where f.Section.Id = :sectionId order by f.DatePublished desc";
-			IQuery q = session.CreateQuery(hql);
-			q.SetInt32("sectionId", base.Section.Id);
-
-			try
-			{
-				return q.List();
-			}
-			catch (Exception ex)
-			{
-				throw new Exception("Unable to get Files for section: " + base.Section.Title, ex);
-			}
+			return this._contentItemService.FindVisibleContentItemsBySection(this.Section, new ContentItemQuerySettings(ContentItemSortBy.PublishedAt, ContentItemSortDirection.DESC));
 		}
 
 		/// <summary>
@@ -192,72 +167,19 @@ namespace Cuyahoga.Modules.Downloads
 		/// </summary>
 		/// <param name="fileId"></param>
 		/// <returns></returns>
-		public File GetFileById(int fileId)
+		public virtual FileResource GetFileById(long fileId)
 		{
-			ISession session = this._sessionManager.OpenSession();
-			try
-			{
-				return (File)session.Load(typeof(File), fileId);
-			}
-			catch (Exception ex)
-			{
-				throw new Exception("Unable to get File with identifier: " + fileId.ToString(), ex);
-			}
-		}
-
-		/// <summary>
-		/// Insert or update the meta-information of a file and update the file contents at the 
-		/// same time in one transaction.
-		/// </summary>
-		/// <param name="file"></param>
-		/// <param name="fileContents"></param>
-		[Transaction(TransactionMode.RequiresNew)]
-		public virtual void SaveFile(File file, System.IO.Stream fileContents)
-		{
-			// Save physical file.
-			string physicalFilePath = System.IO.Path.Combine(this.FileDir, file.FilePath);
-			this._fileService.WriteFile(physicalFilePath, fileContents);
-			// Save meta-information.
-			SaveFileInfo(file);
-		}
-
-		/// <summary>
-		/// Insert or update the meta-information of a file.
-		/// </summary>
-		[Transaction(TransactionMode.Requires)]
-		public virtual void SaveFileInfo(File file)
-		{
-			// Obtain current NHibernate session.
-			ISession session = this._sessionManager.OpenSession();
-			// Save meta-information
-			session.SaveOrUpdate(file);
-		}
-
-		/// <summary>
-		/// Delete a file
-		/// </summary>
-		[Transaction(TransactionMode.RequiresNew)]
-		public virtual void DeleteFile(File file)
-		{
-			// Delete physical file.
-			string physicalFilePath = System.IO.Path.Combine(this.FileDir, file.FilePath);
-			this._fileService.DeleteFile(physicalFilePath);
-			// Delete meta information.
-			ISession session = this._sessionManager.OpenSession();
-			session.Delete(file);
+			return this._contentItemService.GetById(fileId);
 		}
 
 		/// <summary>
 		/// Increase the number of downloads for the given file.
 		/// </summary>
-		/// <param name="file"></param>
-		public virtual void IncreaseNrOfDownloads(File file)
+		/// <param name="fileResource"></param>
+		public virtual void IncreaseNrOfDownloads(FileResource fileResource)
 		{
-			ISession session = this._sessionManager.OpenSession();
-			// First refresh the file to prevent stale updates because downloads can take a little while.
-			session.Refresh(file);
-			file.NrOfDownloads++;
-			SaveFileInfo(file);
+			fileResource.DownloadCount++;
+			this._fileResourceService.UpdateFileResource(fileResource);
 		}
 
 		/// <summary>
@@ -268,9 +190,9 @@ namespace Cuyahoga.Modules.Downloads
 			base.ParsePathInfo();
 			if (base.ModuleParams != null)
 			{
-				if (base.ModuleParams.Length == 2)
+				if (base.ModuleParams.Length >= 2)
 				{
-					// First argument is the module action and the second is the Id of the file.
+					// First argument is the module action and the second is the Id of the file. The rest we don't care about for now.
 					try
 					{
 						this._currentAction = (DownloadsModuleActions)Enum.Parse(typeof(DownloadsModuleActions)
@@ -286,27 +208,17 @@ namespace Cuyahoga.Modules.Downloads
 						throw new Exception("Error when parsing module parameters: " + base.ModulePathInfo, ex);
 					}
 				}
-			}
-		}
-
-		private void CheckPhysicalDirectory(string physicalDir)
-		{
-			// Check existence
-			if (!System.IO.Directory.Exists(physicalDir))
-			{
-				throw new Exception(String.Format("The Downloads module didn't find the physical directory {0} on the server.", physicalDir));
-			}
-
-			// Check if the diretory is writable
-			if (!this._fileService.CheckIfDirectoryIsWritable(physicalDir))
-			{
-				throw new Exception(String.Format("The physical directory {0} is not writable.", physicalDir));
+				else
+				{
+					this._currentAction = DownloadsModuleActions.ViewFiles;
+				}
 			}
 		}
 	}	
 
 	public enum DownloadsModuleActions
 	{
+		ViewFiles,
 		Download
 	}
 }

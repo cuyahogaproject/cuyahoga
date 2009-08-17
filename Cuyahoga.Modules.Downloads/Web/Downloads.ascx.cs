@@ -1,39 +1,28 @@
+using System;
+using System.Web.UI.WebControls;
+using System.IO;
+using Cuyahoga.Core.Domain;
+using Cuyahoga.Core.Util;
+using Cuyahoga.Web.UI;
+using Cuyahoga.Modules.Downloads.Util;
+
 namespace Cuyahoga.Modules.Downloads.Web
 {
-	using System;
-	using System.Data;
-	using System.Web;
-	using System.Web.UI.WebControls;
-	using System.Web.UI.HtmlControls;
-	using System.IO;
-
-	using Cuyahoga.Core.Domain;
-	using Cuyahoga.Core.Util;
-	using Cuyahoga.Web.UI;
-	using Cuyahoga.Web.Util;
-	using Cuyahoga.Modules.Downloads.Domain;
-	using Cuyahoga.Modules.Downloads.Util;
-
 	/// <summary>
 	///		Summary description for Downloads.
 	/// </summary>
-	public class Downloads : BaseModuleControl
+	public class Downloads : BaseModuleControl<DownloadsModule>
 	{
-		private const int BUFFER_SIZE = 8192;
-
-
-		private DownloadsModule _downloadsModule;
-
-		protected System.Web.UI.WebControls.Repeater rptFiles;
+		private const int BufferSize = 8192;
+		protected Repeater rptFiles;
 
 		private void Page_Load(object sender, System.EventArgs e)
 		{
-			this._downloadsModule = this.Module as DownloadsModule;
 
 			if (! this.IsPostBack)
 			{
-				if (this._downloadsModule.CurrentAction == DownloadsModuleActions.Download 
-					&& this._downloadsModule.CurrentFileId > 0)
+				if (this.Module.CurrentAction == DownloadsModuleActions.Download 
+					&& this.Module.CurrentFileId > 0)
 				{
 					DownloadCurrentFile();
 				}
@@ -46,17 +35,17 @@ namespace Cuyahoga.Modules.Downloads.Web
 
 		private void BindFiles()
 		{
-			this.rptFiles.DataSource = this._downloadsModule.GetAllFiles();
+			this.rptFiles.DataSource = this.Module.GetAllFiles();
 			this.rptFiles.DataBind();
 		}
 
 		private void DownloadCurrentFile()
 		{
-			Domain.File file = this._downloadsModule.GetFileById(this._downloadsModule.CurrentFileId);
-			Stream fileStream = this._downloadsModule.GetFileAsStream(file);
+			FileResource file = this.Module.GetFileById(this.Module.CurrentFileId);
+			Stream fileStream = this.Module.GetFileAsStream(file);
 			try
 			{
-				byte[] buffer = new byte[BUFFER_SIZE];
+				byte[] buffer = new byte[BufferSize];
 
 				// Total bytes to read:
 				long dataToRead = fileStream.Length;
@@ -73,8 +62,8 @@ namespace Cuyahoga.Modules.Downloads.Web
 				{
 					Response.AddHeader("Content-Range", "bytes " + position.ToString() + "-" + ((long)(dataToRead - 1)).ToString() + "/" + dataToRead.ToString());
 				}
-				Response.ContentType = file.ContentType;
-				Response.AppendHeader("Content-Disposition", "attachment; filename=" + file.FilePath);
+				Response.ContentType = file.MimeType;
+				Response.AppendHeader("Content-Disposition", "attachment; filename=" + file.FileName);
 				// The content length depends on the amount that is already transfered in an earlier request.
 				Response.AppendHeader("Content-Length", (fileStream.Length - position).ToString());
 			
@@ -86,7 +75,7 @@ namespace Cuyahoga.Modules.Downloads.Web
 					if (Response.IsClientConnected)
 					{
 						// Read the data in buffer.
-						int length = fileStream.Read(buffer, 0, BUFFER_SIZE);
+						int length = fileStream.Read(buffer, 0, BufferSize);
 
 						// Write the data to the current output stream.
 						Response.OutputStream.Write(buffer, 0, length);
@@ -94,7 +83,7 @@ namespace Cuyahoga.Modules.Downloads.Web
 						// Flush the data to the HTML output.
 						Response.Flush();
 
-						buffer = new byte[BUFFER_SIZE];
+						buffer = new byte[BufferSize];
 						dataToRead = dataToRead - length;
 					}
 					else
@@ -107,8 +96,7 @@ namespace Cuyahoga.Modules.Downloads.Web
 				// Only update download statistics if the download is succeeded.
 				if (! isInterrupted)
 				{
-					file.NrOfDownloads++;
-					this._downloadsModule.SaveFileInfo(file);
+					this.Module.IncreaseNrOfDownloads(file);
 				}
 			}
 			finally
@@ -116,6 +104,7 @@ namespace Cuyahoga.Modules.Downloads.Web
 				if (fileStream != null)
 				{
 					fileStream.Close();
+					fileStream.Dispose();
 				}
 				Response.End();
 			}
@@ -143,18 +132,18 @@ namespace Cuyahoga.Modules.Downloads.Web
 		}
 		#endregion
 
-		private void rptFiles_ItemDataBound(object sender, System.Web.UI.WebControls.RepeaterItemEventArgs e)
+		private void rptFiles_ItemDataBound(object sender, RepeaterItemEventArgs e)
 		{
-			Domain.File file = e.Item.DataItem as Domain.File;
+			FileResource file = e.Item.DataItem as FileResource;
 			
-			if (file.IsDownloadAllowed(base.Page.User.Identity))
+			if (file != null && file.IsViewAllowed(base.Page.User))
 			{
-				string downloadUrl = UrlHelper.GetUrlFromSection(this._downloadsModule.Section) + "/download/" + file.Id.ToString();
-				string fileDetails = file.FilePath + " (" + file.Size.ToString() + " bytes)";
+				string downloadUrl = UrlUtil.GetApplicationPath() + file.GetContentUrl();
+				string fileDetails = file.FileName + " (" + file.Length + " bytes)";
 				HyperLink hplFileImg = e.Item.FindControl("hplFileImg") as HyperLink;
 				hplFileImg.NavigateUrl = downloadUrl;
 				hplFileImg.ImageUrl = base.Page.ResolveUrl("~/Modules/Downloads/Images/" 
-					+ FileTypesMap.GetIconFilename(System.IO.Path.GetExtension(file.FilePath)));
+					+ FileTypesMap.GetIconFilename(Path.GetExtension(file.FileName)));
 				hplFileImg.Text = fileDetails;
 
 				HyperLink hplFile = e.Item.FindControl("hplFile") as HyperLink;
@@ -162,25 +151,25 @@ namespace Cuyahoga.Modules.Downloads.Web
 				hplFile.ToolTip = fileDetails;
 
 				Panel pnlFileDetails = e.Item.FindControl("pnlFileDetails") as Panel;
-				pnlFileDetails.Visible = (this._downloadsModule.ShowDateModified || this._downloadsModule.ShowPublisher || this._downloadsModule.ShowNumberOfDownloads);
-				if (this._downloadsModule.ShowDateModified)
+				pnlFileDetails.Visible = (this.Module.ShowDateModified || this.Module.ShowPublisher || this.Module.ShowNumberOfDownloads);
+				if (this.Module.ShowDateModified)
 				{
 					Label lblDateModified = e.Item.FindControl("lblDateModified") as Label;
 					lblDateModified.Visible = true;
 					lblDateModified.Text = TimeZoneUtil.AdjustDateToUserTimeZone(
-						file.DatePublished, this.Page.User.Identity).ToString();
+						file.PublishedAt.Value, this.Page.User.Identity).ToString();
 				}
-				if (this._downloadsModule.ShowPublisher)
+				if (this.Module.ShowPublisher)
 				{
 					Label lblPublisher = e.Item.FindControl("lblPublisher") as Label;
 					lblPublisher.Visible = true;
-					lblPublisher.Text += base.GetText("PUBLISHEDBY") + " " + file.Publisher.FullName;
+					lblPublisher.Text += base.GetText("PUBLISHEDBY") + " " + file.ModifiedBy.FullName;
 				}
-				if (this._downloadsModule.ShowNumberOfDownloads)
+				if (this.Module.ShowNumberOfDownloads)
 				{
 					Label lblNumberOfDownloads = e.Item.FindControl("lblNumberOfDownloads") as Label;
 					lblNumberOfDownloads.Visible = true;
-					lblNumberOfDownloads.Text += base.GetText("NUMBEROFDOWNLOADS") + ": " + file.NrOfDownloads.ToString();
+					lblNumberOfDownloads.Text += base.GetText("NUMBEROFDOWNLOADS") + ": " + file.DownloadCount;
 				}
 			}
 			else

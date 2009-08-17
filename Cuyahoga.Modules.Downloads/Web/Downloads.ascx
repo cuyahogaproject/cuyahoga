@@ -6,7 +6,7 @@
 				<h4>
 				<asp:hyperlink id="hplFileImg" runat="server"></asp:hyperlink>
 				<asp:hyperlink id="hplFile" runat="server">
-					<%# DataBinder.Eval(Container.DataItem, "DisplayTitle") %>
+					<%# Eval("Title") %>
 				</asp:hyperlink>
 				</h4>
 				<asp:panel id="pnlFileDetails" cssclass="articlesub" visible="False" runat="server">

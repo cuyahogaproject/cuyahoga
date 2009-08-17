@@ -4,7 +4,6 @@ using Castle.Facilities.NHibernateIntegration;
 using Castle.Services.Transaction;
 
 using NHibernate;
-using Cuyahoga.Core.Domain;
 
 namespace Cuyahoga.Core.DataAccess
 {
@@ -14,19 +13,19 @@ namespace Cuyahoga.Core.DataAccess
 	[Transactional]
 	public class FileResourceDao : IFileResourceDao
 	{
-		private ISessionManager sessionManager;
+		private readonly ISessionManager _sessionManager;
 
 		public FileResourceDao(ISessionManager sessionManager)
 		{
-			this.sessionManager = sessionManager;
+			this._sessionManager = sessionManager;
 		}
 		#region IFileResourceDao Members
 
 		public IList FindFileResourcesByName(string searchString)
 		{
-			ISession session = this.sessionManager.OpenSession();
+			ISession session = this._sessionManager.OpenSession();
 
-			string hql = "from FileResource fi where fi.Name like :searchString";
+			string hql = "from FileResource fi where fi.FileName like :searchString";
 			IQuery query = session.CreateQuery(hql);
 			query.SetString("searchString", string.Concat(searchString, "%"));
 			return query.List();
@@ -34,26 +33,12 @@ namespace Cuyahoga.Core.DataAccess
 
 		public IList FindFileResourcesByExtension(string extension)
 		{
-			ISession session = this.sessionManager.OpenSession();
+			ISession session = this._sessionManager.OpenSession();
 
-			string hql = "from FileResource fi where fi.Extension = :extension";
+			string hql = "from FileResource fi where fi.FileName like :extension";
 			IQuery query = session.CreateQuery(hql);
-			query.SetString("extension", extension);
+			query.SetString("extension", string.Concat("%", extension));
 			return query.List();
-		}
-
-		[Transaction(TransactionMode.Requires)]
-		public virtual void SaveOrUpdateFileResource(FileResource FileResource)
-		{
-			ISession session = this.sessionManager.OpenSession();
-			session.SaveOrUpdate(FileResource);
-		}
-
-		[Transaction(TransactionMode.Requires)]
-		public virtual void DeleteFileResource(FileResource FileResource)
-		{
-			ISession session = this.sessionManager.OpenSession();
-			session.Delete(FileResource);
 		}
 
 		#endregion

@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Security.Principal;
 
 namespace Cuyahoga.Core.Domain
 {
@@ -114,5 +115,19 @@ namespace Cuyahoga.Core.Domain
 		/// </summary>
 		/// <returns></returns>
 		string GetContentUrl();
+
+		/// <summary>
+		/// Check if viewing is allowed for the given IPrincipal.
+		/// </summary>
+		/// <param name="currentPrincipal"></param>
+		/// <returns></returns>
+		bool IsViewAllowed(IPrincipal currentPrincipal);
+
+		/// <summary>
+		/// Check if viewing is allowed for the given User.
+		/// </summary>
+		/// <param name="user"></param>
+		/// <returns></returns>
+		bool IsViewAllowedForUser(User user);
 	}
 }

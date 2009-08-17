@@ -1,7 +1,7 @@
 ﻿<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="3.5">
   <PropertyGroup>
     <ProjectType>Local</ProjectType>
-    <ProductVersion>9.0.21022</ProductVersion>
+    <ProductVersion>9.0.30729</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{A613CF88-E66F-492B-9FD3-259BA3BD7310}</ProjectGuid>
     <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
@@ -146,9 +146,6 @@
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Domain\File.cs">
-      <SubType>Code</SubType>
-    </Compile>
     <Compile Include="DownloadsModule.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -159,25 +156,8 @@
       <DependentUpon>Downloads.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Web\EditDownloads.aspx.cs">
-      <DependentUpon>EditDownloads.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Web\EditFile.aspx.cs">
-      <DependentUpon>EditFile.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <EmbeddedResource Include="Domain\File.hbm.xml" />
     <EmbeddedResource Include="Web\Downloads.ascx.resx">
       <DependentUpon>Downloads.ascx.cs</DependentUpon>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Web\EditDownloads.aspx.resx">
-      <DependentUpon>EditDownloads.aspx.cs</DependentUpon>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Web\EditFile.aspx.resx">
-      <DependentUpon>EditFile.aspx.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Web\Resources\Strings.de.resx">
@@ -200,6 +180,7 @@
     <None Include="Install\Database\mssql2000\0.9.0.sql" />
     <None Include="Install\Database\mssql2000\1.5.1.sql" />
     <None Include="Install\Database\mssql2000\1.5.2.sql" />
+    <None Include="Install\Database\mssql2000\2.0.0.sql" />
     <None Include="Install\Database\mssql2000\install.sql" />
     <None Include="Install\Database\mssql2000\uninstall.sql" />
     <None Include="Install\Database\mysql\0.8.2.sql" />
@@ -222,12 +203,6 @@
     <Content Include="Install\Database\postgresql\1.5.0.sql" />
     <Content Include="Web\Downloads.ascx">
       <SubType>UserControl</SubType>
-    </Content>
-    <Content Include="Web\EditDownloads.aspx">
-      <SubType>Form</SubType>
-    </Content>
-    <Content Include="Web\EditFile.aspx">
-      <SubType>Form</SubType>
     </Content>
     <Content Include="Web\Images\bmp.gif" />
     <Content Include="Web\Images\chm.gif" />
@@ -268,6 +243,9 @@ xcopy /s /y "$(TargetDir)"Cuyahoga.Modules.Downloads*.dll "$(SolutionDir)"Cuyaho
           <IISUrl>
           </IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
+          <UseCustomServer>False</UseCustomServer>
+          <CustomServerUrl>
+          </CustomServerUrl>
           <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
         </WebProjectProperties>
       </FlavorProperties>

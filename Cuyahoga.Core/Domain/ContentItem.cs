@@ -1,7 +1,10 @@
 
 using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Security.Principal;
 using Castle.Components.Validator;
+using Cuyahoga.Core.Service.Membership;
 using Cuyahoga.Core.Validation;
 
 namespace Cuyahoga.Core.Domain
@@ -244,6 +247,31 @@ namespace Cuyahoga.Core.Domain
 				throw new InvalidOperationException("Unable to get the url for the content because the associated section is missing.");
 			}
 			return String.Format(defaultUrlFormat, this._section.Id, this._id);
+		}
+
+		public virtual bool IsViewAllowed(IPrincipal currentPrincipal)
+		{
+			if (!currentPrincipal.Identity.IsAuthenticated)
+			{
+				return this.ContentItemPermissions.Any(cip => cip.ViewAllowed && cip.Role.HasRight(Rights.Anonymous));
+			}
+			if (currentPrincipal is User)
+			{
+				return IsViewAllowedForUser((User)currentPrincipal);
+			}
+			return false;
+		}
+
+		public virtual bool IsViewAllowedForUser(User user)
+		{
+			foreach (ContentItemPermission permission in this.ContentItemPermissions)
+			{
+				if (permission.ViewAllowed && user.IsInRole(permission.Role))
+				{
+					return true;
+				}
+			}
+			return false;
 		}
 	}
 }

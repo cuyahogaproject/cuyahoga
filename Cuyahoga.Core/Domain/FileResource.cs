@@ -1,7 +1,7 @@
 using System;
-using System.IO;
-using System.Collections;
+using System.Linq;
 using System.Security.Principal;
+using Cuyahoga.Core.Service.Membership;
 
 namespace Cuyahoga.Core.Domain
 {
@@ -10,42 +10,20 @@ namespace Cuyahoga.Core.Domain
 	/// </summary>
 	public class FileResource : ContentItem
 	{
-		private string name;
-		private string extension;
-		private string physicalPath;
-		private long length;
-		private string mimeType;
-		private int downloadCount;
-		private IList downloadRoles;
-		private IDictionary userAttributes;
+		private string _fileName;
+		private long _length;
+		private string _mimeType;
+		private int _downloadCount;
 
         #region Properties
 
-        /// <summary>
-		/// Filename (with extension)
-		/// </summary>
-		public virtual string Name
-		{
-			get{ return this.name; }
-			set{ this.name = value; }
-		}
-
 		/// <summary>
-		/// Extension of File (.png, .doc, etc.)
+		/// The file name with extension.
 		/// </summary>
-		public virtual string Extension
+        public virtual string FileName
 		{
-			get{ return this.extension; }
-			set{ this.extension = value; }
-		}
-
-		/// <summary>
-		/// Absolute Path on Disc (C:\Files\..)
-		/// </summary>
-        public virtual string PhysicalPath
-		{
-			get{ return this.physicalPath; }
-			set{ this.physicalPath = value; }
+			get{ return this._fileName; }
+			set{ this._fileName = value; }
 		}
 
 		/// <summary>
@@ -53,8 +31,8 @@ namespace Cuyahoga.Core.Domain
 		/// </summary>
         public virtual long Length
 		{
-			get{ return this.length; }
-			set{ this.length = value; }
+			get{ return this._length; }
+			set{ this._length = value; }
 		}
 
 		/// <summary>
@@ -62,8 +40,8 @@ namespace Cuyahoga.Core.Domain
 		/// </summary>
         public virtual string MimeType
 		{
-			get{ return this.mimeType; }
-			set{ this.mimeType = value; }
+			get{ return this._mimeType; }
+			set{ this._mimeType = value; }
 		}
 
 		/// <summary>
@@ -71,65 +49,25 @@ namespace Cuyahoga.Core.Domain
 		/// </summary>
         public virtual int DownloadCount
 		{
-			get{ return this.downloadCount; }
-			set{ this.downloadCount = value; }
-		}
-
-		/// <summary>
-		/// Predefined Values of Allowed Roles for Download
-		/// </summary>
-        public virtual IList DownloadRoles
-		{
-			get{ return this.downloadRoles; }
-			set{ this.downloadRoles = value; }
-		}
-
-		/// <summary>
-		/// Extra Attributes
-		/// </summary>
-        public virtual IDictionary UserAttributes
-		{
-			get{ return this.userAttributes; }
-			set{ this.userAttributes = value; }
+			get{ return this._downloadCount; }
+			set{ this._downloadCount = value; }
 		}
 
 		#endregion
 
-		public FileResource(): base()
+		public override string GetContentUrl()
 		{
-			this.downloadCount = 1;
-			this.length = 1;
-			this.downloadRoles = new ArrayList();
-		}
-	
-		#region Methods
-
-		public virtual void SetFileInformation(FileInfo fi)
-		{
-			//set default type
-			this.SetFileInformation(fi, "application/octet-stream");
-		}
-		
-		public virtual void SetFileInformation(FileInfo fi, string mimeType)
-		{
-			this.name = fi.Name;
-			this.extension = fi.Extension;
-			this.physicalPath = fi.FullName;
-			this.mimeType = mimeType;
-			this.length = fi.Length;
-		}
-
-		public virtual void SetFileInformation(System.Web.HttpPostedFile hpf)
-		{
-			FileInfo fi = new FileInfo(hpf.FileName);
-			this.SetFileInformation(fi, hpf.ContentType);
+			string defaultUrlFormat = "{0}/section.aspx/Download/{1}/{2}";
+			if (this.Section == null)
+			{
+				throw new InvalidOperationException("Unable to get the url for the content because the associated section is missing.");
+			}
+			return String.Format(defaultUrlFormat, this.Section.Id, this.Id, this.FileName);
 		}
 
         public override string ToString()
         {
-            return this.name;
+            return this.FileName;
         }
-
-		#endregion
 	}
 }

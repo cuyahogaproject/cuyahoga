@@ -1,7 +1,4 @@
-using System;
 using System.Collections;
-
-using Cuyahoga.Core.Domain;
 
 namespace Cuyahoga.Core.DataAccess
 {
@@ -24,17 +21,5 @@ namespace Cuyahoga.Core.DataAccess
 		/// <returns></returns>
 		IList FindFileResourcesByExtension(string extension);
 
-
-		/// <summary>
-		/// Save or update
-		/// </summary>
-		/// <param name="FileResource"></param>
-		void SaveOrUpdateFileResource(FileResource FileResource);
-
-		/// <summary>
-		/// Delete
-		/// </summary>
-		/// <param name="FileResource"></param>
-		void DeleteFileResource(FileResource FileResource);
 	}
 }

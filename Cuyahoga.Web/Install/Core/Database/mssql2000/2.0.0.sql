@@ -63,6 +63,14 @@ commenttext nvarchar(2000) NOT NULL,
 userip nvarchar(15) NULL)
 go
 
+CREATE TABLE cuyahoga_fileresource(
+fileresourceid bigint NOT NULL CONSTRAINT PK_fileresource PRIMARY KEY,
+filename nvarchar(255) NOT NULL,
+length bigint NULL,
+mimetype nvarchar(255) NULL,
+downloadcount int NULL)
+go
+
 ALTER TABLE cuyahoga_contentitem
 ADD CONSTRAINT FK_contentitem_user_createdby 
 FOREIGN KEY (createdby) REFERENCES cuyahoga_user (userid)
@@ -111,6 +119,11 @@ go
 ALTER TABLE cuyahoga_comment
 ADD CONSTRAINT FK_comment_user_userid
 FOREIGN KEY (userid) REFERENCES cuyahoga_user (userid)
+go
+
+ALTER TABLE cuyahoga_fileresource
+ADD CONSTRAINT FK_fileresource_contentitem_fileresourceid 
+FOREIGN KEY (fileresourceid) REFERENCES cuyahoga_contentitem (contentitemid)
 go
 
 -- Roles per site
