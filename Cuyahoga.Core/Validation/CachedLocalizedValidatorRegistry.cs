@@ -160,7 +160,7 @@ namespace Cuyahoga.Core.Validation
 				if (result != null)
 					return result;
 			}
-			return null;
+			return originalMessage;
 		}
 
 		/// <summary>

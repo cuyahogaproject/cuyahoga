@@ -4,7 +4,7 @@ using Cuyahoga.Web.Mvc.Controllers;
 
 namespace Cuyahoga.Web.Mvc.Controllers
 {
-	[Authorize]
+	[Authorize(Order = 0)]
 	public abstract class SecureController : BaseController
 	{
 		protected override void OnAuthorization(AuthorizationContext filterContext)

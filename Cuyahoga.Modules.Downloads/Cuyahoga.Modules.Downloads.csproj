@@ -114,6 +114,11 @@
     <Reference Include="System.Web">
       <Name>System.Web</Name>
     </Reference>
+    <Reference Include="System.Web.Abstractions, Version=3.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\lib\System.Web.Abstractions.dll</HintPath>
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
     <Reference Include="System.Web.Extensions, Version=3.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35">
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
     </Reference>
@@ -129,6 +134,7 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\lib\System.Web.Routing.dll</HintPath>
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
+      <Private>True</Private>
     </Reference>
     <Reference Include="System.Xml">
       <Name>System.XML</Name>
@@ -167,6 +173,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Cuyahoga.Modules.Downloads.GlobalResources.nl.resx</DependentUpon>
     </Compile>
+    <Compile Include="Controllers\ManageFilesController.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -227,6 +234,10 @@
     <None Include="Install\Database\postgresql\1.5.2.sql" />
     <None Include="Install\Database\postgresql\install.sql" />
     <None Include="Install\Database\postgresql\uninstall.sql" />
+    <Content Include="Views\ManageFiles\Edit.aspx" />
+    <Content Include="Views\ManageFiles\New.aspx" />
+    <Content Include="Views\ManageFiles\Index.aspx" />
+    <Content Include="Views\ManageFiles\SharedFileFormElements.ascx" />
     <Content Include="Views\Web.config" />
     <Content Include="Install\Database\mssql2000\1.0.0.sql" />
     <Content Include="Install\Database\mssql2000\1.5.0.sql" />
@@ -255,9 +266,6 @@
     <Content Include="Web\Images\xls.gif" />
     <Content Include="Web\Images\xml.gif" />
     <Content Include="Web\Images\zip.gif" />
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Controllers\" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>

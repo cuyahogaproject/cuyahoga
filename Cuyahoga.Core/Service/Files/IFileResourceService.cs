@@ -1,4 +1,3 @@
-using System.Collections;
 using System.IO;
 using Cuyahoga.Core.Domain;
 
@@ -13,21 +12,17 @@ namespace Cuyahoga.Core.Service.Files
 		/// Uses available information in FileResource 
 		/// to create a file and updates meta info
 		/// </summary>
-		/// <param name="FileResource"></param>
-		/// <param name="fileContents"></param>
-		void SaveFileResource(FileResource FileResource, Stream fileContents);
-
-		/// <summary>
-		/// Update (meta info only)
-		/// </summary>
 		/// <param name="fileResource"></param>
-		void UpdateFileResource(FileResource fileResource);
+		/// <param name="physicalDir"></param>
+		/// <param name="fileContents"></param>
+		void SaveFileResource(FileResource fileResource, string physicalDir, Stream fileContents);
 
 		/// <summary>
 		/// Delete meta info and physical file
 		/// </summary>
 		/// <param name="fileResource"></param>
-		void DeleteFileResource(FileResource fileResource);
+		/// <param name="physicalDir"></param>
+		void DeleteFileResource(FileResource fileResource, string physicalDir);
 
 		/// <summary>
 		/// Check if the physical directory is configured right. If the physical directory lies within the SiteData structure, 
@@ -42,5 +37,11 @@ namespace Cuyahoga.Core.Service.Files
 		/// <param name="physicalFilePath"></param>
 		/// <returns></returns>
 		Stream ReadFile(string physicalFilePath);
+
+		/// <summary>
+		/// Increase the download count of the give file resource. 
+		/// </summary>
+		/// <param name="fileResource"></param>
+		void IncreaseDownloadCount(FileResource fileResource);
 	}
 }

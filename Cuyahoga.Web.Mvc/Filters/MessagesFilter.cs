@@ -71,7 +71,9 @@ namespace Cuyahoga.Web.Mvc.Filters
 					foreach (ModelError modelError in modelStateKvp.Value.Errors)
 					{
 						TagBuilder listItem = new TagBuilder("li");
-						listItem.SetInnerText(this._localizer.GetString(modelError.ErrorMessage));
+						string baseName = String.Format("{0}.globalresources"
+							, currentController.GetType().Namespace.Replace(".Controllers", String.Empty).ToLowerInvariant());
+						listItem.SetInnerText(this._localizer.GetString(modelError.ErrorMessage, baseName));
 						errorSummary.AppendLine(listItem.ToString(TagRenderMode.Normal));
 					}
 				}

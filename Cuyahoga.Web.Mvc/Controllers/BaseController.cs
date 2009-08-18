@@ -17,7 +17,7 @@ namespace Cuyahoga.Web.Mvc.Controllers
 	[SiteFilter(Order = 1)]
 	[MessagesFilter(Order = 2)]
 	[LocalizationFilter(Order = 3)]
-	[ExceptionFilter(ExceptionType = typeof(SecurityException))]
+	[ExceptionFilter(Order = 4, ExceptionType = typeof(SecurityException))]
 	public abstract class BaseController : Controller
 	{
 		private ICuyahogaContext _cuyahogaContext;

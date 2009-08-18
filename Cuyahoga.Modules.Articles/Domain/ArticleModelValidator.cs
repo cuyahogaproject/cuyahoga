@@ -13,7 +13,7 @@ namespace Cuyahoga.Modules.Articles.Domain
 			// Content may not be empty
 			if (ShouldValidateProperty("Content", includeProperties) && string.IsNullOrEmpty(objectToValidate.Content))
 			{
-				AddError("PublishedAt", "ContentIsRequired", true);
+				AddError("Content", "ContentIsRequired", true);
 			}
 
 			// Publish date for articles is required.

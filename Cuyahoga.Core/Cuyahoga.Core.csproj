@@ -421,6 +421,7 @@
     <Compile Include="Validation\IBrowserValidatorProvider.cs" />
     <Compile Include="Validation\ILocalizedValidatorRegistry.cs" />
     <Compile Include="Validation\IModelValidator.cs" />
+    <Compile Include="Validation\ModelValidators\FileResourceModelValidator.cs" />
     <Compile Include="Validation\ModelValidators\RoleModelValidator.cs" />
     <Compile Include="Validation\ModelValidators\SectionModelValidator.cs" />
     <Compile Include="Validation\ModelValidators\UserModelValidator.cs" />

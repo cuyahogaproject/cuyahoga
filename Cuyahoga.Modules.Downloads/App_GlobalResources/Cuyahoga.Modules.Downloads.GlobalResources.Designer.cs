@@ -59,5 +59,239 @@ namespace Resources.Cuyahoga.Modules.Downloads {
                 resourceCulture = value;
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Add/upload new file.
+        /// </summary>
+        internal static string AddNewFileButtonLabel {
+            get {
+                return ResourceManager.GetString("AddNewFileButtonLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Cancel.
+        /// </summary>
+        internal static string CancelLabel {
+            get {
+                return ResourceManager.GetString("CancelLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Delete.
+        /// </summary>
+        internal static string DeleteButtonLabel {
+            get {
+                return ResourceManager.GetString("DeleteButtonLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Downloads.
+        /// </summary>
+        internal static string DownloadsLabel {
+            get {
+                return ResourceManager.GetString("DownloadsLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Edit file.
+        /// </summary>
+        internal static string EditFilePageTitle {
+            get {
+                return ResourceManager.GetString("EditFilePageTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Edit.
+        /// </summary>
+        internal static string EditLabel {
+            get {
+                return ResourceManager.GetString("EditLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to File is required.
+        /// </summary>
+        internal static string FileIsRequired {
+            get {
+                return ResourceManager.GetString("FileIsRequired", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to File.
+        /// </summary>
+        internal static string FileLabel {
+            get {
+                return ResourceManager.GetString("FileLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to File name.
+        /// </summary>
+        internal static string FileNameLabel {
+            get {
+                return ResourceManager.GetString("FileNameLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to File properties.
+        /// </summary>
+        internal static string FilePropertiesLabel {
+            get {
+                return ResourceManager.GetString("FilePropertiesLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The file had been save successfully..
+        /// </summary>
+        internal static string FileSavedMessage {
+            get {
+                return ResourceManager.GetString("FileSavedMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Manage files.
+        /// </summary>
+        internal static string ManageFilesPageTitle {
+            get {
+                return ResourceManager.GetString("ManageFilesPageTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Add/upload a new file.
+        /// </summary>
+        internal static string NewFilePageTitle {
+            get {
+                return ResourceManager.GetString("NewFilePageTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to No file was uploaded..
+        /// </summary>
+        internal static string NoFileUploadedMessage {
+            get {
+                return ResourceManager.GetString("NoFileUploadedMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Permissions.
+        /// </summary>
+        internal static string PermissionsLabel {
+            get {
+                return ResourceManager.GetString("PermissionsLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Publish date is required.
+        /// </summary>
+        internal static string PublishedAtIsRequired {
+            get {
+                return ResourceManager.GetString("PublishedAtIsRequired", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Publish date.
+        /// </summary>
+        internal static string PublishedLabel {
+            get {
+                return ResourceManager.GetString("PublishedLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Publish until.
+        /// </summary>
+        internal static string PublishedUntilLabel {
+            get {
+                return ResourceManager.GetString("PublishedUntilLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Publisher.
+        /// </summary>
+        internal static string PublisherLabel {
+            get {
+                return ResourceManager.GetString("PublisherLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Publishing.
+        /// </summary>
+        internal static string PublishingLabel {
+            get {
+                return ResourceManager.GetString("PublishingLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Download/view allowed for.
+        /// </summary>
+        internal static string RolesViewAllowedLabel {
+            get {
+                return ResourceManager.GetString("RolesViewAllowedLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Save/upload file.
+        /// </summary>
+        internal static string SaveButtonLabel {
+            get {
+                return ResourceManager.GetString("SaveButtonLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Size.
+        /// </summary>
+        internal static string SizeLabel {
+            get {
+                return ResourceManager.GetString("SizeLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Summary.
+        /// </summary>
+        internal static string SummaryLabel {
+            get {
+                return ResourceManager.GetString("SummaryLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Syndicate.
+        /// </summary>
+        internal static string SyndicateLabel {
+            get {
+                return ResourceManager.GetString("SyndicateLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Title.
+        /// </summary>
+        internal static string TitleLabel {
+            get {
+                return ResourceManager.GetString("TitleLabel", resourceCulture);
+            }
+        }
     }
 }

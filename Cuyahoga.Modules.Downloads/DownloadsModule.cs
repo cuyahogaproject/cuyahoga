@@ -182,8 +182,7 @@ namespace Cuyahoga.Modules.Downloads
 		/// <param name="fileResource"></param>
 		public virtual void IncreaseNrOfDownloads(FileResource fileResource)
 		{
-			fileResource.DownloadCount++;
-			this._fileResourceService.UpdateFileResource(fileResource);
+			this._fileResourceService.IncreaseDownloadCount(fileResource);
 		}
 
 		/// <summary>

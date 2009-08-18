@@ -66,6 +66,16 @@ namespace Cuyahoga.Web.Components
 		}
 
 		/// <summary>
+		/// Get the module instance that is associated with the given section.
+		/// </summary>
+		/// <param name="section"></param>
+		/// <returns></returns>
+		public T GetModuleFromSection<T>(Section section) where T : ModuleBase
+		{
+			return (T) GetModuleFromSection(section);
+		}
+
+		/// <summary>
 		/// Get the module instance by its type
 		/// </summary>
 		/// <param name="moduleType"></param>
@@ -185,7 +195,7 @@ namespace Cuyahoga.Web.Components
 
 				//Register the module
 				string moduleTypeKey = "module." + moduleTypeType.FullName;
-				this._kernel.AddComponent(moduleTypeKey, moduleTypeType);
+				this._kernel.AddComponent(moduleTypeKey, moduleTypeType); // no lifestyle because ModuleBase has the Transient attribute.
 
 				//Configure NHibernate mappings and make sure we haven't already added this assembly to the NHibernate config
 				if (typeof(INHibernateModule).IsAssignableFrom(moduleTypeType) && ((HttpContext.Current.Application[moduleType.AssemblyName]) == null))
