@@ -14,18 +14,18 @@
 			<ol>
 				<li>
 					<label for="role.Name"><%=GlobalResources.NameLabel%></label>
-					<%=Html.TextBox("role.Name", ViewData.Model.Name)%>
+					<%=Html.TextBox("role.Name", Model.Name)%>
 				</li>
 				<% if (Html.HasRight(User, Rights.GlobalPermissions)) { %>
 				<li>
-					<label for="role.Name"><%=GlobalResources.IsGlobalLabel%></label>
-					<%= Html.CheckBox("role.Name", ViewData.Model.IsGlobal)%>
+					<label for="role.IsGlobal"><%=GlobalResources.IsGlobalLabel%></label>
+					<%= Html.CheckBox("role.IsGlobal", Model.IsGlobal)%>
 				</li>
 				<% } %>
 			</ol>
 		</fieldset>
 		
-		<% Html.RenderPartial("RightsSelector", ViewData.Model, ViewData); %>
+		<% Html.RenderPartial("RightsSelector", Model, ViewData); %>
 		
 		<input type="submit" value="<%= GlobalResources.SaveButtonLabel %>" />
 		<%= GlobalResources.Or %>

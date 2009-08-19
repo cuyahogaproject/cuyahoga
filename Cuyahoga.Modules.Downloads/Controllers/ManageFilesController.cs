@@ -69,7 +69,13 @@ namespace Cuyahoga.Modules.Downloads.Controllers
 		public ActionResult New()
 		{
 			ViewData["Roles"] = this._userService.GetAllRolesBySite(CuyahogaContext.CurrentSite);
-			return View("New", GetModuleAdminViewModel(new FileResource()));
+			FileResource fileResource = new FileResource();
+			// For new items, inherit the permissions of the section
+			foreach (SectionPermission sectionPermission in CurrentSection.SectionPermissions)
+			{
+				fileResource.ContentItemPermissions.Add(new ContentItemPermission() { ContentItem = fileResource, Role = sectionPermission.Role, ViewAllowed = sectionPermission.ViewAllowed });
+			}
+			return View("New", GetModuleAdminViewModel(fileResource));
 		}
 
 		/// <summary>
@@ -80,6 +86,7 @@ namespace Cuyahoga.Modules.Downloads.Controllers
 		public ActionResult Edit(long id)
 		{
 			FileResource fileResource = this._contentItemService.GetById(id);
+			ViewData["Roles"] = this._userService.GetAllRolesBySite(CuyahogaContext.CurrentSite);
 			return View("Edit", GetModuleAdminViewModel(fileResource));
 		}
 
@@ -91,47 +98,24 @@ namespace Cuyahoga.Modules.Downloads.Controllers
 		/// <param name="roleIds"></param>
 		/// <param name="categoryids"></param>
 		/// <returns></returns>
+		[AcceptVerbs(HttpVerbs.Post)]
 		public ActionResult Create([Bind(Exclude = "Id")]FileResource fileResource, HttpPostedFileBase fileData, int[] roleIds, string categoryids)
 		{
+			BindCategoriesAndRoles(fileResource, categoryids, roleIds);
+
 			if (fileData != null && fileData.ContentLength > 0)
 			{	
-				// TODO: handle Categories etc. more generic.
-				// Categories
-				fileResource.Categories.Clear();
-				if (!String.IsNullOrEmpty(categoryids))
-				{
-					foreach (string categoryIdString in categoryids.Split(','))
-					{
-						fileResource.Categories.Add(this._categoryService.GetCategoryById(Convert.ToInt32(categoryIdString)));
-					}
-				}
-				// TODO: handle Roles etc. more generic.
-				fileResource.ContentItemPermissions.Clear();
-				if (roleIds != null)
-				{
-					var roles = this._userService.GetRolesByIds(roleIds);
-					foreach (Role role in roles)
-					{
-						fileResource.ContentItemPermissions.Add(new ContentItemPermission
-						                                        	{ContentItem = fileResource, Role = role, ViewAllowed = true});
-					}
-				}
-
 				fileResource.Section = CurrentSection;
 				fileResource.FileName = fileData.FileName;
 				fileResource.Length = fileData.ContentLength;
 				fileResource.MimeType = fileData.ContentType;
-				if (String.IsNullOrEmpty(fileResource.Title))
-				{
-					fileResource.Title = fileResource.FileName;
-				}
 
 				if (ValidateModel(fileResource, new[] { "Title", "Summary", "FileName", "PublishedAt", "PublishedUntil" }))
 				{
 					try
 					{
 						this._fileResourceService.SaveFileResource(fileResource, this._module.FileDir, fileData.InputStream);
-						Messages.AddFlashMessage(GetText("FileSavedMessage"));
+						Messages.AddFlashMessage("FileSavedMessage");
 						return RedirectToAction("Index", "ManageFiles", GetNodeAndSectionParams());
 					}
 					catch (Exception ex)
@@ -143,9 +127,93 @@ namespace Cuyahoga.Modules.Downloads.Controllers
 			}
 			else
 			{
-				Messages.AddErrorMessage(GetText("NoFileUploadedMessage"));
+				Messages.AddErrorMessage("NoFileUploadedMessage");
 			}
-			return New();
+			ViewData["Roles"] = this._userService.GetAllRolesBySite(CuyahogaContext.CurrentSite);
+			return View("New", GetModuleAdminViewModel(fileResource));
+		}
+
+		/// <summary>
+		/// Update an existing file.
+		/// </summary>
+		/// <param name="id"></param>
+		/// <param name="fileData"></param>
+		/// <param name="roleIds"></param>
+		/// <param name="categoryids"></param>
+		/// <returns></returns>
+		[AcceptVerbs(HttpVerbs.Post)]
+		public ActionResult Update(int id, HttpPostedFileBase fileData, int[] roleIds, string categoryids)
+		{
+			FileResource fileResource = this._contentItemService.GetById(id);
+			
+			BindCategoriesAndRoles(fileResource, categoryids, roleIds);
+
+			if (TryUpdateModel(fileResource, new[] { "Title", "Summary", "PublishedAt", "PublishedUntil" })
+				&& ValidateModel(fileResource, new[] { "Title", "Summary", "PublishedAt", "PublishedUntil" }))
+			{
+				try
+				{
+					if (fileData != null && fileData.ContentLength > 0)
+					{
+						fileResource.FileName = fileData.FileName;
+						fileResource.Length = fileData.ContentLength;
+						fileResource.MimeType = fileData.ContentType;
+						this._fileResourceService.SaveFileResource(fileResource, this._module.FileDir, fileData.InputStream);
+					}
+					else
+					{
+						this._fileResourceService.UpdateFileResource(fileResource);
+					}
+					Messages.AddFlashMessage("FileSavedMessage");
+					return RedirectToAction("Index", "ManageFiles", GetNodeAndSectionParams());
+				}
+				catch (Exception ex)
+				{
+					Messages.AddException(ex);
+				}
+			}
+
+			ViewData["Roles"] = this._userService.GetAllRolesBySite(CuyahogaContext.CurrentSite);
+			return View("Edit", GetModuleAdminViewModel(fileResource));
+		}
+
+		[AcceptVerbs(HttpVerbs.Post)]
+		public ActionResult Delete(int id)
+		{
+			FileResource fileResource = this._contentItemService.GetById(id);
+			try
+			{
+				this._fileResourceService.DeleteFileResource(fileResource, this._module.FileDir);
+				Messages.AddFlashMessage("FileDeletedMessage");
+			}
+			catch (Exception ex)
+			{
+				Messages.AddFlashException(ex);
+			}
+			return RedirectToAction("Index", "ManageFiles", GetNodeAndSectionParams());
+		}
+
+		private void BindCategoriesAndRoles(FileResource fileResource, string categoryids, int[] roleIds)
+		{
+			// TODO: handle more generic (Binder? base Controller?)
+			fileResource.Categories.Clear();
+			if (!String.IsNullOrEmpty(categoryids))
+			{
+				foreach (string categoryIdString in categoryids.Split(','))
+				{
+					fileResource.Categories.Add(this._categoryService.GetCategoryById(Convert.ToInt32(categoryIdString)));
+				}
+			}
+			// TODO: handle Roles etc. more generic.
+			fileResource.ContentItemPermissions.Clear();
+			if (roleIds != null)
+			{
+				var roles = this._userService.GetRolesByIds(roleIds);
+				foreach (Role role in roles)
+				{
+					fileResource.ContentItemPermissions.Add(new ContentItemPermission { ContentItem = fileResource, Role = role, ViewAllowed = true });
+				}
+			}
 		}
 	}
 }

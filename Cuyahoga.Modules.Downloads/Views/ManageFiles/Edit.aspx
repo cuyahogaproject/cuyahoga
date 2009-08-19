@@ -9,5 +9,11 @@
 </asp:Content>
 
 <asp:content id="Content1" contentplaceholderid="MainContent" runat="server">
+	<% using (Html.BeginForm("Update", "ManageFiles", Model.GetNodeAndSectionParams().Merge("id", Model.ModuleData.Id), FormMethod.Post, new Dictionary<string, object> { { "id", "fileform" }, { "enctype", "multipart/form-data" } })) { %>
+		<% Html.RenderPartial("SharedFileFormElements", Model); %>
+		<input type="submit" value="<%= GlobalResources.SaveButtonLabel %>" />
+		<%= Html.ActionLink(GlobalResources.CancelLabel, "Index", Model.GetNodeAndSectionParams()) %>
+		<% Html.RenderPartial("Categories", Model.ModuleData); %>
+	<% } %>
 </asp:content>
 

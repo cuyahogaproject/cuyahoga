@@ -135,6 +135,9 @@
   <data name="EditLabel" xml:space="preserve">
     <value>Edit</value>
   </data>
+  <data name="FileDeletedMessage" xml:space="preserve">
+    <value>The file is deleted successfully.</value>
+  </data>
   <data name="FileIsRequired" xml:space="preserve">
     <value>File is required</value>
   </data>
@@ -148,7 +151,7 @@
     <value>File properties</value>
   </data>
   <data name="FileSavedMessage" xml:space="preserve">
-    <value>The file had been save successfully.</value>
+    <value>The file is saved successfully.</value>
   </data>
   <data name="ManageFilesPageTitle" xml:space="preserve">
     <value>Manage files</value>

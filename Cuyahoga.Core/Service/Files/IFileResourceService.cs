@@ -18,6 +18,12 @@ namespace Cuyahoga.Core.Service.Files
 		void SaveFileResource(FileResource fileResource, string physicalDir, Stream fileContents);
 
 		/// <summary>
+		/// Update the meta-data of a file.
+		/// </summary>
+		/// <param name="fileResource"></param>
+		void UpdateFileResource(FileResource fileResource);
+
+		/// <summary>
 		/// Delete meta info and physical file
 		/// </summary>
 		/// <param name="fileResource"></param>

@@ -135,6 +135,9 @@
   <data name="EditLabel" xml:space="preserve">
     <value>Wijzig</value>
   </data>
+  <data name="FileDeletedMessage" xml:space="preserve">
+    <value>Het bestand is verwijderd.</value>
+  </data>
   <data name="FileIsRequired" xml:space="preserve">
     <value>Bestand is verplicht</value>
   </data>

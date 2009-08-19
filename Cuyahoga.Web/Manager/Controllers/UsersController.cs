@@ -211,7 +211,7 @@ namespace Cuyahoga.Web.Manager.Controllers
 			try
 			{
 				UpdateModel(newRole, "role");
-				if (rightIds.Length > 0)
+				if (rightIds != null && rightIds.Length > 0)
 				{
 					IList<Right> rights = this._userService.GetRightsByIds(rightIds);
 					foreach (Right right in rights)

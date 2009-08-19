@@ -115,6 +115,15 @@ namespace Resources.Cuyahoga.Modules.Downloads {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to The file is deleted successfully..
+        /// </summary>
+        internal static string FileDeletedMessage {
+            get {
+                return ResourceManager.GetString("FileDeletedMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to File is required.
         /// </summary>
         internal static string FileIsRequired {
@@ -151,7 +160,7 @@ namespace Resources.Cuyahoga.Modules.Downloads {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to The file had been save successfully..
+        ///   Looks up a localized string similar to The file is saved successfully..
         /// </summary>
         internal static string FileSavedMessage {
             get {

@@ -43,7 +43,8 @@ namespace Cuyahoga.Modules.Downloads
 			{
 				if (this._physicalDir == null)
 				{
-					this._physicalDir = Path.Combine(this._cuyahogaContext.PhysicalSiteDataDirectory, "Downloads" + Path.DirectorySeparatorChar + Section.Id);
+					this._physicalDir = Path.Combine(this._cuyahogaContext.PhysicalSiteDataDirectory
+						, "UserFiles" + Path.DirectorySeparatorChar + "Downloads" + Path.DirectorySeparatorChar + Section.Id);
 					this._fileResourceService.CheckPhysicalDirectory(this._physicalDir);
 				}
 				return this._physicalDir;

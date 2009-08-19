@@ -18,12 +18,19 @@ namespace Cuyahoga.Core.Domain
         #region Properties
 
 		/// <summary>
-		/// The file name with extension.
+		/// The file name with extension. It's also the default title that can be overruled when setting the Title explicitly.
 		/// </summary>
         public virtual string FileName
 		{
 			get{ return this._fileName; }
-			set{ this._fileName = value; }
+			set
+			{
+				this._fileName = value;
+				if (String.IsNullOrEmpty(this.Title))
+				{
+					this.Title = this._fileName;
+				}
+			}
 		}
 
 		/// <summary>

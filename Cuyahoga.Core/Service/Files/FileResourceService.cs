@@ -4,6 +4,7 @@ using Castle.Services.Transaction;
 using Cuyahoga.Core.DataAccess;
 using Cuyahoga.Core.Domain;
 using Cuyahoga.Core.Service.Content;
+using Cuyahoga.Core.Util;
 
 namespace Cuyahoga.Core.Service.Files
 {
@@ -32,8 +33,17 @@ namespace Cuyahoga.Core.Service.Files
 		public virtual void SaveFileResource(FileResource fileResource, string physicalDir, Stream fileContent)
 		{
 			// Save physical file.
-			this._fileService.WriteFile(Path.Combine(physicalDir, fileResource.FileName), fileContent);
+			string filePath = Path.Combine(physicalDir, fileResource.FileName);
+			filePath = IOUtil.EnsureUniqueFilePath(filePath);
+			this._fileService.WriteFile(filePath, fileContent);
 			// Save meta info
+			fileResource.FileName = Path.GetFileName(filePath); // maybe checking uniqueness has changed the filename.
+			this._contentItemService.Save(fileResource);
+		}
+
+		[Transaction(TransactionMode.Requires)]
+		public void UpdateFileResource(FileResource fileResource)
+		{
 			this._contentItemService.Save(fileResource);
 		}
 

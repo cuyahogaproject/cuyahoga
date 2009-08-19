@@ -57,6 +57,15 @@ SET editpath = 'Modules/Downloads/ManageFiles'
 WHERE [name] = 'Downloads'
 go
 
+-- Description for physical directory
+UPDATE cuyahoga_modulesetting
+SET friendlyname = 'Physical directory (leave empty for default)'
+FROM cuyahoga_modulesetting ms 
+	INNER JOIN cuyahoga_moduletype mt ON mt.moduletypeid = ms.moduletypeid
+WHERE ms.[name] = 'PHYSICAL_DIR'
+	AND mt.[name] = 'Downloads'
+go
+
 /*
  * Version
  */

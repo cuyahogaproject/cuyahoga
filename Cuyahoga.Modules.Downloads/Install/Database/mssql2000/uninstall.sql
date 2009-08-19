@@ -13,13 +13,3 @@ go
 DELETE FROM cuyahoga_moduletype
 WHERE assemblyname = 'Cuyahoga.Modules.Downloads'
 go
-
-/*
- *  Remove module specific tables
- */
-
-DROP TABLE cm_filerole
-go
-
-DROP TABLE cm_file
-go
