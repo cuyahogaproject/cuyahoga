@@ -1,6 +1,5 @@
 using System;
 using Cuyahoga.Core.Domain;
-using Cuyahoga.Core.DataAccess;
 using Cuyahoga.Core.Service.Content;
 using Cuyahoga.Core.Util;
 
@@ -9,12 +8,12 @@ namespace Cuyahoga.Core.Service.Search
 {
 	public class SearchDecorator<T> : AbstractContentItemServiceDecorator<T> where T : IContentItem
 	{
-		private readonly ISearchService searchService;
+		private readonly ISearchService _searchService;
 
 		public SearchDecorator(IContentItemService<T> contentItemService, ISearchService searchService)
 			: base(contentItemService)
 		{
-			this.searchService = searchService; 
+			this._searchService = searchService; 
 		}
 
 		/// <summary>
@@ -34,7 +33,14 @@ namespace Cuyahoga.Core.Service.Search
 		{
 			if (UseInstantIndexing && entity is ISearchableContent)
 			{
-				this.searchService.AddContent(entity);
+				if (entity.IsNew)
+				{
+					this._searchService.AddContent(entity);
+				}
+				else
+				{
+					this._searchService.UpdateContent(entity);
+				}
 			}
 			return base.Save(entity);
 		}
@@ -45,7 +51,7 @@ namespace Cuyahoga.Core.Service.Search
 			{
 				if (entity is ISearchableContent)
 				{
-					this.searchService.DeleteContent(entity);
+					this._searchService.DeleteContent(entity);
 				}
 			}
 			base.Delete(entity);

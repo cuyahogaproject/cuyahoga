@@ -177,11 +177,11 @@ namespace Cuyahoga.Core.Service.Search
             ISearchableContent searchInfo = contentItem as ISearchableContent;
             if (searchInfo == null) throw new ArgumentException("Argument must implement ISearchableContent");
 
-            //strip (x)html tags
+            // strip (x)html tags
             string plaintext = System.Text.RegularExpressions.Regex.Replace(searchInfo.ToSearchContent(), @"<(.|\n)*?>", string.Empty);
-            //create the actual url (using the id)
+            // create the actual url (using the id)
         	string path = contentItem.GetContentUrl();
-            //check that summary is not null, else provide empty string
+            // check that summary is not null. 
             string summary = contentItem.Summary ?? Text.TruncateText(plaintext, 200);
 
             Document doc = new Document();
