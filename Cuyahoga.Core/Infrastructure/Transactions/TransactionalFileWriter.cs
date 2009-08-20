@@ -20,14 +20,13 @@ namespace Cuyahoga.Core.Infrastructure.Transactions
 		private string _transactionDir;
 
 		private IList<string> _createdDirectories = new List<string>();
-		private IList<CopyLocations> _createdFiles = new List<CopyLocations>();
-		private IList<string> _deletedFiles = new List<String>();
-		private IList<string> _deletedDirectories = new List<String>();
-		private IList<CopyLocations> _directoriesToCopy = new List<CopyLocations>();
-		private IList<CopyLocations> _filesToCopy = new List<CopyLocations>();
+		private IList<string> _createdFiles = new List<string>();
+		private IList<CopyLocations> _deletedFiles = new List<CopyLocations>();
+		private IList<CopyLocations> _deletedDirectories = new List<CopyLocations>();
+		private IList<string> _copiedFiles = new List<string>();
 
 		/// <summary>
-		/// Contructor.
+		/// Constructor.
 		/// </summary>
 		public TransactionalFileWriter(string tempDir, string transactionName)
 		{	
@@ -63,18 +62,16 @@ namespace Cuyahoga.Core.Infrastructure.Transactions
 			{
 				throw new UnauthorizedAccessException(string.Format("Unable to copy files and directories to {0}. Access denied.", directoryName));
 			}
-			string tempFilePath = Path.Combine(this._transactionDir, Path.GetFileName(filePath));
-
-			FileStream fs = new FileStream(tempFilePath, FileMode.Create, FileAccess.Write);
+			FileStream fs = new FileStream(filePath, FileMode.Create, FileAccess.Write);
 			StreamUtil.Copy(inputStream, fs);
 			fs.Flush();
 			fs.Close();
 
-			this._createdFiles.Add(new CopyLocations(tempFilePath, filePath));
+			this._createdFiles.Add(filePath);
 		}
 
 		/// <summary>
-		/// Mark a file for deletion by adding it to the list of file that are going to be deleted.
+		/// Delete a file.
 		/// </summary>
 		/// <param name="filePath"></param>
 		public void DeleteFile(string filePath)
@@ -83,11 +80,13 @@ namespace Cuyahoga.Core.Infrastructure.Transactions
 			{
 				throw new FileNotFoundException("The file was not found so it could not be deleted.", filePath);
 			}
-			this._deletedFiles.Add(filePath);
+			string tempFilePath = Path.Combine(this._transactionDir, Path.GetFileName(filePath));
+			File.Move(filePath, tempFilePath);
+			this._deletedFiles.Add(new CopyLocations(filePath, tempFilePath));
 		}
 
 		/// <summary>
-		/// Mark a directory for deletion by adding it to the list of directories that are going to be deleted.
+		/// Delete a directory.
 		/// </summary>
 		/// <param name="directoryToDelete"></param>
 		public void DeleteDirectory(string directoryToDelete)
@@ -96,14 +95,30 @@ namespace Cuyahoga.Core.Infrastructure.Transactions
 			{
 				throw new DirectoryNotFoundException(string.Format("The directory {0} was not found so it could not be deleted.", directoryToDelete));
 			}
-			this._deletedDirectories.Add(directoryToDelete);
+			string directoryName = IOUtil.GetLastPathFragment(directoryToDelete);
+			string tempDeleteDir = Path.Combine(this._transactionDir, directoryName);
+			Directory.CreateDirectory(tempDeleteDir);
+			IOUtil.CopyDirectory(directoryToDelete, tempDeleteDir);
+			Directory.Delete(directoryToDelete, true);
+			this._deletedDirectories.Add(new CopyLocations(directoryToDelete, tempDeleteDir));
 		}
 
+		/// <summary>
+		/// Create a new directory.
+		/// </summary>
+		/// <param name="physicalDirectoryPath"></param>
 		public void CreateDirectory(string physicalDirectoryPath)
 		{
+			Directory.CreateDirectory(physicalDirectoryPath);
 			this._createdDirectories.Add(physicalDirectoryPath);
 		}
 
+		/// <summary>
+		/// Copy the contents of the given source directory to the given target directory. The target directory will be created
+		/// when it doesn't exist.
+		/// </summary>
+		/// <param name="sourceDirectory"></param>
+		/// <param name="targetDirectory"></param>
 		public void CopyDirectory(string sourceDirectory, string targetDirectory)
 		{
 			if (!Directory.Exists(targetDirectory))
@@ -118,12 +133,30 @@ namespace Cuyahoga.Core.Infrastructure.Transactions
 					throw new UnauthorizedAccessException(string.Format("Unable to copy files and directories to {0}. Access denied.", targetDirectory));
 				}
 			}
-			string directoryName = IOUtil.GetLastPathFragment(sourceDirectory);
-			string tempCopyDir = Path.Combine(this._transactionDir, directoryName);
-			IOUtil.CopyDirectory(sourceDirectory, tempCopyDir);
-			this._directoriesToCopy.Add(new CopyLocations(tempCopyDir, targetDirectory));
+			// Recursively copy directory contents.
+			CopyDirectoryContents(sourceDirectory, targetDirectory);
 		}
 
+		private void CopyDirectoryContents(string sourceDirectory, string targetDirectory)
+		{
+			foreach (string sourceFile in Directory.GetFiles(sourceDirectory))
+			{
+				CopyFile(sourceFile, Path.GetFileName(sourceFile), targetDirectory);
+			}
+			foreach (string sourceSubDirectory in Directory.GetDirectories(sourceDirectory))
+			{
+				string targetSubDirectory = Path.Combine(targetDirectory, IOUtil.GetLastPathFragment(sourceSubDirectory));
+				CreateDirectory(targetSubDirectory);
+				CopyDirectoryContents(sourceSubDirectory, targetSubDirectory);
+			}
+		}
+
+		/// <summary>
+		/// Copy a file to a new location.
+		/// </summary>
+		/// <param name="filePathToCopy"></param>
+		/// <param name="targetFileName"></param>
+		/// <param name="targetDirectory"></param>
 		public void CopyFile(string filePathToCopy, string targetFileName, string targetDirectory)
 		{
 			if (!Directory.Exists(targetDirectory))
@@ -138,9 +171,9 @@ namespace Cuyahoga.Core.Infrastructure.Transactions
 					throw new UnauthorizedAccessException(string.Format("Unable to copy files and directories to {0}. Access denied.", targetDirectory));
 				}
 			}
-			string tempFilePath = Path.Combine(this._transactionDir, targetFileName);
-			File.Copy(filePathToCopy, tempFilePath);
-			this._filesToCopy.Add(new CopyLocations(tempFilePath, Path.Combine(targetDirectory, targetFileName)));
+			string targetFilePath = Path.Combine(targetDirectory, targetFileName);
+			File.Copy(filePathToCopy, targetFilePath);
+			this._copiedFiles.Add(targetFilePath);
 		}
 
 		#region IResource Members
@@ -165,50 +198,42 @@ namespace Cuyahoga.Core.Infrastructure.Transactions
 
 		public void Rollback()
 		{
+			// Delete all newly created files
+			foreach (string createdFile in _createdFiles)
+			{
+				File.Delete(createdFile);
+			}
+
+			// Delete all copied files
+			foreach (string copiedFile in _copiedFiles)
+			{
+				File.Delete(copiedFile);
+			}
+
+			// Delete newly created directories
+			foreach (string createdDirectory in _createdDirectories)
+			{
+				Directory.Delete(createdDirectory, true);
+			}
+
+			// Move deleted directories back to their original locations
+			foreach (CopyLocations deletedDirectory in _deletedDirectories)
+			{
+				Directory.Move(deletedDirectory.TargetLocation, deletedDirectory.SourceLocation);
+			}
+
+			// Move deleted files back to their original locations
+			foreach (CopyLocations deletedFile in _deletedFiles)
+			{
+				File.Move(deletedFile.TargetLocation, deletedFile.SourceLocation);
+			}
+
 			// Cleanup
 			CleanUpTransactionDir();
 		}
 
 		public void Commit()
 		{
-			// Create all new directories
-			foreach (string directoryPath in this._createdDirectories)
-			{
-				if (!Directory.Exists(directoryPath))
-				{
-					Directory.CreateDirectory(directoryPath);
-				}
-			}
-
-			// Copy directories to permanent location
-			foreach (CopyLocations directoryLocations in this._directoriesToCopy)
-			{
-				IOUtil.CopyDirectory(directoryLocations.SourceLocation, directoryLocations.TargetLocation);
-			}
-			
-			// Copy files to permanent location
-			foreach (CopyLocations copyFileLocations in this._filesToCopy)
-			{
-				File.Copy(copyFileLocations.SourceLocation, copyFileLocations.TargetLocation);
-			}
-
-			// Move temp new files to permanent location.
-			foreach (CopyLocations newFileLocations in this._createdFiles)
-			{
-				// index 0 is permanent location, index 1 = temp location
-				File.Move(newFileLocations.SourceLocation, newFileLocations.TargetLocation);
-			}
-
-			// Delete scheduled deletions
-			foreach (string fileToBeDeleted in this._deletedFiles)
-			{
-				File.Delete(fileToBeDeleted);
-			}
-			foreach (string directoryToBeDeleted in _deletedDirectories)
-			{
-				Directory.Delete(directoryToBeDeleted, true);
-			}
-
 			CleanUpTransactionDir();
 		}
 
@@ -217,32 +242,22 @@ namespace Cuyahoga.Core.Infrastructure.Transactions
 		private void CleanUpTransactionDir()
 		{
 			// Remove temp files.
-			foreach (CopyLocations newFileLocations in this._createdFiles)
+			foreach (CopyLocations deletedFile in this._deletedFiles)
 			{
-				string tempFile = newFileLocations.SourceLocation;
-				if (File.Exists(tempFile))
+				string tempDeletedFile = deletedFile.TargetLocation;
+				if (File.Exists(tempDeletedFile))
 				{	
-					File.Delete(tempFile);
+					File.Delete(tempDeletedFile);
 				}
 			}
 
-			// Remove files to copy
-			foreach (CopyLocations copyFileLocations in this._filesToCopy)
+			// Remove temp deleted directories
+			foreach(CopyLocations deletedDirectory in this._deletedDirectories)
 			{
-				string tempFile = copyFileLocations.SourceLocation;
-				if (File.Exists(tempFile))
+				string tempDeletedDir = deletedDirectory.SourceLocation;
+				if (Directory.Exists(tempDeletedDir))
 				{
-					File.Delete(tempFile);
-				}
-			}
-
-			// Remove direcories to copy
-			foreach(CopyLocations directoryLocations in this._directoriesToCopy)
-			{
-				string tempCopyDir = directoryLocations.SourceLocation;
-				if (Directory.Exists(tempCopyDir))
-				{
-					Directory.Delete(tempCopyDir, true);
+					Directory.Delete(tempDeletedDir, true);
 				}
 			}
 

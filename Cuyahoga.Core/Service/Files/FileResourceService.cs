@@ -4,6 +4,7 @@ using Castle.Services.Transaction;
 using Cuyahoga.Core.DataAccess;
 using Cuyahoga.Core.Domain;
 using Cuyahoga.Core.Service.Content;
+using Cuyahoga.Core.Service.Search;
 using Cuyahoga.Core.Util;
 
 namespace Cuyahoga.Core.Service.Files
@@ -18,13 +19,15 @@ namespace Cuyahoga.Core.Service.Files
 		private readonly IFileService _fileService;
 		private readonly ICuyahogaContextProvider _cuyahogaContextProvider;
 		private readonly IContentItemService<FileResource> _contentItemService;
+		private readonly ITextExtractor _textExtractor;
 
-		public FileResourceService(IFileService fileService, ICuyahogaContextProvider cuyahogaContextProvider, IContentItemService<FileResource> contentItemService, ICommonDao commonDao)
+		public FileResourceService(IFileService fileService, ICuyahogaContextProvider cuyahogaContextProvider, IContentItemService<FileResource> contentItemService, ICommonDao commonDao, ITextExtractor textExtractor)
 		{
 			this._commonDao = commonDao;
 			this._fileService = fileService;
 			this._contentItemService = contentItemService;
 			this._cuyahogaContextProvider = cuyahogaContextProvider;
+			this._textExtractor = textExtractor;
 		}
 
 		#region IFileResourceService Members
@@ -36,6 +39,8 @@ namespace Cuyahoga.Core.Service.Files
 			string filePath = Path.Combine(physicalDir, fileResource.FileName);
 			filePath = IOUtil.EnsureUniqueFilePath(filePath);
 			this._fileService.WriteFile(filePath, fileContent);
+			// Set the text extracting method to the fileResource;
+			fileResource.SetTextExtractor(() => this._textExtractor.ExtractTextFromFile(filePath));
 			// Save meta info
 			fileResource.FileName = Path.GetFileName(filePath); // maybe checking uniqueness has changed the filename.
 			this._contentItemService.Save(fileResource);

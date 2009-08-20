@@ -118,6 +118,10 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\lib\Castle.Windsor.dll</HintPath>
     </Reference>
+    <Reference Include="EPocalipse.IFilter, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\lib\EPocalipse.IFilter.dll</HintPath>
+    </Reference>
     <Reference Include="ICSharpCode.SharpZipLib, Version=0.85.5.452, Culture=neutral, PublicKeyToken=1b03e6acf1164f73, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\lib\ICSharpCode.SharpZipLib.dll</HintPath>
@@ -209,6 +213,9 @@
     <Compile Include="Service\Files\FileManagerService.cs" />
     <Compile Include="Service\Files\IFileManagerService.cs" />
     <Compile Include="Service\ICuyahogaContextProvider.cs" />
+    <Compile Include="Service\Search\IFilterTextExtractor.cs" />
+    <Compile Include="Service\Search\ITextExtractor.cs" />
+    <Compile Include="Service\Search\NativeTextExtractor.cs" />
     <Compile Include="Service\Search\SearchDecorator.cs" />
     <Compile Include="Service\Versioning\VersioningDecorator.cs" />
     <Compile Include="Domain\Category.cs">

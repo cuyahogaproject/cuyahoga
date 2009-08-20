@@ -1,19 +1,19 @@
 using System;
-using System.Linq;
-using System.Security.Principal;
-using Cuyahoga.Core.Service.Membership;
+using System.Collections.Generic;
+using Cuyahoga.Core.Service.Search;
 
 namespace Cuyahoga.Core.Domain
 {
 	/// <summary>
 	/// (Base) Class for Files
 	/// </summary>
-	public class FileResource : ContentItem
+	public class FileResource : ContentItem, ISearchableContent
 	{
 		private string _fileName;
 		private long _length;
 		private string _mimeType;
 		private int _downloadCount;
+		private Func<string> _extractText;
 
         #region Properties
 
@@ -75,6 +75,33 @@ namespace Cuyahoga.Core.Domain
         public override string ToString()
         {
             return this.FileName;
-        }
+		}
+
+		#region ISearchableContent members
+
+		/// <summary>
+		/// Get the full contents of this ContentItem for indexing
+		/// </summary>
+		/// <returns></returns>
+		public virtual string ToSearchContent()
+		{
+			return this._extractText();
+		}
+
+		/// <summary>
+		/// Get a list of <see cref="CustomSearchField"/>s, if any
+		/// </summary>
+		/// <returns></returns>
+		public virtual IList<CustomSearchField> GetCustomSearchFields()
+		{
+			return new List<CustomSearchField>();
+		}
+
+		#endregion
+
+		public virtual void SetTextExtractor(Func<string> extractMethod)
+		{
+			this._extractText = extractMethod;
+		}
 	}
 }
