@@ -31,6 +31,9 @@ namespace Cuyahoga.Core.Service.Search
 
 		public override T Save(T entity)
 		{
+			// First, save entity to the database, so it has an identifier. Otherwise, the entity should be indexed with the wrong path.
+			entity = base.Save(entity);
+
 			if (UseInstantIndexing && entity is ISearchableContent)
 			{
 				if (entity.IsNew)
@@ -42,7 +45,7 @@ namespace Cuyahoga.Core.Service.Search
 					this._searchService.UpdateContent(entity);
 				}
 			}
-			return base.Save(entity);
+			return entity;
 		}
 
 		public override void Delete(T entity)

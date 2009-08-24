@@ -33,16 +33,12 @@ namespace Cuyahoga.Core.Service.Files
 		#region IFileResourceService Members
 
 		[Transaction(TransactionMode.Requires)]
-		public virtual void SaveFileResource(FileResource fileResource, string physicalDir, Stream fileContent)
+		public virtual void SaveFileResource(FileResource fileResource, Stream fileContent)
 		{
 			// Save physical file.
-			string filePath = Path.Combine(physicalDir, fileResource.FileName);
-			filePath = IOUtil.EnsureUniqueFilePath(filePath);
-			this._fileService.WriteFile(filePath, fileContent);
-			// Set the text extracting method to the fileResource;
-			fileResource.SetTextExtractor(() => this._textExtractor.ExtractTextFromFile(filePath));
+			fileResource.PhysicalFilePath = IOUtil.EnsureUniqueFilePath(fileResource.PhysicalFilePath);
+			this._fileService.WriteFile(fileResource.PhysicalFilePath, fileContent);
 			// Save meta info
-			fileResource.FileName = Path.GetFileName(filePath); // maybe checking uniqueness has changed the filename.
 			this._contentItemService.Save(fileResource);
 		}
 
@@ -53,10 +49,10 @@ namespace Cuyahoga.Core.Service.Files
 		}
 
 		[Transaction(TransactionMode.Requires)]
-		public virtual void DeleteFileResource(FileResource FileResource, string physicalFileDirectory)
+		public virtual void DeleteFileResource(FileResource FileResource)
 		{
 			// Delete physical file.
-			this._fileService.DeleteFile(Path.Combine(physicalFileDirectory, FileResource.FileName));
+			this._fileService.DeleteFile(FileResource.PhysicalFilePath);
 			// Delete meta info.
 			this._contentItemService.Delete(FileResource);
 		}

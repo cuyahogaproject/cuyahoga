@@ -65,6 +65,7 @@ go
 CREATE TABLE cuyahoga_fileresource(
 fileresourceid bigint NOT NULL CONSTRAINT PK_fileresource PRIMARY KEY,
 filename nvarchar(255) NOT NULL,
+physicalfilepath nvarchar(1000) NOT NULL,
 length bigint NULL,
 mimetype nvarchar(255) NULL,
 downloadcount int NULL)

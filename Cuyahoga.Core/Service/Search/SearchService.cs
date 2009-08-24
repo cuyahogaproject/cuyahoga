@@ -1,21 +1,30 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using Cuyahoga.Core.Domain;
 using Cuyahoga.Core.DataAccess;
 using Cuyahoga.Core.Search;
+using Cuyahoga.Core.Service.Content;
+using log4net;
+using Lucene.Net.Index;
 
 namespace Cuyahoga.Core.Service.Search
 {
 	public class SearchService : ISearchService
 	{
+		private static readonly ILog Logger = LogManager.GetLogger(typeof (SearchService));
 		private readonly IUserDao _userDao;
 		private readonly ICuyahogaContextProvider _cuyahogaContextProvider;
+		private readonly ITextExtractor _textExtractor;
+		private readonly IContentItemService<IContentItem> _contentItemService;
 
-		public SearchService(IUserDao userDao, ICuyahogaContextProvider cuyahogaContextProvider)
+		public SearchService(IUserDao userDao, ICuyahogaContextProvider cuyahogaContextProvider, ITextExtractor textExtractor, IContentItemService<IContentItem> contentItemService)
 		{
 			this._userDao = userDao;
-			_cuyahogaContextProvider = cuyahogaContextProvider;
+			this._cuyahogaContextProvider = cuyahogaContextProvider;
+			this._textExtractor = textExtractor;
+			this._contentItemService = contentItemService;
 		}
 
 		#region ISearchService Members
@@ -114,12 +123,81 @@ namespace Cuyahoga.Core.Service.Search
 			return query.Find(queryText, keywordFilter, categoryNames, pageIndex, pageSize, sectionIds, roleIds);
 		}
 
+		public SearchIndexProperties GetIndexProperties()
+		{
+			SearchIndexProperties indexProperties = new SearchIndexProperties();
+			indexProperties.IndexDirectory = GetIndexDirectory();
+
+			IndexReader indexReader = IndexReader.Open(indexProperties.IndexDirectory);
+			try
+			{
+				indexProperties.NumberOfDocuments = indexReader.NumDocs();
+			}
+			finally
+			{
+				indexReader.Close();
+			}
+			indexProperties.LastModified = new DateTime(IndexReader.LastModified(indexProperties.IndexDirectory));
+			return indexProperties;
+		}
+
+		/// <summary>
+		/// Rebuild the full-text index.
+		/// </summary>
+		/// <param name="searchableModules">A list of (legacy) searchable modules in the installation.</param>
+		public void RebuildIndex(IEnumerable<ISearchable> searchableModules)
+		{
+			Site currentSite = this._cuyahogaContextProvider.GetContext().CurrentSite;
+			string indexDirectory = GetIndexDirectory();
+
+			using (IndexBuilder indexBuilder = new IndexBuilder(indexDirectory, true, this._textExtractor))
+			{
+				// Add all content items
+				var contentItemsToIndex = this._contentItemService.FindContentItemsBySite(currentSite);
+				foreach (IContentItem contentItem in contentItemsToIndex)
+				{
+					if (contentItem is ISearchableContent)
+					{
+						try
+						{
+							indexBuilder.AddContent(contentItem);
+						}
+						catch (Exception ex)
+						{
+							Logger.Error(string.Format("Error while indexing ContentItem with id {0}", contentItem.Id), ex);
+							throw;
+						}						
+					}
+				}
+
+				// Add legacy searchable content
+				if (searchableModules != null)
+				{
+					foreach (ISearchable searchableModule in searchableModules)
+					{
+						foreach (SearchContent searchContent in searchableModule.GetAllSearchableContent())
+						{
+							try
+							{
+								indexBuilder.AddContent(searchContent);
+							}
+							catch (Exception ex)
+							{
+								Logger.Error(string.Format("Indexing of legacy searchContent item with path {0} failed.", searchContent.Path),
+								             ex);
+								throw;
+							}
+						}
+					}
+				}
+			}
+		}
 
 		#endregion
 
 		private IndexBuilder CreateIndexBuilder()
 		{
-			return new IndexBuilder(GetIndexDirectory(), false);
+			return new IndexBuilder(GetIndexDirectory(), false, this._textExtractor);
 		}
 
 		private string GetIndexDirectory()

@@ -10,10 +10,10 @@ namespace Cuyahoga.Core.Domain
 	public class FileResource : ContentItem, ISearchableContent
 	{
 		private string _fileName;
+		private string _physicalFilePath;
 		private long _length;
 		private string _mimeType;
 		private int _downloadCount;
-		private Func<string> _extractText;
 
         #region Properties
 
@@ -31,6 +31,15 @@ namespace Cuyahoga.Core.Domain
 					this.Title = this._fileName;
 				}
 			}
+		}
+
+		/// <summary>
+		/// The physical path on the server where the fileresource is located.
+		/// </summary>
+		public virtual string PhysicalFilePath
+		{
+			get { return this._physicalFilePath; }
+			set { this._physicalFilePath = value; }
 		}
 
 		/// <summary>
@@ -80,12 +89,15 @@ namespace Cuyahoga.Core.Domain
 		#region ISearchableContent members
 
 		/// <summary>
-		/// Get the full contents of this ContentItem for indexing
+		/// Get the full contents of the ContentItem for indexing.
 		/// </summary>
 		/// <returns></returns>
-		public virtual string ToSearchContent()
+		/// <remarks>
+		/// 
+		/// </remarks>
+		public virtual string ToSearchContent(ITextExtractor textExtractor)
 		{
-			return this._extractText();
+			return textExtractor.ExtractTextFromFile(this._physicalFilePath);
 		}
 
 		/// <summary>
@@ -99,9 +111,5 @@ namespace Cuyahoga.Core.Domain
 
 		#endregion
 
-		public virtual void SetTextExtractor(Func<string> extractMethod)
-		{
-			this._extractText = extractMethod;
-		}
 	}
 }

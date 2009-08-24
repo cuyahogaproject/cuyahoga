@@ -25,7 +25,7 @@ namespace Cuyahoga.Modules.Articles.Domain
 		/// Get the full contents of this ContentItem for indexing
 		/// </summary>
 		/// <returns></returns>
-		public virtual string ToSearchContent()
+		public virtual string ToSearchContent(ITextExtractor textExtractor)
 		{
 			return this._content;
 		}

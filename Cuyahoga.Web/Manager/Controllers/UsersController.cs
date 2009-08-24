@@ -73,7 +73,7 @@ namespace Cuyahoga.Web.Manager.Controllers
 				UpdateModel(newUser, new []{ "UserName", "FirstName", "LastName", "Email", "Website", "IsActive", "TimeZone"});
 				newUser.Password = CuyahogaUser.HashPassword(Request.Form["Password"]);
 				newUser.PasswordConfirmation = CuyahogaUser.HashPassword(Request.Form["PasswordConfirmation"]);
-				if (roleIds.Length > 0)
+				if (roleIds != null && roleIds.Length > 0)
 				{
 					IList<Role> roles = this._userService.GetRolesByIds(roleIds);
 					foreach (Role role in roles)
@@ -107,7 +107,7 @@ namespace Cuyahoga.Web.Manager.Controllers
 			{
 				UpdateModel(user, new[] { "UserName", "FirstName", "LastName", "Email", "Website", "IsActive", "TimeZone" });
 				
-				if (roleIds.Length > 0)
+				if (roleIds != null && roleIds.Length > 0)
 				{
 					IList<Role> roles = this._userService.GetRolesByIds(roleIds);
 					foreach (Role role in roles)
@@ -245,7 +245,7 @@ namespace Cuyahoga.Web.Manager.Controllers
 			{
 				UpdateModel(role, "role");
 
-				if (rightIds.Length > 0)
+				if (rightIds != null && rightIds.Length > 0)
 				{
 					IList<Right> rights = this._userService.GetRightsByIds(rightIds);
 					foreach (Right right in rights)

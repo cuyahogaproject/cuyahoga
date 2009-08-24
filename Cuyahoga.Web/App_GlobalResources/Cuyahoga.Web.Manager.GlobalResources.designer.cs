@@ -394,6 +394,15 @@ namespace Resources.Cuyahoga.Web.Manager {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Properties full-text index for current site.
+        /// </summary>
+        internal static string CurrentIndexProperties {
+            get {
+                return ResourceManager.GetString("CurrentIndexProperties", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Cuyahoga Site Manager.
         /// </summary>
         internal static string CuyahogaSiteManagerLabel {
@@ -745,6 +754,24 @@ namespace Resources.Cuyahoga.Web.Manager {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Directory index files.
+        /// </summary>
+        internal static string FullTextIndexDirectoryLabel {
+            get {
+                return ResourceManager.GetString("FullTextIndexDirectoryLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The full-text index was rebuilt successfully..
+        /// </summary>
+        internal static string FullTextIndexRebuildMessage {
+            get {
+                return ResourceManager.GetString("FullTextIndexRebuildMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to General.
         /// </summary>
         internal static string GeneralLabel {
@@ -759,6 +786,15 @@ namespace Resources.Cuyahoga.Web.Manager {
         internal static string GlobalSearchLabel {
             get {
                 return ResourceManager.GetString("GlobalSearchLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Number of documents in index.
+        /// </summary>
+        internal static string IndexSizeLabel {
+            get {
+                return ResourceManager.GetString("IndexSizeLabel", resourceCulture);
             }
         }
         
@@ -1542,6 +1578,24 @@ namespace Resources.Cuyahoga.Web.Manager {
         internal static string PropagateToChildSectionsLabel {
             get {
                 return ResourceManager.GetString("PropagateToChildSectionsLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Rebuild full-text index.
+        /// </summary>
+        internal static string RebuildFullTextIndexLabel {
+            get {
+                return ResourceManager.GetString("RebuildFullTextIndexLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Full Text index.
+        /// </summary>
+        internal static string RebuildFullTextIndexPageTitle {
+            get {
+                return ResourceManager.GetString("RebuildFullTextIndexPageTitle", resourceCulture);
             }
         }
         

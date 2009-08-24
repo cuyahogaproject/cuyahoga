@@ -10,6 +10,9 @@
 	<% if (Html.HasRight(User, Rights.CreateSite)) { %>
 		<%= Html.ActionLink(GlobalResources.CreateSiteLabel, "New", null, new { @class = "createlink"} )%>
 	<% } %>
+	<% if (Html.HasRight(User, Rights.ManageSite)) { %>
+		<%= Html.ActionLink(GlobalResources.RebuildFullTextIndexLabel, "Index", "SearchIndex", null, new { @class = "refreshlink"} )%>
+	<% } %>
 </asp:Content>
 <asp:Content ID="Content3" ContentPlaceHolderID="cphMain" runat="server">
 	<h1><%= GlobalResources.ManageSitePageTitle %></h1>

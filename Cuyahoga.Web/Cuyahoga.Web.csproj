@@ -332,6 +332,7 @@
     <Compile Include="Manager\Controllers\LoginController.cs" />
     <Compile Include="Manager\Controllers\ManagerController.cs" />
     <Compile Include="Manager\Controllers\PagesController.cs" />
+    <Compile Include="Manager\Controllers\SearchIndexController.cs" />
     <Compile Include="Manager\Controllers\SectionsController.cs" />
     <Compile Include="Manager\Controllers\ServerController.cs" />
     <Compile Include="Manager\Controllers\SiteController.cs" />
@@ -603,6 +604,7 @@
     <Content Include="Manager\Content\Images\add.png" />
     <Content Include="Manager\Content\Images\ajax-loader.gif" />
     <Content Include="Manager\Content\Images\application_form.png" />
+    <Content Include="Manager\Content\Images\arrow_refresh.png" />
     <Content Include="Manager\Content\Images\blankbutton.png" />
     <Content Include="Manager\Content\Images\bullet_arrow_down.png" />
     <Content Include="Manager\Content\Images\cancel.png" />
@@ -655,6 +657,7 @@
     <Content Include="Manager\Views\Categories\SharedCategoryElements.ascx" />
     <Content Include="Manager\Views\Files\List.ascx" />
     <Content Include="Manager\Views\Pages\Content.aspx" />
+    <Content Include="Manager\Views\SearchIndex\Index.aspx" />
     <Content Include="Manager\Views\Sections\Index.aspx" />
     <Content Include="Manager\Scripts\jquery.scrollfollow.js" />
     <Content Include="Controls\EditProfile.ascx">

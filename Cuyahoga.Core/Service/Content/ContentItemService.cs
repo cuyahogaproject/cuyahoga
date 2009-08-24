@@ -10,28 +10,38 @@ namespace Cuyahoga.Core.Service.Content
 	[Transactional]
 	public class ContentItemService<T> : IContentItemService<T> where T : IContentItem
 	{
-		protected IContentItemDao<T> contentItemDao;
-		protected ICuyahogaContextProvider cuyahogaContextProvider;
+		private readonly IContentItemDao<T> _contentItemDao;
+		private readonly ICuyahogaContextProvider _cuyahogaContextProvider;
+
+		protected IContentItemDao<T> ContentItemDao
+		{
+			get { return this._contentItemDao; }
+		}
+
+		protected ICuyahogaContextProvider CuyahogaContextProvider
+		{
+			get { return this._cuyahogaContextProvider; }
+		}
 
 		public ContentItemService(IContentItemDao<T> contentItemDao, ICuyahogaContextProvider contextProvider)
 		{
-			this.contentItemDao = contentItemDao;
-			this.cuyahogaContextProvider = contextProvider;
+			this._contentItemDao = contentItemDao;
+			this._cuyahogaContextProvider = contextProvider;
 		}
 
 		public T GetById(long id)
 		{
-			return this.contentItemDao.GetById(id);
+			return this._contentItemDao.GetById(id);
 		}
 
 		public T GetById(Guid id)
 		{
-			return this.contentItemDao.GetById(id);
+			return this._contentItemDao.GetById(id);
 		}
 
 		public IList<T> GetAll()
 		{
-			return this.contentItemDao.GetAll();
+			return this._contentItemDao.GetAll();
 		}
 
 		/// <summary>
@@ -41,7 +51,7 @@ namespace Cuyahoga.Core.Service.Content
 		/// <returns></returns>
 		public IList<T> FindContentItemsBySite(Site site)
 		{
-			return this.contentItemDao.GetBySite(site);
+			return this._contentItemDao.GetBySite(site);
 		}
 
 		/// <summary>
@@ -63,7 +73,7 @@ namespace Cuyahoga.Core.Service.Content
 		public IList<T> FindContentItemsBySection(Section section, ContentItemQuerySettings querySettings)
 		{
 			DetachedCriteria criteria = GetCriteriaForSection(section, querySettings);
-			return this.contentItemDao.GetByCriteria(criteria);
+			return this._contentItemDao.GetByCriteria(criteria);
 		}
 
 		/// <summary>
@@ -77,7 +87,7 @@ namespace Cuyahoga.Core.Service.Content
 			DetachedCriteria criteria = GetCriteriaForSection(section, querySettings)
 				.Add(Restrictions.Lt("PublishedAt", DateTime.Now))
 				.Add(Restrictions.Or(Restrictions.IsNull("PublishedUntil"), Restrictions.Gt("PublishedUntil", DateTime.Now)));
-			return this.contentItemDao.GetByCriteria(criteria);
+			return this._contentItemDao.GetByCriteria(criteria);
 		}
 
 		/// <summary>
@@ -91,7 +101,7 @@ namespace Cuyahoga.Core.Service.Content
 			DetachedCriteria criteria = GetCriteriaForCategory(category, querySettings)
 				.Add(Restrictions.Lt("PublishedAt", DateTime.Now))
 				.Add(Restrictions.Or(Restrictions.IsNull("PublishedUntil"), Restrictions.Gt("PublishedUntil", DateTime.Now)));
-			return this.contentItemDao.GetByCriteria(criteria);
+			return this._contentItemDao.GetByCriteria(criteria);
 		}
 
 		/// <summary>
@@ -104,7 +114,7 @@ namespace Cuyahoga.Core.Service.Content
 		{
 			DetachedCriteria criteria = GetCriteriaForSection(section, querySettings)
 				.Add(Restrictions.Lt("PublishedUntil", DateTime.Now));
-			return this.contentItemDao.GetByCriteria(criteria);
+			return this._contentItemDao.GetByCriteria(criteria);
 		}
 
 		/// <summary>
@@ -117,7 +127,7 @@ namespace Cuyahoga.Core.Service.Content
 		{
 			DetachedCriteria criteria = GetCriteriaForSection(section, querySettings)
 				.Add(Restrictions.Eq("Syndicate", true));
-			return this.contentItemDao.GetByCriteria(criteria);
+			return this._contentItemDao.GetByCriteria(criteria);
 		}
 
 		/// <summary>
@@ -130,19 +140,19 @@ namespace Cuyahoga.Core.Service.Content
 		{
 			DetachedCriteria criteria = GetCriteriaForCategory(category, querySettings)
 				.Add(Restrictions.Eq("Syndicate", true));
-			return this.contentItemDao.GetByCriteria(criteria);
+			return this._contentItemDao.GetByCriteria(criteria);
 		}
 
 		[Transaction(TransactionMode.Requires)]
 		public T Save(T entity)
 		{
-			return this.contentItemDao.Save(entity);
+			return this._contentItemDao.Save(entity);
 		}
 
 		[Transaction(TransactionMode.Requires)]
 		public void Delete(T entity)
 		{
-			this.contentItemDao.Delete(entity);
+			this._contentItemDao.Delete(entity);
 		}
 
 		private DetachedCriteria GetCriteriaForSection(Section section, ContentItemQuerySettings querySettings)

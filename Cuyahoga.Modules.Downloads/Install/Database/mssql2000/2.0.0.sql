@@ -10,10 +10,11 @@ FROM cm_file
 go
 
 -- copy data to fileresource
-INSERT INTO cuyahoga_fileresource(fileresourceid, filename, length, mimetype, downloadcount)
-SELECT ci.contentitemid, f.filepath, f.filesize, f.contenttype, f.nrofdownloads
+INSERT INTO cuyahoga_fileresource(fileresourceid, filename, physicalfilepath, length, mimetype, downloadcount)
+SELECT ci.contentitemid, f.filepath, ISNULL(ss.value, '') + f.filepath, f.filesize, f.contenttype, f.nrofdownloads
 FROM cm_file f 
 	INNER JOIN cuyahoga_contentitem ci ON ci.fileid = f.fileid
+	LEFT OUTER JOIN cuyahoga_sectionsetting ss ON ss.sectionid = s.sectionid && ss.[name] = 'PHYSICAL_DIR'
 go
 
 -- copy data to contentitemrole

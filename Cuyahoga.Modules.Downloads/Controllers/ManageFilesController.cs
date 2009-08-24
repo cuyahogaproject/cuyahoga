@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Web;
 using System.Web.Mvc;
 using Cuyahoga.Core.Domain;
@@ -73,7 +74,7 @@ namespace Cuyahoga.Modules.Downloads.Controllers
 			// For new items, inherit the permissions of the section
 			foreach (SectionPermission sectionPermission in CurrentSection.SectionPermissions)
 			{
-				fileResource.ContentItemPermissions.Add(new ContentItemPermission() { ContentItem = fileResource, Role = sectionPermission.Role, ViewAllowed = sectionPermission.ViewAllowed });
+				fileResource.ContentItemPermissions.Add(new ContentItemPermission { ContentItem = fileResource, Role = sectionPermission.Role, ViewAllowed = sectionPermission.ViewAllowed });
 			}
 			return View("New", GetModuleAdminViewModel(fileResource));
 		}
@@ -107,6 +108,7 @@ namespace Cuyahoga.Modules.Downloads.Controllers
 			{	
 				fileResource.Section = CurrentSection;
 				fileResource.FileName = fileData.FileName;
+				fileResource.PhysicalFilePath = Path.Combine(this._module.FileDir, fileResource.FileName);
 				fileResource.Length = fileData.ContentLength;
 				fileResource.MimeType = fileData.ContentType;
 
@@ -114,7 +116,7 @@ namespace Cuyahoga.Modules.Downloads.Controllers
 				{
 					try
 					{
-						this._fileResourceService.SaveFileResource(fileResource, this._module.FileDir, fileData.InputStream);
+						this._fileResourceService.SaveFileResource(fileResource, fileData.InputStream);
 						Messages.AddFlashMessage("FileSavedMessage");
 						return RedirectToAction("Index", "ManageFiles", GetNodeAndSectionParams());
 					}
@@ -156,9 +158,10 @@ namespace Cuyahoga.Modules.Downloads.Controllers
 					if (fileData != null && fileData.ContentLength > 0)
 					{
 						fileResource.FileName = fileData.FileName;
+						fileResource.PhysicalFilePath = Path.Combine(this._module.FileDir, fileResource.FileName);
 						fileResource.Length = fileData.ContentLength;
 						fileResource.MimeType = fileData.ContentType;
-						this._fileResourceService.SaveFileResource(fileResource, this._module.FileDir, fileData.InputStream);
+						this._fileResourceService.SaveFileResource(fileResource, fileData.InputStream);
 					}
 					else
 					{
@@ -183,7 +186,7 @@ namespace Cuyahoga.Modules.Downloads.Controllers
 			FileResource fileResource = this._contentItemService.GetById(id);
 			try
 			{
-				this._fileResourceService.DeleteFileResource(fileResource, this._module.FileDir);
+				this._fileResourceService.DeleteFileResource(fileResource);
 				Messages.AddFlashMessage("FileDeletedMessage");
 			}
 			catch (Exception ex)

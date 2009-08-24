@@ -777,4 +777,22 @@
   <data name="UploadFilesLabel" xml:space="preserve">
     <value>Upload files</value>
   </data>
+  <data name="CurrentIndexProperties" xml:space="preserve">
+    <value>Properties full-text index for current site</value>
+  </data>
+  <data name="FullTextIndexDirectoryLabel" xml:space="preserve">
+    <value>Directory index files</value>
+  </data>
+  <data name="FullTextIndexRebuildMessage" xml:space="preserve">
+    <value>The full-text index was rebuilt successfully.</value>
+  </data>
+  <data name="IndexSizeLabel" xml:space="preserve">
+    <value>Number of documents in index</value>
+  </data>
+  <data name="RebuildFullTextIndexLabel" xml:space="preserve">
+    <value>Rebuild full-text index</value>
+  </data>
+  <data name="RebuildFullTextIndexPageTitle" xml:space="preserve">
+    <value>Full Text index</value>
+  </data>
 </root>

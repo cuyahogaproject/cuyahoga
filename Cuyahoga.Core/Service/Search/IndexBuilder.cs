@@ -17,42 +17,43 @@ namespace Cuyahoga.Core.Service.Search
 	{
 		private static readonly ILog log = LogManager.GetLogger(typeof(IndexBuilder));
 
-		private Directory _indexDirectory;
+		private readonly ITextExtractor _textExtractor;
+		private readonly Directory _indexDirectory;
 		private IndexWriter _indexWriter;
 		private bool _isClosed = false;
-		private bool _rebuildIndex;
+		private readonly bool _rebuildIndex;
 
 		/// <summary>
 		/// Default constructor.
 		/// </summary>
 		/// <param name="physicalIndexDir">Location of the index files.</param>
 		/// <param name="rebuildIndex">Flag to indicate if the index should be rebuilt. 
-		/// NOTE: you can not update or delete content when rebuilding the index.
-		/// </param>
-		public IndexBuilder(string physicalIndexDir, bool rebuildIndex)
+		/// <param name="textExtractor">The text extractor that can be used to extract text from content.</param>
+		public IndexBuilder(string physicalIndexDir, bool rebuildIndex, ITextExtractor textExtractor)
 		{
 			this._indexDirectory = FSDirectory.GetDirectory(physicalIndexDir, false);
 			this._rebuildIndex = rebuildIndex;
+			this._textExtractor = textExtractor;
 
 			InitIndexWriter();
 
 			log.Info("IndexBuilder created.");
 		}
 
-        /// <summary>
-        /// Initialize the IndexWriter depending on the rebuildIndex flag
-        /// </summary>
-        private void InitIndexWriter()
-        {
-            if (!IndexReader.IndexExists(this._indexDirectory) || this._rebuildIndex)
-            {
-                this._indexWriter = new IndexWriter(this._indexDirectory, new StandardAnalyzer(), true);
-            }
-            else
-            {
-                this._indexWriter = new IndexWriter(this._indexDirectory, new StandardAnalyzer(), false);
-            }
-        }
+		/// <summary>
+		/// Initialize the IndexWriter depending on the rebuildIndex flag
+		/// </summary>
+		private void InitIndexWriter()
+		{
+			if (!IndexReader.IndexExists(this._indexDirectory) || this._rebuildIndex)
+			{
+				this._indexWriter = new IndexWriter(this._indexDirectory, new StandardAnalyzer(), true);
+			}
+			else
+			{
+				this._indexWriter = new IndexWriter(this._indexDirectory, new StandardAnalyzer(), false);
+			}
+		}
 
 		/// <summary>
 		/// Add content to be indexed.
@@ -67,14 +68,14 @@ namespace Cuyahoga.Core.Service.Search
 			this._indexWriter.AddDocument(BuildDocumentFromSearchContent(searchContent));
 		}
 
-        public void AddContent(IContentItem contentItem)
-        {
-            if (this._indexWriter == null)
-            {
-                InitIndexWriter();
-            }
-            this._indexWriter.AddDocument(BuildDocumentFromContentItem(contentItem));
-        }
+		public void AddContent(IContentItem contentItem)
+		{
+			if (this._indexWriter == null)
+			{
+				InitIndexWriter();
+			}
+			this._indexWriter.AddDocument(BuildDocumentFromContentItem(contentItem, this._textExtractor));
+		}
 
 		/// <summary>
 		/// Update existing content in the search index.
@@ -95,20 +96,20 @@ namespace Cuyahoga.Core.Service.Search
 			}
 		}
 
-        public void UpdateContent(IContentItem contentItem)
-        {
-            if (this._rebuildIndex)
-            {
-                throw new InvalidOperationException("Cannot update documents when rebuilding the index.");
-            }
-            else
-            {
-                // First delete the old content
-                DeleteContent(contentItem);
-                // Now add the content again
-                AddContent(contentItem);
-            }
-        }
+		public void UpdateContent(IContentItem contentItem)
+		{
+			if (this._rebuildIndex)
+			{
+				throw new InvalidOperationException("Cannot update documents when rebuilding the index.");
+			}
+			else
+			{
+				// First delete the old content
+				DeleteContent(contentItem);
+				// Now add the content again
+				AddContent(contentItem);
+			}
+		}
 
 		/// <summary>
 		/// Delete existing content from the search index.
@@ -128,117 +129,117 @@ namespace Cuyahoga.Core.Service.Search
 				// The path uniquely identifies a document in the index.
 				Term term = new Term("path", searchContent.Path);
 				IndexReader rdr = IndexReader.Open(this._indexDirectory);
-                rdr.DeleteDocuments(term);
+				rdr.DeleteDocuments(term);
 				rdr.Close();
 			}
 		}
 
-        /// <summary>
-        /// Delete existing content from the search index.
-        /// </summary>
-        /// <param name="contentItem"></param>
-        public void DeleteContent(IContentItem contentItem)
-        {
-            if (this._rebuildIndex)
-            {
-                throw new InvalidOperationException("Cannot delete documents when rebuilding the index.");
-            }
-            else
-            {
-                this._indexWriter.Close();
-                this._indexWriter = null;
+		/// <summary>
+		/// Delete existing content from the search index.
+		/// </summary>
+		/// <param name="contentItem"></param>
+		public void DeleteContent(IContentItem contentItem)
+		{
+			if (this._rebuildIndex)
+			{
+				throw new InvalidOperationException("Cannot delete documents when rebuilding the index.");
+			}
+			else
+			{
+				this._indexWriter.Close();
+				this._indexWriter = null;
 
-                // The path uniquely identifies a document in the index.
-                Term term = new Term("path", string.Format(contentItem.GetContentUrl(), contentItem.Id));
-                IndexReader rdr = IndexReader.Open(this._indexDirectory);
-                rdr.DeleteDocuments(term);
-                rdr.Close();
-            }
-        }
+				Term term = new Term("globalid", contentItem.GlobalId.ToString("N"));
+				IndexReader rdr = IndexReader.Open(this._indexDirectory);
+				rdr.DeleteDocuments(term);
+				rdr.Close();
+			}
+		}
 
 		/// <summary>
 		/// Close the IndexWriter (saves the index).
 		/// </summary>
 		public void Close()
 		{
-			if (! this._isClosed && this._indexWriter != null)
+			if (!this._isClosed && this._indexWriter != null)
 			{
-                //don't do this everytime 
+				//don't do this everytime 
 				//this._indexWriter.Optimize();
 				this._indexWriter.Close();
-				this._isClosed = true; 
+				this._isClosed = true;
 				log.Info("New or updated search index written to disk.");
 			}
 		}
 
 
-        private Document BuildDocumentFromContentItem(IContentItem contentItem)
-        {
-            ISearchableContent searchInfo = contentItem as ISearchableContent;
-            if (searchInfo == null) throw new ArgumentException("Argument must implement ISearchableContent");
+		private Document BuildDocumentFromContentItem(IContentItem contentItem, ITextExtractor textExtractor)
+		{
+			ISearchableContent searchInfo = contentItem as ISearchableContent;
+			if (searchInfo == null) throw new ArgumentException("Argument must implement ISearchableContent");
 
-            // strip (x)html tags
-            string plaintext = System.Text.RegularExpressions.Regex.Replace(searchInfo.ToSearchContent(), @"<(.|\n)*?>", string.Empty);
-            // create the actual url (using the id)
-        	string path = contentItem.GetContentUrl();
-            // check that summary is not null. 
-            string summary = contentItem.Summary ?? Text.TruncateText(plaintext, 200);
+			// strip (x)html tags
+			string plaintext = System.Text.RegularExpressions.Regex.Replace(searchInfo.ToSearchContent(textExtractor), @"<(.|\n)*?>", string.Empty);
+			// create the actual url
+			string path = contentItem.GetContentUrl();
+			// check that summary is not null. 
+			string summary = contentItem.Summary ?? Text.TruncateText(plaintext, 200);
 
-            Document doc = new Document();
-            doc.Add(new Field("title", contentItem.Title, Field.Store.YES, Field.Index.TOKENIZED));
-            doc.Add(new Field("summary", summary, Field.Store.YES, Field.Index.TOKENIZED));
-            doc.Add(new Field("contents", plaintext, Field.Store.NO, Field.Index.TOKENIZED));
-            doc.Add(new Field("author", contentItem.CreatedBy.FullName, Field.Store.YES, Field.Index.TOKENIZED));
-            doc.Add(new Field("moduletype", contentItem.Section.ModuleType.Name, Field.Store.YES, Field.Index.UN_TOKENIZED));
-            doc.Add(new Field("path", path, Field.Store.YES, Field.Index.UN_TOKENIZED));
-            doc.Add(new Field("site", contentItem.Section.Node.Site.Id.ToString(), Field.Store.YES, Field.Index.UN_TOKENIZED));
-            doc.Add(new Field("datecreated", contentItem.CreatedAt.ToString("u"), Field.Store.YES, Field.Index.UN_TOKENIZED));
-            doc.Add(new Field("datemodified", contentItem.ModifiedAt.ToString("u"), Field.Store.YES, Field.Index.UN_TOKENIZED));
-            //do not index the sectionid here (since it's used for access filtering)
-            doc.Add(new Field("sectionid", contentItem.Section.Id.ToString(), Field.Store.YES, Field.Index.NO));
+			Document doc = new Document();
+			doc.Add(new Field("globalid", contentItem.GlobalId.ToString("N"), Field.Store.YES, Field.Index.UN_TOKENIZED));
+			doc.Add(new Field("title", contentItem.Title, Field.Store.YES, Field.Index.TOKENIZED));
+			doc.Add(new Field("summary", summary, Field.Store.YES, Field.Index.TOKENIZED));
+			doc.Add(new Field("contents", plaintext, Field.Store.NO, Field.Index.TOKENIZED));
+			doc.Add(new Field("author", contentItem.CreatedBy.FullName, Field.Store.YES, Field.Index.TOKENIZED));
+			doc.Add(new Field("moduletype", contentItem.Section.ModuleType.Name, Field.Store.YES, Field.Index.UN_TOKENIZED));
+			doc.Add(new Field("path", path, Field.Store.YES, Field.Index.UN_TOKENIZED));
+			doc.Add(new Field("site", contentItem.Section.Node.Site.Id.ToString(), Field.Store.YES, Field.Index.UN_TOKENIZED));
+			doc.Add(new Field("datecreated", contentItem.CreatedAt.ToString("u"), Field.Store.YES, Field.Index.UN_TOKENIZED));
+			doc.Add(new Field("datemodified", contentItem.ModifiedAt.ToString("u"), Field.Store.YES, Field.Index.UN_TOKENIZED));
+			//do not index the sectionid here (since it's used for access filtering)
+			doc.Add(new Field("sectionid", contentItem.Section.Id.ToString(), Field.Store.YES, Field.Index.NO));
 
-            foreach (Category cat in contentItem.Categories)
-            {
-                doc.Add(new Field("category", cat.Name, Field.Store.YES, Field.Index.UN_TOKENIZED));
-            }
+			foreach (Category cat in contentItem.Categories)
+			{
+				doc.Add(new Field("category", cat.Name, Field.Store.YES, Field.Index.UN_TOKENIZED));
+			}
 
-            foreach (ContentItemPermission permission in contentItem.ContentItemPermissions)
-            {
-                if (permission.ViewAllowed)
-                {
-                    doc.Add(new Field("viewroleid", permission.Role.Id.ToString(), Field.Store.YES, Field.Index.UN_TOKENIZED));
-                }
-            }
+			foreach (ContentItemPermission permission in contentItem.ContentItemPermissions)
+			{
+				if (permission.ViewAllowed)
+				{
+					doc.Add(new Field("viewroleid", permission.Role.Id.ToString(), Field.Store.YES, Field.Index.UN_TOKENIZED));
+				}
+			}
 
-            foreach (CustomSearchField field in searchInfo.GetCustomSearchFields())
-            {
-                Field.Store store = field.IsStored ? Field.Store.YES : Field.Store.NO;
-                Field.Index index = field.IsTokenized ? Field.Index.TOKENIZED : Field.Index.UN_TOKENIZED;
-                if (field.FieldKey != null && field.FieldValue != null)
-                {
-                    doc.Add(new Field(field.FieldKey, field.FieldValue, store, index));
-                }
-            }
-            return doc;
-        }
+			foreach (CustomSearchField field in searchInfo.GetCustomSearchFields())
+			{
+				Field.Store store = field.IsStored ? Field.Store.YES : Field.Store.NO;
+				Field.Index index = field.IsTokenized ? Field.Index.TOKENIZED : Field.Index.UN_TOKENIZED;
+				if (field.FieldKey != null && field.FieldValue != null)
+				{
+					doc.Add(new Field(field.FieldKey, field.FieldValue, store, index));
+				}
+			}
+			return doc;
+		}
 
-        private Document BuildDocumentFromSearchContent(SearchContent searchContent)
-        {
-            Document doc = new Document();
-            doc.Add(new Field("title", searchContent.Title, Field.Store.YES, Field.Index.TOKENIZED));
-            doc.Add(new Field("summary", searchContent.Summary, Field.Store.YES, Field.Index.TOKENIZED));
-            doc.Add(new Field("contents", searchContent.Contents, Field.Store.NO, Field.Index.TOKENIZED));
-            doc.Add(new Field("author", searchContent.Author, Field.Store.YES, Field.Index.TOKENIZED));
-            doc.Add(new Field("moduletype", searchContent.ModuleType, Field.Store.YES, Field.Index.UN_TOKENIZED));
-            doc.Add(new Field("path", searchContent.Path, Field.Store.YES, Field.Index.UN_TOKENIZED));
-            doc.Add(new Field("category", searchContent.Category, Field.Store.YES, Field.Index.UN_TOKENIZED));
-            doc.Add(new Field("site", searchContent.Site, Field.Store.YES, Field.Index.UN_TOKENIZED));
-            doc.Add(new Field("datecreated", searchContent.DateCreated.ToString("u"), Field.Store.YES, Field.Index.UN_TOKENIZED));
-            doc.Add(new Field("datemodified", searchContent.DateModified.ToString("u"), Field.Store.YES, Field.Index.UN_TOKENIZED));
-            doc.Add(new Field("sectionid", searchContent.SectionId.ToString(), Field.Store.YES, Field.Index.UN_TOKENIZED));
+		private Document BuildDocumentFromSearchContent(SearchContent searchContent)
+		{
+			Document doc = new Document();
+			doc.Add(new Field("title", searchContent.Title, Field.Store.YES, Field.Index.TOKENIZED));
+			doc.Add(new Field("summary", searchContent.Summary, Field.Store.YES, Field.Index.TOKENIZED));
+			doc.Add(new Field("contents", searchContent.Contents, Field.Store.NO, Field.Index.TOKENIZED));
+			doc.Add(new Field("author", searchContent.Author, Field.Store.YES, Field.Index.TOKENIZED));
+			doc.Add(new Field("moduletype", searchContent.ModuleType, Field.Store.YES, Field.Index.UN_TOKENIZED));
+			doc.Add(new Field("path", searchContent.Path, Field.Store.YES, Field.Index.UN_TOKENIZED));
+			doc.Add(new Field("category", searchContent.Category, Field.Store.YES, Field.Index.UN_TOKENIZED));
+			doc.Add(new Field("site", searchContent.Site, Field.Store.YES, Field.Index.UN_TOKENIZED));
+			doc.Add(new Field("datecreated", searchContent.DateCreated.ToString("u"), Field.Store.YES, Field.Index.UN_TOKENIZED));
+			doc.Add(new Field("datemodified", searchContent.DateModified.ToString("u"), Field.Store.YES, Field.Index.UN_TOKENIZED));
+			doc.Add(new Field("sectionid", searchContent.SectionId.ToString(), Field.Store.YES, Field.Index.UN_TOKENIZED));
 
-            return doc;
-        }
+			return doc;
+		}
 
 		#region IDisposable Members
 

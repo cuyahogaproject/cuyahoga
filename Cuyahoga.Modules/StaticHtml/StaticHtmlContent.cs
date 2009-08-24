@@ -35,7 +35,7 @@ namespace Cuyahoga.Modules.StaticHtml
 			}
 		}
 
-		public virtual string ToSearchContent()
+		public virtual string ToSearchContent(ITextExtractor textExtractor)
 		{
 			return this._content;
 		}

@@ -217,6 +217,7 @@
     <Compile Include="Service\Search\ITextExtractor.cs" />
     <Compile Include="Service\Search\NativeTextExtractor.cs" />
     <Compile Include="Service\Search\SearchDecorator.cs" />
+    <Compile Include="Service\Search\SearchIndexProperties.cs" />
     <Compile Include="Service\Versioning\VersioningDecorator.cs" />
     <Compile Include="Domain\Category.cs">
       <SubType>Code</SubType>

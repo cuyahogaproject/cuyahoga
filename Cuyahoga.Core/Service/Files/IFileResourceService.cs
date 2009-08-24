@@ -13,9 +13,8 @@ namespace Cuyahoga.Core.Service.Files
 		/// to create a file and updates meta info
 		/// </summary>
 		/// <param name="fileResource"></param>
-		/// <param name="physicalDir"></param>
 		/// <param name="fileContents"></param>
-		void SaveFileResource(FileResource fileResource, string physicalDir, Stream fileContents);
+		void SaveFileResource(FileResource fileResource, Stream fileContents);
 
 		/// <summary>
 		/// Update the meta-data of a file.
@@ -27,8 +26,7 @@ namespace Cuyahoga.Core.Service.Files
 		/// Delete meta info and physical file
 		/// </summary>
 		/// <param name="fileResource"></param>
-		/// <param name="physicalDir"></param>
-		void DeleteFileResource(FileResource fileResource, string physicalDir);
+		void DeleteFileResource(FileResource fileResource);
 
 		/// <summary>
 		/// Check if the physical directory is configured right. If the physical directory lies within the SiteData structure, 

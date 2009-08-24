@@ -768,4 +768,22 @@
   <data name="UploadFilesLabel" xml:space="preserve">
     <value>Upload bestanden</value>
   </data>
+  <data name="CurrentIndexProperties" xml:space="preserve">
+    <value>Eigenschappen van zoekindex</value>
+  </data>
+  <data name="FullTextIndexDirectoryLabel" xml:space="preserve">
+    <value>Directory index bestanden</value>
+  </data>
+  <data name="FullTextIndexRebuildMessage" xml:space="preserve">
+    <value>De zoekindex is geherindexeerd.</value>
+  </data>
+  <data name="IndexSizeLabel" xml:space="preserve">
+    <value>Aantal documenten in index</value>
+  </data>
+  <data name="RebuildFullTextIndexLabel" xml:space="preserve">
+    <value>Zoekindex herindexeren</value>
+  </data>
+  <data name="RebuildFullTextIndexPageTitle" xml:space="preserve">
+    <value>Beheer zoekindex</value>
+  </data>
 </root>

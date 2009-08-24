@@ -366,9 +366,13 @@ ul
 }
 
 #taskarea a.createlink
-{
-	
+{	
 	background-image: url(../Images/add.png);
+}
+
+#taskarea a.refreshlink
+{
+	background-image: url(../Images/arrow_refresh.png);
 }
 
 #taskarea a.designlink

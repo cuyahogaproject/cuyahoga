@@ -7,6 +7,7 @@
 		<key column="fileresourceid" />
 
 		<property name="FileName" column="filename" type="String" length="255" not-null="true" />
+		<property name="PhysicalFilePath" column="physicalfilepath" type="String" length="1000" not-null="true" />
 		<property name="Length" column="length" type="Int64" not-null="false" />
 		<property name="MimeType" column="mimetype" type="String" length="255" not-null="false" />
 		<property name="DownloadCount" column="downloadcount" type="Int32" not-null="false" />
