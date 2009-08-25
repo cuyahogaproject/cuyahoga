@@ -3,8 +3,6 @@ using System.Collections.Generic;
 using System.Web;
 
 using Cuyahoga.Core.Domain;
-using Cuyahoga.Core.DataAccess;
-using Cuyahoga.Core.Service;
 using Cuyahoga.Core.Service.Search;
 using Cuyahoga.Core.Communication;
 
@@ -18,7 +16,7 @@ namespace Cuyahoga.Modules.Search
 	{
 		private int _resultsPerPage = 10;
 		private bool _showInputPanel = true;
-		private ModuleActionCollection _inboundModuleActions;
+		private readonly ModuleActionCollection _inboundModuleActions;
 		private ModuleAction _currentModuleAction;
 		private string _searchQuery;
         private ISearchService _searchService;
@@ -71,15 +69,14 @@ namespace Cuyahoga.Modules.Search
 		/// </summary>
 		public SearchModule(ISearchService searchService)
 		{
+			this._searchService = searchService;
 			// Init inbound actions
 			this._inboundModuleActions = new ModuleActionCollection();
 			this._inboundModuleActions.Add(new ModuleAction("Search", new string[0]));
-            this._inboundModuleActions.Add(new ModuleAction("SetCategory", new string[0]));
-            this._inboundModuleActions.Add(new ModuleAction("SetAlphabeticIndex", new string[0]));
+			this._inboundModuleActions.Add(new ModuleAction("SetCategory", new string[0]));
+			this._inboundModuleActions.Add(new ModuleAction("SetAlphabeticIndex", new string[0]));
 			this._currentModuleAction = this._inboundModuleActions[0];
-            //Obtain SearchService instance
-            this._searchService = searchService;
-        }
+		}
 
         #region Overrides
 
@@ -142,17 +139,15 @@ namespace Cuyahoga.Modules.Search
         /// <param name="queryText">The query to search for.</param>
         /// <param name="pageIndex"></param>
         /// <param name="pageSize"></param>
-        public SearchResultCollection GetSearchResults(string queryText, int pageIndex, int pageSize, Cuyahoga.Core.Domain.User user)
+        public SearchResultCollection GetSearchResults(string queryText, int pageIndex, int pageSize)
         {
-            Dictionary<string, string> keywordFilter = new Dictionary<string, string>(1);
-            keywordFilter.Add("site", this.Section.Node.Site.Name);
             if (this.CategoryNames != null)
             {
-                return this._searchService.FindContent(queryText, keywordFilter, CategoryNames, pageIndex, pageSize, user);
+                return this._searchService.FindContent(queryText, CategoryNames, pageIndex, pageSize);
             }
             else
             {
-                return this._searchService.FindContent(queryText, keywordFilter, pageIndex, pageSize, user);
+                return this._searchService.FindContent(queryText, pageIndex, pageSize);
             }
         }
 
@@ -160,9 +155,9 @@ namespace Cuyahoga.Modules.Search
         /// Get all search results with a maximum of 200.
         /// </summary>
         /// <param name="queryText"></param>
-        public SearchResultCollection GetSearchResults(string queryText, Cuyahoga.Core.Domain.User user)
+        public SearchResultCollection GetSearchResults(string queryText)
         {
-            return GetSearchResults(queryText, 0, 200, user);
+            return GetSearchResults(queryText, 0, 200);
         }
 
 		#region IActionConsumer Members

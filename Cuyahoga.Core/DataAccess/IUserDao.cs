@@ -72,7 +72,14 @@ namespace Cuyahoga.Core.DataAccess
         /// </summary>
         /// <param name="accessLevel"></param>
         /// <returns></returns>
-        IList<Role> GetRolesByAccessLevel(AccessLevel accessLevel);
+        //IList<Role> GetRolesByAccessLevel(AccessLevel accessLevel);
+
+		/// <summary>
+		/// Get all roles that have a
+		/// </summary>
+		/// <param name="rightName"></param>
+		/// <returns></returns>
+		IList<Role> GetRolesByRightName(string rightName);
 
 		/// <summary>
 		/// Get all roles for the given site.

@@ -25,7 +25,7 @@ namespace Cuyahoga.Core.Domain
 		private DateTime? _lastLogin;
 		private string _lastIp;
 		private bool _isAuthenticated;
-		private IList _roles;
+		private IList<Role> _roles;
 		private IList<Right> _rights;
 		private DateTime _insertTimestamp;
 		private DateTime _updateTimestamp;
@@ -176,7 +176,7 @@ namespace Cuyahoga.Core.Domain
 		/// Property Roles (IList)
 		/// </summary>
 		[ValidateCollectionNotEmpty("RolesValidatorNotEmpty")]
-		public virtual IList Roles
+		public virtual IList<Role> Roles
 		{
 			get { return this._roles; }
 			set { this._roles = value; }
@@ -269,7 +269,7 @@ namespace Cuyahoga.Core.Domain
 			this._isActive = true;
 			this._timeZone = 0;
 			this._rights = null;
-			this._roles = new ArrayList();
+			this._roles = new List<Role>();
 			// Default to now, otherwise NHibernate tries to insert a NULL.
 			this._insertTimestamp = DateTime.Now;
 		}

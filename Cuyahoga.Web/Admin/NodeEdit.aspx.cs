@@ -1,15 +1,8 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Drawing;
-using System.Globalization;
-using System.Web;
-using System.Web.SessionState;
-using System.Web.UI;
+using System.Linq;
 using System.Web.UI.WebControls;
-using System.Web.UI.HtmlControls;
-
 using log4net;
 
 using Cuyahoga.Core.Domain;
@@ -212,7 +205,7 @@ namespace Cuyahoga.Web.Admin
 		{
 			IList sortedSections = base.CoreRepository.GetSortedSectionsByNode(this.ActiveNode);
 			// Synchronize sections, otherwise we'll have two collections with the same Sections
-			this.ActiveNode.Sections = sortedSections;
+			this.ActiveNode.Sections = sortedSections.OfType<Section>().ToList();
 			this.rptSections.DataSource = sortedSections;
 			this.rptSections.DataBind();
 			if (this.ActiveNode.Id > 0 && this.ActiveNode.Template != null)

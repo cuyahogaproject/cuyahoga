@@ -111,6 +111,17 @@ namespace Cuyahoga.Core.Domain
 		bool IsNew { get; }
 
 		/// <summary>
+		/// Indicates if the content item supports item-level permissions. If not, the permissions for the related section
+		/// are used.
+		/// </summary>
+		bool SupportsItemLevelPermissions { get; }
+
+		/// <summary>
+		/// The roles that are allowed to view the content item.
+		/// </summary>
+		IEnumerable<Role> ViewRoles { get; }
+
+		/// <summary>
 		/// Gets the url that corresponds to the content. Inheritors can override this for custom url formatting.
 		/// </summary>
 		/// <returns></returns>

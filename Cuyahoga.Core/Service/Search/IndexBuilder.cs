@@ -177,25 +177,32 @@ namespace Cuyahoga.Core.Service.Search
 			ISearchableContent searchInfo = contentItem as ISearchableContent;
 			if (searchInfo == null) throw new ArgumentException("Argument must implement ISearchableContent");
 
+			// Get the text of the content item to index
+			string contentToIndex = searchInfo.ToSearchContent(textExtractor);
 			// strip (x)html tags
-			string plaintext = System.Text.RegularExpressions.Regex.Replace(searchInfo.ToSearchContent(textExtractor), @"<(.|\n)*?>", string.Empty);
+			string plainTextContent = System.Text.RegularExpressions.Regex.Replace(contentToIndex, @"<(.|\n)*?>", string.Empty);
 			// create the actual url
 			string path = contentItem.GetContentUrl();
 			// check that summary is not null. 
-			string summary = contentItem.Summary ?? Text.TruncateText(plaintext, 200);
+			string summary = contentItem.Summary ?? Text.TruncateText(plainTextContent, 200);
 
 			Document doc = new Document();
 			doc.Add(new Field("globalid", contentItem.GlobalId.ToString("N"), Field.Store.YES, Field.Index.UN_TOKENIZED));
 			doc.Add(new Field("title", contentItem.Title, Field.Store.YES, Field.Index.TOKENIZED));
 			doc.Add(new Field("summary", summary, Field.Store.YES, Field.Index.TOKENIZED));
-			doc.Add(new Field("contents", plaintext, Field.Store.NO, Field.Index.TOKENIZED));
+			doc.Add(new Field("contents", plainTextContent, Field.Store.NO, Field.Index.TOKENIZED));
 			doc.Add(new Field("author", contentItem.CreatedBy.FullName, Field.Store.YES, Field.Index.TOKENIZED));
 			doc.Add(new Field("moduletype", contentItem.Section.ModuleType.Name, Field.Store.YES, Field.Index.UN_TOKENIZED));
 			doc.Add(new Field("path", path, Field.Store.YES, Field.Index.UN_TOKENIZED));
 			doc.Add(new Field("site", contentItem.Section.Node.Site.Id.ToString(), Field.Store.YES, Field.Index.UN_TOKENIZED));
 			doc.Add(new Field("datecreated", contentItem.CreatedAt.ToString("u"), Field.Store.YES, Field.Index.UN_TOKENIZED));
 			doc.Add(new Field("datemodified", contentItem.ModifiedAt.ToString("u"), Field.Store.YES, Field.Index.UN_TOKENIZED));
-			//do not index the sectionid here (since it's used for access filtering)
+			if (contentItem.PublishedAt.HasValue)
+			{
+				doc.Add(new Field("datepublished", contentItem.PublishedAt.Value.ToString("u"), Field.Store.YES,
+				                  Field.Index.UN_TOKENIZED));
+			}
+			// do not index the sectionid here (since it's used for access filtering)
 			doc.Add(new Field("sectionid", contentItem.Section.Id.ToString(), Field.Store.YES, Field.Index.NO));
 
 			foreach (Category cat in contentItem.Categories)
@@ -203,12 +210,9 @@ namespace Cuyahoga.Core.Service.Search
 				doc.Add(new Field("category", cat.Name, Field.Store.YES, Field.Index.UN_TOKENIZED));
 			}
 
-			foreach (ContentItemPermission permission in contentItem.ContentItemPermissions)
+			foreach (Role viewRole in contentItem.ViewRoles)
 			{
-				if (permission.ViewAllowed)
-				{
-					doc.Add(new Field("viewroleid", permission.Role.Id.ToString(), Field.Store.YES, Field.Index.UN_TOKENIZED));
-				}
+				doc.Add(new Field("viewroleid", viewRole.Id.ToString(), Field.Store.YES, Field.Index.NO));
 			}
 
 			foreach (CustomSearchField field in searchInfo.GetCustomSearchFields())

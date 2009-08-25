@@ -17,8 +17,8 @@ namespace Cuyahoga.Core.Service.Search
 		void AddContent(IContentItem contentItem);
 		void DeleteContent(IContentItem contentItem);
 
-		SearchResultCollection FindContent(string queryText, IDictionary<string, string> keywordFilter, int pageIndex, int pageSize, User user);
-		SearchResultCollection FindContent(string queryText, IDictionary<string, string> keywordFilter, IList<string> categoryName, int pageIndex, int pageSize, User user);
+		SearchResultCollection FindContent(string queryText, int pageIndex, int pageSize);
+		SearchResultCollection FindContent(string queryText, IList<string> categoryNames, int pageIndex, int pageSize);
 
 		/// <summary>
 		/// Get information about the full-text index of the current site.

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.Collections;
 using Castle.Components.Validator;
+using RightNames = Cuyahoga.Core.Service.Membership.Rights;
 
 namespace Cuyahoga.Core.Domain
 {
@@ -92,11 +93,19 @@ namespace Cuyahoga.Core.Domain
 		}
 
 		/// <summary>
-		/// 
+		/// Gets the rights of the role as a string.
 		/// </summary>
 		public virtual string RightsString
 		{
 			get { return GetRightsAsString(); }
+		}
+
+		/// <summary>
+		/// Indicates if the role is an anonymous role. This means that it only has the 'Anonymous' right and nothing else.
+		/// </summary>
+		public virtual bool IsAnonymousRole
+		{
+			get { return _rights.Count == 1 && _rights[0].Name.Equals(RightNames.Anonymous); }
 		}
 
 		/// <summary>

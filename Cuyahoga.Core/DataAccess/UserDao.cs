@@ -165,14 +165,22 @@ namespace Cuyahoga.Core.DataAccess
             return q.List<Section>();
         }
 
-        public IList<Role> GetRolesByAccessLevel(AccessLevel accessLevel)
-        {
-            int permission = (int)accessLevel;
-            string hql = "select r from Role r where r.PermissionLevel = :permission";
-            IQuery q = this._sessionManager.OpenSession().CreateQuery(hql);
-            q.SetInt32("permission", permission);
-            return q.List<Role>();
-        }
+		//public IList<Role> GetRolesByAccessLevel(AccessLevel accessLevel)
+		//{
+		//    int permission = (int)accessLevel;
+		//    string hql = "select r from Role r where r.PermissionLevel = :permission";
+		//    IQuery q = this._sessionManager.OpenSession().CreateQuery(hql);
+		//    q.SetInt32("permission", permission);
+		//    return q.List<Role>();
+		//}
+
+		public IList<Role> GetRolesByRightName(string rightName)
+		{
+			string hql = "select r from Role r join r.Rights right where right.Name = :rightName";
+			IQuery q = this._sessionManager.OpenSession().CreateQuery(hql);
+			q.SetString("rightName", rightName);
+			return q.List<Role>();
+		}
 
 		public IList<Role> GetAllRolesBySite(Site site)
 		{

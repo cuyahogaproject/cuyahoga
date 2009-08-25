@@ -71,6 +71,13 @@ namespace Cuyahoga.Core.Domain
 
 		#endregion
 
+		#region ContentItem overrides
+
+		public override bool SupportsItemLevelPermissions
+		{
+			get { return true; }
+		}
+
 		public override string GetContentUrl()
 		{
 			string defaultUrlFormat = "{0}/section.aspx/Download/{1}/{2}";
@@ -86,6 +93,7 @@ namespace Cuyahoga.Core.Domain
             return this.FileName;
 		}
 
+		#endregion
 		#region ISearchableContent members
 
 		/// <summary>

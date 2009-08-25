@@ -2,10 +2,12 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using Cuyahoga.Core.Domain;
 using Cuyahoga.Core.DataAccess;
 using Cuyahoga.Core.Search;
 using Cuyahoga.Core.Service.Content;
+using Cuyahoga.Core.Service.Membership;
 using log4net;
 using Lucene.Net.Index;
 
@@ -64,19 +66,19 @@ namespace Cuyahoga.Core.Service.Search
 			}
 		}
 
-		public void UpdateContent(IContentItem contentItem)
-		{
-			using (IndexBuilder indexBuilder = CreateIndexBuilder())
-			{
-				indexBuilder.UpdateContent(contentItem);
-			}
-		}
-
 		public void AddContent(IContentItem contentItem)
 		{
 			using (IndexBuilder indexBuilder = CreateIndexBuilder())
 			{
 				indexBuilder.AddContent(contentItem);
+			}
+		}
+
+		public void UpdateContent(IContentItem contentItem)
+		{
+			using (IndexBuilder indexBuilder = CreateIndexBuilder())
+			{
+				indexBuilder.UpdateContent(contentItem);
 			}
 		}
 
@@ -88,39 +90,30 @@ namespace Cuyahoga.Core.Service.Search
 			}
 		}
 
-		public SearchResultCollection FindContent(string queryText, IDictionary<string, string> keywordFilter, int pageIndex, int pageSize, User user)
+		public SearchResultCollection FindContent(string queryText, int pageIndex, int pageSize)
 		{
-			return this.FindContent(queryText, keywordFilter, null, pageIndex, pageSize, user);
+			return this.FindContent(queryText, null, pageIndex, pageSize);
 		}
 
-		public SearchResultCollection FindContent(string queryText, IDictionary<string, string> keywordFilter, IList<string> categoryNames, int pageIndex, int pageSize, User user)
+		public SearchResultCollection FindContent(string queryText, IList<string> categoryNames, int pageIndex, int pageSize)
 		{
-			IList<Section> sections = null;
-			IList<Role> roles = null;
-			//use the user roles to determine viewable content
-			if (user != null)
+			ICuyahogaContext cuyahogaContext = this._cuyahogaContextProvider.GetContext();
+			User currentUser = cuyahogaContext.CurrentUser;
+
+			IList<Role> roles;
+			if (currentUser != null)
 			{
-				roles = new List<Role>((new ArrayList(user.Roles)).ToArray(typeof(Role)) as Role[]);
-				sections = this._userDao.GetViewableSectionsByUser(user);
+				roles = currentUser.Roles;
 			}
-			//else assume anonymous access
 			else
 			{
-				roles = this._userDao.GetRolesByAccessLevel(AccessLevel.Anonymous);
-				sections = this._userDao.GetViewableSectionsByAccessLevel(AccessLevel.Anonymous);
+				// Assume anonymous access, get all roles that have only anonymous access.
+				roles = this._userDao.GetAllRolesBySite(cuyahogaContext.CurrentSite).Where(role => role.IsAnonymousRole).ToList();
 			}
-			List<int> sectionIds = new List<int>(sections.Count);
-			List<int> roleIds = new List<int>(roles.Count);
-			foreach (Section section in sections)
-			{
-				sectionIds.Add(section.Id);
-			}
-			foreach (Role role in roles)
-			{
-				roleIds.Add(role.Id);
-			}
+			IList<int> roleIds = roles.Select(role => role.Id).ToList();
 			IndexQuery query = new IndexQuery(GetIndexDirectory());
-			return query.Find(queryText, keywordFilter, categoryNames, pageIndex, pageSize, sectionIds, roleIds);
+			// TODO: MB, 20090825: fix search
+			return query.Find(queryText, categoryNames, pageIndex, pageSize, roleIds);
 		}
 
 		public SearchIndexProperties GetIndexProperties()

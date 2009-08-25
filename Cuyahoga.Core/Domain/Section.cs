@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Security.Principal;
 using System.Collections;
 using Castle.Components.Validator;
@@ -7,7 +8,8 @@ using Castle.Components.Validator;
 namespace Cuyahoga.Core.Domain
 {
 	/// <summary>
-	/// Summary description for Section.
+	/// A <see cref="Section"></see> represents a content block on a page. It contains a specific type of content that is defined 
+	/// by the related <see cref="ModuleType"></see>. 
 	/// </summary>
 	public class Section
 	{
@@ -20,7 +22,7 @@ namespace Cuyahoga.Core.Domain
 		private bool _showTitle;
 		private ModuleType _moduleType;
 		private Node _node;
-		private IList _sectionPermissions;
+		private IList<SectionPermission> _sectionPermissions;
 		private IDictionary _settings;
 		private IDictionary _connections;
 		private Site _site;
@@ -113,9 +115,9 @@ namespace Cuyahoga.Core.Domain
 		}
 
 		/// <summary>
-		/// Property SectionPermissions (IList)
+		/// Property SectionPermissions
 		/// </summary>
-		public virtual IList SectionPermissions
+		public virtual IList<SectionPermission> SectionPermissions
 		{
 			get { return this._sectionPermissions; }
 			set { this._sectionPermissions = value; }
@@ -144,17 +146,7 @@ namespace Cuyahoga.Core.Domain
 		/// </summary>
 		public virtual bool AnonymousViewAllowed
 		{
-			get
-			{
-				foreach (Permission p in this._sectionPermissions)
-				{
-					if (p.ViewAllowed && Array.IndexOf(p.Role.Permissions, AccessLevel.Anonymous) > -1)
-					{
-						return true;
-					}
-				}
-				return false;
-			}
+			get { return this._sectionPermissions.Any(sp => sp.Role.IsAnonymousRole); }
 		}
 
 		/// <summary>
@@ -214,7 +206,7 @@ namespace Cuyahoga.Core.Domain
 			this._showTitle = false;
 			this._position = -1;
 			this._cacheDuration = 0;
-			this._sectionPermissions = new ArrayList();
+			this._sectionPermissions = new List<SectionPermission>();
 			this._settings = new Hashtable();
 			this._connections = new Hashtable();
 		}
@@ -363,19 +355,16 @@ namespace Cuyahoga.Core.Domain
 		/// <returns></returns>
 		public virtual bool ViewAllowed(IIdentity user)
 		{
-			User cuyahogaUser = user as User;
 			if (this.AnonymousViewAllowed)
 			{
 				return true;
 			}
-			else if (cuyahogaUser != null)
+			User cuyahogaUser = user as User;
+			if (cuyahogaUser != null)
 			{
 				return cuyahogaUser.CanView(this);
 			}
-			else
-			{
-				return false;
-			}
+			return false;
 		}
 
 		/// <summary>

@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using System.Security.Principal;
 using System.Text.RegularExpressions;
 using Castle.Components.Validator;
@@ -19,11 +20,11 @@ namespace Cuyahoga.Core.Domain
 		private Site _site;
 		private Node _parentNode;
 		private IList<Node> _childNodes;
-		private IList _sections;
+		private IList<Section> _sections;
 		private Template _template;
 		private int[] _trail;
 		private Node[] _nodePath;
-		private IList _nodePermissions;
+		private IList<NodePermission> _nodePermissions;
 		private string _culture;
 		private bool _showInNavigation;
 		private string _linkUrl;
@@ -218,7 +219,7 @@ namespace Cuyahoga.Core.Domain
 		/// <summary>
 		/// Property Sections (IList). Lazy loaded.
 		/// </summary>
-		public virtual IList Sections
+		public virtual IList<Section> Sections
 		{
 			get { return this._sections; }
 			set { this._sections = value; }
@@ -266,7 +267,7 @@ namespace Cuyahoga.Core.Domain
 		/// <summary>
 		/// Property NodePermissions (IList)
 		/// </summary>
-		public virtual IList NodePermissions
+		public virtual IList<NodePermission> NodePermissions
 		{
 			get { return this._nodePermissions; }
 			set { this._nodePermissions = value; }
@@ -277,17 +278,7 @@ namespace Cuyahoga.Core.Domain
 		/// </summary>
 		public virtual bool AnonymousViewAllowed
 		{
-			get
-			{
-				foreach (NodePermission np in this._nodePermissions)
-				{
-					if (Array.IndexOf(np.Role.Permissions, AccessLevel.Anonymous) > -1)
-					{
-						return true;
-					}
-				}
-				return false;
-			}
+			get { return this._nodePermissions.Any(np => np.Role.IsAnonymousRole); }
 		}
 
 		/// <summary>
@@ -321,8 +312,8 @@ namespace Cuyahoga.Core.Domain
 			this._trail = null;
 			this._showInNavigation = true;
 			this._childNodes = new List<Node>();
-			this._sections = new ArrayList();
-			this._nodePermissions = new ArrayList();
+			this._sections = new List<Section>();
+			this._nodePermissions = new List<NodePermission>();
 		}
 
 		#endregion

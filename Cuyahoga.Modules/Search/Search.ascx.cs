@@ -1,39 +1,25 @@
 ﻿using System;
-using System.Data;
-using System.Configuration;
-using System.Collections;
-using System.Web;
-using System.Web.Security;
-using System.Web.UI;
 using System.Web.UI.WebControls;
-using System.Web.UI.WebControls.WebParts;
-using System.Web.UI.HtmlControls;
-
-using Cuyahoga.Core.Domain;
 using Cuyahoga.Core.Util;
 using Cuyahoga.Core.Service.Search;
 using Cuyahoga.Web.UI;
-using Cuyahoga.Web.Util;
 
 namespace Cuyahoga.Modules.Search
 {
-    public partial class Search : BaseModuleControl
+    public partial class Search : BaseModuleControl<SearchModule>
     {
-		private SearchModule _module;
 
-
-		protected void Page_Load(object sender, System.EventArgs e)
+		protected void Page_Load(object sender, EventArgs e)
 		{
-			this._module = this.Module as SearchModule;
-			this.pgrResults.PageSize = this._module.ResultsPerPage;
-			this.pnlCriteria.Visible = this._module.ShowInputPanel;
+			this.pgrResults.PageSize = this.Module.ResultsPerPage;
+			this.pnlCriteria.Visible = this.Module.ShowInputPanel;
 
 			if (! this.IsPostBack)
 			{
-				if (this._module.SearchQuery != null)
+				if (this.Module.SearchQuery != null)
    				{
-   					BindSearchResults(this._module.SearchQuery, 0);
-   					this.txtSearchText.Text = this._module.SearchQuery;
+   					BindSearchResults(this.Module.SearchQuery, 0);
+   					this.txtSearchText.Text = this.Module.SearchQuery;
    				}
 			}
 
@@ -43,12 +29,11 @@ namespace Cuyahoga.Modules.Search
 
 		private void BindSearchResults(string queryString, int pageIndex)
 		{
-            Cuyahoga.Core.Domain.User user = HttpContext.Current.User.Identity as Cuyahoga.Core.Domain.User ;
-            SearchResultCollection results = this._module.GetSearchResults(queryString, user);
+            SearchResultCollection results = this.Module.GetSearchResults(queryString);
             if (results.Count > 0)
             {
-                int start = pageIndex * this._module.ResultsPerPage;
-                int end = start + this._module.ResultsPerPage;
+                int start = pageIndex * this.Module.ResultsPerPage;
+                int end = start + this.Module.ResultsPerPage;
                 if (end > results.Count)
                 {
                     end = results.Count;
@@ -59,15 +44,15 @@ namespace Cuyahoga.Modules.Search
                 this.lblFrom.Text = (start + 1).ToString();
                 this.lblTo.Text = end.ToString();
                 this.lblTotal.Text = results.Count.ToString();
-				if (this._module.SearchQuery != null && this._module.SearchQuery != string.Empty)
+				if (!String.IsNullOrEmpty(this.Module.SearchQuery))
 				{
 					this.litFor.Text = base.GetText("FOR");
-					this.lblQueryText.Text = this._module.SearchQuery; // != null ? this._module.SearchQuery : this.txtSearchText.Text;
+					this.lblQueryText.Text = this.Module.SearchQuery; // != null ? this._module.SearchQuery : this.txtSearchText.Text;
 				}
-				if (this._module.CategoryNames != null && this._module.CategoryNames.Count > 0)
+				if (this.Module.CategoryNames != null && this.Module.CategoryNames.Count > 0)
 				{
 					System.Text.StringBuilder sb = new System.Text.StringBuilder();
-					foreach (string s in this._module.CategoryNames)
+					foreach (string s in this.Module.CategoryNames)
 					{
 						sb.Append(s); sb.Append(", ");
 					}
@@ -115,7 +100,7 @@ namespace Cuyahoga.Modules.Search
 			{
 				BindSearchResults(this.txtSearchText.Text, 0);
 			}
-            else if (this._module.CategoryNames != null)
+            else if (this.Module.CategoryNames != null)
             {
                 BindSearchResults(string.Empty, 0);
             }
@@ -136,10 +121,10 @@ namespace Cuyahoga.Modules.Search
 
 		protected void lnkBtnRemoveFilter_Click(object sender, EventArgs e)
 		{
-			if (this._module.CategoryNames != null)
+			if (this.Module.CategoryNames != null)
 			{
-				this._module.CategoryNames.Clear();
-				this._module.CategoryNames = null;
+				this.Module.CategoryNames.Clear();
+				this.Module.CategoryNames = null;
 			}
 			this.lblFilter.Text = "";
 			this.lnkBtnRemoveFilter.Visible = false;

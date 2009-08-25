@@ -213,6 +213,7 @@
     <Compile Include="Service\Files\FileManagerService.cs" />
     <Compile Include="Service\Files\IFileManagerService.cs" />
     <Compile Include="Service\ICuyahogaContextProvider.cs" />
+    <Compile Include="Service\Membership\SystemRoles.cs" />
     <Compile Include="Service\Search\IFilterTextExtractor.cs" />
     <Compile Include="Service\Search\ITextExtractor.cs" />
     <Compile Include="Service\Search\NativeTextExtractor.cs" />

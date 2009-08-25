@@ -220,9 +220,39 @@ namespace Cuyahoga.Core.Domain
 			get { return this._id == -1; }
 		}
 
+		/// <summary>
+		/// Indicates if the content item supports item-level permissions. If not, the permissions for the related section
+		/// are used.
+		/// </summary>
+		public virtual bool SupportsItemLevelPermissions
+		{
+			get { return false; }
+		}
+
+		/// <summary>
+		/// The roles that are allowed to view the content item.
+		/// </summary>
+		public virtual IEnumerable<Role> ViewRoles
+		{
+			get
+			{
+				if (SupportsItemLevelPermissions)
+				{
+					return this._contentItemPermissions.Where(cip => cip.ViewAllowed).Select(cip => cip.Role);
+				}
+				else
+				{
+					return this._section.SectionPermissions.Where(sp => sp.ViewAllowed).Select(sp => sp.Role);
+				}
+			}
+		}
+
 		#endregion
 
-		public ContentItem()
+		/// <summary>
+		/// Constructor.
+		/// </summary>
+		protected ContentItem()
 		{
 			this._id = -1;
 			this._globalId = Guid.NewGuid();
@@ -251,27 +281,21 @@ namespace Cuyahoga.Core.Domain
 
 		public virtual bool IsViewAllowed(IPrincipal currentPrincipal)
 		{
+			
 			if (!currentPrincipal.Identity.IsAuthenticated)
 			{
-				return this.ContentItemPermissions.Any(cip => cip.ViewAllowed && cip.Role.HasRight(Rights.Anonymous));
+				return this.ViewRoles.Any(vr => vr.HasRight(Rights.Anonymous));
 			}
 			if (currentPrincipal is User)
 			{
-				return IsViewAllowedForUser((User)currentPrincipal);
-			}
+				return IsViewAllowedForUser((User) currentPrincipal);
+			}		
 			return false;
 		}
 
 		public virtual bool IsViewAllowedForUser(User user)
 		{
-			foreach (ContentItemPermission permission in this.ContentItemPermissions)
-			{
-				if (permission.ViewAllowed && user.IsInRole(permission.Role))
-				{
-					return true;
-				}
-			}
-			return false;
+			return this.ViewRoles.Any(user.IsInRole);
 		}
 	}
 }
