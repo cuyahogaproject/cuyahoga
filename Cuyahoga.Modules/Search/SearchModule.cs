@@ -19,7 +19,7 @@ namespace Cuyahoga.Modules.Search
 		private readonly ModuleActionCollection _inboundModuleActions;
 		private ModuleAction _currentModuleAction;
 		private string _searchQuery;
-        private ISearchService _searchService;
+        private readonly ISearchService _searchService;
        
 
         #region Section Settings
@@ -73,8 +73,8 @@ namespace Cuyahoga.Modules.Search
 			// Init inbound actions
 			this._inboundModuleActions = new ModuleActionCollection();
 			this._inboundModuleActions.Add(new ModuleAction("Search", new string[0]));
-			this._inboundModuleActions.Add(new ModuleAction("SetCategory", new string[0]));
-			this._inboundModuleActions.Add(new ModuleAction("SetAlphabeticIndex", new string[0]));
+			this._inboundModuleActions.Add(new ModuleAction("Category", new string[0]));
+			this._inboundModuleActions.Add(new ModuleAction("AlphabeticIndex", new string[0]));
 			this._currentModuleAction = this._inboundModuleActions[0];
 		}
 
@@ -95,14 +95,14 @@ namespace Cuyahoga.Modules.Search
                         {
                             this._searchQuery = HttpContext.Current.Server.UrlDecode(HttpContext.Current.Request.QueryString["q"]);
                         }
-                        else if (this._currentModuleAction.Name == "SetCategory")
+                        else if (this._currentModuleAction.Name == "Category")
                         {
                             string categoryNames = HttpContext.Current.Server.UrlDecode(HttpContext.Current.Request.QueryString["c"]);
                             this.CategoryNames = new List<string>(categoryNames.Split(','));
 							//reset searchquery (following queries can still be combined with catgories)
 							this._searchQuery = string.Empty;
                         }
-                        else if (this._currentModuleAction.Name == "SetAlphabeticIndex")
+                        else if (this._currentModuleAction.Name == "AlphabeticIndex")
                         {
 							string letter = HttpContext.Current.Server.UrlDecode(HttpContext.Current.Request.QueryString["a"]);
 							this._searchQuery = string.Format("title:{0}*", letter );

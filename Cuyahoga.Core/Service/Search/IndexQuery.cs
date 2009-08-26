@@ -5,7 +5,6 @@ using Lucene.Net.Search;
 using Lucene.Net.Store;
 using Lucene.Net.QueryParsers;
 using Lucene.Net.Analysis.Standard;
-using Lucene.Net.Documents;
 using Lucene.Net.Index;
 
 namespace Cuyahoga.Core.Service.Search
@@ -35,13 +34,13 @@ namespace Cuyahoga.Core.Service.Search
 		/// <param name="pageSize"></param>
 		/// <param name="roleIds"></param>
 		/// <returns></returns>
-		public SearchResultCollection Find(string queryText, IList<string> categoryNames, int pageIndex, int pageSize, IList<int> roleIds)
+		public SearchResultCollection Find(string queryText, IList<string> categoryNames, int pageIndex, int pageSize, IEnumerable<int> roleIds)
 		{
 			long startTicks = DateTime.Now.Ticks;
 
-			//the overall-query
+			// the overall-query
 			BooleanQuery query = new BooleanQuery();
-			//add our parsed query
+			// add our parsed query
 			if (!String.IsNullOrEmpty(queryText))
 			{
 				Query multiQuery = MultiFieldQueryParser.Parse(new[] { queryText, queryText, queryText }, new[] { "title", "summary", "contents" }, new StandardAnalyzer());
@@ -77,7 +76,7 @@ namespace Cuyahoga.Core.Service.Search
 				result.ModuleType = hits.Doc(i).Get("moduletype");
 				result.Path = hits.Doc(i).Get("path");
 				string[] categories = hits.Doc(i).GetValues("category");
-				result.Category = String.Join(",", categories);
+				result.Category = categories != null ? String.Join(", ", categories) : String.Empty;
 				result.DateCreated = DateTime.Parse((hits.Doc(i).Get("datecreated")));
 				result.Score = hits.Score(i);
 				result.Boost = hits.Doc(i).GetBoost();
@@ -90,7 +89,7 @@ namespace Cuyahoga.Core.Service.Search
 			return results;
 		}
 
-		private Query BuildCategoryQuery(IList<string> categoryNames)
+		private Query BuildCategoryQuery(IEnumerable<string> categoryNames)
 		{
 			BooleanQuery categoryQuery = new BooleanQuery();
 			foreach (string name in categoryNames)
@@ -100,7 +99,7 @@ namespace Cuyahoga.Core.Service.Search
 			return categoryQuery;
 		}
 
-		private Query BuildSecurityQuery(IList<int> roleIds)
+		private Query BuildSecurityQuery(IEnumerable<int> roleIds)
 		{
 			BooleanQuery bQueryContent = new BooleanQuery();
 			foreach (int roleId in roleIds)

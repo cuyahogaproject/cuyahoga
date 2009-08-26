@@ -6,6 +6,7 @@ using Castle.Services.Transaction;
 
 using Cuyahoga.Core.Domain;
 using Cuyahoga.Core.DataAccess;
+using Cuyahoga.Core.Service.Content;
 using NHibernate.Criterion;
 
 namespace Cuyahoga.Core.Service.SiteStructure
@@ -16,18 +17,21 @@ namespace Cuyahoga.Core.Service.SiteStructure
 	[Transactional]
 	public class SectionService : ISectionService
 	{
-		private ISiteStructureDao _siteStructureDao;
-		private ICommonDao _commonDao;
+		private readonly ISiteStructureDao _siteStructureDao;
+		private readonly ICommonDao _commonDao;
+		private readonly IContentItemService<ContentItem> _contentItemService;
 
 		/// <summary>
 		/// Constructor.
 		/// </summary>
 		/// <param name="siteStructureDao"></param>
 		/// <param name="commonDao"></param>
-		public SectionService(ISiteStructureDao siteStructureDao, ICommonDao commonDao)
+		/// <param name="contentItemService"></param>
+		public SectionService(ISiteStructureDao siteStructureDao, ICommonDao commonDao, IContentItemService<ContentItem> contentItemService)
 		{
 			this._siteStructureDao = siteStructureDao;
 			this._commonDao = commonDao;
+			this._contentItemService = contentItemService;
 		}
 
 		#region ISectionService Members
@@ -97,7 +101,7 @@ namespace Cuyahoga.Core.Service.SiteStructure
 			{
 				if (viewRoles.Contains(role))
 				{
-					section.SectionPermissions.OfType<SectionPermission>().Single(sp => sp.Role == role).EditAllowed = true;
+					section.SectionPermissions.Single(sp => sp.Role == role).EditAllowed = true;
 				}
 				else
 				{
@@ -105,6 +109,14 @@ namespace Cuyahoga.Core.Service.SiteStructure
 				}
 			}
 			this._commonDao.UpdateObject(section);
+
+			// Also update related content items that inherit their security settings from the section.
+			// This is for example required for full text-indexing where the permissions are also stored in the index.
+			IEnumerable<ContentItem> contentItemsThatInheritPermissions = this._contentItemService.FindContentItemsBySection(section).Where(ci => ci.SupportsItemLevelPermissions == false);
+			foreach (ContentItem contentItem in contentItemsThatInheritPermissions)
+			{
+				this._contentItemService.Save(contentItem);
+			}
 		}
 
 		[Transaction(TransactionMode.RequiresNew)]

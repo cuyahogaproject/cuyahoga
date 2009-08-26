@@ -112,7 +112,7 @@ namespace Cuyahoga.Core.Service.Search
 			}
 			IList<int> roleIds = roles.Select(role => role.Id).ToList();
 			IndexQuery query = new IndexQuery(GetIndexDirectory());
-			// TODO: MB, 20090825: fix search
+			
 			return query.Find(queryText, categoryNames, pageIndex, pageSize, roleIds);
 		}
 

@@ -212,7 +212,7 @@ namespace Cuyahoga.Core.Service.Search
 
 			foreach (Role viewRole in contentItem.ViewRoles)
 			{
-				doc.Add(new Field("viewroleid", viewRole.Id.ToString(), Field.Store.YES, Field.Index.NO));
+				doc.Add(new Field("viewroleid", viewRole.Id.ToString(), Field.Store.YES, Field.Index.UN_TOKENIZED));
 			}
 
 			foreach (CustomSearchField field in searchInfo.GetCustomSearchFields())
