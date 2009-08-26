@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Web.UI.WebControls;
+using Cuyahoga.Core;
 using Cuyahoga.Core.Util;
 using Cuyahoga.Core.Service.Search;
 using Cuyahoga.Web.UI;
@@ -29,45 +30,54 @@ namespace Cuyahoga.Modules.Search
 
 		private void BindSearchResults(string queryString, int pageIndex)
 		{
-            SearchResultCollection results = this.Module.GetSearchResults(queryString);
-            if (results.Count > 0)
-            {
-                int start = pageIndex * this.Module.ResultsPerPage;
-                int end = start + this.Module.ResultsPerPage;
-                if (end > results.Count)
-                {
-                    end = results.Count;
-                }
-                this.pnlResults.Visible = true;
-                this.pnlNotFound.Visible = false;
-
-                this.lblFrom.Text = (start + 1).ToString();
-                this.lblTo.Text = end.ToString();
-                this.lblTotal.Text = results.Count.ToString();
-				if (!String.IsNullOrEmpty(this.Module.SearchQuery))
+			try
+			{
+				SearchResultCollection results = this.Module.GetSearchResults(queryString);
+				if (results.Count > 0)
 				{
-					this.litFor.Text = base.GetText("FOR");
-					this.lblQueryText.Text = this.Module.SearchQuery; // != null ? this._module.SearchQuery : this.txtSearchText.Text;
-				}
-				if (this.Module.CategoryNames != null && this.Module.CategoryNames.Count > 0)
-				{
-					System.Text.StringBuilder sb = new System.Text.StringBuilder();
-					foreach (string s in this.Module.CategoryNames)
+					int start = pageIndex * this.Module.ResultsPerPage;
+					int end = start + this.Module.ResultsPerPage;
+					if (end > results.Count)
 					{
-						sb.Append(s); sb.Append(", ");
+						end = results.Count;
 					}
-					this.lblFilter.Text = sb.ToString().TrimEnd(',', ' ');
+					this.pnlResults.Visible = true;
+					this.pnlNotFound.Visible = false;
+
+					this.lblFrom.Text = (start + 1).ToString();
+					this.lblTo.Text = end.ToString();
+					this.lblTotal.Text = results.Count.ToString();
+					if (!String.IsNullOrEmpty(this.Module.SearchQuery))
+					{
+						this.litFor.Text = base.GetText("FOR");
+						this.lblQueryText.Text = this.Module.SearchQuery; // != null ? this._module.SearchQuery : this.txtSearchText.Text;
+					}
+					if (this.Module.CategoryNames != null && this.Module.CategoryNames.Count > 0)
+					{
+						System.Text.StringBuilder sb = new System.Text.StringBuilder();
+						foreach (string s in this.Module.CategoryNames)
+						{
+							sb.Append(s); sb.Append(", ");
+						}
+						this.lblFilter.Text = sb.ToString().TrimEnd(',', ' ');
+					}
+					float duration = results.ExecutionTime * 0.0000001F;
+					this.lblDuration.Text = duration.ToString();
+					this.rptResults.DataSource = results;
+					this.rptResults.DataBind();
 				}
-				float duration = results.ExecutionTime * 0.0000001F;
-                this.lblDuration.Text = duration.ToString();
-                this.rptResults.DataSource = results;
-                this.rptResults.DataBind();
-            }
-            else
-            {
-                this.pnlResults.Visible = false;
-                this.pnlNotFound.Visible = true;
-            }
+				else
+				{
+					this.pnlResults.Visible = false;
+					this.pnlNotFound.Visible = true;
+				}
+			}
+			catch (SearchException ex)
+			{
+				this.pnlResults.Visible = false;
+				this.pnlError.Visible = true;
+				this.litError.Text = ex.Message;
+			}
 		}
 
 		

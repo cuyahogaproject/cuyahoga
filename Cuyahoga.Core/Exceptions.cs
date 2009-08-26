@@ -57,4 +57,13 @@ namespace Cuyahoga.Core
 		public InvalidPackageException(string message) : base (message)
 		{}
 	}
+
+	public class SearchException : ApplicationException
+	{
+		public SearchException(string message) : base(message)
+		{}
+
+		public SearchException(string message, Exception innerException) : base(message, innerException)
+		{}
+	}
 }

@@ -52,3 +52,7 @@
 <asp:Panel ID="pnlNotFound" runat="server" Visible="False" EnableViewState="False">
     <%= base.GetText("NOTFOUND") %>
 </asp:Panel>
+<asp:Panel ID="pnlError" runat="server" Visible="False" EnableViewState="False" cssclass="error">
+    <asp:literal id="litError" runat="server"></asp:literal>
+</asp:Panel>
+

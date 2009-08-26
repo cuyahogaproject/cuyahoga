@@ -10,6 +10,7 @@ using Cuyahoga.Core.Service.Content;
 using Cuyahoga.Core.Service.Membership;
 using log4net;
 using Lucene.Net.Index;
+using Lucene.Net.QueryParsers;
 
 namespace Cuyahoga.Core.Service.Search
 {
@@ -97,6 +98,12 @@ namespace Cuyahoga.Core.Service.Search
 
 		public SearchResultCollection FindContent(string queryText, IList<string> categoryNames, int pageIndex, int pageSize)
 		{
+			// Check queryText for invalid fields
+			if (queryText.Contains("viewroleid:"))
+			{
+				throw new SearchException("Don't try to mess with security!");	
+			}
+
 			ICuyahogaContext cuyahogaContext = this._cuyahogaContextProvider.GetContext();
 			User currentUser = cuyahogaContext.CurrentUser;
 
@@ -112,8 +119,16 @@ namespace Cuyahoga.Core.Service.Search
 			}
 			IList<int> roleIds = roles.Select(role => role.Id).ToList();
 			IndexQuery query = new IndexQuery(GetIndexDirectory());
-			
-			return query.Find(queryText, categoryNames, pageIndex, pageSize, roleIds);
+
+			try
+			{
+				return query.Find(queryText, categoryNames, pageIndex, pageSize, roleIds);
+			}
+			catch (ParseException ex)
+			{
+				Logger.Error(string.Format("Invalid query: {0}", queryText), ex);
+				throw new SearchException("Invalid search query", ex);
+			}
 		}
 
 		public SearchIndexProperties GetIndexProperties()
