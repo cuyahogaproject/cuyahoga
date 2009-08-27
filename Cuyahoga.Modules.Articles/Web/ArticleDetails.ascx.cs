@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 using System.Web;
 using System.Web.UI.WebControls;
 using Cuyahoga.Core.Domain;
@@ -41,7 +42,7 @@ namespace Cuyahoga.Modules.Articles.Web
 					
 					// TODO: categories
 					this.cadCategories.SectionBaseUrl = UrlUtil.GetUrlFromSection(Module.Section);
-					this.cadCategories.Categories = this._activeArticle.Categories;
+					this.cadCategories.Categories = this._activeArticle.Categories.ToDictionary(cat => cat.Id, cat => cat.Name);
 					this.cadCategories.Visible = this.Module.ShowCategory;
 
 					if (this.Module.AllowComments)

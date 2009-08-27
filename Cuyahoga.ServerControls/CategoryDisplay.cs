@@ -26,9 +26,9 @@ namespace Cuyahoga.ServerControls
 		/// <summary>
 		/// Gets or sets the categories to display.
 		/// </summary>
-		public IList<Category> Categories
+		public IDictionary<int, string> Categories
 		{
-			get { return ViewState["Categories"] as IList<Category>; }
+			get { return ViewState["Categories"] as IDictionary<int, string>; }
 			set { ViewState["Categories"] = value; }
 		}
 
@@ -36,22 +36,23 @@ namespace Cuyahoga.ServerControls
 		{
 			if (this.Categories != null)
 			{
-				for (int i = 0; i < this.Categories.Count; i++)
+				int i = 0;
+				foreach (KeyValuePair<int, string> category in this.Categories)
 				{
-					Category category = this.Categories[i];
 					if (!String.IsNullOrEmpty(this.SectionBaseUrl))
 					{
-						string url = SectionBaseUrl + "/category/" + category.Id;
-						Controls.Add(new HyperLink { NavigateUrl = url, Text = category.Name });
+						string url = SectionBaseUrl + "/category/" + category.Key;
+						Controls.Add(new HyperLink { NavigateUrl = url, Text = category.Value });
 					}
 					else
 					{
-						Controls.Add(new Literal { Text = category.Name });
+						Controls.Add(new Literal { Text = category.Value });
 					}
 					if (i < this.Categories.Count - 1)
 					{
 						Controls.Add(new Literal { Text = ", " });
 					}
+					i++;
 				}
 			}
 		}

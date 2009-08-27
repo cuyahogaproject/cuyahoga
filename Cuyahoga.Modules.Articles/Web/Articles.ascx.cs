@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System;
+using System.Linq;
 using System.Web.UI.WebControls;
 using Cuyahoga.Core.Util;
 using Cuyahoga.ServerControls;
@@ -135,7 +136,7 @@ namespace Cuyahoga.Modules.Articles.Web
 
 					CategoryDisplay cadCategories = (CategoryDisplay) e.Item.FindControl("cadCategories");
 					cadCategories.SectionBaseUrl = UrlUtil.GetUrlFromSection(Module.Section);
-					cadCategories.Categories = article.Categories;
+					cadCategories.Categories = article.Categories.ToDictionary(cat => cat.Id, cat => cat.Name);
 					cadCategories.Visible = this.Module.ShowCategory;
 
 					HyperLink hplComments = e.Item.FindControl("hplComments") as HyperLink;

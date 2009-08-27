@@ -228,10 +228,18 @@ namespace Cuyahoga.Web.UI
 				throw new AccessForbiddenException("You are not allowed to view this page.");
 			}
 
-			if (this._shouldLoadContent)
+			// Check if the active node is a link. If so, redirect to the link
+			if (this._activeNode.IsExternalLink)
 			{
-				LoadContent();			
-				LoadMenus();
+				Response.Redirect(this._activeNode.LinkUrl);
+			}
+			else
+			{
+				if (this._shouldLoadContent)
+				{
+					LoadContent();
+					LoadMenus();
+				}
 			}
 			base.OnInit(e);
 		}
