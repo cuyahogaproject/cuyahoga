@@ -156,10 +156,9 @@ namespace Cuyahoga.Core.Util
 
 		private static ISessionFactoryImplementor GetNHibernateSessionFactory()
 		{
-			// Explicitly cast ISessionFactory to ISessionFactoryImplementor because we need the NHibernate 
-			// settings to determine the dialect and the connection provider. 
-			// TODO: can we get the settings without this explicit cast?
-			return (ISessionFactoryImplementor)IoC.Resolve<ISessionFactory>();
+			// Get the SessionFactoryImplementor via its name (see /Cuyahoga.Web/Config/facilities.config) instead of
+			// its type because the NHibernateIntegration facility allows for more than one session factories.
+			return IoC.Resolve<ISessionFactoryImplementor>("nhibernate.factory");
 		}
 
 		private static string GetDelimiter()

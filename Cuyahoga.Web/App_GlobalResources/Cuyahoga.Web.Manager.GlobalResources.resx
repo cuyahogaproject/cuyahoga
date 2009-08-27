@@ -795,4 +795,76 @@
   <data name="RebuildFullTextIndexPageTitle" xml:space="preserve">
     <value>Full Text index</value>
   </data>
+  <data name="ManagerMenuModules" xml:space="preserve">
+    <value>Modules</value>
+  </data>
+  <data name="ActionsLabel" xml:space="preserve">
+    <value>Actions</value>
+  </data>
+  <data name="ActivationStatusLabel" xml:space="preserve">
+    <value>Status</value>
+  </data>
+  <data name="ActiveStatus" xml:space="preserve">
+    <value>Active</value>
+  </data>
+  <data name="AssemblyLabel" xml:space="preserve">
+    <value>Assembly</value>
+  </data>
+  <data name="InactiveStatus" xml:space="preserve">
+    <value>Not active</value>
+  </data>
+  <data name="InstallationStatusLabel" xml:space="preserve">
+    <value>Installation status</value>
+  </data>
+  <data name="LoadOnStartupLabel" xml:space="preserve">
+    <value>Load on startup</value>
+  </data>
+  <data name="ManageModulesPageTitle" xml:space="preserve">
+    <value>Manage modules</value>
+  </data>
+  <data name="InstalledStatus" xml:space="preserve">
+    <value>Installed</value>
+  </data>
+  <data name="InstalledUpgradeStatus" xml:space="preserve">
+    <value>Installed (upgrade available)</value>
+  </data>
+  <data name="InstallLabel" xml:space="preserve">
+    <value>Install</value>
+  </data>
+  <data name="ModuleActivatedMessage" xml:space="preserve">
+    <value>The module {0} was activated successfully.</value>
+  </data>
+  <data name="ModuleDeactivatedMessage" xml:space="preserve">
+    <value>The module {0} was deactivated successfully and will unload at the next application restart. </value>
+  </data>
+  <data name="ModuleInstallConfirmation" xml:space="preserve">
+    <value>Are you sure you want to install this module?</value>
+  </data>
+  <data name="ModuleInstalledAndActivatedMessage" xml:space="preserve">
+    <value>The module {0} was installed and activated successfully.</value>
+  </data>
+  <data name="ModuleUninstallConfirmation" xml:space="preserve">
+    <value>Are you sure you want to uninstall this module?</value>
+  </data>
+  <data name="ModuleUninstalledMessage" xml:space="preserve">
+    <value>The module {0} was uninstalled successfully.</value>
+  </data>
+  <data name="ModuleUpgradeConfirmation" xml:space="preserve">
+    <value>Are you sure you want to upgrade this module?</value>
+  </data>
+  <data name="ModuleUpgradedMessage" xml:space="preserve">
+    <value>The module {0} was upgraded successfully.</value>
+  </data>
+  <data name="UninstalledStatus" xml:space="preserve">
+    <value>Not installed</value>
+  </data>
+  <data name="UninstallLabel" xml:space="preserve">
+    <value>Uninstall</value>
+  </data>
+  <data name="UpgradeLabel" xml:space="preserve">
+    <value>Upgrade</value>
+  </data>
+  <data name="UninstallModuleForbiddenBecauseOfRelatedSectionsMessage" xml:space="preserve">
+    <value>The module cannot be uninstalled because it is used in the following sections</value>
+  </data>
 </root>

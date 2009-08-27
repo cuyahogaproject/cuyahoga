@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections;
-
+﻿using System.Collections.Generic;
 using Cuyahoga.Core.Domain;
 
 namespace Cuyahoga.Core.Service.SiteStructure
@@ -13,38 +11,44 @@ namespace Cuyahoga.Core.Service.SiteStructure
         /// in the Cuyahoga installation.
         /// </summary>
         /// <returns></returns>
-        IList GetAllModuleTypesInUse();
+        IList<ModuleType> GetAllModuleTypesInUse();
 
         /// <summary>
         /// Get all modules, regardless of usage
         /// </summary>
         /// <returns></returns>
-        IList GetAllModuleTypes();
+        IList<ModuleType> GetAllModuleTypes();
 
-        /// <summary>
-        /// Get a moduleType by its id
+    	/// <summary>
+        /// Get a ModuleType by its id
         /// </summary>
         /// <param name="moduleTypeId"></param>
         /// <returns></returns>
         ModuleType GetModuleById(int moduleTypeId);
 
-        /// <summary>
-        /// Save a new moduleType.
+    	/// <summary>
+    	/// Get a ModuleType by its name.
+    	/// </summary>
+    	/// <param name="moduleName"></param>
+    	/// <returns></returns>
+    	ModuleType GetModuleByName(string moduleName);
+
+    	/// <summary>
+		/// Save a new ModuleType.
         /// </summary>
         /// <param name="moduleType"></param>
         void SaveModuleType(ModuleType moduleType);
 
-        /// <summary>
-        /// Save or Update an exisiting moduleType.
+    	/// <summary>
+		/// Save or Update an exisiting ModuleType.
         /// </summary>
         /// <param name="moduleType"></param>
         void SaveOrUpdateModuleType(ModuleType moduleType);
 
-        /// <summary>
-        /// Delete a moduleType.
+    	/// <summary>
+		/// Delete a ModuleType.
         /// </summary>
         /// <param name="moduleType"></param>
         void DeleteModuleType(ModuleType moduleType);
-
     }
 }

@@ -38,11 +38,11 @@ namespace Cuyahoga.Core.Service.SiteStructure
 		IList GetTemplatesBySection(Section section);
 
 		/// <summary>
-		/// Get all sections that have modules of the given moduletypes.
+		/// Get all sections that are related to the given module type.
 		/// </summary>
-		/// <param name="moduleTypes"></param>
+		/// <param name="moduleType"></param>
 		/// <returns></returns>
-		IList GetSectionsByModuleTypes(IList moduleTypes);
+		IList<Section> GetSectionsByModuleType(ModuleType moduleType);
 
 		/// <summary>
 		/// Save a new section.

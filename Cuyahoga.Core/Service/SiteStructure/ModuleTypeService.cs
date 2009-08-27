@@ -1,6 +1,5 @@
 ﻿using System;
-using System.Collections;
-
+using System.Collections.Generic;
 using Castle.Services.Transaction;
 
 using Cuyahoga.Core.Domain;
@@ -11,8 +10,8 @@ namespace Cuyahoga.Core.Service.SiteStructure
     [Transactional]
     public class ModuleTypeService : IModuleTypeService
     {
-        private ISiteStructureDao _siteStructureDao;
-        private ICommonDao _commonDao;
+        private readonly ISiteStructureDao _siteStructureDao;
+        private readonly ICommonDao _commonDao;
 
         public ModuleTypeService(ISiteStructureDao siteStructureDao, ICommonDao commonDao)
         {
@@ -22,14 +21,14 @@ namespace Cuyahoga.Core.Service.SiteStructure
 
         #region IModuleService Members
 
-        public IList GetAllModuleTypesInUse()
+        public IList<ModuleType> GetAllModuleTypesInUse()
         {
             return this._siteStructureDao.GetAllModuleTypesInUse();
         }
 
-        public IList GetAllModuleTypes()
+        public IList<ModuleType> GetAllModuleTypes()
         {
-            return this._commonDao.GetAll(typeof(ModuleType));
+        	return this._commonDao.GetAll<ModuleType>();
         }
 
         public ModuleType GetModuleById(int moduleTypeId)
@@ -37,7 +36,12 @@ namespace Cuyahoga.Core.Service.SiteStructure
             return this._commonDao.GetObjectById(typeof(ModuleType), moduleTypeId) as ModuleType;
         }
 
-        [Transaction(TransactionMode.RequiresNew)]
+    	public ModuleType GetModuleByName(string moduleName)
+    	{
+    		return (ModuleType) this._commonDao.GetObjectByDescription(typeof (ModuleType), "Name", moduleName);
+    	}
+
+    	[Transaction(TransactionMode.RequiresNew)]
         public void SaveModuleType(ModuleType moduleType)
         {
             this._commonDao.SaveObject(moduleType);

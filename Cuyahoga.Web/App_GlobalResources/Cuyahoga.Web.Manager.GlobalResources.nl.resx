@@ -786,4 +786,76 @@
   <data name="RebuildFullTextIndexPageTitle" xml:space="preserve">
     <value>Beheer zoekindex</value>
   </data>
+  <data name="ManagerMenuModules" xml:space="preserve">
+    <value>Modules</value>
+  </data>
+  <data name="ActionsLabel" xml:space="preserve">
+    <value>Acties</value>
+  </data>
+  <data name="ActivationStatusLabel" xml:space="preserve">
+    <value>Status</value>
+  </data>
+  <data name="ActiveStatus" xml:space="preserve">
+    <value>Actief</value>
+  </data>
+  <data name="AssemblyLabel" xml:space="preserve">
+    <value>Assembly</value>
+  </data>
+  <data name="InactiveStatus" xml:space="preserve">
+    <value>Niet actief</value>
+  </data>
+  <data name="InstallationStatusLabel" xml:space="preserve">
+    <value>Installatie status</value>
+  </data>
+  <data name="LoadOnStartupLabel" xml:space="preserve">
+    <value>Laden bij start</value>
+  </data>
+  <data name="ManageModulesPageTitle" xml:space="preserve">
+    <value>Beheer modules</value>
+  </data>
+  <data name="InstalledStatus" xml:space="preserve">
+    <value>Geinstalleerd</value>
+  </data>
+  <data name="InstalledUpgradeStatus" xml:space="preserve">
+    <value>Geinstalleerd (upgrade beschikbaar)</value>
+  </data>
+  <data name="InstallLabel" xml:space="preserve">
+    <value>Installeren</value>
+  </data>
+  <data name="ModuleActivatedMessage" xml:space="preserve">
+    <value>De module {0} is geactiveerd.</value>
+  </data>
+  <data name="ModuleDeactivatedMessage" xml:space="preserve">
+    <value>De module {0} is gedeactiveerd en zal bij de eerstvolgende herstart van de applicatie niet meer geladen worden.</value>
+  </data>
+  <data name="ModuleInstallConfirmation" xml:space="preserve">
+    <value>Weet je zeker dat je deze module wilt installeren?</value>
+  </data>
+  <data name="ModuleInstalledAndActivatedMessage" xml:space="preserve">
+    <value>De module {0} is geinstalleerd en geactiveerd.</value>
+  </data>
+  <data name="ModuleUninstallConfirmation" xml:space="preserve">
+    <value>Weet je zeker dat je deze module wilt deinstalleren?</value>
+  </data>
+  <data name="ModuleUninstalledMessage" xml:space="preserve">
+    <value>De module {0} is gedeinstalleerd.</value>
+  </data>
+  <data name="ModuleUpgradeConfirmation" xml:space="preserve">
+    <value>Weet je zeker dat je deze module wilt upgraden?</value>
+  </data>
+  <data name="ModuleUpgradedMessage" xml:space="preserve">
+    <value>De module {0} is geupgraded.</value>
+  </data>
+  <data name="UninstalledStatus" xml:space="preserve">
+    <value>Niet geinstalleerd</value>
+  </data>
+  <data name="UninstallLabel" xml:space="preserve">
+    <value>Deinstalleren</value>
+  </data>
+  <data name="UninstallModuleForbiddenBecauseOfRelatedSectionsMessage" xml:space="preserve">
+    <value>De module kan niet gedeinstalleerd worden omdat deze gebruikt wordt in de volgende secties</value>
+  </data>
+  <data name="UpgradeLabel" xml:space="preserve">
+    <value>Upgraden</value>
+  </data>
 </root>

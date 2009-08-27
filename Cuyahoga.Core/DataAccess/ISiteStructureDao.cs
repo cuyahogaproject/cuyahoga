@@ -96,7 +96,14 @@ namespace Cuyahoga.Core.DataAccess
 		IList GetTemplatesBySection(Section section);
 
 		/// <summary>
-		/// Get all sections that have modules of the given moduletypes.
+		/// Get all sections that are related to the given module type.
+		/// </summary>
+		/// <param name="moduleType"></param>
+		/// <returns></returns>
+		IList<Section> GetSectionsByModuleType(ModuleType moduleType);
+
+		/// <summary>
+		/// Get all sections that are related to the given module types.
 		/// </summary>
 		/// <param name="moduleTypes"></param>
 		/// <returns></returns>
@@ -107,7 +114,7 @@ namespace Cuyahoga.Core.DataAccess
 		/// in the Cuyahoga installation.
 		/// </summary>
 		/// <returns></returns>
-		IList GetAllModuleTypesInUse();
+		IList<ModuleType> GetAllModuleTypesInUse();
 
 		/// <summary>
 		/// Save a site instance.
@@ -132,6 +139,5 @@ namespace Cuyahoga.Core.DataAccess
 		/// </summary>
 		/// <param name="siteAlias"></param>
 		void DeleteSiteAlias(SiteAlias siteAlias);
-
 	}
 }

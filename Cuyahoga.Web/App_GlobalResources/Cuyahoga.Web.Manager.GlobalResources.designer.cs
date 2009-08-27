@@ -70,6 +70,33 @@ namespace Resources.Cuyahoga.Web.Manager {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Actions.
+        /// </summary>
+        internal static string ActionsLabel {
+            get {
+                return ResourceManager.GetString("ActionsLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Status.
+        /// </summary>
+        internal static string ActivationStatusLabel {
+            get {
+                return ResourceManager.GetString("ActivationStatusLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Active.
+        /// </summary>
+        internal static string ActiveStatus {
+            get {
+                return ResourceManager.GetString("ActiveStatus", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Add section to page.
         /// </summary>
         internal static string AddSectionDialogTitle {
@@ -93,6 +120,15 @@ namespace Resources.Cuyahoga.Web.Manager {
         internal static string AreYouSure {
             get {
                 return ResourceManager.GetString("AreYouSure", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Assembly.
+        /// </summary>
+        internal static string AssemblyLabel {
+            get {
+                return ResourceManager.GetString("AssemblyLabel", resourceCulture);
             }
         }
         
@@ -790,11 +826,56 @@ namespace Resources.Cuyahoga.Web.Manager {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Not active.
+        /// </summary>
+        internal static string InactiveStatus {
+            get {
+                return ResourceManager.GetString("InactiveStatus", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Number of documents in index.
         /// </summary>
         internal static string IndexSizeLabel {
             get {
                 return ResourceManager.GetString("IndexSizeLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Installation status.
+        /// </summary>
+        internal static string InstallationStatusLabel {
+            get {
+                return ResourceManager.GetString("InstallationStatusLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Installed.
+        /// </summary>
+        internal static string InstalledStatus {
+            get {
+                return ResourceManager.GetString("InstalledStatus", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Installed (upgrade available).
+        /// </summary>
+        internal static string InstalledUpgradeStatus {
+            get {
+                return ResourceManager.GetString("InstalledUpgradeStatus", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Install.
+        /// </summary>
+        internal static string InstallLabel {
+            get {
+                return ResourceManager.GetString("InstallLabel", resourceCulture);
             }
         }
         
@@ -988,6 +1069,15 @@ namespace Resources.Cuyahoga.Web.Manager {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Load on startup.
+        /// </summary>
+        internal static string LoadOnStartupLabel {
+            get {
+                return ResourceManager.GetString("LoadOnStartupLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Logged in as.
         /// </summary>
         internal static string LoggedInAsLabel {
@@ -1060,6 +1150,15 @@ namespace Resources.Cuyahoga.Web.Manager {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Manage modules.
+        /// </summary>
+        internal static string ManageModulesPageTitle {
+            get {
+                return ResourceManager.GetString("ManageModulesPageTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Manage pages.
         /// </summary>
         internal static string ManagePagesPageTitle {
@@ -1110,6 +1209,15 @@ namespace Resources.Cuyahoga.Web.Manager {
         internal static string ManagerMenuFiles {
             get {
                 return ResourceManager.GetString("ManagerMenuFiles", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Modules.
+        /// </summary>
+        internal static string ManagerMenuModules {
+            get {
+                return ResourceManager.GetString("ManagerMenuModules", resourceCulture);
             }
         }
         
@@ -1218,6 +1326,78 @@ namespace Resources.Cuyahoga.Web.Manager {
         internal static string ModelValidationErrorMessage {
             get {
                 return ResourceManager.GetString("ModelValidationErrorMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The module {0} was activated successfully..
+        /// </summary>
+        internal static string ModuleActivatedMessage {
+            get {
+                return ResourceManager.GetString("ModuleActivatedMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The module {0} was deactivated successfully and will unload at the next application restart. .
+        /// </summary>
+        internal static string ModuleDeactivatedMessage {
+            get {
+                return ResourceManager.GetString("ModuleDeactivatedMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Are you sure you want to install this module?.
+        /// </summary>
+        internal static string ModuleInstallConfirmation {
+            get {
+                return ResourceManager.GetString("ModuleInstallConfirmation", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The module {0} was installed and activated successfully..
+        /// </summary>
+        internal static string ModuleInstalledAndActivatedMessage {
+            get {
+                return ResourceManager.GetString("ModuleInstalledAndActivatedMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Are you sure you want to uninstall this module?.
+        /// </summary>
+        internal static string ModuleUninstallConfirmation {
+            get {
+                return ResourceManager.GetString("ModuleUninstallConfirmation", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The module {0} was uninstalled successfully..
+        /// </summary>
+        internal static string ModuleUninstalledMessage {
+            get {
+                return ResourceManager.GetString("ModuleUninstalledMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Are you sure you want to upgrade this module?.
+        /// </summary>
+        internal static string ModuleUpgradeConfirmation {
+            get {
+                return ResourceManager.GetString("ModuleUpgradeConfirmation", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The module {0} was upgraded successfully..
+        /// </summary>
+        internal static string ModuleUpgradedMessage {
+            get {
+                return ResourceManager.GetString("ModuleUpgradedMessage", resourceCulture);
             }
         }
         
@@ -1929,6 +2109,42 @@ namespace Resources.Cuyahoga.Web.Manager {
         internal static string TimeZoneLabel {
             get {
                 return ResourceManager.GetString("TimeZoneLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Not installed.
+        /// </summary>
+        internal static string UninstalledStatus {
+            get {
+                return ResourceManager.GetString("UninstalledStatus", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Uninstall.
+        /// </summary>
+        internal static string UninstallLabel {
+            get {
+                return ResourceManager.GetString("UninstallLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The module cannot be uninstalled because it is used in the following sections.
+        /// </summary>
+        internal static string UninstallModuleForbiddenBecauseOfRelatedSectionsMessage {
+            get {
+                return ResourceManager.GetString("UninstallModuleForbiddenBecauseOfRelatedSectionsMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Upgrade.
+        /// </summary>
+        internal static string UpgradeLabel {
+            get {
+                return ResourceManager.GetString("UpgradeLabel", resourceCulture);
             }
         }
         

@@ -56,9 +56,9 @@ namespace Cuyahoga.Core.Service.SiteStructure
 			return this._siteStructureDao.GetTemplatesBySection(section);
 		}
 
-		public IList GetSectionsByModuleTypes(IList moduleTypes)
+		public IList<Section> GetSectionsByModuleType(ModuleType moduleType)
 		{
-			return this._siteStructureDao.GetSectionsByModuleTypes(moduleTypes);
+			return this._siteStructureDao.GetSectionsByModuleType(moduleType);
 		}
 
 		public IList<ModuleType> GetSortedActiveModuleTypes()

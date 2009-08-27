@@ -189,6 +189,15 @@ namespace Cuyahoga.Core.DataAccess
 			return q.List();
 		}
 
+		public IList<Section> GetSectionsByModuleType(ModuleType moduleType)
+		{
+			ISession session = this._sessionManager.OpenSession();
+			string hql = "from Section s where s.ModuleType = :moduleType";
+			IQuery query = session.CreateQuery(hql);
+			query.SetParameter("moduleType", moduleType);
+			return query.List<Section>();
+		}
+
 		public IList GetSectionsByModuleTypes(IList moduleTypes)
 		{
 			if (moduleTypes.Count > 0)
@@ -206,10 +215,7 @@ namespace Cuyahoga.Core.DataAccess
 				IQuery q = session.CreateQuery(hql);
 				return q.List();
 			}
-			else
-			{
-				return null;
-			}
+			return null;
 		}
 
 		/// <summary>
@@ -217,13 +223,13 @@ namespace Cuyahoga.Core.DataAccess
 		/// in the Cuyahoga installation.
 		/// </summary>
 		/// <returns></returns>
-		public IList GetAllModuleTypesInUse()
+		public IList<ModuleType> GetAllModuleTypesInUse()
 		{
 			ISession session = this._sessionManager.OpenSession();
 
 			string hql = "select distinct mt from Section s join s.ModuleType mt";
 			IQuery q = session.CreateQuery(hql);
-			return q.List();
+			return q.List<ModuleType>();
 		}
 
 		[Transaction(TransactionMode.Requires)]

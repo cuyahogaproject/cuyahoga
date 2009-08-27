@@ -1,9 +1,9 @@
 using System;
+using System.Collections.Generic;
 using System.Web.Mvc;
 using System.Web.Routing;
 using Castle.MicroKernel;
 using Castle.MicroKernel.Registration;
-using System.Collections;
 using System.Web;
 
 using Castle.Core;
@@ -119,7 +119,7 @@ namespace Cuyahoga.Web.Components
 			HttpContext.Current.Application["IsModuleLoading"] = true;
 			HttpContext.Current.Application.UnLock();
 
-			IList moduleTypes = this._moduleServie.GetAllModuleTypes();
+			IList<ModuleType> moduleTypes = this._moduleServie.GetAllModuleTypes();
 			foreach (ModuleType mt in moduleTypes)
 			{
 				if (mt.AutoActivate)

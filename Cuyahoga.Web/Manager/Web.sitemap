@@ -13,6 +13,8 @@
 			<mvcSiteMapNode id="Roles" title="Roles" controller="Users" action="Roles" resourceKey="ManagerMenuRoles" system="true" icon="group.png" />
 		</mvcSiteMapNode>
 		<mvcSiteMapNode id="Site" title="Site" controller="Site" resourceKey="ManagerMenuSite" system="true" icon="world.png"/>
-		<mvcSiteMapNode id="Server" title="Server" controller="Server" resourceKey="ManagerMenuServer" system="true" icon="server.png" />
+		<mvcSiteMapNode id="Server" title="Server" controller="Server" resourceKey="ManagerMenuServer" system="true" icon="server.png">
+			<mvcSiteMapNode id="Modules" title="Modules" controller="Modules" resourceKey="ManagerMenuModules" system="true" icon="plugin.png" />
+		</mvcSiteMapNode>
 	</siteMapNode>
 </siteMap>

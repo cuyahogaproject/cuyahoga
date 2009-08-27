@@ -1,58 +1,57 @@
-﻿<%@ Control Language="C#" AutoEventWireup="true" Codebehind="Search.ascx.cs" Inherits="Cuyahoga.Modules.Search.Search" %>
-<%@ Register TagPrefix="csc" Namespace="Cuyahoga.ServerControls" Assembly="Cuyahoga.ServerControls" %>
-<asp:Panel ID="pnlCriteria" runat="server">
-    <asp:TextBox ID="txtSearchText" runat="server" Width="200px"></asp:TextBox>
-    <asp:Button ID="btnSearch" runat="server" Text="Search" OnClick="btnSearch_Click"></asp:Button>
-    <br />
-    <br />
-</asp:Panel>
-<asp:Panel ID="pnlFilter" runat="server" Visible="false">
- <%= base.GetText("CATEGORY_FILTER") %> <asp:Label ID="lblFilter" runat="server" /><asp:LinkButton ID="lnkBtnRemoveFilter" Text="[x]" runat="server" OnClick="lnkBtnRemoveFilter_Click" />
-   <br />
-</asp:Panel>
-<asp:Panel ID="pnlResults" runat="server" Visible="False">
-    <%= base.GetText("DISPLAYING_RESULTS") %>
-    <asp:Label ID="lblFrom" runat="server" Font-Bold="True"></asp:Label>
-    -
-    <asp:Label ID="lblTo" runat="server" Font-Bold="True"></asp:Label>
-    <%= base.GetText("OF") %>
-    <asp:Label ID="lblTotal" runat="server" Font-Bold="True"></asp:Label>
-    <asp:Literal ID="litFor" runat="server" />
-    <asp:Label ID="lblQueryText" runat="server" Font-Bold="True"></asp:Label>
-    (<asp:Label ID="lblDuration" runat="server"></asp:Label>
-    <%= base.GetText("SECONDS") %>
-    )
-    <ul class="searchresults">
-        <asp:Repeater ID="rptResults" runat="server" EnableViewState="False">
-            <ItemTemplate>
-                <li>
-                    <h4>
-                        <asp:HyperLink ID="hplPath" runat="server" NavigateUrl='<%# DataBinder.Eval(Container.DataItem, "Path") %>'>
+﻿<%@ control language="C#" autoeventwireup="true" codebehind="Search.ascx.cs" inherits="Cuyahoga.Modules.Search.Search" %>
+<%@ register tagprefix="csc" namespace="Cuyahoga.ServerControls" assembly="Cuyahoga.ServerControls" %>
+<asp:panel id="pnlCriteria" runat="server">
+	<asp:textbox id="txtSearchText" runat="server" width="200px"></asp:textbox>
+	<asp:button id="btnSearch" runat="server" text="Search" onclick="btnSearch_Click">
+	</asp:button>
+	<br />
+	<br />
+</asp:panel>
+<asp:panel id="pnlFilter" runat="server" visible="false">
+	<%= base.GetText("CATEGORY_FILTER") %>
+	<asp:label id="lblFilter" runat="server" /><asp:linkbutton id="lnkBtnRemoveFilter"
+		text="[x]" runat="server" onclick="lnkBtnRemoveFilter_Click" />
+	<br />
+</asp:panel>
+<asp:panel id="pnlResults" runat="server" visible="False">
+	<%= base.GetText("DISPLAYING_RESULTS") %>
+	<asp:label id="lblFrom" runat="server" font-bold="True"></asp:label>
+	-
+	<asp:label id="lblTo" runat="server" font-bold="True"></asp:label>
+	<%= base.GetText("OF") %>
+	<asp:label id="lblTotal" runat="server" font-bold="True"></asp:label>
+	<asp:literal id="litFor" runat="server" />
+	<asp:label id="lblQueryText" runat="server" font-bold="True"></asp:label>
+	(<asp:label id="lblDuration" runat="server"></asp:label>
+	<%= base.GetText("SECONDS") %>
+	)
+	<ul class="searchresults">
+		<asp:repeater id="rptResults" runat="server" enableviewstate="False">
+			<itemtemplate>
+				<li>
+					<h4>
+						<asp:hyperlink id="hplPath" runat="server" navigateurl='<%# DataBinder.Eval(Container.DataItem, "Path") %>'>
 							<%# DataBinder.Eval(Container.DataItem, "Title") %>
-                        </asp:HyperLink></h4>
-                    <div class="summary">
-                        <%# DataBinder.Eval(Container.DataItem, "Summary") %>
-                    </div>
-                    <div class="category">
+						</asp:hyperlink></h4>
+					<div class="summary">
+						<%# DataBinder.Eval(Container.DataItem, "Summary") %>
+					</div>
+					<div class="sub">
+						<asp:literal id="litDateCreated" runat="server"></asp:literal>
 						<%# DataBinder.Eval(Container.DataItem, "Category") %>
-                    </div>
-                    <div class="sub">
-                        <%# DataBinder.Eval(Container.DataItem, "Path") %>
-                        -
-                        <asp:Literal ID="litDateCreated" runat="server"></asp:Literal>
-                    </div>
-                </li>
-            </ItemTemplate>
-        </asp:Repeater>
-    </ul>
-    <div class="pager">
-        <csc:Pager id="pgrResults" runat="server" controltopage="rptResults" cachedatasource="False">
-        </csc:Pager></div>
-</asp:Panel>
-<asp:Panel ID="pnlNotFound" runat="server" Visible="False" EnableViewState="False">
-    <%= base.GetText("NOTFOUND") %>
-</asp:Panel>
-<asp:Panel ID="pnlError" runat="server" Visible="False" EnableViewState="False" cssclass="error">
-    <asp:literal id="litError" runat="server"></asp:literal>
-</asp:Panel>
-
+					</div>
+				</li>
+			</itemtemplate>
+		</asp:repeater>
+	</ul>
+	<div class="pager">
+		<csc:pager id="pgrResults" runat="server" controltopage="rptResults" cachedatasource="False">
+		</csc:pager>
+	</div>
+</asp:panel>
+<asp:panel id="pnlNotFound" runat="server" visible="False" enableviewstate="False">
+	<%= base.GetText("NOTFOUND") %>
+</asp:panel>
+<asp:panel id="pnlError" runat="server" visible="False" enableviewstate="False" cssclass="error">
+	<asp:literal id="litError" runat="server"></asp:literal>
+</asp:panel>

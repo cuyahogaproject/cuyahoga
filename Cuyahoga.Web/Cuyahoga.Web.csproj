@@ -331,6 +331,7 @@
     <Compile Include="Manager\Controllers\FilesUploadController.cs" />
     <Compile Include="Manager\Controllers\LoginController.cs" />
     <Compile Include="Manager\Controllers\ManagerController.cs" />
+    <Compile Include="Manager\Controllers\ModulesController.cs" />
     <Compile Include="Manager\Controllers\PagesController.cs" />
     <Compile Include="Manager\Controllers\SearchIndexController.cs" />
     <Compile Include="Manager\Controllers\SectionsController.cs" />
@@ -359,6 +360,7 @@
     <Compile Include="Manager\Model\ViewModels\DirectoryViewData.cs" />
     <Compile Include="Manager\Model\ViewModels\LoginViewData.cs" />
     <Compile Include="Manager\Model\ViewModels\MenuViewData.cs" />
+    <Compile Include="Manager\Model\ViewModels\ModuleViewData.cs" />
     <Compile Include="Manager\Model\ViewModels\TemplateViewData.cs" />
     <Compile Include="Modules\Shared\Controllers\CategoriesController.cs" />
     <Compile Include="Modules\Shared\Controllers\CommentsController.cs" />
@@ -638,6 +640,7 @@
     <Content Include="Manager\Content\Images\page_white_text.png" />
     <Content Include="Manager\Content\Images\page_white_word.png" />
     <Content Include="Manager\Content\Images\pencil.png" />
+    <Content Include="Manager\Content\Images\plugin.png" />
     <Content Include="Manager\Content\Images\section_collapsed.png" />
     <Content Include="Manager\Content\Images\section_expanded.png" />
     <Content Include="Manager\Content\Images\server.png" />
@@ -656,6 +659,7 @@
     <Content Include="Manager\Views\Categories\New.aspx" />
     <Content Include="Manager\Views\Categories\SharedCategoryElements.ascx" />
     <Content Include="Manager\Views\Files\List.ascx" />
+    <Content Include="Manager\Views\Modules\Index.aspx" />
     <Content Include="Manager\Views\Pages\Content.aspx" />
     <Content Include="Manager\Views\SearchIndex\Index.aspx" />
     <Content Include="Manager\Views\Sections\Index.aspx" />

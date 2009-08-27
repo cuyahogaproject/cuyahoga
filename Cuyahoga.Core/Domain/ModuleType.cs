@@ -1,4 +1,4 @@
-using System.Collections;
+using System.Collections.Generic;
 
 namespace Cuyahoga.Core.Domain
 {
@@ -14,8 +14,8 @@ namespace Cuyahoga.Core.Domain
 		private string _path;
 		private string _editPath;
 		private bool _autoActivate;
-		private IList _moduleSettings;
-		private IList _moduleServices;
+		private IList<ModuleSetting> _moduleSettings;
+		private IList<ModuleService> _moduleServices;
 
 		#region properties
 		
@@ -85,7 +85,7 @@ namespace Cuyahoga.Core.Domain
 		/// <summary>
 		/// Property ModuleSettings (IList)
 		/// </summary>
-		public virtual IList ModuleSettings
+		public virtual IList<ModuleSetting> ModuleSettings
 		{
 			get { return this._moduleSettings; }
 			set { this._moduleSettings = value; }
@@ -94,7 +94,7 @@ namespace Cuyahoga.Core.Domain
 		/// <summary>
 		/// List of module-specific services.
 		/// </summary>
-		public virtual IList ModuleServices
+		public virtual IList<ModuleService> ModuleServices
 		{
 			get { return this._moduleServices; }
 			set { this._moduleServices = value; }
@@ -108,8 +108,8 @@ namespace Cuyahoga.Core.Domain
 		public ModuleType()
 		{
 			this._moduleTypeId = -1;
-			this._moduleSettings = new ArrayList();
-			this._moduleServices = new ArrayList();
+			this._moduleSettings = new List<ModuleSetting>();
+			this._moduleServices = new List<ModuleService>();
 		}
 	}
 }

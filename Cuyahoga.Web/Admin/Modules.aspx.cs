@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
@@ -41,7 +42,7 @@ namespace Cuyahoga.Web.Admin
 		private void BindModules()
 		{
 			// Retrieve the available modules that are installed.
-            IList availableModules = this._moduleTypeService.GetAllModuleTypes();
+            IList<ModuleType> availableModules = this._moduleTypeService.GetAllModuleTypes();
 			// Retrieve the available modules from the filesystem.
 			string moduleRootDir = HttpContext.Current.Server.MapPath("~/Modules");
 			DirectoryInfo[] moduleDirectories = new DirectoryInfo(moduleRootDir).GetDirectories();
