@@ -27,9 +27,10 @@
 		
 		<% Html.RenderPartial("RightsSelector", ViewData.Model, ViewData); %>
 		
-		<input type="submit" value="<%= GlobalResources.SaveButtonLabel %>" />
-		<%= GlobalResources.Or %>
-		<%= Html.ActionLink(GlobalResources.CancelLabel, "Roles", "Users") %>
+		<div id="buttonpanel">
+		    <input type="submit" class="abtnsave" value="<%= GlobalResources.SaveButtonLabel %>" /> <string><%= GlobalResources.Or %></string> <%= Html.ActionLink(GlobalResources.CancelLabel, "Roles", "Users", new { @class = "abtncancel" }) %>
+		</div>
+		
 		<%= Html.ClientSideValidation(ViewData.Model, "roleform", prop => "'role." + prop + "'") %>
 	<% } %>
 </asp:Content>

@@ -1,0 +1,36 @@
+/*added container to handle min-width and prevent breaking layout at lower widths*/
+#contentcontainer
+{
+    position: relative;
+    top: -24px;
+	min-width: 980px;
+	margin: 8px;
+	clear: both;
+}
+
+#contentarea
+{
+	min-height: 600px;
+	position: relative;
+	padding: 8px;
+	margin: 0 4px 0 4px;
+	background-color: #fff;
+	border: 1px solid #369;
+	overflow: hidden;
+}
+
+#subcontentarea
+{	
+    min-height: 600px;
+    position: relative;
+	width: 256px;
+	float: right;
+	padding: 8px;
+	margin: 0 4px 0 4px;
+	background-color: #fff;
+	border: 1px solid #369;
+	/*for draggable items*/
+	overflow: visible;
+	z-index: 100;
+}
+

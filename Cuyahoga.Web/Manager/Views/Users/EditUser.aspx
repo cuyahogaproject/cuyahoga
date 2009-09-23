@@ -19,12 +19,13 @@
 			</ol>
 		</fieldset>
 		<% Html.RenderPartial("RoleSelector", ViewData.Model, ViewData); %>
-		<input type="submit" value="<%= GlobalResources.SaveButtonLabel %>" />
-		<%= GlobalResources.Or %>
-		<%= Html.ActionLink(GlobalResources.CancelLabel, "Index", "Users") %>
+		
+		<div id="buttonpanel">
+		    <input type="submit" class="abtnsave" value="<%= GlobalResources.SaveButtonLabel %>" /> <strong><%= GlobalResources.Or %></strong> <%= Html.ActionLink(GlobalResources.CancelLabel, "Index", "Users", new {@class="abtncancel"})%>
+		</div>
 		<%= Html.ClientSideValidation(ViewData.Model, "userform")%>
 	<% } %>
-	<br />
+	<br /><br />
 	<% using (Html.BeginForm("ChangePassword", "Users", new { id = ViewData.Model.Id }, FormMethod.Post, new { id = "passwordform" })) { %>
 		<fieldset>
 			<legend><%=GlobalResources.ChangePasswordLabel%></legend>
@@ -39,9 +40,11 @@
 				</li>
 			</ol>
 		</fieldset>
-		<input type="submit" value="<%= GlobalResources.ChangePasswordLabel %>" />
-		<%= GlobalResources.Or %>
-		<%= Html.ActionLink(GlobalResources.CancelLabel, "Index", "Users") %>
-		<%= Html.ClientSideValidation(ViewData.Model, "passwordform")%>
+		
+		<div id="buttonpanel">
+		    <input type="submit" class="abtnchangepassword" value="<%= GlobalResources.ChangePasswordLabel %>" /> <strong><%= GlobalResources.Or %></strong> <%= Html.ActionLink(GlobalResources.CancelLabel, "Index", "Users", new { @class = "abtncancel" })%>
+	    </div>
+	    
+	    <%= Html.ClientSideValidation(ViewData.Model, "passwordform")%>
 	<% } %>
 </asp:Content>

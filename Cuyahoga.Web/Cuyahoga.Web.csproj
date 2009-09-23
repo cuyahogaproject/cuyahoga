@@ -587,6 +587,16 @@
       <SubType>Form</SubType>
     </Content>
     <Content Include="Admin\Web.config" />
+    <Content Include="Manager\Content\Css\admin.actionbuttons.css" />
+    <Content Include="Manager\Content\Css\admin.contentediting.css" />
+    <Content Include="Manager\Content\Css\admin.master.css" />
+    <Content Include="Manager\Content\Css\admin.menu.css" />
+    <Content Include="Manager\Content\Css\admin.pagegrid.css" />
+    <Content Include="Manager\Content\Css\admin.pager.css" />
+    <Content Include="Manager\Content\Css\admin.table.grid.css" />
+    <Content Include="Manager\Content\Css\admin.tags.css" />
+    <Content Include="Manager\Content\Css\admin.taskarea.css" />
+    <Content Include="Manager\Content\Css\admin.templates.css" />
     <Content Include="Manager\Content\Css\jquery-ui\smoothness\images\ui-bg_flat_0_aaaaaa_40x100.png" />
     <Content Include="Manager\Content\Css\jquery-ui\smoothness\images\ui-bg_flat_75_ffffff_40x100.png" />
     <Content Include="Manager\Content\Css\jquery-ui\smoothness\images\ui-bg_glass_55_fbf9ee_1x400.png" />
@@ -601,9 +611,20 @@
     <Content Include="Manager\Content\Css\jquery-ui\smoothness\images\ui-icons_888888_256x240.png" />
     <Content Include="Manager\Content\Css\jquery-ui\smoothness\images\ui-icons_cd0a0a_256x240.png" />
     <Content Include="Manager\Content\Css\jquery-ui\smoothness\jquery-ui-1.7.2.cuyahoga.css" />
+    <Content Include="Manager\Content\Css\manager.actionbuttons.css" />
+    <Content Include="Manager\Content\Css\manager.contentediting.css" />
     <Content Include="Manager\Content\Css\Manager.css" />
+    <Content Include="Manager\Content\Css\manager.menu.css" />
+    <Content Include="Manager\Content\Css\manager.pagegrid.css" />
+    <Content Include="Manager\Content\Css\manager.pager.css" />
+    <Content Include="Manager\Content\Css\manager.tablegrid.css" />
+    <Content Include="Manager\Content\Css\manager.tags.css" />
+    <Content Include="Manager\Content\Css\manager.taskarea.css" />
+    <Content Include="Manager\Content\Css\manager.templates.css" />
     <Content Include="Manager\Content\Css\Pagegrid.css" />
+    <Content Include="Manager\Content\Css\reset.css" />
     <Content Include="Manager\Content\Images\add.png" />
+    <Content Include="Manager\Content\Images\admin-header-background.jpg" />
     <Content Include="Manager\Content\Images\ajax-loader.gif" />
     <Content Include="Manager\Content\Images\application_form.png" />
     <Content Include="Manager\Content\Images\arrow_refresh.png" />
@@ -627,6 +648,7 @@
     <Content Include="Manager\Content\Images\layout_add.png" />
     <Content Include="Manager\Content\Images\layout_content.png" />
     <Content Include="Manager\Content\Images\layout_edit.png" />
+    <Content Include="Manager\Content\Images\main-background-gradient.jpg" />
     <Content Include="Manager\Content\Images\page.png" />
     <Content Include="Manager\Content\Images\page_link.png" />
     <Content Include="Manager\Content\Images\page_white.png" />
@@ -639,6 +661,7 @@
     <Content Include="Manager\Content\Images\page_white_stack.png" />
     <Content Include="Manager\Content\Images\page_white_text.png" />
     <Content Include="Manager\Content\Images\page_white_word.png" />
+    <Content Include="Manager\Content\Images\panel-background-gradient.jpg" />
     <Content Include="Manager\Content\Images\pencil.png" />
     <Content Include="Manager\Content\Images\plugin.png" />
     <Content Include="Manager\Content\Images\section_collapsed.png" />

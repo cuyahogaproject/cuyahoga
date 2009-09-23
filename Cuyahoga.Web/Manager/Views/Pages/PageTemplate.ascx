@@ -1,7 +1,7 @@
 ﻿<%@ Import Namespace="Cuyahoga.Web.Manager.Model.ViewModels"%>
 <%@ Control Language="C#" Inherits="System.Web.Mvc.ViewUserControl<TemplateViewData>" %>
 <style type="text/css">
-<%= ViewData.Model.TemplateCss %>
+    <%= ViewData.Model.TemplateCss %>
 </style>
 <div id="<%= ViewData.Model.CssIdPrefix %>">
 	<%= ViewData.Model.TemplateHtml %>

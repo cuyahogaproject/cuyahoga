@@ -1,0 +1,350 @@
+/* Action Hyperlinks and Submit Buttons */
+/* classes have been added to the hyperlinks that have CRUD actions (and other actions) */
+/* Not finalised. */
+
+.abtnview
+{
+    margin-bottom: 1px;
+    padding: 2px 4px 2px 4px;
+    width: 64px;
+    display: block;
+    border: 1px solid #ddd;
+    background-color: #eee;
+    color: #666;
+    text-decoration: none;
+    text-align: center;
+}
+.abtnview:hover
+{
+    border: 1px solid #05b;
+    background-color: #06c;
+    text-decoration: none;
+    color: #fff;
+}
+
+.abtnsave
+{
+    margin-bottom: 1px;
+    padding: 2px 4px 2px 4px;
+    display: block;
+    width: 64px;
+    border: 1px solid #ddd;
+    background-color: #eee;
+    color: #666;
+    text-decoration: none;
+    text-align: center;
+}
+.abtnsave:hover
+{
+    border: 1px solid #282;
+    background-color: #393;
+    text-decoration: none;
+    color: #fff;
+}
+
+.abtnedit
+{
+    margin-bottom: 1px;
+    padding: 2px 4px 2px 4px;
+    display: block;
+    width: 64px;
+    border: 1px solid #ddd;
+    background-color: #eee;
+    color: #666;
+    text-decoration: none;
+    text-align: center;
+}
+.abtnedit:hover
+{
+    border: 1px solid #e80;
+    background-color: #f90;
+    text-decoration: none;
+    color: #fff;
+}
+
+.abtndelete
+{
+    margin-bottom: 1px;
+    padding: 2px 4px 2px 4px;
+    display: block;
+    width: 64px;
+    border: 1px solid #ddd;
+    background-color: #eee;
+    color: #666;
+    text-decoration: none;
+    text-align: center;
+}
+.abtndelete:hover
+{
+    border: 1px solid #e00;
+    background-color: #f00;
+    text-decoration: none;
+    color: #fff;
+}
+
+.abtnchangepassword
+{
+    margin-bottom: 1px;
+    padding: 2px 4px 2px 4px;
+    display: block;
+    border: 1px solid #ddd;
+    background-color: #eee;
+    color: #666;
+    text-decoration: none;
+    text-align: center;
+}
+.abtnchangepassword:hover
+{
+    border: 1px solid #e00;
+    background-color: #f00;
+    text-decoration: none;
+    color: #fff;
+}
+
+.abtncancel
+{
+    margin-bottom: 1px;
+    padding: 2px 4px 2px 4px;
+    display: block;
+    width: 64px;
+    border: 1px solid #ddd;
+    background-color: #eee;
+    color: #666;
+    text-decoration: none;
+    text-align: center;
+}
+.abtncancel:hover
+{
+    border: 1px solid #b0b0b0;
+    background-color: #c0c0c0;
+    text-decoration: none;
+    color: #fff;
+}
+
+.abtncreate
+{
+    margin-bottom: 1px;
+    padding: 2px 4px 2px 4px;
+    display: block;
+    width: 64px;
+    border: 1px solid #ddd;
+    background-color: #eee;
+    color: #666;
+    text-decoration: none;
+    text-align: center;
+}
+.abtncreate:hover
+{
+    border: 1px solid #e80;
+    background-color: #f90;
+    text-decoration: none;
+    color: #fff;
+}
+
+.abtnok
+{
+    margin-bottom: 1px;
+    padding: 2px 4px 2px 4px;
+    display: block;
+    width: 64px;
+    border: 1px solid #ddd;
+    background-color: #eee;
+    color: #666;
+    text-decoration: none;
+    text-align: center;
+}
+.abtnok:hover
+{
+    border: 1px solid #282;
+    background-color: #339933;
+    text-decoration: none;
+    color: #fff;
+}
+
+.abtnbrowseuser
+{
+    margin-bottom: 1px;
+    padding: 2px 4px 2px 4px;
+    display: block;
+    width: 64px;
+    border: 1px solid #ddd;
+    background-color: #eee;
+    color: #666;
+    text-decoration: none;
+    text-align: center;
+}
+.abtnbrowseuser:hover
+{
+    border: 1px solid #b0b0b0;
+    background-color: #65ADC5;
+    text-decoration: none;
+    color: #fff;
+}
+
+.abtnfilter
+{
+    margin-bottom: 1px;
+    padding: 2px 4px 2px 4px;
+    display: block;
+    width: 64px;
+    border: 1px solid #ddd;
+    background-color: #eee;
+    color: #666;
+    text-decoration: none;
+    text-align: center;
+}
+.abtnfilter:hover
+{
+    border: 1px solid #b0b0b0;
+    background-color: #393;
+    text-decoration: none;
+    color: #fff;
+}
+#usersearchform .abtnfilter 
+{
+    display: inline;    
+}
+
+
+.abtnindex
+{
+    margin-bottom: 1px;
+    padding: 2px 4px 2px 4px;
+    display: block;
+    border: 1px solid #ddd;
+    background-color: #eee;
+    color: #666;
+    text-decoration: none;
+    text-align: center;
+}
+.abtnindex:hover
+{
+    border: 1px solid #b0b0b0;
+    background-color: #FF0000;
+    text-decoration: none;
+    color: #fff;
+}
+
+
+
+.abtnupload
+{
+    margin-bottom: 1px;
+    padding: 2px 4px 2px 4px;
+    display: block;
+    border: 1px solid #ddd;
+    background-color: #eee;
+    color: #666;
+    text-decoration: none;
+    text-align: center;
+}
+.abtnupload:hover
+{
+    border: 1px solid #282;
+    background-color: #393;
+    text-decoration: none;
+    color: #fff;
+}
+
+
+
+
+/*module button actions*/
+.installlink
+{
+    margin-bottom: 1px;
+    padding: 2px 4px 2px 4px;
+    display: block;
+    width: 64px;
+    border: 1px solid #ddd;
+    background-color: #eee;
+    color: #666;
+    text-decoration: none;
+    text-align: center;
+}
+.installlink:hover
+{
+    border: 1px solid #282;
+    background-color: #339933;
+    text-decoration: none;
+    color: #fff;
+}
+
+.uninstalllink
+{
+    margin-bottom: 1px;
+    padding: 2px 4px 2px 4px;
+    display: block;
+    width: 64px;
+    border: 1px solid #ddd;
+    background-color: #eee;
+    color: #666;
+    text-decoration: none;
+    text-align: center;
+}
+.uninstalllink:hover
+{
+    border: 1px solid #282;
+    background-color: #FF0000;
+    text-decoration: none;
+    color: #fff;
+}
+
+.upgradelink
+{
+    margin-bottom: 1px;
+    padding: 2px 4px 2px 4px;
+    display: block;
+    width: 64px;
+    border: 1px solid #ddd;
+    background-color: #eee;
+    color: #666;
+    text-decoration: none;
+    text-align: center;
+}
+.upgradelink:hover
+{
+    border: 1px solid #282;
+    background-color: #0099CC;
+    text-decoration: none;
+    color: #fff;
+}
+
+
+#uploadpanel
+{
+    padding: 8px;
+    overflow: auto;
+}
+
+#uploadpanel *
+{
+    position: relative;
+    float: left;
+    margin-right: 8px;
+}
+
+#createdirpanel
+{
+    padding: 8px;
+    overflow: auto;
+}
+
+#createdirpanel *
+{
+    position: relative;
+    float: left;
+    margin-right: 8px;
+}
+
+#buttonpanel
+{
+    padding: 8px;
+    position: relative;
+    float: right;
+}
+
+#buttonpanel *
+{
+    display: inline-block;
+}

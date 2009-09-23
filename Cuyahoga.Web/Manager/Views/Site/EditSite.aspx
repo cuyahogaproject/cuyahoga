@@ -67,7 +67,8 @@
 				</li>
 			</ol>
 		</fieldset>	
-		
-		<input type="submit" value="<%= GlobalResources.SaveButtonLabel %>" />	
+		<div id="buttonpanel">
+		    <input type="submit" class="abtnsave" value="<%= GlobalResources.SaveButtonLabel %>" />
+		</div>
 	<% } %>
 </asp:Content>

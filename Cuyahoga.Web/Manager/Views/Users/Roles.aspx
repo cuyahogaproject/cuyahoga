@@ -27,11 +27,12 @@
 						<td><%= role.RightsString %></td>	
 						<td><%= role.IsGlobal %></td>
 						<td style="white-space:nowrap">
-							<%= Html.ActionLink(GlobalResources.UsersLabel, "Browse", new { roleid = role.Id } ) %>
+							<%= Html.ActionLink(GlobalResources.UsersLabel, "Browse", new { roleid = role.Id }, new { @class = "abtnbrowseuser" })%>
 							<% if (! role.IsGlobal || Html.HasRight(User, Rights.GlobalPermissions)) { %>
-								<%= Html.ActionLink(GlobalResources.EditLabel, "EditRole", new { id = role.Id }) %>
-								<% using (Html.BeginForm("DeleteRole", "Users", new { id = role.Id }, FormMethod.Post)) { %>
-									<a href="#" class="deletelink"><%= GlobalResources.DeleteButtonLabel %></a>
+								<%= Html.ActionLink(GlobalResources.EditLabel, "EditRole", new { id = role.Id }, new { @class = "abtnedit" }) %>
+								<% using (Html.BeginForm("DeleteRole", "Users", new { id = role.Id }, FormMethod.Post))
+           { %>
+									<a href="#" class="abtndelete"><%= GlobalResources.DeleteButtonLabel %></a>
 								<% } %>
 							<% } %>
 						</td>

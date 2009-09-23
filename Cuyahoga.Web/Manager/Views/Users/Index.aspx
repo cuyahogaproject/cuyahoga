@@ -21,7 +21,7 @@
 		<% if ((bool)ViewData["globalsearchallowed"]) { %>
 			<%= Html.CheckBox("globalsearch", (bool?)ViewData["globalsearch"])%><label for="globalsearch"><%= GlobalResources.GlobalSearchLabel %></label>
 		<% } %>
-		<input type="submit" value="<%= GlobalResources.FilterButtonLabel %>" />
+		<input type="submit" class="abtnfilter" value="<%= GlobalResources.FilterButtonLabel %>" />
 	<% } %>
 	<br />
 	<% if (ViewData.Model.Count > 0) { %>
@@ -45,9 +45,10 @@
 						<td><%= user.LastLogin %></td>
 						<td><%= user.LastIp %></td>
 						<td>
-							<%= Html.ActionLink(GlobalResources.EditLabel, "Edit", new { id = user.Id }) %>
-							<% using (Html.BeginForm("Delete", "Users", new { id = user.Id }, FormMethod.Post)) { %>
-								<a href="#" class="deletelink"><%= GlobalResources.DeleteButtonLabel %></a>
+							<%= Html.ActionLink(GlobalResources.EditLabel, "Edit", new { id = user.Id }, new { @class = "abtnedit" })%>
+							<% using (Html.BeginForm("Delete", "Users", new { id = user.Id }, FormMethod.Post))
+          { %>
+								<a href="#" class="abtndelete"><%= GlobalResources.DeleteButtonLabel %></a>
 							<% } %>
 						</td>
 					</tr>

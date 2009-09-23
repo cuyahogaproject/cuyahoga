@@ -1,0 +1,108 @@
+#mainmenu *
+{
+    z-index: 500;
+}
+
+#mainmenu
+{
+	background-color: #eef;
+	padding: 5px 10px 0px 10px;
+	height: 28px;
+	border-bottom: 1px solid #ccc;
+	min-width: 980px;
+}
+
+#mainmenu-options
+{
+	float: right;
+}
+
+#mainmenu li
+{
+	float: left;
+	margin-right: 4px;
+	border-top: 1px solid #ccc;
+	border-left: 1px solid #ccc;
+	border-right: 1px solid #ccc;
+	background-color: #369;
+	position: relative;
+}
+
+#mainmenu li.selected
+{
+	background-color: #eee;
+}
+
+#mainmenu a
+{
+	display: block;
+	padding: 4px 10px 4px 6px;
+	color: #fff;
+	text-decoration: none;
+	font-weight: bold;
+	float: left;
+}
+
+#mainmenu a:hover,
+#mainmenu li.selected ul li a:hover
+{
+	background-color: #69c;
+}
+
+#mainmenu li.selected a
+{
+	color: #000;
+}
+
+#mainmenu li.selected a:hover
+{
+	background-color: #ddd;
+}
+
+#mainmenu img
+{
+	vertical-align: middle;
+	margin-top: -4px;
+}
+
+#mainmenu .expander
+{
+	float: left;
+	border-left: 1px solid #ccc;
+	padding-top: 8px;
+	height: 20px;
+	cursor: pointer;
+}
+
+#mainmenu .expander:hover
+{
+	background-color: #58b;
+}
+
+#mainmenu li ul
+{
+	position: absolute;
+	display: none;
+	top: 28px;
+	left: -1px;
+	padding: 0;
+	width: 150px;
+}
+
+#mainmenu li ul li,
+#mainmenu li.selected ul li
+{
+	float: none;
+	background-color: #58b;
+	border: 0;
+	border-bottom: 1px solid #eee;
+	margin: 0;
+}
+
+#mainmenu li ul li a,
+#mainmenu li.selected ul li a
+{
+	float: none;
+	color: #fff;
+	font-weight: normal;
+}

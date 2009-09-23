@@ -1,0 +1,53 @@
+﻿table.grid
+{	
+	color: #333333;
+	border-collapse: collapse;
+}
+
+table.grid th
+{
+	color: #333333;
+	background-color: #eee;
+	font-weight: bold;
+	border-right: solid 1px #fff;
+	border-bottom: solid 1px #ccc;
+	padding: 4px;
+}
+
+table.grid td
+{
+	border-bottom: 1px solid #eee;
+	padding: 6px 4px;
+
+}
+
+table.grid td form
+{
+	display: inline;
+}
+
+table.grid tr:hover
+{
+	background-color: #eef;
+}
+
+table.grid tr.selected
+{
+	background-color: #eef;
+	font-weight: bold;
+}
+
+table.grid td a
+{
+	margin-right: 5px;
+}
+
+table.grid td.center
+{
+	text-align: center;
+}
+
+table.grid td.right
+{
+	text-align: right;
+}

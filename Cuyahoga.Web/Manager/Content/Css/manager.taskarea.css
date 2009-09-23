@@ -1,0 +1,99 @@
+﻿#taskarea
+{
+	margin-left: 10px;
+	position: relative;
+}
+
+.taskcontainer
+{
+	border: 1px solid #ccc;
+	padding: 3px 5px;
+	background-color: #eef;
+}
+
+.taskcontainer p
+{
+	margin: 3px 0;
+}
+
+.taskcontainer label
+{
+	line-height: 20px;
+}
+
+.taskcontainer input[type=text]
+{
+	width: 90%;
+}
+
+.taskcontainer select
+{
+    width: 90%;
+	border: 1px solid #666;
+	padding: 4px;
+}
+
+#taskarea a
+{
+	display: block;
+	background-repeat: no-repeat;
+	background-position: left;
+	padding: 5px 20px;
+	border-bottom: 1px solid #ddd;
+}
+
+#taskarea a:hover
+{
+	background-color: #fff;
+	text-decoration: none;
+}
+
+#taskarea a.createlink
+{	
+	background-image: url(../Images/add.png);
+}
+
+#taskarea a.refreshlink
+{
+	background-image: url(../Images/arrow_refresh.png);
+}
+
+#taskarea a.designlink
+{
+	background-image: url(../Images/layout_edit.png);
+}
+
+#taskarea a.contentlink
+{
+	background-image: url(../Images/pencil.png);
+}
+
+#taskarea a.expandlink
+{
+	background-image: url(../Images/section_collapsed.png);
+}
+
+#taskarea a.collapselink
+{
+	background-image: url(../Images/section_expanded.png);
+	background-color: #369;
+	padding: 5px 20px;
+	color: #fff;
+}
+
+#taskarea a.deletelink
+{
+	display: block;
+	background-image: url(../Images/delete.png);
+	background-repeat: no-repeat;
+	background-position: left;
+	padding: 5px 20px;
+}
+
+/*move the taskbarbuttons to the right*/
+#taskarea .abtncreate, #taskarea .abtncancel, #taskarea .abtnsave, #taskarea .abtnupload
+{
+    margin-top: 8px;
+    margin-left: 158px;  
+}
+

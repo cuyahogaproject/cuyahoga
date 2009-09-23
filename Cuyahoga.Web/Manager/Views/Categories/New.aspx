@@ -15,9 +15,11 @@
 			</ol>
 		</fieldset>
 		
-		<input type="submit" value="<%= GlobalResources.SaveButtonLabel %>" />
-		<%= GlobalResources.Or %>
-		<%= Html.ActionLink(GlobalResources.CancelLabel, "Index", "Categories") %>
-		<%= Html.ClientSideValidation(ViewData.Model, "categoryform") %>		
+        <div id="buttonpanel">
+	        <input type="submit" class="abtnsave" value="<%= GlobalResources.SaveButtonLabel %>" /> <strong><%= GlobalResources.Or %></strong> <%= Html.ActionLink(GlobalResources.CancelLabel, "Index", "Categories", new { @class = "abtncancel" })%>
+	    </div>
+	    <%= Html.ClientSideValidation(ViewData.Model, "categoryform") %>
+
+	
 	<% } %>
 </asp:Content>

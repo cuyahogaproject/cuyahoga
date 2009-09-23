@@ -5,14 +5,14 @@
 <div class="taskcontainer">
 	<% using (Html.BeginForm("UpdateSection", "Sections", new { id = ViewData.Model.Id }, FormMethod.Post, new { id = "sectionform" })) { %>
 		<% Html.RenderPartial("SharedSectionElementsNarrow", ViewData.Model, ViewData); %>
-		<input type="submit" value="<%= GlobalResources.SaveButtonLabel %>" />
+		<input type="submit" class="abtnsave" value="<%= GlobalResources.SaveButtonLabel %>" />
 	<% } %>
 </div>
 <a href="#" class="expandlink"><%= GlobalResources.SectionPermissionsLabel %></a>
 <div class="taskcontainer" style="display:none">
 	<% using (Html.BeginForm("SetSectionPermissions", "Sections", new { id = ViewData.Model.Id }, FormMethod.Post)) { %>
 		<% Html.RenderPartial("ViewAndEditRolesSelector", ViewData.Model.SectionPermissions.OfType<Permission>(), ViewData); %>
-		<input type="submit" value="<%= GlobalResources.SaveButtonLabel %>" />
+		<input type="submit" class="abtnsave" value="<%= GlobalResources.SaveButtonLabel %>" />
 	<% } %>
 </div>
 <a href="#" class="expandlink"><%= GlobalResources.SectionConnectionsLabel %></a>

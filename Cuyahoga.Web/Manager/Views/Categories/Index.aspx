@@ -23,9 +23,9 @@
 					<td style="padding-left:<%= category.Level * 20 %>px"><%= category.Name %></td>
 					<td><%= category.Description %></td>
 					<td>
-						<%= Html.ActionLink(GlobalResources.EditLabel, "Edit", new { id = category.Id }) %>
+						<%= Html.ActionLink(GlobalResources.EditLabel, "Edit", new { id = category.Id }, new { @class = "abtnedit" })%>
 						<% using (Html.BeginForm("Delete", "Categories", new { id = category.Id }, FormMethod.Post)) { %>
-							<a href="#" class="deletelink"><%= GlobalResources.DeleteButtonLabel %></a>
+							<a href="#" class="abtndelete"><%= GlobalResources.DeleteButtonLabel %></a>
 						<% } %>
 					</td>
 				</tr>

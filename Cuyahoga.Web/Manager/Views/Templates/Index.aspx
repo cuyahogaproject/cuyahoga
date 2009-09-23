@@ -12,8 +12,8 @@
             <p>
             <%= GlobalResources.UploadNewTemplateFilesHint %>            
             </p>
-            <input type="file" id="templatesuploader" name="templatesuploader" style="width:220px" /><br />
-            <input type="submit" value="Upload" />
+            <input type="file" id="templatesuploader" name="templatesuploader" style="width:90%" /><br />
+            <input type="submit" class="abtnupload" value="Upload" />
         <% } %>
         <script type="text/javascript">
 			$(document).ready(function() {
@@ -33,10 +33,10 @@
 		<table class="grid" style="width:100%">
 			<thead>
 				<tr>
-					<th><%= GlobalResources.NameLabel%></th>
-					<th><%= GlobalResources.BasePathLabel%></th>
-					<th><%= GlobalResources.TemplateControlLabel%></th>
-					<th><%= GlobalResources.CssLabel%></th>
+					<th><h3><%= GlobalResources.NameLabel%></h3></th>
+					<th><h3><%= GlobalResources.BasePathLabel%></h3></th>
+					<th><h3><%= GlobalResources.TemplateControlLabel%></h3></th>
+					<th><h3><%= GlobalResources.CssLabel%></h3></th>
 					<th>&nbsp;</th>
 				</tr>
 			</thead>
@@ -48,10 +48,10 @@
 						<td><%= template.TemplateControl%></td>
 						<td><%= template.Css%></td>
 						<td style="white-space:nowrap">
-							<%= Html.ActionLink(GlobalResources.ViewLabel, "View", new { id = template.Id })%>
-							<%= Html.ActionLink(GlobalResources.EditLabel, "Edit", new { id = template.Id })%>
+							<%= Html.ActionLink(GlobalResources.ViewLabel, "View", new { id = template.Id }, new { @class = "abtnview" })%>
+							<%= Html.ActionLink(GlobalResources.EditLabel, "Edit", new { id = template.Id }, new { @class = "abtnedit" })%>
 							<% using (Html.BeginForm("Delete", "Templates", new { id = template.Id }, FormMethod.Post)) { %>
-								<a href="#" class="deletelink"><%= GlobalResources.DeleteButtonLabel%></a>
+								<a href="#" class="abtndelete"><%= GlobalResources.DeleteButtonLabel%></a>
 							<% } %>
 						</td>
 					</tr>

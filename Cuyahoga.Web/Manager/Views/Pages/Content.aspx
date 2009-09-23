@@ -52,7 +52,7 @@
 			var editUrl = sectionElement.find('a:first').attr('href');
 			var contentEditorDiv = sectionElement.children('.contenteditor:first');
 			if (editUrl != "#" && contentEditorDiv.children().length == 0) {
-				contentEditorDiv.append('<iframe frameborder="0" src="' + editUrl + '" style="width:100%"');
+				contentEditorDiv.append('<iframe frameborder="0" src="' + editUrl + '" style="width:100%"></iframe>');
 				resizeiframes(); // in iframe.js			
 			}
 			contentEditorDiv.show();

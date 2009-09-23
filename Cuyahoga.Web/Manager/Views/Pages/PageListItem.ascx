@@ -2,10 +2,10 @@
 <%@ Control Language="C#" Inherits="System.Web.Mvc.ViewUserControl<Node>" %>
 			<% using (Html.PageListItem(ViewData.Model, ViewData["ActiveNode"] as Node)) { %>
 				<% using (Html.PageRowDiv(ViewData.Model, ViewData["ActiveNode"] as Node)) { %>
-					<div class="fr" style="width:120px;text-align:right;"><%= ViewData.Model.UpdateTimestamp%></div>
-					<div class="fr" style="width:80px"><%= ViewData.Model.Culture%></div>
-					<div class="fr" style="width:120px"><%= ViewData.Model.Template != null ? ViewData.Model.Template.Name : String.Empty%></div>
-					<div class="fr" style="width:160px"><%= ViewData.Model.DisplayUrl%></div>
+					<div class="fr" style="width:20%;"><%= ViewData.Model.UpdateTimestamp%></div>
+					<div class="fr" style="width:10%;"><%= ViewData.Model.Culture%></div>
+					<div class="fr" style="width:18%;"><%= ViewData.Model.Template != null ? ViewData.Model.Template.Name : String.Empty%></div>
+					<div class="fr" style="width:23%;"><%= ViewData.Model.DisplayUrl%>></div>
 					<div style="white-space:nowrap">
 						<span class="<%= ViewData.Model.IsExternalLink ? "link" : "page" %>">
 							<%= Html.PageExpander(ViewData.Model, ViewData["ActiveNode"] as Node)%>

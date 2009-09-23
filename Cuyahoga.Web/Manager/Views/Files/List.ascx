@@ -10,10 +10,10 @@
 	<table class="grid" style="width:99%">
 		<thead>
 			<tr>
-				<th style="width:30px">&nbsp;</th>
+				<th style="width:5%">&nbsp;</th>
 				<th><%= GlobalResources.NameLabel %></th>
-				<th style="width:100px"><%= GlobalResources.SizeLabel %></th>
-				<th style="width:130px"><%= GlobalResources.DateModifiedLabel %></th>
+				<th style="width:10%; text-align:center;"><%= GlobalResources.SizeLabel %></th>
+				<th style="width:25%; text-align:center;"><%= GlobalResources.DateModifiedLabel %></th>
 			</tr>
 		</thead>
 		<tbody>
@@ -40,8 +40,8 @@
 							<%= directory.Name %>
 						</a>
 					</td>
-					<td class="right">&nbsp;</td>
-					<td class="right"><%= directory.LastWriteTime.ToString() %></td>
+					<td>&nbsp;</td>
+					<td><%= directory.LastWriteTime.ToString() %></td>
 				</tr>
 			<% } %>
 			<% foreach (var file in Model.Files) { %>
@@ -51,8 +51,8 @@
 						<%= Html.FileImage("~/manager/Content/Images/", file.Name) %>
 						<%= file.Name %>
 					</td>
-					<td class="right"><%= file.Length %></td>
-					<td class="right"><%= file.LastWriteTime.ToString() %></td>
+					<td style="text-align:center;"><%= file.Length %></td>
+					<td style="text-align:center;"><%= file.LastWriteTime.ToString() %></td>
 				</tr>
 			<% } %>
 		</tbody>
@@ -80,21 +80,21 @@
 <% } // end form %>
 
 <form action="<%= Url.Action("Upload", "Files") %>" method="post" enctype="multipart/form-data">
-	<p>
-		<%= Html.Hidden("uploadpath", Model.Path)	%>
-		<label for="filedata"><%=GlobalResources.UploadFilesLabel %></label>:
-		<input type="file" name="filedata" id="filedata" />
-		<input id="uploadbutton" type="submit" value="<%= GlobalResources.UploadButtonLabel %>" />
-	</p>
+	<div id="uploadpanel">
+		<%= Html.Hidden("uploadpath", Model.Path)%>
+	    <label for="filedata"><%=GlobalResources.UploadFilesLabel %> :</label>
+	    <input type="file" name="filedata" id="filedata" />
+	    <input id="uploadbutton" class="abtnupload" type="submit" value="<%= GlobalResources.UploadButtonLabel %>" />
+	</div>
 </form>
 
 <% if (Model.CanCreateDirectory) { %>
 	<% using (Html.BeginForm("CreateDirectory", "Files")) { %>
-		<p>
+		<div id="createdirpanel">
 			<%=Html.Hidden("parentpath", Model.Path)%>
-			<label for="name"><%= GlobalResources.CreateDirectoryLabel %></label>
+			<label for="name"><%= GlobalResources.CreateDirectoryLabel %> :</label>
 			<%=Html.TextBox("name")%>
-			<input type="submit" value="<%= GlobalResources.OkLabel %>" />
-		</p>
+			<input type="submit" class="abtnok" value="<%= GlobalResources.OkLabel %>" />
+		</div>
 	<% } %>
 <% } %>

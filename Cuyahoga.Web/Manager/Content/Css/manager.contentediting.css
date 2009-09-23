@@ -1,0 +1,19 @@
+.contenteditor iframe
+{
+   overflow: hidden;
+}
+
+#contentblocks li
+{
+	padding: 2px;
+}
+
+#contentblocks li.active
+{
+	background-color: #369;
+}
+
+#contentblocks li.active a
+{
+	color: #fff;
+}

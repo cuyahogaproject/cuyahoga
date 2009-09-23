@@ -42,8 +42,8 @@
 				</li>
 			</ol>
 		</fieldset>
-		<input type="submit" value="<%= GlobalResources.SaveButtonLabel %>" />
-		<%= GlobalResources.Or %>
-		<%= Html.ActionLink(GlobalResources.CancelLabel, "Index", "Site") %>
+		<div id="buttonpanel">
+		    <input type="submit" class="abtnsave" value="<%= GlobalResources.SaveButtonLabel %>" /> <strong><%= GlobalResources.Or %></strong> <%= Html.ActionLink(GlobalResources.CancelLabel, "Index", "Site", new { @class = "abtncancel" })%>
+		</div>
 	<% } %>
 </asp:Content>

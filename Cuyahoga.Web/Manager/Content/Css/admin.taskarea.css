@@ -1,0 +1,247 @@
+﻿#taskarea
+{
+	/*margin-left: 10px;*/
+	position: relative;
+}
+
+/*the links etc*/
+#taskarea h2
+{
+    margin: 5px 0px 10px 0px;
+    padding: 6px;
+    background-color: #369;
+    color: #fff;
+}
+
+#taskarea a
+{
+	display: block;
+	background-repeat: no-repeat;
+	background-position: left;
+	background-color: #f6f6f6;
+	padding: 4px 0 4px 24px;
+	border-bottom: 1px solid #ddd;
+    width: 90%;
+}
+
+#taskarea a:hover
+{
+	background-color: #369;
+	color: #fff;
+	text-decoration: none;
+}
+
+#taskarea a.createlink
+{
+    background-position: 4px;
+    background-image: url(../Images/add.png);
+}
+
+#taskarea a.refreshlink
+{    
+    background-position: 4px;
+	background-image: url(../Images/arrow_refresh.png);
+}
+
+#taskarea a.designlink
+{    
+    background-position: 4px;
+	background-image: url(../Images/layout_edit.png);
+}
+
+#taskarea a.contentlink
+{    
+    background-position: 4px;
+	background-image: url(../Images/pencil.png);
+}
+
+#taskarea a.expandlink
+{    
+    background-position: 4px;
+	background-image: url(../Images/section_collapsed.png);
+}
+
+#taskarea a.collapselink
+{    
+    background-position: 4px;
+	background-image: url(../Images/section_expanded.png);
+	background-color: #369;
+	color: #fff;
+}
+
+#taskarea a.deletelink
+{    
+    background-position: 4px;
+	display: block;
+	background-image: url(../Images/delete.png);
+}
+
+
+
+/* Tasks */
+#taskarea #tasks h2
+{
+    margin: 5px 0px 10px 0px;
+    padding: 6px;
+    background-color: #369;
+    color: #fff;
+}
+
+
+
+/*Selected Section*/
+#taskarea #selectedsection h2
+{
+    /*background-color: #96c;*/
+    background-color: #369;
+}
+
+#taskarea #selectedsection a
+{
+	display: block;
+	background-repeat: no-repeat;
+	background-position: left;
+	background-color: #f6f6f6;
+	padding: 4px 0 4px 24px;
+	border-bottom: 1px solid #ddd;
+    width: 90%;
+}
+
+#taskarea #selectedsection a:hover
+{
+	background-color: #369;
+	color: #fff;
+	text-decoration: none;
+}
+
+#taskarea #selectedsection a.collapselink
+{    
+    background-position: 4px;
+	background-image: url(../Images/section_expanded.png);
+	background-color: #369;
+	color: #fff;
+}
+/**/
+
+
+
+/*Selected Page */
+#taskarea #selectedpage h2
+{
+    /*background-color: #f90;*/
+    background-color: #369;
+}
+
+#taskarea #selectedpage a
+{
+	display: block;
+	background-repeat: no-repeat;
+	background-position: left;
+	background-color: #369;
+	padding: 4px 0 4px 24px;
+	border-bottom: 1px solid #ddd;
+    width: 90%;
+}
+
+#taskarea #selectedpage a:hover
+{
+	background-color: #369;
+	color: #fff;
+	text-decoration: none;
+}
+
+#taskarea #selectedpage a.collapselink
+{    
+    background-position: 4px;
+	background-image: url(../Images/section_expanded.png);
+	background-color: #369;
+	color: #fff;
+}
+/**/
+
+
+
+
+
+
+
+
+
+/* task container */
+.taskcontainer
+{
+    /*padding: 4px 4px 16px 4px;*/
+    border-bottom: 1px solid #ccc;
+    padding: 16px 0 20px 0;
+    width: 100%;
+    /*
+    background-position: bottom;
+    background-image: url(../Images/panel-background-gradient.jpg);
+    */
+}
+.taskcontainer form p
+{
+    display: block;
+    overflow: auto;
+}
+
+
+
+
+/*try and isolate these items with classes in these markup
+.taskcontainer > form > p > label, .taskcontainer > form > p > strong
+{
+    height: 16px;
+    padding: 0;
+    margin: 0;
+    margin-right: 8px;
+}*/
+
+.taskcontainer li
+{
+    display: block;
+    overflow: auto;
+}
+.taskcontainer li:hover
+{
+    background-color: #FFFFCC;
+}
+
+.taskcontainer p
+{
+	margin: 3px 0;
+}
+.taskcontainer label
+{
+    display: block;
+    position: relative;
+    float: left;
+    height: inherit;
+    margin-right: 8px;
+    padding: 2px 0 2px 4px;
+}
+.taskcontainer input[type="checkbox"]
+{
+    margin-top: 6px;
+    float: right;
+}
+.taskcontainer input[type=text]
+{
+	width: 90%;
+}
+.taskcontainer input[type=submit]
+{
+	margin: 16px 0 8px 174px;
+}
+.taskcontainer ul li
+{
+    width: 95%;
+    border-bottom-style: solid;
+    border-bottom-width: 1px;
+    border-bottom-color: #eee;
+}
+.taskcontainer select
+{
+	width: 225px;
+}
+

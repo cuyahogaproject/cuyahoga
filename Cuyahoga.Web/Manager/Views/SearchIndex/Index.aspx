@@ -25,8 +25,9 @@
 				</li>
 			</ol>
 		</fieldset>
-		
-		<input type="submit" value="<%= GlobalResources.RebuildFullTextIndexLabel %>" />
+		<div id="buttonpanel">
+		    <input type="submit" class="abtnindex" value="<%= GlobalResources.RebuildFullTextIndexLabel %>" />
+		</div>
 	<% } %>
 	<script type="text/javascript">
 		$(document).ready(function() {

@@ -12,7 +12,8 @@
 	<h1><%= GlobalResources.ViewTemplatePageTitle %></h1>
 	<div class="templatecontainer">
 		<div id="<%= ViewData.Model.CssIdPrefix %>">
-			<%= ViewData.Model.TemplateHtml %>
-		</div>
+			<%= ViewData.Model.TemplateHtml%>
+		</div
 	</div>
+	
 </asp:Content>

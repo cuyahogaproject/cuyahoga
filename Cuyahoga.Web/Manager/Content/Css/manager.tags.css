@@ -1,0 +1,187 @@
+body
+{
+	margin: 0;
+	padding: 0;
+	background: #eee;
+}
+
+h1
+{
+	margin: 5px 0px 10px 0px;
+	color: #333;
+	font-size: 150%;
+}
+
+h2
+{
+	margin: 5px 0px;
+	color: #333;
+	font-size: 130%;
+}
+
+h3
+{
+	margin: 3px 0px;
+	color: #333;
+	font-size: 110%;
+}
+
+h4
+{
+	margin: 2px 0px;
+	color: #333;
+	font-size: 100%;
+}
+
+form
+{
+	padding: 0;
+	margin: 0;
+}
+
+fieldset 
+{  
+	margin: 15px 0 5px 0;  
+	padding: 0;
+	border-style: none;
+	border-top: 1px solid #eee;
+}
+
+fieldset legend 
+{
+	font-weight: bold;
+	color: #333;
+	margin: 3px 0px;
+	border: 1px solid #ccc;
+	padding: 1px 5px;
+	background-color: #eee;
+}
+
+fieldset ol 
+{  
+	list-style: none;
+	padding: 0;
+	margin: 0;
+}
+
+fieldset li 
+{  
+	list-style: none;
+	margin-left: 2px;
+	padding: 3px;
+	float: left;  
+	clear: left;  
+	width: 99%; 
+	border-bottom: 1px solid #eee;
+}
+
+fieldset label 
+{  
+	float: left;
+	width: 200px;  
+	margin-right: 10px;
+}
+
+fieldset label.error
+{
+	margin-left: 210px;
+	font-style: italic;
+	color: #f00;
+	width: auto;
+	display: inline;
+}
+
+input.error, .input-validation-error
+{
+	border: 1px solid #f00;
+}
+
+fieldset fieldset 
+{  
+	margin-top: 0px;
+	margin-bottom: -15px; 
+	border-style: none; 
+}
+
+fieldset fieldset legend 
+{  
+	padding: 0;
+	font-weight: normal;
+	border: none;
+	background-color: Transparent;
+}
+
+fieldset fieldset ol 
+{  
+	position: relative;  
+	top: -30px;  
+	margin: 0 0 0 205px;  
+	padding: 0;
+}
+
+fieldset fieldset label 
+{  
+	float: none;  
+	width: auto;  
+	margin-right: auto;
+}
+
+a
+{
+	color: #369;
+	text-decoration: none;
+}
+
+a:hover
+{
+	text-decoration: underline;
+}
+
+img, iframe
+{
+	border: 0;
+}
+
+ul
+{
+	margin: 0;
+	padding: 0;
+	list-style-type: none;
+}
+
+/*outlined and padded inputs*/
+input[type=text], input[type=password], select, textarea
+{
+	border: 1px solid #666;
+	padding: 3px;
+	font-size: small;
+}
+input[type=text]:hover, input[type=password]:hover, select:hover, textarea:hover, input[type=text]:focus, input[type=password]:focus, textarea:focus
+{
+	background-color: #ffc;
+}
+
+
+
+
+
+/*styled submits
+input[type=submit]
+{
+    margin-bottom: 1px;
+    padding: 2px 4px 2px 4px;
+    display: block;
+    border: 1px solid #666;
+    background-color: #fff;
+    color: #666;
+    text-decoration: none;
+    text-align: center;
+}
+input[type=submit]:hover
+{
+    border: 1px solid #666;
+    background-color: #666;
+    text-decoration: none;
+    color: #fff;
+}
+*/

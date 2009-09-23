@@ -23,15 +23,17 @@
 		<% Html.RenderPartialRequest("SiteChooser"); %>
 		<% Html.RenderPartial("MainMenu", ViewData["MenuViewData"]); %>
 		<% Html.RenderPartial("Messages", ViewData["Messages"]); %>
-		<div id="subcontentarea">
-			<div id="taskarea">
-				<asp:ContentPlaceHolder id="cphTasks" runat="server">
-				</asp:ContentPlaceHolder>
-			</div>
-		</div>
-		<div id="contentarea">
-			<asp:ContentPlaceHolder id="cphMain" runat="server">
-			</asp:ContentPlaceHolder>
+		<div id="contentcontainer">
+		    <div id="subcontentarea">
+			    <div id="taskarea">
+				    <asp:ContentPlaceHolder id="cphTasks" runat="server">
+				    </asp:ContentPlaceHolder>
+			    </div>
+		    </div>
+		    <div id="contentarea">
+			    <asp:ContentPlaceHolder id="cphMain" runat="server">
+			    </asp:ContentPlaceHolder>
+		    </div>
 		</div>
 	</body>
 </html>
