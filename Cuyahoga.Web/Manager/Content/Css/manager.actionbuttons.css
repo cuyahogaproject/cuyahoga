@@ -1,6 +1,7 @@
 /* Action Hyperlinks and Submit Buttons */
 /* classes have been added to the hyperlinks that have CRUD actions (and other actions) */
 
+/*
 .abtnview
 {
     margin-bottom: 1px;
@@ -246,9 +247,10 @@
 }
 
 
-
+*/
 
 /*module button actions*/
+/*
 .installlink
 {
     margin-bottom: 1px;
@@ -310,7 +312,7 @@
 }
 
 
-
+*/
 
 /*panels that re-position buttons*/
 #uploadpanel
@@ -343,7 +345,6 @@
 {
     padding: 8px;
     position: relative;
-    float: right;
 }
 
 #buttonpanel *

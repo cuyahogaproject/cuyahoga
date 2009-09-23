@@ -11,7 +11,7 @@
 
 html *
 {
-	font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+	font-family: Arial, Helvetica, sans-serif;
 }
 
 body
@@ -62,7 +62,7 @@ body.dialog
 {
     position: relative;
 	min-width: 980px;
-	margin: 8px;
+	margin: 4px;
 	clear: both;
 }
 
@@ -71,9 +71,12 @@ body.dialog
 	min-height: 600px;
 	position: relative;
 	padding: 8px;
-	margin: 0 4px 0 4px;
+	margin: 12px 4px 0 4px;
 	background-color: #fff;
-	border: 1px solid #369;
+	border-top: 1px solid #ccc;
+	border-left: 1px solid #ccc;
+	border-bottom: 1px solid #ccc;
+	border-right: 8px solid #ccc;
 	/*overflow: auto;*/
 	overflow: hidden;
 }
@@ -84,10 +87,8 @@ body.dialog
     position: relative;
 	width: 256px;
 	float: right;
-	padding: 8px;
+	padding: 1px;
 	margin: 0 4px 0 4px;
-	background-color: #fff;
-	border: 1px solid #369;
 	/*for draggable items*/
 	overflow: visible;
 	z-index: 100;

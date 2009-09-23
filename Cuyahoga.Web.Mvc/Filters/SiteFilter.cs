@@ -4,7 +4,6 @@ using Cuyahoga.Core;
 using Cuyahoga.Core.Domain;
 using Cuyahoga.Core.Service.SiteStructure;
 using Cuyahoga.Core.Util;
-using Cuyahoga.Web.Mvc.Partials;
 using log4net;
 
 namespace Cuyahoga.Web.Mvc.Filters

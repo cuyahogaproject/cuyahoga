@@ -5,7 +5,7 @@
 					<div class="fr" style="width:20%;"><%= ViewData.Model.UpdateTimestamp%></div>
 					<div class="fr" style="width:10%;"><%= ViewData.Model.Culture%></div>
 					<div class="fr" style="width:18%;"><%= ViewData.Model.Template != null ? ViewData.Model.Template.Name : String.Empty%></div>
-					<div class="fr" style="width:23%;"><%= ViewData.Model.DisplayUrl%>></div>
+					<div class="fr" style="width:23%;"><%= ViewData.Model.DisplayUrl%></div>
 					<div style="white-space:nowrap">
 						<span class="<%= ViewData.Model.IsExternalLink ? "link" : "page" %>">
 							<%= Html.PageExpander(ViewData.Model, ViewData["ActiveNode"] as Node)%>

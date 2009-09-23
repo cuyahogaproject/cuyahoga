@@ -10,6 +10,7 @@ h1
 	margin: 5px 0px 10px 0px;
 	color: #333;
 	font-size: 150%;
+	font-weight: bold;
 }
 
 h2
@@ -17,6 +18,7 @@ h2
 	margin: 5px 0px;
 	color: #333;
 	font-size: 130%;
+	font-weight: bold;
 }
 
 h3
@@ -24,6 +26,7 @@ h3
 	margin: 3px 0px;
 	color: #333;
 	font-size: 110%;
+	font-weight: bold;
 }
 
 h4
@@ -152,15 +155,16 @@ ul
 /*outlined and padded inputs*/
 input[type=text], input[type=password], select, textarea
 {
-	border: 1px solid #666;
-	padding: 3px;
+	padding: 1px;
 	font-size: small;
 }
+
+/*
 input[type=text]:hover, input[type=password]:hover, select:hover, textarea:hover, input[type=text]:focus, input[type=password]:focus, textarea:focus
 {
 	background-color: #ffc;
 }
-
+*/
 
 
 

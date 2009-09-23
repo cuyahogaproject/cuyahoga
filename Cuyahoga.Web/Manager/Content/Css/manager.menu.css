@@ -6,10 +6,10 @@
 #mainmenu
 {
 	background-color: #eef;
-	padding: 5px 10px 0px 10px;
+	padding: 5px 8px 0px 8px;
 	height: 28px;
 	border-bottom: 1px solid #ccc;
-	min-width: 980px;
+	min-width: 972px;
 }
 
 #mainmenu-options
