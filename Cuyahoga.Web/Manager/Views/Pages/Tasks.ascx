@@ -11,11 +11,11 @@
 	<% using (Html.BeginForm("CreateRootPage", "Pages", null, FormMethod.Post)) { %>
 		<p>
 			<label for="Title"><%= GlobalResources.PageTitleLabel %></label>
-			<%= Html.TextBox("NewRootPage.Title", String.Empty, new { style = "width:90%;" })%>
+			<%= Html.TextBox("NewRootPage.Title", String.Empty, new { style = "width:97%;" })%>
 		</p>
 		<p>
 			<label for="Culture"><%= GlobalResources.CultureLabel %></label>
-			<%= Html.DropDownList("NewRootPage.Culture", ViewData["AvailableCultures"] as SelectList, new { style = "width:90%;" })%>
+			<%= Html.DropDownList("NewRootPage.Culture", ViewData["AvailableCultures"] as SelectList, new { style = "width:98%;" })%>
 		</p>
 		<input type="submit" class="abtncreate" value="<%= GlobalResources.CreateButtonLabel %>" />
 	<% } %>
@@ -26,7 +26,7 @@
 		<% using (Html.BeginForm("CreatePage", "Pages", new { parentnodeid = ViewData.Model.Id }, FormMethod.Post)) { %>
 			<p>
 				<label for="Title"><%= GlobalResources.PageTitleLabel %></label>
-				<%= Html.TextBox("NewPage.Title", String.Empty, new { style = "width:90%;" })%>
+				<%= Html.TextBox("NewPage.Title", String.Empty, new { style = "width:97%;" })%>
 			</p>
 			<input type="submit" class="abtncreate" value="<%= GlobalResources.CreateButtonLabel %>" />
 		<% } %>
@@ -37,15 +37,15 @@
 		<% using (Html.BeginForm("CreateLink", "Pages", new { parentnodeid = ViewData.Model.Id }, FormMethod.Post)) { %>
 			<p>
 				<label for="Title"><%= GlobalResources.LinkTitleLabel %></label>
-				<%= Html.TextBox("NewLink.Title", String.Empty, new { style = "width:90%;" })%>
+				<%= Html.TextBox("NewLink.Title", String.Empty, new { style = "width:97%;" })%>
 			</p>
 			<p>
 				<label for="LinkUrl"><%= GlobalResources.LinkUrlLabel %></label><br />
-				<%= Html.TextBox("NewLink.LinkUrl", String.Empty, new { style = "width:90%;" })%>
+				<%= Html.TextBox("NewLink.LinkUrl", String.Empty, new { style = "width:97%;" })%>
 			</p>
 			<p>
 				<label for="LinkTarget"><%= GlobalResources.LinkTargetLabel %></label>
-				<%= Html.DropDownList("NewLink.LinkTarget", ViewData["NewLinkTargets"] as SelectList, new { style = "width:90%;" })%>
+				<%= Html.DropDownList("NewLink.LinkTarget", ViewData["NewLinkTargets"] as SelectList, new { style = "width:98%;" })%>
 			</p>
 			<input type="submit" class="abtncreate" value="<%= GlobalResources.CreateButtonLabel %>" />
 		<% } %>

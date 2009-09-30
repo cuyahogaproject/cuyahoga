@@ -587,16 +587,6 @@
       <SubType>Form</SubType>
     </Content>
     <Content Include="Admin\Web.config" />
-    <Content Include="Manager\Content\Css\admin.actionbuttons.css" />
-    <Content Include="Manager\Content\Css\admin.contentediting.css" />
-    <Content Include="Manager\Content\Css\admin.master.css" />
-    <Content Include="Manager\Content\Css\admin.menu.css" />
-    <Content Include="Manager\Content\Css\admin.pagegrid.css" />
-    <Content Include="Manager\Content\Css\admin.pager.css" />
-    <Content Include="Manager\Content\Css\admin.table.grid.css" />
-    <Content Include="Manager\Content\Css\admin.tags.css" />
-    <Content Include="Manager\Content\Css\admin.taskarea.css" />
-    <Content Include="Manager\Content\Css\admin.templates.css" />
     <Content Include="Manager\Content\Css\jquery-ui\smoothness\images\ui-bg_flat_0_aaaaaa_40x100.png" />
     <Content Include="Manager\Content\Css\jquery-ui\smoothness\images\ui-bg_flat_75_ffffff_40x100.png" />
     <Content Include="Manager\Content\Css\jquery-ui\smoothness\images\ui-bg_glass_55_fbf9ee_1x400.png" />
@@ -1736,7 +1726,7 @@ xcopy /s /y "$(SolutionDir)"lib\Castle.Services.Logging.Log4netIntegration.dll "
         <WebProjectProperties>
           <UseIIS>False</UseIIS>
           <AutoAssignPort>False</AutoAssignPort>
-          <DevelopmentServerPort>8080</DevelopmentServerPort>
+          <DevelopmentServerPort>8081</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
           <IISUrl>http://localhost/cuyahoga</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>

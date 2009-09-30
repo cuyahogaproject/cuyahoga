@@ -71,7 +71,7 @@ body.dialog
 	min-height: 600px;
 	position: relative;
 	padding: 8px;
-	margin: 12px 4px 0 4px;
+	margin: 8px 4px 0 4px;
 	background-color: #fff;
 	border-top: 1px solid #ccc;
 	border-left: 1px solid #ccc;
@@ -85,7 +85,7 @@ body.dialog
 {	
     min-height: 600px;
     position: relative;
-	width: 256px;
+	width: 240px;
 	float: right;
 	padding: 1px;
 	margin: 0 4px 0 4px;

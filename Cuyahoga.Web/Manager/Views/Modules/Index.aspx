@@ -10,12 +10,12 @@
 	<table class="grid" style="width:100%">
 		<thead>
 			<tr>
-				<th><h3><%= GlobalResources.NameLabel %></h3></th>
-				<th><h3><%= GlobalResources.AssemblyLabel %></h3></th>
-				<th><h3><%= GlobalResources.LoadOnStartupLabel %></h3></th>
-				<th><h3><%= GlobalResources.ActivationStatusLabel %></h3></th>
-				<th><h3><%= GlobalResources.InstallationStatusLabel %></h3></th>
-				<th><h3><%= GlobalResources.ActionsLabel %></h3></th>
+				<th><%= GlobalResources.NameLabel %></th>
+				<th><%= GlobalResources.AssemblyLabel %></th>
+				<th><%= GlobalResources.LoadOnStartupLabel %></th>
+				<th><%= GlobalResources.ActivationStatusLabel %></th>
+				<th><%= GlobalResources.InstallationStatusLabel %></th>
+				<th><%= GlobalResources.ActionsLabel %></th>
 			</tr>
 		</thead>
 		<tbody>

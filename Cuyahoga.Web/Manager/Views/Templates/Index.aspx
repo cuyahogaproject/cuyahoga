@@ -33,10 +33,10 @@
 		<table class="grid" style="width:100%">
 			<thead>
 				<tr>
-					<th><h3><%= GlobalResources.NameLabel%></h3></th>
-					<th><h3><%= GlobalResources.BasePathLabel%></h3></th>
-					<th><h3><%= GlobalResources.TemplateControlLabel%></h3></th>
-					<th><h3><%= GlobalResources.CssLabel%></h3></th>
+					<th><%= GlobalResources.NameLabel%></th>
+					<th><%= GlobalResources.BasePathLabel%></th>
+					<th><%= GlobalResources.TemplateControlLabel%></th>
+					<th><%= GlobalResources.CssLabel%></th>
 					<th>&nbsp;</th>
 				</tr>
 			</thead>

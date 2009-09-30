@@ -16,11 +16,7 @@
     overflow: auto;
     margin: 0;
     padding: 0;
-}
-
-#pagegrid-head h3
-{
-    padding-left: 8px;
+    font-weight: bold;
 }
 
 #pagegrid-head div
@@ -30,6 +26,7 @@
 	border-bottom: solid 1px #ccc;
 	padding-top: 4px;
 	padding-bottom: 4px;
+	text-align: center;
 }
 
 #pagegrid .selected
@@ -41,15 +38,14 @@
 
 #pagegrid-body
 {
-	/*margin-left: -20px;*/
+	margin-left: -20px;
 }
 
 ul.pagegroup
 {
 	margin: 0;
 	list-style: none;
-	/*padding: 0 0 0 20px;*/
-	padding: 0;
+	padding: 0 0 0 20px;
 }
 
 .pageplaceholder
@@ -101,5 +97,4 @@ ul.pagegroup
     padding-top: 4px;
 	padding-bottom: 4px;
     float: right;
-    text-align: center;
 }

@@ -34,11 +34,11 @@
 	<%= Html.Hidden("newparentnodeid") %>
 	<div id="pagegrid">
 		<div id="pagegrid-head">
-			<div class="fr" style="width:20%;"><h3><%= GlobalResources.LastModifiedLabel %></h3></div>
-			<div class="fr" style="width:10%;"><h3><%= GlobalResources.CultureLabel %></h3></div>
-			<div class="fr" style="width:18%;"><h3><%= GlobalResources.TemplateLabel %></h3></div>
-			<div class="fr" style="width:23%;"><h3><%= GlobalResources.PageUrlLabel %></h3></div>
-			<div class="fr" style="width:28%;"><h3><%= GlobalResources.PageTitleLabel %></h3></div>
+			<div class="fr" style="width:20%;"><%= GlobalResources.LastModifiedLabel %></div>
+			<div class="fr" style="width:10%;"><%= GlobalResources.CultureLabel %></div>
+			<div class="fr" style="width:18%;"><%= GlobalResources.TemplateLabel %></div>
+			<div class="fr" style="width:23%;"><%= GlobalResources.PageUrlLabel %></div>
+			<div class="fr" style="width:28%;"><%= GlobalResources.PageTitleLabel %></div>
 		</div>
 		<div id="pagegrid-body">
 			<% Html.RenderPartial("PageListItems", ViewData.Model, ViewData); %>
