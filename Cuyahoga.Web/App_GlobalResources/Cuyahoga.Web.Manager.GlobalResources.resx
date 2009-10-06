@@ -867,4 +867,7 @@
   <data name="UninstallModuleForbiddenBecauseOfRelatedSectionsMessage" xml:space="preserve">
     <value>The module cannot be uninstalled because it is used in the following sections</value>
   </data>
+  <data name="EditLayoutLabel" xml:space="preserve">
+    <value>Edit layout</value>
+  </data>
 </root>

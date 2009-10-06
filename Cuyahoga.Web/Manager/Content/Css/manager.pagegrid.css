@@ -4,36 +4,16 @@
 	padding: 11px;
 }
 
-#pagegrid img.children-hidden,
-#pagegrid img.children-visible
+#pagegrid img.children-hidden, #pagegrid img.children-visible
 {
 	padding: 0;
 	cursor: pointer;
 }
 
-#pagegrid-head
-{
-    overflow: auto;
-    margin: 0;
-    padding: 0;
-    font-weight: bold;
-}
-
-#pagegrid-head div
-{
-	background-color: #f6f6f6;
-	border-right: solid 1px #fff;
-	border-bottom: solid 1px #ccc;
-	padding-top: 4px;
-	padding-bottom: 4px;
-	text-align: center;
-}
 
 #pagegrid .selected
 {
 	background-color: #eef;
-	font-weight: bold;
-	color: #666;
 }
 
 #pagegrid-body
@@ -60,41 +40,83 @@ ul.pagegroup
 	color: #fff;
 }
 
-#pagegrid .pagerow          /* grid row */
+#pagegrid .pagerow /* grid row */
 {
 	border-bottom: 1px solid #eee;
 	width: 100%;
+	clear: left;
 }
 
-.pagegroup .ui-sortable .pagerow:hover   /*Only sortable rows highlight*/
+.pagegroup .pagerow:hover
 {
-    background-color: #eef;
-    cursor: move;
+	background-color: #ffc;
 }
 
-/*#pagegrid .pagerow:hover
+.pagegroup .ui-sortable .pagetitle:hover
 {
-    background-color: #ffc;
-}*/
+	cursor: move;
+}
 
-#pagegrid .pagerow div      /* grid cell */
+#pagegrid .pagerow div
 {
-	padding-top: 4px;
-	padding-bottom: 4px;
 	border: none;
-    height: 32px;
+	padding: 2px 0;
 }
 
-#pagegrid .page,
-#pagegrid .link
+#pagegrid .page, #pagegrid .link
 {
+	float: left;
 	white-space: nowrap;
+	margin-top: 3px;
 }
 
-#pagegrid .fr
+#pagegrid .pageinfo
 {
-    padding: 0;
-    padding-top: 4px;
-	padding-bottom: 4px;
-    float: right;
+	margin-left: 44px;
+}
+
+#pagegrid .pagetitle
+{
+	font-weight: bold;
+}
+
+#pagegrid .pageurl
+{
+	padding: 1px 0;
+}
+
+#pagegrid .pagesub
+{
+	font-size: 90%;
+	color: #999;
+}
+
+#pagegrid .pagesub span
+{
+	margin-right: 6px;
+}
+
+#pagegrid .pagecommands
+{
+	float: right;
+	display: none;
+	margin-top: 3px;
+}
+
+#pagegrid a
+{
+	display: block;
+	float: right;
+	padding: 0 10px 0 20px;	
+	background-repeat: no-repeat;
+}
+
+#pagegrid a.designlink
+{
+	background-image: url(../Images/layout_edit.png);
+}
+
+#pagegrid a.contentlink
+{
+	background-image: url(../Images/pencil.png);
 }

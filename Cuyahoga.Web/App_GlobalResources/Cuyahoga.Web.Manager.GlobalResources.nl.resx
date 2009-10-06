@@ -858,4 +858,7 @@
   <data name="UpgradeLabel" xml:space="preserve">
     <value>Upgraden</value>
   </data>
+  <data name="EditLayoutLabel" xml:space="preserve">
+    <value>Beheer layout</value>
+  </data>
 </root>

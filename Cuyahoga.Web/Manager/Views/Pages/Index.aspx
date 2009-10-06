@@ -2,7 +2,6 @@
 <%@ Import Namespace="Cuyahoga.Core.Domain"%>
 <asp:Content ID="Content1" ContentPlaceHolderID="cphHead" runat="server">
 	<title>Cuyahoga Manager :: <%= GlobalResources.ManagePagesPageTitle %></title>
-	<link rel="stylesheet" type="text/css" href="<%= Url.Content("~/Manager/Content/Css/admin.pagegrid.css") %>" />
 	<script type="text/javascript" src="<%= Url.Content("~/manager/Scripts/ui.core.js") %>"></script>
 	<script type="text/javascript" src="<%= Url.Content("~/manager/Scripts/ui.sortable.js") %>"></script>
 	<script type="text/javascript" src="<%= Url.Content("~/manager/Scripts/ui.droppable.js") %>"></script>
@@ -33,13 +32,6 @@
 	<%= Html.Hidden("nodeid") %>
 	<%= Html.Hidden("newparentnodeid") %>
 	<div id="pagegrid">
-		<div id="pagegrid-head">
-			<div class="fr" style="width:20%;"><%= GlobalResources.LastModifiedLabel %></div>
-			<div class="fr" style="width:10%;"><%= GlobalResources.CultureLabel %></div>
-			<div class="fr" style="width:18%;"><%= GlobalResources.TemplateLabel %></div>
-			<div class="fr" style="width:23%;"><%= GlobalResources.PageUrlLabel %></div>
-			<div class="fr" style="width:28%;"><%= GlobalResources.PageTitleLabel %></div>
-		</div>
 		<div id="pagegrid-body">
 			<% Html.RenderPartial("PageListItems", ViewData.Model, ViewData); %>
 		</div>
@@ -73,15 +65,12 @@
 				}
 			}))
 
-			$('#pagegrid').dblclick($.delegate({
-				'.pagerow div': function(e) {
-					selectedPageItem = $(e.target).parents('.pagerow').parent();
-					if (selectedPageItem.find('span.page').length > 0) { // only go to content editing on pages
-						var nodeId = selectedPageItem.attr('id').substring(5);
-						document.location.href = '<%= Url.Action("Content", "Pages") %>/' + nodeId;
-					}
-				}
-			}))
+			$('.pagerow').live('mouseover', function() {
+				$(this).children('.pagecommands').show();
+			})
+			$('.pagerow').live('mouseout', function() {
+				$(this).children('.pagecommands').hide();
+			})
 
 			addDroppable('.page');
 			addSortable('.pagegroup .pagegroup');
