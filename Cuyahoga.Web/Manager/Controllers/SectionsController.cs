@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Globalization;
+using System.Linq;
+using System.Web;
 using System.Web.Mvc;
 using Cuyahoga.Core.Domain;
 using Cuyahoga.Core.Service.Membership;
@@ -10,6 +12,7 @@ using Cuyahoga.Web.Components;
 using Cuyahoga.Web.Manager.Filters;
 using Cuyahoga.Web.Manager.Model.ViewModels;
 using Cuyahoga.Web.Mvc.Filters;
+using Cuyahoga.Web.Mvc.WebForms;
 
 namespace Cuyahoga.Web.Manager.Controllers
 {
@@ -19,19 +22,35 @@ namespace Cuyahoga.Web.Manager.Controllers
 		private const string settingsFormElementPrefix = "section.Settings_";
 		private readonly ISectionService _sectionService;
 		private readonly INodeService _nodeService;
-		private ModuleLoader _moduleLoader;
+		private readonly ITemplateService _templateService;
+		private readonly ModuleLoader _moduleLoader;
 
-		public SectionsController(ISectionService sectionService, INodeService nodeService, ModuleLoader moduleLoader, SectionModelValidator modelValidator)
+		public SectionsController(ISectionService sectionService, INodeService nodeService, ModuleLoader moduleLoader, SectionModelValidator modelValidator, ITemplateService templateService)
 		{
 			_sectionService = sectionService;
+			_templateService = templateService;
 			_nodeService = nodeService;
 			_moduleLoader = moduleLoader;
 			ModelValidator = modelValidator;
 		}
 
-		public ActionResult Index()
+		public ActionResult Index(int? id)
 		{
-			return View();
+			if (id.HasValue)
+			{
+				ViewData["ActiveSection"] = this._sectionService.GetSectionById(id.Value);
+			}
+			var sharedSections = this._sectionService.GetUnconnectedSections(this.CuyahogaContext.CurrentSite);
+			var model = new List<SharedSectionViewData>();
+			foreach (var sharedSection in sharedSections)
+			{
+				var sharedSectionViewData = new SharedSectionViewData(sharedSection);
+				sharedSectionViewData.AttachedToTemplates = String.Join(", ",
+				                                                        this._sectionService.GetTemplatesBySection(sharedSection).
+				                                                        	Select(t => t.Name).ToArray());
+				model.Add(sharedSectionViewData);
+			}
+			return View(model);
 		}
 
 		public ActionResult NewSectionDialog(int moduleTypeId, int nodeId, string placeholder)
@@ -75,6 +94,93 @@ namespace Cuyahoga.Web.Manager.Controllers
 				Messages.AddFlashException(ex);
 			}
 			return RedirectToAction("Design", "Pages", new { id = nodeId });
+		}
+
+		public ActionResult NewShared()
+		{
+			var moduleTypes = this._sectionService.GetSortedActiveModuleTypes();
+			var selectedModuleType = moduleTypes[0];
+			ViewData["ModuleTypes"] = new SelectList(moduleTypes, "ModuleTypeId", "Name", selectedModuleType.ModuleTypeId);
+			var newSection = new Section();
+			newSection.ModuleType = selectedModuleType;
+			return View(newSection);
+		}
+
+		[AcceptVerbs(HttpVerbs.Post)]
+		public ActionResult CreateSharedSection([Bind(Include = "PlaceHolderId, Title, ShowTitle, CacheDuration")]Section section, int moduleTypeId)
+		{
+			section.ModuleType = this._sectionService.GetModuleTypeById(moduleTypeId);
+			section.Site = CuyahogaContext.CurrentSite;
+			UpdateSectionSettingsFromForm(section, settingsFormElementPrefix);
+			try
+			{
+				if (ModelState.IsValid && ValidateModel(section, new[] { "Title", "ModuleType", "Settings" }, "section"))
+				{
+					this._sectionService.SaveSection(section);
+					Messages.AddFlashMessageWithParams("SectionCreatedMessage", section.Title);
+					return RedirectToAction("Index");
+				}
+			}
+			catch (Exception ex)
+			{
+				Logger.Error("Unexpected error while creating a shared section to page.", ex);
+				Messages.AddException(ex);
+			}
+			var moduleTypes = this._sectionService.GetSortedActiveModuleTypes();
+			ViewData["ModuleTypes"] = new SelectList(moduleTypes, "ModuleTypeId", "Name", section.ModuleType.ModuleTypeId);
+			return View("NewShared", section);
+		}
+
+		public ActionResult AttachSectionToTemplate(int id)
+		{
+			var model = new AttachSectionTemplateViewData();
+			model.Section = this._sectionService.GetSectionById(id);
+			model.Templates = this._templateService.GetAllTemplatesBySite(CuyahogaContext.CurrentSite);
+			foreach (var template in model.Templates)
+			{
+				// read placeholders
+				string virtualTemplatePath = VirtualPathUtility.Combine(CuyahogaContext.CurrentSite.SiteDataDirectory, template.Path);
+				model.PlaceHoldersByTemplate[template] = ViewUtil.GetPlaceholdersFromVirtualPath(virtualTemplatePath).Select(p => p.Key).ToArray();
+				// add sectiontemplate viewdata
+				var sectionTemplate = new SectionTemplateViewData();
+				sectionTemplate.TemplateId = template.Id;
+				if (template.Sections.Any(s => s.Value == model.Section))
+				{
+					KeyValuePair<string, Section> templateSection = template.Sections.Where(s => s.Value == model.Section).Single();
+					sectionTemplate.Placeholder = templateSection.Key;
+					sectionTemplate.IsAttached = true;
+				}
+				model.SectionTemplates.Add(template.Id, sectionTemplate);
+			}
+			return View(model);
+		}
+
+		[AcceptVerbs(HttpVerbs.Post)]
+		public ActionResult UpdateSectionTemplateAttachment(int sectionId, IList<SectionTemplateViewData> sectionTemplates)
+		{
+			var section = this._sectionService.GetSectionById(sectionId);
+			try
+			{
+				foreach (var sectionTemplate in sectionTemplates)
+				{
+					var template = this._templateService.GetTemplateById(sectionTemplate.TemplateId);
+					if (sectionTemplate.IsAttached)
+					{
+						this._templateService.AttachSectionToTemplate(section, template, sectionTemplate.Placeholder);
+					}
+					else
+					{
+						this._templateService.RemoveSectionFromTemplate(section, template);
+					}
+				}
+				Messages.AddFlashMessageWithParams("SectionAttachedMessage", section.Title);
+			}
+			catch (Exception ex)
+			{
+				Logger.Error("Unexpected error while attaching section to templates.", ex);
+				Messages.AddFlashException(ex);
+			}
+			return RedirectToAction("AttachSectionToTemplate", "Sections", new { id = sectionId });
 		}
 
 		#region Ajax actions
@@ -188,6 +294,14 @@ namespace Cuyahoga.Web.Manager.Controllers
 			{
 				throw new NotImplementedException("UpdateSection not yet implemented for non-AJAX scenario's");
 			}
+		}
+
+		public ActionResult GetSectionElements(int moduleTypeId)
+		{
+			var moduleType = this._sectionService.GetModuleTypeById(moduleTypeId);
+			var section = new Section();
+			section.ModuleType = moduleType;
+			return PartialView("SharedSectionElements", section);
 		}
 
 		#endregion

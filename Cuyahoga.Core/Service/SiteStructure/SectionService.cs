@@ -1,5 +1,3 @@
-using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using Castle.Services.Transaction;
@@ -41,17 +39,22 @@ namespace Cuyahoga.Core.Service.SiteStructure
 			return this._commonDao.GetObjectById<Section>(sectionId);
 		}
 
-		public IList GetSortedSectionsByNode(Node node)
+		public IList<Section> GetSortedSectionsByNode(Node node)
 		{
 			return this._siteStructureDao.GetSortedSectionsByNode(node);
 		}
 
-		public IList GetUnconnectedSections()
+		public IList<Section> GetUnconnectedSections()
 		{
 			return this._siteStructureDao.GetUnconnectedSections();
 		}
 
-		public IList GetTemplatesBySection(Section section)
+		public IList<Section> GetUnconnectedSections(Site site)
+		{
+			return this._siteStructureDao.GetUnconnectedSectionsBySite(site);
+		}
+
+		public IList<Template> GetTemplatesBySection(Section section)
 		{
 			return this._siteStructureDao.GetTemplatesBySection(section);
 		}

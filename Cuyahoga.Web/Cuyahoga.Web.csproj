@@ -357,10 +357,13 @@
     <Compile Include="Manager\Helpers\PermissionExtensions.cs" />
     <Compile Include="Manager\Helpers\SectionAdminExtensions.cs" />
     <Compile Include="Manager\Model\ViewModels\AjaxMessageViewData.cs" />
+    <Compile Include="Manager\Model\ViewModels\AttachSectionTemplateViewData.cs" />
     <Compile Include="Manager\Model\ViewModels\DirectoryViewData.cs" />
     <Compile Include="Manager\Model\ViewModels\LoginViewData.cs" />
     <Compile Include="Manager\Model\ViewModels\MenuViewData.cs" />
     <Compile Include="Manager\Model\ViewModels\ModuleViewData.cs" />
+    <Compile Include="Manager\Model\ViewModels\SectionTemplateViewData.cs" />
+    <Compile Include="Manager\Model\ViewModels\SharedSectionViewData.cs" />
     <Compile Include="Manager\Model\ViewModels\TemplateViewData.cs" />
     <Compile Include="Modules\Shared\Controllers\CategoriesController.cs" />
     <Compile Include="Modules\Shared\Controllers\CommentsController.cs" />
@@ -675,6 +678,7 @@
     <Content Include="Manager\Views\Modules\Index.aspx" />
     <Content Include="Manager\Views\Pages\Content.aspx" />
     <Content Include="Manager\Views\SearchIndex\Index.aspx" />
+    <Content Include="Manager\Views\Sections\AttachSectionToTemplate.aspx" />
     <Content Include="Manager\Views\Sections\Index.aspx" />
     <Content Include="Manager\Scripts\jquery.scrollfollow.js" />
     <Content Include="Controls\EditProfile.ascx">
@@ -738,6 +742,7 @@
     <Content Include="Manager\Views\Pages\Design.aspx" />
     <Content Include="Manager\Views\Pages\Index.aspx" />
     <Content Include="Manager\Views\Sections\NewSectionDialog.ascx" />
+    <Content Include="Manager\Views\Sections\NewShared.aspx" />
     <Content Include="Manager\Views\Shared\PartialMessages.ascx" />
     <Content Include="Manager\Views\Sections\SelectedSection.ascx" />
     <Content Include="Manager\Views\Pages\PageListItem.ascx" />

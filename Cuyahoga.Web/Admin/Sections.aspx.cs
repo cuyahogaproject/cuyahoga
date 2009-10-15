@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using System.Collections.Generic;
 using System.Web.UI.WebControls;
 using Cuyahoga.Core.Domain;
 using Cuyahoga.Web.Admin.UI;
@@ -113,7 +114,7 @@ namespace Cuyahoga.Web.Admin
 					foreach (Template template in templates)
 					{
 						string attachedPlaceholderId = null;
-						foreach (DictionaryEntry entry in template.Sections)
+						foreach (KeyValuePair<string, Section> entry in template.Sections)
 						{
 							if (entry.Value == section)
 							{

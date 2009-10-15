@@ -8,12 +8,11 @@
 					</div>
 					<div class="pagecommands">
 						<% if (! Model.IsExternalLink) { %>
-							<%= Html.ActionLink(GlobalResources.EditContentLabel, "Content", "Pages", new { id = Model.Id }, new { @class = "contentlink" })%>
-						<% } %>
-							
-						<% if (! Model.IsExternalLink) { %>
 							<%= Html.ActionLink(GlobalResources.EditLayoutLabel, "Design", "Pages", new { id = Model.Id }, new { @class = "designlink" })%>
 						<% } %>
+						<% if (! Model.IsExternalLink) { %>
+							<%= Html.ActionLink(GlobalResources.EditContentLabel, "Content", "Pages", new { id = Model.Id }, new { @class = "contentlink" })%>
+						<% } %>							
 					</div>
 					<div class="pageinfo">
 						<div class="pagetitle">

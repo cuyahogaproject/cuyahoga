@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using Castle.Services.Transaction;
 using Cuyahoga.Core.Domain;
 using Cuyahoga.Core.DataAccess;
@@ -121,6 +122,35 @@ namespace Cuyahoga.Core.Service.SiteStructure
 				}
 			}
 		}
+
+		[Transaction(TransactionMode.Requires)]
+		public void AttachSectionToTemplate(Section section, Template template, string placeholder)
+		{
+			// First test if the section is already attached. If so, remove.
+			if (template.Sections.Any(s => s.Value == section))
+			{
+				RemoveSectionFromTemplate(section, template);
+			}
+			// Add the section to the template
+			template.Sections.Add(placeholder, section);
+			this._commonDao.UpdateObject(template);
+			// Invalidate cache 
+			this._commonDao.RemoveCollectionFromCache("Cuyahoga.Core.Domain.Template.Sections", section.Id);
+		}
+
+		[Transaction(TransactionMode.Requires)]
+		public void RemoveSectionFromTemplate(Section section, Template template)
+		{
+			string placeholder = template.Sections.Where(s => s.Value == section).Select(s => s.Key).SingleOrDefault();
+			if (placeholder != null)
+			{
+				template.Sections.Remove(placeholder);
+				this._commonDao.UpdateObject(template);
+				// Invalidate cache 
+				this._commonDao.RemoveCollectionFromCache("Cuyahoga.Core.Domain.Template.Sections", section.Id);
+			}
+		}
+
 
 		#endregion
 	}

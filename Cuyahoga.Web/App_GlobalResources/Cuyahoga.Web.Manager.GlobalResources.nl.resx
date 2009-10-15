@@ -861,4 +861,37 @@
   <data name="EditLayoutLabel" xml:space="preserve">
     <value>Beheer layout</value>
   </data>
+  <data name="AttachSectionToTemplatesPageTitle" xml:space="preserve">
+    <value>Koppel sectie '{0}' aan template(s)</value>
+  </data>
+  <data name="AttachToTemplateLabel" xml:space="preserve">
+    <value>Koppel aan template(s)</value>
+  </data>
+  <data name="BackLabel" xml:space="preserve">
+    <value>Terug</value>
+  </data>
+  <data name="CreateSharedSectionLabel" xml:space="preserve">
+    <value>Nieuwe gedeelde sectie</value>
+  </data>
+  <data name="IsAttachedLabel" xml:space="preserve">
+    <value>Is gekoppeld</value>
+  </data>
+  <data name="ManageSharedContentPageTitle" xml:space="preserve">
+    <value>Beheer gedeelte content</value>
+  </data>
+  <data name="MoveSectionToPageLabel" xml:space="preserve">
+    <value>Verplaats naar pagina</value>
+  </data>
+  <data name="NewSharedSectionPageTitle" xml:space="preserve">
+    <value>Nieuwe gedeelde sectie</value>
+  </data>
+  <data name="PlaceholderLabel" xml:space="preserve">
+    <value>Placeholder</value>
+  </data>
+  <data name="SectionAttachedMessage" xml:space="preserve">
+    <value>Sectie is ge- of ontkoppeld aan template(s)</value>
+  </data>
+  <data name="SelectModuleTypeLabel" xml:space="preserve">
+    <value>Selecteer module type</value>
+  </data>
 </root>

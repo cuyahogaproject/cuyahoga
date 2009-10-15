@@ -32,9 +32,9 @@ table.grid tr:hover
 	background-color: #eef;
 }
 
-table.grid tr.selected
+table.grid tr.selected td
 {
-	background-color: #eef;
+	background-color: #ffe;
 	font-weight: bold;
 }
 

@@ -160,33 +160,42 @@ namespace Cuyahoga.Core.DataAccess
 			return q.List();
 		}
 
-		public IList GetSortedSectionsByNode(Node node)
+		public IList<Section> GetSortedSectionsByNode(Node node)
 		{
 			ISession session = this._sessionManager.OpenSession();
 
 			string hql = "from Section s where s.Node.Id = :nodeId order by s.PlaceholderId, s.Position ";
 			IQuery q = session.CreateQuery(hql);
 			q.SetInt32("nodeId", node.Id);
-			return q.List();
+			return q.List<Section>();
 		}
 
-		public IList GetUnconnectedSections()
+		public IList<Section> GetUnconnectedSections()
 		{
 			ISession session = this._sessionManager.OpenSession();
 
 			string hql = "from Section s where s.Node is null order by s.Title";
 			IQuery q = session.CreateQuery(hql);
-			return q.List();
+			return q.List<Section>();
 		}
 
-		public IList GetTemplatesBySection(Section section)
+		public IList<Section> GetUnconnectedSectionsBySite(Site site)
+		{
+			ISession session = this._sessionManager.OpenSession();
+			string hql = "from Section s where s.Site = :site and s.Node is null order by s.Title";
+			IQuery q = session.CreateQuery(hql);
+			q.SetParameter("site", site);
+			return q.List<Section>();
+		}
+
+		public IList<Template> GetTemplatesBySection(Section section)
 		{
 			ISession session = this._sessionManager.OpenSession();
 
 			string hql = "from Template t where :section in elements(t.Sections)";
 			IQuery q = session.CreateQuery(hql);
 			q.SetParameter("section", section);
-			return q.List();
+			return q.List<Template>();
 		}
 
 		public IList<Section> GetSectionsByModuleType(ModuleType moduleType)

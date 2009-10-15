@@ -50,7 +50,7 @@ $(document).ready(function() {
 	}))
 
 	$('#contentarea').click($.delegate({
-		'.deletelink': function(e) {
+		'.deletelink, .abtndelete': function(e) {
 			submitAfterConfirm(e.target);
 		}
 	}))

@@ -22,20 +22,27 @@ namespace Cuyahoga.Core.Service.SiteStructure
 		/// </summary>
 		/// <param name="node"></param>
 		/// <returns></returns>
-		IList GetSortedSectionsByNode(Node node);
+		IList<Section> GetSortedSectionsByNode(Node node);
 
 		/// <summary>
 		/// Get all orphaned sections (sections that are not related to a node).
 		/// </summary>
 		/// <returns></returns>
-		IList GetUnconnectedSections();
+		IList<Section> GetUnconnectedSections();
+
+		/// <summary>
+		/// Get all orphaned sections (sections that are not related to a node) for a given site.
+		/// </summary>
+		/// <param name="site"></param>
+		/// <returns></returns>
+		IList<Section> GetUnconnectedSections(Site site);
 
 		/// <summary>
 		/// Get all templates that have the given section attached.
 		/// </summary>
 		/// <param name="section"></param>
 		/// <returns></returns>
-		IList GetTemplatesBySection(Section section);
+		IList<Template> GetTemplatesBySection(Section section);
 
 		/// <summary>
 		/// Get all sections that are related to the given module type.

@@ -870,4 +870,46 @@
   <data name="EditLayoutLabel" xml:space="preserve">
     <value>Edit layout</value>
   </data>
+  <data name="AttachedToLabel" xml:space="preserve">
+    <value>Attached to</value>
+  </data>
+  <data name="ManageSharedContentPageTitle" xml:space="preserve">
+    <value>Manage shared content</value>
+  </data>
+  <data name="ModuleTypeLabel" xml:space="preserve">
+    <value>Module type</value>
+  </data>
+  <data name="SectionNameLabel" xml:space="preserve">
+    <value>Section name</value>
+  </data>
+  <data name="AttachSectionToTemplatesPageTitle" xml:space="preserve">
+    <value>Attach section '{0}' to template(s)</value>
+  </data>
+  <data name="AttachToTemplateLabel" xml:space="preserve">
+    <value>Attach to template(s)</value>
+  </data>
+  <data name="BackLabel" xml:space="preserve">
+    <value>Back</value>
+  </data>
+  <data name="CreateSharedSectionLabel" xml:space="preserve">
+    <value>Create shared section</value>
+  </data>
+  <data name="IsAttachedLabel" xml:space="preserve">
+    <value>Is attached</value>
+  </data>
+  <data name="MoveSectionToPageLabel" xml:space="preserve">
+    <value>Move to page</value>
+  </data>
+  <data name="NewSharedSectionPageTitle" xml:space="preserve">
+    <value>New shared section</value>
+  </data>
+  <data name="PlaceholderLabel" xml:space="preserve">
+    <value>Placeholder</value>
+  </data>
+  <data name="SectionAttachedMessage" xml:space="preserve">
+    <value>Section is attached or detached to template(s) succesfully.</value>
+  </data>
+  <data name="SelectModuleTypeLabel" xml:space="preserve">
+    <value>Select module type</value>
+  </data>
 </root>

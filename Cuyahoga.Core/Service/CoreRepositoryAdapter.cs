@@ -166,7 +166,7 @@ namespace Cuyahoga.Core.Service
 
 		public override IList GetSortedSectionsByNode(Node node)
 		{
-			return this._siteStructureDao.GetSortedSectionsByNode(node);
+			return (IList) this._siteStructureDao.GetSortedSectionsByNode(node);
 		}
 
 		public override IList GetSectionsByModuleTypes(IList moduleTypes)
@@ -176,12 +176,12 @@ namespace Cuyahoga.Core.Service
 
 		public override IList GetTemplatesBySection(Section section)
 		{
-			return this._siteStructureDao.GetTemplatesBySection(section);
+			return (IList) this._siteStructureDao.GetTemplatesBySection(section);
 		}
 
 		public override IList GetUnconnectedSections()
 		{
-			return this._siteStructureDao.GetUnconnectedSections();
+			return (IList) this._siteStructureDao.GetUnconnectedSections();
 		}
 
 		public override User GetUserByUsernameAndPassword(string username, string password)
