@@ -3,12 +3,14 @@ using System.Collections;
 using System.IO;
 using System.Web;
 using System.Web.Mvc;
+using Cuyahoga.Core.Communication;
 using Cuyahoga.Core.Domain;
 using Cuyahoga.Core.Service.Files;
 using Cuyahoga.Core.Service.Membership;
 using Cuyahoga.Core.Service.SiteStructure;
 using Cuyahoga.Core.Util;
 using Cuyahoga.Core.Validation;
+using Cuyahoga.Web.Components;
 using Cuyahoga.Web.Manager.Filters;
 using Cuyahoga.Web.Manager.Helpers;
 using Cuyahoga.Web.Manager.Model.ViewModels;
@@ -24,14 +26,16 @@ namespace Cuyahoga.Web.Manager.Controllers
 		private readonly ITemplateService _templateService;
 		private readonly IFileService _fileService;
 		private readonly ISectionService _sectionService;
+		private ModuleLoader _moduleLoader;
 
-		public PagesController(INodeService nodeService, ITemplateService templateService, IFileService fileService, ISectionService sectionService, IModelValidator<Node> modelValidator)
+		public PagesController(INodeService nodeService, ITemplateService templateService, IFileService fileService, ISectionService sectionService, IModelValidator<Node> modelValidator, ModuleLoader moduleLoader)
 		{
 			_nodeService = nodeService;
 			_templateService = templateService;
 			_fileService = fileService;
 			_sectionService = sectionService;
 			this.ModelValidator = modelValidator;
+			_moduleLoader = moduleLoader;
 		}
 
 		[RolesFilter]
@@ -63,7 +67,7 @@ namespace Cuyahoga.Web.Manager.Controllers
 			Node node = this._nodeService.GetNodeById(id);
 			if (sectionId.HasValue)
 			{
-				ViewData["ActiveSection"] = this._sectionService.GetSectionById(sectionId.Value);
+				ViewData["ActiveSection"] = BuildSectionViewData(this._sectionService.GetSectionById(sectionId.Value));
 			}
 			ViewData["Templates"] = new SelectList(this._templateService.GetAllTemplatesBySite(CuyahogaContext.CurrentSite), "Id", "Name"
 				, node.Template != null ? node.Template.Id : -1);
@@ -362,6 +366,21 @@ namespace Cuyahoga.Web.Manager.Controllers
 				availableCultures.Remove(rootNode.Culture);
 			}
 			return new SelectList(availableCultures, "Key", "Value");
+		}
+
+		private SectionViewData BuildSectionViewData(Section section)
+		{
+			var sectionViewData = new SectionViewData(section);
+			var module = _moduleLoader.GetModuleFromSection(section);
+			if (module is IActionProvider)
+			{
+				sectionViewData.OutboundActions = ((IActionProvider) module).GetOutboundActions();
+			}
+			if (module is IActionConsumer)
+			{
+				sectionViewData.InboundActions = ((IActionConsumer)module).GetInboundActions();
+			}
+			return sectionViewData;
 		}
 
 		private TemplateViewData BuildTemplateViewData(Template template)

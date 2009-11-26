@@ -4,6 +4,7 @@ using System.Globalization;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using Cuyahoga.Core.Communication;
 using Cuyahoga.Core.Domain;
 using Cuyahoga.Core.Service.Membership;
 using Cuyahoga.Core.Service.SiteStructure;
@@ -19,7 +20,7 @@ namespace Cuyahoga.Web.Manager.Controllers
 	[PermissionFilter(RequiredRights = Rights.ManagePages)]
 	public class SectionsController : ManagerController
 	{
-		private const string settingsFormElementPrefix = "section.Settings_";
+		private const string SettingsFormElementPrefix = "section.Settings_";
 		private readonly ISectionService _sectionService;
 		private readonly INodeService _nodeService;
 		private readonly ITemplateService _templateService;
@@ -111,7 +112,7 @@ namespace Cuyahoga.Web.Manager.Controllers
 		{
 			section.ModuleType = this._sectionService.GetModuleTypeById(moduleTypeId);
 			section.Site = CuyahogaContext.CurrentSite;
-			UpdateSectionSettingsFromForm(section, settingsFormElementPrefix);
+			UpdateSectionSettingsFromForm(section, SettingsFormElementPrefix);
 			try
 			{
 				if (ModelState.IsValid && ValidateModel(section, new[] { "Title", "ModuleType", "Settings" }, "section"))
@@ -188,8 +189,8 @@ namespace Cuyahoga.Web.Manager.Controllers
 		[RolesFilter]
 		public ActionResult SelectSection(int sectionId)
 		{
-			Section section = this._sectionService.GetSectionById(sectionId);
-			return PartialView("SelectedSection", section);
+			var sectionViewData = BuildSectionViewData(this._sectionService.GetSectionById(sectionId));
+			return PartialView("SelectedSection", sectionViewData);
 		}
 
 		[AcceptVerbs(HttpVerbs.Post)]
@@ -221,7 +222,7 @@ namespace Cuyahoga.Web.Manager.Controllers
 			section.Site = CuyahogaContext.CurrentSite;
 			section.Node = this._nodeService.GetNodeById(nodeId);
 			section.Node.AddSection(section);
-			UpdateSectionSettingsFromForm(section, settingsFormElementPrefix);
+			UpdateSectionSettingsFromForm(section, SettingsFormElementPrefix);
 			try
 			{
 				if (ModelState.IsValid && ValidateModel(section, new [] { "Title", "ModuleType", "Settings" }, "section"))
@@ -245,7 +246,7 @@ namespace Cuyahoga.Web.Manager.Controllers
 		public ActionResult UpdateSection(int id)
 		{
 			Section section = this._sectionService.GetSectionById(id);
-			UpdateSectionSettingsFromForm(section, settingsFormElementPrefix);
+			UpdateSectionSettingsFromForm(section, SettingsFormElementPrefix);
 			try
 			{
 				if (TryUpdateModel(section, "section", new[] { "Title", "ShowTitle", "CacheDuration" })
@@ -262,7 +263,8 @@ namespace Cuyahoga.Web.Manager.Controllers
 			}
 			if (Request.IsAjaxRequest())
 			{
-				return PartialView("SelectedSection", section);
+				var sectionViewData = BuildSectionViewData(section);
+				return PartialView("SelectedSection", sectionViewData);
 			}
 			else
 			{
@@ -288,11 +290,12 @@ namespace Cuyahoga.Web.Manager.Controllers
 			}
 			if (Request.IsAjaxRequest())
 			{
-				return PartialView("SelectedSection", section);
+				var sectionViewData = BuildSectionViewData(section);
+				return PartialView("SelectedSection", sectionViewData);
 			}
 			else
 			{
-				throw new NotImplementedException("UpdateSection not yet implemented for non-AJAX scenario's");
+				throw new NotImplementedException("SetSectionPermissions not yet implemented for non-AJAX scenario's");
 			}
 		}
 
@@ -302,6 +305,33 @@ namespace Cuyahoga.Web.Manager.Controllers
 			var section = new Section();
 			section.ModuleType = moduleType;
 			return PartialView("SharedSectionElements", section);
+		}
+
+		[AcceptVerbs(HttpVerbs.Post)]
+		[RolesFilter]
+		[PartialMessagesFilter]
+		public ActionResult DeleteConnection(int sectionId, string actionName)
+		{
+			Section section = this._sectionService.GetSectionById(sectionId);
+			try
+			{
+				section.Connections.Remove(actionName);
+				this._sectionService.UpdateSection(section);
+				Messages.AddMessageWithParams("ConnectionDeletedMessage", actionName);
+			}
+			catch (Exception ex)
+			{
+				Messages.AddException(ex);
+			}
+			if (Request.IsAjaxRequest())
+			{
+				var sectionViewData = BuildSectionViewData(section);
+				return PartialView("SelectedSection", sectionViewData);
+			}
+			else
+			{
+				throw new NotImplementedException("DeleteConnection not yet implemented for non-AJAX scenario's");
+			}
 		}
 
 		#endregion
@@ -329,6 +359,21 @@ namespace Cuyahoga.Web.Manager.Controllers
 					ViewData.ModelState.Add(new KeyValuePair<string, ModelState>(formElementName, new ModelState() { Value = new ValueProviderResult(value, value, CultureInfo.CurrentUICulture) }));
 				}
 			}
+		}
+
+		private SectionViewData BuildSectionViewData(Section section)
+		{
+			var sectionViewData = new SectionViewData(section);
+			var module = _moduleLoader.GetModuleFromSection(section);
+			if (module is IActionProvider)
+			{
+				sectionViewData.OutboundActions = ((IActionProvider)module).GetOutboundActions();
+			}
+			if (module is IActionConsumer)
+			{
+				sectionViewData.InboundActions = ((IActionConsumer)module).GetInboundActions();
+			}
+			return sectionViewData;
 		}
 	}
 }

@@ -637,7 +637,7 @@
     <value>Doorvoeren rechten</value>
   </data>
   <data name="SectionConnectionsLabel" xml:space="preserve">
-    <value>Connecties</value>
+    <value>Uitgaande connecties</value>
   </data>
   <data name="SelectedSectionLabel" xml:space="preserve">
     <value>Geselecteerde sectie</value>
@@ -893,5 +893,17 @@
   </data>
   <data name="SelectModuleTypeLabel" xml:space="preserve">
     <value>Selecteer module type</value>
+  </data>
+  <data name="ActionLabel" xml:space="preserve">
+    <value>Actie</value>
+  </data>
+  <data name="ConnectionDeletedMessage" xml:space="preserve">
+    <value>Connectie voor actie {0} is verwijderd.</value>
+  </data>
+  <data name="PageLabel" xml:space="preserve">
+    <value>Pagina</value>
+  </data>
+  <data name="SectionLabel" xml:space="preserve">
+    <value>Sectie</value>
   </data>
 </root>

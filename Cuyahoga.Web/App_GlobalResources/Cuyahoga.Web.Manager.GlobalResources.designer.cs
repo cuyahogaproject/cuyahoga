@@ -61,6 +61,15 @@ namespace Resources.Cuyahoga.Web.Manager {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Action.
+        /// </summary>
+        internal static string ActionLabel {
+            get {
+                return ResourceManager.GetString("ActionLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to You are not allowed to perform the requested action..
         /// </summary>
         internal static string ActionNotAllowedException {
@@ -345,6 +354,15 @@ namespace Resources.Cuyahoga.Web.Manager {
         internal static string ConfirmPasswordLabel {
             get {
                 return ResourceManager.GetString("ConfirmPasswordLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Connection for action {0} is removed successfully..
+        /// </summary>
+        internal static string ConnectionDeletedMessage {
+            get {
+                return ResourceManager.GetString("ConnectionDeletedMessage", resourceCulture);
             }
         }
         
@@ -1735,6 +1753,15 @@ namespace Resources.Cuyahoga.Web.Manager {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Page.
+        /// </summary>
+        internal static string PageLabel {
+            get {
+                return ResourceManager.GetString("PageLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to The page is moved successfully..
         /// </summary>
         internal static string PageMovedMessage {
@@ -1996,7 +2023,7 @@ namespace Resources.Cuyahoga.Web.Manager {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Connections.
+        ///   Looks up a localized string similar to Outbound connections.
         /// </summary>
         internal static string SectionConnectionsLabel {
             get {
@@ -2028,6 +2055,15 @@ namespace Resources.Cuyahoga.Web.Manager {
         internal static string SectionDetachedMessage {
             get {
                 return ResourceManager.GetString("SectionDetachedMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Section.
+        /// </summary>
+        internal static string SectionLabel {
+            get {
+                return ResourceManager.GetString("SectionLabel", resourceCulture);
             }
         }
         

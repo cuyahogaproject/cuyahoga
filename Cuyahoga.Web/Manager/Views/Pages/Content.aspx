@@ -6,7 +6,7 @@
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="cphTasks" runat="server">
 	<h2><%= GlobalResources.TasksLabel %></h2>
-	<%= Html.ActionLink(GlobalResources.DesignCurrentPageLabel, "Design", "Pages", new { id = ViewData.Model.Id }, new { @class = "designlink" }) %>
+	<%= Html.ActionLink(GlobalResources.DesignCurrentPageLabel, "Design", "Pages", new { id = Model.Id }, new { @class = "designlink" }) %>
 	<div id="selectedsection">
 	<% if (ViewData.ContainsKey("ActiveSection")) {
 		Section activeSection = (Section)ViewData["ActiveSection"];

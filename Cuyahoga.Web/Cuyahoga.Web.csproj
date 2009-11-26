@@ -363,6 +363,7 @@
     <Compile Include="Manager\Model\ViewModels\MenuViewData.cs" />
     <Compile Include="Manager\Model\ViewModels\ModuleViewData.cs" />
     <Compile Include="Manager\Model\ViewModels\SectionTemplateViewData.cs" />
+    <Compile Include="Manager\Model\ViewModels\SectionViewData.cs" />
     <Compile Include="Manager\Model\ViewModels\SharedSectionViewData.cs" />
     <Compile Include="Manager\Model\ViewModels\TemplateViewData.cs" />
     <Compile Include="Modules\Shared\Controllers\CategoriesController.cs" />
@@ -743,6 +744,7 @@
     <Content Include="Manager\Views\Pages\Index.aspx" />
     <Content Include="Manager\Views\Sections\NewSectionDialog.ascx" />
     <Content Include="Manager\Views\Sections\NewShared.aspx" />
+    <Content Include="Manager\Views\Sections\SectionConnections.ascx" />
     <Content Include="Manager\Views\Shared\PartialMessages.ascx" />
     <Content Include="Manager\Views\Sections\SelectedSection.ascx" />
     <Content Include="Manager\Views\Pages\PageListItem.ascx" />

@@ -24,7 +24,7 @@ namespace Cuyahoga.Core.Domain
 		private Node _node;
 		private IList<SectionPermission> _sectionPermissions;
 		private IDictionary _settings;
-		private IDictionary _connections;
+		private IDictionary<string, Section> _connections;
 		private Site _site;
 
 		#region properties
@@ -135,7 +135,7 @@ namespace Cuyahoga.Core.Domain
 		/// <summary>
 		/// Connection points to other sections. The keys are actions and the values the other sections.
 		/// </summary>
-		public virtual IDictionary Connections
+		public virtual IDictionary <string, Section> Connections
 		{
 			get { return this._connections; }
 			set { this._connections = value; }
@@ -208,7 +208,7 @@ namespace Cuyahoga.Core.Domain
 			this._cacheDuration = 0;
 			this._sectionPermissions = new List<SectionPermission>();
 			this._settings = new Hashtable();
-			this._connections = new Hashtable();
+			this._connections = new Dictionary<string, Section>();
 		}
 
 		#endregion

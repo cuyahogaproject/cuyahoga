@@ -180,9 +180,9 @@ namespace Cuyahoga.Web.Admin
 
 		private void btnSave_Click(object sender, System.EventArgs e)
 		{
-			this._activeSection.Connections[this.ddlAction.SelectedValue] 
-				= base.CoreRepository.GetObjectById(typeof(Section)
-					, Int32.Parse(this.ddlSectionTo.SelectedValue));
+			//this._activeSection.Connections[this.ddlAction.SelectedValue] 
+			//    = base.CoreRepository.GetObjectById(typeof(Section)
+			//        , Int32.Parse(this.ddlSectionTo.SelectedValue));
 			try
 			{
 				base.CoreRepository.UpdateObject(this._activeSection);

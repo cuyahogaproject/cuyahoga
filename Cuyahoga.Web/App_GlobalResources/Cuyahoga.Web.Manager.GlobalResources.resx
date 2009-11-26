@@ -646,7 +646,7 @@
     <value>Propagate permissions</value>
   </data>
   <data name="SectionConnectionsLabel" xml:space="preserve">
-    <value>Connections</value>
+    <value>Outbound connections</value>
   </data>
   <data name="SelectedSectionLabel" xml:space="preserve">
     <value>Selected section</value>
@@ -911,5 +911,17 @@
   </data>
   <data name="SelectModuleTypeLabel" xml:space="preserve">
     <value>Select module type</value>
+  </data>
+  <data name="ActionLabel" xml:space="preserve">
+    <value>Action</value>
+  </data>
+  <data name="ConnectionDeletedMessage" xml:space="preserve">
+    <value>Connection for action {0} is removed successfully.</value>
+  </data>
+  <data name="PageLabel" xml:space="preserve">
+    <value>Page</value>
+  </data>
+  <data name="SectionLabel" xml:space="preserve">
+    <value>Section</value>
   </data>
 </root>
