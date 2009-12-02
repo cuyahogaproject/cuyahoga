@@ -292,10 +292,9 @@ namespace Cuyahoga.Modules.Articles
 		/// <returns></returns>
 		public string GetProfileUrl(int userId)
 		{
-			Section sectionTo = this.Section.Connections["ViewProfile"] as Section;
-			if (sectionTo != null)
+			if (this.Section.Connections.ContainsKey("ViewProfile"))
 			{
-				return String.Format("{0}/ViewProfile/{1}", UrlUtil.GetUrlFromSection(sectionTo), userId);
+				return String.Format("{0}/ViewProfile/{1}", UrlUtil.GetUrlFromSection(this.Section.Connections["ViewProfile"]), userId);
 			}
 			return null;
 		}

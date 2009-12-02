@@ -207,6 +207,16 @@ namespace Cuyahoga.Core.DataAccess
 			return query.List<Section>();
 		}
 
+		public IList<Section> GetSectionsByModuleTypeAndSite(ModuleType moduleType, Site site)
+		{
+			ISession session = this._sessionManager.OpenSession();
+			string hql = "from Section s where s.ModuleType = :moduleType and s.Site = :site";
+			IQuery query = session.CreateQuery(hql);
+			query.SetParameter("moduleType", moduleType);
+			query.SetParameter("site", site);
+			return query.List<Section>();
+		}
+
 		public IList GetSectionsByModuleTypes(IList moduleTypes)
 		{
 			if (moduleTypes.Count > 0)

@@ -106,6 +106,15 @@ namespace Resources.Cuyahoga.Web.Manager {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Add connection.
+        /// </summary>
+        internal static string AddConnectionLabel {
+            get {
+                return ResourceManager.GetString("AddConnectionLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Add section to page.
         /// </summary>
         internal static string AddSectionDialogTitle {
@@ -358,11 +367,29 @@ namespace Resources.Cuyahoga.Web.Manager {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Connection for action {0} was added succesfully..
+        /// </summary>
+        internal static string ConnectionAddedMessage {
+            get {
+                return ResourceManager.GetString("ConnectionAddedMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Connection for action {0} is removed successfully..
         /// </summary>
         internal static string ConnectionDeletedMessage {
             get {
                 return ResourceManager.GetString("ConnectionDeletedMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Connect to section.
+        /// </summary>
+        internal static string ConnectToLabel {
+            get {
+                return ResourceManager.GetString("ConnectToLabel", resourceCulture);
             }
         }
         
@@ -1582,6 +1609,15 @@ namespace Resources.Cuyahoga.Web.Manager {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to New connection for &apos;{0}&apos;.
+        /// </summary>
+        internal static string NewConnectionPageTitle {
+            get {
+                return ResourceManager.GetString("NewConnectionPageTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Create a new role.
         /// </summary>
         internal static string NewRolePageTitle {
@@ -2118,6 +2154,15 @@ namespace Resources.Cuyahoga.Web.Manager {
         internal static string SectionsArrangedMessage {
             get {
                 return ResourceManager.GetString("SectionsArrangedMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Select action.
+        /// </summary>
+        internal static string SelectActionOption {
+            get {
+                return ResourceManager.GetString("SelectActionOption", resourceCulture);
             }
         }
         

@@ -40,7 +40,7 @@ namespace Cuyahoga.Core.Communication
 		}
 
 		/// <summary>
-		/// Equals override.
+		/// Equals override (comparing on Name and Parameters).
 		/// </summary>
 		/// <param name="obj"></param>
 		/// <returns></returns>
@@ -94,7 +94,5 @@ namespace Cuyahoga.Core.Communication
 		{
 			return this._name.GetHashCode() ^ this._parameters.GetHashCode();
 		}
-
-
 	}
 }

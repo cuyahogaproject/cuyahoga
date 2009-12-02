@@ -142,6 +142,16 @@
 					renderSectionsInTemplate();
 				}
 			});
+			
+			// Add handler for section connection action
+			$('#actionname').change(function() {
+				$('#connecttoid').html('');
+				$.getJSON('<%= Url.Action("GetAvailableConnectionsForSectionAndAction", "Sections") %>', { sectionid: selectedSectionId, actionname: $('#actionname').val() }, function(data) {
+					$.each(data, function(i, item) {
+						$('#connecttoid').append('<option value="' + item.SectionId + '">' + item.PageName + ' - ' + item.SectionName + '</option>');
+					});
+				});
+			})
 		}
 		
 		function renderSectionsInTemplate() {

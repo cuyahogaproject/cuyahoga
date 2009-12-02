@@ -24,12 +24,15 @@ namespace Cuyahoga.Web.Manager.Controllers
 		private readonly ISectionService _sectionService;
 		private readonly INodeService _nodeService;
 		private readonly ITemplateService _templateService;
+		private readonly IModuleTypeService _moduleTypeService;
 		private readonly ModuleLoader _moduleLoader;
 
-		public SectionsController(ISectionService sectionService, INodeService nodeService, ModuleLoader moduleLoader, SectionModelValidator modelValidator, ITemplateService templateService)
+		public SectionsController(ISectionService sectionService, INodeService nodeService, ModuleLoader moduleLoader, 
+			SectionModelValidator modelValidator, ITemplateService templateService, IModuleTypeService moduleTypeService)
 		{
 			_sectionService = sectionService;
 			_templateService = templateService;
+			_moduleTypeService = moduleTypeService;
 			_nodeService = nodeService;
 			_moduleLoader = moduleLoader;
 			ModelValidator = modelValidator;
@@ -307,6 +310,72 @@ namespace Cuyahoga.Web.Manager.Controllers
 			return PartialView("SharedSectionElements", section);
 		}
 
+		public ActionResult GetAvailableConnectionsForSectionAndAction(int sectionId, string actionname)
+		{
+			// NOTE: it would be better to have this kind of logic in SectionService, but we don't have access to 
+			// ModuleLoader over there.
+			Section section = this._sectionService.GetSectionById(sectionId);
+			var outboundAction = ((IActionProvider) _moduleLoader.GetModuleFromSection(section)).GetOutboundActions().FindByName(actionname);
+
+			var compatibleSections = new List<Section>();
+
+			var allActiveModuleTypes = this._moduleTypeService.GetAllModuleTypesInUse();
+			// Load modules and check if these can accept the outbound action.
+			foreach (var moduleType in allActiveModuleTypes)
+			{
+				var module = this._moduleLoader.GetModuleFromType(moduleType);
+				if (module is IActionConsumer)
+				{
+					var actionConsumer = (IActionConsumer) module;
+					var inboundActions = actionConsumer.GetInboundActions();
+					var matchingInboundAction = inboundActions.OfType<ModuleAction>().Where(ma => ma.Equals(outboundAction)).SingleOrDefault();
+					if (matchingInboundAction != null)
+					{
+						// Compatible module. Find all sections with this module and add to the list.
+						compatibleSections.AddRange(this._sectionService.GetSectionsByModuleTypeAndSite(moduleType, CuyahogaContext.CurrentSite));
+					}
+				}
+			}
+			var jsonValues = from s in compatibleSections
+							 select new
+							 {
+								 SectionId = s.Id,
+								 PageName = s.Node != null ? s.Node.Title : String.Empty,
+								 SectionName = s.Title
+							 };
+			return Json(jsonValues);
+		}
+
+		[AcceptVerbs(HttpVerbs.Post)]
+		[RolesFilter]
+		[PartialMessagesFilter]
+		public ActionResult AddConnection(int sectionId, int connectToId, string actionName)
+		{
+			Section section = this._sectionService.GetSectionById(sectionId);
+			Section sectionToConnectTo = this._sectionService.GetSectionById(connectToId);
+
+			try
+			{
+				section.Connections.Add(actionName, sectionToConnectTo);
+				this._sectionService.UpdateSection(section);
+				Messages.AddMessageWithParams("ConnectionAddedMessage", actionName);
+			}
+			catch (Exception ex)
+			{
+				Messages.AddException(ex);
+			}
+			if (Request.IsAjaxRequest())
+			{
+				var sectionViewData = BuildSectionViewData(section);
+				sectionViewData.ExpandConnections = true;
+				return PartialView("SelectedSection", sectionViewData);
+			}
+			else
+			{
+				throw new NotImplementedException("AddConnection not yet implemented for non-AJAX scenario's");
+			}
+		}
+
 		[AcceptVerbs(HttpVerbs.Post)]
 		[RolesFilter]
 		[PartialMessagesFilter]
@@ -326,6 +395,7 @@ namespace Cuyahoga.Web.Manager.Controllers
 			if (Request.IsAjaxRequest())
 			{
 				var sectionViewData = BuildSectionViewData(section);
+				sectionViewData.ExpandConnections = true;
 				return PartialView("SelectedSection", sectionViewData);
 			}
 			else

@@ -906,4 +906,19 @@
   <data name="SectionLabel" xml:space="preserve">
     <value>Sectie</value>
   </data>
+  <data name="AddConnectionLabel" xml:space="preserve">
+    <value>Nieuwe connectie</value>
+  </data>
+  <data name="NewConnectionPageTitle" xml:space="preserve">
+    <value>Nieuwe connectie voor '{0}'</value>
+  </data>
+  <data name="ConnectionAddedMessage" xml:space="preserve">
+    <value>Connectie voor actie {0} is aangemaakt.</value>
+  </data>
+  <data name="ConnectToLabel" xml:space="preserve">
+    <value>Verbind met sectie</value>
+  </data>
+  <data name="SelectActionOption" xml:space="preserve">
+    <value>Selecteer actie</value>
+  </data>
 </root>

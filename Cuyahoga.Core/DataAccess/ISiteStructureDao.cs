@@ -110,6 +110,14 @@ namespace Cuyahoga.Core.DataAccess
 		IList<Section> GetSectionsByModuleType(ModuleType moduleType);
 
 		/// <summary>
+		/// Get all sections that are related to the given module type and site.
+		/// </summary>
+		/// <param name="moduleType"></param>
+		/// <param name="site"></param>
+		/// <returns></returns>
+		IList<Section> GetSectionsByModuleTypeAndSite(ModuleType moduleType, Site site);
+
+		/// <summary>
 		/// Get all sections that are related to the given module types.
 		/// </summary>
 		/// <param name="moduleTypes"></param>

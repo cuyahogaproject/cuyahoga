@@ -17,8 +17,13 @@
 	<% } %>
 </div>
 <% if (Model.OutboundActions.Count > 0) { %>
+	<% if (Model.ExpandConnections) { %>
+	<a href="#" class="collapselink"><%= GlobalResources.SectionConnectionsLabel%></a>
+	<div class="taskcontainer">	
+	<% } else { %>
 	<a href="#" class="expandlink"><%= GlobalResources.SectionConnectionsLabel%></a>
 	<div class="taskcontainer" style="display:none">
+	<% } %>
 		<% Html.RenderPartial("SectionConnections", Model); %>
 	</div>
 <% } %>
