@@ -1,15 +1,10 @@
 using System;
 using System.Web;
-using System.Web.UI;
-using System.Web.UI.HtmlControls;
-
 using Cuyahoga.Core;
 using Cuyahoga.Core.Domain;
-using Cuyahoga.Core.Service;
 using Cuyahoga.Core.Search;
 using Cuyahoga.Core.Service.Search;
 using Cuyahoga.Core.Util;
-using Cuyahoga.Web.Util;
 using Cuyahoga.Web.Components;
 
 namespace Cuyahoga.Web.UI
@@ -24,6 +19,7 @@ namespace Cuyahoga.Web.UI
 		private ModuleBase _module;
 		private ModuleLoader _moduleLoader;
         private ISearchService _searchService;
+
 
 		/// <summary>
 		/// Property Node (Node)
@@ -53,7 +49,8 @@ namespace Cuyahoga.Web.UI
 		/// Default constructor calls base constructor with parameters for templatecontrol, 
 		/// templatepath and stylesheet.
 		/// </summary>
-		public ModuleAdminBasePage() : base("ModuleAdminTemplate.ascx",  "~/Controls/", "~/Admin/Css/Admin.css")
+		public ModuleAdminBasePage()
+			: base("ModuleAdminTemplate.ascx", "~/Controls/", "~/Admin/Css/Admin.css")
 		{
 			this._node = null;
 			this._section = null;
@@ -61,6 +58,28 @@ namespace Cuyahoga.Web.UI
 			this._moduleLoader = Container.Resolve<ModuleLoader>();
             this._searchService = Container.Resolve<ISearchService>();
 		}
+
+		#region Register Javascript and CSS
+		/// <summary>
+		/// Register module-specific stylesheets.
+		/// </summary>
+		/// <param name="key">The unique key for the stylesheet. Note that Cuyahoga already uses 'maincss' as key.</param>
+		/// <param name="absoluteCssPath">The path to the css file from the application root (starting with /).</param>
+		public void RegisterAdminStylesheet(string key, string absoluteCssPath)
+		{
+			base.RegisterStylesheet(key, absoluteCssPath);
+		}
+
+		/// <summary>
+		/// Register module-specific javascripts.
+		/// </summary>
+		/// <param name="key">The unique key for the javascript. </param>
+		/// <param name="absoluteJavascriptPath">The path to the javascript file from the application root (starting with /).</param>
+		public void RegisterAdminJavascript(string key, string absoluteJavascriptPath)
+		{
+			base.RegisterJavascript(key, absoluteJavascriptPath);
+		}
+		#endregion Register Javascript and CSS
 
 		/// <summary>
 		/// In the OnInit method the Node and Section of every ModuleAdminPage is set. 
@@ -82,21 +101,21 @@ namespace Cuyahoga.Web.UI
 				throw new Exception("Unable to initialize the Module Admin page because a Node or a Section could not be created.", ex);
 			}
 			// Check permissions
-			if (! Context.User.Identity.IsAuthenticated)
+			if (!Context.User.Identity.IsAuthenticated)
 			{
 				throw new AccessForbiddenException("You are not logged in.");
 			}
 			else
 			{
-				User user = Context.User.Identity as User;
-				if (! user.CanEdit(this._section))
+				User user = (User) Context.User.Identity;
+				if (!user.CanEdit(this._section))
 				{
 					throw new ActionForbiddenException("You are not allowed to edit the section.");
 				}
 			}
 
 			// Optional indexing event handlers
-			if (this._module is ISearchable 
+			if (this._module is ISearchable
 				&& Boolean.Parse(Config.GetConfiguration()["InstantIndexing"]))
 			{
 				ISearchable searchableModule = (ISearchable)this._module;
@@ -110,13 +129,13 @@ namespace Cuyahoga.Web.UI
 			// ultra-convenient ~/Path (ResolveUrl) isn't available :).
 			string userFilesPath = Config.GetConfiguration()["FCKeditor:UserFilesPath"];
 			if (userFilesPath != null && HttpContext.Current.Application["FCKeditor:UserFilesPath"] == null)
-			{	
+			{
 				HttpContext.Current.Application.Lock();
 				HttpContext.Current.Application["FCKeditor:UserFilesPath"] = ResolveUrl(userFilesPath);
 				HttpContext.Current.Application.UnLock();
 			}
-			
-			base.OnInit (e);
+
+			base.OnInit(e);
 		}
 
 		/// <summary>
@@ -147,17 +166,17 @@ namespace Cuyahoga.Web.UI
 
 		private void searchableModule_ContentCreated(object sender, IndexEventArgs e)
 		{
-			IndexContent(e.SearchContent, IndexAction.Create);	
+			IndexContent(e.SearchContent, IndexAction.Create);
 		}
 
 		private void searchableModule_ContentUpdated(object sender, IndexEventArgs e)
 		{
-			IndexContent(e.SearchContent, IndexAction.Update);	
+			IndexContent(e.SearchContent, IndexAction.Update);
 		}
 
 		private void searchableModule_ContentDeleted(object sender, IndexEventArgs e)
 		{
-			IndexContent(e.SearchContent, IndexAction.Delete);	
+			IndexContent(e.SearchContent, IndexAction.Delete);
 		}
 
 		private enum IndexAction

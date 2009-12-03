@@ -1,14 +1,10 @@
 using System;
-using System.Collections;
-using System.Web;
-using System.Text;
 using System.IO;
 using System.Xml;
 using System.Text.RegularExpressions;
 
 using Cuyahoga.Core;
 using Cuyahoga.Core.Domain;
-using Cuyahoga.Core.Service;
 using Cuyahoga.Core.Util;
 using Cuyahoga.Web.Util;
 using Cuyahoga.Web.Components;
@@ -67,7 +63,7 @@ namespace Cuyahoga.Web
 						// write out 
 						writer.WriteStartElement("rss");
 						writer.WriteAttributeString("version", "2.0");
-						writer.WriteAttributeString("xmlns:dc","http://purl.org/dc/elements/1.1/");
+						writer.WriteAttributeString("xmlns:dc", "http://purl.org/dc/elements/1.1/");
 
 						// write out 
 						writer.WriteStartElement("channel");
@@ -81,10 +77,10 @@ namespace Cuyahoga.Web
 						writer.WriteElementString("lastBuildDate", channel.LastBuildDate.ToUniversalTime().ToString("r"));
 						writer.WriteElementString("generator", channel.Generator);
 						writer.WriteElementString("ttl", channel.Ttl.ToString());
-						
+
 						// Regular expression to find relative urls
 						string expression = String.Format(@"=[""']{0}", UrlHelper.GetApplicationPath());
-						Regex regExUrl = new Regex(expression, RegexOptions.Singleline|RegexOptions.CultureInvariant|RegexOptions.Compiled);
+						Regex regExUrl = new Regex(expression, RegexOptions.Singleline | RegexOptions.CultureInvariant | RegexOptions.Compiled);
 
 						foreach (RssItem item in channel.RssItems)
 						{
@@ -100,7 +96,8 @@ namespace Cuyahoga.Web
 							// write out -level information
 							writer.WriteElementString("title", item.Title);
 							// TODO: Only supports ID's in the pathinfo now...
-							writer.WriteElementString("link", Util.UrlHelper.GetFullUrlFromSection(section) + "/" + item.ItemId);
+							//writer.WriteElementString("link", Util.UrlHelper.GetFullUrlFromSection(section) + "/" + item.ItemId);
+							writer.WriteElementString("link", item.Link);
 							writer.WriteElementString("description", item.Description);
 							writer.WriteElementString("dc:creator", item.Author);
 							writer.WriteElementString("pubDate", item.PubDate.ToUniversalTime().ToString("r"));
@@ -146,17 +143,17 @@ namespace Cuyahoga.Web
 			InitializeComponent();
 			base.OnInit(e);
 		}
-		
+
 		/// <summary>
 		/// Required method for Designer support - do not modify
 		/// the contents of this method with the code editor.
 		/// </summary>
 		private void InitializeComponent()
-		{    
+		{
 			this.Load += new System.EventHandler(this.Page_Load);
 		}
 		#endregion
 
-		
+
 	}
 }

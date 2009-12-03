@@ -567,6 +567,7 @@
     <EmbeddedResource Include="Search\Resources\Strings.sv.resx">
       <SubType>Designer</SubType>
     </EmbeddedResource>
+    <EmbeddedResource Include="Search\Resources\Strings.vi.resx" />
     <EmbeddedResource Include="Search\Search.ascx.resx">
       <DependentUpon>Search.ascx.cs</DependentUpon>
       <SubType>Designer</SubType>
@@ -592,6 +593,7 @@
       <DependentUpon>ResetPassword.ascx.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
+    <EmbeddedResource Include="User\Resources\Strings.de.resx" />
     <EmbeddedResource Include="User\Resources\Strings.es.resx">
       <SubType>Designer</SubType>
     </EmbeddedResource>
@@ -610,6 +612,7 @@
     <EmbeddedResource Include="User\Resources\Strings.sv.resx">
       <SubType>Designer</SubType>
     </EmbeddedResource>
+    <EmbeddedResource Include="User\Resources\Strings.vi.resx" />
     <EmbeddedResource Include="User\User.ascx.resx">
       <DependentUpon>User.ascx.cs</DependentUpon>
       <SubType>Designer</SubType>
@@ -623,6 +626,10 @@
     <None Include="Cuyahoga.Modules.build" />
     <None Include="LanguageSwitcher\Images\flags\flag.tar.gz" />
     <Content Include="StaticHtml\Views\Web.config" />
+    <Content Include="User\EmailTemplates\Register.de.txt" />
+    <Content Include="User\EmailTemplates\Register.vi.txt" />
+    <Content Include="User\EmailTemplates\ResetPassword.de.txt" />
+    <Content Include="User\EmailTemplates\ResetPassword.vi.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>

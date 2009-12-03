@@ -242,7 +242,7 @@ img
 {
 	padding: 7px;
 	margin-top: 4px;
-	border: 1px solid #eee;
+	border: 1px solid #eee;		
 }
 .section h3
 {
@@ -253,11 +253,33 @@ img
 	margin-bottom: 4px;
 }
 
+.syndicate
+{
+	float: right;
+	margin-top: 15px;
+	margin-right: 5px;	
+}
+
 .moduletools
 {
 	float: right;
 	margin-top: 15px;
 	margin-right: 5px;
+}
+
+.moduletools a
+{
+	text-decoration: none;
+	border: 1px solid #ccc;
+	padding: 0px 2px;
+	line-height: 20px;
+	background-color: #ffe;
+	color: #963;
+}
+
+.moduletools a:hover
+{
+	background-color: #f9f9f9;
 }
 
 .error

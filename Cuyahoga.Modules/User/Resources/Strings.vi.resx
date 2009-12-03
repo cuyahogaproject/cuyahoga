@@ -117,154 +117,151 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="LOGINERROR" xml:space="preserve">
-    <value>Ett oförutsett fel uppstod vid inloggning:</value>
-  </data>
-  <data name="USERNAMEPASSWORDMISSING" xml:space="preserve">
-    <value>Var snäll och ange både ett användarnamn och ett lösenord</value>
-  </data>
-  <data name="LOGOUT" xml:space="preserve">
-    <value>Logga ut</value>
-  </data>
-  <data name="REGISTER" xml:space="preserve">
-    <value>Registrera</value>
-  </data>
-  <data name="USERNAMEPASSWORDERROR" xml:space="preserve">
-    <value>Felaktigt användarnamn eller lösenord</value>
-  </data>
-  <data name="RESET" xml:space="preserve">
-    <value>Återställ lösenord</value>
-  </data>
-  <data name="LOGIN" xml:space="preserve">
-    <value>Logga in</value>
-  </data>
-  <data name="LOGGEDINTEXT" xml:space="preserve">
-    <value>Inloggad som</value>
-  </data>
-  <data name="PERSISTLOGIN" xml:space="preserve">
-    <value>Kom ihåg mig</value>
-  </data>
-  <data name="PASSWORD" xml:space="preserve">
-    <value>Lösenord</value>
+  <data name="CURRENTPASSWORD" xml:space="preserve">
+    <value>Mật khẩu hiện tại</value>
   </data>
   <data name="EDITACCOUNT" xml:space="preserve">
-    <value>Redigera användarinformation</value>
-  </data>
-  <data name="USERNAME" xml:space="preserve">
-    <value>Användare</value>
-  </data>
-  <data name="RESETEMAILERROR" xml:space="preserve">
-    <value>Återställningen av ditt lösenord misslyckades på grund av att ett fel uppstod när användarinformationen skickades. Var snäll försök senare.</value>
-  </data>
-  <data name="RESETINFO" xml:space="preserve">
-    <value>Var snäll och ange ditt användarnamn och din e-postadress. Ett nytt lösenord kommer att skapas och kommer att skickas till dig.</value>
+    <value>Sửa thông tin tài khoản</value>
   </data>
   <data name="EDITPASSWORDCONFIRMATION" xml:space="preserve">
-    <value>Lösenordet uppdaterades.</value>
+    <value>Mật khẩu của bạn đã cập nhật thành công</value>
   </data>
   <data name="EDITPASSWORDCONFIRMERROR" xml:space="preserve">
-    <value>Lösenordet för att bekräfta måste vara samma som det nya lösenordet.</value>
-  </data>
-  <data name="USERNOTFOUND" xml:space="preserve">
-    <value>Användaren med ID {0} återfanns inte.</value>
-  </data>
-  <data name="EMAIL" xml:space="preserve">
-    <value>E-post</value>
-  </data>
-  <data name="RESETUSERERROR" xml:space="preserve">
-    <value>Ingen användare med det användarnamnet och den e-postadressen återfanns.</value>
-  </data>
-  <data name="REGISTERCONFIRMATION" xml:space="preserve">
-    <value>Tack för att du registrerade dig på sajten. Lösenordet skickas med e-post till {0}.</value>
-  </data>
-  <data name="SAVEPASSWORD" xml:space="preserve">
-    <value>Spara nytt lösenord</value>
-  </data>
-  <data name="USERNAMEREQUIRED" xml:space="preserve">
-    <value>Användarnamnet krävs</value>
-  </data>
-  <data name="WEBSITE" xml:space="preserve">
-    <value>Webbsajt</value>
-  </data>
-  <data name="EDITPROFILETITLE" xml:space="preserve">
-    <value>Uppdatera användarinformation</value>
-  </data>
-  <data name="NEWPASSWORD" xml:space="preserve">
-    <value>Nytt lösenord</value>
-  </data>
-  <data name="EDITPROFILEINFO" xml:space="preserve">
-    <value>Uppdatera din användarinformation. Observera att din e-postadress inte kommer att visas för andra.</value>
-  </data>
-  <data name="LASTNAME" xml:space="preserve">
-    <value>Efternamn</value>
-  </data>
-  <data name="REGISTERTITLE" xml:space="preserve">
-    <value>Registrera en ny användare</value>
-  </data>
-  <data name="LASTLOGINON" xml:space="preserve">
-    <value>Senast inloggad</value>
-  </data>
-  <data name="SAVEPROFILE" xml:space="preserve">
-    <value>Spara användarinformationen</value>
-  </data>
-  <data name="RESETTITLE" xml:space="preserve">
-    <value>Återställ lösenord</value>
-  </data>
-  <data name="REGISTEREMAILERROR" xml:space="preserve">
-    <value>Registeringen misslyckades på grund av att ett fel uppstod när användarinformationen skickades. Var snäll försök senare.</value>
-  </data>
-  <data name="TIMEZONE" xml:space="preserve">
-    <value>Tidszon</value>
-  </data>
-  <data name="EMAILINVALID" xml:space="preserve">
-    <value>Felaktig e-postadress</value>
-  </data>
-  <data name="EMAILREQUIRED" xml:space="preserve">
-    <value>E-postadress krävs</value>
-  </data>
-  <data name="RESETEMAILSUBJECT" xml:space="preserve">
-    <value>{site} uppdaterad användarinformation.</value>
-  </data>
-  <data name="REGISTERINFO" xml:space="preserve">
-    <value>Skriv önskat användarnamn och din e-postadress. Lösenordet kommer att skickas till din e-postadress.</value>
-  </data>
-  <data name="EDITPROFILECONFIRMATION" xml:space="preserve">
-    <value>Användarinformationen uppdaterades.</value>
-  </data>
-  <data name="FIRSTNAME" xml:space="preserve">
-    <value>Förnamn</value>
-  </data>
-  <data name="REGISTEREDON" xml:space="preserve">
-    <value>Registrerad</value>
-  </data>
-  <data name="USEREXISTS" xml:space="preserve">
-    <value>Användarnamnet {0} finns redan. Var snäll och välj ett annat användarnamn.</value>
-  </data>
-  <data name="VIEWPROFILETITLE" xml:space="preserve">
-    <value>Användarprofil för {0}</value>
-  </data>
-  <data name="CURRENTPASSWORD" xml:space="preserve">
-    <value>Nuvarande lösenord</value>
-  </data>
-  <data name="NEWPASSWORDCONFIRMATION" xml:space="preserve">
-    <value>Nytt lösenord (bekräfta)</value>
-  </data>
-  <data name="NOTAUTHENTICATED" xml:space="preserve">
-    <value>You have to be logged in perform this action.</value>
-  </data>
-  <data name="RESETCONFIRMATION" xml:space="preserve">
-    <value>E-post med ett nytt lösenord skickades till {0}.</value>
-  </data>
-  <data name="RESETEMAILBODY" xml:space="preserve">
-    <value>Din uppdaterade användarinformation:
-
-Användare: {username}
-Lösenord: {password}</value>
-  </data>
-  <data name="INVALIDPASSWORD" xml:space="preserve">
-    <value>Du skrev ett felaktigt lösenord. Lösenordet måste vara minst fem tecken långt.</value>
+    <value>Mật khẩu xác thực phải trùng với Mật khẩu mới</value>
   </data>
   <data name="EDITPASSWORDCURRENTERROR" xml:space="preserve">
-    <value>Lösenordet är inte det samma som det befintliga lösenordet.</value>
+    <value>Mật khẩu hiện tại bạn cung cấp không chính xác với mật khẩu đang lưu trữ</value>
+  </data>
+  <data name="EDITPROFILECONFIRMATION" xml:space="preserve">
+    <value>Thông tin tài khoản của bạn đã cập nhật thành công</value>
+  </data>
+  <data name="EDITPROFILEINFO" xml:space="preserve">
+    <value>Sửa thông tin tài khoản của bạn. Chú ý là địa chỉ thư sẽ không bị cung cấp rộng rãi</value>
+  </data>
+  <data name="EDITPROFILETITLE" xml:space="preserve">
+    <value>Cập nhật tài khoản</value>
+  </data>
+  <data name="EMAIL" xml:space="preserve">
+    <value>Địa chỉ thư</value>
+  </data>
+  <data name="EMAILINVALID" xml:space="preserve">
+    <value>Địa chỉ thư không hợp lệ</value>
+  </data>
+  <data name="EMAILREQUIRED" xml:space="preserve">
+    <value>Địa chỉ thư cần phải cung cấp</value>
+  </data>
+  <data name="FIRSTNAME" xml:space="preserve">
+    <value>Tên gọi</value>
+  </data>
+  <data name="INVALIDPASSWORD" xml:space="preserve">
+    <value>Bạn nhật sai mật khẩu. Mật khẩu phải chứa ít nhất 5 ký tự</value>
+  </data>
+  <data name="LASTLOGINON" xml:space="preserve">
+    <value>Lần truy cập trước</value>
+  </data>
+  <data name="LASTNAME" xml:space="preserve">
+    <value>Tên họ</value>
+  </data>
+  <data name="LOGGEDINTEXT" xml:space="preserve">
+    <value>Đăng nhập là</value>
+  </data>
+  <data name="LOGIN" xml:space="preserve">
+    <value>Đăng nhập</value>
+  </data>
+  <data name="LOGINERROR" xml:space="preserve">
+    <value>Đã có lỗi xảy ra trong quá trình đăng nhập</value>
+  </data>
+  <data name="LOGOUT" xml:space="preserve">
+    <value>Đăng xuất</value>
+  </data>
+  <data name="NEWPASSWORD" xml:space="preserve">
+    <value>Mật khẩu mới</value>
+  </data>
+  <data name="NEWPASSWORDCONFIRMATION" xml:space="preserve">
+    <value>Mật khẩu mới (xác nhận)</value>
+  </data>
+  <data name="NOTAUTHENTICATED" xml:space="preserve">
+    <value>Bạn cần đăng nhập để thực hiện thao tác này</value>
+  </data>
+  <data name="PASSWORD" xml:space="preserve">
+    <value>Mật khẩu</value>
+  </data>
+  <data name="PERSISTLOGIN" xml:space="preserve">
+    <value>Ghi nhớ đăng nhập</value>
+  </data>
+  <data name="REGISTER" xml:space="preserve">
+    <value>Đăng ký</value>
+  </data>
+  <data name="REGISTERCONFIRMATION" xml:space="preserve">
+    <value>Cảm ơn bạn đã đăng ký. Một thư có chứa mật khẩu đã được gửi đến {0}</value>
+  </data>
+  <data name="REGISTEREDON" xml:space="preserve">
+    <value>Đã đăng ký</value>
+  </data>
+  <data name="REGISTEREMAILERROR" xml:space="preserve">
+    <value>Quá trình đăng ký thất bại vì đã có lỗi trong việc gửi thư thông báo thông tin tài khoản. Hãy thử lại</value>
+  </data>
+  <data name="REGISTERINFO" xml:space="preserve">
+    <value>Hãy cung cấp thông tin về Tên đăng nhập, địa chỉ thư... Mật khẩu sẽ được gửi vào địa chỉ thư của quý khách</value>
+  </data>
+  <data name="REGISTERTITLE" xml:space="preserve">
+    <value>Đăng ký tài khoản mới</value>
+  </data>
+  <data name="RESET" xml:space="preserve">
+    <value>Tạo lại mật khẩu</value>
+  </data>
+  <data name="RESETCONFIRMATION" xml:space="preserve">
+    <value>Một thư có chứa mật khẩu mới đã được gửi tới địa chỉ thư {0}</value>
+  </data>
+  <data name="RESETEMAILBODY" xml:space="preserve">
+    <value>Thông tin đăng nhập của bạn:</value>
+  </data>
+  <data name="RESETEMAILERROR" xml:space="preserve">
+    <value>Quá trình tạo lại mật khẩi thất bại vì có lỗi trong việc gửi thông tin tài khoản. Hãy thử lại</value>
+  </data>
+  <data name="RESETEMAILSUBJECT" xml:space="preserve">
+    <value>{site} đã cập nhật thông tin tài khoản</value>
+  </data>
+  <data name="RESETINFO" xml:space="preserve">
+    <value>Hãy cung cấp thông tin về Tên đăng nhập, địa chỉ thư... Mật khẩu mới sẽ được tạo và gửi đến bạn</value>
+  </data>
+  <data name="RESETTITLE" xml:space="preserve">
+    <value>Tạo lại mật khẩu</value>
+  </data>
+  <data name="RESETUSERERROR" xml:space="preserve">
+    <value>Không có tài khoản nào phù hợp với Tên đăng nhập và địa chỉ thư đã cung cấp</value>
+  </data>
+  <data name="SAVEPASSWORD" xml:space="preserve">
+    <value>Lưu mật khẩu mới</value>
+  </data>
+  <data name="SAVEPROFILE" xml:space="preserve">
+    <value>Lưu thông tin tài khoản</value>
+  </data>
+  <data name="TIMEZONE" xml:space="preserve">
+    <value>Múi giờ</value>
+  </data>
+  <data name="USEREXISTS" xml:space="preserve">
+    <value>Một tài khoản đã có tên đăng nhập là {0}. Hãy chọn tên đăng nhập khác</value>
+  </data>
+  <data name="USERNAME" xml:space="preserve">
+    <value>Tên đăng nhập</value>
+  </data>
+  <data name="USERNAMEPASSWORDERROR" xml:space="preserve">
+    <value>Sai tên đăng nhập hoặc mật khẩu</value>
+  </data>
+  <data name="USERNAMEPASSWORDMISSING" xml:space="preserve">
+    <value>Hãy cung cấp tên đăng nhập và mật khẩu</value>
+  </data>
+  <data name="USERNAMEREQUIRED" xml:space="preserve">
+    <value>Tên đăng nhập cần được cung cấp</value>
+  </data>
+  <data name="USERNOTFOUND" xml:space="preserve">
+    <value>Không tìm thấy tài khoản có ID là {0}</value>
+  </data>
+  <data name="VIEWPROFILETITLE" xml:space="preserve">
+    <value>Lý lịch của {0}</value>
+  </data>
+  <data name="WEBSITE" xml:space="preserve">
+    <value>Trang web</value>
   </data>
 </root>

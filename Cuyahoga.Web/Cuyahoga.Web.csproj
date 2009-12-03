@@ -1420,12 +1420,15 @@
     <Content Include="Templates\AnotherRed\Images\shadow-right.gif" />
     <Content Include="Templates\AnotherRed\Images\shadow-top-left.gif" />
     <Content Include="Templates\AnotherRed\Images\shadow-top-right.gif" />
+    <Content Include="Templates\AnotherRed\Offline.ascx" />
     <Content Include="Templates\Classic\Css\red.css" />
     <Content Include="Templates\Classic\CuyahogaHome.ascx">
-      <SubType>UserControl</SubType>
+      <SubType>
+      </SubType>
     </Content>
     <Content Include="Templates\Classic\CuyahogaStandard.ascx">
-      <SubType>UserControl</SubType>
+      <SubType>
+      </SubType>
     </Content>
     <Content Include="Templates\Classic\Images\bg-header.gif" />
     <Content Include="Templates\Classic\Images\bg.gif" />

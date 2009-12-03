@@ -168,6 +168,7 @@
     <EmbeddedResource Include="Web\Resources\Strings.sv.resx">
       <SubType>Designer</SubType>
     </EmbeddedResource>
+    <EmbeddedResource Include="Web\Resources\Strings.vi.resx" />
     <None Include="Cuyahoga.Modules.Articles.build" />
     <None Include="Install\Database\mssql2000\1.5.1.sql" />
     <None Include="Install\Database\mssql2000\1.5.2.sql" />

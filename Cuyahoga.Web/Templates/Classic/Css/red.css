@@ -219,6 +219,30 @@ img
 	margin-bottom: 4px;
 }
 
+.syndicate
+{
+	float: right;
+	margin-top: 15px;
+	margin-right: 5px;	
+}
+
+.moduletools
+{
+	float: right;
+	margin-top: 15px;
+	margin-right: 5px;
+}
+
+.moduletools a
+{
+	text-decoration: none;
+	border: 1px solid #ccc;
+	padding: 0px 2px;
+	line-height: 20px;
+	background-color: #ffe;
+	color: #963;
+}
+
 .tbl
 {
 	border: 1px solid #eee;

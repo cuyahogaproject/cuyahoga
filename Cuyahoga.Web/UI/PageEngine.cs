@@ -26,8 +26,9 @@ namespace Cuyahoga.Web.UI
 		private Section _activeSection;
 		private BaseTemplate _templateControl;
 		private bool _shouldLoadContent;
-		private IDictionary _stylesheets;
-		private IDictionary _metaTags;
+		private IDictionary<string, string> _stylesheets = new Dictionary<string, string>();
+		private IDictionary<string, string> _javaScripts = new Dictionary<string, string>();
+		private IDictionary<string, string> _metaTags = new Dictionary<string, string>();
 
 		private ModuleLoader _moduleLoader;
 		private INodeService _nodeService;
@@ -104,8 +105,6 @@ namespace Cuyahoga.Web.UI
 			this._activeSection = null;
 			this._templateControl = null;
 			this._shouldLoadContent = true;
-			this._stylesheets = new Hashtable();
-			this._metaTags = new Hashtable();
 
 			// Get services from the container. Ideally, it should be possible to register the aspx page in the container
 			// to automatically resolve dependencies but there were memory issues with registering pages in the container.
@@ -122,9 +121,22 @@ namespace Cuyahoga.Web.UI
 		/// <param name="absoluteCssPath">The path to the css file from the application root (starting with /).</param>
 		public void RegisterStylesheet(string key, string absoluteCssPath)
 		{
-			if (this._stylesheets[key] == null)
+			if (! this._stylesheets.ContainsKey(key))
 			{
 				this._stylesheets.Add(key, absoluteCssPath);
+			}
+		}
+
+		/// <summary>
+		/// Register javascripts.
+		/// </summary>
+		/// <param name="key"></param>
+		/// <param name="absoluteJavaScriptPath"></param>
+		public void RegisterJavaScript(string key, string absoluteJavaScriptPath)
+		{
+			if (! this._javaScripts.ContainsKey(key))
+			{
+				this._javaScripts.Add(key, absoluteJavaScriptPath);
 			}
 		}
 
@@ -252,6 +264,7 @@ namespace Cuyahoga.Web.UI
 		protected override void Render(System.Web.UI.HtmlTextWriter writer)
 		{
 			InsertStylesheets();
+			InsertJavaScripts();
 			InsertMetaTags();
 
 			if (Context.Items["VirtualUrl"] != null)
@@ -411,19 +424,19 @@ namespace Cuyahoga.Web.UI
 
 		private void InsertStylesheets()
 		{
-			string[] stylesheetLinks = new string[this._stylesheets.Count];
-			int i = 0;
-			foreach (string stylesheet in this._stylesheets.Values)
-			{
-				stylesheetLinks[i] = stylesheet;
-				i++;
-			}
-			this.TemplateControl.RenderCssLinks(stylesheetLinks);
+			List<string> stylesheetLinks = new List<string>(this._stylesheets.Values);
+			this.TemplateControl.RenderCssLinks(stylesheetLinks.ToArray());
 		}
+
+		private void InsertJavaScripts()
+			{
+			List<string> javaScriptLinks = new List<string>(this._javaScripts.Values);
+			this.TemplateControl.RenderJavaScriptLinks(javaScriptLinks.ToArray());
+			}
 
 		private void InsertMetaTags()
 		{
-			this.TemplateControl.RenderMetaTags(this._metaTags);
+			this.TemplateControl.RenderMetaTags((IDictionary) this._metaTags);
 		}
 	}
 }

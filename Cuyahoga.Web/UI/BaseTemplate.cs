@@ -21,7 +21,11 @@ namespace Cuyahoga.Web.UI
 		/// id="Stylesheets".
 		/// </summary>
 		protected System.Web.UI.WebControls.Literal Stylesheets;
-
+		/// <summary>
+		/// Template controls that inherit from BaseTemplate must have a Literal control with 
+		/// id="Javascripts".
+		/// </summary>
+		protected System.Web.UI.WebControls.Literal JavaScripts;
 		/// <summary>
 		/// Template controls that inherit from BaseTemplate must have a Literal control with 
 		/// id="MetaTags".
@@ -95,6 +99,19 @@ namespace Cuyahoga.Web.UI
 				sb.AppendFormat("<link rel=\"stylesheet\" type=\"text/css\" href=\"{0}\" />\n\t", stylesheet);
 			}
 			this.Stylesheets.Text = sb.ToString();
+		}
+
+		/// <summary>
+		/// Converts the list of javaScripts to script tags and inserts these in the appropriate place.
+		/// </summary>
+		public void RenderJavaScriptLinks(string[] javaScripts)
+		{
+			StringBuilder sb = new StringBuilder();
+			foreach (string javaScript in javaScripts)
+			{
+				sb.AppendFormat("<script src=\"{0}\" type=\"text/javascript\"></script>\n\t", javaScript);
+			}
+			this.JavaScripts.Text = sb.ToString();
 		}
 
 		/// <summary>
