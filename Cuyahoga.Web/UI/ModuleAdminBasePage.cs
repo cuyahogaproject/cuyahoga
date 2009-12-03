@@ -50,7 +50,7 @@ namespace Cuyahoga.Web.UI
 		/// templatepath and stylesheet.
 		/// </summary>
 		public ModuleAdminBasePage()
-			: base("ModuleAdminTemplate.ascx", "~/Controls/", "~/Admin/Css/Admin.css")
+			: base("ModuleAdminTemplate.ascx", "~/Modules/Shared/WebForms/Controls/", "~/Modules/Shared/WebForms/Css/ModuleAdmin.css")
 		{
 			this._node = null;
 			this._section = null;

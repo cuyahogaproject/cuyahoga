@@ -25,7 +25,7 @@ namespace Cuyahoga.Web.UI
 		public static void SetDefault(Page thisPage, TextBox textControl, WebControl defaultButton)
 		{
 			textControl.Attributes.Add("onkeydown", "fnTrapKD('" + defaultButton.ClientID + "', event)");
-			string scriptSrc = String.Format("<script type=\"text/javascript\" src=\"{0}\"></script>", thisPage.ResolveUrl("~/js/DefaultButton.js"));
+			string scriptSrc = String.Format("<script type=\"text/javascript\" src=\"{0}\"></script>", thisPage.ResolveUrl("~/Support/DefaultButton/DefaultButton.js"));
 			thisPage.RegisterClientScriptBlock("DefaultButtonScript", scriptSrc);
 		}
 	}

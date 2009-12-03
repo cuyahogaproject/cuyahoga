@@ -44,7 +44,7 @@ namespace Cuyahoga.Web.Templates.Controls
 					{
 						// show <li> tag for Admin link
 						this.liAdmin.Visible = this._page.CuyahogaUser.HasPermission(AccessLevel.Administrator);
-						this.hplAdmin.NavigateUrl = this._page.ResolveUrl("~/Admin");
+						this.hplAdmin.NavigateUrl = "~/Manager";
 						this.hplAdmin.Visible = this._page.CuyahogaUser.HasPermission(AccessLevel.Administrator);
 					}
 				}

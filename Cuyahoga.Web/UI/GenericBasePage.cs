@@ -286,26 +286,5 @@ namespace Cuyahoga.Web.UI
 			_pageControl.InsertStylesheets();
 			_pageControl.InsertJavascripts();
 		}
-
-		/// <summary>
-		/// Resolution of the __doPostBack bug (MS .NET 1.1). Forgot where the source came from. 
-		/// Perhaps somewhere from the ASP.NET forum.
-		/// </summary>
-		/// <param name="writer"></param>
-		protected override void Render(HtmlTextWriter writer)
-		{
-			StringBuilder stringBuilder = new StringBuilder();
-			StringWriter stringWriter = new StringWriter(stringBuilder);
-			HtmlTextWriter htmlWriter = new HtmlTextWriter(stringWriter);
-			base.Render(htmlWriter);
-			string html = stringBuilder.ToString();
-			int start = html.IndexOf("<form name=\"") + 12;
-			int end = html.IndexOf("\"", start);
-			string formID = html.Substring(start, end - start);
-			string replace = formID.Replace(":", "_");
-			html = html.Replace("document." + formID, "document." + replace);
-
-			writer.Write(html);
-		}
 	}
 }

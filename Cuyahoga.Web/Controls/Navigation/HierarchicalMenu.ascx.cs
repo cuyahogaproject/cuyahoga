@@ -57,8 +57,8 @@ namespace Cuyahoga.Web.Templates.Controls
 			{
 				HtmlGenericControl listItem = new HtmlGenericControl("li");
 				HyperLink hpl = new HyperLink();
-				hpl.NavigateUrl = this._page.ResolveUrl("~/Admin");
-				hpl.Text = "Admin";
+				hpl.NavigateUrl = "~/Manager";
+				hpl.Text = "Manager";
 				listItem.Controls.Add(hpl);
 				mainList.Controls.Add(listItem);
 			}
