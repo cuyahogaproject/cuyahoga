@@ -52,16 +52,6 @@ namespace Cuyahoga.Web.Templates.Controls
 					mainList.Controls.Add(listItem);
 				}
 			}
-			if (this._page.CuyahogaUser != null 
-				&& this._page.CuyahogaUser.HasPermission(AccessLevel.Administrator))
-			{
-				HtmlGenericControl listItem = new HtmlGenericControl("li");
-				HyperLink hpl = new HyperLink();
-				hpl.NavigateUrl = "~/Manager";
-				hpl.Text = "Manager";
-				listItem.Controls.Add(hpl);
-				mainList.Controls.Add(listItem);
-			}
 			this.plhNodes.Controls.Add(mainList);
 		}
 

@@ -38,15 +38,7 @@ namespace Cuyahoga.Web.Templates.Controls
 					// Bind level 1 nodes
 					this.rptNav1.ItemDataBound += new RepeaterItemEventHandler(rptNav1_ItemDataBound);
 					this.rptNav1.DataSource = this._page.RootNode.ChildNodes;
-					this.rptNav1.DataBind();
-					
-					if (this._page.CuyahogaUser != null)
-					{
-						// show <li> tag for Admin link
-						this.liAdmin.Visible = this._page.CuyahogaUser.HasPermission(AccessLevel.Administrator);
-						this.hplAdmin.NavigateUrl = "~/Manager";
-						this.hplAdmin.Visible = this._page.CuyahogaUser.HasPermission(AccessLevel.Administrator);
-					}
+					this.rptNav1.DataBind();				
 				}
 			}
 			catch (InvalidCastException ex)

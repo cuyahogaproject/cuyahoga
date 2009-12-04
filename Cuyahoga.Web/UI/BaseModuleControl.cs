@@ -134,11 +134,6 @@ namespace Cuyahoga.Web.UI
 								, UrlHelper.GetApplicationPath()
 								, this._module.Section.Node.Id
 								, this._module.Section.Id));
-						writer.Write(
-							String.Format(
-								"&nbsp;<a href=\"{0}Admin/NodeEdit.aspx?NodeId={1}\">Page Properties</a>"
-								, UrlHelper.GetApplicationPath()
-								, this._module.Section.Node.Id));
 					}
 					else
 					{

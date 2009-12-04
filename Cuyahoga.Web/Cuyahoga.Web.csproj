@@ -222,6 +222,13 @@
     </Compile>
     <Compile Include="Components\Bootstrapper.cs" />
     <Compile Include="Components\CuyahogaContext.cs" />
+    <Compile Include="Controls\ManagerToolbar.ascx.cs">
+      <DependentUpon>ManagerToolbar.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Controls\ManagerToolbar.ascx.designer.cs">
+      <DependentUpon>ManagerToolbar.ascx</DependentUpon>
+    </Compile>
     <Compile Include="HttpModules\PageRequestModule.cs" />
     <Compile Include="Manager\Controllers\CategoriesController.cs" />
     <Compile Include="Manager\Controllers\DashboardController.cs" />
@@ -399,6 +406,8 @@
     <Compile Include="Util\UrlHelper.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Content Include="Controls\ManagerToolbar.ascx" />
+    <Content Include="Manager\Content\Css\ManagerToolbar.css" />
     <Content Include="Modules\Shared\WebForms\Css\ModuleAdmin.css" />
     <Content Include="Manager\Content\Css\jquery-ui\smoothness\images\ui-bg_flat_0_aaaaaa_40x100.png" />
     <Content Include="Manager\Content\Css\jquery-ui\smoothness\images\ui-bg_flat_75_ffffff_40x100.png" />

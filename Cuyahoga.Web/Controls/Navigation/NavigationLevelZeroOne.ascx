@@ -2,11 +2,10 @@
 <div id="mainmenuarea">
 	<ul id="mainmenu">
 		<li><asp:hyperlink id="hplHome" runat="server"></asp:hyperlink></li>
-			<asp:repeater id="rptNav1" runat="server" enableviewstate="False">
-				<itemtemplate>
-					<li><asp:hyperlink id="hplNav1" runat="server"></asp:hyperlink></li>
-				</itemtemplate>
-			</asp:repeater>
-		<li id="liAdmin" runat="server" visible="false"><asp:hyperlink id="hplAdmin" runat="server" visible="False">Manager</asp:hyperlink></li>
+		<asp:repeater id="rptNav1" runat="server" enableviewstate="False">
+			<itemtemplate>
+				<li><asp:hyperlink id="hplNav1" runat="server"></asp:hyperlink></li>
+			</itemtemplate>
+		</asp:repeater>
 	</ul>
 </div>

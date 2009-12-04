@@ -8,6 +8,7 @@ using System.Globalization;
 using System.Collections;
 using Cuyahoga.Core;
 using Cuyahoga.Core.Domain;
+using Cuyahoga.Core.Service.Membership;
 using Cuyahoga.Core.Service.SiteStructure;
 using Cuyahoga.Web.Util;
 using Cuyahoga.Web.Components;
@@ -253,6 +254,14 @@ namespace Cuyahoga.Web.UI
 					LoadContent();
 					LoadMenus();
 				}
+			}
+
+			// Check if the current user has access to the manager. If so, add manager toolbar to the template.
+			if (this._templateControl != null 
+				&& CuyahogaContext.Current.CurrentUser != null 
+				&& CuyahogaContext.Current.CurrentUser.HasRight(Rights.AccessAdmin))
+			{
+				this._templateControl.Form.Controls.AddAt(0, LoadControl("~/Controls/ManagerToolbar.ascx"));
 			}
 			base.OnInit(e);
 		}

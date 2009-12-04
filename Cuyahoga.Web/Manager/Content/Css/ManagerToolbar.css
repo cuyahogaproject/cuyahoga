@@ -1,0 +1,39 @@
+﻿#managertoolbar
+{
+	background-color: #ddd;
+	border-bottom: 1px solid #000;
+	color: #000;
+	margin: 0;
+	padding: 3px;
+}
+
+#managertoolbar ul
+{
+	margin: 0;
+	padding: 0;
+	list-style-type: none;
+}
+
+#managertoolbar li
+{
+	display: inline;
+}
+
+#managertoolbar img
+{
+	margin-right: 2px;
+}
+
+#managertoolbar a
+{
+	color: #036;
+	font-family: Arial, helvetica;
+	font-size: 14px;
+	margin: 0 2px;
+	text-decoration: none;
+}
+
+#managertoolbar a:hover
+{
+	text-decoration: underline;
+}

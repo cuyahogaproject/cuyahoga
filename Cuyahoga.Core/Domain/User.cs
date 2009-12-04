@@ -338,6 +338,23 @@ namespace Cuyahoga.Core.Domain
 		}
 
 		/// <summary>
+		/// Indicates if the user has edit permissions for a certain Node.
+		/// </summary>
+		/// <param name="node"></param>
+		/// <returns></returns>
+		public virtual bool CanEdit(Node node)
+		{
+			foreach (Permission p in node.NodePermissions)
+			{
+				if (p.EditAllowed && IsInRole(p.Role))
+				{
+					return true;
+				}
+			}
+			return false;
+		}
+
+		/// <summary>
 		/// Indicates if the user has view permissions for a certain Section.
 		/// </summary>
 		/// <param name="section"></param>
