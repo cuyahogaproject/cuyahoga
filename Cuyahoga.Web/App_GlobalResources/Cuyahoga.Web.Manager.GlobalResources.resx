@@ -948,4 +948,40 @@
   <data name="ViewCurrentPageLabel" xml:space="preserve">
     <value>View this page</value>
   </data>
+  <data name="AliasUrlHttpLabel" xml:space="preserve">
+    <value>Alias Url (incl. http://) </value>
+  </data>
+  <data name="AliasUrlLabel" xml:space="preserve">
+    <value>Alias url</value>
+  </data>
+  <data name="EditSiteAliasPageTitle" xml:space="preserve">
+    <value>Edit site alias for '{0}'</value>
+  </data>
+  <data name="EntryPageLabel" xml:space="preserve">
+    <value>Entry page</value>
+  </data>
+  <data name="ManageAliasesLabel" xml:space="preserve">
+    <value>Manage aliases</value>
+  </data>
+  <data name="ManageAliasesPageTitle" xml:space="preserve">
+    <value>Manage aliases for site '{0}'</value>
+  </data>
+  <data name="NewAliasLabel" xml:space="preserve">
+    <value>New site alias</value>
+  </data>
+  <data name="NewSiteAliasPageTitle" xml:space="preserve">
+    <value>Create site alias for '{0}'</value>
+  </data>
+  <data name="SameAsSiteLabel" xml:space="preserve">
+    <value>Same page as the site</value>
+  </data>
+  <data name="SiteAliasCreatedMessage" xml:space="preserve">
+    <value>The site alias {0} is created successfully.</value>
+  </data>
+  <data name="SiteAliasDeletedMessage" xml:space="preserve">
+    <value>The site alias {0} is deleted successfully.</value>
+  </data>
+  <data name="SiteAliasUpdatedMessage" xml:space="preserve">
+    <value>The site alias {0} is updated successfully.</value>
+  </data>
 </root>

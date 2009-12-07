@@ -228,6 +228,15 @@
   <data name="SectionTitleValidatorNonEmpty" xml:space="preserve">
     <value>De titel is verplicht</value>
   </data>
+  <data name="SiteAliasSiteValidatorNonEmpty" xml:space="preserve">
+    <value>Site alias moet gekoppeld zijn aan een site</value>
+  </data>
+  <data name="SiteAliasUrlValidatorLength" xml:space="preserve">
+    <value>Site alias url moet tussen de 1 en 100 tekens bevatten</value>
+  </data>
+  <data name="SiteAliasUrlValidatorNonEmpty" xml:space="preserve">
+    <value>Site alias url mag niet leeg zijn</value>
+  </data>
   <data name="SiteNameValidatorLength" xml:space="preserve">
     <value>Site naam moet tussen de 1 en 100 tekens bevatten</value>
   </data>

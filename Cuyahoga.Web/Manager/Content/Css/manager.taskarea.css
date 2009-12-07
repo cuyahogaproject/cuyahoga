@@ -63,6 +63,11 @@
 	background-image: url(../Images/layout_edit.png);
 }
 
+#taskarea a.aliaslink
+{
+	background-image: url(../Images/world_link.png);
+}
+
 #taskarea a.contentlink
 {
 	background-image: url(../Images/pencil.png);

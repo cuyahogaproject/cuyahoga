@@ -417,7 +417,11 @@
     <Content Include="Controls\ManagerToolbar.ascx" />
     <Content Include="Manager\Content\Css\ManagerToolbar.css" />
     <Content Include="Manager\Content\Images\page_go.png" />
+    <Content Include="Manager\Content\Images\world_link.png" />
     <Content Include="Manager\Views\Sections\SectionProperties.aspx" />
+    <Content Include="Manager\Views\Site\Aliases.aspx" />
+    <Content Include="Manager\Views\Site\EditAlias.aspx" />
+    <Content Include="Manager\Views\Site\NewAlias.aspx" />
     <Content Include="Modules\Shared\WebForms\Css\ModuleAdmin.css" />
     <Content Include="Manager\Content\Css\jquery-ui\smoothness\images\ui-bg_flat_0_aaaaaa_40x100.png" />
     <Content Include="Manager\Content\Css\jquery-ui\smoothness\images\ui-bg_flat_75_ffffff_40x100.png" />

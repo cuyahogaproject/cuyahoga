@@ -11,6 +11,7 @@
 		<%= Html.ActionLink(GlobalResources.CreateSiteLabel, "New", null, new { @class = "createlink"} )%>
 	<% } %>
 	<% if (Html.HasRight(User, Rights.ManageSite)) { %>
+		<%= Html.ActionLink(GlobalResources.ManageAliasesLabel, "Aliases", "Site", null, new { @class = "aliaslink"} )%>
 		<%= Html.ActionLink(GlobalResources.RebuildFullTextIndexLabel, "Index", "SearchIndex", null, new { @class = "refreshlink"} )%>
 	<% } %>
 </asp:Content>

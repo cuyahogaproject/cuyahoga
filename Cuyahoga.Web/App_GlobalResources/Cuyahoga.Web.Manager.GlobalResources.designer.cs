@@ -133,6 +133,24 @@ namespace Resources.Cuyahoga.Web.Manager {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Alias Url (incl. http://) .
+        /// </summary>
+        internal static string AliasUrlHttpLabel {
+            get {
+                return ResourceManager.GetString("AliasUrlHttpLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Alias url.
+        /// </summary>
+        internal static string AliasUrlLabel {
+            get {
+                return ResourceManager.GetString("AliasUrlLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Are you sure?.
         /// </summary>
         internal static string AreYouSure {
@@ -799,6 +817,15 @@ namespace Resources.Cuyahoga.Web.Manager {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Edit site alias for &apos;{0}&apos;.
+        /// </summary>
+        internal static string EditSiteAliasPageTitle {
+            get {
+                return ResourceManager.GetString("EditSiteAliasPageTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Edit template.
         /// </summary>
         internal static string EditTemplatePageTitle {
@@ -831,6 +858,15 @@ namespace Resources.Cuyahoga.Web.Manager {
         internal static string EmptyUsernameOrPassword {
             get {
                 return ResourceManager.GetString("EmptyUsernameOrPassword", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Entry page.
+        /// </summary>
+        internal static string EntryPageLabel {
+            get {
+                return ResourceManager.GetString("EntryPageLabel", resourceCulture);
             }
         }
         
@@ -1231,6 +1267,24 @@ namespace Resources.Cuyahoga.Web.Manager {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Manage aliases.
+        /// </summary>
+        internal static string ManageAliasesLabel {
+            get {
+                return ResourceManager.GetString("ManageAliasesLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Manage aliases for site &apos;{0}&apos;.
+        /// </summary>
+        internal static string ManageAliasesPageTitle {
+            get {
+                return ResourceManager.GetString("ManageAliasesPageTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Manage categories.
         /// </summary>
         internal static string ManageCategoriesPageTitle {
@@ -1591,6 +1645,15 @@ namespace Resources.Cuyahoga.Web.Manager {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to New site alias.
+        /// </summary>
+        internal static string NewAliasLabel {
+            get {
+                return ResourceManager.GetString("NewAliasLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Create a new category.
         /// </summary>
         internal static string NewCategoryPageTitle {
@@ -1650,6 +1713,15 @@ namespace Resources.Cuyahoga.Web.Manager {
         internal static string NewSharedSectionPageTitle {
             get {
                 return ResourceManager.GetString("NewSharedSectionPageTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Create site alias for &apos;{0}&apos;.
+        /// </summary>
+        internal static string NewSiteAliasPageTitle {
+            get {
+                return ResourceManager.GetString("NewSiteAliasPageTitle", resourceCulture);
             }
         }
         
@@ -2050,6 +2122,15 @@ namespace Resources.Cuyahoga.Web.Manager {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Same page as the site.
+        /// </summary>
+        internal static string SameAsSiteLabel {
+            get {
+                return ResourceManager.GetString("SameAsSiteLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Save.
         /// </summary>
         internal static string SaveButtonLabel {
@@ -2217,6 +2298,33 @@ namespace Resources.Cuyahoga.Web.Manager {
         internal static string ShowInNavigationLabel {
             get {
                 return ResourceManager.GetString("ShowInNavigationLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The site alias {0} is created successfully..
+        /// </summary>
+        internal static string SiteAliasCreatedMessage {
+            get {
+                return ResourceManager.GetString("SiteAliasCreatedMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The site alias {0} is deleted successfully..
+        /// </summary>
+        internal static string SiteAliasDeletedMessage {
+            get {
+                return ResourceManager.GetString("SiteAliasDeletedMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The site alias {0} is updated successfully..
+        /// </summary>
+        internal static string SiteAliasUpdatedMessage {
+            get {
+                return ResourceManager.GetString("SiteAliasUpdatedMessage", resourceCulture);
             }
         }
         

@@ -1,4 +1,5 @@
 using System;
+using Castle.Components.Validator;
 
 namespace Cuyahoga.Core.Domain
 {
@@ -26,6 +27,7 @@ namespace Cuyahoga.Core.Domain
 		/// <summary>
 		/// Property Site (Site)
 		/// </summary>
+		[ValidateNonEmpty("SiteAliasSiteValidatorNonEmpty")]
 		public virtual Site Site
 		{
 			get { return this._site; }
@@ -44,6 +46,8 @@ namespace Cuyahoga.Core.Domain
 		/// <summary>
 		/// Property Url (string)
 		/// </summary>
+		[ValidateNonEmpty("SiteAliasUrlValidatorNonEmpty")]
+		[ValidateLength(1, 100, "SiteAliasUrlValidatorLength")]
 		public virtual string Url
 		{
 			get { return this._url; }

@@ -228,6 +228,15 @@
   <data name="SectionTitleValidatorNonEmpty" xml:space="preserve">
     <value>The title may not be empty</value>
   </data>
+  <data name="SiteAliasSiteValidatorNonEmpty" xml:space="preserve">
+    <value>The site alias needs an associated site</value>
+  </data>
+  <data name="SiteAliasUrlValidatorLength" xml:space="preserve">
+    <value>The site alias url must be between 1 and 100 characters</value>
+  </data>
+  <data name="SiteAliasUrlValidatorNonEmpty" xml:space="preserve">
+    <value>The site alias url may not be empty</value>
+  </data>
   <data name="SiteNameValidatorLength" xml:space="preserve">
     <value>The site name must be between 1 and 100 characters</value>
   </data>

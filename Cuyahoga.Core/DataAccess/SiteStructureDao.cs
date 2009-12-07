@@ -56,14 +56,14 @@ namespace Cuyahoga.Core.DataAccess
 			return q.UniqueResult() as SiteAlias;
 		}
 
-		public IList GetSiteAliasesBySite(Site site)
+		public IList<SiteAlias> GetSiteAliasesBySite(Site site)
 		{
 			ISession session = this._sessionManager.OpenSession();
 
 			string hql = "from SiteAlias sa where sa.Site.Id = :siteId ";
 			IQuery query = session.CreateQuery(hql);
 			query.SetInt32("siteId", site.Id);
-			return query.List();
+			return query.List<SiteAlias>();
 		}
 
 		public IList<Node> GetRootNodes(Site site)

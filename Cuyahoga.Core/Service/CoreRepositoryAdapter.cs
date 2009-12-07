@@ -126,7 +126,7 @@ namespace Cuyahoga.Core.Service
 
 		public override IList GetSiteAliasesBySite(Site site)
 		{
-			return this._siteStructureDao.GetSiteAliasesBySite(site);
+			return (IList) this._siteStructureDao.GetSiteAliasesBySite(site);
 		}
 
 		public override IList GetRootNodes(Site site)

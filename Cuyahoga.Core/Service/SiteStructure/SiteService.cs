@@ -67,7 +67,7 @@ namespace Cuyahoga.Core.Service.SiteStructure
 			return this._siteStructureDao.GetSiteAliasByUrl(url);
 		}
 
-		public IList GetSiteAliasesBySite(Site site)
+		public IList<SiteAlias> GetSiteAliasesBySite(Site site)
 		{
 			return this._siteStructureDao.GetSiteAliasesBySite(site);
 		}
@@ -160,7 +160,7 @@ namespace Cuyahoga.Core.Service.SiteStructure
 			}
 			else
 			{
-				IList aliases = this._siteStructureDao.GetSiteAliasesBySite(site);
+				IList<SiteAlias> aliases = this._siteStructureDao.GetSiteAliasesBySite(site);
 				if (aliases.Count > 0)
 				{
 					throw new Exception("Unable to delete a site when a site has related aliases.");

@@ -8,6 +8,7 @@ using Cuyahoga.Core.Service.Membership;
 using Cuyahoga.Core.Service.SiteStructure;
 using Cuyahoga.Core.Util;
 using Cuyahoga.Core.Validation;
+using Cuyahoga.Web.Components;
 using Cuyahoga.Web.Mvc.Filters;
 using Cuyahoga.Web.Mvc.WebForms;
 
@@ -16,15 +17,19 @@ namespace Cuyahoga.Web.Manager.Controllers
 	[PermissionFilter(RequiredRights = Rights.ManageSite)]
 	public class SiteController : ManagerController
 	{
-		private readonly ISiteService _siteservice;
+		private readonly ISiteService _siteService;
 		private readonly IUserService _userService;
 		private readonly ITemplateService _templateService;
+		private readonly INodeService _nodeService;
+		private readonly IModelValidator<SiteAlias> _siteAliasValidator;
 
-		public SiteController(ISiteService siteservice, IUserService userService, ITemplateService templateService, IModelValidator<Site> siteValidator)
+		public SiteController(ISiteService siteservice, IUserService userService, ITemplateService templateService, INodeService nodeService, IModelValidator<Site> siteValidator, IModelValidator<SiteAlias> siteAliasValidator)
 		{
-			_siteservice = siteservice;
+			_siteService = siteservice;
 			_userService = userService;
 			_templateService = templateService;
+			_nodeService = nodeService;
+			_siteAliasValidator = siteAliasValidator;
 			ModelValidator = siteValidator;
 		}
 
@@ -68,7 +73,7 @@ namespace Cuyahoga.Web.Manager.Controllers
 						templates = this._templateService.GetAllSystemTemplates().Where(t => templateIds.Contains(t.Id)).ToList();
 					}
 					string systemTemplateDir = Server.MapPath(Config.GetConfiguration()["TemplateDir"]);
-					this._siteservice.CreateSite(site, Server.MapPath("~/SiteData"), templates, systemTemplateDir);
+					this._siteService.CreateSite(site, Server.MapPath("~/SiteData"), templates, systemTemplateDir);
 
 					return RedirectToAction("CreateSuccess", new { siteId = site.Id });
 				}
@@ -86,13 +91,14 @@ namespace Cuyahoga.Web.Manager.Controllers
 		[PermissionFilter(RequiredRights = Rights.CreateSite)]
 		public ActionResult CreateSuccess(int siteId)
 		{
-			Site newSite = this._siteservice.GetSiteById(siteId);
+			Site newSite = this._siteService.GetSiteById(siteId);
 			return View("NewSiteSuccess", newSite);
 		}
 
+		[AcceptVerbs(HttpVerbs.Post)]
 		public ActionResult Update(int id, int defaultRoleId, int defaultTemplateId)
 		{
-			Site site = this._siteservice.GetSiteById(id);
+			Site site = this._siteService.GetSiteById(id);
 			try
 			{
 				UpdateModel(site, new [] {"Name", "SiteUrl", "WebmasterEmail", "UserFriendlyUrls", "DefaultCulture", "DefaultPlaceholder", "MetaDescription", "MetaKeywords"});
@@ -100,7 +106,7 @@ namespace Cuyahoga.Web.Manager.Controllers
 				site.DefaultTemplate = this._templateService.GetTemplateById(defaultTemplateId);
 				if (ValidateModel(site))
 				{
-					this._siteservice.SaveSite(site);
+					this._siteService.SaveSite(site);
 					Messages.AddMessage("SiteUpdatedMessage");
 					RedirectToAction("Index");
 				}
@@ -118,6 +124,111 @@ namespace Cuyahoga.Web.Manager.Controllers
 				ViewData["PlaceHolders"] = new SelectList(ViewUtil.GetPlaceholdersFromVirtualPath(virtualTemplatePath).Keys, site.DefaultPlaceholder);
 			}
 			return View("EditSite", site);
+		}
+
+		public ActionResult Aliases()
+		{
+			Site currentSite = CuyahogaContext.CurrentSite;
+			IList<SiteAlias> aliases = this._siteService.GetSiteAliasesBySite(currentSite);
+			ViewData["Site"] = currentSite;
+			return View(aliases);
+		}
+
+		public ActionResult NewAlias()
+		{
+			Site currentSite = CuyahogaContext.CurrentSite;
+			ViewData["Site"] = currentSite;
+			ViewData["EntryNodes"] = new SelectList(GetDisplayRootNodes(currentSite), "Key", "Value");
+			return View(new SiteAlias());
+		}
+
+		public ActionResult EditAlias(int id)
+		{
+			var currentSite = CuyahogaContext.CurrentSite;
+			var siteAlias = this._siteService.GetSiteAliasById(id);
+			ViewData["Site"] = currentSite;
+			ViewData["EntryNodes"] = new SelectList(GetDisplayRootNodes(currentSite), "Key", "Value", siteAlias.EntryNode != null ? siteAlias.EntryNode.Id : -1);
+			return View(siteAlias);
+		}
+
+		[AcceptVerbs(HttpVerbs.Post)]
+		public ActionResult CreateAlias([Bind(Exclude="Id")]SiteAlias siteAlias, int? entryNodeId)
+		{
+			Site currentSite = CuyahogaContext.CurrentSite;
+			try
+			{
+				siteAlias.Site = currentSite;
+				if (entryNodeId.HasValue)
+				{
+					siteAlias.EntryNode = this._nodeService.GetNodeById(entryNodeId.Value);
+				}
+				if (ValidateModel(siteAlias, this._siteAliasValidator, new[] { "Site", "Url" }))
+				{
+					this._siteService.SaveSiteAlias(siteAlias);
+					Messages.AddFlashMessageWithParams("SiteAliasCreatedMessage", siteAlias.Url);
+					return RedirectToAction("Aliases");
+				}
+			}
+			catch (Exception ex)
+			{
+				Messages.AddException(ex);
+			}
+			ViewData["Site"] = currentSite;
+			ViewData["EntryNodes"] = new SelectList(GetDisplayRootNodes(currentSite), "Key", "Value", entryNodeId.HasValue ? entryNodeId.Value : -1);
+			return View("NewAlias", siteAlias);
+		}
+
+		[AcceptVerbs(HttpVerbs.Post)]
+		public ActionResult UpdateAlias(int id, int? entryNodeId)
+		{
+			Site currentSite = CuyahogaContext.CurrentSite;
+			SiteAlias siteAlias = this._siteService.GetSiteAliasById(id);
+			try
+			{
+				if (entryNodeId.HasValue)
+				{
+					siteAlias.EntryNode = this._nodeService.GetNodeById(entryNodeId.Value);
+				}
+				else
+				{
+					siteAlias.EntryNode = null;
+				}
+				if (TryUpdateModel(siteAlias, new [] { "Url" }) && ValidateModel(siteAlias, this._siteAliasValidator, new[] { "Site", "Url" }))
+				{
+					this._siteService.SaveSiteAlias(siteAlias);
+					Messages.AddFlashMessageWithParams("SiteAliasUpdatedMessage", siteAlias.Url);
+					return RedirectToAction("Aliases");
+				}
+			}
+			catch (Exception ex)
+			{
+				Messages.AddException(ex);
+			}
+			ViewData["Site"] = currentSite;
+			ViewData["EntryNodes"] = new SelectList(GetDisplayRootNodes(currentSite), "Key", "Value", siteAlias.EntryNode != null ? siteAlias.EntryNode.Id : -1);
+			return View("NewAlias", currentSite);
+		}
+
+		[AcceptVerbs(HttpVerbs.Post)]
+		public ActionResult DeleteAlias(int id)
+		{
+			var siteAlias = this._siteService.GetSiteAliasById(id);
+			try
+			{
+				this._siteService.DeleteSiteAlias(siteAlias);
+				Messages.AddFlashMessageWithParams("SiteAliasDeletedMessage", siteAlias.Url);
+			}
+			catch (Exception ex)
+			{
+				Messages.AddFlashException(ex);
+			}
+			return RedirectToAction("Aliases");
+		}
+
+		private IDictionary<int, string> GetDisplayRootNodes(Site currentSite)
+		{
+			return this._nodeService.GetRootNodes(currentSite)
+				.ToDictionary(n => n.Id, n => string.Format("{0} ({1})", n.Title, n.Culture));
 		}
 	}
 }

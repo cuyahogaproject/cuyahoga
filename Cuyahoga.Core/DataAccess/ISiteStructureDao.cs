@@ -29,7 +29,7 @@ namespace Cuyahoga.Core.DataAccess
 		/// </summary>
 		/// <param name="site"></param>
 		/// <returns></returns>
-		IList GetSiteAliasesBySite(Site site);
+		IList<SiteAlias> GetSiteAliasesBySite(Site site);
 
 		/// <summary>
 		/// Get the root nodes for a given site.
