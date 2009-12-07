@@ -1,4 +1,5 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Manager/Views/Shared/Admin.Master" Inherits="System.Web.Mvc.ViewPage<Node>" %>
+<%@ Import Namespace="Cuyahoga.Core.Util"%>
 <%@ Import Namespace="Cuyahoga.Core.Domain"%>
 <asp:Content ID="Content1" ContentPlaceHolderID="cphHead" runat="server">
 	<title>Cuyahoga Manager :: <%= String.Format(GlobalResources.ManageContentPageTitle, Model.Title) %></title>
@@ -15,6 +16,7 @@
 	</div>
 </asp:Content>
 <asp:Content ID="Content3" ContentPlaceHolderID="cphMain" runat="server">
+	<a class="gotopagelink" href="<%= UrlUtil.GetUrlFromNode(Model) %>"><%= GlobalResources.ViewCurrentPageLabel %></a>
 	<h1><%= String.Format(GlobalResources.ManageContentPageTitle, Model.Title) %></h1>
 	<ul id="contentblocks">
 		<% foreach (Section section in Model.Sections) {

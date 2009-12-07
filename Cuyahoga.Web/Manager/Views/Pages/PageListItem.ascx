@@ -1,5 +1,6 @@
 ﻿<%@ Import Namespace="Cuyahoga.Core.Domain"%>
 <%@ Control Language="C#" Inherits="System.Web.Mvc.ViewUserControl<Node>" %>
+<%@ Import Namespace="Cuyahoga.Core.Util"%>
 			<% using (Html.PageListItem(Model, ViewData["ActiveNode"] as Node)) { %>
 				<% using (Html.PageRowDiv(Model, ViewData["ActiveNode"] as Node)) { %>					
 					<div class="<%= Model.IsExternalLink ? "link" : "page" %>">
@@ -12,7 +13,7 @@
 						<% } %>
 						<% if (! Model.IsExternalLink) { %>
 							<%= Html.ActionLink(GlobalResources.EditContentLabel, "Content", "Pages", new { id = Model.Id }, new { @class = "contentlink" })%>
-						<% } %>							
+						<% } %>
 					</div>
 					<div class="pageinfo">
 						<div class="pagetitle">
@@ -27,12 +28,6 @@
 							<span><%= GlobalResources.LastModifiedLabel %>: <%= Model.UpdateTimestamp %></span>
 						</div>
 					</div>
-					<!--
-						<div class="fr" style="width:20%;"><%= ViewData.Model.UpdateTimestamp%></div>
-						<div class="fr" style="width:10%;"><%= ViewData.Model.Culture%></div>
-						<div class="fr" style="width:18%;"><%= ViewData.Model.Template != null ? ViewData.Model.Template.Name : String.Empty%></div>
-						<div class="fr" style="width:23%;"><%= ViewData.Model.DisplayUrl%></div>
-					-->
 				<% } %>
 				<% if (Model.Level < 1 || (Model.IsInPath((Node)ViewData["ActiveNode"]))) { %>
 					<% Html.RenderPartial("PageListItems", Model.ChildNodes, ViewData); %>

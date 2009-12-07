@@ -17,3 +17,13 @@
 {
 	color: #fff;
 }
+
+.gotopagelink
+{
+	font-size: 130%;
+	font-weight: bold;
+	float: right;
+	margin-top: 5px;
+	padding-right: 18px;
+	background: url(../Images/page_go.png) no-repeat right;
+}

@@ -46,8 +46,9 @@ namespace Cuyahoga.Web.UI
 			ISiteService siteService = Container.Resolve<ISiteService>();
 			try
 			{
-				Site currentSite = siteService.GetSiteBySiteUrl(UrlUtil.GetSiteUrl());
-				cuyahogaContext.SetSite(currentSite);
+				string siteUrl = UrlUtil.GetSiteUrl();
+				Site currentSite = siteService.GetSiteBySiteUrl(siteUrl);
+				cuyahogaContext.SetSite(currentSite, siteUrl);
 				cuyahogaContext.PhysicalSiteDataDirectory = Server.MapPath(currentSite.SiteDataDirectory);
 			}
 			catch (Exception ex)

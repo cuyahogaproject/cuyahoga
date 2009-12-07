@@ -66,6 +66,12 @@ namespace Cuyahoga.Web.Manager.Controllers
 			return View("NewSectionDialog", newSection);
 		}
 
+		public ActionResult SectionProperties(int id)
+		{
+			Section section = this._sectionService.GetSectionById(id);
+			return View(new SectionViewData(section));
+		}
+
 		[AcceptVerbs(HttpVerbs.Post)]
 		public ActionResult DeleteSectionFromPage(int nodeId, int sectionIdToDelete)
 		{
@@ -264,14 +270,14 @@ namespace Cuyahoga.Web.Manager.Controllers
 				Logger.Error("Unexpected error while updating section.", ex);
 				Messages.AddException(ex);
 			}
+			var sectionViewData = BuildSectionViewData(section);
 			if (Request.IsAjaxRequest())
 			{
-				var sectionViewData = BuildSectionViewData(section);
 				return PartialView("SelectedSection", sectionViewData);
 			}
 			else
 			{
-				throw new NotImplementedException("UpdateSection not yet implemented for non-AJAX scenario's");
+				return View("SectionProperties", sectionViewData);
 			}
 		}
 

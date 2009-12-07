@@ -4,7 +4,9 @@ using System.IO;
 
 using Cuyahoga.Core;
 using Cuyahoga.Core.Domain;
+using Cuyahoga.Core.Service.Membership;
 using Cuyahoga.Web.Util;
+using Resources.Cuyahoga.Web.Manager;
 
 namespace Cuyahoga.Web.UI
 {
@@ -101,7 +103,7 @@ namespace Cuyahoga.Web.UI
 
 			User cuyahogaUser = this.Page.User.Identity as User;
 
-			if (cuyahogaUser != null && (cuyahogaUser.CanEdit(this._module.Section) || cuyahogaUser.HasPermission(AccessLevel.Administrator)))
+			if (cuyahogaUser != null && (cuyahogaUser.CanEdit(this._module.Section) || cuyahogaUser.HasRight(Rights.ManagePages)))
 			{
 				writer.Write("<div class=\"moduletools\">");
 
@@ -111,36 +113,30 @@ namespace Cuyahoga.Web.UI
 				{
 					if (this._module.Section.Node != null)
 					{
-						writer.Write(String.Format("&nbsp;<a href=\"{0}?NodeId={1}&amp;SectionId={2}\">Edit</a>"
+						writer.Write(String.Format("&nbsp;<a href=\"{0}?NodeId={1}&amp;SectionId={2}\" title=\"{4}\">{3}</a>"
 												   , UrlHelper.GetApplicationPath() + this._module.Section.ModuleType.EditPath
 												   , this._module.Section.Node.Id
-												   , this._module.Section.Id));
+												   , this._module.Section.Id
+												   , GlobalResources.EditLabel
+												   , GlobalResources.EditContentDialogTitle));
 					}
 					else
 					{
-						writer.Write(String.Format("&nbsp;<a href=\"{0}?NodeId={1}&amp;SectionId={2}\">Edit</a>"
+						writer.Write(String.Format("&nbsp;<a href=\"{0}?NodeId={1}&amp;SectionId={2}\" title=\"{4}\">{3}</a>"
 												   , UrlHelper.GetApplicationPath() + this._module.Section.ModuleType.EditPath
 												   , this.PageEngine.ActiveNode.Id
-												   , this._module.Section.Id));
+												   , this._module.Section.Id
+												   , GlobalResources.EditLabel
+												   , GlobalResources.EditContentDialogTitle));
 					}
 				}
-				if (cuyahogaUser.HasPermission(AccessLevel.Administrator))
+				if (cuyahogaUser.HasRight(Rights.ManagePages))
 				{
-					if (this._module.Section.Node != null)
-					{
-						writer.Write(
-							String.Format(
-								"&nbsp;<a href=\"{0}Admin/SectionEdit.aspx?NodeId={1}&amp;SectionId={2}\">Section Properties</a>"
-								, UrlHelper.GetApplicationPath()
-								, this._module.Section.Node.Id
-								, this._module.Section.Id));
-					}
-					else
-					{
-						writer.Write(String.Format("&nbsp;<a href=\"{0}Admin/SectionEdit.aspx?SectionId={1}\">Section Properties</a>"
-												   , UrlHelper.GetApplicationPath()
-												   , this._module.Section.Id));
-					}
+					writer.Write(String.Format("&nbsp;<a href=\"{0}Manager/Sections/SectionProperties/{1}\" title=\"{3}\">{2}</a>"
+											   , UrlHelper.GetApplicationPath()
+											   , this._module.Section.Id
+											   , GlobalResources.SectionPropertiesLabel
+											   , GlobalResources.SectionPropertiesDialogTitle));
 				}
 				writer.Write("</div>");
 			}

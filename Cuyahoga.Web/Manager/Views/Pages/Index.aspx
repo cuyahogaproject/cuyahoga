@@ -33,7 +33,7 @@
 	<%= Html.Hidden("newparentnodeid") %>
 	<div id="pagegrid">
 		<div id="pagegrid-body">
-			<% Html.RenderPartial("PageListItems", ViewData.Model, ViewData); %>
+			<% Html.RenderPartial("PageListItems", Model, ViewData); %>
 		</div>
 	</div>
 	<div id="movedialog" title="<%= GlobalResources.MoveOrCopyPageDialogTitle %>">

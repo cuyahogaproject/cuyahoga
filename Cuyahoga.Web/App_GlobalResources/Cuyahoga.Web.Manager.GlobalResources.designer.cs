@@ -925,6 +925,15 @@ namespace Resources.Cuyahoga.Web.Manager {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Go to current site.
+        /// </summary>
+        internal static string GoToSiteLabel {
+            get {
+                return ResourceManager.GetString("GoToSiteLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Not active.
         /// </summary>
         internal static string InactiveStatus {
@@ -2140,6 +2149,15 @@ namespace Resources.Cuyahoga.Web.Manager {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Section properties for &apos;{0}&apos;.
+        /// </summary>
+        internal static string SectionPropertiesPageTitle {
+            get {
+                return ResourceManager.GetString("SectionPropertiesPageTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Section properties are saved successfully..
         /// </summary>
         internal static string SectionPropertiesUpdatedMessage {
@@ -2460,6 +2478,15 @@ namespace Resources.Cuyahoga.Web.Manager {
         internal static string UserUpdatedMessage {
             get {
                 return ResourceManager.GetString("UserUpdatedMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to View this page.
+        /// </summary>
+        internal static string ViewCurrentPageLabel {
+            get {
+                return ResourceManager.GetString("ViewCurrentPageLabel", resourceCulture);
             }
         }
         

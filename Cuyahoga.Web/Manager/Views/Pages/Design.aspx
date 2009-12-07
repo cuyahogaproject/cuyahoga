@@ -1,4 +1,5 @@
 ﻿<%@ Page Language="C#" MasterPageFile="~/Manager/Views/Shared/Admin.Master" Inherits="System.Web.Mvc.ViewPage<Node>" %>
+<%@ Import Namespace="Cuyahoga.Core.Util"%>
 <%@ Import Namespace="Cuyahoga.Core.Domain"%>
 <asp:Content ID="Content1" ContentPlaceHolderID="cphHead" runat="server">
 	<title>Cuyahoga Manager :: <%= String.Format(GlobalResources.DesignPagePageTitle, Model.Title) %></title>
@@ -245,6 +246,7 @@
 	</script>
 </asp:Content>
 <asp:Content ID="Content3" ContentPlaceHolderID="cphMain" runat="server">
+	<a class="gotopagelink" href="<%= UrlUtil.GetUrlFromNode(Model) %>"><%= GlobalResources.ViewCurrentPageLabel %></a>
 	<h1><%= String.Format(GlobalResources.DesignPagePageTitle, Model.Title) %></h1>
 	<div class="templatecontainer">
 	<% if (ViewData.ContainsKey("TemplateViewData")) { %>

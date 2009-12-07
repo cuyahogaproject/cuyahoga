@@ -40,6 +40,7 @@ namespace Cuyahoga.Web.Manager.Controllers
 				}
 			}
 			ViewData["SiteId"] = new SelectList(availableSites, "Id", "Name", this.CuyahogaContext.CurrentSite.Id);
+			ViewData["SiteUrl"] = this.CuyahogaContext.CurrentSiteUrl;
 			return PartialView(); 
 		}
 

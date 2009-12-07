@@ -49,10 +49,11 @@ namespace Cuyahoga.Web.Mvc.Filters
 			}
 			try
 			{
-				Site currentSite = this._siteService.GetSiteBySiteUrl(UrlUtil.GetSiteUrl());
+				string siteUrl = UrlUtil.GetSiteUrl();
+				Site currentSite = this._siteService.GetSiteBySiteUrl(siteUrl);
 				if (currentSite != null) // null check, so the installer won't choke when there isn't any site yet.
 				{
-					this._cuyahogaContext.SetSite(currentSite);
+					this._cuyahogaContext.SetSite(currentSite, siteUrl);
 					this._cuyahogaContext.PhysicalSiteDataDirectory =
 						filterContext.HttpContext.Server.MapPath(currentSite.SiteDataDirectory);
 				}

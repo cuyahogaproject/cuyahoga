@@ -10,27 +10,27 @@ namespace Cuyahoga.Web.UI
 	/// <summary>
 	/// This is the base class for every template usercontrol.
 	/// </summary>
-	public abstract class BaseTemplate: System.Web.UI.UserControl
+	public abstract class BaseTemplate: UserControl
 	{
 		/// <summary>
 		/// Template controls that inherit from BaseTemplate must have a Literal control with id="PageTitle".
 		/// </summary>
-		protected System.Web.UI.WebControls.Literal PageTitle;
+		protected Literal PageTitle;
 		/// <summary>
 		/// Template controls that inherit from BaseTemplate must have a Literal control with 
 		/// id="Stylesheets".
 		/// </summary>
-		protected System.Web.UI.WebControls.Literal Stylesheets;
+		protected Literal Stylesheets;
 		/// <summary>
 		/// Template controls that inherit from BaseTemplate must have a Literal control with 
 		/// id="Javascripts".
 		/// </summary>
-		protected System.Web.UI.WebControls.Literal JavaScripts;
+		protected Literal JavaScripts;
 		/// <summary>
 		/// Template controls that inherit from BaseTemplate must have a Literal control with 
 		/// id="MetaTags".
 		/// </summary>
-		protected System.Web.UI.WebControls.Literal MetaTags;
+		protected Literal MetaTags;
 
 		/// <summary>
 		/// The page title as shown in the title bar of the browser.

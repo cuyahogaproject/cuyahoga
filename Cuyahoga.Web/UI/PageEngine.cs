@@ -257,12 +257,18 @@ namespace Cuyahoga.Web.UI
 			}
 
 			// Check if the current user has access to the manager. If so, add manager toolbar to the template.
-			if (this._templateControl != null 
-				&& CuyahogaContext.Current.CurrentUser != null 
-				&& CuyahogaContext.Current.CurrentUser.HasRight(Rights.AccessAdmin))
+			if (this._templateControl != null && CuyahogaContext.Current.CurrentUser != null)
 			{
-				this._templateControl.Form.Controls.AddAt(0, LoadControl("~/Controls/ManagerToolbar.ascx"));
+				if (CuyahogaContext.Current.CurrentUser.HasRight(Rights.AccessAdmin))
+				{
+					this._templateControl.Form.Controls.AddAt(0, LoadControl("~/Controls/ManagerToolbar.ascx"));
+				}
+				if (CuyahogaContext.Current.CurrentUser.CanEdit(this.ActiveNode))
+				{
+					this._templateControl.Form.Controls.Add(LoadControl("~/Controls/InlineEditing.ascx"));
+				}
 			}
+
 			base.OnInit(e);
 		}
 

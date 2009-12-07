@@ -120,3 +120,8 @@ ul.pagegroup
 {
 	background-image: url(../Images/pencil.png);
 }
+
+#pagegrid a.gotopagelink
+{
+	background-image: url(../Images/page_go.png);
+}

@@ -921,4 +921,13 @@
   <data name="SelectActionOption" xml:space="preserve">
     <value>Selecteer actie</value>
   </data>
+  <data name="GoToSiteLabel" xml:space="preserve">
+    <value>Ga naar de huidige site</value>
+  </data>
+  <data name="SectionPropertiesPageTitle" xml:space="preserve">
+    <value>Sectie eigenschappen voor '{0}'</value>
+  </data>
+  <data name="ViewCurrentPageLabel" xml:space="preserve">
+    <value>Bekijk de huidige pagina</value>
+  </data>
 </root>

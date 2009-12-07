@@ -15,6 +15,7 @@ namespace Cuyahoga.Web.Components
 	{
 		private Site _currentSite;
 		private User _currentUser;
+		private string _currentSiteUrl;
 		private string _physicalSiteDataDirectory;
 
 		/// <summary>
@@ -31,6 +32,14 @@ namespace Cuyahoga.Web.Components
 		public Site CurrentSite
 		{
 			get { return _currentSite; }
+		}
+
+		/// <summary>
+		/// The current site url (url of the site, or the alias url when visiting the site via the alias).
+		/// </summary>
+		public string CurrentSiteUrl
+		{
+			get { return this._currentSiteUrl; }
 		}
 
 		/// <summary>
@@ -67,10 +76,12 @@ namespace Cuyahoga.Web.Components
 		/// <summary>
 		/// Set the Cuyahoga site for the current context.
 		/// </summary>
-		/// <param name="site"></param>
-		public void SetSite(Site site)
+		/// <param name="site">The current site</param>
+		/// <param name="siteUrl">The url of the current site. If this differs from the SiteUrl of the given site, we're dealing with an alias.</param>
+		public void SetSite(Site site, string siteUrl)
 		{
 			this._currentSite = site;
+			_currentSiteUrl = siteUrl != site.SiteUrl ? siteUrl : site.SiteUrl;
 		}
 	}
 }

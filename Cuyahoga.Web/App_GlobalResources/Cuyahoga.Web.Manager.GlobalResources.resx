@@ -939,4 +939,13 @@
   <data name="SelectActionOption" xml:space="preserve">
     <value>Select action</value>
   </data>
+  <data name="GoToSiteLabel" xml:space="preserve">
+    <value>Go to current site</value>
+  </data>
+  <data name="SectionPropertiesPageTitle" xml:space="preserve">
+    <value>Section properties for '{0}'</value>
+  </data>
+  <data name="ViewCurrentPageLabel" xml:space="preserve">
+    <value>View this page</value>
+  </data>
 </root>
