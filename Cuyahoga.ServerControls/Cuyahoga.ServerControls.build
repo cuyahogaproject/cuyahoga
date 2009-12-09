@@ -12,6 +12,7 @@
 			<include name="System.Data.dll" />
 			<include name="System.Web.dll" />
 			<include name="System.XML.dll" />
+			<include name="Cuyahoga.Core.dll" />
 		</assemblyfileset>
 	</target>
 

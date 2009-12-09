@@ -100,7 +100,7 @@ namespace Cuyahoga.Modules.Articles.Web
 				DisplayType displayType = (DisplayType)Enum.Parse(typeof(DisplayType), this.Module.Section.Settings["DISPLAY_TYPE"].ToString());
 
 				HyperLink hpl = e.Item.FindControl("hplTitle") as HyperLink;
-				string articleUrl = UrlHelper.GetUrlFromSection(this.Module.Section) + "/" + article.Id;
+				string articleUrl = UrlUtil.GetApplicationPath() + article.GetContentUrl();
 				hpl.NavigateUrl = articleUrl;
 
 				Panel pnlSummary = e.Item.FindControl("pnlSummary") as Panel;

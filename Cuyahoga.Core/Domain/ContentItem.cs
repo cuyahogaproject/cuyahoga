@@ -271,7 +271,7 @@ namespace Cuyahoga.Core.Domain
 		/// </summary>
 		public virtual string GetContentUrl()
 		{
-			string defaultUrlFormat = "/{0}/section.aspx/{1}";
+			string defaultUrlFormat = "{0}/section.aspx/{1}";
 			if (this._section == null)
 			{
 				throw new InvalidOperationException("Unable to get the url for the content because the associated section is missing.");

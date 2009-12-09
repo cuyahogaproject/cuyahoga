@@ -78,7 +78,7 @@
 				</asp:panel>
 				<asp:panel id="pnlFinished" cssclass="group" runat="server" visible="False">
 					<h4>Finished</h4>The Cuyahoga is successfully installed! <br/><br/>
-					<asp:hyperlink id="hplContinue" runat="server" navigateurl="~/Admin">Log in
+					<asp:hyperlink id="hplContinue" runat="server" navigateurl="~/manager">Log in
 					to the site administration with the account you just created to create a site and continue.</asp:hyperlink>
 				</asp:panel>
 			</div>

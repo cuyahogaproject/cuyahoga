@@ -1,5 +1,11 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <project name="Cuyahoga" xmlns="http://nant.sf.net/release/0.85/nant.xsd">
+
+	<!-- Controls whether tests are run. Setting this is as input to the build disables *all* tests. -->
+	<property name="common.run-tests" value="true" overwrite="false" />
+	<property name="common.testrunner.enabled" value="${common.run-tests}" overwrite="false" />
+	<property name="common.testrunner.failonerror" value="true" overwrite="false" />
+
 	<!-- 
 		Path to the folder that contain the external assemblies.  For net-2.0 the values will
 		be lib, lib/net, and lib/net/2.0 respectively.
@@ -9,7 +15,7 @@
 	<property name="lib.framework.dir" value="${path::combine(lib.family.dir, version::to-string(framework::get-version(framework::get-target-framework())))}" dynamic="true" />
 
 	<!-- Versioning	-->
-	<property name="project.version" value="1.5.0.0" overwrite="false" />
+	<property name="project.version" value="2.0.0.0" overwrite="false" />
 	<property name="project.major" value="${version::get-major(version::parse(project.version))}" dynamic="true" />
 	<property name="project.minor" value="${version::get-minor(version::parse(project.version))}" dynamic="true" />
 	<property name="project.build" value="${version::get-build(version::parse(project.version))}" dynamic="true" />
@@ -59,7 +65,9 @@
 		<property name="build.base.dir"	value="${root.dir}/build" />
 		<property name="build.family.dir" value="${build.base.dir}/${nant.settings.currentframework}" />
 		<property name="build.dir" value="${path::get-full-path(path::combine(build.family.dir,project.config))}" dynamic="true" />
-		<property name="build.bin.dir" value="${path::get-full-path(path::combine(build.family.dir,project.config))}/bin" dynamic="true" />
+		<property name="build.bin.dir" value="${build.dir}/bin" dynamic="true" />
+		<property name="build.web.dir" value="${build.dir}/web" dynamic="true" />
+		<property name="testresults.dir" value="${build.dir}/test-results" dynamic="true" />
 		<property name="build.rebuild" value="false" overwrite="false" />
 	</target>
 
@@ -68,18 +76,22 @@
 			<fail message="The '${framework::get-target-framework()}' framework is not supported by this version of Cuyahoga." />
 		</if>
 		<call target="set-${framework::get-target-framework()}-framework-configuration" />
+		<property name="common.testrunner.args" value="" overwrite="false" />
 	</target>
 
-	<target name="set-net-2.0-framework-configuration">
-		<property name="nant.settings.currentframework" value="net-2.0" />
-		<property name="current.build.defines" value="${build.defines},NET,DOTNET2" />
-		<property name="link.sdkdoc.version" value="SDK_v2_0" />
+	<target name="set-net-3.5-framework-configuration">
+		<property name="nant.settings.currentframework" value="net-3.5" />
+		<property name="current.build.defines" value="${build.defines},NET,DOTNET35" />
+		<property name="link.sdkdoc.version" value="SDK_v3_5" />
+		<property name="merge.targetplatform" value="v3" />
 	</target>
 
-	<target name="set-mono-2.0-framework-configuration">
-		<property name="nant.settings.currentframework" value="mono-2.0" />
-		<property name="current.build.defines" value="${build.defines},MONO,MONO2" />
+	<target name="set-mono-3.5-framework-configuration">
+		<property name="nant.settings.currentframework" value="mono-3.5" />
+		<property name="current.build.defines" value="${build.defines},MONO,MONO2,DOTNET35" />
 		<property name="link.sdkdoc.version" value="MsdnOnline" />
+		<property name="gacutil.file" value="gacutil" />
+		<property name="build.warnaserrors" value="false" />
 	</target>
 
 	<target name="display-current-runtime">
@@ -98,7 +110,7 @@
 	</target>
 
 	<target name="common.init"
-		depends="set-framework-configuration set-project-configuration"
+		depends="common.find-tools set-framework-configuration set-project-configuration"
 		description="Initializes build properties">
 
 		<fileset id="project.sources" failonempty="true">
@@ -113,6 +125,7 @@
 		<resourcefileset id="project.resources" basedir="${project::get-base-directory()}" prefix="${project::get-name()}" dynamicprefix="true">
 			<include name="${src.dir}/**/*.resx" if="${framework::get-family(framework::get-target-framework()) != 'mono'}" />
 			<include name="${src.dir}/**/Strings.resx" if="${framework::get-family(framework::get-target-framework()) != 'mono'}" />
+			<exclude name="${src.dir}/App_GlobalResources/**" />
 		</resourcefileset>
 	</target>
 
@@ -132,5 +145,50 @@
 			failonerror="false"/>
 		<delete file="_revision.xml" failonerror="false" />
 		<echo message="INFO: Using Subversion revision number: ${svn.revision}"/>
+	</target>
+
+	<target name="common.find-nunit">
+		<if test="${not property::exists('nunit.found')}">
+			<property name="nunit.found" value="-1" />
+			<if test="${(framework::get-family(framework::get-runtime-framework()) == 'mono')}">
+				<exec
+					program="${nunit-console2}"
+					resultproperty="nunit.found"
+					output="_nunit.txt"
+					failonerror="false" />
+
+				<property name="nunit-console" value="${nunit-console2}" if="${nunit.found == '0'}" />
+			</if>
+
+			<exec unless="${nunit.found == '0'}"
+				program="${nunit-console}"
+				commandline="/help"
+				resultproperty="nunit.found"
+				output='_nunit.txt'
+				failonerror="false" />
+
+			<property name="nunit.found" value="${nunit.found == '0'}" readonly="true" />
+
+			<fail message="ERROR: NUnit not found, cannot continue." unless="${nunit.found}"/>
+
+			<if test="${nunit.found}">
+				<!-- Determine if we can use this version of NUnit -->
+				<loadfile file="_nunit.txt" property="nunit_txt" />
+				<delete file="_nunit.txt" failonerror="false" />
+				<property name="nunit_findtxt" value="NUnit version " />
+				<property name="nunit_version" value="" />
+				<if test="${string::index-of( nunit_txt, nunit_findtxt) >= 0}">
+					<property name="nunit_version" value="${string::trim(string::substring(nunit_txt, string::index-of( nunit_txt, nunit_findtxt) + string::get-length(nunit_findtxt),6 ))}" />
+				</if>
+				<echo if="${string::get-length(nunit_version) == 0}">WARNING: Unable to determine NUnit version, unit tests may fail unpredictably with your version of NUnit</echo>
+				<echo if="${string::get-length(nunit_version) > 0}">INFO: Found NUnit ${nunit_version} in ${nunit-console}</echo>
+			</if>
+		</if>
+	</target>
+
+	<target name="common.find-tools">
+		<!-- Where is nunit-console executable(win/mono) ? -->
+		<property name="nunit-console2" value="nunit-console2" overwrite="false" />
+		<property name="nunit-console" value="${root.dir}/tools/NUnit/bin/nunit-console.exe" overwrite="false" />
 	</target>
 </project>

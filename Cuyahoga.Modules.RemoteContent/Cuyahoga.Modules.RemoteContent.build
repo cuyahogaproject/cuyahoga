@@ -30,13 +30,13 @@
 
 	<target name="deploy" description="Deploy ${project::get-name()}" depends="common.init">
 		<!-- Copy Modules.RemoteContent to the Web dir -->
-		<mkdir dir="${build.dir}/Modules/RemoteContent" />
-		<copy todir="${build.dir}/Modules/RemoteContent">
+		<mkdir dir="${build.web.dir}/Modules/RemoteContent" />
+		<copy todir="${build.web.dir}/Modules/RemoteContent">
 			<fileset basedir="Web">
 				<include name="**/*.as?x" />
 			</fileset>
 		</copy>
-		<copy todir="${build.dir}/Modules/RemoteContent">
+		<copy todir="${build.web.dir}/Modules/RemoteContent">
 			<fileset>
 				<include name="**/*.sql" />
 			</fileset>

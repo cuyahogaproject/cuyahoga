@@ -92,6 +92,41 @@
 		</csc>
 	</target>
 
+	<target name="common.compile-tests"
+	description="Compile NUnit tests and copy App.config file to the output directory, if it exists.">
+
+		<call target="common.compile-dll" />
+
+	</target>
+
+	<target name="common.run-tests" description="Run NUnit tests">
+
+		<if test="${common.testrunner.enabled}">
+			<call target="common.find-nunit" unless="${property::exists('nunit.found')}" />
+
+			<echo message="Running tests in '${project::get-name()}'" />
+
+			<property name="nunitcommandline" value="${project::get-name()}.dll /xml:${testresults.dir}/${project::get-name()}.dll-results.xml /config:${build.dir}/${project::get-name()}.dll.config /nologo /noshadow ${common.testrunner.args}" />
+			<if test="${(framework::get-family(framework::get-runtime-framework()) == 'mono')}">
+				<property name="nunitcommandline" value="${project::get-name()}.dll -xml:${testresults.dir}/${project::get-name()}.dll-results.xml -config:${build.dir}/${project::get-name()}.dll.config -nologo -noshadow -labels" />
+			</if>
+
+			<!-- Use nunit-console.exe if found, otherwise fall back to nunit2 task -->
+			<exec if="${nunit.found}"
+				program="${nunit-console}"
+				workingdir="${build.bin.dir}"
+				commandline="${nunitcommandline}"
+				failonerror="${common.testrunner.failonerror}"
+				timeout="180000"
+			/>
+
+		</if>
+		<if test="${not common.testrunner.enabled}">
+			<echo message="Tests are disabled for '${project::get-name()}'" />
+		</if>
+
+	</target>
+
 	<target name="common.set-assembly-attribute-values">
 		<property overwrite="false" name="assembly.is-cls-compliant" value="false" />
 		<property overwrite="false" name="assembly.is-com-visible" value="false" />

@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Configuration;
 using System.IO;
+using System.Linq;
 using System.Reflection;
 using System.Web;
 using System.Web.UI.WebControls;
@@ -182,8 +183,6 @@ namespace Cuyahoga.Web.Install
 
 		private void CreateSite()
 		{
-			User adminUser = (User) this._commonDao.GetObjectById(typeof(User), 1);
-			Template defaultTemplate = this._commonDao.GetObjectByDescription(typeof(Template), "Name", "Another Red") as Template;
 			Role defaultAuthenticatedRole = this._commonDao.GetObjectByDescription(typeof(Role), "Name", "Authenticated user") as Role;
 
 			// Site
@@ -193,12 +192,17 @@ namespace Cuyahoga.Web.Install
 			site.WebmasterEmail = "webmaster@localhost.com";
 			site.UseFriendlyUrls = true;
 			site.DefaultCulture = "en-US";
-			site.DefaultTemplate = defaultTemplate;
 			site.DefaultPlaceholder = "maincontent";
 			site.DefaultRole = defaultAuthenticatedRole;
 			
 			string systemTemplatePath = Server.MapPath(Config.GetConfiguration()["TemplateDir"]);
 			this._siteService.CreateSite(site, Server.MapPath("~/SiteData"), this._commonDao.GetAll<Template>(), systemTemplatePath);
+
+			// Template
+			Template defaultTemplate =
+				this._commonDao.GetAll<Template>().Where(t => t.Site == site && t.BasePath == "Templates/AnotherRed").Single();
+			site.DefaultTemplate = defaultTemplate;
+			this._commonDao.UpdateObject(site);
 
 			// Root node
 			Node rootNode = new Node();

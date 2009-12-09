@@ -110,17 +110,9 @@
       <Name>Castle.Windsor</Name>
       <HintPath>..\lib\Castle.Windsor.dll</HintPath>
     </Reference>
-    <Reference Include="FredCK.FCKeditorV2, Version=2.5.2912.21007, Culture=neutral, PublicKeyToken=4f86767c9b519a06, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\lib\FredCK.FCKeditorV2.dll</HintPath>
-    </Reference>
     <Reference Include="log4net">
       <Name>log4net</Name>
       <HintPath>..\lib\log4net.dll</HintPath>
-    </Reference>
-    <Reference Include="RouteHelper.RouteDebugger, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\lib\RouteHelper.RouteDebugger.dll</HintPath>
     </Reference>
     <Reference Include="System">
       <Name>System</Name>
@@ -1447,8 +1439,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="SiteData\" />
-    <Folder Include="UserFiles\File\" />
-    <Folder Include="UserFiles\Image\" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>

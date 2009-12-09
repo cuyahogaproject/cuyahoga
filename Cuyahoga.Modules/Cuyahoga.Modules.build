@@ -11,15 +11,17 @@
 			<include name="System.dll" />
 			<include name="System.Data.dll" />
 			<include name="System.Web.dll" />
+			<include name="System.Web.Mvc.dll" />
+			<include name="System.Web.Routing.dll" />
 			<include name="System.XML.dll" />
 			<include name="System.Drawing.dll" />
 			<include name="Castle.Windsor.dll" />
 			<include name="log4net.dll" />
 			<include name="NHibernate.dll" />
-			<include name="FredCK.FCKeditorV2.dll" />
 			<include name="Cuyahoga.Core.dll" />
 			<include name="Cuyahoga.ServerControls.dll" />
 			<include name="Cuyahoga.Web.dll" />
+			<include name="Cuyahoga.Web.Mvc.dll" />
 		</assemblyfileset>
 		<resourcefileset id="project.resources" basedir="${project::get-base-directory()}" prefix="${project::get-name()}" dynamicprefix="true">
 			<include name="StaticHtml/*.hbm.xml" />
@@ -35,8 +37,8 @@
 
 	<target name="deploy" description="Deploy ${project::get-name()}" depends="common.init">
 		<!-- Copy Modules to the Web dir -->
-		<mkdir dir="${build.dir}/Modules" />
-		<copy todir="${build.dir}/Modules">
+		<mkdir dir="${build.web.dir}/Modules" />
+		<copy todir="${build.web.dir}/Modules">
 			<fileset>
 				<include name="**/*.as?x" />
 				<include name="**/*.gif" />
@@ -44,10 +46,15 @@
 				<include name="**/*.jpg" />
 				<include name="**/*.js" />
 				<include name="**/*.css" />
-				<include name="**/*.xslt" />
 				<include name="**/*.txt" />
-				<exclude name="obj/*.txt" />
+				<include name="**/*.config" />
+				<exclude name="obj/**" />
 			</fileset>
+		</copy>
+		<copy todir="${build.web.dir}">
+			<fileset>
+				<include name="App_GlobalResources/*.resx"></include>
+			</fileset>		
 		</copy>
 	</target>
 

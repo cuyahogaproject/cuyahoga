@@ -874,7 +874,7 @@ namespace Cuyahoga.ServerControls
 		/// </summary>
 		HyperLinkPathInfo,
 		/// <summary>
-		/// Pager links are plain hyperlink and '&page=pagenumber' to the querystring.
+		/// Pager links are plain hyperlink and '&amp;page=pagenumber' to the querystring.
 		/// </summary>
 		HyperLinkQueryString
 	}

@@ -9,8 +9,12 @@
 		-->
 		<assemblyfileset id="project.references" basedir="${build.bin.dir}">
 			<include name="System.dll" />
+			<include name="System.Core.dll" />
 			<include name="System.Data.dll" />
 			<include name="System.Web.dll" />
+			<include name="System.Web.Abstractions.dll" />
+			<include name="System.Web.Routing.dll" />
+			<include name="System.Web.Mvc.dll" />
 			<include name="System.Drawing.dll" />
 			<include name="Castle.Facilities.NHibernateIntegration.dll" />
 			<include name="Castle.Services.Transaction.dll" />
@@ -19,6 +23,7 @@
 			<include name="Cuyahoga.Core.dll" />
 			<include name="Cuyahoga.ServerControls.dll" />
 			<include name="Cuyahoga.Web.dll" />
+			<include name="Cuyahoga.Web.Mvc.dll" />
 		</assemblyfileset>
 		<resourcefileset id="project.resources" basedir="${project::get-base-directory()}" prefix="${project::get-name()}" dynamicprefix="true">
 			<include name="Domain/*.hbm.xml" />
@@ -33,8 +38,8 @@
 
 	<target name="deploy" description="Deploy ${project::get-name()}" depends="common.init">
 		<!-- Copy Modules.Downloads to the Web dir -->
-		<mkdir dir="${build.dir}/Modules/Downloads" />
-		<copy todir="${build.dir}/Modules/Downloads">
+		<mkdir dir="${build.web.dir}/Modules/Downloads" />
+		<copy todir="${build.web.dir}/Modules/Downloads">
 			<fileset basedir="Web">
 				<include name="**/*.as?x" />
 				<include name="**/*.gif" />
@@ -46,9 +51,15 @@
 				<exclude name="obj/**" />
 			</fileset>
 		</copy>
-		<copy todir="${build.dir}/Modules/Downloads">
+		<copy todir="${build.web.dir}/Modules/Downloads">
 			<fileset>
 				<include name="**/*.sql" />
+				<include name="Views/**" />
+			</fileset>
+		</copy>
+		<copy todir="${build.web.dir}">
+			<fileset>
+				<include name="App_GlobalResources/*.resx"></include>
 			</fileset>
 		</copy>
 	</target>

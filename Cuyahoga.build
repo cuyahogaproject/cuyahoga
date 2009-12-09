@@ -5,26 +5,27 @@
 
 	<fileset id="buildfiles.all">
 		<!-- Files have to be in dependency order -->
-		<include name="Core/Cuyahoga.Core.build" />
-		<include name="ServerControls/Cuyahoga.ServerControls.build" />
-		<include name="Web/Cuyahoga.Web.build" />
-		<include name="Modules/Cuyahoga.Modules.build" />
+		<include name="Cuyahoga.Core/Cuyahoga.Core.build" />
+		<include name="Cuyahoga.ServerControls/Cuyahoga.ServerControls.build" />
+		<include name="Cuyahoga.Web.Mvc/Cuyahoga.Web.Mvc.build" />
+		<include name="Cuyahoga.Web/Cuyahoga.Web.build" />
+		<include name="Cuyahoga.Modules/Cuyahoga.Modules.build" />
 		<include name="Cuyahoga.Modules.Articles/Cuyahoga.Modules.Articles.build" />
 		<include name="Cuyahoga.Modules.Downloads/Cuyahoga.Modules.Downloads.build" />
 		<include name="Cuyahoga.Modules.RemoteContent/Cuyahoga.Modules.RemoteContent.build" />
-		<include name="Cuyahoga.Modules.Forum/Cuyahoga.Modules.Forum.build" />
-		<include name="Cuyahoga.Modules.Flash/Cuyahoga.Modules.Flash.build" />
 	</fileset>
 
+	<fileset id="buildfiles.test">
+		<include name="Cuyahoga.Tests/Cuyahoga.Tests.build" />
+	</fileset>
+	
 	<fileset id="buildfiles.deploy">
 		<!-- Include all buildfiles here that have a deploy target -->
-		<include name="Web/Cuyahoga.Web.build" />
-		<include name="Modules/Cuyahoga.Modules.build" />
+		<include name="Cuyahoga.Web/Cuyahoga.Web.build" />
+		<include name="Cuyahoga.Modules/Cuyahoga.Modules.build" />
 		<include name="Cuyahoga.Modules.Articles/Cuyahoga.Modules.Articles.build" />
 		<include name="Cuyahoga.Modules.Downloads/Cuyahoga.Modules.Downloads.build" />
 		<include name="Cuyahoga.Modules.RemoteContent/Cuyahoga.Modules.RemoteContent.build" />
-		<include name="Cuyahoga.Modules.Forum/Cuyahoga.Modules.Forum.build" />
-		<include name="Cuyahoga.Modules.Flash/Cuyahoga.Modules.Flash.build" />
 	</fileset>
 
 	<target name="build" 
@@ -34,14 +35,28 @@
 		<nant target="build">
 			<buildfiles refid="buildfiles.all" />
 		</nant>
+
+		<nant target="test" if="${common.testrunner.enabled}">
+			<buildfiles refid="buildfiles.test" />
+		</nant>
 		
+	</target>
+
+	<target name="quick" description="Speed up the build by skipping tests">
+		<property name="common.testrunner.enabled" value="false" />
+	</target>
+
+	<target name="release" description="Make a release build">
+		<property name="project.config" value="release" />
 	</target>
 
 	<target name="rebuild" description="Rebuilds Cuyahoga in the current configuration" depends="init recreate-build-directory build" />
 
 	<target name="init" depends="common.init">
 		<mkdir dir="${build.dir}" />
+		<mkdir dir="${testresults.dir}" />
 		<call target="common.find-svninfo" />
+		<call target="common.find-nunit" if="${common.testrunner.enabled}" />
 	</target>
 
 	<target name="clean" description="Deletes current build artifacts" depends="common.init">
@@ -128,73 +143,22 @@
 	</target>
 
 	<target name="deploy" depends="build" description="Deploys the website to the deployment directory">
-		<nant target="deploy">
-			<buildfiles refid="buildfiles.deploy" />
-		</nant>
-		<copy todir="${build.dir}">
+		<mkdir dir="${build.web.dir}" />
+		<copy todir="${build.web.dir}">
 			<fileset>
 				<include name="*.txt" />
 			</fileset>
 		</copy>
-	</target>
-
-	<target name="sdkdoc" depends="init" description="Generates MSDN style documentation">
-		<mkdir dir="${build.dir}/doc/sdk" />
-		<ndoc>
-			<assemblies basedir="${build.dir}/bin">
-				<include name="Cuyahoga.*.dll" />
-			</assemblies>
-			<documenters>
-				<documenter name="MSDN">
-					<property name="OutputDirectory" value="${build.dir}/doc/sdk" />
-					<property name="HtmlHelpName" value="CuyahogaReference" />
-					<property name="IncludeFavorites" value="False" />
-					<property name="Title" value="Cuyahoga Class Library - v.${project.version}" />
-					<property name="SplitTOCs" value="False" />
-					<property name="DefaulTOC" value="" />
-					<property name="IncludeHierarchy" value="True" />
-					<property name="ShowVisualBasic" value="False" />
-					<property name="RootPageContainsNamespaces" value="True" />
-					<property name="SortTOCByNamespace" value="True" />
-					<property name="OutputTarget" value="HtmlHelp" />
-					<property name="HeaderHtml" value="" />
-					<property name="FooterHtml" value="" />
-					<property name="FilesToInclude" value="" />
-					<property name="LinkToSdkDocVersion" value="SDK_v1_1" />
-					<property name="ShowMissingSummaries" value="True" />
-					<property name="ShowMissingRemarks" value="False" />
-					<property name="ShowMissingParams" value="False" />
-					<property name="ShowMissingReturns" value="False" />
-					<property name="ShowMissingValues" value="False" />
-					<property name="DocumentInternals" value="False" />
-					<property name="DocumentProtected" value="True" />
-					<property name="DocumentPrivates" value="False" />
-					<property name="DocumentProtectedInternalAsProtected" value="False" />
-					<property name="DocumentEmptyNamespaces" value="False" />
-					<property name="IncludeAssemblyVersion" value="True" />
-					<property name="CopyrightText" value="" />
-					<property name="CopyrightHref" value="" />
-					<property name="ReferencesPath" value="" />
-					<property name="SkipNamespacesWithoutSummaries" value="False" />
-					<property name="UseNamespaceDocSummaries" value="False" />
-					<property name="AutoPropertyBackerSummaries" value="False" />
-					<property name="AutoDocumentConstructors" value="True" />
-					<property name="DocumentAttributes" value="True" />
-					<property name="ShowTypeIdInAttributes" value="False" />
-					<property name="DocumentedAttributes" value="True" />
-					<property name="GetExternalSummaries" value="True" />
-					<property name="EditorBrowsableFilter" value="Off" />
-					<property name="UseNDocXmlFile" value="" />
-				</documenter>
-			</documenters>
-		</ndoc>
-		<delete>
-			<!-- remove all of the html, gif, etc... files and leave only the chm -->
-			<fileset basedir="${build.dir}/doc/sdk">
-				<include name="*" />
-				<exclude name="*.chm" />
+		<mkdir dir="${build.web.dir}/bin" />
+		<copy todir="${build.web.dir}/bin">
+			<fileset basedir="${build.bin.dir}">
+				<include name="*.dll" />
+				<include name="*.xml" />
 			</fileset>
-		</delete>
+		</copy>
+		<nant target="deploy">
+			<buildfiles refid="buildfiles.deploy" />
+		</nant>
 	</target>
 		
 	<target name="package-source" depends="init" description="Create a Zip file for Source Releases">
@@ -205,28 +169,36 @@
 				<include name="*.txt" />
 				<include name="*.xml" />
 				<include name="${lib.dir}/**" />
-				<include name="Core/**" />
-				<include name="ServerControls/**" />
-				<include name="Web/**" />
-				<include name="Modules/**" />
-				<include name="Downloads/**" />
+				<include name="Cuyahoga.Core/**" />
+				<include name="Cuyahoga.ServerControls/**" />
+				<include name="Cuyahoga.Web/**" />
+				<include name="Cuyahoga.Web.Mvc/**" />
+				<include name="Cuyahoga.Modules/**" />
 				<include name="Cuyahoga.Modules.Articles/**" />
 				<include name="Cuyahoga.Modules.Downloads/**" />
 				<include name="Cuyahoga.Modules.RemoteContent/**" />
-				<include name="Cuyahoga.Modules.Forum/**" />
-				<include name="Cuyahoga.Modules.Flash/**" />
-				<include name="Tests/**" />
+				<include name="Cuyahoga.Tests/**" />
 				<include name="doc/**/*.pdf" />
 				<include name="Database/**" /> <!-- obsolete scripts, for upgrade only -->
-				<exclude name="Web/Modules/**/*" />
-				<exclude name="Web/UserFiles/File/**/*" />
-				<exclude name="Web/UserFiles/Image/**/*" />
-				<exclude name="Web/files/**/*" />
-				<exclude name="Web/log/**/*" />
-				<exclude name="Web/index/**/*" />
+				
+				<!-- exclude module output -->
+				<exclude name="Cuyahoga.Web/Modules/Articles/**" />
+				<exclude name="Cuyahoga.Web/Modules/Categories/**" />
+				<exclude name="Cuyahoga.Web/Modules/Downloads/**" />
+				<exclude name="Cuyahoga.Web/Modules/LanguageSwitcher/**" />
+				<exclude name="Cuyahoga.Web/Modules/RemoteContent/**" />
+				<exclude name="Cuyahoga.Web/Modules/Search/**" />
+				<exclude name="Cuyahoga.Web/Modules/Sitemap/**" />
+				<exclude name="Cuyahoga.Web/Modules/StaticHtml/**" />
+				<exclude name="Cuyahoga.Web/Modules/User/**" />
+				
+				<!-- exclude content -->
+				<exclude name="Cuyahoga.Web/SiteData/**/*" />
+				<exclude name="Cuyahoga.Web/log/**/*" />
+				
 				<!-- exclude VS.NET stuff -->
 				<exclude name="**/*.suo" />
-				<exclude name="**/*j.user" />
+				<exclude name="**/*.user" />
 				<exclude name="**/bin/**" />
 				<exclude name="**/obj/**" />
 			</fileset>
@@ -241,14 +213,9 @@
 		<delete dir="${build.dir}/package" />
 	</target>
 	<target name="package-bin" depends="deploy" description="Create a Zip file for Binary Releases">
-		<copy todir="${build.dir}" includeemptydirs="true">
-			<fileset>
-				<include name="*.txt" />
-			</fileset>
-		</copy>
 		<property name="project.binary-zip-path" value="build/${project::get-name()}-${project.major}.${project.minor}.${project.build}-bin.zip" />
 		<zip zipfile="${project.binary-zip-path}" includeemptydirs="true">
-			<fileset basedir="${build.dir}">
+			<fileset basedir="${build.web.dir}">
 				<include name="**/*" />
 			</fileset>
 		</zip>

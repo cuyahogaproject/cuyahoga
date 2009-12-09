@@ -9,6 +9,7 @@
 		-->
 		<assemblyfileset id="project.references" basedir="${build.bin.dir}">
 			<include name="System.dll" />
+			<include name="System.Core.dll" />
 			<include name="System.Data.dll" />
 			<include name="System.Web.dll" />
 			<include name="System.XML.dll" />
@@ -17,6 +18,9 @@
 			<include name="Castle.MicroKernel.dll" />
 			<include name="Castle.Services.Transaction.dll" />
 			<include name="Castle.Windsor.dll" />
+			<include name="Castle.Components.Validator.dll" />
+			<include name="EPocalipse.IFilter.dll" />
+			<include name="ICSharpCode.SharpZipLib.dll" />
 			<include name="NHibernate.dll" />
 			<include name="log4net.dll" />
 			<include name="Lucene.Net.dll" />

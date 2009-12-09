@@ -9,17 +9,23 @@
 		-->
 		<assemblyfileset id="project.references" basedir="${build.bin.dir}">
 			<include name="System.dll" />
+			<include name="System.Core.dll" />
 			<include name="System.Data.dll" />
 			<include name="System.Web.dll" />
+			<include name="System.Web.Abstractions.dll" />
+			<include name="System.Web.Routing.dll" />
+			<include name="System.Web.Mvc.dll" />
 			<include name="System.XML.dll" />
 			<include name="System.Drawing.dll" />
 			<include name="System.Configuration.dll" />
 			<include name="Castle.Core.dll" />
 			<include name="Castle.MicroKernel.dll" />
 			<include name="Castle.Windsor.dll" />
+			<include name="Castle.Components.Validator.dll" />
 			<include name="log4net.dll" />
 			<include name="Cuyahoga.Core.dll" />
 			<include name="Cuyahoga.ServerControls.dll" />
+			<include name="Cuyahoga.Web.Mvc.dll" />
 		</assemblyfileset>
 	</target>
 
@@ -28,11 +34,8 @@
 	<target name="build" description="Build ${project::get-name()}" depends="generate-assemblyinfo common.compile-dll" />
 
 	<target name="deploy" description="Deploy ${project::get-name()}" depends="common.init">
-		<mkdir dir="${build.dir}/UserFiles/Image" />
-		<mkdir dir="${build.dir}/UserFiles/File" />
-		<mkdir dir="${build.dir}/index" />
-		<mkdir dir="${build.dir}/files" />
-		<copy todir="${build.dir}">
+		<mkdir dir="${build.web.dir}/SiteData" />
+		<copy todir="${build.web.dir}">
 			<fileset>
 				<include name="**/*.as?x" />
 				<include name="**/*.config" />
@@ -45,11 +48,12 @@
 				<include name="**/*.txt" />
 				<include name="**/*.html" />
 				<include name="**/*.sql" />
+				<include name="App_GlobalResources/*.resx" />
 				<exclude name="Modules/**" />
-				<exclude name="UserFiles/**" />
-				<exclude name="files/*.*" />
+				<exclude name="SiteData/**" />
 				<exclude name="obj/**" />
 				<exclude name="**/log.txt" />
+				<exclude name="App_GlobalResources/Cuyahoga.Modules.*.resx" />
 			</fileset>
 		</copy>
 	</target>

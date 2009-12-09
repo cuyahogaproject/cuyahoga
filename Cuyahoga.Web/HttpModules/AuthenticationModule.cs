@@ -12,11 +12,8 @@ namespace Cuyahoga.Web.HttpModules
 	/// </summary>
 	public class AuthenticationModule : IHttpModule
 	{
-		private IUserService _userService;
-
 		public void Init(HttpApplication context)
 		{
-			this._userService = IoC.Resolve<IUserService>();
 			context.AuthenticateRequest += new EventHandler(Context_AuthenticateRequest);
 		}
 
@@ -30,10 +27,12 @@ namespace Cuyahoga.Web.HttpModules
 			HttpApplication app = (HttpApplication)sender;
 			if (app.Context.User != null && app.Context.User.Identity.IsAuthenticated)
 			{
+				IUserService userService = IoC.Resolve<IUserService>();
+
 				// There is a logged-in user with a standard Forms Identity. Replace it with
 				// Cuyahoga identity (the User class implements IIdentity). 				
 				int userId = Int32.Parse(app.Context.User.Identity.Name);
-				User cuyahogaUser = _userService.GetUserById(userId);
+				User cuyahogaUser = userService.GetUserById(userId);
 				cuyahogaUser.IsAuthenticated = true;
 				CuyahogaContext.Current.SetUser(cuyahogaUser);
 			}
