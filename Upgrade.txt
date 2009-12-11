@@ -1,44 +1,4 @@
 
-**************************************************************
-From version 1.5.0, Cuyahoga requires the .NET 2.0 Framework.
-**************************************************************
-
-Upgrading Cuyahoga
-
 *****************************************************************************
-Allways backup the database and the files on the server before upgrading!
+Upgrading from a Cuyahoga 1.x site to Cuyahoga 2.0 Alpha isn't supported yet.
 *****************************************************************************
-
-If you are running Cuyahoga 0.8.2 or higher, you can upgrade to a new version 
-by copying the new web files over the old files. The first user who accesses 
-the site after upgrading is redirected to the upgrade page after logging in 
-as administrator. Other users see a message that the site is being upgraded.
-
-The upgrade page is always accessible for administrators at 
-CUYAHOGA_WEB_ROOT/Install/Upgrade.aspx. You might need that in case you get 
-a message that the site is being upgraded while you are the person who is 
-going to perform the upgrade.
-
-Don't forget to check your modules for upgrades via the module administration!
-
-*****************************************************************************
-SPECIAL NOTE FOR USERS UPGRADING FROM 1.0.x to 1.5.0 AND NEWER:
-*****************************************************************************
-- From version 1.5, Cuyahoga needs the .NET 2.0 framework. Make sure it is
-  installed and your website is set to use the 2.0 framework (via IIS 
-  administration).
-- Make a backup of your old web.config. The new installation contains a new
-  web.config without database connection info that has moved to 
-  /Config/properties.config.
-- Edit /Config/properties.config and copy the database connection info 
-  (connectionString, nhibernateDriver and nhibernateDialect) from the 
-  old web.config.
-
-*****************************************************************************
-Upgrading from versions pre-0.8.2
-*****************************************************************************
-Users upgrading from a pre-0.8.2 version must first update the database to
-the 0.8.2 version. Use the scripts in /Database directory. If you don't know
-which version you are running, you can find it in the cuyahoga_version table.
-If the cuyahoga_version table doesn't exist yet, check the properties of the
-Cuyahoga.Core.dll assembly (version tab).

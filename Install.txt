@@ -3,7 +3,7 @@ See Install-binary.txt if you're just installing the binaries.
 **************************************************************
 
 **************************************************************
-From version 1.5.0, Cuyahoga requires the .NET 2.0 Framework.
+From version 2.0.0, Cuyahoga requires the .NET 3.5 Framework.
 **************************************************************
 
 Installing Cuyahoga from source.
@@ -11,18 +11,15 @@ Installing Cuyahoga from source.
 1. Unzip the files to a local directory.
 
 2. Create a database. Supported databases are:
-    - SQL Server 2000 / SQL Server 2005 / SQL Server Express / MSDE 2000 
-    - PostgreSQL 7.4 and higher
-    - MySQL 4.0 and higher
+    - SQL Server 2000-2008 / SQL Server Express 2005-2008
 
 3. Build and run.
 
-    There are 2 possible ways to build Cuyahoga: using Visual Studio .NET 2005 (VS.NET) or NAnt.
+    There are 2 possible ways to build Cuyahoga: using Visual Studio 2008 or NAnt.
     
-    3a. Building with VS.NET.
-        - Make sure that you have VS.NET 2005 SP1 or that you have installed the Web Application
-          Project model (http://webproject.scottgu.com/).
-        - Open Cuyahoga.sln with VS.NET.
+    3a. Building with VS 2008.
+        - Make sure that you have VS.NET 2008 SP1 and ASP.NET MVC 1.0 installed
+        - Go to the /src directory and Open Cuyahoga.sln with VS.
         - Build Solution.
         - Change the connection string in Web/Config/properties.config (connectionString)
           to the database that is created in step 2.
@@ -37,11 +34,10 @@ Installing Cuyahoga from source.
           permissions to create the database!
                     
     3b. Building with NAnt.
-        - Make sure you have a 0.85 version of NAnt (http://nant.sourceforge.net).
         - Open a command prompt, go to the directory where you extracted the .zip file.
-        - Enter 'nant'. This will create a build directory with the compiled binaries and the 
-          libraries (for example 'build/net-2.0/debug').
-        - Enter 'nant deploy' to add the other files needed to run Cuyahoga to the build.
+        - Enter 'build'. This will create a build directory with the compiled binaries and the 
+          libraries (for example 'build/net-3.5/debug').
+        - Enter 'build deploy' to add the other files needed to run Cuyahoga to the build.
         - Create an IIS application that points to the build directory or copy the files in the
           build directory to the root directory of an existing IIS application.
         - Change the connection string in the Web/Config/properties.config (connectionString)
@@ -51,39 +47,22 @@ Installing Cuyahoga from source.
     and you'll be asked to set a password for the administrator (min. 5 characters!). 
     After that there is a choice to install additional modules and to create a sample site. 
     When everything is finished you can visit the web site adminstration pages. The url of the 
-    web site administration is http://SERVER_NAME/VIRTUAL_DIRECTORY/Admin/. 
+    web site administration is http://SERVER_NAME/VIRTUAL_DIRECTORY/manager/. 
     If you installed Cuyahoga in the cuyahoga virtual directory on your localhost, this url will be 
-    http://localhost/cuyahoga/Admin/.
+    http://localhost/cuyahoga/manager/.
 
     The following steps are only required when no sample site is installed.
     
     In the web site administration, the first thing to do is creating a site. Make sure that the
     site url that you enter, corresponds with the real site url, including the virtual directory
     (for example, http://localhost/cuyahoga).
-    When a site is created you can start adding pages (nodes) and sections. Just give it a try 
+    When a site is created you can start adding pages and sections. Just give it a try 
     and when something isn't clear, check the forums at http://www.cuyahoga-project.org/home/forum.aspx.
     
 Hints and tips:
 - It's possible run the database install scripts manually if the installation fails for some
   reason. They are located in the /Web/Install/Database directory.
-- The search index has to be in a folder that is writable for the ASP.NET user. You can specify the
-  folder in the web.config:
-
-  <CuyahogaSettings>
-    ...
-    <add setting="SearchIndexDir" value="~/index" />
-    <add setting="InstantIndexing" value="true" /> <!-- true/false -->
-  </CuyahogaSettings>
-
-  InstantIndexing indicates that when you edit the content of a module that is searchable, the
-  search index will be updated immediately. If you turn this off, you have to manually index the
-  content from the Administration section.
-  
-- You can enable logging to uncomment the <log4net> section in the Web.config. Make sure your
+- The /SiteData directory must be writable for the ASP.NET user (NETWORK SERVICE on IIS). This is the directory
+  where the content files, search index and templates are located.
+- You can enable logging to uncomment the <log4net> section in the Config/logging.config. Make sure your
   ASP.NET user has write access to the path of the logfile.
-- Give the ASP.NET user write access for the Web/UserFiles directory to enable uploading images or
-  other files with the FCKEditor from the StaticHtml and Articles modules.
-- Give the ASP.NET user write access for the Web/files directory to enable uploading files with
-  the Downloads module. You can optionally enter a physical path for the location where the files
-  should be uploaded. With this, it is possible to keep the files out of the web site to prevent 
-  direct downloading.

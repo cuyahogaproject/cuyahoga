@@ -1,4 +1,150 @@
 Cuyahoga release notes
+
+===========================================================================
+2.0.0 Alpha - 2009-12-11
+===========================================================================
+Cuyahoga 2.0.0 Alpha is a huge new release where a lot of things have
+changed to make it a better platform. As the name indicates, it's an Alpha
+release and many things still can change between this release and the final
+2.0 release. Upgrading from previous versions is not supported yet and only
+SQL Server (Express) is supported as a database.
+
+DON'T USE THIS RELEASE IN A PRODUCTION ENVIRONMENT
+
+New features:
+- New site administration (Cuyahoga manger), build with ASP.NET MVC and 
+  jQuery. The new manager contains many improvements that should make site
+  management a lot easier.
+- Content abstraction: all content items (such as Article, 
+  StaticHtmlContent, FileResource) inherit from ContentItem to allow for a
+  much more generic handling.
+- Site-wide categories: all content items can belong to one or more 
+  categories. Categories can be nested.
+- Comments: all content items can have comments.
+
+Improvements:
+- Medium trust is supported
+- Site isolation: all sites have their own directory in /SiteData that 
+  contains templates, user files and full-text indices.
+- Roles are restricted to a single site or global.
+- More granular permissions for site administration.  
+- Configurable HTML editor. Currently, TinyMCE is the default.
+
+Missing features from 1.6.0:
+- Custom menu's (on root nodes)
+- File and image browsers in the HTML editor (the old FCKeditor browser 
+  doesn't work anymore because the content files are located in site-
+  specific directories).
+- Offline pages
+- Google sitemap support
+
+===========================================================================
+1.6.0 - 2009-03-12
+===========================================================================
+Cuyahoga 1.6.0 is a maintenance release that mostly consists of small admin
+UI improvements and bug fixes. Many thanks to Marco Trova for the 
+contributions.
+
+New Features:
+- A Sitemap handler for Google sitemap spec. 
+- Vietnamese translations (thanks to Juan Woang).
+
+Improvements:
+- Hide the moduletools div for unauthorized users (CUY-149).
+- Register custom Javascripts and CSS links for module controls and module
+  admin pages. Thanks to John Lynch (CUY-153).
+- Admin: You can take a page offline (and related child pages), showing a 
+  special template (definited in site admin).
+- Admin: buttons at the top of the page instead only at the bottom of the 
+  page on Node Edit and Section Edit pages.
+- Admin: Added Admin linkbutton on each section on node to access directly 
+  to the "Edit" link of a section (Admin page).
+- Edit Template: edit html code of template ascx and css (this requires 
+  special permission on server's folder).
+- Admin: Duplicate a Node.
+- Admin: Preview the page, opening a new window, without std admin links.
+- .NET 3.5 compatibility: renamed Cuyahoga.Core.Communication.Action to
+  Cuyahoga.Core.Communication.ModuleAction to fix the naming conflict
+  with System.Action (CUY-145).
+  
+Bug fixes:
+- Handle error that occures when entering invalid search terms (CUY-147)
+- Fixed display of search query duration.
+
+
+===========================================================================
+1.5.2 - 2008-02-20
+===========================================================================
+Cuyahoga 1.5.2 is a maintenance release, especially targeted at Mono 
+compatibility. Cuyahoga now builds and runs on Mono-1.2.6 with xsp2.
+Check out Readme-mono.txt the distribution for mono-specific instructions.
+
+Improvements:
+- Temp dir for the TransactionalFileService is configurable in 
+  properties.config (used by Downloads module).
+
+Bug fixes:
+- Resolved issue with Mono compatibility. (CUY-138)
+
+===========================================================================
+1.5.1 - 2008-02-14
+===========================================================================
+Cuyahoga 1.5.1 is a maintenance release that includes bug fixes and uses
+new versions of external libraries.
+
+A special note for people using custom modules that use NHibernate and 
+don't ship with Cuyahoga: this release is not a drop-in replacement! 
+
+Cuyahoga 1.5.1 uses NHibernate 1.2.0 to make it possible for module 
+developers to use new features of NHibernate like generics. NHibernate 
+1.2.0 breaks existing modules that use NHibernate 1.0.x. Before upgrading
+Cuyahoga to 1.5.1, you have to make sure that your modules are compatible 
+with NHibernate 1.2.0. See http://www.hibernate.org/407.html for the 
+migration guide. 
+
+If you're not interested in the new features of NHibernate and have no
+stability issues with Cuyahoga 1.5.0, it's probably wise to stay on 1.5.0.
+
+New features:
+- Swedish translations for modules and core.
+
+Improvements:
+- Modules are now loaded all at once at application startup. The previous
+  construction with lazy loading appeared to be a little unstable under
+  high load. (CUY-142)
+- Modules that are not used can be deactivated, so they won't be loaded
+  at startup. (CUY-142)
+- Added link to add new child node in the node tree on the left, so people
+  won't have to look for ages to find the button on the bottom of the 
+  screen. (CUY-143)
+- It's possible to have content placeholders in user controls that
+  are placed in the templates.
+
+Bug fixes:
+- Fixed issue with template management when a wrong path was entered.
+  (CUY-93)
+- Removed empty link in template for Admin when not logged in as admin.
+  (CUY-110)
+- Fixed issue with duplicate cultures in culture list. (CUY-125, CUY-129)
+- Fixed bug with custom settings that we're not visible after selecting
+  a module with no custom settings. (CUY-126)
+- Fixed deleting a section that is attached to a template. (CUY-133)
+- Fixed possible issues with url rewriting when Cuyahoga runs at the root
+  web site. (CUY-135)
+- Fixed issue with cultures in the site edit page. (CUY-136)
+- Fixed problems with RemoteContent module not updating the content 
+  properly. (CUY-141)
+
+Libraries:
+- Upgraded NHibernate to 1.2.0
+- Upgraded Castle to 1.0 RC3
+- Upgraded log4net to 1.2.10
+- Upgraded Npgsql to 1.0.1
+- Upgraded FCKeditor to 2.5.1
+
+Thanks to everybody that contributed to this release!
+
+
 ===========================================================================
 1.5.0 - 2007-02-11
 ===========================================================================
