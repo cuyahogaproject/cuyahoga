@@ -159,6 +159,7 @@
 		<mkdir dir="${build.dir}/package" />
 		<copy todir="${build.dir}/package" includeemptydirs="true">
 			<fileset>
+				<include name="tools/**/*" />
 				<include name="Cuyahoga.*" />
 				<include name="*.txt" />
 				<include name="*.xml" />
