@@ -5,6 +5,7 @@ using System.IO;
 using Cuyahoga.Core;
 using Cuyahoga.Core.Domain;
 using Cuyahoga.Core.Service.Membership;
+using Cuyahoga.Core.Util;
 using Cuyahoga.Web.Util;
 using Resources.Cuyahoga.Web.Manager;
 
@@ -55,6 +56,17 @@ namespace Cuyahoga.Web.UI
 		{
 			get { return this._module; }
 			set { this._module = value; }
+		}
+
+		/// <summary>
+		/// Gets the current template virtual directory (starting and ending with /).
+		/// </summary>
+		public string TemplateDir
+		{
+			get
+			{
+				return Text.EnsureTrailingSlash(ResolveUrl(this.PageEngine.CurrentSite.SiteDataDirectory + this.PageEngine.ActiveNode.Template.BasePath));
+			}
 		}
 
 		/// <summary>

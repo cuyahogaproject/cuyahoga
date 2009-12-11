@@ -68,12 +68,6 @@
 		</delete>
 	</target>
 
-	<target name="cleanall" description="Deletes all build artifacts" depends="common.init">
-		<echo message="Deleting all builds from all configurations" />
-		<delete dir="${build.base.dir}" failonerror="false" />
-		<call target="clean-vs" />
-	</target>
-
 	<target name="recreate-build-directory">
 		<echo message="Current Directory is ${project::get-base-directory()}" />
 		<echo message="Build Directory is ${build.dir}" />
@@ -168,6 +162,7 @@
 				<include name="Cuyahoga.*" />
 				<include name="*.txt" />
 				<include name="*.xml" />
+				<include name="*.cmd" />
 				<include name="${lib.dir}/**" />
 				<include name="Cuyahoga.Core/**" />
 				<include name="Cuyahoga.ServerControls/**" />
@@ -179,7 +174,6 @@
 				<include name="Cuyahoga.Modules.RemoteContent/**" />
 				<include name="Cuyahoga.Tests/**" />
 				<include name="doc/**/*.pdf" />
-				<include name="Database/**" /> <!-- obsolete scripts, for upgrade only -->
 				
 				<!-- exclude module output -->
 				<exclude name="Cuyahoga.Web/Modules/Articles/**" />

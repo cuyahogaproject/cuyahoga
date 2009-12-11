@@ -4,6 +4,7 @@ using System.Web.UI;
 using System.Web.UI.HtmlControls;
 using System.Web.UI.WebControls;
 using System.Text;
+using Cuyahoga.Core.Util;
 
 namespace Cuyahoga.Web.UI
 {
@@ -84,6 +85,17 @@ namespace Cuyahoga.Web.UI
 					}
 				}
 				return tbl;
+			}
+		}
+
+		/// <summary>
+		/// Gets the current template virtual directory (starting and ending with /).
+		/// </summary>
+		public string TemplateDir
+		{
+			get
+			{
+				return Text.EnsureTrailingSlash(this.TemplateSourceDirectory);
 			}
 		}
 

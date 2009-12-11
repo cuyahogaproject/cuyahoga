@@ -10,6 +10,7 @@ using Cuyahoga.Core;
 using Cuyahoga.Core.Domain;
 using Cuyahoga.Core.Service.Membership;
 using Cuyahoga.Core.Service.SiteStructure;
+using Cuyahoga.Core.Util;
 using Cuyahoga.Web.Util;
 using Cuyahoga.Web.Components;
 
@@ -21,7 +22,6 @@ namespace Cuyahoga.Web.UI
 	/// </summary>
 	public class PageEngine : CuyahogaPage
 	{
-		private Site _currentSite;
 		private Node _rootNode;
 		private Node _activeNode;
 		private Section _activeSection;
@@ -35,6 +35,7 @@ namespace Cuyahoga.Web.UI
 		private INodeService _nodeService;
 		private ISiteService _siteService;
 		private ISectionService _sectionService;
+		private ICuyahogaContext _currentContext;
 
 		#region properties
 
@@ -84,7 +85,7 @@ namespace Cuyahoga.Web.UI
 		/// </summary>
 		public User CuyahogaUser
 		{
-			get	{ return this.User.Identity as User; }
+			get	{ return this._currentContext.CurrentUser; }
 		}
 
 		/// <summary>
@@ -92,7 +93,12 @@ namespace Cuyahoga.Web.UI
 		/// </summary>
 		public Site CurrentSite
 		{
-			get { return this._currentSite; }
+			get { return this._currentContext.CurrentSite; }
+		}
+
+		public ICuyahogaContext CurrentContext
+		{
+			get { return this._currentContext; }
 		}
 
 		#endregion
@@ -158,25 +164,30 @@ namespace Cuyahoga.Web.UI
 		/// Load the content and the template as early as possible, so everything is in place before 
 		/// modules handle their own ASP.NET lifecycle events.
 		/// </summary>
-		/// <param name="obj"></param>
+		/// <param name="e"></param>
 		protected override void OnInit(EventArgs e)
-		{		
+		{
+			base.OnInit(e);
+
+			// Set context
+			this._currentContext = Container.Resolve<ICuyahogaContext>();
+
 			// Load the current site
+			string currentSiteUrl = UrlUtil.GetSiteUrl();
+			if (this.CurrentSite == null)
+			{
+				throw new SiteNullException("No site found at " + currentSiteUrl);
+			}
+
+			// Check if we're browsing via an alias. If so get the optional entry node.
 			Node entryNode = null;
-			string siteUrl = UrlHelper.GetSiteUrl();
-			SiteAlias currentSiteAlias = this._siteService.GetSiteAliasByUrl(siteUrl);
-			if (currentSiteAlias != null)
+			if (currentSiteUrl != this.CurrentSite.SiteUrl.ToLower())
 			{
-				this._currentSite = currentSiteAlias.Site;
-				entryNode = currentSiteAlias.EntryNode;
-			}
-			else
-			{
-				this._currentSite = this._siteService.GetSiteBySiteUrl(siteUrl);
-			}
-			if (this._currentSite == null)
-			{
-				throw new SiteNullException("No site found at " + siteUrl);
+				SiteAlias siteAlias = this._siteService.GetSiteAliasByUrl(currentSiteUrl);
+				if (siteAlias != null)
+				{
+					entryNode = siteAlias.EntryNode;
+				}
 			}
 
 			// Load the active node
@@ -195,7 +206,7 @@ namespace Cuyahoga.Web.UI
 			}
 			else if (Context.Request.QueryString["ShortDescription"] != null)
 			{
-				this._activeNode = this._nodeService.GetNodeByShortDescriptionAndSite(Context.Request.QueryString["ShortDescription"], this._currentSite);
+				this._activeNode = this._nodeService.GetNodeByShortDescriptionAndSite(Context.Request.QueryString["ShortDescription"], this.CurrentSite);
 			}
 			else if (Context.Request.QueryString["NodeId"] != null)
 			{
@@ -210,12 +221,12 @@ namespace Cuyahoga.Web.UI
 				// Can't load a particular node, so the root node has to be the active node
 				// Maybe we have culture information stored in a cookie, so we might need a different 
 				// root Node.
-				string currentCulture = this._currentSite.DefaultCulture;
+				string currentCulture = this.CurrentSite.DefaultCulture;
 				if (Context.Request.Cookies["CuyahogaCulture"] != null)
 				{
 					currentCulture = Context.Request.Cookies["CuyahogaCulture"].Value;
 				}
-				this._activeNode = this._nodeService.GetRootNodeByCultureAndSite(currentCulture, this._currentSite);
+				this._activeNode = this._nodeService.GetRootNodeByCultureAndSite(currentCulture, this.CurrentSite);
 			}
 			// Raise an exception when there is no Node found. It will be handled by the global error handler
 			// and translated into a proper 404.
@@ -268,8 +279,6 @@ namespace Cuyahoga.Web.UI
 					this._templateControl.Form.Controls.Add(LoadControl("~/Controls/InlineEditing.ascx"));
 				}
 			}
-
-			base.OnInit(e);
 		}
 
 		/// <summary>
@@ -293,17 +302,17 @@ namespace Cuyahoga.Web.UI
 		{
 			// ===== Load templates  =====
 
-			string appRoot = UrlHelper.GetApplicationPath();
 			// We know the active node so the template can be loaded.
 			if (this._activeNode.Template != null)
 			{
-				string templatePath = appRoot + this._activeNode.Template.Path;
+				string templatePath = CurrentSite.SiteDataDirectory + this._activeNode.Template.Path;
 				this._templateControl = (BaseTemplate)this.LoadControl(templatePath);
 				// Explicitly set the id to 'p' to save some bytes (otherwise _ctl0 would be added).
 				this._templateControl.ID = "p";
 				this._templateControl.Title = this._activeNode.Site.Name + " - " + this._activeNode.Title;
 				// Register stylesheet that belongs to the template.
-				RegisterStylesheet("maincss", appRoot + this._activeNode.Template.BasePath + "/Css/" + this._activeNode.Template.Css);
+				string cssPath = ResolveUrl(string.Format("{0}{1}/Css/{2}", CurrentSite.SiteDataDirectory, this._activeNode.Template.BasePath, this._activeNode.Template.Css));
+				RegisterStylesheet("maincss", cssPath);
 				//Register the metatags
 				if (ActiveNode.MetaKeywords != null)
 				{

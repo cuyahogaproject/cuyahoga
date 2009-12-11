@@ -39,6 +39,8 @@
 			<fileset>
 				<include name="**/*.as?x" />
 				<include name="**/*.config" />
+				<include name="**/*.sitemap" />
+				<include name="**/*.master" />
 				<include name="**/*.gif" />
 				<include name="**/*.png" />
 				<include name="**/*.jpg" />
@@ -49,11 +51,21 @@
 				<include name="**/*.html" />
 				<include name="**/*.sql" />
 				<include name="App_GlobalResources/*.resx" />
-				<exclude name="Modules/**" />
 				<exclude name="SiteData/**" />
 				<exclude name="obj/**" />
 				<exclude name="**/log.txt" />
 				<exclude name="App_GlobalResources/Cuyahoga.Modules.*.resx" />
+				<!-- exclude module output except Shared -->
+				<exclude name="Modules/Articles/**" />
+				<exclude name="Modules/Categories/**" />
+				<exclude name="Modules/Downloads/**" />
+				<exclude name="Modules/LanguageSwitcher/**" />
+				<exclude name="Modules/RemoteContent/**" />
+				<exclude name="Modules/Search/**" />
+				<exclude name="Modules/Sitemap/**" />
+				<exclude name="Modules/StaticHtml/**" />
+				<exclude name="Modules/User/**" />
+
 			</fileset>
 		</copy>
 	</target>
