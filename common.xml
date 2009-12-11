@@ -13,7 +13,7 @@
 	<property name="lib.dir" value="lib" dynamic="true" />
 	<property name="lib.family.dir" value="${path::combine(lib.dir, framework::get-family(framework::get-target-framework()))}" dynamic="true" />
 	<property name="lib.framework.dir" value="${path::combine(lib.family.dir, version::to-string(framework::get-version(framework::get-target-framework())))}" dynamic="true" />
-
+	
 	<!-- Versioning	-->
 	<property name="project.version" value="2.0.0.0" overwrite="false" />
 	<property name="project.major" value="${version::get-major(version::parse(project.version))}" dynamic="true" />

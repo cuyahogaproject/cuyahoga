@@ -96,47 +96,47 @@
   <ItemGroup>
     <Reference Include="Castle.Components.Validator, Version=1.0.3.0, Culture=neutral, PublicKeyToken=407dd0808d44fbdc, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\lib\Castle.Components.Validator.dll</HintPath>
+      <HintPath>..\..\lib\Castle.Components.Validator.dll</HintPath>
     </Reference>
     <Reference Include="Castle.Core, Version=1.0.0.0, Culture=neutral, PublicKeyToken=407dd0808d44fbdc, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\lib\Castle.Core.dll</HintPath>
+      <HintPath>..\..\lib\Castle.Core.dll</HintPath>
     </Reference>
     <Reference Include="Castle.Facilities.NHibernateIntegration">
       <Name>Castle.Facilities.NHibernateIntegration</Name>
-      <HintPath>..\lib\Castle.Facilities.NHibernateIntegration.dll</HintPath>
+      <HintPath>..\..\lib\Castle.Facilities.NHibernateIntegration.dll</HintPath>
     </Reference>
     <Reference Include="Castle.MicroKernel">
       <Name>Castle.MicroKernel</Name>
-      <HintPath>..\lib\Castle.MicroKernel.dll</HintPath>
+      <HintPath>..\..\lib\Castle.MicroKernel.dll</HintPath>
     </Reference>
     <Reference Include="Castle.Services.Transaction">
       <Name>Castle.Services.Transaction</Name>
-      <HintPath>..\lib\Castle.Services.Transaction.dll</HintPath>
+      <HintPath>..\..\lib\Castle.Services.Transaction.dll</HintPath>
     </Reference>
     <Reference Include="Castle.Windsor, Version=1.0.0.2, Culture=neutral, PublicKeyToken=407dd0808d44fbdc, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\lib\Castle.Windsor.dll</HintPath>
+      <HintPath>..\..\lib\Castle.Windsor.dll</HintPath>
     </Reference>
     <Reference Include="EPocalipse.IFilter, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\lib\EPocalipse.IFilter.dll</HintPath>
+      <HintPath>..\..\lib\EPocalipse.IFilter.dll</HintPath>
     </Reference>
     <Reference Include="ICSharpCode.SharpZipLib, Version=0.85.5.452, Culture=neutral, PublicKeyToken=1b03e6acf1164f73, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\lib\ICSharpCode.SharpZipLib.dll</HintPath>
+      <HintPath>..\..\lib\ICSharpCode.SharpZipLib.dll</HintPath>
     </Reference>
     <Reference Include="log4net">
       <Name>log4net</Name>
-      <HintPath>..\lib\log4net.dll</HintPath>
+      <HintPath>..\..\lib\log4net.dll</HintPath>
     </Reference>
     <Reference Include="Lucene.Net">
       <Name>Lucene.Net</Name>
-      <HintPath>..\lib\Lucene.Net.dll</HintPath>
+      <HintPath>..\..\lib\Lucene.Net.dll</HintPath>
     </Reference>
     <Reference Include="NHibernate">
       <Name>NHibernate</Name>
-      <HintPath>..\lib\NHibernate.dll</HintPath>
+      <HintPath>..\..\lib\NHibernate.dll</HintPath>
     </Reference>
     <Reference Include="System">
       <Name>System</Name>

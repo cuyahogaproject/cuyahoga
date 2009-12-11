@@ -96,23 +96,23 @@
     </ProjectReference>
     <Reference Include="Castle.Components.Validator, Version=1.0.3.0, Culture=neutral, PublicKeyToken=407dd0808d44fbdc, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\lib\Castle.Components.Validator.dll</HintPath>
+      <HintPath>..\..\lib\Castle.Components.Validator.dll</HintPath>
     </Reference>
     <Reference Include="Castle.Core, Version=1.0.0.0, Culture=neutral, PublicKeyToken=407dd0808d44fbdc, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\lib\Castle.Core.dll</HintPath>
+      <HintPath>..\..\lib\Castle.Core.dll</HintPath>
     </Reference>
     <Reference Include="Castle.MicroKernel">
       <Name>Castle.MicroKernel</Name>
-      <HintPath>..\lib\Castle.MicroKernel.dll</HintPath>
+      <HintPath>..\..\lib\Castle.MicroKernel.dll</HintPath>
     </Reference>
     <Reference Include="Castle.Windsor">
       <Name>Castle.Windsor</Name>
-      <HintPath>..\lib\Castle.Windsor.dll</HintPath>
+      <HintPath>..\..\lib\Castle.Windsor.dll</HintPath>
     </Reference>
     <Reference Include="log4net">
       <Name>log4net</Name>
-      <HintPath>..\lib\log4net.dll</HintPath>
+      <HintPath>..\..\lib\log4net.dll</HintPath>
     </Reference>
     <Reference Include="System">
       <Name>System</Name>
@@ -135,7 +135,7 @@
     </Reference>
     <Reference Include="System.Web.Abstractions, Version=3.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\lib\System.Web.Abstractions.dll</HintPath>
+      <HintPath>..\..\lib\System.Web.Abstractions.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="System.Web.Extensions, Version=3.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35">
@@ -146,12 +146,12 @@
     </Reference>
     <Reference Include="System.Web.Mvc, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\lib\System.Web.Mvc.dll</HintPath>
+      <HintPath>..\..\lib\System.Web.Mvc.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="System.Web.Routing, Version=3.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\lib\System.Web.Routing.dll</HintPath>
+      <HintPath>..\..\lib\System.Web.Routing.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="System.Xml">
@@ -1444,14 +1444,14 @@
   <PropertyGroup>
     <PreBuildEvent>
     </PreBuildEvent>
-    <PostBuildEvent>xcopy /s /y "$(SolutionDir)"lib\NHibernate.Caches.SysCache.dll "$(TargetDir)"
-xcopy /s /y "$(SolutionDir)"lib\NHibernate.ByteCode.Castle.dll "$(TargetDir)"
-xcopy /s /y "$(SolutionDir)"lib\Antlr3.Runtime.dll "$(TargetDir)"
-xcopy /s /y "$(SolutionDir)"lib\Castle.Facilities.AutomaticTransactionManagement.dll "$(TargetDir)"
-xcopy /s /y "$(SolutionDir)"lib\Castle.Facilities.NHibernateIntegration.dll "$(TargetDir)"
-xcopy /s /y "$(SolutionDir)"lib\Castle.Components.Validator.dll "$(TargetDir)"
-xcopy /s /y "$(SolutionDir)"lib\Castle.Facilities.Logging.dll "$(TargetDir)"
-xcopy /s /y "$(SolutionDir)"lib\Castle.Services.Logging.Log4netIntegration.dll "$(TargetDir)"</PostBuildEvent>
+    <PostBuildEvent>xcopy /s /y "$(SolutionDir)"..\lib\NHibernate.Caches.SysCache.dll "$(TargetDir)"
+xcopy /s /y "$(SolutionDir)"..\lib\NHibernate.ByteCode.Castle.dll "$(TargetDir)"
+xcopy /s /y "$(SolutionDir)"..\lib\Antlr3.Runtime.dll "$(TargetDir)"
+xcopy /s /y "$(SolutionDir)"..\lib\Castle.Facilities.AutomaticTransactionManagement.dll "$(TargetDir)"
+xcopy /s /y "$(SolutionDir)"..\lib\Castle.Facilities.NHibernateIntegration.dll "$(TargetDir)"
+xcopy /s /y "$(SolutionDir)"..\lib\Castle.Components.Validator.dll "$(TargetDir)"
+xcopy /s /y "$(SolutionDir)"..\lib\Castle.Facilities.Logging.dll "$(TargetDir)"
+xcopy /s /y "$(SolutionDir)"..\lib\Castle.Services.Logging.Log4netIntegration.dll "$(TargetDir)"</PostBuildEvent>
   </PropertyGroup>
   <ProjectExtensions>
     <VisualStudio>

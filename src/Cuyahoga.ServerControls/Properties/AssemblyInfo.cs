@@ -22,7 +22,7 @@ using System.Security;
 [assembly: AssemblyProductAttribute("Cuyahoga")]
 [assembly: AssemblyCopyrightAttribute("2004-2007 Cuyahoga Project. All rights reserved.")]
 [assembly: AssemblyVersionAttribute("2.0.0.0")]
-[assembly: AssemblyInformationalVersionAttribute("2.0.0.895")]
+[assembly: AssemblyInformationalVersionAttribute("2.0.0.909")]
 [assembly: AssemblyFileVersionAttribute("2.0.0.0")]
 [assembly: AllowPartiallyTrustedCallersAttribute()]
 

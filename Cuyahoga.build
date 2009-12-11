@@ -5,27 +5,27 @@
 
 	<fileset id="buildfiles.all">
 		<!-- Files have to be in dependency order -->
-		<include name="Cuyahoga.Core/Cuyahoga.Core.build" />
-		<include name="Cuyahoga.ServerControls/Cuyahoga.ServerControls.build" />
-		<include name="Cuyahoga.Web.Mvc/Cuyahoga.Web.Mvc.build" />
-		<include name="Cuyahoga.Web/Cuyahoga.Web.build" />
-		<include name="Cuyahoga.Modules/Cuyahoga.Modules.build" />
-		<include name="Cuyahoga.Modules.Articles/Cuyahoga.Modules.Articles.build" />
-		<include name="Cuyahoga.Modules.Downloads/Cuyahoga.Modules.Downloads.build" />
-		<include name="Cuyahoga.Modules.RemoteContent/Cuyahoga.Modules.RemoteContent.build" />
+		<include name="src/Cuyahoga.Core/Cuyahoga.Core.build" />
+		<include name="src/Cuyahoga.ServerControls/Cuyahoga.ServerControls.build" />
+		<include name="src/Cuyahoga.Web.Mvc/Cuyahoga.Web.Mvc.build" />
+		<include name="src/Cuyahoga.Web/Cuyahoga.Web.build" />
+		<include name="src/Cuyahoga.Modules/Cuyahoga.Modules.build" />
+		<include name="src/Cuyahoga.Modules.Articles/Cuyahoga.Modules.Articles.build" />
+		<include name="src/Cuyahoga.Modules.Downloads/Cuyahoga.Modules.Downloads.build" />
+		<include name="src/Cuyahoga.Modules.RemoteContent/Cuyahoga.Modules.RemoteContent.build" />
 	</fileset>
 
 	<fileset id="buildfiles.test">
-		<include name="Cuyahoga.Tests/Cuyahoga.Tests.build" />
+		<include name="src/Cuyahoga.Tests/Cuyahoga.Tests.build" />
 	</fileset>
 	
 	<fileset id="buildfiles.deploy">
 		<!-- Include all buildfiles here that have a deploy target -->
-		<include name="Cuyahoga.Web/Cuyahoga.Web.build" />
-		<include name="Cuyahoga.Modules/Cuyahoga.Modules.build" />
-		<include name="Cuyahoga.Modules.Articles/Cuyahoga.Modules.Articles.build" />
-		<include name="Cuyahoga.Modules.Downloads/Cuyahoga.Modules.Downloads.build" />
-		<include name="Cuyahoga.Modules.RemoteContent/Cuyahoga.Modules.RemoteContent.build" />
+		<include name="src/Cuyahoga.Web/Cuyahoga.Web.build" />
+		<include name="src/Cuyahoga.Modules/Cuyahoga.Modules.build" />
+		<include name="src/Cuyahoga.Modules.Articles/Cuyahoga.Modules.Articles.build" />
+		<include name="src/Cuyahoga.Modules.Downloads/Cuyahoga.Modules.Downloads.build" />
+		<include name="src/Cuyahoga.Modules.RemoteContent/Cuyahoga.Modules.RemoteContent.build" />
 	</fileset>
 
 	<target name="build" 
@@ -146,8 +146,8 @@
 		<mkdir dir="${build.web.dir}/bin" />
 		<copy todir="${build.web.dir}/bin">
 			<fileset basedir="${build.bin.dir}">
-				<include name="*.dll" />
-				<include name="*.xml" />
+				<include name="**/*.dll" />
+				<include name="**/*.xml" />
 			</fileset>
 		</copy>
 		<nant target="deploy">
@@ -161,41 +161,42 @@
 			<fileset>
 				<include name="tools/**/*" />
 				<include name="Cuyahoga.*" />
+				<include name="src/Cuyahoga.*" />
 				<include name="*.txt" />
 				<include name="*.xml" />
 				<include name="*.cmd" />
 				<include name="${lib.dir}/**" />
-				<include name="Cuyahoga.Core/**" />
-				<include name="Cuyahoga.ServerControls/**" />
-				<include name="Cuyahoga.Web/**" />
-				<include name="Cuyahoga.Web.Mvc/**" />
-				<include name="Cuyahoga.Modules/**" />
-				<include name="Cuyahoga.Modules.Articles/**" />
-				<include name="Cuyahoga.Modules.Downloads/**" />
-				<include name="Cuyahoga.Modules.RemoteContent/**" />
-				<include name="Cuyahoga.Tests/**" />
+				<include name="src/Cuyahoga.Core/**" />
+				<include name="src/Cuyahoga.ServerControls/**" />
+				<include name="src/Cuyahoga.Web/**" />
+				<include name="src/Cuyahoga.Web.Mvc/**" />
+				<include name="src/Cuyahoga.Modules/**" />
+				<include name="src/Cuyahoga.Modules.Articles/**" />
+				<include name="src/Cuyahoga.Modules.Downloads/**" />
+				<include name="src/Cuyahoga.Modules.RemoteContent/**" />
+				<include name="src/Cuyahoga.Tests/**" />
 				<include name="doc/**/*.pdf" />
 				
 				<!-- exclude module output -->
-				<exclude name="Cuyahoga.Web/Modules/Articles/**" />
-				<exclude name="Cuyahoga.Web/Modules/Categories/**" />
-				<exclude name="Cuyahoga.Web/Modules/Downloads/**" />
-				<exclude name="Cuyahoga.Web/Modules/LanguageSwitcher/**" />
-				<exclude name="Cuyahoga.Web/Modules/RemoteContent/**" />
-				<exclude name="Cuyahoga.Web/Modules/Search/**" />
-				<exclude name="Cuyahoga.Web/Modules/Sitemap/**" />
-				<exclude name="Cuyahoga.Web/Modules/StaticHtml/**" />
-				<exclude name="Cuyahoga.Web/Modules/User/**" />
+				<exclude name="src/Cuyahoga.Web/Modules/Articles/**" />
+				<exclude name="src/Cuyahoga.Web/Modules/Categories/**" />
+				<exclude name="src/Cuyahoga.Web/Modules/Downloads/**" />
+				<exclude name="src/Cuyahoga.Web/Modules/LanguageSwitcher/**" />
+				<exclude name="src/Cuyahoga.Web/Modules/RemoteContent/**" />
+				<exclude name="src/Cuyahoga.Web/Modules/Search/**" />
+				<exclude name="src/Cuyahoga.Web/Modules/Sitemap/**" />
+				<exclude name="src/Cuyahoga.Web/Modules/StaticHtml/**" />
+				<exclude name="src/Cuyahoga.Web/Modules/User/**" />
 				
 				<!-- exclude content -->
-				<exclude name="Cuyahoga.Web/SiteData/**/*" />
-				<exclude name="Cuyahoga.Web/log/**/*" />
+				<exclude name="src/Cuyahoga.Web/SiteData/**" />
+				<exclude name="src/Cuyahoga.Web/log/**" />
 				
 				<!-- exclude VS.NET stuff -->
-				<exclude name="**/*.suo" />
-				<exclude name="**/*.user" />
-				<exclude name="**/bin/**" />
-				<exclude name="**/obj/**" />
+				<exclude name="src/**/*.suo" />
+				<exclude name="src/**/*.user" />
+				<exclude name="src/**/bin/**" />
+				<exclude name="src/**/obj/**" />
 			</fileset>
 		</copy>
 		<property name="project.zip-path" value="build/${project::get-name()}-${project.major}.${project.minor}.${project.build}-src.zip" />

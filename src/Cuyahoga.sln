@@ -2,19 +2,19 @@ Microsoft Visual Studio Solution File, Format Version 10.00
 # Visual Studio 2008
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{B64CE28C-13A9-4445-8699-F38B3AA0D928}"
 	ProjectSection(SolutionItems) = preProject
-		Install-binary.txt = Install-binary.txt
-		Install.txt = Install.txt
-		LICENSE.txt = LICENSE.txt
-		Releasenotes.txt = Releasenotes.txt
-		Upgrade.txt = Upgrade.txt
+		..\Install-binary.txt = ..\Install-binary.txt
+		..\Install.txt = ..\Install.txt
+		..\License.txt = ..\License.txt
+		..\Releasenotes.txt = ..\Releasenotes.txt
+		..\Upgrade.txt = ..\Upgrade.txt
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "NAnt build files", "NAnt build files", "{B72EB6E1-28A4-49CD-98A8-367C2984FC5F}"
 	ProjectSection(SolutionItems) = preProject
-		build.cmd = build.cmd
-		common-project.xml = common-project.xml
-		common.xml = common.xml
-		Cuyahoga.build = Cuyahoga.build
+		..\build.cmd = ..\build.cmd
+		..\common-project.xml = ..\common-project.xml
+		..\common.xml = ..\common.xml
+		..\Cuyahoga.build = ..\Cuyahoga.build
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cuyahoga.Web", "Cuyahoga.Web\Cuyahoga.Web.csproj", "{DD158F08-6E8F-4234-B3F6-A5402C8E34CC}"
