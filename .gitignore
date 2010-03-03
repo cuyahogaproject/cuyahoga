@@ -1,3 +1,5 @@
+src/Cuyahoga.Web/SiteData/
+src/Cuyahoga.Web/App_GlobalResources/Cuyahoga.Modules.*
 build/
 obj
 bin
