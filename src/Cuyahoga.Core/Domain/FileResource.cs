@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using Cuyahoga.Core.Service.Search;
+using Cuyahoga.Core.Util;
 
 namespace Cuyahoga.Core.Domain
 {
@@ -80,7 +81,7 @@ namespace Cuyahoga.Core.Domain
 
 		public override string GetContentUrl()
 		{
-			string defaultUrlFormat = "{0}/section.aspx/Download/{1}/{2}";
+			string defaultUrlFormat =  UrlUtil.GetApplicationPath() + "{0}/section.aspx/Download/{1}/{2}";
 			if (this.Section == null)
 			{
 				throw new InvalidOperationException("Unable to get the url for the content because the associated section is missing.");

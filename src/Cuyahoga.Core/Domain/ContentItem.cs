@@ -5,6 +5,7 @@ using System.Linq;
 using System.Security.Principal;
 using Castle.Components.Validator;
 using Cuyahoga.Core.Service.Membership;
+using Cuyahoga.Core.Util;
 using Cuyahoga.Core.Validation;
 
 namespace Cuyahoga.Core.Domain
@@ -271,7 +272,7 @@ namespace Cuyahoga.Core.Domain
 		/// </summary>
 		public virtual string GetContentUrl()
 		{
-			string defaultUrlFormat = "{0}/section.aspx/{1}";
+			string defaultUrlFormat = UrlUtil.GetApplicationPath() + "{0}/section.aspx/{1}";
 			if (this._section == null)
 			{
 				throw new InvalidOperationException("Unable to get the url for the content because the associated section is missing.");

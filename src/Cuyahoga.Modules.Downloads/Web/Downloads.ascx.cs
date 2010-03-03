@@ -138,7 +138,7 @@ namespace Cuyahoga.Modules.Downloads.Web
 			
 			if (file != null && file.IsViewAllowed(base.Page.User))
 			{
-				string downloadUrl = UrlUtil.GetApplicationPath() + file.GetContentUrl();
+				string downloadUrl = file.GetContentUrl();
 				string fileDetails = file.FileName + " (" + file.Length + " bytes)";
 				HyperLink hplFileImg = e.Item.FindControl("hplFileImg") as HyperLink;
 				hplFileImg.NavigateUrl = downloadUrl;

@@ -82,13 +82,14 @@ ul.pagegroup
 
 #pagegrid .pageurl
 {
-	padding: 1px 0;
+	padding: 1px 3px;
+	color: #369;
 }
 
 #pagegrid .pagesub
 {
 	font-size: 90%;
-	color: #999;
+	color: #777;
 }
 
 #pagegrid .pagesub span

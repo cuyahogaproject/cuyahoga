@@ -16,11 +16,13 @@
 						<% } %>
 					</div>
 					<div class="pageinfo">
-						<div class="pagetitle">
-							<%= Model.Title %>
-						</div>
-						<div class="pageurl">
-							<%= Model.DisplayUrl %>
+						<div>
+							<span class="pagetitle">
+								<%= Model.Title %>
+							</span>
+							<span class="pageurl">
+								<%= Model.DisplayUrl %>
+							</span>
 						</div>
 						<div class="pagesub">
 							<span><%= GlobalResources.TemplateLabel %>: <%= Model.Template != null ? Model.Template.Name : String.Empty %></span>
